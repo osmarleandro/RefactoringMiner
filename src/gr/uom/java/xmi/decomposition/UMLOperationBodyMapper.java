@@ -1839,7 +1839,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							VariableDeclaration v1 = statement1.searchVariableDeclaration(s1);
 							VariableDeclaration v2 = statement2.searchVariableDeclaration(s2);
-							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
+							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.getJavadoc().loopWithVariables(this, v1.getVariableName(), v2.getVariableName()) == null) {
 								replacement = null;
 							}
 						}
