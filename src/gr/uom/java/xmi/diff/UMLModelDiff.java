@@ -1213,7 +1213,7 @@ public class UMLModelDiff {
 			   else {
 				   boolean foundInMatchingRenamePackageRefactoring = false;
 				   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
-					   if(renamePackageRefactoring.getPattern().equals(renamePattern)) {
+					   if(renamePackageRefactoring.getPattern().getPattern().equals(renamePattern)) {
 						   renamePackageRefactoring.addMoveClassRefactoring(refactoring);
 						   foundInMatchingRenamePackageRefactoring = true;
 						   break;
@@ -1254,7 +1254,7 @@ public class UMLModelDiff {
 
    private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
 	   for(String deletedFolderPath : deletedFolderPaths) {
-		   String originalPath = renamePackageRefactoring.getPattern().getBefore();
+		   String originalPath = renamePackageRefactoring.getPattern().getPattern().getBefore();
 		   //remove last .
 		   String trimmedOriginalPath = originalPath.endsWith(".") ? originalPath.substring(0, originalPath.length()-1) : originalPath;
 		   String convertedPackageToFilePath = trimmedOriginalPath.replaceAll("\\.", "/");
