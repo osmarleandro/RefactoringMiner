@@ -657,7 +657,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
 						for(OperationInvocation extractedInvocation : extractedInvocations) {
-							for(String argument : extractedInvocation.getArguments()) {
+							for(String argument : extractedInvocation.getLocationInfo().getArguments(this)) {
 								for(UMLAttribute attribute : originalClass.getAttributes()) {
 									if(attribute.getName().equals(argument)) {
 										attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
@@ -1345,12 +1345,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperation operation : operations) {
 			List<OperationInvocation> operationInvocations = operation.getAllOperationInvocations();
 			for(OperationInvocation operationInvocation : operationInvocations) {
-				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getArguments());
-				argumentIntersection.retainAll(invocation.getArguments());
+				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getLocationInfo().getArguments(this));
+				argumentIntersection.retainAll(invocation.getLocationInfo().getArguments(this));
 				if(operationInvocation.getMethodName().equals(invocation.getMethodName()) && !argumentIntersection.isEmpty()) {
 					return true;
 				}
-				else if(argumentIntersection.size() > 0 && argumentIntersection.size() == invocation.getArguments().size()) {
+				else if(argumentIntersection.size() > 0 && argumentIntersection.size() == invocation.getLocationInfo().getArguments(this).size()) {
 					return true;
 				}
 			}
