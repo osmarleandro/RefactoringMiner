@@ -17,7 +17,7 @@ public class RenameVariableRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
@@ -57,10 +57,6 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
-	}
-
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
 	}
 
 	public Set<AbstractCodeMapping> getVariableReferences() {
@@ -130,7 +126,7 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(operationAfter.getOperationAfter().getLocationInfo().getFilePath(), operationAfter.getOperationAfter().getClassName()));
 		return pairs;
 	}
 
