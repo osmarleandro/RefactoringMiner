@@ -35,4 +35,10 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<String> getAllVariables(UMLOperation umlOperation) {
+		if(umlOperation.operationBody != null)
+			return umlOperation.operationBody.getAllVariables();
+		return new ArrayList<String>();
+	}
 }
