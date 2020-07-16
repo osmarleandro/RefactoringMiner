@@ -3,6 +3,11 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +138,52 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public CompositeStatementObject loopWithVariables(CompositeStatementObject compositeStatementObject, String currentElementName, String collectionName) {
+		for(CompositeStatementObject innerNode : compositeStatementObject.getInnerNodes()) {
+			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+				boolean currentElementNameMatched = false;
+				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
+					if(declaration.getVariableName().equals(currentElementName)) {
+						currentElementNameMatched = true;
+						break;
+					}
+				}
+				boolean collectionNameMatched = false;
+				for(AbstractExpression expression : innerNode.getExpressions()) {
+					if(expression.getVariables().contains(collectionName)) {
+						collectionNameMatched = true;
+						break;
+					}
+				}
+				if(currentElementNameMatched && collectionNameMatched) {
+					return innerNode;
+				}
+			}
+			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
+				boolean collectionNameMatched = false;
+				for(AbstractExpression expression : innerNode.getExpressions()) {
+					if(expression.getVariables().contains(collectionName)) {
+						collectionNameMatched = true;
+						break;
+					}
+				}
+				boolean currentElementNameMatched = false;
+				for(StatementObject statement : innerNode.getLeaves()) {
+					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
+					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
+						currentElementNameMatched = true;
+						break;
+					}
+				}
+				if(currentElementNameMatched && collectionNameMatched) {
+					return innerNode;
+				}
+			}
+		}
+		return null;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
