@@ -1,8 +1,15 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractStatement;
+import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +140,22 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations(CompositeStatementObject compositeStatementObject) {
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+		anonymousClassDeclarations.addAll(compositeStatementObject.getAnonymousClassDeclarations());
+		for(AbstractStatement statement : compositeStatementObject.statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
+			}
+			else if(statement instanceof StatementObject) {
+				StatementObject statementObject = (StatementObject)statement;
+				anonymousClassDeclarations.addAll(statementObject.getAnonymousClassDeclarations());
+			}
+		}
+		return anonymousClassDeclarations;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
