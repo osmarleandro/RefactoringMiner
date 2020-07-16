@@ -64,19 +64,19 @@ public class TestBuilder {
 		return this;
 	}
 
-	private static class Counter {
+	static class Counter {
 		int[] c = new int[5];
-	}
 
-	private void count(int type, String refactoring) {
-		c.c[type]++;
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
-		Counter refTypeCounter = cMap.get(refType);
-		if (refTypeCounter == null) {
-			refTypeCounter = new Counter();
-			cMap.put(refType, refTypeCounter);
+		void count(TestBuilder testBuilder, int type, String refactoring) {
+			c[type]++;
+			RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+			Counter refTypeCounter = testBuilder.cMap.get(refType);
+			if (refTypeCounter == null) {
+				refTypeCounter = new Counter();
+				testBuilder.cMap.put(refType, refTypeCounter);
+			}
+			refTypeCounter.c[type]++;
 		}
-		refTypeCounter.c[type]++;
 	}
 
 	private int get(int type) {
@@ -261,7 +261,7 @@ public class TestBuilder {
 						iter.remove();
 						refactoringsFound.remove(expectedRefactoring);
 						this.truePositiveCount++;
-						count(TP, expectedRefactoring);
+						c.count(this, TP, expectedRefactoring);
 						matcher.truePositive.add(expectedRefactoring);
 					}
 				}
@@ -272,10 +272,10 @@ public class TestBuilder {
 					if (refactoringsFound.contains(notExpectedRefactoring)) {
 						refactoringsFound.remove(notExpectedRefactoring);
 						this.falsePositiveCount++;
-						count(FP, notExpectedRefactoring);
+						c.count(this, FP, notExpectedRefactoring);
 					} else {
 						this.trueNegativeCount++;
-						count(TN, notExpectedRefactoring);
+						c.count(this, TN, notExpectedRefactoring);
 						iter.remove();
 					}
 				}
@@ -284,20 +284,20 @@ public class TestBuilder {
 					for (String refactoring : refactoringsFound) {
 						matcher.unknown.add(refactoring);
 						this.unknownCount++;
-						count(UNK, refactoring);
+						c.count(this, UNK, refactoring);
 					}
 				} else {
 					for (String refactoring : refactoringsFound) {
 						matcher.notExpected.add(refactoring);
 						this.falsePositiveCount++;
-						count(FP, refactoring);
+						c.count(this, FP, refactoring);
 					}
 				}
 
 				// count false negatives
 				for (String expectedButNotFound : matcher.expected) {
 					this.falseNegativeCount++;
-					count(FN, expectedButNotFound);
+					c.count(this, FN, expectedButNotFound);
 				}
 			}
 		}
