@@ -133,6 +133,15 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isTestClass(UMLAbstractClass umlAbstractClass) {
+		for(UMLOperation operation : umlAbstractClass.operations) {
+			if(operation.hasTestAnnotation()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

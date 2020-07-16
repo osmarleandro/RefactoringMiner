@@ -203,7 +203,7 @@ public abstract class UMLAbstractClass {
 				commonAttributes.add(attribute);
 			}
 		}
-		if(this.isTestClass() && umlClass.isTestClass()) {
+		if(this.getLocationInfo().isTestClass(this) && umlClass.getLocationInfo().isTestClass(this)) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
 		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
@@ -264,7 +264,7 @@ public abstract class UMLAbstractClass {
 				commonAttributes.add(attribute);
 			}
 		}
-		if(this.isTestClass() && umlClass.isTestClass()) {
+		if(this.getLocationInfo().isTestClass(this) && umlClass.getLocationInfo().isTestClass(this)) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
 		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
@@ -303,15 +303,6 @@ public abstract class UMLAbstractClass {
 			}
 		}
 		return true;
-	}
-
-	public boolean isTestClass() {
-		for(UMLOperation operation : operations) {
-			if(operation.hasTestAnnotation()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public List<UMLAttribute> attributesOfType(String targetClass) {
