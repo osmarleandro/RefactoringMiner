@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class RenameOperationRefactoring implements Refactoring {
 	private UMLOperation originalOperation;
-	private UMLOperation renamedOperation;
+	public UMLOperation renamedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 	
@@ -76,10 +76,6 @@ public class RenameOperationRefactoring implements Refactoring {
 		return originalOperation;
 	}
 
-	public UMLOperation getRenamedOperation() {
-		return renamedOperation;
-	}
-
 	public Set<Replacement> getReplacements() {
 		return replacements;
 	}
@@ -106,7 +102,7 @@ public class RenameOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedOperation().getLocationInfo().getFilePath(), getRenamedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(bodyMapper.getRenamedOperation(this).getLocationInfo().getFilePath(), bodyMapper.getRenamedOperation(this).getClassName()));
 		return pairs;
 	}
 
