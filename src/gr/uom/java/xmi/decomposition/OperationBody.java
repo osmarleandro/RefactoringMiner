@@ -38,7 +38,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	CompositeStatementObject compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
@@ -50,10 +50,6 @@ public class OperationBody {
 
 	public int statementCount() {
 		return compositeStatement.statementCount();
-	}
-
-	public CompositeStatementObject getCompositeStatement() {
-		return compositeStatement;
 	}
 
 	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
