@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateSplitVariableRefactoring {
-	private String oldVariable;
+	public String oldVariable;
 	private Set<String> splitVariables;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
@@ -22,10 +22,6 @@ public class CandidateSplitVariableRefactoring {
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
 		this.variableReferences = variableReferences;
-	}
-
-	public String getOldVariable() {
-		return oldVariable;
 	}
 
 	public Set<String> getSplitVariables() {
