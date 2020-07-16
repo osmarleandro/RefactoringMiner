@@ -14,7 +14,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
 	private UMLClass originalClass;
-	private UMLClass movedClass;
+	public UMLClass movedClass;
 	
 	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
 		this.originalClass = originalClass;
@@ -60,10 +60,6 @@ public class MoveClassRefactoring implements Refactoring {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
-		return movedClass;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
@@ -72,7 +68,7 @@ public class MoveClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getFilePath(), getMovedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(movedClass.getMovedClass().getLocationInfo().getFilePath(), movedClass.getMovedClass().getName()));
 		return pairs;
 	}
 
