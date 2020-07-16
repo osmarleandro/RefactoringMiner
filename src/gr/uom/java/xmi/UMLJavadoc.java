@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<UMLAnnotation> getAnnotations(UMLOperation umlOperation) {
+		return umlOperation.annotations;
+	}
 }
