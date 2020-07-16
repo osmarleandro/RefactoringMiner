@@ -1099,7 +1099,7 @@ public class UMLModelDiff {
 			   }
 			   this.refactorings.add(ref);
 			   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, classDiff);
-			   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getMappings());
+			   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getCallSiteOperation().getMappings(this));
 			   refactorings.addAll(operationSignatureDiff.getRefactorings());
 			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
 		   }
@@ -1757,9 +1757,9 @@ public class UMLModelDiff {
    }
 
 	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
-		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
+		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getCallSiteOperation().getMappings(this));
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
-			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
+			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getCallSiteOperation().getMappings(this));
 			for(AbstractCodeMapping mapping : parentMappingList) {
 				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
 					return false;
@@ -1955,9 +1955,9 @@ public class UMLModelDiff {
    }
 
    private boolean extractAndMoveMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
-	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
+	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getCallSiteOperation().getMappings(this));
 	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
-		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
+		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getCallSiteOperation().getMappings(this));
 		   for(AbstractCodeMapping mapping : parentMappingList) {
 			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
 				   return false;
@@ -2141,7 +2141,7 @@ public class UMLModelDiff {
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
 	                  deleteAddedOperation(addedOperation);
-	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
+	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getCallSiteOperation().getMappings(this));
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
 	                  refactorings.add(refactoring);
 	                  UMLClass addedClass = getAddedClass(addedOperation.getClassName());
@@ -2226,7 +2226,7 @@ public class UMLModelDiff {
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
 	                  deleteAddedOperation(addedOperation);
-	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
+	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getCallSiteOperation().getMappings(this));
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
 	                  refactorings.add(refactoring);
 	               }
@@ -2244,7 +2244,7 @@ public class UMLModelDiff {
 				UMLOperation operation1 = extraMapper.getOperation1();
 				UMLOperation operation2 = extraMapper.getOperation2();
 				if(operation1.equalSignature(operation2)) {
-					List<AbstractCodeMapping> mappings = new ArrayList<AbstractCodeMapping>(extraMapper.getMappings());
+					List<AbstractCodeMapping> mappings = new ArrayList<AbstractCodeMapping>(extraMapper.getCallSiteOperation().getMappings(this));
 					if(mappings.size() == 1) {
 						Set<Replacement> replacements = mappings.get(0).getReplacements();
 						if(replacements.size() == 1) {
@@ -2332,7 +2332,7 @@ public class UMLModelDiff {
 							nonMappedStatementsDeclaringSameVariable++;
 							leafIterator1.remove();
 							LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
-							operationBodyMapper.getMappings().add(mapping);
+							operationBodyMapper.getCallSiteOperation().getMappings(this).add(mapping);
 							break;
 						}
 					}
@@ -2365,8 +2365,8 @@ public class UMLModelDiff {
 		   return false;
 	   }
 	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
-			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
-		   if(!mapper.getMappings().iterator().next().isExact()) {
+			   mapper.mappingsWithoutBlocks() == 1 && mapper.getCallSiteOperation().getMappings(this).size() == 1) {
+		   if(!mapper.getCallSiteOperation().getMappings(this).iterator().next().isExact()) {
 			   return false;
 		   }
 	   }
@@ -2376,7 +2376,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   int exactLeafMappings = 0;
-	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
+	   for(AbstractCodeMapping mapping : mapper.getCallSiteOperation().getMappings(this)) {
 		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
@@ -2389,7 +2389,7 @@ public class UMLModelDiff {
 		   return false;
 	   }
 	   if(mapper.mappingsWithoutBlocks() == 1) {
-		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
+		   for(AbstractCodeMapping mapping : mapper.getCallSiteOperation().getMappings(this)) {
 			   String fragment1 = mapping.getFragment1().getString();
 			   String fragment2 = mapping.getFragment2().getString();
 			   if(fragment1.startsWith("return true;") || fragment1.startsWith("return false;") || fragment1.startsWith("return this;") || fragment1.startsWith("return null;") || fragment1.startsWith("return;") ||
