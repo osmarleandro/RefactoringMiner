@@ -393,7 +393,7 @@ public class UMLModelASTReader {
 		umlOperation.setJavadoc(javadoc);
 		
 		if(methodDeclaration.isConstructor())
-			umlOperation.setConstructor(true);
+			umlOperation.getJavadoc().setConstructor(this, true);
 		
 		int methodModifiers = methodDeclaration.getModifiers();
 		if((methodModifiers & Modifier.PUBLIC) != 0)

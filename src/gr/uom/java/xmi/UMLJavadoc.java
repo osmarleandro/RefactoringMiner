@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setConstructor(UMLOperation umlOperation, boolean isConstructor) {
+		umlOperation.isConstructor = isConstructor;
+	}
 }
