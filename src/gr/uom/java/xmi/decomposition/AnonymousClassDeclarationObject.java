@@ -30,7 +30,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private Map<String, List<ObjectCreation>> creationMap = new LinkedHashMap<String, List<ObjectCreation>>();
 	private List<String> infixOperators = new ArrayList<String>();
 	private List<String> arrayAccesses = new ArrayList<String>();
-	private List<String> prefixExpressions = new ArrayList<String>();
+	public List<String> prefixExpressions = new ArrayList<String>();
 	private List<String> postfixExpressions = new ArrayList<String>();
 	private List<String> arguments = new ArrayList<String>();
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
@@ -104,10 +104,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public List<String> getArrayAccesses() {
 		return arrayAccesses;
-	}
-
-	public List<String> getPrefixExpressions() {
-		return prefixExpressions;
 	}
 
 	public List<String> getPostfixExpressions() {
