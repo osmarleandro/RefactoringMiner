@@ -476,10 +476,10 @@ public class UMLModelDiff {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   //check if classMoveDiffList contains already a move for the outer class to a different target
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
-			   if((diff.getOriginalClass().getName().startsWith(removedClass.getPackageName()) &&
-					   !diff.getMovedClass().getName().startsWith(addedClass.getPackageName())) ||
-					   (!diff.getOriginalClass().getName().startsWith(removedClass.getPackageName()) &&
-						diff.getMovedClass().getName().startsWith(addedClass.getPackageName()))) {
+			   if((diff.getOriginalClass().getName().startsWith(removedClass.getJavadoc().getPackageName(this)) &&
+					   !diff.getMovedClass().getName().startsWith(addedClass.getJavadoc().getPackageName(this))) ||
+					   (!diff.getOriginalClass().getName().startsWith(removedClass.getJavadoc().getPackageName(this)) &&
+						diff.getMovedClass().getName().startsWith(addedClass.getJavadoc().getPackageName(this)))) {
 				   return true;
 			   }
 		   }
@@ -1146,7 +1146,7 @@ public class UMLModelDiff {
 
    private boolean topLevelOrSameOuterClass(UMLClass class1, UMLClass class2) {
 	   if(!class1.isTopLevel() && !class2.isTopLevel()) {
-		   return class1.getPackageName().equals(class2.getPackageName());
+		   return class1.getJavadoc().getPackageName(this).equals(class2.getJavadoc().getPackageName(this));
 	   }
 	   return true;
    }
@@ -2052,14 +2052,14 @@ public class UMLModelDiff {
    private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
 	   if(!umlClass.isTopLevel()) {
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
-			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
-					   diff.getMovedClass().getName().equals(umlClass.getPackageName())) {
+			   if(diff.getOriginalClass().getName().equals(umlClass.getJavadoc().getPackageName(this)) ||
+					   diff.getMovedClass().getName().equals(umlClass.getJavadoc().getPackageName(this))) {
 				   return true;
 			   }
 		   }
 		   for(UMLClassRenameDiff diff : classRenameDiffList) {
-			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
-					   diff.getRenamedClass().getName().equals(umlClass.getPackageName())) {
+			   if(diff.getOriginalClass().getName().equals(umlClass.getJavadoc().getPackageName(this)) ||
+					   diff.getRenamedClass().getName().equals(umlClass.getJavadoc().getPackageName(this))) {
 				   return true;
 			   }
 		   }

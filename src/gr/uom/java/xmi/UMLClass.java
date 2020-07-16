@@ -105,10 +105,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	anonymousClassList.add(anonymousClass);
     }
 
-    public String getPackageName() {
-		return this.packageName;
-	}
-
     public String getName() {
     	return this.qualifiedName;
     }
@@ -356,7 +352,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	}
 
 	public boolean importsType(String targetClass) {
-		if(targetClass.startsWith(getPackageName()))
+		if(targetClass.startsWith(javadoc.getPackageName(this)))
 			return true;
 		for(String importedType : getImportedTypes()) {
 			//importedType.startsWith(targetClass) -> special handling for import static
