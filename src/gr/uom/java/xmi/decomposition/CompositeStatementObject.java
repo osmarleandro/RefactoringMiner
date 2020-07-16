@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public List<String> getAllVariables() {
+		return new ArrayList<String>(getAllVariables());
+	}
 }
