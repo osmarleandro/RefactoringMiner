@@ -1,5 +1,8 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
@@ -133,6 +136,17 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<UMLAttribute> attributesOfType(UMLAbstractClass umlAbstractClass, String targetClass) {
+		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
+		for(UMLAttribute attribute : umlAbstractClass.attributes) {
+			if(targetClass.endsWith("." + attribute.getType().getClassType()) ||
+					targetClass.equals(attribute.getType().getClassType())) {
+				attributesOfType.add(attribute);
+			}
+		}
+		return attributesOfType;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

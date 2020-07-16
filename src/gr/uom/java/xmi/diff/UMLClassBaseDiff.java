@@ -283,11 +283,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public List<UMLAttribute> nextClassAttributesOfType(String targetClass) {
-		return nextClass.attributesOfType(targetClass);
+		return nextClass.getLocationInfo().attributesOfType(this, targetClass);
 	}
 
 	public List<UMLAttribute> originalClassAttributesOfType(String targetClass) {
-		return originalClass.attributesOfType(targetClass);
+		return originalClass.getLocationInfo().attributesOfType(this, targetClass);
 	}
 
 	private void reportAddedImplementedInterface(UMLType implementedInterface) {

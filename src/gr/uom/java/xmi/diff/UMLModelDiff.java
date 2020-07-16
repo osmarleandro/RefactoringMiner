@@ -1832,7 +1832,7 @@ public class UMLModelDiff {
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
             		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
             			  if(anonymous.getName().equals(className)) {
-            				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
+            				  attributes.addAll(anonymous.getLocationInfo().attributesOfType(this, addedOperation.getClassName()));
             				  break;
             			  }
             		  }
@@ -1844,7 +1844,7 @@ public class UMLModelDiff {
             				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses()) {
             					  if(className.equals(anonymousClass.getCodePath())) {
             						  umlClassDiff = classDiff;
-            						  attributes.addAll(anonymousClass.attributesOfType(addedOperation.getClassName()));
+            						  attributes.addAll(anonymousClass.getLocationInfo().attributesOfType(this, addedOperation.getClassName()));
             						  break;
             					  }
             				  }
