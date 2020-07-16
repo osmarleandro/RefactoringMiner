@@ -256,7 +256,7 @@ public class VariableReplacementAnalysis {
 	private void processVariableReplacementWithMethodInvocation(
 			VariableReplacementWithMethodInvocation variableReplacement, AbstractCodeMapping mapping,
 			Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap, Direction direction) {
-		String expression = variableReplacement.getInvokedOperation().getExpression();
+		String expression = variableReplacement.getInvokedOperation().getInvokedOperation().getExpression();
 		if(expression != null && variableReplacement.getDirection().equals(direction)) {
 			if(variableInvocationExpressionMap.containsKey(expression)) {
 				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(expression);

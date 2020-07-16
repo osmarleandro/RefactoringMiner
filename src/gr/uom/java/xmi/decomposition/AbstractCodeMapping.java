@@ -325,7 +325,7 @@ public abstract class AbstractCodeMapping {
 
 	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
-		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation) replacement).getInvokedOperation().getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
 		if(initializerInvocation != null && replacementInvocation != null) {
 			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
