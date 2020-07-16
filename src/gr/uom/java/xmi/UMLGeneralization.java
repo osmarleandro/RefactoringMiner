@@ -2,7 +2,7 @@ package gr.uom.java.xmi;
 
 public class UMLGeneralization implements Comparable<UMLGeneralization> {
     private UMLClass child;
-    private String parent;
+    String parent;
 
     public UMLGeneralization(UMLClass child, String parent) {
         this.child = child;
@@ -11,10 +11,6 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
 
     public UMLClass getChild() {
         return child;
-    }
-
-	public String getParent() {
-        return parent;
     }
 
 	public boolean equals(Object o) {
