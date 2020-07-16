@@ -91,8 +91,8 @@ public class MoveOperationRefactoring implements Refactoring {
 				ref.getOriginalAttribute().getClassName().equals(this.originalOperation.getClassName())) {
 			List<String> originalOperationVariables = this.originalOperation.getAllVariables();
 			List<String> movedOperationVariables = this.movedOperation.getAllVariables();
-			return originalOperationVariables.contains(ref.getOriginalAttribute().getName()) &&
-					movedOperationVariables.contains(ref.getMovedAttribute().getName());
+			return originalOperationVariables.contains(ref.getOriginalAttribute().getJavadoc().getName(this)) &&
+					movedOperationVariables.contains(ref.getMovedAttribute().getJavadoc().getName(this));
 		}
 		return false;
 	}

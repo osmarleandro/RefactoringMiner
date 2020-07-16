@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
-	private String name;
+	String name;
 	private UMLType type;
 	private String visibility;
 	private String className;
@@ -71,10 +71,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 
 	public void setClassName(String className) {
 		this.className = className;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public VariableDeclaration getVariableDeclaration() {
@@ -165,8 +161,8 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	}
 
 	public double normalizedNameDistance(UMLAttribute attribute) {
-		String s1 = getName().toLowerCase();
-		String s2 = attribute.getName().toLowerCase();
+		String s1 = javadoc.getName(this).toLowerCase();
+		String s2 = attribute.getJavadoc().getName(this).toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;

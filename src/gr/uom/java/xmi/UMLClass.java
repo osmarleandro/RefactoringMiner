@@ -207,7 +207,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
-    		if(attribute.getName().equals(otherAttribute.getName())) {
+    		if(attribute.getJavadoc().getName(this).equals(otherAttribute.getJavadoc().getName(this))) {
     			String thisAttributeType = attribute.getType().getClassType();
 				String otherAttributeType = otherAttribute.getType().getClassType();
 				int thisArrayDimension = attribute.getType().getArrayDimension();
