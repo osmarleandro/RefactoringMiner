@@ -82,8 +82,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.nonMappedLeavesT2 = new ArrayList<StatementObject>();
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
-		OperationBody body1 = operation1.getBody();
-		OperationBody body2 = operation2.getBody();
+		OperationBody body1 = operation1.getJavadoc().getBody(this);
+		OperationBody body2 = operation2.getJavadoc().getBody(this);
 		if(body1 != null && body2 != null) {
 			CompositeStatementObject composite1 = body1.getCompositeStatement();
 			CompositeStatementObject composite2 = body2.getCompositeStatement();
@@ -282,7 +282,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
-		OperationBody addedOperationBody = addedOperation.getBody();
+		OperationBody addedOperationBody = addedOperation.getJavadoc().getBody(this);
 		if(addedOperationBody != null) {
 			CompositeStatementObject composite2 = addedOperationBody.getCompositeStatement();
 			List<StatementObject> leaves1 = operationBodyMapper.getNonMappedLeavesT1();
@@ -309,14 +309,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+								List<StatementObject> anonymousClassLeaves = anonymousOperation.getJavadoc().getBody(this).getCompositeStatement().getLeaves();
 								for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 									if(!leaves2.contains(anonymousLeaf)) {
 										addedLeaves2.add(anonymousLeaf);
 										codeFragmentOperationMap2.put(anonymousLeaf, anonymousOperation);
 									}
 								}
-								List<CompositeStatementObject> anonymousClassInnerNodes = anonymousOperation.getBody().getCompositeStatement().getInnerNodes();
+								List<CompositeStatementObject> anonymousClassInnerNodes = anonymousOperation.getJavadoc().getBody(this).getCompositeStatement().getInnerNodes();
 								for(CompositeStatementObject anonymousInnerNode : anonymousClassInnerNodes) {
 									if(!innerNodes2.contains(anonymousInnerNode)) {
 										addedInnerNodes2.add(anonymousInnerNode);
@@ -448,7 +448,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+							List<StatementObject> anonymousClassLeaves = anonymousOperation.getJavadoc().getBody(this).getCompositeStatement().getLeaves();
 							for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 								if(!leaves1.contains(anonymousLeaf)) {
 									leaves1.add(anonymousLeaf);
@@ -456,7 +456,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									codeFragmentOperationMap1.put(anonymousLeaf, anonymousOperation);
 								}
 							}
-							List<CompositeStatementObject> anonymousClassInnerNodes = anonymousOperation.getBody().getCompositeStatement().getInnerNodes();
+							List<CompositeStatementObject> anonymousClassInnerNodes = anonymousOperation.getJavadoc().getBody(this).getCompositeStatement().getInnerNodes();
 							for(CompositeStatementObject anonymousInnerNode : anonymousClassInnerNodes) {
 								if(!innerNodes1.contains(anonymousInnerNode)) {
 									innerNodes1.add(anonymousInnerNode);
@@ -506,7 +506,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
-		OperationBody removedOperationBody = removedOperation.getBody();
+		OperationBody removedOperationBody = removedOperation.getJavadoc().getBody(this);
 		if(removedOperationBody != null) {
 			CompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
@@ -2704,7 +2704,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			for(UMLOperation anonymousOperation : anonymousOperations) {
-				OperationBody body = anonymousOperation.getBody();
+				OperationBody body = anonymousOperation.getJavadoc().getBody(this);
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
 					for(StatementObject leaf : leaves) {
