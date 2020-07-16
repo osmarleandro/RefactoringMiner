@@ -812,7 +812,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		boolean removedOperationCalled = false;
-		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
+		for(OperationInvocation invocation : operation1.getJavadoc().getAllOperationInvocations(this)) {
 			for(UMLOperation operation : removedOperations) {
 				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
 					removedOperationCalled = true;
@@ -823,7 +823,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				break;
 		}
 		boolean addedOperationCalled = false;
-		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
+		for(OperationInvocation invocation : operation2.getJavadoc().getAllOperationInvocations(this)) {
 			for(UMLOperation operation : addedOperations) {
 				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
 					addedOperationCalled = true;

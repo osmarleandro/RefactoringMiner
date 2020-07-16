@@ -89,7 +89,7 @@ public class ExtractOperationDetection {
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
-							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
+							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getJavadoc().getAllOperationInvocations(this), node.getOriginalOperation().variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);
@@ -127,7 +127,7 @@ public class ExtractOperationDetection {
 	}
 
 	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
-		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
+		List<OperationInvocation> operationInvocations = mapper.getOperation2().getJavadoc().getAllOperationInvocations(this);
 		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
 			addStatementInvocations(operationInvocations, statement);
 		}
@@ -186,7 +186,7 @@ public class ExtractOperationDetection {
 	}
 
 	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
-		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
+		List<OperationInvocation> invocations = operation.getJavadoc().getAllOperationInvocations(this);
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
@@ -276,7 +276,7 @@ public class ExtractOperationDetection {
 
 	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
 		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
-		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
+		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getJavadoc().getAllOperationInvocations(this).contains(addedOperationInvocation)) {
 			for(UMLOperation operation : addedOperations) {
 				if(delegateMethodInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), modelDiff)) {
 					return operation;
