@@ -1179,7 +1179,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingSplitVariableRefactoring(RenameVariableRefactoring ref) {
 		for(SplitVariableRefactoring split : variableSplits) {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
-					split.getOperationAfter().equals(ref.getOperationAfter()) &&
+					split.getOldVariable().getOperationAfter(this).equals(ref.getOperationAfter()) &&
 					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
 					split.getOldVariable().equals(ref.getOriginalVariable())) {
 				return true;
