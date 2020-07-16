@@ -3,6 +3,9 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractCall;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +136,18 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public Replacement makeReplacementForWrappedCall(AbstractCall abstractCall, String statement) {
+		if(abstractCall.argumentIsReturned(statement)) {
+			return new Replacement(statement.substring(7, statement.length()-2), abstractCall.getArguments().get(0),
+					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
+		}
+		else if(abstractCall.argumentIsEqual(statement)) {
+			return new Replacement(statement.substring(0, statement.length()-2), abstractCall.getArguments().get(0),
+					ReplacementType.ARGUMENT_REPLACED_WITH_STATEMENT);
+		}
+		return null;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

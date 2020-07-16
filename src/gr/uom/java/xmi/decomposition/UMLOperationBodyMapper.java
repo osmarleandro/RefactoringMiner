@@ -2288,14 +2288,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		//check if the argument of the method call in the second statement is returned in the first statement
-		if(invocationCoveringTheEntireStatement2 != null && (r = invocationCoveringTheEntireStatement2.makeReplacementForWrappedCall(replacementInfo.getArgumentizedString1())) != null) {
+		if(invocationCoveringTheEntireStatement2 != null && (r = invocationCoveringTheEntireStatement2.getLocationInfo().makeReplacementForWrappedCall(this, replacementInfo.getArgumentizedString1())) != null) {
 			replacementInfo.addReplacement(r);
 			return replacementInfo.getReplacements();
 		}
 		for(String methodInvocation2 : methodInvocations2) {
 			for(AbstractCall operationInvocation2 : methodInvocationMap2.get(methodInvocation2)) {
-				if(statement2.getString().endsWith(methodInvocation2 + ";\n") && (r = operationInvocation2.makeReplacementForWrappedCall(replacementInfo.getArgumentizedString1())) != null) {
-					if(operationInvocation2.makeReplacementForWrappedCall(statement1.getString()) != null) {
+				if(statement2.getString().endsWith(methodInvocation2 + ";\n") && (r = operationInvocation2.getLocationInfo().makeReplacementForWrappedCall(this, replacementInfo.getArgumentizedString1())) != null) {
+					if(operationInvocation2.getLocationInfo().makeReplacementForWrappedCall(this, statement1.getString()) != null) {
 						replacementInfo.addReplacement(r);
 						return replacementInfo.getReplacements();
 					}
