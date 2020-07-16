@@ -10,6 +10,12 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +159,30 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	protected void processCompilationUnit(UMLModelASTReader umlModelASTReader, String sourceFilePath, CompilationUnit compilationUnit) {
+		PackageDeclaration packageDeclaration = compilationUnit.getPackage();
+		String packageName = null;
+		if(packageDeclaration != null)
+			packageName = packageDeclaration.getName().getFullyQualifiedName();
+		else
+			packageName = "";
+		
+		List<ImportDeclaration> imports = compilationUnit.imports();
+		List<String> importedTypes = new ArrayList<String>();
+		for(ImportDeclaration importDeclaration : imports) {
+			importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
+		}
+		List<AbstractTypeDeclaration> topLevelTypeDeclarations = compilationUnit.types();
+	    for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
+	    	if(abstractTypeDeclaration instanceof TypeDeclaration) {
+	    		TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
+	    		umlModelASTReader.processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
+	    	}
+	    	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
+	    		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
+	    		umlModelASTReader.processEnumDeclaration(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
+	    	}
+	    }
+	}
 }
