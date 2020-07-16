@@ -55,7 +55,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
-	private List<CompositeStatementObject> nonMappedInnerNodesT2;
+	public List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
@@ -549,7 +549,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			innerNodes1.remove(composite1);
-			List<CompositeStatementObject> innerNodes2 = operationBodyMapper.getNonMappedInnerNodesT2();
+			List<CompositeStatementObject> innerNodes2 = operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT2(this);
 			//adding innerNodes that were mapped with replacements or are inexact matches
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
@@ -576,7 +576,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			//match expressions in inner nodes from T2 with leaves from T1
 			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
-			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
+			for(CompositeStatementObject composite : operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT2(this)) {
 				for(AbstractExpression expression : composite.getExpressions()) {
 					expressionsT2.add(expression);
 				}
@@ -654,10 +654,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedInnerNodesT1;
 	}
 
-	public List<CompositeStatementObject> getNonMappedInnerNodesT2() {
-		return nonMappedInnerNodesT2;
-	}
-
 	public int mappingsWithoutBlocks() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
@@ -692,7 +688,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedElementsT2() {
 		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
+		for(CompositeStatementObject composite : callSiteOperation.getNonMappedInnerNodesT2(this)) {
 			if(composite.countableStatement())
 				nonMappedInnerNodeCount++;
 		}
@@ -740,7 +736,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedElementsT2CallingAddedOperation(List<UMLOperation> addedOperations) {
 		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
+		for(CompositeStatementObject composite : callSiteOperation.getNonMappedInnerNodesT2(this)) {
 			if(composite.countableStatement()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
@@ -3949,7 +3945,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean isEmpty() {
 		return getNonMappedLeavesT1().isEmpty() && getNonMappedInnerNodesT1().isEmpty() &&
-				getNonMappedLeavesT2().isEmpty() && getNonMappedInnerNodesT2().isEmpty();
+				getNonMappedLeavesT2().isEmpty() && callSiteOperation.getNonMappedInnerNodesT2(this).isEmpty();
 	}
 
 	public boolean equals(Object o) {
