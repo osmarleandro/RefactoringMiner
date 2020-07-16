@@ -21,7 +21,7 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
@@ -39,10 +39,6 @@ public abstract class AbstractCodeMapping {
 
 	public AbstractCodeFragment getFragment1() {
 		return fragment1;
-	}
-
-	public AbstractCodeFragment getFragment2() {
-		return fragment2;
 	}
 
 	public UMLOperation getOperation1() {
@@ -134,8 +130,8 @@ public abstract class AbstractCodeMapping {
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
-				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
+				&& fragment1.getFragment2(this) instanceof StatementObject) {
+			StatementObject statement = (StatementObject) fragment1.getFragment2(this);
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {
@@ -197,7 +193,7 @@ public abstract class AbstractCodeMapping {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
+								if(getFragment1().getString().contains(initializerBeforeRename) && fragment1.getFragment2(this).getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}

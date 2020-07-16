@@ -131,7 +131,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 				.setDescription("extracted variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
+			ranges.add(mapping.getFragment1().getFragment2(this).codeRange().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;
 	}

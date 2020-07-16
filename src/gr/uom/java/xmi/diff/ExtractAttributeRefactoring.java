@@ -123,7 +123,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 				.setDescription("extracted attribute declaration")
 				.setCodeElement(attributeDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted attribute"));
+			ranges.add(mapping.getFragment1().getFragment2(this).codeRange().setDescription("statement with the name of the extracted attribute"));
 		}
 		return ranges;
 	}
