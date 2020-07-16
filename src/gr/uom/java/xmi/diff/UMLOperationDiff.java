@@ -23,7 +23,7 @@ public class UMLOperationDiff {
 	private UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
-	private List<UMLParameterDiff> parameterDiffList;
+	public List<UMLParameterDiff> parameterDiffList;
 	private boolean visibilityChanged;
 	private boolean abstractionChanged;
 	private boolean returnTypeChanged;
@@ -166,10 +166,6 @@ public class UMLOperationDiff {
 		return matchedParameters;
 	}
 
-	public List<UMLParameterDiff> getParameterDiffList() {
-		return parameterDiffList;
-	}
-
 	public UMLOperation getRemovedOperation() {
 		return removedOperation;
 	}
@@ -241,7 +237,7 @@ public class UMLOperationDiff {
 				refactorings.add(refactoring);
 			}
 		}
-		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
+		for(UMLParameterDiff parameterDiff : addedOperation.getParameterDiffList(this)) {
 			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
