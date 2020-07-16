@@ -2505,7 +2505,7 @@ public class UMLModelDiff {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof RenameAttributeRefactoring) {
 				RenameAttributeRefactoring rename = (RenameAttributeRefactoring)refactoring;
-				if(mergedAttributes.contains(rename.getOriginalAttribute()) && a2.equals(rename.getRenamedAttribute())) {
+				if(mergedAttributes.contains(rename.getOriginalAttribute().getOriginalAttribute()) && a2.equals(rename.getRenamedAttribute())) {
 					return rename;
 				}
 			}

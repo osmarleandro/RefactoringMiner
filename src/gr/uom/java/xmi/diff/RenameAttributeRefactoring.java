@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameAttributeRefactoring implements Refactoring {
-	private VariableDeclaration originalAttribute;
+	public VariableDeclaration originalAttribute;
 	private VariableDeclaration renamedAttribute;
 	private Set<CandidateAttributeRefactoring> attributeRenames;
 	private String classNameBefore;
@@ -25,10 +25,6 @@ public class RenameAttributeRefactoring implements Refactoring {
 		this.classNameBefore = classNameBefore;
 		this.classNameAfter = classNameAfter;
 		this.attributeRenames = attributeRenames;
-	}
-
-	public VariableDeclaration getOriginalAttribute() {
-		return originalAttribute;
 	}
 
 	public VariableDeclaration getRenamedAttribute() {
@@ -110,7 +106,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(originalAttribute.getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
 		return pairs;
 	}
 
