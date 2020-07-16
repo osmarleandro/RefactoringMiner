@@ -38,7 +38,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	CompositeStatementObject compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
@@ -67,10 +67,6 @@ public class OperationBody {
 			invocations.addAll(invocationMap.get(key));
 		}
 		return invocations;
-	}
-
-	public List<LambdaExpressionObject> getAllLambdas() {
-		return new ArrayList<LambdaExpressionObject>(compositeStatement.getAllLambdas());
 	}
 
 	public List<String> getAllVariables() {
