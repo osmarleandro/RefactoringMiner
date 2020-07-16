@@ -2525,6 +2525,14 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	public boolean isEmpty(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.addedOperations.isEmpty() && umlClassBaseDiff.removedOperations.isEmpty() &&
+		umlClassBaseDiff.addedAttributes.isEmpty() && umlClassBaseDiff.removedAttributes.isEmpty() &&
+		umlClassBaseDiff.operationDiffList.isEmpty() && umlClassBaseDiff.attributeDiffList.isEmpty() &&
+		umlClassBaseDiff.operationBodyMapperList.isEmpty() &&
+		!umlClassBaseDiff.visibilityChanged && !umlClassBaseDiff.abstractionChanged;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
