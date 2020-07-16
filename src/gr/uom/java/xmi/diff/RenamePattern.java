@@ -42,4 +42,8 @@ public class RenamePattern {
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
 	}
+
+	public RenamePattern getPattern() {
+		return this;
+	}
 }
