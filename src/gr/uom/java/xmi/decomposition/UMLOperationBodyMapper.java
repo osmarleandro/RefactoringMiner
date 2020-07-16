@@ -74,7 +74,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public UMLOperationBodyMapper(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.classDiff = classDiff;
 		if(classDiff != null)
-			this.modelDiff = classDiff.getModelDiff();
+			this.modelDiff = classDiff.getModelDiff().getModelDiff();
 		this.operation1 = operation1;
 		this.operation2 = operation2;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
@@ -163,7 +163,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private UMLOperationBodyMapper(LambdaExpressionObject lambda1, LambdaExpressionObject lambda2, UMLOperationBodyMapper parentMapper) throws RefactoringMinerTimedOutException {
 		this.classDiff = parentMapper.classDiff;
 		if(classDiff != null)
-			this.modelDiff = classDiff.getModelDiff();
+			this.modelDiff = classDiff.getModelDiff().getModelDiff();
 		this.operation1 = parentMapper.operation1;
 		this.operation2 = parentMapper.operation2;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
