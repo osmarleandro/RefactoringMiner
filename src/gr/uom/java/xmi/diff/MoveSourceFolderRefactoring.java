@@ -66,7 +66,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
-			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getLocationInfo().getFilePath(), ref.getMovedClassName()));
+			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getMovedClass().getLocationInfo().getFilePath(), ref.getMovedClassName()));
 		}
 		return pairs;
 	}
@@ -86,9 +86,9 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
-			ranges.add(ref.getMovedClass().codeRange()
+			ranges.add(ref.getMovedClass().getMovedClass().codeRange()
 					.setDescription("moved type declaration")
-					.setCodeElement(ref.getMovedClass().getName()));
+					.setCodeElement(ref.getMovedClass().getMovedClass().getName()));
 		}
 		return ranges;
 	}
