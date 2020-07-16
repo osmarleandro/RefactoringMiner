@@ -20,7 +20,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
 	private UMLOperation extractedOperation;
-	private UMLOperation sourceOperationBeforeExtraction;
+	public UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
@@ -76,9 +76,9 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	private String getClassName() {
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
-			return getSourceOperationBeforeExtraction().getClassName();
+			return bodyMapper.getSourceOperationBeforeExtraction(this).getClassName();
 		}
-		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
+		String sourceClassName = bodyMapper.getSourceOperationBeforeExtraction(this).getClassName();
 		String targetClassName = getSourceOperationAfterExtraction().getClassName();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
@@ -89,10 +89,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public UMLOperation getExtractedOperation() {
 		return extractedOperation;
-	}
-
-	public UMLOperation getSourceOperationBeforeExtraction() {
-		return sourceOperationBeforeExtraction;
 	}
 
 	public UMLOperation getSourceOperationAfterExtraction() {
@@ -173,7 +169,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(bodyMapper.getSourceOperationBeforeExtraction(this).getLocationInfo().getFilePath(), bodyMapper.getSourceOperationBeforeExtraction(this).getClassName()));
 		return pairs;
 	}
 
