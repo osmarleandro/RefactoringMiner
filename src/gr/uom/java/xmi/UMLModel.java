@@ -88,8 +88,8 @@ public class UMLModel {
     	while(realizationIt.hasNext()) {
     		UMLRealization realization = realizationIt.next();
     		if(realization.getClient().equals(otherRealization.getClient())) {
-    			String thisSupplier = realization.getSupplier();
-    			String otherSupplier = otherRealization.getSupplier();
+    			String thisSupplier = realization.getClient().getSupplier(this);
+    			String otherSupplier = otherRealization.getClient().getSupplier(this);
     			String thisSupplierComparedString = null;
     			if(thisSupplier.contains("."))
     				thisSupplierComparedString = thisSupplier.substring(thisSupplier.lastIndexOf(".")+1);

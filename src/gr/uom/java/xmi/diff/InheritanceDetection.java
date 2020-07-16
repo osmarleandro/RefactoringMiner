@@ -39,7 +39,7 @@ public class InheritanceDetection {
 		}
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
 		for(UMLRealization realization : addedRealizations) {
-			String supplier = realization.getSupplier();
+			String supplier = realization.getClient().getSupplier(this);
 			String client = realization.getClient().getName();
 			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
 				addSubclassToSuperclass(supplier, client);
