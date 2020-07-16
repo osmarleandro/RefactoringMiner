@@ -56,16 +56,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
-	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
-	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
+	public Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	public Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
+	public Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+	public Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
 	private UMLOperationBodyMapper parentMapper;
 	private static final Pattern SPLIT_CONDITIONAL_PATTERN = Pattern.compile("(\\|\\|)|(&&)|(\\?)|(:)");
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
-	private UMLClassBaseDiff classDiff;
+	public UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
@@ -607,19 +607,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public UMLOperation getOperation2() {
 		return operation2;
-	}
-
-	public Set<Refactoring> getRefactorings() {
-		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
-		refactorings.addAll(analysis.getVariableRenames());
-		refactorings.addAll(analysis.getVariableMerges());
-		refactorings.addAll(analysis.getVariableSplits());
-		candidateAttributeRenames.addAll(analysis.getCandidateAttributeRenames());
-		candidateAttributeMerges.addAll(analysis.getCandidateAttributeMerges());
-		candidateAttributeSplits.addAll(analysis.getCandidateAttributeSplits());
-		TypeReplacementAnalysis typeAnalysis = new TypeReplacementAnalysis(this.getMappings());
-		refactorings.addAll(typeAnalysis.getChangedTypes());
-		return refactorings;
 	}
 
 	public Set<Refactoring> getRefactoringsAfterPostProcessing() {
@@ -2052,7 +2039,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 											this.nonMappedLeavesT1.addAll(mapper.nonMappedLeavesT1);
 											this.nonMappedLeavesT2.addAll(mapper.nonMappedLeavesT2);
 											matchedOperations++;
-											this.refactorings.addAll(mapper.getRefactorings());
+											this.refactorings.addAll(mapper.getCallSiteOperation().getRefactorings(this));
 										}
 									}
 								}
@@ -2086,7 +2073,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							this.nonMappedInnerNodesT2.addAll(mapper.nonMappedInnerNodesT2);
 							this.nonMappedLeavesT1.addAll(mapper.nonMappedLeavesT1);
 							this.nonMappedLeavesT2.addAll(mapper.nonMappedLeavesT2);
-							this.refactorings.addAll(mapper.getRefactorings());
+							this.refactorings.addAll(mapper.getCallSiteOperation().getRefactorings(this));
 							lambdaMappers.add(mapper);
 						}
 					}

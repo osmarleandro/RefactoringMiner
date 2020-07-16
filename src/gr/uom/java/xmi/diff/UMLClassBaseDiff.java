@@ -593,7 +593,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : mapper.getRefactorings()) {
+		for(Refactoring refactoring : mapper.getCallSiteOperation().getRefactorings(this)) {
 			if(refactorings.contains(refactoring)) {
 				//special handling for replacing rename variable refactorings having statement mapping information
 				int index = refactorings.indexOf(refactoring);

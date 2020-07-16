@@ -7,7 +7,10 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.TypeReplacementAnalysis;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +836,18 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public Set<Refactoring> getRefactorings(UMLOperationBodyMapper umlOperationBodyMapper) {
+		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(umlOperationBodyMapper, umlOperationBodyMapper.refactorings, umlOperationBodyMapper.classDiff);
+		umlOperationBodyMapper.refactorings.addAll(analysis.getVariableRenames());
+		umlOperationBodyMapper.refactorings.addAll(analysis.getVariableMerges());
+		umlOperationBodyMapper.refactorings.addAll(analysis.getVariableSplits());
+		umlOperationBodyMapper.candidateAttributeRenames.addAll(analysis.getCandidateAttributeRenames());
+		umlOperationBodyMapper.candidateAttributeMerges.addAll(analysis.getCandidateAttributeMerges());
+		umlOperationBodyMapper.candidateAttributeSplits.addAll(analysis.getCandidateAttributeSplits());
+		TypeReplacementAnalysis typeAnalysis = new TypeReplacementAnalysis(umlOperationBodyMapper.getMappings());
+		umlOperationBodyMapper.refactorings.addAll(typeAnalysis.getChangedTypes());
+		return umlOperationBodyMapper.refactorings;
 	}
 }
