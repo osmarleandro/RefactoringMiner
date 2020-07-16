@@ -632,7 +632,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
 			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+			String after = PrefixSuffixUtils.normalize(candidate.getNewAttribute().getNewVariable(this));
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
 			processMerge(mergeMap, merge, candidate);
 		}

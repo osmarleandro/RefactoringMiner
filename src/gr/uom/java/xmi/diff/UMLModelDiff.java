@@ -1685,7 +1685,7 @@ public class UMLModelDiff {
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
 			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+			String after = PrefixSuffixUtils.normalize(candidate.getNewAttribute().getNewVariable(this));
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
 			if(mergeMap.containsKey(merge)) {
 				mergeMap.get(merge).add(candidate);
