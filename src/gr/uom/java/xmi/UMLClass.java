@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.MoveClassRefactoring;
+import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
@@ -396,5 +400,15 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public RenamePattern getRenamePattern(MoveClassRefactoring moveClassRefactoring) {
+		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', moveClassRefactoring.originalClass.getName(), getName());
+		if (separatorPos == -1) {
+			return new RenamePattern(moveClassRefactoring.originalClass.getName(), getName());
+		}
+		String originalPath = moveClassRefactoring.originalClass.getName().substring(0, moveClassRefactoring.originalClass.getName().length() - separatorPos);
+		String movedPath = getName().substring(0, getName().length() - separatorPos);
+		return new RenamePattern(originalPath, movedPath);
 	}
 }
