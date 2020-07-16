@@ -85,11 +85,11 @@ public class ExtractOperationDetection {
 			for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 				CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 				if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation2().variableTypeMap()).size() == 0) {
-					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
+					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getInvocation().getOriginalOperation(this), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
-							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
+							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getInvocation().getOriginalOperation(this).getAllOperationInvocations(), node.getInvocation().getOriginalOperation(this).variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);

@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class CallTreeNode {
-	private UMLOperation originalOperation;
+	public UMLOperation originalOperation;
 	private UMLOperation invokedOperation;
 	private OperationInvocation invocation;
 	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
@@ -17,10 +17,6 @@ public class CallTreeNode {
 		this.originalOperation = originalOperation;
 		this.invokedOperation = invokedOperation;
 		this.invocation = invocation;
-	}
-
-	public UMLOperation getOriginalOperation() {
-		return originalOperation;
 	}
 
 	public UMLOperation getInvokedOperation() {
