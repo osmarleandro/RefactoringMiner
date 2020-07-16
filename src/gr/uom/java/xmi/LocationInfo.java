@@ -133,6 +133,14 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean containsAttributeWithName(UMLAbstractClass umlAbstractClass, String attributeName) {
+		for(UMLAttribute originalAttribute : umlAbstractClass.attributes) {
+			if(originalAttribute.getName().equals(attributeName))
+				return true;
+		}
+		return false;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
