@@ -278,10 +278,10 @@ public class UMLOperationDiff {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
 					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {
+						if(replacement.getBefore().equals(originalVariable.getInitializer().getVariableName(this)) && !replacement.getAfter().equals(newVariable.getInitializer().getVariableName(this))) {
 							return true;
 						}
-						else if(!replacement.getBefore().equals(originalVariable.getVariableName()) && replacement.getAfter().equals(newVariable.getVariableName())) {
+						else if(!replacement.getBefore().equals(originalVariable.getInitializer().getVariableName(this)) && replacement.getAfter().equals(newVariable.getInitializer().getVariableName(this))) {
 							return true;
 						}
 					}

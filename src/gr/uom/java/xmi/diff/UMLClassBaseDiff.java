@@ -705,24 +705,24 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
 						for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
-							if(originalAttributeName.equals(variableDeclaration.getVariableName())) {
-								matchingVariableName = variableDeclaration.getVariableName();
+							if(originalAttributeName.equals(variableDeclaration.getInitializer().getVariableName(this))) {
+								matchingVariableName = variableDeclaration.getInitializer().getVariableName(this);
 							}
 							else {
 								for(StatementObject statement : candidateMapper.getNonMappedLeavesT1()) {
-									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
-											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
-										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
+									if(statement.getString().startsWith(variableDeclaration.getInitializer().getVariableName(this) + "=") ||
+											statement.getString().startsWith("this." + variableDeclaration.getInitializer().getVariableName(this) + "=")) {
+										nonMatchingVariableNames.add(variableDeclaration.getInitializer().getVariableName(this));
 										break;
 									}
 								}
 							}
 						}
-						if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getInitializer().getVariableName(this)) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
-							if(merge.getMergedVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							if(merge.getMergedVariables().iterator().next().getInitializer().getVariableName(this).equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);
 								allMatchingVariables.addAll(nonMatchingVariableNames);
 							}
@@ -751,24 +751,24 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
 						for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {
-							if(renamedAttributeName.equals(variableDeclaration.getVariableName())) {
-								matchingVariableName = variableDeclaration.getVariableName();
+							if(renamedAttributeName.equals(variableDeclaration.getInitializer().getVariableName(this))) {
+								matchingVariableName = variableDeclaration.getInitializer().getVariableName(this);
 							}
 							else {
 								for(StatementObject statement : candidateMapper.getNonMappedLeavesT2()) {
-									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
-											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
-										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
+									if(statement.getString().startsWith(variableDeclaration.getInitializer().getVariableName(this) + "=") ||
+											statement.getString().startsWith("this." + variableDeclaration.getInitializer().getVariableName(this) + "=")) {
+										nonMatchingVariableNames.add(variableDeclaration.getInitializer().getVariableName(this));
 										break;
 									}
 								}
 							}
 						}
-						if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable().getInitializer().getVariableName(this)) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
-							if(split.getSplitVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							if(split.getSplitVariables().iterator().next().getInitializer().getVariableName(this).equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);
 								allMatchingVariables.addAll(nonMatchingVariableNames);
 							}

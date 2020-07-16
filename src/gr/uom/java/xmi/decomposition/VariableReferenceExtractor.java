@@ -25,8 +25,8 @@ public class VariableReferenceExtractor {
 
 	private static boolean usesVariable(AbstractCodeFragment fragment, VariableDeclaration declaration) {
 		List<String> variables = fragment.getVariables();
-		return variables.contains(declaration.getVariableName()) ||
-				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));
+		return variables.contains(declaration.getInitializer().getVariableName(this)) ||
+				(declaration.isAttribute() && variables.contains("this." + declaration.getInitializer().getVariableName(this)));
 	}
 
 	public static Set<AbstractCodeMapping> findReturnReferences(Set<AbstractCodeMapping> mappings) {
