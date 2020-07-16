@@ -66,13 +66,13 @@ public class MoveClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getLocationInfo().getFilePath(), getOriginalClass().getName()));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getFilePath(), getMovedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getLocationInfo().getFilePath(), getMovedClass().getName()));
 		return pairs;
 	}
 

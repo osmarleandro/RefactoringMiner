@@ -752,7 +752,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
 				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
-					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+					if(anonymousClass.getLocationInfo().getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
 						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
 					}
 				}
