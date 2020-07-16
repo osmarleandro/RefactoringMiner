@@ -871,23 +871,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return count;
 	}
 
-	public double normalizedEditDistance() {
-		double editDistance = 0;
-		double maxLength = 0;
-		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				continue;
-			}
-			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
-			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
-			if(!s1.equals(s2)) {
-				editDistance += StringDistance.editDistance(s1, s2);
-				maxLength += Math.max(s1.length(), s2.length());
-			}
-		}
-		return editDistance/maxLength;
-	}
-
 	public int operationNameEditDistance() {
 		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
 	}
@@ -1489,11 +1472,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mapping;
 	}
 
-	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	public String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		return preprocessInput(leaf1, leaf2);
 	}
 
-	private String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	public String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		return preprocessInput(leaf2, leaf1);
 	}
 
