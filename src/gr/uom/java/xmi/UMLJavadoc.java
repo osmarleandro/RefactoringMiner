@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setInterface(UMLClass umlClass, boolean isInterface) {
+		umlClass.isInterface = isInterface;
+	}
 }

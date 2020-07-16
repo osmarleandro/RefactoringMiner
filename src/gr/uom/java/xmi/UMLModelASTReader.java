@@ -252,7 +252,7 @@ public class UMLModelASTReader {
 		umlClass.setJavadoc(javadoc);
 		
 		if(typeDeclaration.isInterface()) {
-			umlClass.setInterface(true);
+			umlClass.getJavadoc().setInterface(this, true);
     	}
     	
     	processModifiers(cu, sourceFile, typeDeclaration, umlClass);
