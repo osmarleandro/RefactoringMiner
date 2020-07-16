@@ -262,8 +262,8 @@ public class UMLModelDiff {
 		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
 				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
 			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
-			   if(addedClass.getSuperclass() != null) {
-				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
+			   if(addedClass.getJavadoc().getSuperclass(this) != null) {
+				   return checkInheritanceRelationship(addedClass.getJavadoc().getSuperclass(this), finalSuperclass, visitedClasses);
 			   }
 		   }
 		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
@@ -286,7 +286,7 @@ public class UMLModelDiff {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
 	   }
 	   if(addedClass != null) {
-		   UMLType superclass = addedClass.getSuperclass();
+		   UMLType superclass = addedClass.getJavadoc().getSuperclass(this);
 		   if(superclass != null) {
 			   return checkInheritanceRelationship(superclass, finalSuperclass, visitedClasses);
 		   }
@@ -301,7 +301,7 @@ public class UMLModelDiff {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
 	   }
 	   if(removedClass != null) {
-		   UMLType superclass = removedClass.getSuperclass();
+		   UMLType superclass = removedClass.getJavadoc().getSuperclass(this);
 		   if(superclass != null) {
 			   return checkInheritanceRelationship(superclass, finalSuperclass, visitedClasses);
 		   }
@@ -940,7 +940,7 @@ public class UMLModelDiff {
 	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
 	   for(UMLClass addedClass : addedClasses) {
 		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
-		   UMLType addedClassSuperType = addedClass.getSuperclass();
+		   UMLType addedClassSuperType = addedClass.getJavadoc().getSuperclass(this);
 		   if(!addedClass.isInterface()) {
 			   for(UMLClassBaseDiff classDiff : classDiffs) {
 				   UMLType classDiffSuperType = classDiff.getNewSuperclass();
