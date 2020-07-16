@@ -505,7 +505,7 @@ public class UMLModelASTReader {
 				umlAttribute.setFinal(true);
 			
 			if((fieldModifiers & Modifier.STATIC) != 0)
-				umlAttribute.setStatic(true);
+				umlAttribute.getJavadoc().setStatic(this, true);
 			
 			attributes.add(umlAttribute);
 		}
