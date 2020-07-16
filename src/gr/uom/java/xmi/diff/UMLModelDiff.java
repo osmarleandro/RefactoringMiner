@@ -2366,7 +2366,7 @@ public class UMLModelDiff {
 	   }
 	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
 			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
-		   if(!mapper.getMappings().iterator().next().isExact()) {
+		   if(!mapper.getMappings().iterator().next().getFragment1().isExact(this)) {
 			   return false;
 		   }
 	   }
@@ -2377,7 +2377,7 @@ public class UMLModelDiff {
 	   }
 	   int exactLeafMappings = 0;
 	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
+		   if(mapping instanceof LeafMapping && mapping.getFragment1().isExact(this) && !mapping.getFragment1().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
 	   }

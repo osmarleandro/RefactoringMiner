@@ -304,4 +304,9 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	public boolean isExact(AbstractCodeMapping abstractCodeMapping) {
+		return (getArgumentizedString().equals(abstractCodeMapping.fragment2.getArgumentizedString()) ||
+				getString().equals(abstractCodeMapping.fragment2.getString()) || abstractCodeMapping.isExactAfterAbstraction() || abstractCodeMapping.containsIdenticalOrCompositeReplacement()) && !abstractCodeMapping.isKeyword();
+	}
 }

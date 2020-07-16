@@ -854,7 +854,7 @@ public class VariableReplacementAnalysis {
 						return true;
 					}
 				}
-				if(mapping.isExact()) {
+				if(mapping.getFragment1().isExact(this)) {
 					for(AbstractCodeMapping referenceMapping : set) {
 						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
