@@ -12,13 +12,13 @@ import gr.uom.java.xmi.decomposition.AbstractExpression;
 public class UMLAnnotationDiff {
 	private UMLAnnotation removedAnnotation;
 	private UMLAnnotation addedAnnotation;
-	private boolean typeNameChanged = false;
-	private boolean valueChanged = false;
-	private boolean valueRemoved = false;
-	private boolean valueAdded = false;
-	private List<SimpleEntry<String, AbstractExpression>> removedMemberValuePairs;
-	private List<SimpleEntry<String, AbstractExpression>> addedMemberValuePairs;
-	private Map<SimpleEntry<String, AbstractExpression>, SimpleEntry<String, AbstractExpression>> matchedMemberValuePairsWithDifferentExpressions;
+	public boolean typeNameChanged = false;
+	public boolean valueChanged = false;
+	public boolean valueRemoved = false;
+	public boolean valueAdded = false;
+	public List<SimpleEntry<String, AbstractExpression>> removedMemberValuePairs;
+	public List<SimpleEntry<String, AbstractExpression>> addedMemberValuePairs;
+	public Map<SimpleEntry<String, AbstractExpression>, SimpleEntry<String, AbstractExpression>> matchedMemberValuePairsWithDifferentExpressions;
 	
 	public UMLAnnotationDiff(UMLAnnotation removedAnnotation, UMLAnnotation addedAnnotation) {
 		this.removedAnnotation = removedAnnotation;
@@ -78,11 +78,5 @@ public class UMLAnnotationDiff {
 
 	public UMLAnnotation getAddedAnnotation() {
 		return addedAnnotation;
-	}
-
-	public boolean isEmpty() {
-		return !typeNameChanged && !valueChanged && !valueAdded && !valueRemoved &&
-				removedMemberValuePairs.isEmpty() && addedMemberValuePairs.isEmpty() &&
-				matchedMemberValuePairsWithDifferentExpressions.isEmpty();
 	}
 }
