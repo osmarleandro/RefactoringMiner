@@ -417,10 +417,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void processInheritance() {
-		if(!originalClass.getVisibility().equals(nextClass.getVisibility())) {
+		if(!originalClass.getJavadoc().getVisibility(this).equals(nextClass.getJavadoc().getVisibility(this))) {
 			setVisibilityChanged(true);
-			setOldVisibility(originalClass.getVisibility());
-			setNewVisibility(nextClass.getVisibility());
+			setOldVisibility(originalClass.getJavadoc().getVisibility(this));
+			setNewVisibility(nextClass.getJavadoc().getVisibility(this));
 		}
 		if(!originalClass.isInterface() && !nextClass.isInterface()) {
 			if(originalClass.isAbstract() != nextClass.isAbstract()) {
