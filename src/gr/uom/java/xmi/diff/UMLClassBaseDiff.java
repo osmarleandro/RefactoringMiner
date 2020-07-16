@@ -750,7 +750,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						SplitVariableRefactoring split = (SplitVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {
+						for(VariableDeclaration variableDeclaration : split.getOldVariable().getSplitVariables(this)) {
 							if(renamedAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
@@ -768,7 +768,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
-							if(split.getSplitVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							if(split.getOldVariable().getSplitVariables(this).iterator().next().getVariableName().equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);
 								allMatchingVariables.addAll(nonMatchingVariableNames);
 							}
@@ -784,7 +784,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								}
 							}
 							UMLAttribute a1 = findAttributeInOriginalClass(originalAttributeName);
-							if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
+							if(splitVariables.size() > 1 && splitVariables.size() == split.getOldVariable().getSplitVariables(this).size() && a1 != null) {
 								SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateSplitVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);
