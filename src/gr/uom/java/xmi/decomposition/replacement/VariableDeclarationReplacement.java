@@ -8,7 +8,7 @@ public class VariableDeclarationReplacement extends Replacement {
 	private VariableDeclaration v1;
 	private VariableDeclaration v2;
 	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation2;
 	
 	public VariableDeclarationReplacement(VariableDeclaration v1, VariableDeclaration v2,
 			UMLOperation operation1, UMLOperation operation2) {
@@ -29,10 +29,6 @@ public class VariableDeclarationReplacement extends Replacement {
 
 	public UMLOperation getOperation1() {
 		return operation1;
-	}
-
-	public UMLOperation getOperation2() {
-		return operation2;
 	}
 
 	public Replacement getVariableNameReplacement() {
