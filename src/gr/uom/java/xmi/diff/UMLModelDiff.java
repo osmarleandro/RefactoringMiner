@@ -1530,7 +1530,7 @@ public class UMLModelDiff {
 				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
 				  if(!mappers.isEmpty()) {
 					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
-					  if(operationSignatureDiff.isOperationRenamed()) {
+					  if(operationSignatureDiff.getAddedOperation().isOperationRenamed(this)) {
 						  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 						  refactorings.add(refactoring);
 					  }
@@ -1550,7 +1550,7 @@ public class UMLModelDiff {
 					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
 					  if(!mappers.isEmpty()) {
 						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
-						  if(operationSignatureDiff.isOperationRenamed()) {
+						  if(operationSignatureDiff.getAddedOperation().isOperationRenamed(this)) {
 							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 							  refactorings.add(refactoring);
 						  }
