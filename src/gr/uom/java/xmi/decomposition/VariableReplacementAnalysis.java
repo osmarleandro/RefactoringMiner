@@ -61,7 +61,7 @@ public class VariableReplacementAnalysis {
 	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		this.mappings = mapper.getMappings();
 		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
-		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
+		this.nonMappedLeavesT2 = mapper.getCallSiteOperation().getNonMappedLeavesT2(this);
 		this.nonMappedInnerNodesT1 = mapper.getNonMappedInnerNodesT1();
 		this.nonMappedInnerNodesT2 = mapper.getNonMappedInnerNodesT2();
 		this.operation1 = mapper.getOperation1();
@@ -1077,7 +1077,7 @@ public class VariableReplacementAnalysis {
 						return true;
 					}
 				}
-				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
+				for(StatementObject nonMappedStatement : mapper.getCallSiteOperation().getNonMappedLeavesT2(this)) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
 					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
 						for(AbstractCodeMapping mapping : mapper.getMappings()) {
