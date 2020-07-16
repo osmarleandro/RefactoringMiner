@@ -717,7 +717,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
-				if(statement.getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {
+				if(statement.getVariableDeclarations().contains(extractVariable.getOperationAfter().getVariableDeclaration(this))) {
 					return true;
 				}
 			}

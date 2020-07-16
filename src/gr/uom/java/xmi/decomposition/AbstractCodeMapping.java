@@ -378,7 +378,7 @@ public abstract class AbstractCodeMapping {
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
-				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
+				VariableDeclaration declaration = extractVariable.getOperationAfter().getVariableDeclaration(this);
 				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
 					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
 				}
