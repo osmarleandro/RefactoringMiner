@@ -15,7 +15,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 
 public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private AnonymousClassDeclaration astNode;
+	public AnonymousClassDeclaration astNode;
 	private String astNodeString;
 	private List<String> variables = new ArrayList<String>();
 	private List<String> types = new ArrayList<String>();
@@ -50,10 +50,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return astNode;
 	}
 
-	public void setAstNode(AnonymousClassDeclaration node) {
-		this.astNode = node;
-	}
-	
 	public String toString() {
 		return astNodeString;
 	}
