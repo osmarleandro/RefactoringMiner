@@ -1,9 +1,12 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -12,6 +15,8 @@ import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -830,6 +835,40 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public SimpleEntry<CompositeStatementObject, CompositeStatementObject> multipleMappingsUnderTheSameSwitch(Set<LeafMapping> mappingSet) {
+		CompositeStatementObject switchParent1 = null;
+		CompositeStatementObject switchParent2 = null;
+		if(mappingSet.size() > 1) {
+			for(LeafMapping mapping : mappingSet) {
+				AbstractCodeFragment fragment1 = mapping.getFragment1();
+				AbstractCodeFragment fragment2 = mapping.getFragment2();
+				if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
+					AbstractStatement statement1 = (AbstractStatement)fragment1;
+					AbstractStatement statement2 = (AbstractStatement)fragment2;
+					CompositeStatementObject parent1 = statement1.getParent();
+					CompositeStatementObject parent2 = statement2.getParent();
+					if(parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT) &&
+							parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT)) {
+						if(switchParent1 == null && switchParent2 == null) {
+							switchParent1 = parent1;
+							switchParent2 = parent2;
+						}
+						else if(switchParent1 != parent1 || switchParent2 != parent2) {
+							return null;
+						}
+					}
+					else {
+						return null;
+					}
+				}
+			}
+		}
+		if(switchParent1 != null && switchParent2 != null) {
+			return new SimpleEntry<CompositeStatementObject, CompositeStatementObject><>(switchParent1, switchParent2);
 		}
 		return null;
 	}
