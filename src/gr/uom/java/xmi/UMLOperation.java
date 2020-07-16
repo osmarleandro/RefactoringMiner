@@ -19,15 +19,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.refactoringminer.util.AstUtils;
-
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
+	String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
-	private String className;
+	List<UMLParameter> parameters;
+	String className;
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -629,27 +627,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 
-	public String getKey() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(className);
-		sb.append('#');
-		sb.append(name);
-		UMLParameter returnParameter = getReturnParameter();
-		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
-		parameters.remove(returnParameter);
-		sb.append("(");
-		for (int i = 0; i < parameters.size(); i++) {
-			UMLParameter parameter = parameters.get(i);
-			if(parameter.getKind().equals("in")) {
-				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
-				if(i < parameters.size() - 1)
-					sb.append(", ");
-			}
-		}
-		sb.append(")");
-		return sb.toString();
-	}
-	
 	public int compareTo(UMLOperation operation) {
 		return this.toString().compareTo(operation.toString());
 	}
