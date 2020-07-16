@@ -762,10 +762,10 @@ public class UMLModelDiff {
 			   }
 		   }
 		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
-		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
+		   List<UMLAttribute> nextAttributes = sourceClassDiff.getModelDiff().nextClassAttributesOfType(this, candidate.getTargetClassName());
 		   if(targetSuperclass != null) {
 			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
-			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
+			   nextAttributes.addAll(sourceClassDiff.getModelDiff().nextClassAttributesOfType(this, targetSuperclass.getClassType()));
 		   }
 		   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
 		   intersection.retainAll(nextAttributes);
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAttribute> nextClassAttributesOfType(UMLClassBaseDiff umlClassBaseDiff, String targetClass) {
+	return umlClassBaseDiff.nextClass.attributesOfType(targetClass);
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
