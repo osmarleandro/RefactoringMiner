@@ -104,7 +104,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsOperationWithTheSameName(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.getName().equals(operation.getName()))
+			if(originalOperation.getJavadoc().getName(this).equals(operation.getJavadoc().getName(this)))
 				return true;
 		}
 		return false;
@@ -114,10 +114,10 @@ public abstract class UMLAbstractClass {
 		if(pattern == null)
 			return false;
 		for(UMLOperation originalOperation : operations) {
-			String originalOperationName = originalOperation.getName();
+			String originalOperationName = originalOperation.getJavadoc().getName(this);
 			if(originalOperationName.contains(pattern.getBefore())) {
 				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
-				if(originalOperationNameAfterReplacement.equals(operation.getName()))
+				if(originalOperationNameAfterReplacement.equals(operation.getJavadoc().getName(this)))
 					return true;
 			}
 		}

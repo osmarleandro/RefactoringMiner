@@ -42,7 +42,7 @@ public class UMLOperationDiff {
 		this.abstractionChanged = false;
 		this.returnTypeChanged = false;
 		this.operationRenamed = false;
-		if(!removedOperation.getName().equals(addedOperation.getName()))
+		if(!removedOperation.getJavadoc().getName(this).equals(addedOperation.getJavadoc().getName(this)))
 			operationRenamed = true;
 		if(!removedOperation.getVisibility().equals(addedOperation.getVisibility()))
 			visibilityChanged = true;
@@ -200,7 +200,7 @@ public class UMLOperationDiff {
 		if(!isEmpty())
 			sb.append("\t").append(removedOperation).append("\n");
 		if(operationRenamed)
-			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
+			sb.append("\t").append("renamed from " + removedOperation.getJavadoc().getName(this) + " to " + addedOperation.getJavadoc().getName(this)).append("\n");
 		if(visibilityChanged)
 			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility() + " to " + addedOperation.getVisibility()).append("\n");
 		if(abstractionChanged)
