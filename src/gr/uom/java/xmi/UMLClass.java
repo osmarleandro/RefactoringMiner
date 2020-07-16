@@ -15,7 +15,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private String sourceFile;
     private String sourceFolder;
     private String visibility;
-	private boolean isAbstract;
+	boolean isAbstract;
 	private boolean isInterface;
 	private boolean isEnum;
 	private boolean topLevel;
@@ -156,11 +156,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return isAbstract;
 	}
 
-	public void setAbstract(boolean isAbstract) {
-		this.isAbstract = isAbstract;
-	}
-
-    public UMLType getSuperclass() {
+	public UMLType getSuperclass() {
 		return superclass;
 	}
 

@@ -365,7 +365,7 @@ public class UMLModelASTReader {
 	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
 		int modifiers = typeDeclaration.getModifiers();
     	if((modifiers & Modifier.ABSTRACT) != 0)
-    		umlClass.setAbstract(true);
+    		umlClass.getJavadoc().setAbstract(this, true);
     	
     	if((modifiers & Modifier.PUBLIC) != 0)
     		umlClass.setVisibility("public");

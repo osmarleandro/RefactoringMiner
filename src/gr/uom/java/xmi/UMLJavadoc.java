@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setAbstract(UMLClass umlClass, boolean isAbstract) {
+		umlClass.isAbstract = isAbstract;
+	}
 }
