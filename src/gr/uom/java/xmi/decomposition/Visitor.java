@@ -277,7 +277,7 @@ public class Visitor extends ASTVisitor {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
+			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getLocationInfo().getAstNode(this))) {
 				parentNode = currentNode;
 				break;
 			}
@@ -297,7 +297,7 @@ public class Visitor extends ASTVisitor {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
+			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getLocationInfo().getAstNode(this))) {
 				parentNode = currentNode;
 				break;
 			}
@@ -312,7 +312,7 @@ public class Visitor extends ASTVisitor {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && currentAnonymous.getAstNode().equals(anonymous)) {
+			if(currentAnonymous != null && currentAnonymous.getLocationInfo().getAstNode(this).equals(anonymous)) {
 				return currentNode;
 			}
 		}
