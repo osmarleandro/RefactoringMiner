@@ -37,11 +37,11 @@ public class MoveOperationRefactoring implements Refactoring {
 		sb.append(getName()).append("\t");
 		sb.append(originalOperation);
 		sb.append(" from class ");
-		sb.append(originalOperation.getClassName());
+		sb.append(originalOperation.getJavadoc().getClassName(this));
 		sb.append(" to ");
 		sb.append(movedOperation);
 		sb.append(" from class ");
-		sb.append(movedOperation.getClassName());
+		sb.append(movedOperation.getJavadoc().getClassName(this));
 		return sb.toString();
 	}
 
@@ -87,8 +87,8 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	public boolean compatibleWith(MoveAttributeRefactoring ref) {
-		if(ref.getMovedAttribute().getClassName().equals(this.movedOperation.getClassName()) &&
-				ref.getOriginalAttribute().getClassName().equals(this.originalOperation.getClassName())) {
+		if(ref.getMovedAttribute().getClassName().equals(this.movedOperation.getJavadoc().getClassName(this)) &&
+				ref.getOriginalAttribute().getClassName().equals(this.originalOperation.getJavadoc().getClassName(this))) {
 			List<String> originalOperationVariables = this.originalOperation.getAllVariables();
 			List<String> movedOperationVariables = this.movedOperation.getAllVariables();
 			return originalOperationVariables.contains(ref.getOriginalAttribute().getName()) &&
@@ -99,13 +99,13 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedOperation().getLocationInfo().getFilePath(), getMovedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedOperation().getLocationInfo().getFilePath(), getMovedOperation().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 

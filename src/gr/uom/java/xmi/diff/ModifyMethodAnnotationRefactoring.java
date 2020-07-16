@@ -79,14 +79,14 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
@@ -99,7 +99,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		sb.append(" in method ");
 		sb.append(operationAfter);
 		sb.append(" from class ");
-		sb.append(operationAfter.getClassName());
+		sb.append(operationAfter.getJavadoc().getClassName(this));
 		return sb.toString();
 	}
 	@Override
