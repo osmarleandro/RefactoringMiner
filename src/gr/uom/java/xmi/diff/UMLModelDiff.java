@@ -2481,7 +2481,7 @@ public class UMLModelDiff {
 	   for(Refactoring refactoring : refactorings) {
 		   if(refactoring instanceof MoveOperationRefactoring) {
 			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
-			   if(moveRefactoring.getOriginalOperation().equals(removedOperation)) {
+			   if(moveRefactoring.getBodyMapper().getOriginalOperation(this).equals(removedOperation)) {
 				   return true;
 			   }
 		   }
