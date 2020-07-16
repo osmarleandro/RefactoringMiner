@@ -411,7 +411,7 @@ public class UMLModelASTReader {
 			umlOperation.setAbstract(true);
 		
 		if((methodModifiers & Modifier.FINAL) != 0)
-			umlOperation.setFinal(true);
+			umlOperation.getJavadoc().setFinal(this, true);
 		
 		if((methodModifiers & Modifier.STATIC) != 0)
 			umlOperation.setStatic(true);
