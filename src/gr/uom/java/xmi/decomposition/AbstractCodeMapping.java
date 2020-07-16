@@ -24,7 +24,7 @@ public abstract class AbstractCodeMapping {
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<Replacement> replacements;
+	Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
@@ -118,14 +118,6 @@ public abstract class AbstractCodeMapping {
 			}
 		}
 		return false;
-	}
-
-	public Set<ReplacementType> getReplacementTypes() {
-		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
-		for(Replacement replacement : replacements) {
-			types.add(replacement.getType());
-		}
-		return types;
 	}
 
 	public String toString() {

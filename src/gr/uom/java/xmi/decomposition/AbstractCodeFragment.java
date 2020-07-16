@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +10,8 @@ import java.util.regex.Pattern;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +306,13 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	public Set<ReplacementType> getReplacementTypes(AbstractCodeMapping abstractCodeMapping) {
+		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
+		for(Replacement replacement : abstractCodeMapping.replacements) {
+			types.add(replacement.getType());
+		}
+		return types;
 	}
 }

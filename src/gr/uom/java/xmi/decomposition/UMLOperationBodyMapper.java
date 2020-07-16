@@ -1363,13 +1363,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Set<LeafMapping> mappingsWithSameReplacementTypes = new LinkedHashSet<LeafMapping>();
 				for(LeafMapping mapping : variableDeclarationMappings) {
 					if(replacementTypes == null) {
-						replacementTypes = mapping.getReplacementTypes();
+						replacementTypes = mapping.getFragment1().getReplacementTypes(this);
 						mappingsWithSameReplacementTypes.add(mapping);
 					}
-					else if(mapping.getReplacementTypes().equals(replacementTypes)) {
+					else if(mapping.getFragment1().getReplacementTypes(this).equals(replacementTypes)) {
 						mappingsWithSameReplacementTypes.add(mapping);
 					}
-					else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
+					else if(mapping.getFragment1().getReplacementTypes(this).containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getFragment1().getReplacementTypes(this))) {
 						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
 						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
 						if(invocation1 != null && invocation2 != null) {
