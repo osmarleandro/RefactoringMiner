@@ -6,8 +6,8 @@ public class UMLOperationBodyMapperComparator implements Comparator<UMLOperation
 
 	@Override
 	public int compare(UMLOperationBodyMapper o1, UMLOperationBodyMapper o2) {
-		int thisOperationNameEditDistance = o1.operationNameEditDistance();
-		int otherOperationNameEditDistance = o2.operationNameEditDistance();
+		int thisOperationNameEditDistance = o1.getCallSiteOperation().operationNameEditDistance(this);
+		int otherOperationNameEditDistance = o2.getCallSiteOperation().operationNameEditDistance(this);
 		if(thisOperationNameEditDistance != otherOperationNameEditDistance)
 			return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
 		else
