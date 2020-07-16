@@ -26,7 +26,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
@@ -81,10 +81,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
 		String targetClassName = getSourceOperationAfterExtraction().getClassName();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
-	}
-
-	public UMLOperationBodyMapper getBodyMapper() {
-		return bodyMapper;
 	}
 
 	public UMLOperation getExtractedOperation() {
