@@ -235,10 +235,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return originalClass.getName();
 	}
 
-	public String getNextClassName() {
-		return nextClass.getName();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
@@ -486,7 +482,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
 			for(CandidateMergeVariableRefactoring candidate : set) {
 				if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-					MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), set);
+					MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), modelDiff.getNextClassName(this), set);
 					if(!refactorings.contains(ref)) {
 						refactorings.add(ref);
 						break;//it's not necessary to repeat the same process for all candidates in the set
@@ -513,7 +509,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Set<CandidateSplitVariableRefactoring> set = splitMap.get(split);
 			for(CandidateSplitVariableRefactoring candidate : set) {
 				if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
-					SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), set);
+					SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), modelDiff.getNextClassName(this), set);
 					if(!refactorings.contains(ref)) {
 						refactorings.add(ref);
 						break;//it's not necessary to repeat the same process for all candidates in the set
@@ -739,7 +735,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							UMLAttribute a2 = findAttributeInNextClass(renamedAttributeName);
 							if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring>());
+								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), modelDiff.getNextClassName(this), new LinkedHashSet<CandidateMergeVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);
 								}
@@ -785,7 +781,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							UMLAttribute a1 = findAttributeInOriginalClass(originalAttributeName);
 							if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
-								SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateSplitVariableRefactoring>());
+								SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), modelDiff.getNextClassName(this), new LinkedHashSet<CandidateSplitVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);
 								}
