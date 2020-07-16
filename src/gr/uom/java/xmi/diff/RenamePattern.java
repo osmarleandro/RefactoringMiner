@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.List;
+
 public class RenamePattern {
 	private String before;
 	private String after;
@@ -41,5 +43,9 @@ public class RenamePattern {
 	
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
+	}
+
+	public List<MoveClassRefactoring> getMoveClassRefactorings(RenamePackageRefactoring renamePackageRefactoring) {
+		return renamePackageRefactoring.moveClassRefactorings;
 	}
 }
