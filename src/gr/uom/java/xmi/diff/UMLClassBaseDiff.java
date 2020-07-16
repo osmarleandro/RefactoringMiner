@@ -814,7 +814,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
 				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
-				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
+				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().getOldAttribute().equals(a1.getVariableDeclaration())) {
 					return true;
 				}
 			}
