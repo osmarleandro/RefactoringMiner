@@ -44,8 +44,8 @@ public class UMLAnnotationDiff {
 		else if(value1 == null && value2 != null) {
 			valueAdded  = true;
 		}
-		Map<String, AbstractExpression> memberValuePairs1 = removedAnnotation.getMemberValuePairs();
-		Map<String, AbstractExpression> memberValuePairs2 = addedAnnotation.getMemberValuePairs();
+		Map<String, AbstractExpression> memberValuePairs1 = removedAnnotation.getLocationInfo().getMemberValuePairs(this);
+		Map<String, AbstractExpression> memberValuePairs2 = addedAnnotation.getLocationInfo().getMemberValuePairs(this);
 		if(!memberValuePairs1.isEmpty() || !memberValuePairs2.isEmpty()) {
 			for(String key1 : memberValuePairs1.keySet()) {
 				if(memberValuePairs2.containsKey(key1)) {

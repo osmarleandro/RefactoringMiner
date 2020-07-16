@@ -19,7 +19,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
 	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -44,10 +44,6 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 
 	public AbstractExpression getValue() {
 		return value;
-	}
-
-	public Map<String, AbstractExpression> getMemberValuePairs() {
-		return memberValuePairs;
 	}
 
 	public boolean isMarkerAnnotation() {
