@@ -11,7 +11,7 @@ import gr.uom.java.xmi.decomposition.AbstractExpression;
 
 public class UMLAnnotationDiff {
 	private UMLAnnotation removedAnnotation;
-	private UMLAnnotation addedAnnotation;
+	public UMLAnnotation addedAnnotation;
 	private boolean typeNameChanged = false;
 	private boolean valueChanged = false;
 	private boolean valueRemoved = false;
@@ -74,10 +74,6 @@ public class UMLAnnotationDiff {
 	
 	public UMLAnnotation getRemovedAnnotation() {
 		return removedAnnotation;
-	}
-
-	public UMLAnnotation getAddedAnnotation() {
-		return addedAnnotation;
 	}
 
 	public boolean isEmpty() {
