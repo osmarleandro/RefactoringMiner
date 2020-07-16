@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean isConstructor(UMLOperation umlOperation) {
+		return umlOperation.isConstructor;
+	}
 }

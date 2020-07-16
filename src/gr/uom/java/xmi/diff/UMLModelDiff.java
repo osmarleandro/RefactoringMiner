@@ -1008,7 +1008,7 @@ public class UMLModelDiff {
    private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
 	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
-		   if(!operation.isConstructor() && !operation.overridesObject()) {
+		   if(!operation.getJavadoc().isConstructor(this) && !operation.overridesObject()) {
 			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
 				   commonOperations.add(operation);
 			   }
@@ -2122,19 +2122,19 @@ public class UMLModelDiff {
 	            		  // Methods in the same class with similar body but different signature
 	            	  }
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PullUpOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
@@ -2207,19 +2207,19 @@ public class UMLModelDiff {
 	            		  // Methods in the same class with similar body but different signature
 	            	  }
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PullUpOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
-	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
+	               else if(removedOperation.getJavadoc().isConstructor(this) == addedOperation.getJavadoc().isConstructor(this) &&
 	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
@@ -2370,7 +2370,7 @@ public class UMLModelDiff {
 			   return false;
 		   }
 	   }
-	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.mappingsWithoutBlocks() > 0) {
+	   if((removedOperation.getJavadoc().isConstructor(this) || addedOperation.getJavadoc().isConstructor(this)) && mapper.mappingsWithoutBlocks() > 0) {
 		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2() == 0)) {
 			   return false;
 		   }

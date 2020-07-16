@@ -174,7 +174,7 @@ public abstract class UMLAbstractClass {
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
 		for(UMLOperation operation : operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
+			if(!operation.getJavadoc().isConstructor(this) && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameName(operation)) {
 	    			commonOperations.add(operation);
@@ -182,7 +182,7 @@ public abstract class UMLAbstractClass {
 			}
 		}
 		for(UMLOperation operation : umlClass.operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
+			if(!operation.getJavadoc().isConstructor(this) && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(this.containsOperationWithTheSameName(operation)) {
 	    			commonOperations.add(operation);
@@ -231,7 +231,7 @@ public abstract class UMLAbstractClass {
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
 		for(UMLOperation operation : operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
+			if(!operation.getJavadoc().isConstructor(this) && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
 	    				(pattern != null && umlClass.containsOperationWithTheSameRenamePattern(operation, pattern.reverse()))) {
@@ -240,7 +240,7 @@ public abstract class UMLAbstractClass {
 			}
 		}
 		for(UMLOperation operation : umlClass.operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
+			if(!operation.getJavadoc().isConstructor(this) && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
 	    				(pattern != null && this.containsOperationWithTheSameRenamePattern(operation, pattern))) {
