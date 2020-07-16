@@ -1,12 +1,19 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.diff.ChangeAttributeTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLAttributeDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.refactoringminer.api.Refactoring;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +177,16 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public Set<Refactoring> getRefactorings(UMLAttributeDiff umlAttributeDiff) {
+		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+		if(umlAttributeDiff.isTypeChanged() || umlAttributeDiff.isQualifiedTypeChanged()) {
+			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(umlAttributeDiff.removedAttribute.getVariableDeclaration(), getVariableDeclaration(), umlAttributeDiff.removedAttribute.getClassName(), getClassName(),
+					VariableReferenceExtractor.findReferences(umlAttributeDiff.removedAttribute.getVariableDeclaration(), getVariableDeclaration(), umlAttributeDiff.operationBodyMapperList));
+			refactorings.add(ref);
+		}
+		refactorings.addAll(umlAttributeDiff.getAnnotationRefactorings());
+		return refactorings;
 	}
 }
