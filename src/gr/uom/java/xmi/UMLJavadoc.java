@@ -35,4 +35,14 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean hasTwoParametersWithTheSameType(UMLOperation umlOperation) {
+		List<UMLType> parameterTypes = umlOperation.getParameterTypeList();
+		if(parameterTypes.size() == 2) {
+			if(parameterTypes.get(0).equals(parameterTypes.get(1))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
