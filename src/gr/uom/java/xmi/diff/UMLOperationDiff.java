@@ -5,7 +5,6 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
-import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
@@ -16,21 +15,19 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.refactoringminer.api.Refactoring;
-
 public class UMLOperationDiff {
-	private UMLOperation removedOperation;
-	private UMLOperation addedOperation;
+	public UMLOperation removedOperation;
+	public UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
 	private boolean visibilityChanged;
 	private boolean abstractionChanged;
-	private boolean returnTypeChanged;
-	private boolean qualifiedReturnTypeChanged;
+	public boolean returnTypeChanged;
+	public boolean qualifiedReturnTypeChanged;
 	private boolean operationRenamed;
-	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-	private UMLAnnotationListDiff annotationListDiff;
+	public Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
+	public UMLAnnotationListDiff annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
 		this.removedOperation = removedOperation;
@@ -229,51 +226,7 @@ public class UMLOperationDiff {
 		return sb.toString();
 	}
 
-	public Set<Refactoring> getRefactorings() {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		if(returnTypeChanged || qualifiedReturnTypeChanged) {
-			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
-			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
-			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
-				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
-				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
-						removedOperation, addedOperation, references);
-				refactorings.add(refactoring);
-			}
-		}
-		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
-			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
-			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
-			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
-			RenameVariableRefactoring renameRefactoring = null;
-			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
-				renameRefactoring = new RenameVariableRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
-				refactorings.add(renameRefactoring);
-			}
-			if((parameterDiff.isTypeChanged() || parameterDiff.isQualifiedTypeChanged()) && !inconsistentReplacement(originalVariable, newVariable)) {
-				ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
-				if(renameRefactoring != null) {
-					refactoring.addRelatedRefactoring(renameRefactoring);
-				}
-				refactorings.add(refactoring);
-			}
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			AddMethodAnnotationRefactoring refactoring = new AddMethodAnnotationRefactoring(annotation, removedOperation, addedOperation);
-			refactorings.add(refactoring);
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			RemoveMethodAnnotationRefactoring refactoring = new RemoveMethodAnnotationRefactoring(annotation, removedOperation, addedOperation);
-			refactorings.add(refactoring);
-		}
-		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			ModifyMethodAnnotationRefactoring refactoring = new ModifyMethodAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), removedOperation, addedOperation);
-			refactorings.add(refactoring);
-		}
-		return refactorings;
-	}
-	
-	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
+	public boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
