@@ -604,7 +604,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				refactorings.add(refactoring);
 			}
 		}
-		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
+		for(CandidateAttributeRefactoring candidate : mapper.getCallSiteOperation().getCandidateAttributeRenames(this)) {
 			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
 				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
