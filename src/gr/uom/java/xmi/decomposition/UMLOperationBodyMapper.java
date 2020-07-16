@@ -49,7 +49,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
+	public UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
@@ -444,7 +444,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				addedLeaves1.add(statement);
 			}
 			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getCallSiteOperation().getOperation1(this).getAnonymousClassList();
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -599,10 +599,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
-	}
-
-	public UMLOperation getOperation1() {
-		return operation1;
 	}
 
 	public UMLOperation getOperation2() {
