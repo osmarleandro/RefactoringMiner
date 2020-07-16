@@ -8,6 +8,8 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
@@ -202,5 +204,15 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	public Replacement makeReplacementWithTernaryOnTheRight(TernaryOperatorExpression ternaryOperatorExpression, String statement) {
+		if(ternaryOperatorExpression.getElseExpression().getString().equals(statement)) {
+			return new Replacement(statement, ternaryOperatorExpression.getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
+		}
+		if(ternaryOperatorExpression.getThenExpression().getString().equals(statement)) {
+			return new Replacement(statement, ternaryOperatorExpression.getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
+		}
+		return null;
 	}
 }
