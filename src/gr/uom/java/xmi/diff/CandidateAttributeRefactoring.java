@@ -12,7 +12,7 @@ public class CandidateAttributeRefactoring {
 	private String renamedVariableName;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> attributeReferences;
+	public Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
 	private UMLAttribute originalAttribute;
@@ -45,10 +45,6 @@ public class CandidateAttributeRefactoring {
 
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
-	}
-
-	public Set<AbstractCodeMapping> getAttributeReferences() {
-		return attributeReferences;
 	}
 
 	public int getOccurrences() {
