@@ -13,7 +13,7 @@ public class CandidateAttributeRefactoring {
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
-	private VariableDeclaration originalVariableDeclaration;
+	public VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
 	private UMLAttribute originalAttribute;
 	private UMLAttribute renamedAttribute;
@@ -53,10 +53,6 @@ public class CandidateAttributeRefactoring {
 
 	public int getOccurrences() {
 		return attributeReferences.size();
-	}
-
-	public VariableDeclaration getOriginalVariableDeclaration() {
-		return originalVariableDeclaration;
 	}
 
 	public void setOriginalVariableDeclaration(VariableDeclaration originalVariableDeclaration) {
