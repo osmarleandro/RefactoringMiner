@@ -892,14 +892,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
 	}
 
-	public Set<Replacement> getReplacements() {
-		Set<Replacement> replacements = new LinkedHashSet<Replacement>();
-		for(AbstractCodeMapping mapping : getMappings()) {
-			replacements.addAll(mapping.getReplacements());
-		}
-		return replacements;
-	}
-
 	public Set<Replacement> getReplacementsInvolvingMethodInvocation() {
 		Set<Replacement> replacements = new LinkedHashSet<Replacement>();
 		for(AbstractCodeMapping mapping : getMappings()) {

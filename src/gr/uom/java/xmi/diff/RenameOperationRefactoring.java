@@ -23,7 +23,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		this.bodyMapper = bodyMapper;
 		this.originalOperation = bodyMapper.getOperation1();
 		this.renamedOperation = bodyMapper.getOperation2();
-		this.replacements = bodyMapper.getReplacements();
+		this.replacements = bodyMapper.getCallSiteOperation().getReplacements(this);
 	}
 
 	public RenameOperationRefactoring(UMLOperation originalOperation, UMLOperation renamedOperation) {
