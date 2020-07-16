@@ -67,10 +67,10 @@ public class VariableReplacementAnalysis {
 		this.operation1 = mapper.getOperation1();
 		this.operation2 = mapper.getOperation2();
 		this.childMappers = new ArrayList<UMLOperationBodyMapper>();
-		this.childMappers.addAll(mapper.getChildMappers());
+		this.childMappers.addAll(mapper.getCallSiteOperation().getChildMappers(this));
 		UMLOperationBodyMapper parentMapper = mapper.getParentMapper();
 		if(parentMapper != null) {
-			this.childMappers.addAll(parentMapper.getChildMappers());
+			this.childMappers.addAll(parentMapper.getCallSiteOperation().getChildMappers(this));
 		}
 		this.refactorings = refactorings;
 		this.callSiteOperation = mapper.getCallSiteOperation();

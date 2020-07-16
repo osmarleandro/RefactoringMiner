@@ -692,7 +692,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						candidateMapper = mapper;
 						break;
 					}
-					for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
+					for(UMLOperationBodyMapper nestedMapper : mapper.getCallSiteOperation().getChildMappers(this)) {
 						if(nestedMapper.getMappings().containsAll(candidate.getAttributeReferences())) {
 							candidateMapper = nestedMapper;
 							break;
@@ -938,7 +938,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperationBodyMapper mapper : this.operationBodyMapperList) {
 			List<String> allVariables1 = mapper.getOperation1().getAllVariables();
 			List<String> allVariables2 = mapper.getOperation2().getAllVariables();
-			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
+			for(UMLOperationBodyMapper nestedMapper : mapper.getCallSiteOperation().getChildMappers(this)) {
 				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
 				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
 			}
@@ -1570,7 +1570,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
-		if(mapper.getChildMappers().size() > 1) {
+		if(mapper.getCallSiteOperation().getChildMappers(this).size() > 1) {
 			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
 			for(Refactoring r : refactorings) {
 				if(r instanceof RenameVariableRefactoring) {
@@ -1579,7 +1579,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					for(AbstractCodeMapping reference : references) {
 						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
 							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
-							for(UMLOperationBodyMapper childMapper : mapper.getChildMappers()) {
+							for(UMLOperationBodyMapper childMapper : mapper.getCallSiteOperation().getChildMappers(this)) {
 								for(AbstractCodeMapping mapping : childMapper.getMappings()) {
 									if(mapping.getFragment1().equals(reference.getFragment1())) {
 										allMappingsForReference.add(mapping);

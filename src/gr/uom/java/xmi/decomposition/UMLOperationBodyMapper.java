@@ -60,7 +60,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
+	public List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
 	private UMLOperationBodyMapper parentMapper;
 	private static final Pattern SPLIT_CONDITIONAL_PATTERN = Pattern.compile("(\\|\\|)|(&&)|(\\?)|(:)");
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
@@ -208,10 +208,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.childMappers.add(mapper);
 		//TODO add logic to remove the mappings from "this" mapper,
 		//which are less similar than the mappings of the mapper passed as parameter
-	}
-
-	public List<UMLOperationBodyMapper> getChildMappers() {
-		return childMappers;
 	}
 
 	public UMLOperationBodyMapper getParentMapper() {
