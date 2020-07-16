@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -212,10 +212,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public void addParameter(UMLParameter parameter) {
 		this.parameters.add(parameter);
-	}
-
-	public List<UMLParameter> getParameters() {
-		return parameters;
 	}
 
 	public void addAnonymousClass(UMLAnonymousClass anonymous) {
@@ -663,7 +659,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalParameters(UMLOperation operation) {
-		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
+		return this.equalReturnParameter(operation) && this.getJavadoc().getParameters(this).equals(operation.getJavadoc().getParameters(this));
 	}
 
 	public boolean equalParameterTypes(UMLOperation operation) {
@@ -680,7 +676,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean overloadedParameters(UMLOperation operation) {
 		return this.equalReturnParameter(operation) &&
-				(this.getParameters().containsAll(operation.getParameters()) || operation.getParameters().containsAll(this.getParameters()));
+				(this.getJavadoc().getParameters(this).containsAll(operation.getJavadoc().getParameters(this)) || operation.getJavadoc().getParameters(this).containsAll(this.getJavadoc().getParameters(this)));
 	}
 
 	public boolean overloadedParameterTypes(UMLOperation operation) {

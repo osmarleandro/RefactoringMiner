@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<UMLParameter> getParameters(UMLOperation umlOperation) {
+		return umlOperation.parameters;
+	}
 }
