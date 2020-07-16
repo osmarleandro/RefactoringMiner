@@ -68,12 +68,12 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void processOperations() {
-		for(UMLOperation operation : originalClass.getOperations()) {
-    		if(!nextClass.getOperations().contains(operation))
+		for(UMLOperation operation : originalClass.getLocationInfo().getOperations(this)) {
+    		if(!nextClass.getLocationInfo().getOperations(this).contains(operation))
     			this.reportRemovedOperation(operation);
     	}
-    	for(UMLOperation operation : nextClass.getOperations()) {
-    		if(!originalClass.getOperations().contains(operation))
+    	for(UMLOperation operation : nextClass.getLocationInfo().getOperations(this)) {
+    		if(!originalClass.getLocationInfo().getOperations(this).contains(operation))
     			this.reportAddedOperation(operation);
     	}
 	}
@@ -90,8 +90,8 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
-		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			for(UMLOperation nextOperation : nextClass.getOperations()) {
+		for(UMLOperation originalOperation : originalClass.getLocationInfo().getOperations(this)) {
+			for(UMLOperation nextOperation : nextClass.getLocationInfo().getOperations(this)) {
 				if(originalOperation.equalsQualified(nextOperation)) {
 					if(getModelDiff() != null) {
 						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
@@ -113,20 +113,20 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 				}
 			}
 		}
-		for(UMLOperation operation : originalClass.getOperations()) {
-			if(!containsMapperForOperation(operation) && nextClass.getOperations().contains(operation) && !removedOperations.contains(operation)) {
-    			int index = nextClass.getOperations().indexOf(operation);
-    			int lastIndex = nextClass.getOperations().lastIndexOf(operation);
+		for(UMLOperation operation : originalClass.getLocationInfo().getOperations(this)) {
+			if(!containsMapperForOperation(operation) && nextClass.getLocationInfo().getOperations(this).contains(operation) && !removedOperations.contains(operation)) {
+    			int index = nextClass.getLocationInfo().getOperations(this).indexOf(operation);
+    			int lastIndex = nextClass.getLocationInfo().getOperations(this).lastIndexOf(operation);
     			int finalIndex = index;
     			if(index != lastIndex) {
-    				double d1 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getOperations().get(index).getReturnParameter().getType());
-    				double d2 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getOperations().get(lastIndex).getReturnParameter().getType());
+    				double d1 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getLocationInfo().getOperations(this).get(index).getReturnParameter().getType());
+    				double d2 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getLocationInfo().getOperations(this).get(lastIndex).getReturnParameter().getType());
     				if(d2 < d1) {
     					finalIndex = lastIndex;
     				}
     			}
-    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(operation, nextClass.getOperations().get(finalIndex), this);
-    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(operation, nextClass.getOperations().get(finalIndex), operationBodyMapper.getMappings());
+    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(operation, nextClass.getLocationInfo().getOperations(this).get(finalIndex), this);
+    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(operation, nextClass.getLocationInfo().getOperations(this).get(finalIndex), operationBodyMapper.getMappings());
     			refactorings.addAll(operationSignatureDiff.getRefactorings());
     			this.addOperationBodyMapper(operationBodyMapper);
     		}
