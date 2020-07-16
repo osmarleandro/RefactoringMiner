@@ -12,15 +12,15 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
-	private UMLAttribute removedAttribute;
-	private UMLAttribute addedAttribute;
+	public UMLAttribute removedAttribute;
+	public UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
 	private boolean renamed;
 	private boolean staticChanged;
 	private boolean finalChanged;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	public List<UMLOperationBodyMapper> operationBodyMapperList;
 	private UMLAnnotationListDiff annotationListDiff;
 
 	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
@@ -103,7 +103,7 @@ public class UMLAttributeDiff {
 		return sb.toString();
 	}
 
-	private Set<Refactoring> getAnnotationRefactorings() {
+	public Set<Refactoring> getAnnotationRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
 			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
@@ -126,25 +126,6 @@ public class UMLAttributeDiff {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
-		}
-		refactorings.addAll(getAnnotationRefactorings());
-		return refactorings;
-	}
-	
-	public Set<Refactoring> getRefactorings(Set<CandidateAttributeRefactoring> set) {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		RenameAttributeRefactoring rename = null;
-		if(isRenamed()) {
-			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
-			refactorings.add(rename);
-		}
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
-			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
-					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
-			refactorings.add(ref);
-			if(rename != null) {
-				ref.addRelatedRefactoring(rename);
-			}
 		}
 		refactorings.addAll(getAnnotationRefactorings());
 		return refactorings;

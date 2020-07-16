@@ -1368,7 +1368,7 @@ public class UMLModelDiff {
 								!diff.getNextClass().containsAttributeWithName(pattern.getBefore()) &&
 								!attributeMerged(a1, a2, refactorings)) {
 						 UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, diff.getOperationBodyMapperList());
-						 Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
+						 Set<Refactoring> attributeDiffRefactorings = attributeDiff.getAddedAttribute().getRefactorings(this, set);
 						 if(!refactorings.containsAll(attributeDiffRefactorings)) {
 							 refactorings.addAll(attributeDiffRefactorings);
 							 break;//it's not necessary to repeat the same process for all candidates in the set
