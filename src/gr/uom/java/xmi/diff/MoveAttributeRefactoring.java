@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
+	public UMLAttribute originalAttribute;
 	protected UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
@@ -24,7 +24,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
-		sb.append(getOriginalAttribute().toQualifiedString());
+		sb.append(movedAttribute.getOriginalAttribute(this).toQualifiedString());
 		sb.append(" from class ");
 		sb.append(getSourceClassName());
 		sb.append(" to ");
@@ -40,10 +40,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MOVE_ATTRIBUTE;
-	}
-
-	public UMLAttribute getOriginalAttribute() {
-		return originalAttribute;
 	}
 
 	public UMLAttribute getMovedAttribute() {
@@ -101,7 +97,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getOriginalAttribute().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(movedAttribute.getOriginalAttribute(this).getLocationInfo().getFilePath(), movedAttribute.getOriginalAttribute(this).getClassName()));
 		return pairs;
 	}
 
