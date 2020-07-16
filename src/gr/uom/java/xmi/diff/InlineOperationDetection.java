@@ -144,7 +144,7 @@ public class InlineOperationDetection {
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
-				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
+				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
 	}
 

@@ -111,7 +111,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted attribute"));
+			ranges.add(mapping.getFragment1().getFragment1().codeRange().setDescription("statement with the initializer of the extracted attribute"));
 		}
 		return ranges;
 	}

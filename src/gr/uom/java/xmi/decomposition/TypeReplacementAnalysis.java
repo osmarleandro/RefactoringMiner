@@ -24,7 +24,7 @@ public class TypeReplacementAnalysis {
 
 	private void findTypeChanges() {
 		for(AbstractCodeMapping mapping : mappings) {
-			AbstractCodeFragment fragment1 = mapping.getFragment1();
+			AbstractCodeFragment fragment1 = mapping.getFragment1().getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
