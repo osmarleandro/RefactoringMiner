@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
@@ -202,5 +203,9 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	public UMLType getType(VariableDeclaration variableDeclaration) {
+		return variableDeclaration.type;
 	}
 }

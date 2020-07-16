@@ -570,8 +570,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 						if(!refactorings.contains(ref)) {
 							refactorings.add(ref);
-							if(!candidate.getOriginalVariableDeclaration().getType().equals(a2.getVariableDeclaration().getType()) ||
-									!candidate.getOriginalVariableDeclaration().getType().equalsQualified(a2.getVariableDeclaration().getType())) {
+							if(!candidate.getOriginalVariableDeclaration().getInitializer().getType(this).equals(a2.getVariableDeclaration().getInitializer().getType(this)) ||
+									!candidate.getOriginalVariableDeclaration().getInitializer().getType(this).equalsQualified(a2.getVariableDeclaration().getInitializer().getType(this))) {
 								ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(),
 										candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 								refactoring.addRelatedRefactoring(ref);
