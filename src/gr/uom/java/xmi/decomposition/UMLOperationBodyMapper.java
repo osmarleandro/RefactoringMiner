@@ -859,7 +859,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private int editDistance() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 				continue;
 			}
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
@@ -875,7 +875,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		double editDistance = 0;
 		double maxLength = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 				continue;
 			}
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
@@ -1179,7 +1179,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
-							if(mapping.isIdenticalWithInlinedVariable()) {
+							if(mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 								break;
 							}
 						}
@@ -1277,7 +1277,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
-							if(mapping.isIdenticalWithInlinedVariable()) {
+							if(mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 								break;
 							}
 						}
@@ -3987,13 +3987,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		int thisMappings = this.mappingsWithoutBlocks();
 		for(AbstractCodeMapping mapping : this.getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 				thisMappings++;
 			}
 		}
 		int otherMappings = operationBodyMapper.mappingsWithoutBlocks();
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.getFragment1().isIdenticalWithInlinedVariable(this)) {
 				otherMappings++;
 			}
 		}
