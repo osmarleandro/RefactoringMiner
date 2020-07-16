@@ -103,7 +103,7 @@ public class RefactoringPopulator {
 		List<Root> roots = getFSERefactorings(flag);
 		
 		for (Root root : roots) {
-			test.project(root.repository, "master").atCommit(root.sha1)
+			test.c.project(test, root.repository, "master").atCommit(root.sha1)
 					.containsOnly(extractRefactorings(root.refactorings));
 		}
 	}

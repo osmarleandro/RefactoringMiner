@@ -30,7 +30,7 @@ public class TestBuilder {
 	private boolean aggregate;
 	private int commitsCount;
 	private int errorCommitsCount;
-	private Counter c;// = new Counter();
+	Counter c;// = new Counter();
 	private Map<RefactoringType, Counter> cMap;
 	private static final int TP = 0;
 	private static final int FP = 1;
@@ -66,6 +66,15 @@ public class TestBuilder {
 
 	private static class Counter {
 		int[] c = new int[5];
+
+		public final ProjectMatcher project(TestBuilder testBuilder, String cloneUrl, String branch) {
+			ProjectMatcher projectMatcher = testBuilder.map.get(cloneUrl);
+			if (projectMatcher == null) {
+				projectMatcher = new ProjectMatcher(cloneUrl, branch);
+				testBuilder.map.put(cloneUrl, projectMatcher);
+			}
+			return projectMatcher;
+		}
 	}
 
 	private void count(int type, String refactoring) {
@@ -89,15 +98,6 @@ public class TestBuilder {
 
 	public TestBuilder() {
 		this(new GitHistoryRefactoringMinerImpl(), "tmp");
-	}
-
-	public final ProjectMatcher project(String cloneUrl, String branch) {
-		ProjectMatcher projectMatcher = this.map.get(cloneUrl);
-		if (projectMatcher == null) {
-			projectMatcher = new ProjectMatcher(cloneUrl, branch);
-			this.map.put(cloneUrl, projectMatcher);
-		}
-		return projectMatcher;
 	}
 
 	public void assertExpectations() throws Exception {
