@@ -2410,7 +2410,7 @@ public class UMLModelDiff {
 			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
-				   if (!oldParameter.getKind().equals("return")
+				   if (!oldParameter.getType().getKind(this).equals("return")
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
@@ -2420,7 +2420,7 @@ public class UMLModelDiff {
 			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
-				   if (!newParameter.getKind().equals("return") &&
+				   if (!newParameter.getType().getKind(this).equals("return") &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
@@ -2451,7 +2451,7 @@ public class UMLModelDiff {
 			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
-				   if (!oldParameter.getKind().equals("return")
+				   if (!oldParameter.getType().getKind(this).equals("return")
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
@@ -2461,7 +2461,7 @@ public class UMLModelDiff {
 			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
-				   if (!newParameter.getKind().equals("return") &&
+				   if (!newParameter.getType().getKind(this).equals("return") &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
