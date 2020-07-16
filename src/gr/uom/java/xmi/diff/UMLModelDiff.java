@@ -1135,7 +1135,7 @@ public class UMLModelDiff {
 	   for(OperationInvocation newInvocation : newInvocations) {
 		   for(UMLOperation operation : addedClass.getOperations()) {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
-					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
+					   newInvocation.matchesOperation(operation, addedOperation.getJavadoc().variableTypeMap(this), this)) {
 				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
 				   List<ExtractOperationRefactoring> refs = detection.check(operation);
 				   this.refactorings.addAll(refs);
@@ -1730,11 +1730,11 @@ public class UMLModelDiff {
 				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 				   for(OperationInvocation invocation : operationInvocations) {
-					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().variableTypeMap(), this)) {
+					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().getJavadoc().variableTypeMap(this), this)) {
 						   removedOperationInvocations.add(invocation);
 					   }
 				   }
-				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
+				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().getJavadoc().variableTypeMap(this), mapper.getOperation2().getAllOperationInvocations())) {
 						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 						List<String> arguments = removedOperationInvocation.getArguments();
 						List<String> parameters = removedOperation.getParameterNameList();
@@ -1810,7 +1810,7 @@ public class UMLModelDiff {
                List<OperationInvocation> operationInvocations = ExtractOperationDetection.getInvocationsInSourceOperationAfterExtraction(mapper);
                List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
                for(OperationInvocation invocation : operationInvocations) {
-                  if(invocation.matchesOperation(addedOperation, mapper.getOperation2().variableTypeMap(), this)) {
+                  if(invocation.matchesOperation(addedOperation, mapper.getOperation2().getJavadoc().variableTypeMap(this), this)) {
                      addedOperationInvocations.add(invocation);
                   }
                }
@@ -1866,7 +1866,7 @@ public class UMLModelDiff {
             	  }
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
                   if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
-                		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
+                		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().getJavadoc().variableTypeMap(this)) &&
                 		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
                 		  //extract inside moved or renamed class
