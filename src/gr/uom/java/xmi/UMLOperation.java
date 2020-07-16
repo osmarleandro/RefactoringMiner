@@ -31,7 +31,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
-	private boolean emptyBody;
+	boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
@@ -109,10 +109,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public void setStatic(boolean isStatic) {
 		this.isStatic = isStatic;
-	}
-
-	public boolean hasEmptyBody() {
-		return emptyBody;
 	}
 
 	public void setEmptyBody(boolean emptyBody) {
@@ -483,8 +479,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalsIgnoringVisibility(UMLOperation operation) {
-		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
-		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+		boolean thisEmptyBody = this.getBody() == null || this.getJavadoc().hasEmptyBody(this);
+		boolean otherEmptyBody = operation.getBody() == null || operation.getJavadoc().hasEmptyBody(this);
 		return this.className.equals(operation.className) &&
 				this.name.equals(operation.name) &&
 				this.isAbstract == operation.isAbstract &&
@@ -495,8 +491,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalsIgnoringNameCase(UMLOperation operation) {
-		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
-		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+		boolean thisEmptyBody = this.getBody() == null || this.getJavadoc().hasEmptyBody(this);
+		boolean otherEmptyBody = operation.getBody() == null || operation.getJavadoc().hasEmptyBody(this);
 		return this.className.equals(operation.className) &&
 				this.name.equalsIgnoreCase(operation.name) &&
 				this.visibility.equals(operation.visibility) &&
@@ -514,8 +510,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		
 		if(o instanceof UMLOperation) {
 			UMLOperation operation = (UMLOperation)o;
-			boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
-			boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+			boolean thisEmptyBody = this.getBody() == null || this.getJavadoc().hasEmptyBody(this);
+			boolean otherEmptyBody = operation.getBody() == null || operation.getJavadoc().hasEmptyBody(this);
 			return this.className.equals(operation.className) &&
 				this.name.equals(operation.name) &&
 				this.visibility.equals(operation.visibility) &&
@@ -560,7 +556,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
+		boolean thisEmptyBody = this.getBody() == null || this.getJavadoc().hasEmptyBody(this);
 		result = prime * result + ((className == null) ? 0 : className.hashCode());
 		result = prime * result + (isAbstract ? 1231 : 1237);
 		result = prime * result + (thisEmptyBody ? 1231 : 1237);

@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean hasEmptyBody(UMLOperation umlOperation) {
+		return umlOperation.emptyBody;
+	}
 }
