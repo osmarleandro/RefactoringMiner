@@ -752,7 +752,7 @@ public class UMLModelDiff {
 		   if(targetClassDiff != null) {
 			   targetSuperclass = targetClassDiff.getSuperclass();
 		   }
-		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
+		   List<UMLAttribute> addedAttributes = sourceClassDiff.getModelDiff().getAddedAttributes(this);
 		   for(UMLAttribute addedAttribute : addedAttributes) {
 			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
 				   count++;
@@ -826,7 +826,7 @@ public class UMLModelDiff {
    private List<UMLAttribute> getAddedAttributesInCommonClasses() {
       List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         addedAttributes.addAll(classDiff.getAddedAttributes());
+         addedAttributes.addAll(classDiff.getModelDiff().getAddedAttributes(this));
       }
       return addedAttributes;
    }
@@ -996,7 +996,7 @@ public class UMLModelDiff {
    }
 
    private UMLAttribute attributeOfExtractedClassType(UMLClass umlClass, UMLClassBaseDiff classDiff) {
-	   List<UMLAttribute> addedAttributes = classDiff.getAddedAttributes();
+	   List<UMLAttribute> addedAttributes = classDiff.getModelDiff().getAddedAttributes(this);
 	   for(UMLAttribute addedAttribute : addedAttributes) {
 		   if(umlClass.getName().endsWith("." + addedAttribute.getType().getClassType())) {
 			   return addedAttribute;
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAttribute> getAddedAttributes(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.addedAttributes;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
