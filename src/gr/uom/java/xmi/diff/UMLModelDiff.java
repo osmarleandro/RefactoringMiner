@@ -793,7 +793,7 @@ public class UMLModelDiff {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
 	   }
 	   if(classDiff != null) {
-		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
+		   return classDiff.nextClassImportsType(targetClassName) || classDiff.getModelDiff().originalClassImportsType(this, targetClassName);
 	   }
 	   UMLClass removedClass = getRemovedClass(sourceClassName);
 	   if(removedClass == null) {
@@ -811,7 +811,7 @@ public class UMLModelDiff {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));
 	   }
 	   if(classDiff != null) {
-		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
+		   return classDiff.getModelDiff().originalClassImportsType(this, sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
 	   }
 	   UMLClass addedClass = getAddedClass(targetClassName);
 	   if(addedClass == null) {
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public boolean originalClassImportsType(UMLClassBaseDiff umlClassBaseDiff, String targetClass) {
+	return umlClassBaseDiff.originalClass.importsType(targetClass);
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
