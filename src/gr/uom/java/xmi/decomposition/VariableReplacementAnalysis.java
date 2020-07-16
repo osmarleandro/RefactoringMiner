@@ -637,7 +637,7 @@ public class VariableReplacementAnalysis {
 			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+					if(parameterDiff.getAddedParameter().getRemovedParameter(this).getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						matchedParameterDiffs.add(parameterDiff);
 						break;
@@ -648,11 +648,11 @@ public class VariableReplacementAnalysis {
 			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+					if(parameterDiff.getAddedParameter().getRemovedParameter(this).getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						keysToBeRemoved.add(vdR);
 					}
-					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+					else if(!parameterDiff.getAddedParameter().getRemovedParameter(this).getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						keysToBeRemoved.add(vdR);
 					}
@@ -1104,7 +1104,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingParameterRenameInOperationDiff(MergeVariableRefactoring ref) {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
-				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
+				if(ref.getMergedVariables().contains(parameterDiff.getAddedParameter().getRemovedParameter(this).getVariableDeclaration()) &&
 						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
 					
@@ -1118,7 +1118,7 @@ public class VariableReplacementAnalysis {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getSplitVariables().contains(parameterDiff.getAddedParameter().getVariableDeclaration()) &&
-						ref.getOldVariable().equals(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
+						ref.getOldVariable().equals(parameterDiff.getAddedParameter().getRemovedParameter(this).getVariableDeclaration())) {
 					return true;
 					
 				}
