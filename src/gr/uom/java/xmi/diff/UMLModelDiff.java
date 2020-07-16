@@ -1573,7 +1573,7 @@ public class UMLModelDiff {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
-					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
+					   if(parameter.getType().getName(this).equals(rename.getOriginalVariable().getVariableName()) &&
 							   parameter.getType().equals(rename.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
@@ -1581,7 +1581,7 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
+					   if(parameter.getType().getName(this).equals(rename.getRenamedVariable().getVariableName()) &&
 							   parameter.getType().equals(rename.getRenamedVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
@@ -1597,7 +1597,7 @@ public class UMLModelDiff {
 				   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
-					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
+					   if(parameter.getType().getName(this).equals(changeType.getOriginalVariable().getVariableName()) &&
 							   parameter.getType().equals(changeType.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
@@ -1605,7 +1605,7 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
+					   if(parameter.getType().getName(this).equals(changeType.getChangedTypeVariable().getVariableName()) &&
 							   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
@@ -2414,7 +2414,7 @@ public class UMLModelDiff {
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
-					   oldParameterNames.add(oldParameter.getName());
+					   oldParameterNames.add(oldParameter.getType().getName(this));
 				   }
 			   }
 			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
@@ -2424,7 +2424,7 @@ public class UMLModelDiff {
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
-					   newParameterNames.add(newParameter.getName());
+					   newParameterNames.add(newParameter.getType().getName(this));
 				   }
 			   }
 			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
@@ -2455,7 +2455,7 @@ public class UMLModelDiff {
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
-					   oldParameterNames.add(oldParameter.getName());
+					   oldParameterNames.add(oldParameter.getType().getName(this));
 				   }
 			   }
 			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
@@ -2465,7 +2465,7 @@ public class UMLModelDiff {
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
-					   newParameterNames.add(newParameter.getName());
+					   newParameterNames.add(newParameter.getType().getName(this));
 				   }
 			   }
 			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);

@@ -180,7 +180,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		Map<String, UMLType> variableTypeMap = new LinkedHashMap<String, UMLType>();
 		for(UMLParameter parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
-				variableTypeMap.put(parameter.getName(), parameter.getType());
+				variableTypeMap.put(parameter.getType().getName(this), parameter.getType());
 		}
 		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
 			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
@@ -391,7 +391,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		List<String> parameterNameList = new ArrayList<String>();
 		for(UMLParameter parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
-				parameterNameList.add(parameter.getName());
+				parameterNameList.add(parameter.getType().getName(this));
 		}
 		return parameterNameList;
 	}

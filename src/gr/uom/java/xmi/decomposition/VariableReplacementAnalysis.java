@@ -527,7 +527,7 @@ public class VariableReplacementAnalysis {
 				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
 				if(operation1.getParameterNameList().contains(value1) && operation2.getParameterNameList().contains(value1) && operationDiff != null) {
 					for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
-						if(addedParameter.getName().equals(value2)) {
+						if(addedParameter.getType().getName(this).equals(value2)) {
 							return true;
 						}
 					}
