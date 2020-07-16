@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
+		return new ArrayList<AnonymousClassDeclarationObject>(getAllAnonymousClassDeclarations());
+	}
 }
