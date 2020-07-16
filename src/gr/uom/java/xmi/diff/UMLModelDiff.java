@@ -1543,7 +1543,7 @@ public class UMLModelDiff {
 			  }
 		  }
 	  }
-	  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
+	  else if(classDiff.getOriginalClass().getJavadoc().isAbstract(this) && classDiff.getNextClass().getJavadoc().isAbstract(this)) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
 				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
