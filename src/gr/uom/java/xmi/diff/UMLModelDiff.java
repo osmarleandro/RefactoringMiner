@@ -834,7 +834,7 @@ public class UMLModelDiff {
    private List<UMLAttribute> getRemovedAttributesInCommonClasses() {
       List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         removedAttributes.addAll(classDiff.getRemovedAttributes());
+         removedAttributes.addAll(classDiff.getModelDiff().getRemovedAttributes(this));
       }
       return removedAttributes;
    }
@@ -1015,7 +1015,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
-	   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
+	   for(UMLAttribute attribute : classDiff.getModelDiff().getRemovedAttributes(this)) {
 		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
 			   commonAttributes.add(attribute);
 		   }
@@ -1107,7 +1107,7 @@ public class UMLModelDiff {
 	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
 		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
 		   if(removedAttribute != null) {
-			   classDiff.getRemovedAttributes().remove(removedAttribute);
+			   classDiff.getModelDiff().getRemovedAttributes(this).remove(removedAttribute);
 			   Refactoring ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAttribute> getRemovedAttributes(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.removedAttributes;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
