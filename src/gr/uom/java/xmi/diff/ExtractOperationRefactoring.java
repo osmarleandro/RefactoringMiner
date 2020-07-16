@@ -229,7 +229,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		for(OperationInvocation invocation : extractedOperationInvocations) {
 			ranges.add(invocation.codeRange()
 					.setDescription("extracted method invocation")
-					.setCodeElement(invocation.actualString()));
+					.setCodeElement(invocation.getLocationInfo().actualString(this)));
 		}
 		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
 			ranges.add(statement.codeRange().
