@@ -1,8 +1,18 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractStatement;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +143,57 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public Map<String, List<OperationInvocation>> getAllMethodInvocations(CompositeStatementObject compositeStatementObject) {
+		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
+		map.putAll(compositeStatementObject.getMethodInvocationMap());
+		for(AbstractStatement statement : compositeStatementObject.statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
+				for(String key : compositeMap.keySet()) {
+					if(map.containsKey(key)) {
+						map.get(key).addAll(compositeMap.get(key));
+					}
+					else {
+						List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+						list.addAll(compositeMap.get(key));
+						map.put(key, list);
+					}
+				}
+			}
+			else if(statement instanceof StatementObject) {
+				StatementObject statementObject = (StatementObject)statement;
+				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap();
+				for(String key : statementMap.keySet()) {
+					if(map.containsKey(key)) {
+						map.get(key).addAll(statementMap.get(key));
+					}
+					else {
+						List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+						list.addAll(statementMap.get(key));
+						map.put(key, list);
+					}
+				}
+				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+					if(lambda.getBody() != null) {
+						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
+						for(String key : lambdaMap.keySet()) {
+							if(map.containsKey(key)) {
+								map.get(key).addAll(lambdaMap.get(key));
+							}
+							else {
+								List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+								list.addAll(lambdaMap.get(key));
+								map.put(key, list);
+							}
+						}
+					}
+				}
+			}
+		}
+		return map;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
