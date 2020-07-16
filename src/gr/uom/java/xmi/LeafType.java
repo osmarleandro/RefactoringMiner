@@ -103,8 +103,8 @@ public class LeafType extends UMLType {
 					leafType.getClassType().startsWith(this.getClassType()) ||
 					this.getClassType().endsWith(leafType.getClassType()) ||
 					leafType.getClassType().endsWith(this.getClassType()) ||
-					this.containsTypeArgument(leafType.getClassType()) ||
-					leafType.containsTypeArgument(this.getClassType()) ||
+					this.getLocationInfo().containsTypeArgument(this, leafType.getClassType()) ||
+					leafType.getLocationInfo().containsTypeArgument(this, this.getClassType()) ||
 					this.commonTokenInClassType(leafType);
 		}
 		return false;
