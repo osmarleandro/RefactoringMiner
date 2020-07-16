@@ -7,6 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +833,41 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public int nonMappedElementsT2CallingAddedOperation(UMLOperationBodyMapper umlOperationBodyMapper, List<UMLOperation> addedOperations) {
+		int nonMappedInnerNodeCount = 0;
+		for(CompositeStatementObject composite : umlOperationBodyMapper.getNonMappedInnerNodesT2()) {
+			if(composite.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : addedOperations) {
+							if(invocation.matchesOperation(operation, umlOperationBodyMapper.operation2.variableTypeMap(), umlOperationBodyMapper.modelDiff)) {
+								nonMappedInnerNodeCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		int nonMappedLeafCount = 0;
+		for(StatementObject statement : umlOperationBodyMapper.getNonMappedLeavesT2()) {
+			if(statement.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : addedOperations) {
+							if(invocation.matchesOperation(operation, umlOperationBodyMapper.operation2.variableTypeMap(), umlOperationBodyMapper.modelDiff)) {
+								nonMappedLeafCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return nonMappedLeafCount + nonMappedInnerNodeCount;
 	}
 }
