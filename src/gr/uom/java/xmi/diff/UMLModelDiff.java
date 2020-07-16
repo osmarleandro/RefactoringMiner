@@ -1134,7 +1134,7 @@ public class UMLModelDiff {
 	   newInvocations.removeAll(intersection);
 	   for(OperationInvocation newInvocation : newInvocations) {
 		   for(UMLOperation operation : addedClass.getOperations()) {
-			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
+			   if(!operation.getJavadoc().isAbstract(this) && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
 				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
 				   List<ExtractOperationRefactoring> refs = detection.check(operation);
@@ -1546,7 +1546,7 @@ public class UMLModelDiff {
 	  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+				  if(removedOperation.getJavadoc().isAbstract(this) && addedOperation.getJavadoc().isAbstract(this)) {
 					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
 					  if(!mappers.isEmpty()) {
 						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
@@ -1943,7 +1943,7 @@ public class UMLModelDiff {
 		   for(UMLOperation operation : addedOperations) {
 			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
 			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
-			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
+			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.getJavadoc().isAbstract(this) && !isInterface) {
 				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
 				   if(newDistance < originalDistance) {
 					   return true;
@@ -2398,7 +2398,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   if(addedOperation.isAbstract() == removedOperation.isAbstract() &&
+	   if(addedOperation.getJavadoc().isAbstract(this) == removedOperation.getJavadoc().isAbstract(this) &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
 		   List<UMLType> addedOperationParameterTypeList = addedOperation.getParameterTypeList();
 		   List<UMLType> removedOperationParameterTypeList = removedOperation.getParameterTypeList();
@@ -2441,7 +2441,7 @@ public class UMLModelDiff {
    private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   if(addedOperation.getName().equals(removedOperation.getName()) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
-			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
+			   addedOperation.getJavadoc().isAbstract(this) == removedOperation.getJavadoc().isAbstract(this) &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
 		   if(addedOperation.getParameters().equals(removedOperation.getParameters())) {
 			   return true;

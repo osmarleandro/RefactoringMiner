@@ -25,7 +25,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private LocationInfo locationInfo;
 	private String name;
 	private String visibility;
-	private boolean isAbstract;
+	boolean isAbstract;
 	private List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
@@ -77,10 +77,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
-	}
-
-	public boolean isAbstract() {
-		return isAbstract;
 	}
 
 	public void setAbstract(boolean isAbstract) {

@@ -46,7 +46,7 @@ public class UMLOperationDiff {
 			operationRenamed = true;
 		if(!removedOperation.getVisibility().equals(addedOperation.getVisibility()))
 			visibilityChanged = true;
-		if(removedOperation.isAbstract() != addedOperation.isAbstract())
+		if(removedOperation.getJavadoc().isAbstract(this) != addedOperation.getJavadoc().isAbstract(this))
 			abstractionChanged = true;
 		if(!removedOperation.equalReturnParameter(addedOperation))
 			returnTypeChanged = true;
@@ -204,8 +204,8 @@ public class UMLOperationDiff {
 		if(visibilityChanged)
 			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility() + " to " + addedOperation.getVisibility()).append("\n");
 		if(abstractionChanged)
-			sb.append("\t").append("abstraction changed from " + (removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
-					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
+			sb.append("\t").append("abstraction changed from " + (removedOperation.getJavadoc().isAbstract(this) ? "abstract" : "concrete") + " to " +
+					(addedOperation.getJavadoc().isAbstract(this) ? "abstract" : "concrete")).append("\n");
 		if(returnTypeChanged || qualifiedReturnTypeChanged)
 			sb.append("\t").append("return type changed from " + removedOperation.getReturnParameter() + " to " + addedOperation.getReturnParameter()).append("\n");
 		for(UMLParameter umlParameter : removedParameters) {
