@@ -15,7 +15,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
 	private UMLType type;
-	private String anonymousClassDeclaration;
+	public String anonymousClassDeclaration;
 	private boolean isArray = false;
 	private volatile int hashCode = 0;
 	
@@ -61,10 +61,6 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean isArray() {
 		return isArray;
-	}
-
-	public String getAnonymousClassDeclaration() {
-		return anonymousClassDeclaration;
 	}
 
 	private ObjectCreation() {
