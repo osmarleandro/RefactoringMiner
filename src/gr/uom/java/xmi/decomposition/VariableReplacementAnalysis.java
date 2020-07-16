@@ -196,7 +196,7 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		for(StatementObject statement : nonMappedLeavesT1) {
-			for(String parameterName : operation2.getParameterNameList()) {
+			for(String parameterName : operation2.getJavadoc().getParameterNameList(this)) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
 					AbstractExpression initializer = variableDeclaration.getInitializer();
@@ -351,7 +351,7 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		for(StatementObject statement : nonMappedLeavesT2) {
-			for(String parameterName : operation1.getParameterNameList()) {
+			for(String parameterName : operation1.getJavadoc().getParameterNameList(this)) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
 					AbstractExpression initializer = variableDeclaration.getInitializer();
@@ -459,7 +459,7 @@ public class VariableReplacementAnalysis {
 				finalConsistentRenames.put(replacement, set);
 			}
 			if(v1 != null && !v1.getKey().isParameter() && v2 != null && v2.getKey().isParameter() && consistencyCheck(v1.getKey(), v2.getKey(), set) &&
-					!operation1.getParameterNameList().contains(v2.getKey().getVariableName())) {
+					!operation1.getJavadoc().getParameterNameList(this).contains(v2.getKey().getVariableName())) {
 				finalConsistentRenames.put(replacement, set);
 			}
 		}
@@ -525,7 +525,7 @@ public class VariableReplacementAnalysis {
 			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
 				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
 				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
-				if(operation1.getParameterNameList().contains(value1) && operation2.getParameterNameList().contains(value1) && operationDiff != null) {
+				if(operation1.getJavadoc().getParameterNameList(this).contains(value1) && operation2.getJavadoc().getParameterNameList(this).contains(value1) && operationDiff != null) {
 					for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
 						if(addedParameter.getName().equals(value2)) {
 							return true;
@@ -1189,13 +1189,13 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean potentialParameterRename(Replacement replacement, Set<AbstractCodeMapping> set) {
-		int index1 = operation1.getParameterNameList().indexOf(replacement.getBefore());
+		int index1 = operation1.getJavadoc().getParameterNameList(this).indexOf(replacement.getBefore());
 		if(index1 == -1 && callSiteOperation != null) {
-			index1 = callSiteOperation.getParameterNameList().indexOf(replacement.getBefore());
+			index1 = callSiteOperation.getJavadoc().getParameterNameList(this).indexOf(replacement.getBefore());
 		}
-		int index2 = operation2.getParameterNameList().indexOf(replacement.getAfter());
+		int index2 = operation2.getJavadoc().getParameterNameList(this).indexOf(replacement.getAfter());
 		if(index2 == -1 && callSiteOperation != null) {
-			index2 = callSiteOperation.getParameterNameList().indexOf(replacement.getAfter());
+			index2 = callSiteOperation.getJavadoc().getParameterNameList(this).indexOf(replacement.getAfter());
 		}
 		if(fieldAssignmentToPreviouslyExistingAttribute(set)) {
 			return false;

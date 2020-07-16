@@ -943,10 +943,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
 			}
 			boolean variables1contains = (allVariables1.contains(pattern.getBefore()) &&
-					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore())) ||
+					!mapper.getOperation1().getJavadoc().getParameterNameList(this).contains(pattern.getBefore())) ||
 					allVariables1.contains("this."+pattern.getBefore());
 			boolean variables2Contains = (allVariables2.contains(pattern.getAfter()) &&
-					!mapper.getOperation2().getParameterNameList().contains(pattern.getAfter())) ||
+					!mapper.getOperation2().getJavadoc().getParameterNameList(this).contains(pattern.getAfter())) ||
 					allVariables2.contains("this."+pattern.getAfter());
 			if(variables1contains && !variables2Contains) {	
 				counter++;
@@ -1165,7 +1165,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 					if(statement.countableStatement()) {
 						nonMappedLeavesT1.add(statement.getString());
-						for(String parameterName : addedOperation.getParameterNameList()) {
+						for(String parameterName : addedOperation.getJavadoc().getParameterNameList(this)) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
 								break;
@@ -1192,7 +1192,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
 					if(statement.countableStatement()) {
-						for(String parameterName : removedOperation.getParameterNameList()) {
+						for(String parameterName : removedOperation.getJavadoc().getParameterNameList(this)) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
 								break;
@@ -1209,7 +1209,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 					if(statement.countableStatement()) {
-						for(String parameterName : removedOperation.getParameterNameList()) {
+						for(String parameterName : removedOperation.getJavadoc().getParameterNameList(this)) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker1 = statement;
@@ -1222,7 +1222,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
 					if(statement.countableStatement()) {
-						for(String parameterName : addedOperation.getParameterNameList()) {
+						for(String parameterName : addedOperation.getJavadoc().getParameterNameList(this)) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker2 = statement;
