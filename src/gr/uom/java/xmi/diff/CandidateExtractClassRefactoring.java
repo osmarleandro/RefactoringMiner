@@ -1,7 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 public class CandidateExtractClassRefactoring {
-	private UMLClassBaseDiff classDiff;
+	UMLClassBaseDiff classDiff;
 	private ExtractClassRefactoring refactoring;
 	
 	public CandidateExtractClassRefactoring(UMLClassBaseDiff classDiff, ExtractClassRefactoring refactoring) {
@@ -11,10 +11,6 @@ public class CandidateExtractClassRefactoring {
 	
 	public boolean innerClassExtract() {
 		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass().getName() + ".");
-	}
-
-	public UMLClassBaseDiff getClassDiff() {
-		return classDiff;
 	}
 
 	public ExtractClassRefactoring getRefactoring() {

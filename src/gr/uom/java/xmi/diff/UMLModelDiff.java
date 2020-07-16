@@ -975,7 +975,7 @@ public class UMLModelDiff {
 			   for(CandidateExtractClassRefactoring candidate : candidates) {
 				   if(candidate.innerClassExtract()) {
 					   innerClassExtract = true;
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   detectSubRefactorings(candidate.getClassDiff().getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
@@ -984,7 +984,7 @@ public class UMLModelDiff {
 			   }
 			   if(!innerClassExtract) {
 				   for(CandidateExtractClassRefactoring candidate : candidates) {
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   detectSubRefactorings(candidate.getClassDiff().getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
