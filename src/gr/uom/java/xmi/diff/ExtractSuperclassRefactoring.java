@@ -13,7 +13,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
-	private Set<UMLClass> subclassSet;
+	public Set<UMLClass> subclassSet;
 	
 	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
 		this.extractedClass = extractedClass;
@@ -42,14 +42,6 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 
 	public UMLClass getExtractedClass() {
 		return extractedClass;
-	}
-
-	public Set<String> getSubclassSet() {
-		Set<String> subclassSet = new LinkedHashSet<String>();
-		for(UMLClass umlClass : this.subclassSet) {
-			subclassSet.add(umlClass.getName());
-		}
-		return subclassSet;
 	}
 
 	public Set<UMLClass> getUMLSubclassSet() {
