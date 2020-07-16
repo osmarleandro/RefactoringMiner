@@ -229,7 +229,7 @@ public class OperationInvocation extends AbstractCall {
     		}
     		i++;
     	}
-    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
+    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getJavadoc().getParameterTypeList(this).size() || varArgsMatch(operation));
     }
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {

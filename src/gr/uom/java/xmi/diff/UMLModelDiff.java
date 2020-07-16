@@ -2400,8 +2400,8 @@ public class UMLModelDiff {
 	   }
 	   if(addedOperation.isAbstract() == removedOperation.isAbstract() &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
-		   List<UMLType> addedOperationParameterTypeList = addedOperation.getParameterTypeList();
-		   List<UMLType> removedOperationParameterTypeList = removedOperation.getParameterTypeList();
+		   List<UMLType> addedOperationParameterTypeList = addedOperation.getJavadoc().getParameterTypeList(this);
+		   List<UMLType> removedOperationParameterTypeList = removedOperation.getJavadoc().getParameterTypeList(this);
 		   if(addedOperationParameterTypeList.equals(removedOperationParameterTypeList) && addedOperationParameterTypeList.size() > 0) {
 			   return true;
 		   }
