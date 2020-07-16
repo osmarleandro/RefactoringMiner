@@ -201,7 +201,7 @@ public class Visitor extends ASTVisitor {
 			variableDeclarations.add(variableDeclaration);
 			if(current.getUserObject() != null) {
 				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariableDeclarations().add(variableDeclaration);
+				anonymous.getLocationInfo().getVariableDeclarations(this).add(variableDeclaration);
 			}
 		}
 		return super.visit(node);
@@ -212,7 +212,7 @@ public class Visitor extends ASTVisitor {
 		variableDeclarations.add(variableDeclaration);
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getVariableDeclarations().add(variableDeclaration);
+			anonymous.getLocationInfo().getVariableDeclarations(this).add(variableDeclaration);
 		}
 		return super.visit(node);
 	}
@@ -256,7 +256,7 @@ public class Visitor extends ASTVisitor {
 			for(String key : anonymous.getCreationMap().keySet()) {
 				this.creationMap.remove(key, anonymous.getCreationMap().get(key));
 			}
-			this.variableDeclarations.removeAll(anonymous.getVariableDeclarations());
+			this.variableDeclarations.removeAll(anonymous.getLocationInfo().getVariableDeclarations(this));
 			this.stringLiterals.removeAll(anonymous.getStringLiterals());
 			this.booleanLiterals.removeAll(anonymous.getBooleanLiterals());
 			this.typeLiterals.removeAll(anonymous.getTypeLiterals());
