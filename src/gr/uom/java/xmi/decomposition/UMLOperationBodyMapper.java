@@ -49,7 +49,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
+	public UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
@@ -66,7 +66,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	public UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
@@ -763,42 +763,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
 							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
-								nonMappedLeafCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		return nonMappedLeafCount + nonMappedInnerNodeCount;
-	}
-
-	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
-		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
-			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-								nonMappedInnerNodeCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT1()) {
-			if(statement.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
 							}
