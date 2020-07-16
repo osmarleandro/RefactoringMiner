@@ -21,7 +21,7 @@ import org.refactoringminer.api.Refactoring;
 public class UMLOperationDiff {
 	private UMLOperation removedOperation;
 	private UMLOperation addedOperation;
-	private List<UMLParameter> addedParameters;
+	public List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
 	private boolean visibilityChanged;
@@ -176,10 +176,6 @@ public class UMLOperationDiff {
 
 	public UMLOperation getAddedOperation() {
 		return addedOperation;
-	}
-
-	public List<UMLParameter> getAddedParameters() {
-		return addedParameters;
 	}
 
 	public List<UMLParameter> getRemovedParameters() {
