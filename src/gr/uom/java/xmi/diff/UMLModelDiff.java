@@ -699,7 +699,7 @@ public class UMLModelDiff {
 
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
-			   addedAttribute.getType().equals(removedAttribute.getType())) {
+			   addedAttribute.getJavadoc().getType(this).equals(removedAttribute.getJavadoc().getType(this))) {
 		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
 			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pullUpAttribute;
@@ -728,7 +728,7 @@ public class UMLModelDiff {
 		   String className1 = addedAttribute.getNonQualifiedClassName();
 		   String className2 = removedAttribute.getNonQualifiedClassName();
 		   if(typeLiterals1.contains(className1 + ".class") && typeLiterals2.contains(className2 + ".class") &&
-				   addedAttribute.getType().getClassType().endsWith("Logger") && removedAttribute.getType().getClassType().endsWith("Logger")) {
+				   addedAttribute.getJavadoc().getType(this).getClassType().endsWith("Logger") && removedAttribute.getJavadoc().getType(this).getClassType().endsWith("Logger")) {
 			   return true;
 		   }
 	   }
@@ -754,10 +754,10 @@ public class UMLModelDiff {
 		   }
 		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
 		   for(UMLAttribute addedAttribute : addedAttributes) {
-			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
+			   if(looksLikeSameType(addedAttribute.getJavadoc().getType(this).getClassType(), candidate.getTargetClassName())) {
 				   count++;
 			   }
-			   if(targetSuperclass != null && looksLikeSameType(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
+			   if(targetSuperclass != null && looksLikeSameType(addedAttribute.getJavadoc().getType(this).getClassType(), targetSuperclass.getClassType())) {
 				   count++;
 			   }
 		   }
@@ -998,7 +998,7 @@ public class UMLModelDiff {
    private UMLAttribute attributeOfExtractedClassType(UMLClass umlClass, UMLClassBaseDiff classDiff) {
 	   List<UMLAttribute> addedAttributes = classDiff.getAddedAttributes();
 	   for(UMLAttribute addedAttribute : addedAttributes) {
-		   if(umlClass.getName().endsWith("." + addedAttribute.getType().getClassType())) {
+		   if(umlClass.getName().endsWith("." + addedAttribute.getJavadoc().getType(this).getClassType())) {
 			   return addedAttribute;
 		   }
 	   }
@@ -2325,7 +2325,7 @@ public class UMLModelDiff {
 					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
 						String variableInitializer = v1.getInitializer().getString();
-						if(attributeInitializer.equals(variableInitializer) && attribute.getType().equals(v1.getType()) &&
+						if(attributeInitializer.equals(variableInitializer) && attribute.getJavadoc().getType(this).equals(v1.getType()) &&
 								(attribute.getName().equals(v1.getVariableName()) ||
 								attribute.getName().toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
 								v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {

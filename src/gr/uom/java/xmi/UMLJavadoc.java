@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public UMLType getType(UMLAttribute umlAttribute) {
+		return umlAttribute.type;
+	}
 }

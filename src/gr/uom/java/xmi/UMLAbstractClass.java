@@ -317,8 +317,8 @@ public abstract class UMLAbstractClass {
 	public List<UMLAttribute> attributesOfType(String targetClass) {
 		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
 		for(UMLAttribute attribute : attributes) {
-			if(targetClass.endsWith("." + attribute.getType().getClassType()) ||
-					targetClass.equals(attribute.getType().getClassType())) {
+			if(targetClass.endsWith("." + attribute.getJavadoc().getType(this).getClassType()) ||
+					targetClass.equals(attribute.getJavadoc().getType(this).getClassType())) {
 				attributesOfType.add(attribute);
 			}
 		}

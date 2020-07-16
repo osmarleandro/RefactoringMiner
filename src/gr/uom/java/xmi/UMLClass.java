@@ -208,10 +208,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
     		if(attribute.getName().equals(otherAttribute.getName())) {
-    			String thisAttributeType = attribute.getType().getClassType();
-				String otherAttributeType = otherAttribute.getType().getClassType();
-				int thisArrayDimension = attribute.getType().getArrayDimension();
-				int otherArrayDimension = otherAttribute.getType().getArrayDimension();
+    			String thisAttributeType = attribute.getJavadoc().getType(this).getClassType();
+				String otherAttributeType = otherAttribute.getJavadoc().getType(this).getClassType();
+				int thisArrayDimension = attribute.getJavadoc().getType(this).getArrayDimension();
+				int otherArrayDimension = otherAttribute.getJavadoc().getType(this).getArrayDimension();
 				String thisAttributeTypeComparedString = null;
     			if(thisAttributeType.contains("."))
     				thisAttributeTypeComparedString = thisAttributeType.substring(thisAttributeType.lastIndexOf(".")+1);
