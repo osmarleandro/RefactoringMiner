@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public String getVisibility(UMLAttribute umlAttribute) {
+		return umlAttribute.visibility;
+	}
 }

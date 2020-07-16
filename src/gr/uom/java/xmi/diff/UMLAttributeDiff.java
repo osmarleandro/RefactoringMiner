@@ -34,7 +34,7 @@ public class UMLAttributeDiff {
 		this.finalChanged = false;
 		if(!removedAttribute.getName().equals(addedAttribute.getName()))
 			renamed = true;
-		if(!removedAttribute.getVisibility().equals(addedAttribute.getVisibility()))
+		if(!removedAttribute.getJavadoc().getVisibility(this).equals(addedAttribute.getJavadoc().getVisibility(this)))
 			visibilityChanged = true;
 		if(!removedAttribute.getType().equals(addedAttribute.getType()))
 			typeChanged = true;
@@ -82,7 +82,7 @@ public class UMLAttributeDiff {
 		if(renamed)
 			sb.append("\t").append("renamed from " + removedAttribute.getName() + " to " + addedAttribute.getName()).append("\n");
 		if(visibilityChanged)
-			sb.append("\t").append("visibility changed from " + removedAttribute.getVisibility() + " to " + addedAttribute.getVisibility()).append("\n");
+			sb.append("\t").append("visibility changed from " + removedAttribute.getJavadoc().getVisibility(this) + " to " + addedAttribute.getJavadoc().getVisibility(this)).append("\n");
 		if(typeChanged || qualifiedTypeChanged)
 			sb.append("\t").append("type changed from " + removedAttribute.getType() + " to " + addedAttribute.getType()).append("\n");
 		if(staticChanged)
