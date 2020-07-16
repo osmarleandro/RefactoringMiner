@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+		return loopWithVariables(currentElementName, collectionName);
+	}
 }
