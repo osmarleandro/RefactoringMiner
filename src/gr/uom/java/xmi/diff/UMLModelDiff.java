@@ -1782,7 +1782,7 @@ public class UMLModelDiff {
 				delegateStatements++;
 			}
 		}
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
@@ -1973,7 +1973,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
+	   int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
@@ -2076,7 +2076,7 @@ public class UMLModelDiff {
 	            UMLOperation removedOperation = removedOperationIterator.next();
 	            
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
-	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
+	            int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
 	               int exactMatches = operationBodyMapper.exactMatches();
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
@@ -2161,7 +2161,7 @@ public class UMLModelDiff {
 	            UMLOperation addedOperation = addedOperationIterator.next();
 	            
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
-	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
+	            int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
 	               int exactMatches = operationBodyMapper.exactMatches();
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
@@ -2365,12 +2365,12 @@ public class UMLModelDiff {
 		   return false;
 	   }
 	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
-			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
+			   mapper.getCallSiteOperation().mappingsWithoutBlocks(this) == 1 && mapper.getMappings().size() == 1) {
 		   if(!mapper.getMappings().iterator().next().isExact()) {
 			   return false;
 		   }
 	   }
-	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.mappingsWithoutBlocks() > 0) {
+	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.getCallSiteOperation().mappingsWithoutBlocks(this) > 0) {
 		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2() == 0)) {
 			   return false;
 		   }
@@ -2388,7 +2388,7 @@ public class UMLModelDiff {
 	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1() > 0 || mapper.nonMappedElementsT2() > 0)) {
 		   return false;
 	   }
-	   if(mapper.mappingsWithoutBlocks() == 1) {
+	   if(mapper.getCallSiteOperation().mappingsWithoutBlocks(this) == 1) {
 		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
 			   String fragment1 = mapping.getFragment1().getString();
 			   String fragment2 = mapping.getFragment2().getString();

@@ -229,7 +229,7 @@ public class ExtractOperationDetection {
 	}
 
 	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		List<AbstractCodeMapping> exactMatchList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getExactMatches());
