@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setStatic(UMLOperation umlOperation, boolean isStatic) {
+		umlOperation.isStatic = isStatic;
+	}
 }
