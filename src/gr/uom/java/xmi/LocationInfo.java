@@ -133,6 +133,23 @@ public class LocationInfo {
 		return true;
 	}
 	
+	protected String typeArgumentsToString(UMLType umlType) {
+		StringBuilder sb = new StringBuilder();
+		if(umlType.typeArguments.isEmpty()) {
+			sb.append("");
+		}
+		else {
+			sb.append("<");
+			for(int i = 0; i < umlType.typeArguments.size(); i++) {
+				sb.append(umlType.typeArguments.get(i).toQualifiedString());
+				if(i < umlType.typeArguments.size() - 1)
+					sb.append(",");
+			}
+			sb.append(">");
+		}
+		return sb.toString();
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

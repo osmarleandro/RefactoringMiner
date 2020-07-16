@@ -24,7 +24,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
-	private List<UMLType> typeArguments = new ArrayList<UMLType>();
+	List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
 	public LocationInfo getLocationInfo() {
@@ -47,35 +47,18 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		arrayDimension++;
 	}
 
-	protected String typeArgumentsToString() {
-		StringBuilder sb = new StringBuilder();
-		if(typeArguments.isEmpty()) {
-			sb.append("");
-		}
-		else {
-			sb.append("<");
-			for(int i = 0; i < typeArguments.size(); i++) {
-				sb.append(typeArguments.get(i).toQualifiedString());
-				if(i < typeArguments.size() - 1)
-					sb.append(",");
-			}
-			sb.append(">");
-		}
-		return sb.toString();
-	}
-
 	protected String typeArgumentsAndArrayDimensionToString() {
 		StringBuilder sb = new StringBuilder();
 		if(isParameterized())
-			sb.append(typeArgumentsToString());
+			sb.append(locationInfo.typeArgumentsToString(this));
 		for(int i=0; i<getArrayDimension(); i++)
 			sb.append("[]");
 		return sb.toString();
 	}
 
 	private boolean equalTypeArguments(UMLType type) {
-		String thisTypeArguments = this.typeArgumentsToString();
-		String otherTypeArguments = type.typeArgumentsToString();
+		String thisTypeArguments = this.getLocationInfo().typeArgumentsToString(this);
+		String otherTypeArguments = type.getLocationInfo().typeArgumentsToString(this);
 		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
 				(thisTypeArguments.startsWith("<? ") && otherTypeArguments.equals("<?>"))) {
 			return true;
@@ -110,9 +93,9 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			return this.arrayDimension == typeObject.arrayDimension;
 		else if(this.isParameterized() && typeObject.isParameterized())
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized())
+		else if(this.isParameterized() && this.getLocationInfo().typeArgumentsToString(this).equals("<?>") && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString().equals("<?>"))
+		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.getLocationInfo().typeArgumentsToString(this).equals("<?>"))
 			return this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
