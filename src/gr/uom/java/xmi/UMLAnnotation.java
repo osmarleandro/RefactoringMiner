@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String typeName;
+	String typeName;
 	private AbstractExpression value;
 	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
@@ -36,10 +36,6 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 				memberValuePairs.put(pair.getName().getIdentifier(), value);
 			}
 		}
-	}
-
-	public String getTypeName() {
-		return typeName;
 	}
 
 	public AbstractExpression getValue() {
