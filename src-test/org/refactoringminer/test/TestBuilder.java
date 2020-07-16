@@ -66,6 +66,27 @@ public class TestBuilder {
 
 	private static class Counter {
 		int[] c = new int[5];
+
+		List<String> normalize(TestBuilder testBuilder, String refactoring) {
+			RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+			refactoring = TestBuilder.normalizeSingle(refactoring);
+			if (testBuilder.aggregate) {
+				refactoring = refType.aggregate(refactoring);
+			} else {
+				int begin = refactoring.indexOf("from classes [");
+				if (begin != -1) {
+					int end = refactoring.lastIndexOf(']');
+					String types = refactoring.substring(begin + "from classes [".length(), end);
+					String[] typesArray = types.split(", ");
+					List<String> refactorings = new ArrayList<String>();
+					for (String type : typesArray) {
+						refactorings.add(refactoring.substring(0, begin) + "from class " + type);
+					}
+					return refactorings;
+				}
+			}
+			return Collections.singletonList(refactoring);
+		}
 	}
 
 	private void count(int type, String refactoring) {
@@ -153,27 +174,6 @@ public class TestBuilder {
 		return mainResultMessage;
 	}
 
-	private List<String> normalize(String refactoring) {
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
-		refactoring = normalizeSingle(refactoring);
-		if (aggregate) {
-			refactoring = refType.aggregate(refactoring);
-		} else {
-			int begin = refactoring.indexOf("from classes [");
-			if (begin != -1) {
-				int end = refactoring.lastIndexOf(']');
-				String types = refactoring.substring(begin + "from classes [".length(), end);
-				String[] typesArray = types.split(", ");
-				List<String> refactorings = new ArrayList<String>();
-				for (String type : typesArray) {
-					refactorings.add(refactoring.substring(0, begin) + "from class " + type);
-				}
-				return refactorings;
-			}
-		}
-		return Collections.singletonList(refactoring);
-	}
-
 	/**
 	 * Remove generics type information.
 	 */
@@ -252,7 +252,7 @@ public class TestBuilder {
 				matcher.analyzed = true;
 				Set<String> refactoringsFound = new HashSet<String>();
 				for (Refactoring refactoring : refactorings) {
-					refactoringsFound.addAll(normalize(refactoring.toString()));
+					refactoringsFound.addAll(c.normalize(this, refactoring.toString()));
 				}
 				// count true positives
 				for (Iterator<String> iter = matcher.expected.iterator(); iter.hasNext();) {
@@ -398,7 +398,7 @@ public class TestBuilder {
 
 			public ProjectMatcher contains(String... refactorings) {
 				for (String refactoring : refactorings) {
-					expected.addAll(normalize(refactoring));
+					expected.addAll(c.normalize(this, refactoring));
 				}
 				return ProjectMatcher.this;
 			}
@@ -408,7 +408,7 @@ public class TestBuilder {
 				this.expected = new HashSet<String>();
 				this.notExpected = new HashSet<String>();
 				for (String refactoring : refactorings) {
-					expected.addAll(normalize(refactoring));
+					expected.addAll(c.normalize(this, refactoring));
 				}
 				return ProjectMatcher.this;
 			}
@@ -419,7 +419,7 @@ public class TestBuilder {
 
 			public ProjectMatcher notContains(String... refactorings) {
 				for (String refactoring : refactorings) {
-					notExpected.addAll(normalize(refactoring));
+					notExpected.addAll(c.normalize(this, refactoring));
 				}
 				return ProjectMatcher.this;
 			}
