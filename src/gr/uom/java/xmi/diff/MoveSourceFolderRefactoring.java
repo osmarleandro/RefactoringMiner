@@ -21,7 +21,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	public MoveSourceFolderRefactoring(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
 		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
 		this.movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
-		this.pattern = movedClassToAnotherSourceFolder.getRenamePattern();
+		this.pattern = movedClassToAnotherSourceFolder.getMovedClass().getRenamePattern(this);
 	}
 
 	public void addMovedClassToAnotherSourceFolder(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
