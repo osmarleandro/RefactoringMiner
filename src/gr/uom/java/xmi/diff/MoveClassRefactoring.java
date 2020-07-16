@@ -24,19 +24,19 @@ public class MoveClassRefactoring implements Refactoring {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
+		sb.append(originalClass.getJavadoc().getName(this));
 		sb.append(" moved to ");
-		sb.append(movedClass.getName());
+		sb.append(movedClass.getJavadoc().getName(this));
 		return sb.toString();
 	}
 
 	public RenamePattern getRenamePattern() {
-		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
+		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getJavadoc().getName(this), movedClass.getJavadoc().getName(this));
 		if (separatorPos == -1) {
-			return new RenamePattern(originalClass.getName(), movedClass.getName());
+			return new RenamePattern(originalClass.getJavadoc().getName(this), movedClass.getJavadoc().getName(this));
 		}
-		String originalPath = originalClass.getName().substring(0, originalClass.getName().length() - separatorPos);
-		String movedPath = movedClass.getName().substring(0, movedClass.getName().length() - separatorPos);
+		String originalPath = originalClass.getJavadoc().getName(this).substring(0, originalClass.getJavadoc().getName(this).length() - separatorPos);
+		String movedPath = movedClass.getJavadoc().getName(this).substring(0, movedClass.getJavadoc().getName(this).length() - separatorPos);
 		return new RenamePattern(originalPath, movedPath);
 	}
 
@@ -49,11 +49,11 @@ public class MoveClassRefactoring implements Refactoring {
 	}
 
 	public String getOriginalClassName() {
-		return originalClass.getName();
+		return originalClass.getJavadoc().getName(this);
 	}
 
 	public String getMovedClassName() {
-		return movedClass.getName();
+		return movedClass.getJavadoc().getName(this);
 	}
 
 	public UMLClass getOriginalClass() {
@@ -66,13 +66,13 @@ public class MoveClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getJavadoc().getName(this)));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getFilePath(), getMovedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getFilePath(), getMovedClass().getJavadoc().getName(this)));
 		return pairs;
 	}
 
@@ -81,7 +81,7 @@ public class MoveClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalClass.codeRange()
 				.setDescription("original type declaration")
-				.setCodeElement(originalClass.getName()));
+				.setCodeElement(originalClass.getJavadoc().getName(this)));
 		return ranges;
 	}
 
@@ -90,7 +90,7 @@ public class MoveClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedClass.codeRange()
 				.setDescription("moved type declaration")
-				.setCodeElement(movedClass.getName()));
+				.setCodeElement(movedClass.getJavadoc().getName(this)));
 		return ranges;
 	}
 }

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
-	private String qualifiedName;
+	String qualifiedName;
     private String sourceFile;
     private String sourceFolder;
     private String visibility;
@@ -109,13 +109,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.packageName;
 	}
 
-    public String getName() {
-    	return this.qualifiedName;
-    }
-
     //returns true if the "innerClass" parameter is inner class of this
     public boolean isInnerClass(UMLClass innerClass) {
-    	if(this.getName().equals(innerClass.packageName))
+    	if(this.getJavadoc().getName(this).equals(innerClass.packageName))
     		return true;
     	return false;
     }
@@ -302,7 +298,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
     public String toString() {
-    	return getName();
+    	return javadoc.getName(this);
     }
 
 	public int compareTo(UMLClass umlClass) {
@@ -343,12 +339,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
 	public boolean isSubTypeOf(UMLClass umlClass) {
 		if(superclass != null) {
-			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
+			if(umlClass.getJavadoc().getName(this).endsWith("." + superclass.getClassType())) {
 				return true;
 			}
 		}
 		for(UMLType implementedInterface : implementedInterfaces) {
-			if(umlClass.getName().endsWith("." + implementedInterface.getClassType())) {
+			if(umlClass.getJavadoc().getName(this).endsWith("." + implementedInterface.getClassType())) {
 				return true;
 			}
 		}
