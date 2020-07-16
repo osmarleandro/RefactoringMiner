@@ -64,15 +64,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return sb.toString();
 	}
 
-	protected String typeArgumentsAndArrayDimensionToString() {
-		StringBuilder sb = new StringBuilder();
-		if(isParameterized())
-			sb.append(typeArgumentsToString());
-		for(int i=0; i<getArrayDimension(); i++)
-			sb.append("[]");
-		return sb.toString();
-	}
-
 	private boolean equalTypeArguments(UMLType type) {
 		String thisTypeArguments = this.typeArgumentsToString();
 		String otherTypeArguments = type.typeArgumentsToString();
