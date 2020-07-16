@@ -12,7 +12,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
-	private UMLAttribute removedAttribute;
+	public UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
@@ -45,10 +45,6 @@ public class UMLAttributeDiff {
 		if(removedAttribute.isFinal() != addedAttribute.isFinal())
 			finalChanged = true;
 		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
-	}
-
-	public UMLAttribute getRemovedAttribute() {
-		return removedAttribute;
 	}
 
 	public UMLAttribute getAddedAttribute() {
