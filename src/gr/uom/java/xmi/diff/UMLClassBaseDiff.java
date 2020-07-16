@@ -638,7 +638,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		for(CandidateSplitVariableRefactoring candidate : mapper.getCandidateAttributeSplits()) {
 			Set<String> after = new LinkedHashSet<String>();
-			for(String splitVariable : candidate.getSplitVariables()) {
+			for(String splitVariable : candidate.getOldAttribute().getSplitVariables(this)) {
 				after.add(PrefixSuffixUtils.normalize(splitVariable));
 			}
 			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
