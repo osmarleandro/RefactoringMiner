@@ -172,7 +172,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
 		if(operationBody != null)
-			return operationBody.getVariableDeclaration(variableName);
+			return operationBody.getCompositeStatement().getVariableDeclaration(variableName);
 		return null;
 	}
 

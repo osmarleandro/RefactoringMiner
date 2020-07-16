@@ -38,7 +38,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	CompositeStatementObject compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
@@ -83,10 +83,6 @@ public class OperationBody {
 
 	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getVariableDeclarationsInScope(location));
-	}
-
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		return compositeStatement.getVariableDeclaration(variableName);
 	}
 
 	private void processStatement(CompilationUnit cu, String filePath, CompositeStatementObject parent, Statement statement) {
