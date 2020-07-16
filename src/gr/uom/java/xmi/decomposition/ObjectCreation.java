@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
-	private UMLType type;
+	public UMLType type;
 	private String anonymousClassDeclaration;
 	private boolean isArray = false;
 	private volatile int hashCode = 0;
@@ -52,11 +52,7 @@ public class ObjectCreation extends AbstractCall {
 	}
 
 	public String getName() {
-		return getType().toString();
-	}
-
-	public UMLType getType() {
-		return type;
+		return type.getType().toString();
 	}
 
 	public boolean isArray() {
@@ -129,14 +125,14 @@ public class ObjectCreation extends AbstractCall {
     }
 
 	public double normalizedNameDistance(AbstractCall call) {
-		String s1 = getType().toString().toLowerCase();
-		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
+		String s1 = type.getType().toString().toLowerCase();
+		String s2 = ((ObjectCreation) call).getType().getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
 
 	public boolean identicalName(AbstractCall call) {
-		return getType().equals(((ObjectCreation)call).getType());
+		return type.getType().equals(((ObjectCreation) call).getType().getType());
 	}
 }
