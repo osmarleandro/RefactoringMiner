@@ -907,7 +907,7 @@ public class UMLModelDiff {
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof InlineOperationRefactoring) {
         		 InlineOperationRefactoring extractRef = (InlineOperationRefactoring)ref;
-        		 removedOperations.add(extractRef.getInlinedOperation());
+        		 removedOperations.add(extractRef.getBodyMapper().getInlinedOperation(this));
         	 }
          }
       }
