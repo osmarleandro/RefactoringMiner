@@ -16,7 +16,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
 
-	private List<AbstractStatement> statementList;
+	public List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
@@ -65,24 +65,12 @@ public class CompositeStatementObject extends AbstractStatement {
 		return leaves;
 	}
 
-	public List<CompositeStatementObject> getInnerNodes() {
-		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
-		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				innerNodes.addAll(composite.getInnerNodes());
-			}
-		}
-		innerNodes.add(this);
-		return innerNodes;
-	}
-
 	public boolean contains(AbstractCodeFragment fragment) {
 		if(fragment instanceof StatementObject) {
 			return getLeaves().contains(fragment);
 		}
 		else if(fragment instanceof CompositeStatementObject) {
-			return getInnerNodes().contains(fragment);
+			return locationInfo.getInnerNodes(this).contains(fragment);
 		}
 		else if(fragment instanceof AbstractExpression) {
 			return getExpressions().contains(fragment);
@@ -487,7 +475,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		for(CompositeStatementObject innerNode : getInnerNodes()) {
+		for(CompositeStatementObject innerNode : locationInfo.getInnerNodes(this)) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
