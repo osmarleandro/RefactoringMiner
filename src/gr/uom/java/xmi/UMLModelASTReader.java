@@ -502,7 +502,7 @@ public class UMLModelASTReader {
 				umlAttribute.setVisibility("package");
 			
 			if((fieldModifiers & Modifier.FINAL) != 0)
-				umlAttribute.setFinal(true);
+				umlAttribute.getJavadoc().setFinal(this, true);
 			
 			if((fieldModifiers & Modifier.STATIC) != 0)
 				umlAttribute.setStatic(true);
