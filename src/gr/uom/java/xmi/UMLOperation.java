@@ -1,24 +1,37 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper.ReplacementInfo;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +845,234 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void processLeaves(UMLOperationBodyMapper umlOperationBodyMapper, List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2, Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
+		List<TreeSet<LeafMapping>> postponedMappingSets = new ArrayList<TreeSet<LeafMapping>>();
+		if(leaves1.size() <= leaves2.size()) {
+			//exact string+depth matching - leaf nodes
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					String argumentizedString1 = umlOperationBodyMapper.preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = umlOperationBodyMapper.preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					leaves2.remove(minStatementMapping.getFragment2());
+					leafIterator1.remove();
+				}
+			}
+			
+			//exact string matching - leaf nodes - finds moves to another level
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					String argumentizedString1 = umlOperationBodyMapper.preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = umlOperationBodyMapper.preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					leaves2.remove(minStatementMapping.getFragment2());
+					leafIterator1.remove();
+				}
+			}
+			
+			// exact matching with variable renames
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					
+					ReplacementInfo replacementInfo = umlOperationBodyMapper.initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
+					Set<Replacement> replacements = umlOperationBodyMapper.findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
+					if (replacements != null) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mapping.addReplacements(replacements);
+						for(AbstractCodeFragment leaf : leaves2) {
+							if(leaf.equals(leaf2)) {
+								break;
+							}
+							UMLClassBaseDiff classDiff = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff : umlOperationBodyMapper.parentMapper != null ? umlOperationBodyMapper.parentMapper.classDiff : null;
+							mapping.temporaryVariableAssignment(leaf, leaves2, umlOperationBodyMapper.refactorings, classDiff);
+							if(mapping.isIdenticalWithExtractedVariable()) {
+								break;
+							}
+						}
+						for(AbstractCodeFragment leaf : leaves1) {
+							if(leaf.equals(leaf1)) {
+								break;
+							}
+							mapping.inlinedVariableAssignment(leaf, leaves2, umlOperationBodyMapper.refactorings);
+							if(mapping.isIdenticalWithInlinedVariable()) {
+								break;
+							}
+						}
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					SimpleEntry<CompositeStatementObject, CompositeStatementObject><CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
+					if(umlOperationBodyMapper.variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+						//postpone mapping
+						postponedMappingSets.add(mappingSet);
+					}
+					else if((switchParentEntry = umlOperationBodyMapper.multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
+						LeafMapping bestMapping = umlOperationBodyMapper.findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						umlOperationBodyMapper.mappings.add(bestMapping);
+						leaves2.remove(bestMapping.getFragment1());
+						leafIterator1.remove();
+					}
+					else {
+						LeafMapping minStatementMapping = mappingSet.first();
+						umlOperationBodyMapper.mappings.add(minStatementMapping);
+						leaves2.remove(minStatementMapping.getFragment2());
+						leafIterator1.remove();
+					}
+				}
+			}
+		}
+		else {
+			//exact string+depth matching - leaf nodes
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment leaf2 = leafIterator2.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment leaf1 = leafIterator1.next();
+					String argumentizedString1 = umlOperationBodyMapper.preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = umlOperationBodyMapper.preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					leaves1.remove(minStatementMapping.getFragment1());
+					leafIterator2.remove();
+				}
+			}
+			
+			//exact string matching - leaf nodes - finds moves to another level
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment leaf2 = leafIterator2.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment leaf1 = leafIterator1.next();
+					String argumentizedString1 = umlOperationBodyMapper.preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = umlOperationBodyMapper.preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					leaves1.remove(minStatementMapping.getFragment1());
+					leafIterator2.remove();
+				}
+			}
+			
+			// exact matching with variable renames
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment leaf2 = leafIterator2.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment leaf1 = leafIterator1.next();
+					
+					ReplacementInfo replacementInfo = umlOperationBodyMapper.initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
+					Set<Replacement> replacements = umlOperationBodyMapper.findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
+					if (replacements != null) {
+						LeafMapping mapping = umlOperationBodyMapper.createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mapping.addReplacements(replacements);
+						for(AbstractCodeFragment leaf : leaves2) {
+							if(leaf.equals(leaf2)) {
+								break;
+							}
+							UMLClassBaseDiff classDiff = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff : umlOperationBodyMapper.parentMapper != null ? umlOperationBodyMapper.parentMapper.classDiff : null;
+							mapping.temporaryVariableAssignment(leaf, leaves2, umlOperationBodyMapper.refactorings, classDiff);
+							if(mapping.isIdenticalWithExtractedVariable()) {
+								break;
+							}
+						}
+						for(AbstractCodeFragment leaf : leaves1) {
+							if(leaf.equals(leaf1)) {
+								break;
+							}
+							mapping.inlinedVariableAssignment(leaf, leaves2, umlOperationBodyMapper.refactorings);
+							if(mapping.isIdenticalWithInlinedVariable()) {
+								break;
+							}
+						}
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					SimpleEntry<CompositeStatementObject, CompositeStatementObject><CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
+					if(umlOperationBodyMapper.variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+						//postpone mapping
+						postponedMappingSets.add(mappingSet);
+					}
+					else if((switchParentEntry = umlOperationBodyMapper.multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
+						LeafMapping bestMapping = umlOperationBodyMapper.findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						umlOperationBodyMapper.mappings.add(bestMapping);
+						leaves1.remove(bestMapping.getFragment1());
+						leafIterator2.remove();
+					}
+					else {
+						LeafMapping minStatementMapping = mappingSet.first();
+						umlOperationBodyMapper.mappings.add(minStatementMapping);
+						leaves1.remove(minStatementMapping.getFragment1());
+						leafIterator2.remove();
+					}
+				}
+			}
+		}
+		for(TreeSet<LeafMapping> postponed : postponedMappingSets) {
+			Set<LeafMapping> mappingsToBeAdded = new LinkedHashSet<LeafMapping>();
+			for(LeafMapping variableDeclarationMapping : postponed) {
+				for(AbstractCodeMapping previousMapping : umlOperationBodyMapper.mappings) {
+					Set<Replacement> intersection = variableDeclarationMapping.commonReplacements(previousMapping);
+					if(!intersection.isEmpty()) {
+						for(Replacement commonReplacement : intersection) {
+							if(commonReplacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
+									variableDeclarationMapping.getFragment1().getVariableDeclaration(commonReplacement.getBefore()) != null &&
+									variableDeclarationMapping.getFragment2().getVariableDeclaration(commonReplacement.getAfter()) != null) {
+								mappingsToBeAdded.add(variableDeclarationMapping);
+							}
+						}
+					}
+				}
+			}
+			if(mappingsToBeAdded.size() == 1) {
+				LeafMapping minStatementMapping = mappingsToBeAdded.iterator().next();
+				umlOperationBodyMapper.mappings.add(minStatementMapping);
+				leaves1.remove(minStatementMapping.getFragment1());
+				leaves2.remove(minStatementMapping.getFragment2());
+			}
+			else {
+				LeafMapping minStatementMapping = postponed.first();
+				umlOperationBodyMapper.mappings.add(minStatementMapping);
+				leaves1.remove(minStatementMapping.getFragment1());
+				leaves2.remove(minStatementMapping.getFragment2());
+			}
+		}
 	}
 }
