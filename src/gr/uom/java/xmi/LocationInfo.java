@@ -1,8 +1,14 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractStatement;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +139,22 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<String> getAllVariables(CompositeStatementObject compositeStatementObject) {
+		List<String> variables = new ArrayList<String>();
+		variables.addAll(compositeStatementObject.getVariables());
+		for(AbstractStatement statement : compositeStatementObject.statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				variables.addAll(composite.getAllVariables());
+			}
+			else if(statement instanceof StatementObject) {
+				StatementObject statementObject = (StatementObject)statement;
+				variables.addAll(statementObject.getVariables());
+			}
+		}
+		return variables;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
