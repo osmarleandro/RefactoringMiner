@@ -203,4 +203,8 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public void setParameter(VariableDeclaration variableDeclaration, boolean isParameter) {
+		variableDeclaration.isParameter = isParameter;
+	}
 }
