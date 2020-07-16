@@ -21,7 +21,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private List<String> types = new ArrayList<String>();
 	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
 	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+	public List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 	private List<String> stringLiterals = new ArrayList<String>();
 	private List<String> numberLiterals = new ArrayList<String>();
 	private List<String> nullLiterals = new ArrayList<String>();
@@ -68,10 +68,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public List<String> getTypes() {
 		return types;
-	}
-
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
-		return anonymousClassDeclarations;
 	}
 
 	public List<String> getStringLiterals() {
