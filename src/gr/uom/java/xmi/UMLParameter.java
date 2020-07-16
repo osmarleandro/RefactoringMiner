@@ -116,4 +116,8 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 			}
 		}
 	}
+
+	public UMLParameter getAddedParameter() {
+		return this;
+	}
 }
