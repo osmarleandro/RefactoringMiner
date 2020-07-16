@@ -17,7 +17,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private AnonymousClassDeclaration astNode;
 	private String astNodeString;
-	private List<String> variables = new ArrayList<String>();
+	public List<String> variables = new ArrayList<String>();
 	private List<String> types = new ArrayList<String>();
 	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
 	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
@@ -120,10 +120,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		return ternaryOperatorExpressions;
-	}
-
-	public List<String> getVariables() {
-		return variables;
 	}
 
 	public List<LambdaExpressionObject> getLambdas() {
