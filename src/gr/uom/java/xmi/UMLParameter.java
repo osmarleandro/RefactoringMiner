@@ -7,10 +7,10 @@ import java.util.List;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
-	private String name;
-	private UMLType type;
-	private String kind;
-	private boolean varargs;
+	String name;
+	UMLType type;
+	String kind;
+	boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
@@ -100,19 +100,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 			}
 			else {
 				return name + " " + type;
-			}
-		}
-	}
-
-	public String toQualifiedString() {
-		if(kind.equals("return"))
-			return type.toQualifiedString();
-		else {
-			if(varargs) {
-				return name + " " + type.toQualifiedString().substring(0, type.toQualifiedString().lastIndexOf("[]")) + "...";
-			}
-			else {
-				return name + " " + type.toQualifiedString();
 			}
 		}
 	}
