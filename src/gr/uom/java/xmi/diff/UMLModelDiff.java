@@ -1758,7 +1758,7 @@ public class UMLModelDiff {
 
 	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
+		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().getJavadoc().isDelegate(this) != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
 			for(AbstractCodeMapping mapping : parentMappingList) {
 				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
