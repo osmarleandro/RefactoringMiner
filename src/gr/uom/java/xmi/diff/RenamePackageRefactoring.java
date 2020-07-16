@@ -76,7 +76,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
-			ranges.add(ref.getOriginalClass().codeRange()
+			ranges.add(ref.getOriginalClass().getLocationInfo().codeRange()
 					.setDescription("original type declaration")
 					.setCodeElement(ref.getOriginalClass().getName()));
 		}
@@ -87,7 +87,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
-			ranges.add(ref.getMovedClass().codeRange()
+			ranges.add(ref.getMovedClass().getLocationInfo().codeRange()
 					.setDescription("moved type declaration")
 					.setCodeElement(ref.getMovedClass().getName()));
 		}

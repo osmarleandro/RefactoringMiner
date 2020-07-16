@@ -74,7 +74,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(UMLClass subclass : subclassSet) {
-			ranges.add(subclass.codeRange()
+			ranges.add(subclass.getLocationInfo().codeRange()
 					.setDescription("sub-type declaration")
 					.setCodeElement(subclass.getName()));
 		}
@@ -84,7 +84,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(extractedClass.codeRange()
+		ranges.add(extractedClass.getLocationInfo().codeRange()
 				.setDescription("extracted super-type declaration")
 				.setCodeElement(extractedClass.getName()));
 		return ranges;

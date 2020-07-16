@@ -83,7 +83,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(classDiff.getOriginalClass().codeRange()
+		ranges.add(classDiff.getOriginalClass().getLocationInfo().codeRange()
 				.setDescription("original type declaration")
 				.setCodeElement(classDiff.getOriginalClass().getName()));
 		return ranges;
@@ -92,7 +92,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(extractedClass.codeRange()
+		ranges.add(extractedClass.getLocationInfo().codeRange()
 				.setDescription("extracted type declaration")
 				.setCodeElement(extractedClass.getName()));
 		return ranges;
