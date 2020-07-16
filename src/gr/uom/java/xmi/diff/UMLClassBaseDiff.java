@@ -996,7 +996,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
 					UMLOperation addedOperation = addedOperationIterator.next();
 					int maxDifferenceInPosition;
-					if(removedOperation.hasTestAnnotation() && addedOperation.hasTestAnnotation()) {
+					if(removedOperation.getJavadoc().hasTestAnnotation(this) && addedOperation.getJavadoc().hasTestAnnotation(this)) {
 						maxDifferenceInPosition = Math.abs(removedOperations.size() - addedOperations.size());
 					}
 					else {
@@ -1036,7 +1036,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
 					UMLOperation removedOperation = removedOperationIterator.next();
 					int maxDifferenceInPosition;
-					if(removedOperation.hasTestAnnotation() && addedOperation.hasTestAnnotation()) {
+					if(removedOperation.getJavadoc().hasTestAnnotation(this) && addedOperation.getJavadoc().hasTestAnnotation(this)) {
 						maxDifferenceInPosition = Math.abs(removedOperations.size() - addedOperations.size());
 					}
 					else {

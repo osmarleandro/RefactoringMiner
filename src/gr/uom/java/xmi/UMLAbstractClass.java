@@ -307,7 +307,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean isTestClass() {
 		for(UMLOperation operation : operations) {
-			if(operation.hasTestAnnotation()) {
+			if(operation.getJavadoc().hasTestAnnotation(this)) {
 				return true;
 			}
 		}
