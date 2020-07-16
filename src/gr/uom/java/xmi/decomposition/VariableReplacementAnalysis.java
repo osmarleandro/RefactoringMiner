@@ -1167,7 +1167,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingMergeVariableRefactoring(RenameVariableRefactoring ref) {
 		for(MergeVariableRefactoring merge : variableMerges) {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
-					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
+					merge.getNewVariable().getOperationAfter(this).equals(ref.getOperationAfter()) &&
 					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
 					merge.getNewVariable().equals(ref.getRenamedVariable())) {
 				return true;
