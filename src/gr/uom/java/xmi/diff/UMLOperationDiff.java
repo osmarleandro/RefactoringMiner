@@ -246,7 +246,7 @@ public class UMLOperationDiff {
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
 			RenameVariableRefactoring renameRefactoring = null;
-			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
+			if(parameterDiff.getAddedParameter().isNameChanged(this) && !inconsistentReplacement(originalVariable, newVariable)) {
 				renameRefactoring = new RenameVariableRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
 				refactorings.add(renameRefactoring);
 			}

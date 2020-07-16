@@ -7,7 +7,7 @@ public class UMLParameterDiff {
 	private UMLParameter addedParameter;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
-	private boolean nameChanged;
+	public boolean nameChanged;
 	
 	public UMLParameterDiff(UMLParameter removedParameter, UMLParameter addedParameter) {
 		this.removedParameter = removedParameter;
@@ -36,10 +36,6 @@ public class UMLParameterDiff {
 
 	public boolean isQualifiedTypeChanged() {
 		return qualifiedTypeChanged;
-	}
-
-	public boolean isNameChanged() {
-		return nameChanged;
 	}
 
 	public String toString() {
