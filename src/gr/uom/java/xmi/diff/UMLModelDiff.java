@@ -253,7 +253,7 @@ public class UMLModelDiff {
 		   subclassDiff = getUMLClassDiff(UMLType.extractTypeObject(subclass));
 	   }
 	   if(subclassDiff != null) {
-		   UMLType superclass = subclassDiff.getSuperclass();
+		   UMLType superclass = subclassDiff.getModelDiff().getSuperclass(this);
 		   if(superclass != null) {
 			   if(checkInheritanceRelationship(superclass, finalSuperclass, visitedClasses)) {
 				   return true;
@@ -750,7 +750,7 @@ public class UMLModelDiff {
 	   if(sourceClassDiff != null) {
 		   UMLType targetSuperclass = null;
 		   if(targetClassDiff != null) {
-			   targetSuperclass = targetClassDiff.getSuperclass();
+			   targetSuperclass = targetClassDiff.getModelDiff().getSuperclass(this);
 		   }
 		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
 		   for(UMLAttribute addedAttribute : addedAttributes) {
@@ -778,8 +778,8 @@ public class UMLModelDiff {
 
    private boolean sourceClassImportsSuperclassOfTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(targetClassName);
-	   if(targetClassDiff != null && targetClassDiff.getSuperclass() != null) {
-		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass());
+	   if(targetClassDiff != null && targetClassDiff.getModelDiff().getSuperclass(this) != null) {
+		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getModelDiff().getSuperclass(this));
 		   if(superclassOfTargetClassDiff != null) {
 			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
 		   }
@@ -2524,6 +2524,12 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public UMLType getSuperclass(UMLClassBaseDiff umlClassBaseDiff) {
+	if(!umlClassBaseDiff.superclassChanged && umlClassBaseDiff.oldSuperclass != null && umlClassBaseDiff.newSuperclass != null)
+		return umlClassBaseDiff.oldSuperclass;
+	return null;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
