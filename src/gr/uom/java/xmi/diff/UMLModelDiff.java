@@ -1008,7 +1008,7 @@ public class UMLModelDiff {
    private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
 	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
-		   if(!operation.isConstructor() && !operation.overridesObject()) {
+		   if(!operation.isConstructor() && !operation.getJavadoc().overridesObject(this)) {
 			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
 				   commonOperations.add(operation);
 			   }

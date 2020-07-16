@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean overridesObject(UMLOperation umlOperation) {
+		return umlOperation.isEquals() || umlOperation.isHashCode() || umlOperation.isToString() || umlOperation.isClone() || umlOperation.isCompareTo();
+	}
 }
