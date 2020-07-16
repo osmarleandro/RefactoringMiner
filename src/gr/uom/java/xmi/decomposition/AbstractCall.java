@@ -18,14 +18,10 @@ import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
-	protected String expression;
+	public String expression;
 	protected List<String> arguments;
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
-
-	public String getExpression() {
-		return expression;
-	}
 
 	public List<String> getArguments() {
 		return arguments;
@@ -77,15 +73,15 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identicalExpression(AbstractCall call) {
-		return (getExpression() != null && call.getExpression() != null &&
-				getExpression().equals(call.getExpression())) ||
-				(getExpression() == null && call.getExpression() == null);
+		return (locationInfo.getExpression(this) != null && call.getLocationInfo().getExpression(this) != null &&
+				locationInfo.getExpression(this).equals(call.getLocationInfo().getExpression(this))) ||
+				(locationInfo.getExpression(this) == null && call.getLocationInfo().getExpression(this) == null);
 	}
 
 	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
-		if(getExpression() != null && call.getExpression() != null) {
-			String expression1 = getExpression();
-			String expression2 = call.getExpression();
+		if(locationInfo.getExpression(this) != null && call.getLocationInfo().getExpression(this) != null) {
+			String expression1 = locationInfo.getExpression(this);
+			String expression2 = call.getLocationInfo().getExpression(this);
 			String expression1AfterReplacements = new String(expression1);
 			for(Replacement replacement : replacements) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
@@ -211,7 +207,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
 		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
 		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
-		return getExpression() != null && call.getExpression() != null &&
+		return locationInfo.getExpression(this) != null && call.getLocationInfo().getExpression(this) != null &&
 				identicalExpression(call, replacements) &&
 				!identicalName(call) &&
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
@@ -220,7 +216,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
-				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
+				((this.getLocationInfo().getExpression(this) == null && call.getLocationInfo().getExpression(this) != null) || (call.getLocationInfo().getExpression(this) == null && this.getLocationInfo().getExpression(this) != null));
 	}
 
 	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
@@ -231,7 +227,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				break;
 			}
 		}
-		return getExpression() == null && call.getExpression() == null &&
+		return locationInfo.getExpression(this) == null && call.getLocationInfo().getExpression(this) == null &&
 				!identicalName(call) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				equalArguments(call);
@@ -245,7 +241,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				break;
 			}
 		}
-		return getExpression() != null && call.getExpression() != null &&
+		return locationInfo.getExpression(this) != null && call.getLocationInfo().getExpression(this) != null &&
 				identicalExpression(call, replacements) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				!equalArguments(call) &&
