@@ -1,7 +1,10 @@
 package gr.uom.java.xmi;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class UMLJavadoc {
 	private List<UMLTagElement> tags;
@@ -34,5 +37,17 @@ public class UMLJavadoc {
 			}
 		}
 		return false;
+	}
+
+	public Map<String, Set<String>> aliasedAttributes(UMLClass umlClass) {
+		for(UMLOperation operation : umlClass.getOperations()) {
+			if(operation.isConstructor()) {
+				Map<String, Set<String>> aliased = operation.aliasedAttributes();
+				if(!aliased.isEmpty()) {
+					return aliased;
+				}
+			}
+		}
+		return new LinkedHashMap<String, Set<String>>();
 	}
 }
