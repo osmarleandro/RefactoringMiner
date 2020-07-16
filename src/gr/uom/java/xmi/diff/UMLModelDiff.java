@@ -1767,7 +1767,7 @@ public class UMLModelDiff {
 				if(mapping instanceof CompositeStatementObjectMapping) {
 					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
 					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
-					for(AbstractExpression expression : fragment2.getExpressions()) {
+					for(AbstractExpression expression : fragment2.getLocationInfo().getExpressions(this)) {
 						if(expression.equals(mappingList.get(0).getFragment2())) {
 							return false;
 						}
@@ -1965,7 +1965,7 @@ public class UMLModelDiff {
 			   if(mapping instanceof CompositeStatementObjectMapping) {
 				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
 				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
-				   for(AbstractExpression expression : fragment1.getExpressions()) {
+				   for(AbstractExpression expression : fragment1.getLocationInfo().getExpressions(this)) {
 					   if(expression.equals(mappingList.get(0).getFragment1())) {
 						   return false;
 					   }
