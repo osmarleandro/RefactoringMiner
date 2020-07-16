@@ -24,7 +24,7 @@ public abstract class AbstractCodeMapping {
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<Replacement> replacements;
+	Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
@@ -101,10 +101,6 @@ public abstract class AbstractCodeMapping {
 
 	public void addReplacement(Replacement replacement) {
 		this.replacements.add(replacement);
-	}
-
-	public void addReplacements(Set<Replacement> replacements) {
-		this.replacements.addAll(replacements);
 	}
 
 	public Set<Replacement> getReplacements() {
