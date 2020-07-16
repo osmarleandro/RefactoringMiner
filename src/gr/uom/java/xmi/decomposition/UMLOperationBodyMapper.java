@@ -50,7 +50,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
 	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
@@ -603,10 +603,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public UMLOperation getOperation1() {
 		return operation1;
-	}
-
-	public UMLOperation getOperation2() {
-		return operation2;
 	}
 
 	public Set<Refactoring> getRefactorings() {
