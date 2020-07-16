@@ -22,7 +22,7 @@ public class UMLOperationDiff {
 	private UMLOperation removedOperation;
 	private UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
-	private List<UMLParameter> removedParameters;
+	public List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
 	private boolean visibilityChanged;
 	private boolean abstractionChanged;
@@ -180,10 +180,6 @@ public class UMLOperationDiff {
 
 	public List<UMLParameter> getAddedParameters() {
 		return addedParameters;
-	}
-
-	public List<UMLParameter> getRemovedParameters() {
-		return removedParameters;
 	}
 
 	public boolean isOperationRenamed() {
