@@ -218,7 +218,7 @@ public class OperationInvocation extends AbstractCall {
     		}
     	}
     	int i=0;
-    	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
+    	for(UMLParameter parameter : operation.getJavadoc().getParametersWithoutReturnType(this)) {
     		UMLType parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -439,7 +439,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
-		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
+		List<UMLParameter> parameters = operationToBeMatched.getJavadoc().getParametersWithoutReturnType(this);
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
 			if(getArguments().size() < parameters.size()) {

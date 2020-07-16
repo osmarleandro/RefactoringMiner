@@ -202,10 +202,10 @@ public class ExtractOperationDetection {
 
 	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
 			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
-		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
+		List<UMLParameter> originalMethodParameters = originalOperation.getJavadoc().getParametersWithoutReturnType(this);
 		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
 		List<String> arguments = addedOperationInvocation.getArguments();
-		List<UMLParameter> parameters = addedOperation.getParametersWithoutReturnType();
+		List<UMLParameter> parameters = addedOperation.getJavadoc().getParametersWithoutReturnType(this);
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
 		int size = Math.min(arguments.size(), parameters.size());
