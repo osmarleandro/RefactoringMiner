@@ -16,7 +16,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
 
-	private List<AbstractStatement> statementList;
+	public List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
@@ -353,22 +353,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return anonymousClassDeclarations;
-	}
-
-	public List<LambdaExpressionObject> getAllLambdas() {
-		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
-		lambdas.addAll(getLambdas());
-		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				lambdas.addAll(composite.getAllLambdas());
-			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
-				lambdas.addAll(statementObject.getLambdas());
-			}
-		}
-		return lambdas;
 	}
 
 	public List<String> getAllVariables() {
