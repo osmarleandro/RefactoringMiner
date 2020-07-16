@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setEnum(UMLClass umlClass, boolean isEnum) {
+		umlClass.isEnum = isEnum;
+	}
 }
