@@ -1477,8 +1477,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
-			UMLType type1 = removedOperation.getReturnParameter().getType();
-			UMLType type2 = addedOperation.getReturnParameter().getType();
+			UMLType type1 = removedOperation.getJavadoc().getReturnParameter(this).getType();
+			UMLType type2 = addedOperation.getJavadoc().getReturnParameter(this).getType();
 			if(!removedOperation.equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
 				return true;
 			}
