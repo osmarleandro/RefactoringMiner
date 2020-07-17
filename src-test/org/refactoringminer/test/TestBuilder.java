@@ -110,7 +110,7 @@ public class TestBuilder {
 		for (ProjectMatcher m : map.values()) {
 			String folder = tempDir + "/"
 					+ m.cloneUrl.substring(m.cloneUrl.lastIndexOf('/') + 1, m.cloneUrl.lastIndexOf('.'));
-			try (Repository rep = gitService.cloneIfNotExists(folder,
+			try (Repository rep = gitService.cloneIfNotExists_RENAMED(folder,
 					m.cloneUrl/* , m.branch */)) {
 				if (m.ignoreNonSpecifiedCommits) {
 					// It is faster to only look at particular commits

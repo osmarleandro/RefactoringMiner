@@ -45,7 +45,7 @@ public class GitServiceImpl implements GitService {
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
 	@Override
-	public Repository cloneIfNotExists(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
+	public Repository cloneIfNotExists_RENAMED(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
 		File folder = new File(projectPath);
 		Repository repository;
 		if (folder.exists()) {

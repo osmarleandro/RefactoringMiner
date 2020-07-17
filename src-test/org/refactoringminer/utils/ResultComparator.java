@@ -338,7 +338,7 @@ public class ResultComparator {
         } else {
             String folder = tempDir + "/" + projectName;
             final RefactoringCollector rc = new RefactoringCollector(cloneUrl, commitId);
-            try (Repository repo = git.cloneIfNotExists(folder, cloneUrl)) {
+            try (Repository repo = git.cloneIfNotExists_RENAMED(folder, cloneUrl)) {
                 rm.detectAtCommit(repo, commitId, rc);
             } catch (Exception e) {
                 throw new RuntimeException(e);
