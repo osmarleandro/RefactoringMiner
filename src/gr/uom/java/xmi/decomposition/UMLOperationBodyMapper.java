@@ -1945,12 +1945,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.addAll(set);
 			}
-			Replacement r = variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), variables1, variables2);
+			Replacement r = variableReplacementWithinMethodInvocations_RENAMED(replacement.getBefore(), replacement.getAfter(), variables1, variables2);
 			if(r != null) {
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.add(r);
 			}
-			Replacement r2 = variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), stringLiterals1, variables2);
+			Replacement r2 = variableReplacementWithinMethodInvocations_RENAMED(replacement.getBefore(), replacement.getAfter(), stringLiterals1, variables2);
 			if(r2 != null) {
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.add(r2);
@@ -3857,7 +3857,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private Replacement variableReplacementWithinMethodInvocations(String s1, String s2, Set<String> variables1, Set<String> variables2) {
+	private Replacement variableReplacementWithinMethodInvocations_RENAMED(String s1, String s2, Set<String> variables1, Set<String> variables2) {
 		for(String variable1 : variables1) {
 			if(s1.contains(variable1) && !s1.equals(variable1) && !s1.equals("this." + variable1) && !s1.equals("_" + variable1)) {
 				int startIndex1 = s1.indexOf(variable1);
