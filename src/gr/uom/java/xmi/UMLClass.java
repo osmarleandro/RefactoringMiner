@@ -132,7 +132,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return visibility;
 	}
 
-	public void setVisibility(String visibility) {
+	public void setVisibility_RENAMED(String visibility) {
 		this.visibility = visibility;
 	}
 
