@@ -31,7 +31,7 @@ public interface GitService {
 
 	RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception;
 
-	RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception;
+	RevWalk fetchAndCreateNewRevsWalk_RENAMED(Repository repository, String branch) throws Exception;
 
 	RevWalk createAllRevsWalk(Repository repository) throws Exception;
 

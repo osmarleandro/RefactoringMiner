@@ -172,7 +172,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
-		return this.fetchAndCreateNewRevsWalk(repository, null);
+		return this.fetchAndCreateNewRevsWalk_RENAMED(repository, null);
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
