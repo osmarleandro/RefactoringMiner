@@ -126,7 +126,7 @@ public class AstUtils {
         return sb.toString();
     }
 	
-	public static String stripQualifiedTypeName(String qualifiedTypeName) {
+	public static String stripQualifiedTypeName_RENAMED(String qualifiedTypeName) {
 		int dotPos = qualifiedTypeName.lastIndexOf('.');
 		if (dotPos >= 0) {
 			return qualifiedTypeName.substring(dotPos + 1);
