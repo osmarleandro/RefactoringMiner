@@ -941,7 +941,7 @@ public class UMLModelDiff {
 	   for(UMLClass addedClass : addedClasses) {
 		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
 		   UMLType addedClassSuperType = addedClass.getSuperclass();
-		   if(!addedClass.isInterface()) {
+		   if(!addedClass.isInterface_RENAMED()) {
 			   for(UMLClassBaseDiff classDiff : classDiffs) {
 				   UMLType classDiffSuperType = classDiff.getNewSuperclass();
 				   boolean commonSuperType = addedClassSuperType != null && classDiffSuperType != null &&
@@ -1524,7 +1524,7 @@ public class UMLModelDiff {
    }
 
    private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
-	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
+	  if(classDiff.getOriginalClass().isInterface_RENAMED() && classDiff.getNextClass().isInterface_RENAMED()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
 				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
@@ -1942,7 +1942,7 @@ public class UMLModelDiff {
 		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
 		   for(UMLOperation operation : addedOperations) {
 			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
-			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
+			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface_RENAMED() : false;
 			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
 				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
 				   if(newDistance < originalDistance) {

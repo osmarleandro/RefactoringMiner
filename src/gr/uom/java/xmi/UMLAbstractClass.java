@@ -62,7 +62,7 @@ public abstract class UMLAbstractClass {
 	public UMLOperation operationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
 		List<UMLOperation> matchingOperations = new ArrayList<UMLOperation>();
 		for(UMLOperation originalOperation : operations) {
-			boolean matchesOperation = isInterface() ?
+			boolean matchesOperation = isInterface_RENAMED() ?
 				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
 				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
 			if(matchesOperation) {

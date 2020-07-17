@@ -144,7 +144,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.isEnum = isEnum;
 	}
 
-	public boolean isInterface() {
+	public boolean isInterface_RENAMED() {
 		return isInterface;
 	}
 
