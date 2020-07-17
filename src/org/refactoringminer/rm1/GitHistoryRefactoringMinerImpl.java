@@ -246,7 +246,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	private String populateWithGitHubAPI(String cloneURL, String currentCommitId,
 			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
-		GitHub gitHub = connectToGitHub();
+		GitHub gitHub = connectToGitHub_RENAMED();
 		String repoName = extractRepositoryName(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit commit = repository.getCommit(currentCommitId);
@@ -274,7 +274,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return parentCommitId;
 	}
 
-	private GitHub connectToGitHub() {
+	private GitHub connectToGitHub_RENAMED() {
 		if(gitHub == null) {
 			try {
 				Properties prop = new Properties();
@@ -508,7 +508,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			Map<String, String> filesBefore, Map<String, String> filesCurrent, Map<String, String> renamedFilesHint,
 			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
-		GitHub gitHub = connectToGitHub();
+		GitHub gitHub = connectToGitHub_RENAMED();
 		String repoName = extractRepositoryName(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit currentCommit = repository.getCommit(currentCommitId);
@@ -659,7 +659,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
-		GitHub gitHub = connectToGitHub();
+		GitHub gitHub = connectToGitHub_RENAMED();
 		String repoName = extractRepositoryName(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
