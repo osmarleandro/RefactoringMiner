@@ -38,7 +38,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		return sb.toString();
 	}
 
-	public int compareTo(UMLGeneralizationDiff generalizationDiff) {
+	public int compareTo_RENAMED(UMLGeneralizationDiff generalizationDiff) {
 		int compare = this.removedGeneralization.compareTo(generalizationDiff.removedGeneralization);
 		if(compare == 0)
 			return this.addedGeneralization.compareTo(generalizationDiff.addedGeneralization);
