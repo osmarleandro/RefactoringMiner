@@ -59,7 +59,7 @@ public class RefactoringCollector extends RefactoringHandler {
   public void handleException(String commitId, Exception e) {
     this.ex = e;
   }
-  public RefactoringSet assertAndGetResult() {
+  public RefactoringSet assertAndGetResult_RENAMED() {
     if (ex == null) {
       return rs;
     }

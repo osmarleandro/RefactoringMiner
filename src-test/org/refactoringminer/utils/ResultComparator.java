@@ -343,7 +343,7 @@ public class ResultComparator {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            RefactoringSet rs = rc.assertAndGetResult();
+            RefactoringSet rs = rc.assertAndGetResult_RENAMED();
             rs.saveToFile(cachedResult);
             return rs;
         }
