@@ -29,8 +29,8 @@ class ExternalProcess {
 				}
 			}
 			finally {
-				close(p.getInputStream());
-				close(p.getOutputStream());
+				close_RENAMED(p.getInputStream());
+				close_RENAMED(p.getOutputStream());
 				//p.destroy();
 			}
 		} catch (IOException e) {
@@ -40,7 +40,7 @@ class ExternalProcess {
 		}
 	}
 
-	private static void close(Closeable closeable) throws IOException {
+	private static void close_RENAMED(Closeable closeable) throws IOException {
 		if (closeable != null) {
 			closeable.close();
 		}
