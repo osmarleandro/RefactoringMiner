@@ -93,7 +93,7 @@ public class VariableReplacementAnalysis {
 							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
 									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
 								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
-								refactoring.addReference(mapping);
+								refactoring.addReference_RENAMED(mapping);
 								refactorings.add(refactoring);
 							}
 						}

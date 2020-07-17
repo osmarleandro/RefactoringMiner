@@ -26,7 +26,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		this.references = new LinkedHashSet<AbstractCodeMapping>();
 	}
 
-	public void addReference(AbstractCodeMapping mapping) {
+	public void addReference_RENAMED(AbstractCodeMapping mapping) {
 		references.add(mapping);
 	}
 
