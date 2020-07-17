@@ -19,7 +19,7 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 			childChanged = true;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(parentChanged || childChanged)
 			sb.append("realization ").append(removedRealization).append(":").append("\n");
