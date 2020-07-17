@@ -430,13 +430,13 @@ public abstract class AbstractCodeMapping {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fragment1 == null) ? 0 : fragment1.hashCode());
 		result = prime * result + ((fragment2 == null) ? 0 : fragment2.hashCode());
-		result = prime * result + ((operation1 == null) ? 0 : operation1.hashCode());
-		result = prime * result + ((operation2 == null) ? 0 : operation2.hashCode());
+		result = prime * result + ((operation1 == null) ? 0 : operation1.hashCode_RENAMED());
+		result = prime * result + ((operation2 == null) ? 0 : operation2.hashCode_RENAMED());
 		return result;
 	}
 
