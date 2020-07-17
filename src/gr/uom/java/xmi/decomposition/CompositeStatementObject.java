@@ -355,13 +355,13 @@ public class CompositeStatementObject extends AbstractStatement {
 		return anonymousClassDeclarations;
 	}
 
-	public List<LambdaExpressionObject> getAllLambdas() {
+	public List<LambdaExpressionObject> getAllLambdas_RENAMED() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 		lambdas.addAll(getLambdas());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				lambdas.addAll(composite.getAllLambdas());
+				lambdas.addAll(composite.getAllLambdas_RENAMED());
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;

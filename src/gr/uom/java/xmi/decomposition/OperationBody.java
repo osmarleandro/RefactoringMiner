@@ -70,7 +70,7 @@ public class OperationBody {
 	}
 
 	public List<LambdaExpressionObject> getAllLambdas() {
-		return new ArrayList<LambdaExpressionObject>(compositeStatement.getAllLambdas());
+		return new ArrayList<LambdaExpressionObject>(compositeStatement.getAllLambdas_RENAMED());
 	}
 
 	public List<String> getAllVariables() {
