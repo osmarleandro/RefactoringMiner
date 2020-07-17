@@ -8,7 +8,7 @@ public class IntersectionReplacement extends Replacement {
 		super(before, after, type);
 		this.commonElements = commonElements;
 	}
-	public Set<String> getCommonElements() {
+	public Set<String> getCommonElements_RENAMED() {
 		return commonElements;
 	}
 }
