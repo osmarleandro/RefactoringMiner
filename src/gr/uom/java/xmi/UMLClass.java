@@ -196,7 +196,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
-    		if(attribute.equals(otherAttribute)) {
+    		if(attribute.equals_RENAMED(otherAttribute)) {
     			return attribute;
     		}
     	}
