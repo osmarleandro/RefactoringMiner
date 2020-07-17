@@ -475,7 +475,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return map;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 
