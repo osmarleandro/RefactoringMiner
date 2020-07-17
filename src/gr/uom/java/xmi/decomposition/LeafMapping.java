@@ -67,15 +67,15 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 					return Integer.valueOf(indexDiff1).compareTo(Integer.valueOf(indexDiff2));
 				}
 				else {
-					double parentEditDistance1 = this.parentEditDistance();
-					double parentEditDistance2 = o.parentEditDistance();
+					double parentEditDistance1 = this.parentEditDistance_RENAMED();
+					double parentEditDistance2 = o.parentEditDistance_RENAMED();
 					return Double.compare(parentEditDistance1, parentEditDistance2);
 				}
 			}
 		}
 	}
 
-	private double parentEditDistance() {
+	private double parentEditDistance_RENAMED() {
 		CompositeStatementObject parent1 = getFragment1().getParent();
 		while(parent1 != null && parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
 			parent1 = parent1.getParent();
