@@ -130,7 +130,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return lambdas;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 }
