@@ -1929,7 +1929,7 @@ public class UMLModelDiff {
 				   classDiff.getNewSuperclass().equals(type)) {
 			   superclassRelationship = true;
 		   }
-		   if(!addedOperation.getNonQualifiedClassName().equals(type.getClassType()) && !superclassRelationship) {
+		   if(!addedOperation.getNonQualifiedClassName_RENAMED().equals(type.getClassType()) && !superclassRelationship) {
 			   return true;
 		   }
 	   }
@@ -1939,12 +1939,12 @@ public class UMLModelDiff {
    private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
 	   String expression = invocation.getExpression();
 	   if(expression != null) {
-		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
+		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName_RENAMED());
 		   for(UMLOperation operation : addedOperations) {
 			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
 			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
 			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
-				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
+				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName_RENAMED());
 				   if(newDistance < originalDistance) {
 					   return true;
 				   }
