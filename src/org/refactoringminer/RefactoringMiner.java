@@ -35,7 +35,7 @@ public class RefactoringMiner {
 		} else if (option.equalsIgnoreCase("-gc")) {
 			detectAtGitHubCommit(args);
 		} else if (option.equalsIgnoreCase("-gp")) {
-			detectAtGitHubPullRequest(args);
+			detectAtGitHubPullRequest_RENAMED(args);
 		} else {
 			throw argumentException();
 		}
@@ -221,7 +221,7 @@ public class RefactoringMiner {
 		System.out.println(sb.toString());
 	}
 
-	private static void detectAtGitHubPullRequest(String[] args) throws Exception {
+	private static void detectAtGitHubPullRequest_RENAMED(String[] args) throws Exception {
 		if (args.length != 4) {
 			throw argumentException();
 		}
