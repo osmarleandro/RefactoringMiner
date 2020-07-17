@@ -709,7 +709,7 @@ public class UMLModelDiff {
 			   return pushDownAttribute;
 		   }
 		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
-				   targetClassImportsSourceClass(removedAttribute.getClassName(), addedAttribute.getClassName())) {
+				   targetClassImportsSourceClass_RENAMED(removedAttribute.getClassName(), addedAttribute.getClassName())) {
 			   if(!initializerContainsTypeLiteral(addedAttribute, removedAttribute)) {
 				   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
 				   return moveAttribute;
@@ -805,7 +805,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean targetClassImportsSourceClass(String sourceClassName, String targetClassName) {
+   private boolean targetClassImportsSourceClass_RENAMED(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(targetClassName);
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));
@@ -1905,7 +1905,7 @@ public class UMLModelDiff {
                 	  }
                 	  else if(sourceClassImportsTargetClass(className, addedOperation.getClassName()) ||
                 			  sourceClassImportsSuperclassOfTargetClass(className, addedOperation.getClassName()) ||
-                			  targetClassImportsSourceClass(className, addedOperation.getClassName())) {
+                			  targetClassImportsSourceClass_RENAMED(className, addedOperation.getClassName())) {
                 		  //extract and move
 	                      ExtractOperationRefactoring extractOperationRefactoring =
 	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
