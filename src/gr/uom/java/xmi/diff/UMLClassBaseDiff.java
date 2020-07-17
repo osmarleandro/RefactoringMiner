@@ -460,7 +460,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.operationBodyMapperList.add(operationBodyMapper);
 	}
 
-	public List<Refactoring> getRefactoringsBeforePostProcessing() {
+	public List<Refactoring> getRefactoringsBeforePostProcessing_RENAMED() {
 		return refactorings;
 	}
 

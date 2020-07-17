@@ -192,7 +192,7 @@ public abstract class AbstractCodeMapping {
 			if(classDiff != null && initializer != null) {
 				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 				if(invocation != null) {
-					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
+					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing_RENAMED()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
