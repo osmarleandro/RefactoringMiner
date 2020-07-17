@@ -113,7 +113,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ConditionalExpression node) {
+	public boolean visit_RENAMED(ConditionalExpression node) {
 		TernaryOperatorExpression ternary = new TernaryOperatorExpression(cu, filePath, node);
 		ternaryOperatorExpressions.add(ternary);
 		if(current.getUserObject() != null) {
