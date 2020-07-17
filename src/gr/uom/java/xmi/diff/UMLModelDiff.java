@@ -1745,7 +1745,7 @@ public class UMLModelDiff {
 							parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
 						}
 						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, getUMLClassDiff(removedOperation.getClassName()));
-						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
+						if(moveAndInlineMatchCondition_RENAMED(operationBodyMapper, mapper)) {
 							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 							refactorings.add(inlineOperationRefactoring);
 							deleteRemovedOperation(removedOperation);
@@ -1756,7 +1756,7 @@ public class UMLModelDiff {
 	   }
    }
 
-	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
+	private boolean moveAndInlineMatchCondition_RENAMED(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
