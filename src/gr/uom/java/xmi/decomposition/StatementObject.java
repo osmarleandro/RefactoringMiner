@@ -214,7 +214,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getPrefixExpressions() {
+	public List<String> getPrefixExpressions_RENAMED() {
 		return prefixExpressions;
 	}
 

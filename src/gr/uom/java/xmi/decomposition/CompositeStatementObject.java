@@ -228,7 +228,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getPrefixExpressions() {
 		List<String> prefixExpressions = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			prefixExpressions.addAll(expression.getPrefixExpressions());
+			prefixExpressions.addAll(expression.getPrefixExpressions_RENAMED());
 		}
 		return prefixExpressions;
 	}
