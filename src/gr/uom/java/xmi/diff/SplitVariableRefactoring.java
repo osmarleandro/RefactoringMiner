@@ -84,7 +84,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(oldVariable);
@@ -144,7 +144,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(oldVariable.codeRange()
 				.setDescription("original variable declaration")
-				.setCodeElement(oldVariable.toString()));
+				.setCodeElement(oldVariable.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -154,7 +154,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		for(VariableDeclaration splitVariable : splitVariables) {
 			ranges.add(splitVariable.codeRange()
 					.setDescription("split variable declaration")
-					.setCodeElement(splitVariable.toString()));
+					.setCodeElement(splitVariable.toString_RENAMED()));
 		}
 		return ranges;
 	}

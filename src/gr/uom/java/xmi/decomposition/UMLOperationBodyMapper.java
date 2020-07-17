@@ -534,7 +534,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(VariableDeclaration variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
 							String argument = parameterToArgumentMap.get(parameter);
-							if(variableDeclaration.getInitializer() != null && argument.equals(variableDeclaration.getInitializer().toString())) {
+							if(variableDeclaration.getInitializer() != null && argument.equals(variableDeclaration.getInitializer().toString_RENAMED())) {
 								parameterToArgumentMap.put(parameter, variableDeclaration.getVariableName());
 							}
 						}
@@ -2059,7 +2059,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 						}
 						if(matchedOperations > 0) {
-							Replacement replacement = new Replacement(anonymousClassDeclaration1.toString(), anonymousClassDeclaration2.toString(), ReplacementType.ANONYMOUS_CLASS_DECLARATION);
+							Replacement replacement = new Replacement(anonymousClassDeclaration1.toString_RENAMED(), anonymousClassDeclaration2.toString_RENAMED(), ReplacementType.ANONYMOUS_CLASS_DECLARATION);
 							replacementInfo.addReplacement(replacement);
 							return replacementInfo.getReplacements();
 						}
@@ -2664,7 +2664,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private String statementWithoutAnonymous(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
-		int index = statement.getString().indexOf(anonymousClassDeclaration.toString());
+		int index = statement.getString().indexOf(anonymousClassDeclaration.toString_RENAMED());
 		if(index != -1) {
 			return statement.getString().substring(0, index);
 		}
@@ -2689,7 +2689,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(String key : creationMap.keySet()) {
 				List<ObjectCreation> objectCreations = creationMap.get(key);
 				for(ObjectCreation creation : objectCreations) {
-					if(creation.getAnonymousClassDeclaration() != null && creation.getAnonymousClassDeclaration().equals(anonymousClassDeclaration.toString()) &&
+					if(creation.getAnonymousClassDeclaration() != null && creation.getAnonymousClassDeclaration().equals(anonymousClassDeclaration.toString_RENAMED()) &&
 							creation.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
 						return creation.actualString();
 					}
@@ -3965,7 +3965,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public String toString() {
-		return operation1.toString() + " -> " + operation2.toString();
+		return operation1.toString_RENAMED() + " -> " + operation2.toString_RENAMED();
 	}
 
 	@Override
