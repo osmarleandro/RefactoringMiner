@@ -1009,7 +1009,7 @@ public class UMLModelDiff {
 	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
 		   if(!operation.isConstructor() && !operation.overridesObject()) {
-			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation)) {
 				   commonOperations.add(operation);
 			   }
 		   }

@@ -90,7 +90,7 @@ public abstract class UMLAbstractClass {
 		return null;
 	}
 
-	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
+	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
@@ -233,7 +233,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation operation : operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
-	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
+	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation) ||
 	    				(pattern != null && umlClass.containsOperationWithTheSameRenamePattern(operation, pattern.reverse()))) {
 	    			commonOperations.add(operation);
 	    		}
@@ -242,7 +242,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation operation : umlClass.operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
-	    		if(this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
+	    		if(this.containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation) ||
 	    				(pattern != null && this.containsOperationWithTheSameRenamePattern(operation, pattern))) {
 	    			commonOperations.add(operation);
 	    		}
@@ -283,12 +283,12 @@ public abstract class UMLAbstractClass {
 		if(this.operations.size() != umlClass.operations.size())
 			return false;
 		for(UMLOperation operation : operations) {
-			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation)) {
 				return false;
 			}
 		}
 		for(UMLOperation operation : umlClass.operations) {
-			if(!this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+			if(!this.containsOperationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation)) {
 				return false;
 			}
 		}
