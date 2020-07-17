@@ -336,7 +336,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				return handler.skipCommit(sha1);
 			}
 		};
-		RevWalk walk = gitService.fetchAndCreateNewRevsWalk(repository);
+		RevWalk walk = gitService.fetchAndCreateNewRevsWalk_RENAMED(repository);
 		try {
 			detect(gitService, repository, handler, walk.iterator());
 		} finally {
