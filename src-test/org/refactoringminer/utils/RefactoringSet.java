@@ -47,7 +47,7 @@ public class RefactoringSet {
         return refactoringGroups.keySet();
     }
 
-    public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
+    public RefactoringSet add_RENAMED(RefactoringType type, String entityBefore, String entityAfter) {
         return add(new RefactoringRelationship(type, entityBefore, entityAfter));
     }
 
@@ -120,7 +120,7 @@ public class RefactoringSet {
                     RefactoringType refactoringType = RefactoringType.fromName(array[0].trim());
                     String entityBefore = array[1].trim();
                     String entityAfter = array[2].trim();
-                    add(refactoringType, entityBefore, entityAfter);
+                    add_RENAMED(refactoringType, entityBefore, entityAfter);
                 }
             }
         } catch (IOException e) {
