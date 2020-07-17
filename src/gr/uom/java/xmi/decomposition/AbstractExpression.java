@@ -156,7 +156,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getPostfixExpressions() {
+	public List<String> getPostfixExpressions_RENAMED() {
 		return postfixExpressions;
 	}
 
