@@ -78,8 +78,8 @@ public abstract class AbstractCodeMapping {
 		if(invocation1 != null && invocation2 != null) {
 			return invocation1.actualString().equals(invocation2.actualString());
 		}
-		ObjectCreation creation1 = fragment1.creationCoveringEntireFragment();
-		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment();
+		ObjectCreation creation1 = fragment1.creationCoveringEntireFragment_RENAMED();
+		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment_RENAMED();
 		if(creation1 != null && creation2 != null) {
 			return creation1.actualString().equals(creation2.actualString());
 		}

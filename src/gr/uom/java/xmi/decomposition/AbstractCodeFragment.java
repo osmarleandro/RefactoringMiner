@@ -158,7 +158,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
 
-	public ObjectCreation creationCoveringEntireFragment() {
+	public ObjectCreation creationCoveringEntireFragment_RENAMED() {
 		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
 		String statement = getString();
 		for(String objectCreation : creationMap.keySet()) {

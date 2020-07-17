@@ -1731,8 +1731,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		replaceVariablesWithArguments(creationMap1, creations1, map);
 		
-		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
-		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
+		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment_RENAMED();
+		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment_RENAMED();
 		//remove objectCreation covering the entire statement
 		for(String objectCreation1 : creationMap1.keySet()) {
 			for(AbstractCall creation1 : creationMap1.get(objectCreation1)) {
