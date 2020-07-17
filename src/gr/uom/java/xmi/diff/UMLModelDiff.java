@@ -253,7 +253,7 @@ public class UMLModelDiff {
 		   subclassDiff = getUMLClassDiff(UMLType.extractTypeObject(subclass));
 	   }
 	   if(subclassDiff != null) {
-		   UMLType superclass = subclassDiff.getSuperclass();
+		   UMLType superclass = subclassDiff.getSuperclass_RENAMED();
 		   if(superclass != null) {
 			   if(checkInheritanceRelationship(superclass, finalSuperclass, visitedClasses)) {
 				   return true;
@@ -750,7 +750,7 @@ public class UMLModelDiff {
 	   if(sourceClassDiff != null) {
 		   UMLType targetSuperclass = null;
 		   if(targetClassDiff != null) {
-			   targetSuperclass = targetClassDiff.getSuperclass();
+			   targetSuperclass = targetClassDiff.getSuperclass_RENAMED();
 		   }
 		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
 		   for(UMLAttribute addedAttribute : addedAttributes) {
@@ -778,8 +778,8 @@ public class UMLModelDiff {
 
    private boolean sourceClassImportsSuperclassOfTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(targetClassName);
-	   if(targetClassDiff != null && targetClassDiff.getSuperclass() != null) {
-		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass());
+	   if(targetClassDiff != null && targetClassDiff.getSuperclass_RENAMED() != null) {
+		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass_RENAMED());
 		   if(superclassOfTargetClassDiff != null) {
 			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
 		   }
