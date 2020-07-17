@@ -641,7 +641,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		for (int i = 0; i < parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
-				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
+				sb.append(AstUtils.stripTypeParamsFromTypeName_RENAMED(parameter.getType().toString()));
 				if(i < parameters.size() - 1)
 					sb.append(", ");
 			}
