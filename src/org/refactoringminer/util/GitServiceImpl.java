@@ -136,7 +136,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public int countCommits(Repository repository, String branch) throws Exception {
+	public int countCommits_RENAMED(Repository repository, String branch) throws Exception {
 		RevWalk walk = new RevWalk(repository);
 		try {
 			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
