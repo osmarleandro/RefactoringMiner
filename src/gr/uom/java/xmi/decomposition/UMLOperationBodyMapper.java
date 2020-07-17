@@ -1963,7 +1963,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
-				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
+				(validStatementForConcatComparison_RENAMED(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
 		if(isEqualWithReplacement) {
@@ -2608,7 +2608,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
+	private boolean validStatementForConcatComparison_RENAMED(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
 		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations();
 		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations();
 		if(variableDeclarations1.size() == variableDeclarations2.size()) {
