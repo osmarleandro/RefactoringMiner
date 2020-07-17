@@ -380,7 +380,7 @@ public class UMLModelASTReader {
 		for(IExtendedModifier extendedModifier : extendedModifiers) {
 			if(extendedModifier.isAnnotation()) {
 				Annotation annotation = (Annotation)extendedModifier;
-				umlClass.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+				umlClass.addAnnotation_RENAMED(new UMLAnnotation(cu, sourceFile, annotation));
 			}
 		}
 	}
