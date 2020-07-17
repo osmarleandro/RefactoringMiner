@@ -44,7 +44,7 @@ public class ExtractOperationDetection {
 			if(addedOperationInvocations.size() > 0) {
 				int otherAddedMethodsCalled = 0;
 				for(UMLOperation addedOperation2 : this.addedOperations) {
-					if(!addedOperation.equals(addedOperation2)) {
+					if(!addedOperation.equals_RENAMED(addedOperation2)) {
 						List<OperationInvocation> addedOperationInvocations2 = matchingInvocations(addedOperation2, operationInvocations, mapper.getOperation2().variableTypeMap());
 						if(addedOperationInvocations2.size() > 0) {
 							otherAddedMethodsCalled++;
@@ -167,7 +167,7 @@ public class ExtractOperationDetection {
 
 	public static boolean containsInvocation(List<OperationInvocation> operationInvocations, OperationInvocation invocation) {
 		for(OperationInvocation operationInvocation : operationInvocations) {
-			if(operationInvocation.getLocationInfo().equals(invocation.getLocationInfo())) {
+			if(operationInvocation.getLocationInfo().equals_RENAMED(invocation.getLocationInfo())) {
 				return true;
 			}
 		}
@@ -289,7 +289,7 @@ public class ExtractOperationDetection {
 	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
 		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
 			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
-			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
+			if(!key.getType().equals_RENAMED(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
 					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
 				return false;
 			}

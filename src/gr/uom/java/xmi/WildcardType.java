@@ -30,7 +30,7 @@ public class WildcardType extends UMLType {
 		if (bound == null) {
 			if (other.bound != null)
 				return false;
-		} else if (!bound.equals(other.bound))
+		} else if (!bound.equals_RENAMED(other.bound))
 			return false;
 		if (upperBound != other.upperBound)
 			return false;

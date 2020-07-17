@@ -100,7 +100,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		if (oldAttribute == null) {
 			if (other.oldAttribute != null)
 				return false;
-		} else if (!oldAttribute.equals(other.oldAttribute))
+		} else if (!oldAttribute.equals_RENAMED(other.oldAttribute))
 			return false;
 		if (splitAttributes == null) {
 			if (other.splitAttributes != null)
