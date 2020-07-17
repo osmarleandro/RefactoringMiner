@@ -138,7 +138,7 @@ public class ExtractOperationDetection {
 		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
 		for(String key : statementMethodInvocationMap.keySet()) {
 			for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
-				if(!containsInvocation(operationInvocations, statementInvocation)) {
+				if(!containsInvocation_RENAMED(operationInvocations, statementInvocation)) {
 					operationInvocations.add(statementInvocation);
 				}
 			}
@@ -147,7 +147,7 @@ public class ExtractOperationDetection {
 		for(LambdaExpressionObject lambda : lambdas) {
 			if(lambda.getBody() != null) {
 				for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
-					if(!containsInvocation(operationInvocations, statementInvocation)) {
+					if(!containsInvocation_RENAMED(operationInvocations, statementInvocation)) {
 						operationInvocations.add(statementInvocation);
 					}
 				}
@@ -156,7 +156,7 @@ public class ExtractOperationDetection {
 				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
-						if(!containsInvocation(operationInvocations, statementInvocation)) {
+						if(!containsInvocation_RENAMED(operationInvocations, statementInvocation)) {
 							operationInvocations.add(statementInvocation);
 						}
 					}
@@ -165,7 +165,7 @@ public class ExtractOperationDetection {
 		}
 	}
 
-	public static boolean containsInvocation(List<OperationInvocation> operationInvocations, OperationInvocation invocation) {
+	public static boolean containsInvocation_RENAMED(List<OperationInvocation> operationInvocations, OperationInvocation invocation) {
 		for(OperationInvocation operationInvocation : operationInvocations) {
 			if(operationInvocation.getLocationInfo().equals(invocation.getLocationInfo())) {
 				return true;

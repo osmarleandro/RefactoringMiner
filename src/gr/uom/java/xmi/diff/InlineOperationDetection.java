@@ -120,7 +120,7 @@ public class InlineOperationDetection {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
 					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
-							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
+							if(!ExtractOperationDetection.containsInvocation_RENAMED(operationInvocations, anonymousInvocation)) {
 								operationInvocations.add(anonymousInvocation);
 							}
 						}
