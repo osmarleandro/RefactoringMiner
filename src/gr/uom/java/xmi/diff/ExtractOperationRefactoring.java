@@ -118,7 +118,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeBeforeExtraction() {
+	public CodeRange getSourceOperationCodeRangeBeforeExtraction_RENAMED() {
 		return sourceOperationBeforeExtraction.codeRange();
 	}
 
@@ -187,7 +187,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
+		ranges.add(getSourceOperationCodeRangeBeforeExtraction_RENAMED()
 				.setDescription("source method declaration before extraction")
 				.setCodeElement(sourceOperationBeforeExtraction.toString()));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
