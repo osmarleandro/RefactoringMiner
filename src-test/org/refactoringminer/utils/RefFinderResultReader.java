@@ -19,7 +19,7 @@ public class RefFinderResultReader {
     public static RefactoringSet read(String project, String revision, String folderPath) {
         try {
             RefactoringSet result = new RefactoringSet(project, revision);
-            for (RefactoringRelationship r : readFolder(folderPath)) {
+            for (RefactoringRelationship r : readFolder_RENAMED(folderPath)) {
                 result.add(r);
             }
             return result;
@@ -28,7 +28,7 @@ public class RefFinderResultReader {
         }
     }
 
-    private static List<RefactoringRelationship> readFolder(String path) throws Exception {
+    private static List<RefactoringRelationship> readFolder_RENAMED(String path) throws Exception {
         List<RefactoringRelationship> result = new ArrayList<>();
         File folder = new File(path);
         for (File f : folder.listFiles()) {
