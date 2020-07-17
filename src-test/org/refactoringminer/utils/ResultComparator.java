@@ -57,7 +57,7 @@ public class ResultComparator {
         return this;
     }
 
-    public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
+    public ResultComparator compareWith_RENAMED(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
             resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
