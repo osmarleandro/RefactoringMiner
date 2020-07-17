@@ -976,7 +976,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private static int totalOccurrences(Set<CandidateAttributeRefactoring> candidates) {
 		int totalCount = 0;
 		for(CandidateAttributeRefactoring candidate : candidates) {
-			totalCount += candidate.getOccurrences();
+			totalCount += candidate.getOccurrences_RENAMED();
 		}
 		return totalCount;
 	}

@@ -51,7 +51,7 @@ public class CandidateAttributeRefactoring {
 		return attributeReferences;
 	}
 
-	public int getOccurrences() {
+	public int getOccurrences_RENAMED() {
 		return attributeReferences.size();
 	}
 
