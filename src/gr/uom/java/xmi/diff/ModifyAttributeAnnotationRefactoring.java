@@ -30,7 +30,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		return annotationBefore;
 	}
 
-	public UMLAnnotation getAnnotationAfter() {
+	public UMLAnnotation getAnnotationAfter_RENAMED() {
 		return annotationAfter;
 	}
 
