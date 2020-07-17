@@ -45,7 +45,7 @@ public abstract class AbstractCodeMapping {
 		return fragment2;
 	}
 
-	public UMLOperation getOperation1() {
+	public UMLOperation getOperation1_RENAMED() {
 		return operation1;
 	}
 
