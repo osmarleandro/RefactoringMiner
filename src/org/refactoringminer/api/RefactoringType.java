@@ -163,7 +163,7 @@ public enum RefactoringType {
         }
     }
 
-    public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
+    public static void parse_RENAMED(String refactoringDescription, Collection<RefactoringRelationship> result) {
         RefactoringType refType = extractFromDescription(refactoringDescription);
         Matcher m = refType.regex.matcher(refactoringDescription);
         if (m.matches()) {
