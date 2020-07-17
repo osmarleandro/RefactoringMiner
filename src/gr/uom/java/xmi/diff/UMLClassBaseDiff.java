@@ -1347,7 +1347,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			for(OperationInvocation operationInvocation : operationInvocations) {
 				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getArguments());
 				argumentIntersection.retainAll(invocation.getArguments());
-				if(operationInvocation.getMethodName().equals(invocation.getMethodName()) && !argumentIntersection.isEmpty()) {
+				if(operationInvocation.getMethodName_RENAMED().equals(invocation.getMethodName_RENAMED()) && !argumentIntersection.isEmpty()) {
 					return true;
 				}
 				else if(argumentIntersection.size() > 0 && argumentIntersection.size() == invocation.getArguments().size()) {
@@ -1407,7 +1407,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.removeAll(newIntersection);
 		for(Iterator<OperationInvocation> operationInvocationIterator = removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.iterator(); operationInvocationIterator.hasNext();) {
 			OperationInvocation invocation = operationInvocationIterator.next();
-			if(invocation.getMethodName().startsWith("get")) {
+			if(invocation.getMethodName_RENAMED().startsWith("get")) {
 				operationInvocationIterator.remove();
 			}
 		}

@@ -131,10 +131,10 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public String getName() {
-		return getMethodName();
+		return getMethodName_RENAMED();
 	}
 
-    public String getMethodName() {
+    public String getMethodName_RENAMED() {
 		return methodName;
 	}
 
@@ -392,8 +392,8 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public double normalizedNameDistance(AbstractCall call) {
-		String s1 = getMethodName().toLowerCase();
-		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
+		String s1 = getMethodName_RENAMED().toLowerCase();
+		String s2 = ((OperationInvocation)call).getMethodName_RENAMED().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
@@ -435,7 +435,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
 	public boolean identicalName(AbstractCall call) {
-		return getMethodName().equals(((OperationInvocation)call).getMethodName());
+		return getMethodName_RENAMED().equals(((OperationInvocation)call).getMethodName_RENAMED());
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
