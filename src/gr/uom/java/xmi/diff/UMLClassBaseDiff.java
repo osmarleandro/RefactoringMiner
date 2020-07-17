@@ -521,7 +521,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				else {
 					candidate.setSplitAttributes(splitAttributes);
-					candidate.setOldAttribute(a1);
+					candidate.setOldAttribute_RENAMED(a1);
 					candidateAttributeSplits.add(candidate);
 				}
 			}
