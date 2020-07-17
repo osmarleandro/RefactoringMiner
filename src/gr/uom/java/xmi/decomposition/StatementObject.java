@@ -247,7 +247,7 @@ public class StatementObject extends AbstractStatement {
 		return locationInfo;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 
