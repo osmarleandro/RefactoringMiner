@@ -247,7 +247,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
+		String repoName = extractRepositoryName_RENAMED(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit commit = repository.getCommit(currentCommitId);
 		String parentCommitId = commit.getParents().get(0).getSHA1();
@@ -509,7 +509,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
+		String repoName = extractRepositoryName_RENAMED(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit currentCommit = repository.getCommit(currentCommitId);
 		final String parentCommitId = currentCommit.getParents().get(0).getSHA1();
@@ -660,7 +660,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	@Override
 	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
+		String repoName = extractRepositoryName_RENAMED(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
@@ -672,7 +672,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
-	private static String extractRepositoryName(String cloneURL) {
+	private static String extractRepositoryName_RENAMED(String cloneURL) {
 		int hostLength = 0;
 		if(cloneURL.startsWith(GITHUB_URL)) {
 			hostLength = GITHUB_URL.length();
