@@ -114,7 +114,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return sb.toString();
   }
 
-  public String getMainEntity() {
+  public String getMainEntity_RENAMED() {
     if (typesWithMainEntityAfter.contains(refactoringType)) {
       return entityAfter;
     }
@@ -131,14 +131,14 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   @Override
   public int compareTo(RefactoringRelationship o) {
     int rt = getRefactoringType().compareTo(o.getRefactoringType());
-    int cm = getMainEntity().compareTo(o.getMainEntity());
+    int cm = getMainEntity_RENAMED().compareTo(o.getMainEntity_RENAMED());
     int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
     int ct = refactoringType.compareTo(o.refactoringType);
     return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
   }
 
   public GroupKey getGroupKey() {
-    return new GroupKey(refactoringType, getMainEntity());
+    return new GroupKey(refactoringType, getMainEntity_RENAMED());
   }
 
   public static class GroupKey implements Comparable<GroupKey> {
