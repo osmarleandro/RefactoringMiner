@@ -746,7 +746,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
-							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+							if(invocation.matchesOperation(operation, operation2.variableTypeMap_RENAMED(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
 							}
@@ -762,7 +762,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
-							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+							if(invocation.matchesOperation(operation, operation2.variableTypeMap_RENAMED(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
 							}
@@ -782,7 +782,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+							if(invocation.matchesOperation(operation, operation1.variableTypeMap_RENAMED(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
 							}
@@ -798,7 +798,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+							if(invocation.matchesOperation(operation, operation1.variableTypeMap_RENAMED(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
 							}
@@ -814,7 +814,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		boolean removedOperationCalled = false;
 		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
 			for(UMLOperation operation : removedOperations) {
-				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+				if(invocation.matchesOperation(operation, operation1.variableTypeMap_RENAMED(), modelDiff)) {
 					removedOperationCalled = true;
 					break;
 				}
@@ -825,7 +825,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		boolean addedOperationCalled = false;
 		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
 			for(UMLOperation operation : addedOperations) {
-				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+				if(invocation.matchesOperation(operation, operation2.variableTypeMap_RENAMED(), modelDiff)) {
 					addedOperationCalled = true;
 					break;
 				}
@@ -4101,7 +4101,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(leaveSize2 <= 2) {
 					for(StatementObject leaf2 : leaves2) {
 						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
+						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap_RENAMED())) {
 							mappedLeavesSize++;
 						}
 					}
@@ -4109,7 +4109,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				else if(leaveSize1 <= 2) {
 					for(StatementObject leaf1 : leaves1) {
 						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
+						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap_RENAMED())) {
 							mappedLeavesSize++;
 						}
 					}

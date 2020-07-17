@@ -176,7 +176,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return null;
 	}
 
-	public Map<String, UMLType> variableTypeMap() {
+	public Map<String, UMLType> variableTypeMap_RENAMED() {
 		Map<String, UMLType> variableTypeMap = new LinkedHashMap<String, UMLType>();
 		for(UMLParameter parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
@@ -424,7 +424,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
 					for(OperationInvocation operationInvocation : operationInvocations) {
-						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName())) {
+						if(operationInvocation.matchesOperation(this, this.variableTypeMap_RENAMED(), null) || operationInvocation.getMethodName().equals(this.getName())) {
 							return operationInvocation;
 						}
 					}
