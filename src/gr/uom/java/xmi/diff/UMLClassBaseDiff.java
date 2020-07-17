@@ -306,7 +306,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.removedAnonymousClasses.add(umlClass);
 	}
 
-	private void setVisibilityChanged(boolean visibilityChanged) {
+	private void setVisibilityChanged_RENAMED(boolean visibilityChanged) {
 		this.visibilityChanged = visibilityChanged;
 	}
 
@@ -418,7 +418,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void processInheritance() {
 		if(!originalClass.getVisibility().equals(nextClass.getVisibility())) {
-			setVisibilityChanged(true);
+			setVisibilityChanged_RENAMED(true);
 			setOldVisibility(originalClass.getVisibility());
 			setNewVisibility(nextClass.getVisibility());
 		}
