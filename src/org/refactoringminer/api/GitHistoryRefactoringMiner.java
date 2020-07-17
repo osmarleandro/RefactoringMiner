@@ -44,7 +44,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId, RefactoringHandler handler)
+	void detectBetweenCommits_RENAMED(Repository repository, String startCommitId, String endCommitId, RefactoringHandler handler)
 			throws Exception;
 	
 	/**

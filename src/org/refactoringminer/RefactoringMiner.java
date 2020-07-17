@@ -97,7 +97,7 @@ public class RefactoringMiner {
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
-			detector.detectBetweenCommits(repo, startCommit, endCommit, new RefactoringHandler() {
+			detector.detectBetweenCommits_RENAMED(repo, startCommit, endCommit, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
