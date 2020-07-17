@@ -36,7 +36,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return entityBefore;
   }
 
-  public String getEntityAfter() {
+  public String getEntityAfter_RENAMED() {
     return entityAfter;
   }
 
