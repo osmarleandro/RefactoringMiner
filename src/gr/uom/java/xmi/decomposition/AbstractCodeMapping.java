@@ -236,7 +236,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void inlinedVariableAssignment(AbstractCodeFragment statement,
+	public void inlinedVariableAssignment_RENAMED(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
