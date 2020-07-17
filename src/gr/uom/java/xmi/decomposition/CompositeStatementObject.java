@@ -246,7 +246,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getArguments() {
 		List<String> arguments = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			arguments.addAll(expression.getArguments());
+			arguments.addAll(expression.getArguments_RENAMED());
 		}
 		return arguments;
 	}
