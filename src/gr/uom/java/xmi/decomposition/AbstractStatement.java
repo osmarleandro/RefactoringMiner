@@ -13,7 +13,7 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     	return this.parent;
     }
 
-	public String getString() {
+	public String getString_RENAMED() {
     	return toString();
     }
 

@@ -17,22 +17,22 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 	public int compareTo(CompositeStatementObjectMapping o) {
 		double distance1;
 		double distance2;
-		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {
+		if(this.getFragment1().getString_RENAMED().equals(this.getFragment2().getString_RENAMED())) {
 			distance1 = 0;
 		}
 		else {
-			String s1 = this.getFragment1().getString().toLowerCase();
-			String s2 = this.getFragment2().getString().toLowerCase();
+			String s1 = this.getFragment1().getString_RENAMED().toLowerCase();
+			String s2 = this.getFragment2().getString_RENAMED().toLowerCase();
 			int distance = StringDistance.editDistance(s1, s2);
 			distance1 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		
-		if(o.getFragment1().getString().equals(o.getFragment2().getString())) {
+		if(o.getFragment1().getString_RENAMED().equals(o.getFragment2().getString_RENAMED())) {
 			distance2 = 0;
 		}
 		else {
-			String s1 = o.getFragment1().getString().toLowerCase();
-			String s2 = o.getFragment2().getString().toLowerCase();
+			String s1 = o.getFragment1().getString_RENAMED().toLowerCase();
+			String s2 = o.getFragment2().getString_RENAMED().toLowerCase();
 			int distance = StringDistance.editDistance(s1, s2);
 			distance2 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}

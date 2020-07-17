@@ -96,7 +96,7 @@ public class ExtractOperationDetection {
 						}
 						//add back to mapper non-exact matches
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
-							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
+							if(!mapping.isExact() || mapping.getFragment1().getString_RENAMED().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
 									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {
@@ -240,8 +240,8 @@ public class ExtractOperationDetection {
 			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
 				StatementObject statement1 = (StatementObject)mapping.getFragment1();
 				StatementObject statement2 = (StatementObject)mapping.getFragment2();
-				if(statement1.getParent().getString().startsWith("catch(") &&
-						statement2.getParent().getString().startsWith("catch(")) {
+				if(statement1.getParent().getString_RENAMED().startsWith("catch(") &&
+						statement2.getParent().getString_RENAMED().startsWith("catch(")) {
 					exceptionHandlingExactMatch = true;
 				}
 			}

@@ -440,15 +440,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<UMLParameter> parameters = getParametersWithoutReturnType();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
-				if(statement.getString().startsWith("return ")) {
+				if(statement.getString_RENAMED().startsWith("return ")) {
 					for(String variable : statement.getVariables()) {
-						if(statement.getString().equals("return " + variable + ";\n") && parameters.size() == 0) {
+						if(statement.getString_RENAMED().equals("return " + variable + ";\n") && parameters.size() == 0) {
 							return true;
 						}
-						else if(statement.getString().equals("return " + variable + ".keySet()" + ";\n") && parameters.size() == 0) {
+						else if(statement.getString_RENAMED().equals("return " + variable + ".keySet()" + ";\n") && parameters.size() == 0) {
 							return true;
 						}
-						else if(statement.getString().equals("return " + variable + ".values()" + ";\n") && parameters.size() == 0) {
+						else if(statement.getString_RENAMED().equals("return " + variable + ".values()" + ";\n") && parameters.size() == 0) {
 							return true;
 						}
 					}
@@ -457,7 +457,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 							returnParameter != null && returnParameter.getType().getClassType().equals("boolean")) {
 						return true;
 					}
-					if(statement.getString().equals("return null;\n")) {
+					if(statement.getString_RENAMED().equals("return null;\n")) {
 						return true;
 					}
 				}
@@ -473,7 +473,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
 				for(String variable : statement.getVariables()) {
-					if(statement.getString().equals(variable + "=" + parameterNames.get(0) + ";\n")) {
+					if(statement.getString_RENAMED().equals(variable + "=" + parameterNames.get(0) + ";\n")) {
 						return true;
 					}
 				}
