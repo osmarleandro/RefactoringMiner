@@ -75,7 +75,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeBeforeMove() {
+	public CodeRange getSourceOperationCodeRangeBeforeMove_RENAMED() {
 		return originalOperation.codeRange();
 	}
 
