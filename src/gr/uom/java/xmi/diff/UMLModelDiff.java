@@ -2310,16 +2310,16 @@ public class UMLModelDiff {
 		for(ListIterator<StatementObject> leafIterator1 = operationBodyMapper.getNonMappedLeavesT1().listIterator(); leafIterator1.hasNext();) {
 			StatementObject s1 = leafIterator1.next();
 			for(StatementObject s2 : operationBodyMapper.getNonMappedLeavesT2()) {
-				if(s1.getVariableDeclarations().size() == 1 && s2.getVariableDeclarations().size() == 1) {
-					VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
-					VariableDeclaration v2 = s2.getVariableDeclarations().get(0);
+				if(s1.getVariableDeclarations_RENAMED().size() == 1 && s2.getVariableDeclarations_RENAMED().size() == 1) {
+					VariableDeclaration v1 = s1.getVariableDeclarations_RENAMED().get(0);
+					VariableDeclaration v2 = s2.getVariableDeclarations_RENAMED().get(0);
 					if(v1.getVariableName().equals(v2.getVariableName()) && v1.getType().equals(v2.getType())) {
 						nonMappedStatementsDeclaringSameVariable++;
 					}
 				}
 			}
-			if(addedClass != null && s1.getVariableDeclarations().size() == 1) {
-				VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
+			if(addedClass != null && s1.getVariableDeclarations_RENAMED().size() == 1) {
+				VariableDeclaration v1 = s1.getVariableDeclarations_RENAMED().get(0);
 				for(UMLAttribute attribute : addedClass.getAttributes()) {
 					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
 					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {

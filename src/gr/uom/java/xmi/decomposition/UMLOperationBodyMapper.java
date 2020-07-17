@@ -530,7 +530,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!parameterToArgumentMap.isEmpty()) {
 				//check for temporary variables that the argument might be assigned to
 				for(StatementObject leave2 : leaves2) {
-					List<VariableDeclaration> variableDeclarations = leave2.getVariableDeclarations();
+					List<VariableDeclaration> variableDeclarations = leave2.getVariableDeclarations_RENAMED();
 					for(VariableDeclaration variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
 							String argument = parameterToArgumentMap.get(parameter);
@@ -717,7 +717,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
-				if(statement.getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {
+				if(statement.getVariableDeclarations_RENAMED().contains(extractVariable.getVariableDeclaration())) {
 					return true;
 				}
 			}
@@ -1353,8 +1353,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(mappingSet.size() > 1) {
 			Set<LeafMapping> variableDeclarationMappings = new LinkedHashSet<LeafMapping>();
 			for(LeafMapping mapping : mappingSet) {
-				if(mapping.getFragment1().getVariableDeclarations().size() > 0 &&
-						mapping.getFragment2().getVariableDeclarations().size() > 0) {
+				if(mapping.getFragment1().getVariableDeclarations_RENAMED().size() > 0 &&
+						mapping.getFragment2().getVariableDeclarations_RENAMED().size() > 0) {
 					variableDeclarationMappings.add(mapping);
 				}
 			}
@@ -1579,8 +1579,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private Set<Replacement> findReplacementsWithExactMatching(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
 			Map<String, String> parameterToArgumentMap, ReplacementInfo replacementInfo) throws RefactoringMinerTimedOutException {
-		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations());
-		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations());
+		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations_RENAMED());
+		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations_RENAMED());
 		VariableDeclaration variableDeclarationWithArrayInitializer1 = declarationWithArrayInitializer(variableDeclarations1);
 		VariableDeclaration variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
 		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment();
@@ -2609,8 +2609,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
-		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations();
-		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations_RENAMED();
+		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations_RENAMED();
 		if(variableDeclarations1.size() == variableDeclarations2.size()) {
 			return true;
 		}
@@ -4025,8 +4025,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int count = 0;
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
-				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
-				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
+				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations_RENAMED();
+				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations_RENAMED();
 				if(variableDeclarations1.contains(v1) &&
 						variableDeclarations2.size() > 0 &&
 						!variableDeclarations2.contains(v2)) {

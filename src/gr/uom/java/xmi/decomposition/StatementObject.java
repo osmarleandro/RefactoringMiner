@@ -159,7 +159,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration> getVariableDeclarations_RENAMED() {
 		return variableDeclarations;
 	}
 
@@ -252,7 +252,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations_RENAMED();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
