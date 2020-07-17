@@ -1841,7 +1841,7 @@ public class UMLModelDiff {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className);
             		  if(umlClassDiff == null) {
             			  for(UMLClassDiff classDiff : commonClassDiffList) {
-            				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses()) {
+            				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses_RENAMED()) {
             					  if(className.equals(anonymousClass.getCodePath())) {
             						  umlClassDiff = classDiff;
             						  attributes.addAll(anonymousClass.attributesOfType(addedOperation.getClassName()));
