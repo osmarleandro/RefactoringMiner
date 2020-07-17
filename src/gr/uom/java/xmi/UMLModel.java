@@ -37,7 +37,7 @@ public class UMLModel {
     	realizationList.add(umlRealization);
     }
 
-    public UMLClass getClass(UMLClass umlClassFromOtherModel) {
+    public UMLClass getClass_RENAMED(UMLClass umlClassFromOtherModel) {
     	ListIterator<UMLClass> it = classList.listIterator();
         while(it.hasNext()) {
             UMLClass umlClass = it.next();
@@ -143,7 +143,7 @@ public class UMLModel {
     	modelDiff.checkForRealizationChanges();
     	for(UMLClass umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
-    			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
+    			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass_RENAMED(umlClass), modelDiff);
     			classDiff.process();
     			if(!classDiff.isEmpty())
     				modelDiff.addUMLClassDiff(classDiff);
