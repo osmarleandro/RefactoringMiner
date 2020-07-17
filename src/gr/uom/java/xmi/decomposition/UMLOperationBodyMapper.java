@@ -124,7 +124,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
 				}
 			}
-			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
+			processLeaves_RENAMED(leaves1, leaves2, new LinkedHashMap<String, String>());
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			innerNodes1.remove(composite1);
@@ -177,14 +177,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			leaves1.add(lambda1.getExpression());
 			List<AbstractExpression> leaves2 = new ArrayList<AbstractExpression>();
 			leaves2.add(lambda2.getExpression());
-			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
+			processLeaves_RENAMED(leaves1, leaves2, new LinkedHashMap<String, String>());
 		}
 		else if(lambda1.getBody() != null && lambda2.getBody() != null) {
 			CompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
 			CompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = composite2.getLeaves();
-			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
+			processLeaves_RENAMED(leaves1, leaves2, new LinkedHashMap<String, String>());
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
@@ -364,7 +364,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare leaves from T1 with leaves from T2
-			processLeaves(leaves1, leaves2, parameterToArgumentMap2);
+			processLeaves_RENAMED(leaves1, leaves2, parameterToArgumentMap2);
 			
 			//adding innerNodes that were mapped with replacements
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
@@ -407,7 +407,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			int numberOfMappings = mappings.size();
-			processLeaves(expressionsT1, leaves2, parameterToArgumentMap2);
+			processLeaves_RENAMED(expressionsT1, leaves2, parameterToArgumentMap2);
 			List<AbstractCodeMapping> mappings = new ArrayList<>(this.mappings);
 			for(int i = numberOfMappings; i < mappings.size(); i++) {
 				mappings.get(i).temporaryVariableAssignment(refactorings);
@@ -545,7 +545,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare leaves from T1 with leaves from T2
-			processLeaves(leaves1, leaves2, parameterToArgumentMap);
+			processLeaves_RENAMED(leaves1, leaves2, parameterToArgumentMap);
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			innerNodes1.remove(composite1);
@@ -581,7 +581,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					expressionsT2.add(expression);
 				}
 			}
-			processLeaves(leaves1, expressionsT2, parameterToArgumentMap);
+			processLeaves_RENAMED(leaves1, expressionsT2, parameterToArgumentMap);
 			
 			//remove the leaves that were mapped with replacement, if they are not mapped again for a second time
 			leaves2.removeAll(addedLeaves2);
@@ -1106,7 +1106,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mapping;
 	}
 
-	public void processLeaves(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
+	public void processLeaves_RENAMED(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
 			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
 		List<TreeSet<LeafMapping>> postponedMappingSets = new ArrayList<TreeSet<LeafMapping>>();
 		if(leaves1.size() <= leaves2.size()) {
