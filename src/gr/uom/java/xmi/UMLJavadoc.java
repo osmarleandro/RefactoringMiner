@@ -18,7 +18,7 @@ public class UMLJavadoc {
 		return tags;
 	}
 
-	public boolean contains(String s) {
+	public boolean contains_RENAMED(String s) {
 		for(UMLTagElement tag : tags) {
 			if(tag.contains(s)) {
 				return true;
