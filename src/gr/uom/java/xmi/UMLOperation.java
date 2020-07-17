@@ -51,7 +51,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return typeParameters;
 	}
 	
-	public void addTypeParameter(UMLTypeParameter typeParameter) {
+	public void addTypeParameter_RENAMED(UMLTypeParameter typeParameter) {
 		typeParameters.add(typeParameter);
 	}
 
