@@ -406,7 +406,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return counter;
 	}
 
-	public boolean hasVarargsParameter() {
+	public boolean hasVarargsParameter_RENAMED() {
 		for(UMLParameter parameter : parameters) {
 			if(!parameter.getKind().equals("return") && parameter.isVarargs()) {
 				return true;
