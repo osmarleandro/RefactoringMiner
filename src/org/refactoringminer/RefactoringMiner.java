@@ -20,7 +20,7 @@ public class RefactoringMiner {
 		final String option = args[0];
 		if (option.equalsIgnoreCase("-h") || option.equalsIgnoreCase("--h") || option.equalsIgnoreCase("-help")
 				|| option.equalsIgnoreCase("--help")) {
-			printTips();
+			printTips_RENAMED();
 			return;
 		}
 
@@ -284,7 +284,7 @@ public class RefactoringMiner {
 		sb.append("}");
 	}
 
-	private static void printTips() {
+	private static void printTips_RENAMED() {
 		System.out.println("-h\t\t\t\t\t\t\t\tShow tips");
 		System.out.println(
 				"-a <git-repo-folder> <branch>\t\t\t\t\tDetect all refactorings at <branch> for <git-repo-folder>. If <branch> is not specified, commits from all branches are analyzed.");
