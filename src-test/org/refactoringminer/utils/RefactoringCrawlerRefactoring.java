@@ -37,7 +37,7 @@ public class RefactoringCrawlerRefactoring {
     return newElement;
   }
 
-  public String getOldElement() {
+  public String getOldElement_RENAMED() {
     return oldElement;
   }
   
