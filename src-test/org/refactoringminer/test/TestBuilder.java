@@ -91,7 +91,7 @@ public class TestBuilder {
 		this(new GitHistoryRefactoringMinerImpl(), "tmp");
 	}
 
-	public final ProjectMatcher project(String cloneUrl, String branch) {
+	public final ProjectMatcher project_RENAMED(String cloneUrl, String branch) {
 		ProjectMatcher projectMatcher = this.map.get(cloneUrl);
 		if (projectMatcher == null) {
 			projectMatcher = new ProjectMatcher(cloneUrl, branch);
