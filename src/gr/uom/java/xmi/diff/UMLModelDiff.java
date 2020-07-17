@@ -238,10 +238,10 @@ public class UMLModelDiff {
    }
 
    public boolean isSubclassOf(String subclass, String finalSuperclass) {
-	   return isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>());
+	   return isSubclassOf_RENAMED(subclass, finalSuperclass, new LinkedHashSet<String>());
    }
 
-   private boolean isSubclassOf(String subclass, String finalSuperclass, Set<String> visitedClasses) {
+   private boolean isSubclassOf_RENAMED(String subclass, String finalSuperclass, Set<String> visitedClasses) {
 	   if(visitedClasses.contains(subclass)) {
 		   return false;
 	   }
@@ -318,7 +318,7 @@ public class UMLModelDiff {
 	   if(looksLikeSameType(superclass.getClassType(), finalSuperclass))
 		   return true;
 	   else
-		   return isSubclassOf(superclass.getClassType(), finalSuperclass, visitedClasses);
+		   return isSubclassOf_RENAMED(superclass.getClassType(), finalSuperclass, visitedClasses);
    }
 
    private UMLClass looksLikeAddedClass(UMLType type) {
