@@ -15,7 +15,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(getOriginalAttribute().toQualifiedString());
 		sb.append(" from class ");
 		sb.append(getSourceClassName());

@@ -23,7 +23,7 @@ public class RenameClassRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(originalClass.getName());
 		sb.append(" renamed to ");
 		sb.append(renamedClass.getName());
