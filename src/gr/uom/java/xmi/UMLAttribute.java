@@ -85,7 +85,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.variableDeclaration = variableDeclaration;
 	}
 
-	public UMLJavadoc getJavadoc() {
+	public UMLJavadoc getJavadoc_RENAMED() {
 		return javadoc;
 	}
 
