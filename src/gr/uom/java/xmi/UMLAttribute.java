@@ -134,7 +134,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     	return false;
 	}
 
-	public boolean equalsQualified(UMLAttribute umlAttribute) {
+	public boolean equalsQualified_RENAMED(UMLAttribute umlAttribute) {
 		return this.name.equals(umlAttribute.name) &&
 				this.visibility.equals(umlAttribute.visibility) &&
 				this.type.equalsQualified(umlAttribute.type);
