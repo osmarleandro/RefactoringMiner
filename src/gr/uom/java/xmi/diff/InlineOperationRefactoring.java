@@ -160,7 +160,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getTargetOperationAfterInline().getLocationInfo().getFilePath(), getTargetOperationAfterInline().getClassName()));
 		return pairs;
