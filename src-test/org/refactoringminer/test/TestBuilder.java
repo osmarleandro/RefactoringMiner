@@ -155,7 +155,7 @@ public class TestBuilder {
 
 	private List<String> normalize(String refactoring) {
 		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
-		refactoring = normalizeSingle(refactoring);
+		refactoring = normalizeSingle_RENAMED(refactoring);
 		if (aggregate) {
 			refactoring = refType.aggregate(refactoring);
 		} else {
@@ -177,7 +177,7 @@ public class TestBuilder {
 	/**
 	 * Remove generics type information.
 	 */
-	private static String normalizeSingle(String refactoring) {
+	private static String normalizeSingle_RENAMED(String refactoring) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < refactoring.length(); i++) {
 			char c = refactoring.charAt(i);
