@@ -48,7 +48,7 @@ public class LeafType extends UMLType {
 		if (o instanceof LeafType) {
 			LeafType typeObject = (LeafType)o;
 
-			if(equalClassType(typeObject) && equalTypeArgumentsAndArrayDimension(typeObject)) {
+			if(equalClassType_RENAMED(typeObject) && equalTypeArgumentsAndArrayDimension(typeObject)) {
 				return true;
 			}
 		}

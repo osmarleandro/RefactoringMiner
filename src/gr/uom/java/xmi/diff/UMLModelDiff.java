@@ -1159,7 +1159,7 @@ public class UMLModelDiff {
          return addedClassName.equals(parent.substring(parent.lastIndexOf(".") + 1));
       }
       if (parent.contains(".") && addedClassName.contains(".")) {
-    	  return UMLType.extractTypeObject(parent).equalClassType(UMLType.extractTypeObject(addedClassName));
+    	  return UMLType.extractTypeObject(parent).equalClassType_RENAMED(UMLType.extractTypeObject(addedClassName));
       }
       return parent.equals(addedClassName);
    }
