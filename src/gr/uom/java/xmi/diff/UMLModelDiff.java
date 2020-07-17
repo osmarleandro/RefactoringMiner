@@ -82,7 +82,7 @@ public class UMLModelDiff {
 		   this.addedClasses.add(umlClass);
    }
 
-   public void reportRemovedClass(UMLClass umlClass) {
+   public void reportRemovedClass_RENAMED(UMLClass umlClass) {
 	   if(!removedClasses.contains(umlClass))
 		   this.removedClasses.add(umlClass);
    }

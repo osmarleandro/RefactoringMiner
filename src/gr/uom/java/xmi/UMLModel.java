@@ -115,7 +115,7 @@ public class UMLModel {
     	UMLModelDiff modelDiff = new UMLModelDiff();
     	for(UMLClass umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
-    			modelDiff.reportRemovedClass(umlClass);
+    			modelDiff.reportRemovedClass_RENAMED(umlClass);
     	}
     	for(UMLClass umlClass : umlModel.classList) {
     		if(!this.classList.contains(umlClass))
