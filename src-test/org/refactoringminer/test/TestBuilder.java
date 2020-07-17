@@ -59,7 +59,7 @@ public class TestBuilder {
 		return this;
 	}
 
-	public TestBuilder withAggregation() {
+	public TestBuilder withAggregation_RENAMED() {
 		this.aggregate = true;
 		return this;
 	}
