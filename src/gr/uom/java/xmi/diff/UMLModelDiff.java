@@ -2097,7 +2097,7 @@ public class UMLModelDiff {
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
 	            if(sameSourceAndTargetClass) {
 	            	TreeSet<UMLOperationBodyMapper> set = null;
-	            	if(allRenamedOperations(firstMappers)) {
+	            	if(allRenamedOperations_RENAMED(firstMappers)) {
 	            		set = new TreeSet<UMLOperationBodyMapper>();
 	            	}
 	            	else {
@@ -2182,7 +2182,7 @@ public class UMLModelDiff {
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
 	            if(sameSourceAndTargetClass) {
 	            	TreeSet<UMLOperationBodyMapper> set = null;
-	            	if(allRenamedOperations(firstMappers)) {
+	            	if(allRenamedOperations_RENAMED(firstMappers)) {
 	            		set = new TreeSet<UMLOperationBodyMapper>();
 	            	}
 	            	else {
@@ -2268,7 +2268,7 @@ public class UMLModelDiff {
 		return firstMappers;
 	}
 
-	private boolean allRenamedOperations(List<UMLOperationBodyMapper> mappers) {
+	private boolean allRenamedOperations_RENAMED(List<UMLOperationBodyMapper> mappers) {
 		for (UMLOperationBodyMapper mapper : mappers) {
 			if(mapper.getOperation1().getName().equals(mapper.getOperation2().getName())) {
 				return false;
