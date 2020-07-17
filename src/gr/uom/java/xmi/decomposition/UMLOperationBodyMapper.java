@@ -690,7 +690,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount;
 	}
 
-	public int nonMappedElementsT2() {
+	public int nonMappedElementsT2_RENAMED() {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
 			if(composite.countableStatement())
@@ -2044,7 +2044,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									int mappings = mapper.mappingsWithoutBlocks();
 									if(mappings > 0) {
 										int nonMappedElementsT1 = mapper.nonMappedElementsT1();
-										int nonMappedElementsT2 = mapper.nonMappedElementsT2();
+										int nonMappedElementsT2 = mapper.nonMappedElementsT2_RENAMED();
 										if(mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) {
 											this.mappings.addAll(mapper.mappings);
 											this.nonMappedInnerNodesT1.addAll(mapper.nonMappedInnerNodesT1);
@@ -2079,7 +2079,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					int mappings = mapper.mappingsWithoutBlocks();
 					if(mappings > 0) {
 						int nonMappedElementsT1 = mapper.nonMappedElementsT1();
-						int nonMappedElementsT2 = mapper.nonMappedElementsT2();
+						int nonMappedElementsT2 = mapper.nonMappedElementsT2_RENAMED();
 						if(mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) {
 							this.mappings.addAll(mapper.mappings);
 							this.nonMappedInnerNodesT1.addAll(mapper.nonMappedInnerNodesT1);

@@ -1975,7 +1975,7 @@ public class UMLModelDiff {
 	   }
 	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
 	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
+	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2_RENAMED();
 	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 	   int exactMatches = exactMatchList.size();
 	   return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
@@ -2304,7 +2304,7 @@ public class UMLModelDiff {
 
    private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
         int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
+		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2_RENAMED();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
 		int nonMappedStatementsDeclaringSameVariable = 0;
 		for(ListIterator<StatementObject> leafIterator1 = operationBodyMapper.getNonMappedLeavesT1().listIterator(); leafIterator1.hasNext();) {
@@ -2371,7 +2371,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.mappingsWithoutBlocks() > 0) {
-		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2() == 0)) {
+		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2_RENAMED() == 0)) {
 			   return false;
 		   }
 	   }
@@ -2385,7 +2385,7 @@ public class UMLModelDiff {
 	   if(exactLeafMappings == 0 && normalizedEditDistance > 0.24) {
 		   return false;
 	   }
-	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1() > 0 || mapper.nonMappedElementsT2() > 0)) {
+	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1() > 0 || mapper.nonMappedElementsT2_RENAMED() > 0)) {
 		   return false;
 	   }
 	   if(mapper.mappingsWithoutBlocks() == 1) {
