@@ -60,7 +60,7 @@ public class StatementObject extends AbstractStatement {
 		this.creationMap = visitor.getCreationMap();
 		this.infixOperators = visitor.getInfixOperators();
 		this.arrayAccesses = visitor.getArrayAccesses();
-		this.prefixExpressions = visitor.getPrefixExpressions();
+		this.prefixExpressions = visitor.getPrefixExpressions_RENAMED();
 		this.postfixExpressions = visitor.getPostfixExpressions();
 		this.arguments = visitor.getArguments();
 		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
