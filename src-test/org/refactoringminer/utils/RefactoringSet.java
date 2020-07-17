@@ -111,7 +111,7 @@ public class RefactoringSet {
         }
     }
 
-    public void readFromFile(File file) {
+    public void readFromFile_RENAMED(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {

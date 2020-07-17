@@ -333,7 +333,7 @@ public class ResultComparator {
         File cachedResult = new File(resultCacheDir + "/" + rm.getConfigId() + "-" + projectName + "-" + commitId);
         if (cachedResult.exists()) {
             RefactoringSet rs = new RefactoringSet(cloneUrl, commitId);
-            rs.readFromFile(cachedResult);
+            rs.readFromFile_RENAMED(cachedResult);
             return rs;
         } else {
             String folder = tempDir + "/" + projectName;
