@@ -119,7 +119,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public UMLOperationBodyMapper findMapperWithMatchingSignature2(UMLOperation operation2) {
+	public UMLOperationBodyMapper findMapperWithMatchingSignature2_RENAMED(UMLOperation operation2) {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			if(mapper.getOperation2().equalSignature(operation2)) {
 				return mapper;
