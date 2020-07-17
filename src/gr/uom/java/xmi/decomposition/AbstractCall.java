@@ -61,7 +61,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return sb.toString();
 	}
 
-	public boolean expressionIsNullOrThis() {
+	public boolean expressionIsNullOrThis_RENAMED() {
 		if(expression == null) {
 			return true;
 		}
