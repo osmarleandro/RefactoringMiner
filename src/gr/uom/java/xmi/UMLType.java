@@ -43,7 +43,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return locationInfo.codeRange();
 	}
 
-	public void setVarargs() {
+	public void setVarargs_RENAMED() {
 		arrayDimension++;
 	}
 

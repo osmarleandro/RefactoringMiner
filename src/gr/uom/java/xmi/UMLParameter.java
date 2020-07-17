@@ -19,7 +19,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		this.kind = kind;
 		this.varargs = varargs;
 		if(varargs) {
-			type.setVarargs();
+			type.setVarargs_RENAMED();
 		}
 	}
 
