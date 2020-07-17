@@ -149,7 +149,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	private List<TrackingRefUpdate> fetch_RENAMED(Repository repository) throws Exception {
         logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
         try (Git git = new Git(repository)) {
     		FetchResult result = git.fetch().call();
@@ -184,7 +184,7 @@ public class GitServiceImpl implements GitService {
 			}
 		}
 		
-		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		List<TrackingRefUpdate> newRemoteRefs = this.fetch_RENAMED(repository);
 		
 		RevWalk walk = new RevWalk(repository);
 		for (TrackingRefUpdate newRef : newRemoteRefs) {
