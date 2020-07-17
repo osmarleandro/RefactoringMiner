@@ -39,10 +39,10 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(annotation.codeRange()
+		ranges.add(annotation.codeRange_RENAMED()
 				.setDescription("deleted annotation")
 				.setCodeElement(annotation.toString()));
-		ranges.add(attributeBefore.codeRange()
+		ranges.add(attributeBefore.codeRange_RENAMED()
 				.setDescription("original attribute declaration")
 				.setCodeElement(attributeBefore.toString()));
 		return ranges;
@@ -51,7 +51,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(attributeAfter.codeRange()
+		ranges.add(attributeAfter.codeRange_RENAMED()
 				.setDescription("attribute declaration with removed annotation")
 				.setCodeElement(attributeAfter.toString()));
 		return ranges;

@@ -431,7 +431,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		}
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
 	}
