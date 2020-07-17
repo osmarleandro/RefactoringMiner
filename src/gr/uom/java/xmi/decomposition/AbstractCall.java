@@ -416,7 +416,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
+	protected void update_RENAMED(AbstractCall newCall, String oldExpression, String newExpression) {
 		newCall.typeArguments = this.typeArguments;
 		if(this.expression != null && this.expression.equals(oldExpression)) {
 			newCall.expression = newExpression;

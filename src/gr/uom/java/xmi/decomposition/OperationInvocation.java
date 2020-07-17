@@ -121,7 +121,7 @@ public class OperationInvocation extends AbstractCall {
 		OperationInvocation newOperationInvocation = new OperationInvocation();
 		newOperationInvocation.methodName = this.methodName;
 		newOperationInvocation.locationInfo = this.locationInfo;
-		update(newOperationInvocation, oldExpression, newExpression);
+		update_RENAMED(newOperationInvocation, oldExpression, newExpression);
 		newOperationInvocation.subExpressions = new ArrayList<String>();
 		for(String argument : this.subExpressions) {
 			newOperationInvocation.subExpressions.add(
