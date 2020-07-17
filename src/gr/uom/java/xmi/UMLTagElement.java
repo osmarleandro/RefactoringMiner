@@ -16,7 +16,7 @@ public class UMLTagElement {
 		fragments.add(fragment);
 	}
 
-	public String getTagName() {
+	public String getTagName_RENAMED() {
 		return tagName;
 	}
 
