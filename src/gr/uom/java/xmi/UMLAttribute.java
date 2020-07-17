@@ -57,7 +57,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return isStatic;
 	}
 
-	public void setStatic(boolean isStatic) {
+	public void setStatic_RENAMED(boolean isStatic) {
 		this.isStatic = isStatic;
 	}
 
