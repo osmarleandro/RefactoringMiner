@@ -469,7 +469,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
 			refactorings.addAll(operationSignatureDiff.getRefactorings());
-			processMapperRefactorings(mapper, refactorings);
+			processMapperRefactorings_RENAMED(mapper, refactorings);
 		}
 		refactorings.addAll(inferAttributeMergesAndSplits(renameMap, refactorings));
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
@@ -592,7 +592,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return refactorings;
 	}
 
-	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
+	private void processMapperRefactorings_RENAMED(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : mapper.getRefactorings()) {
 			if(refactorings.contains(refactoring)) {
 				//special handling for replacing rename variable refactorings having statement mapping information
@@ -1540,7 +1540,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(InlineOperationRefactoring refactoring : refs) {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
-					processMapperRefactorings(operationBodyMapper, refactorings);
+					processMapperRefactorings_RENAMED(operationBodyMapper, refactorings);
 					mapper.addChildMapper(operationBodyMapper);
 					operationsToBeRemoved.add(removedOperation);
 				}
@@ -1559,7 +1559,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(ExtractOperationRefactoring refactoring : refs) {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
-					processMapperRefactorings(operationBodyMapper, refactorings);
+					processMapperRefactorings_RENAMED(operationBodyMapper, refactorings);
 					mapper.addChildMapper(operationBodyMapper);
 					operationsToBeRemoved.add(addedOperation);
 				}
