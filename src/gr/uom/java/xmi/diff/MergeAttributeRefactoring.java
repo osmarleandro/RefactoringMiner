@@ -27,7 +27,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		this.attributeMerges = attributeMerges;
 	}
 
-	public Set<VariableDeclaration> getMergedAttributes() {
+	public Set<VariableDeclaration> getMergedAttributes_RENAMED() {
 		return mergedAttributes;
 	}
 
