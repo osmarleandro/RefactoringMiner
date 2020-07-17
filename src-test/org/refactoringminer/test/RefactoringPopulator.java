@@ -182,7 +182,7 @@ public class RefactoringPopulator {
 		}
 	}
 
-	public static void printRefDiffResults(BigInteger flag) {
+	public static void printRefDiffResults_RENAMED(BigInteger flag) {
 		Hashtable<String, Tuple> result = new Hashtable<>();
 		try {
 			List<Root> roots = getFSERefactorings(flag);
