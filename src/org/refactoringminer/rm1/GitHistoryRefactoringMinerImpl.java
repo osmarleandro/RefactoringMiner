@@ -462,7 +462,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
-			Runnable r = () -> detectRefactorings(handler, gitURL, commitId);
+			Runnable r = () -> detectRefactorings_RENAMED(handler, gitURL, commitId);
 			f = service.submit(r);
 			f.get(timeout, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
@@ -476,7 +476,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
+	protected List<Refactoring> detectRefactorings_RENAMED(final RefactoringHandler handler, String gitURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
