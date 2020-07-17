@@ -609,7 +609,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return operation2;
 	}
 
-	public Set<Refactoring> getRefactorings() {
+	public Set<Refactoring> getRefactorings_RENAMED() {
 		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
 		refactorings.addAll(analysis.getVariableRenames());
 		refactorings.addAll(analysis.getVariableMerges());
@@ -2052,7 +2052,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 											this.nonMappedLeavesT1.addAll(mapper.nonMappedLeavesT1);
 											this.nonMappedLeavesT2.addAll(mapper.nonMappedLeavesT2);
 											matchedOperations++;
-											this.refactorings.addAll(mapper.getRefactorings());
+											this.refactorings.addAll(mapper.getRefactorings_RENAMED());
 										}
 									}
 								}
@@ -2086,7 +2086,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							this.nonMappedInnerNodesT2.addAll(mapper.nonMappedInnerNodesT2);
 							this.nonMappedLeavesT1.addAll(mapper.nonMappedLeavesT1);
 							this.nonMappedLeavesT2.addAll(mapper.nonMappedLeavesT2);
-							this.refactorings.addAll(mapper.getRefactorings());
+							this.refactorings.addAll(mapper.getRefactorings_RENAMED());
 							lambdaMappers.add(mapper);
 						}
 					}
