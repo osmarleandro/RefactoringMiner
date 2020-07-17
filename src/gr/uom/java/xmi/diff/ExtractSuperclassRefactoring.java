@@ -20,7 +20,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		this.subclassSet = subclassSet;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(extractedClass);
