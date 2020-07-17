@@ -50,7 +50,7 @@ public class UMLOperationDiff {
 			abstractionChanged = true;
 		if(!removedOperation.equalReturnParameter(addedOperation))
 			returnTypeChanged = true;
-		else if(!removedOperation.equalQualifiedReturnParameter(addedOperation))
+		else if(!removedOperation.equalQualifiedReturnParameter_RENAMED(addedOperation))
 			qualifiedReturnTypeChanged = true;
 		this.annotationListDiff = new UMLAnnotationListDiff(removedOperation.getAnnotations(), addedOperation.getAnnotations());
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = updateAddedRemovedParameters(removedOperation, addedOperation);
