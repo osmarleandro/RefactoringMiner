@@ -771,8 +771,8 @@ public class VariableReplacementAnalysis {
 					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 				CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations());
-				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations());
+				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations_RENAMED());
+				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations_RENAMED());
 			}
 			else {
 				allVariableDeclarations1.addAll(operation1.getAllVariableDeclarations());

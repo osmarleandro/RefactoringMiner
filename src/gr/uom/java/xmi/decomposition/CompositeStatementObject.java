@@ -387,13 +387,13 @@ public class CompositeStatementObject extends AbstractStatement {
 		return variables;
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
+	public List<VariableDeclaration> getAllVariableDeclarations_RENAMED() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		variableDeclarations.addAll(getVariableDeclarations());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				variableDeclarations.addAll(composite.getAllVariableDeclarations());
+				variableDeclarations.addAll(composite.getAllVariableDeclarations_RENAMED());
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
@@ -410,7 +410,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations()) {
+		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations_RENAMED()) {
 			if(variableDeclaration.getScope().subsumes(location)) {
 				variableDeclarations.add(variableDeclaration);
 			}
@@ -434,7 +434,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations_RENAMED();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
