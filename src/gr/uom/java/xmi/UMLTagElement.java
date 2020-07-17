@@ -20,7 +20,7 @@ public class UMLTagElement {
 		return tagName;
 	}
 
-	public List<String> getFragments() {
+	public List<String> getFragments_RENAMED() {
 		return fragments;
 	}
 
