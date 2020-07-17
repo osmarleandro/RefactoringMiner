@@ -1099,7 +1099,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		CompositeStatementObjectMapping mapping = new CompositeStatementObjectMapping(statement1, statement2, operation1, operation2, score);
 		for(String key : parameterToArgumentMap.keySet()) {
 			String value = parameterToArgumentMap.get(key);
-			if(!key.equals(value) && ReplacementUtil.contains(statement2.getString(), key) && ReplacementUtil.contains(statement1.getString(), value)) {
+			if(!key.equals(value) && ReplacementUtil.contains_RENAMED(statement2.getString(), key) && ReplacementUtil.contains_RENAMED(statement1.getString(), value)) {
 				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
@@ -1482,7 +1482,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		LeafMapping mapping = new LeafMapping(leaf1, leaf2, operation1, operation2);
 		for(String key : parameterToArgumentMap.keySet()) {
 			String value = parameterToArgumentMap.get(key);
-			if(!key.equals(value) && ReplacementUtil.contains(leaf2.getString(), key) && ReplacementUtil.contains(leaf1.getString(), value)) {
+			if(!key.equals(value) && ReplacementUtil.contains_RENAMED(leaf2.getString(), key) && ReplacementUtil.contains_RENAMED(leaf1.getString(), value)) {
 				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
@@ -3526,7 +3526,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								replacementFound = true;
 								break;
 							}
-							if(ReplacementUtil.contains(element, r.getAfter()) && element.startsWith(r.getAfter()) &&
+							if(ReplacementUtil.contains_RENAMED(element, r.getAfter()) && element.startsWith(r.getAfter()) &&
 									(element.endsWith(" != null") || element.endsWith(" == null"))) {
 								replacementFound = true;
 								break;

@@ -31,7 +31,7 @@ public class ReplacementUtil {
 		return 0;
 	}
 
-	public static boolean contains(String completeString, String subString) {
+	public static boolean contains_RENAMED(String completeString, String subString) {
 		for(String character : SPECIAL_CHARACTERS) {
 			if(completeString.contains(subString + character)) {
 				return true;
