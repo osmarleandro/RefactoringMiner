@@ -16,14 +16,14 @@ public class VariableReferenceExtractor {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
-					usesVariable(fragment1, declaration1) && usesVariable(fragment2, declaration2)) {
+					usesVariable_RENAMED(fragment1, declaration1) && usesVariable_RENAMED(fragment2, declaration2)) {
 				references.add(mapping);
 			}
 		}
 		return references;
 	}
 
-	private static boolean usesVariable(AbstractCodeFragment fragment, VariableDeclaration declaration) {
+	private static boolean usesVariable_RENAMED(AbstractCodeFragment fragment, VariableDeclaration declaration) {
 		List<String> variables = fragment.getVariables();
 		return variables.contains(declaration.getVariableName()) ||
 				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));
