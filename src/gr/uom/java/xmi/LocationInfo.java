@@ -43,7 +43,7 @@ public class LocationInfo {
 		return filePath;
 	}
 
-	public int getStartOffset() {
+	public int getStartOffset_RENAMED() {
 		return startOffset;
 	}
 
