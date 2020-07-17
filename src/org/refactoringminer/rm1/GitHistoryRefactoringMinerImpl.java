@@ -216,7 +216,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
-		String downloadLink = extractDownloadLink(cloneURL, commitId);
+		String downloadLink = extractDownloadLink_RENAMED(cloneURL, commitId);
 		File destinationFile = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + commitId + ".zip");
 		logger.info(String.format("Downloading archive %s", downloadLink));
 		FileUtils.copyURLToFile(new URL(downloadLink), destinationFile);
@@ -710,7 +710,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return commitURL;
 	}
 
-	private static String extractDownloadLink(String cloneURL, String commitId) {
+	private static String extractDownloadLink_RENAMED(String cloneURL, String commitId) {
 		int indexOfDotGit = cloneURL.length();
 		if(cloneURL.endsWith(".git")) {
 			indexOfDotGit = cloneURL.indexOf(".git");
