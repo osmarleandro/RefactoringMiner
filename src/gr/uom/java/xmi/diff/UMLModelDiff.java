@@ -1134,7 +1134,7 @@ public class UMLModelDiff {
 	   newInvocations.removeAll(intersection);
 	   for(OperationInvocation newInvocation : newInvocations) {
 		   for(UMLOperation operation : addedClass.getOperations()) {
-			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
+			   if(!operation.isAbstract() && !operation.hasEmptyBody_RENAMED() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
 				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
 				   List<ExtractOperationRefactoring> refs = detection.check(operation);
