@@ -29,7 +29,7 @@ public class VariableReferenceExtractor {
 				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));
 	}
 
-	public static Set<AbstractCodeMapping> findReturnReferences(Set<AbstractCodeMapping> mappings) {
+	public static Set<AbstractCodeMapping> findReturnReferences_RENAMED(Set<AbstractCodeMapping> mappings) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getFragment1().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
