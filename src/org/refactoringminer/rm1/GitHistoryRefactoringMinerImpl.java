@@ -80,7 +80,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 	
-	private void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
+	private void detect_RENAMED(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
 		int commitsCount = 0;
 		int errorCommitsCount = 0;
 		int refactoringsCount = 0;
@@ -322,7 +322,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		RevWalk walk = gitService.createAllRevsWalk(repository, branch);
 		try {
-			detect(gitService, repository, handler, walk.iterator());
+			detect_RENAMED(gitService, repository, handler, walk.iterator());
 		} finally {
 			walk.dispose();
 		}
@@ -338,7 +338,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		RevWalk walk = gitService.fetchAndCreateNewRevsWalk(repository);
 		try {
-			detect(gitService, repository, handler, walk.iterator());
+			detect_RENAMED(gitService, repository, handler, walk.iterator());
 		} finally {
 			walk.dispose();
 		}
@@ -415,7 +415,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		
 		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenTags(repository, startTag, endTag);
-		detect(gitService, repository, handler, walk.iterator());
+		detect_RENAMED(gitService, repository, handler, walk.iterator());
 	}
 
 	@Override
@@ -429,7 +429,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		
 		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenCommits(repository, startCommitId, endCommitId);
-		detect(gitService, repository, handler, walk.iterator());
+		detect_RENAMED(gitService, repository, handler, walk.iterator());
 	}
 
 	@Override
