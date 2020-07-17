@@ -115,7 +115,7 @@ public class TestBuilder {
 				if (m.ignoreNonSpecifiedCommits) {
 					// It is faster to only look at particular commits
 					for (String commitId : m.getCommits()) {
-						refactoringDetector.detectAtCommit(rep, commitId, m);
+						refactoringDetector.detectAtCommit_RENAMED(rep, commitId, m);
 					}
 				} else {
 					// Iterate over each commit
