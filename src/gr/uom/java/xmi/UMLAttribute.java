@@ -116,7 +116,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	}
 
 	public CodeRange codeRange() {
-		LocationInfo info = getLocationInfo();
+		LocationInfo info = getLocationInfo_RENAMED();
 		return info.codeRange();
 	}
 
