@@ -59,7 +59,7 @@ public class ObjectCreation extends AbstractCall {
 		return type;
 	}
 
-	public boolean isArray() {
+	public boolean isArray_RENAMED() {
 		return isArray;
 	}
 
