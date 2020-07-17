@@ -793,7 +793,7 @@ public class UMLModelDiff {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
 	   }
 	   if(classDiff != null) {
-		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
+		   return classDiff.nextClassImportsType_RENAMED(targetClassName) || classDiff.originalClassImportsType(targetClassName);
 	   }
 	   UMLClass removedClass = getRemovedClass(sourceClassName);
 	   if(removedClass == null) {
@@ -811,7 +811,7 @@ public class UMLModelDiff {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));
 	   }
 	   if(classDiff != null) {
-		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
+		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType_RENAMED(sourceClassName);
 	   }
 	   UMLClass addedClass = getAddedClass(targetClassName);
 	   if(addedClass == null) {

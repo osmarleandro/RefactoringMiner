@@ -274,7 +274,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	public boolean nextClassImportsType(String targetClass) {
+	public boolean nextClassImportsType_RENAMED(String targetClass) {
 		return nextClass.importsType(targetClass);
 	}
 
