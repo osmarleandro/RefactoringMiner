@@ -480,8 +480,8 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			else if(!PrefixSuffixUtils.normalize(replacement.getBefore()).equals(PrefixSuffixUtils.normalize(replacement.getAfter())) &&
-					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
-					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
+					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename_RENAMED(finalConsistentRenames.keySet(), replacement)) &&
+					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename_RENAMED(finalConsistentRenames.keySet(), replacement)) &&
 					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
 					!fieldAssignmentToPreviouslyExistingAttribute(replacementOccurrenceMap.get(replacement))) {
 				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
@@ -728,7 +728,7 @@ public class VariableReplacementAnalysis {
 		return line;
 	}
 
-	private static boolean cyclicRename(Set<Replacement> finalConsistentRenames, Replacement replacement) {
+	private static boolean cyclicRename_RENAMED(Set<Replacement> finalConsistentRenames, Replacement replacement) {
 		for(Replacement r : finalConsistentRenames) {
 			if(replacement.getAfter().equals(r.getBefore()))
 				return true;
