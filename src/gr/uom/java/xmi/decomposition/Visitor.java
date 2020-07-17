@@ -218,7 +218,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(AnonymousClassDeclaration node) {
-		DefaultMutableTreeNode childNode = insertNode(node);
+		DefaultMutableTreeNode childNode = insertNode_RENAMED(node);
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -288,7 +288,7 @@ public class Visitor extends ASTVisitor {
 		return parentNode;
 	}
 
-	private DefaultMutableTreeNode insertNode(AnonymousClassDeclaration childAnonymous) {
+	private DefaultMutableTreeNode insertNode_RENAMED(AnonymousClassDeclaration childAnonymous) {
 		Enumeration enumeration = root.postorderEnumeration();
 		AnonymousClassDeclarationObject anonymousObject = new AnonymousClassDeclarationObject(cu, filePath, childAnonymous);
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(anonymousObject);
