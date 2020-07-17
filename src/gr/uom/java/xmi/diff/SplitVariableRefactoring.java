@@ -140,7 +140,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(oldVariable.codeRange()
 				.setDescription("original variable declaration")
