@@ -48,7 +48,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	}
 
 	public List<UMLAnnotation> getAnnotations() {
-		return variableDeclaration.getAnnotations();
+		return variableDeclaration.getAnnotations_RENAMED();
 	}
 
 	public boolean equalsExcludingType(UMLParameter parameter) {

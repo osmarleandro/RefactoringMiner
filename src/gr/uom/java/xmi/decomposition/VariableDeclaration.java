@@ -135,7 +135,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return varargsParameter;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation> getAnnotations_RENAMED() {
 		return annotations;
 	}
 
