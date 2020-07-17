@@ -766,7 +766,7 @@ public class Visitor extends ASTVisitor {
 		return null;
 	}
 
-	public boolean visit(CastExpression node) {
+	public boolean visit_RENAMED(CastExpression node) {
 		Expression castExpression = node.getExpression();
 		if(castExpression instanceof SimpleName) {
 			variables.add(node.toString());
