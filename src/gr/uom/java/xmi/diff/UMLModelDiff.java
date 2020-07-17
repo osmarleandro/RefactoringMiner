@@ -708,7 +708,7 @@ public class UMLModelDiff {
 			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pushDownAttribute;
 		   }
-		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
+		   else if(sourceClassImportsTargetClass_RENAMED(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
 				   targetClassImportsSourceClass(removedAttribute.getClassName(), addedAttribute.getClassName())) {
 			   if(!initializerContainsTypeLiteral(addedAttribute, removedAttribute)) {
 				   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
@@ -781,13 +781,13 @@ public class UMLModelDiff {
 	   if(targetClassDiff != null && targetClassDiff.getSuperclass() != null) {
 		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass());
 		   if(superclassOfTargetClassDiff != null) {
-			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
+			   return sourceClassImportsTargetClass_RENAMED(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
 		   }
 	   }
 	   return false;
    }
 
-   private boolean sourceClassImportsTargetClass(String sourceClassName, String targetClassName) {
+   private boolean sourceClassImportsTargetClass_RENAMED(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(sourceClassName);
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
@@ -1903,7 +1903,7 @@ public class UMLModelDiff {
       	                  refactorings.add(extractOperationRefactoring);
       	                  deleteAddedOperation(addedOperation);
                 	  }
-                	  else if(sourceClassImportsTargetClass(className, addedOperation.getClassName()) ||
+                	  else if(sourceClassImportsTargetClass_RENAMED(className, addedOperation.getClassName()) ||
                 			  sourceClassImportsSuperclassOfTargetClass(className, addedOperation.getClassName()) ||
                 			  targetClassImportsSourceClass(className, addedOperation.getClassName())) {
                 		  //extract and move
