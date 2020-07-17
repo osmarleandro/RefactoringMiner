@@ -612,10 +612,10 @@ public class UMLModelDiff {
 			   processCandidates(candidates, refactorings);
 		   }
 	   }
-	   return filterOutDuplicateRefactorings(refactorings);
+	   return filterOutDuplicateRefactorings_RENAMED(refactorings);
    }
 
-   private List<MoveAttributeRefactoring> filterOutDuplicateRefactorings(List<MoveAttributeRefactoring> refactorings) {
+   private List<MoveAttributeRefactoring> filterOutDuplicateRefactorings_RENAMED(List<MoveAttributeRefactoring> refactorings) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> map = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
 	   for(MoveAttributeRefactoring ref : refactorings) {
