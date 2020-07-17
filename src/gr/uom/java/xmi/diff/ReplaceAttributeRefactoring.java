@@ -17,7 +17,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		this.attributeRenames = attributeRenames;
 	}
 
-	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
+	public Set<CandidateAttributeRefactoring> getAttributeRenames_RENAMED() {
 		return attributeRenames;
 	}
 
