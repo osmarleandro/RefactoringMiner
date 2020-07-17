@@ -105,10 +105,10 @@ public class ObjectCreation extends AbstractCall {
         return sb.toString();
     }
 
-    public int hashCode() {
+    public int hashCode_RENAMED() {
     	if(hashCode == 0) {
     		int result = 17;
-    		result = 37*result + type.hashCode();
+    		result = 37*result + type.hashCode_RENAMED();
     		result = 37*result + (isArray ? 1 : 0);
     		result = 37*result + typeArguments;
     		hashCode = result;
