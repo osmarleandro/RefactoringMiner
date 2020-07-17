@@ -35,7 +35,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return locationInfo;
 	}
 
-	public StatementCoverageType getCoverage() {
+	public StatementCoverageType getCoverage_RENAMED() {
 		return coverage;
 	}
 
