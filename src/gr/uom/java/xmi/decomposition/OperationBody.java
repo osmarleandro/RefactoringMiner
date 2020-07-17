@@ -86,7 +86,7 @@ public class OperationBody {
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
-		return compositeStatement.getVariableDeclaration(variableName);
+		return compositeStatement.getVariableDeclaration_RENAMED(variableName);
 	}
 
 	private void processStatement(CompilationUnit cu, String filePath, CompositeStatementObject parent, Statement statement) {

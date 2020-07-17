@@ -405,7 +405,7 @@ public abstract class AbstractCodeMapping {
 			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
 			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
 			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
-				VariableDeclaration variable = statement.getVariableDeclaration(s2);
+				VariableDeclaration variable = statement.getVariableDeclaration_RENAMED(s2);
 				if(variable != null) {
 					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
 						return true;
