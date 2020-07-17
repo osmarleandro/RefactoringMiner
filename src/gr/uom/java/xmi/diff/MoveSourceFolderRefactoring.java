@@ -28,7 +28,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
 	}
 
-	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder() {
+	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder_RENAMED() {
 		return movedClassesToAnotherSourceFolder;
 	}
 
