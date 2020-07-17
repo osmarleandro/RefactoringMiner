@@ -1089,7 +1089,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(statement1 instanceof TryStatementObject && statement2 instanceof TryStatementObject) {
 			return compositeChildMatchingScore((TryStatementObject)statement1, (TryStatementObject)statement2, mappings, removedOperations, addedOperations);
 		}
-		return compositeChildMatchingScore(statement1, statement2, mappings, removedOperations, addedOperations);
+		return compositeChildMatchingScore_RENAMED(statement1, statement2, mappings, removedOperations, addedOperations);
 	}
 
 	private CompositeStatementObjectMapping createCompositeMapping(CompositeStatementObject statement1,
@@ -4061,7 +4061,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private double compositeChildMatchingScore(CompositeStatementObject comp1, CompositeStatementObject comp2, Set<AbstractCodeMapping> mappings,
+	private double compositeChildMatchingScore_RENAMED(CompositeStatementObject comp1, CompositeStatementObject comp2, Set<AbstractCodeMapping> mappings,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		List<AbstractStatement> compStatements1 = comp1.getStatements();
 		List<AbstractStatement> compStatements2 = comp2.getStatements();
@@ -4134,19 +4134,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	
 	private double compositeChildMatchingScore(TryStatementObject try1, TryStatementObject try2, Set<AbstractCodeMapping> mappings,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
-		double score = compositeChildMatchingScore((CompositeStatementObject)try1, (CompositeStatementObject)try2, mappings, removedOperations, addedOperations);
+		double score = compositeChildMatchingScore_RENAMED((CompositeStatementObject)try1, (CompositeStatementObject)try2, mappings, removedOperations, addedOperations);
 		List<CompositeStatementObject> catchClauses1 = try1.getCatchClauses();
 		List<CompositeStatementObject> catchClauses2 = try2.getCatchClauses();
 		if(catchClauses1.size() == catchClauses2.size()) {
 			for(int i=0; i<catchClauses1.size(); i++) {
-				double tmpScore = compositeChildMatchingScore(catchClauses1.get(i), catchClauses2.get(i), mappings, removedOperations, addedOperations);
+				double tmpScore = compositeChildMatchingScore_RENAMED(catchClauses1.get(i), catchClauses2.get(i), mappings, removedOperations, addedOperations);
 				if(tmpScore == 1) {
 					score += tmpScore;
 				}
 			}
 		}
 		if(try1.getFinallyClause() != null && try2.getFinallyClause() != null) {
-			double tmpScore = compositeChildMatchingScore(try1.getFinallyClause(), try2.getFinallyClause(), mappings, removedOperations, addedOperations);
+			double tmpScore = compositeChildMatchingScore_RENAMED(try1.getFinallyClause(), try2.getFinallyClause(), mappings, removedOperations, addedOperations);
 			if(tmpScore == 1) {
 				score += tmpScore;
 			}
