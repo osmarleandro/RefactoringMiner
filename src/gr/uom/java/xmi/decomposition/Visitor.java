@@ -234,7 +234,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public void endVisit(AnonymousClassDeclaration node) {
+	public void endVisit_RENAMED(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode parentNode = deleteNode(node);
 		for(ASTNode parent : builderPatternChains) {
 			if(isParent(node, parent) || isParent(parent, node)) {
