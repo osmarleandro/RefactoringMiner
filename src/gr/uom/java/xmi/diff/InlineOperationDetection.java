@@ -134,7 +134,7 @@ public class InlineOperationDetection {
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			OperationInvocation invocation = statement.invocationCoveringEntireFragment_RENAMED();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
 			}

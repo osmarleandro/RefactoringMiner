@@ -1370,8 +1370,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						mappingsWithSameReplacementTypes.add(mapping);
 					}
 					else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
-						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
-						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
+						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment_RENAMED();
+						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment_RENAMED();
 						if(invocation1 != null && invocation2 != null) {
 							for(Replacement replacement : mapping.getReplacements()) {
 								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
@@ -1563,7 +1563,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean nonMatchedStatementUsesVariableInArgument(List<? extends AbstractCodeFragment> statements, String variable, String otherArgument) {
 		for(AbstractCodeFragment statement : statements) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			OperationInvocation invocation = statement.invocationCoveringEntireFragment_RENAMED();
 			if(invocation != null) {
 				for(String argument : invocation.getArguments()) {
 					String argumentNoWhiteSpace = argument.replaceAll("\\s","");
@@ -1583,8 +1583,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations());
 		VariableDeclaration variableDeclarationWithArrayInitializer1 = declarationWithArrayInitializer(variableDeclarations1);
 		VariableDeclaration variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
-		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment();
-		OperationInvocation invocationCoveringTheEntireStatement2 = statement2.invocationCoveringEntireFragment();
+		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment_RENAMED();
+		OperationInvocation invocationCoveringTheEntireStatement2 = statement2.invocationCoveringEntireFragment_RENAMED();
 		Set<String> variables1 = new LinkedHashSet<String>(statement1.getVariables());
 		Set<String> variables2 = new LinkedHashSet<String>(statement2.getVariables());
 		Set<String> variableIntersection = new LinkedHashSet<String>(variables1);
@@ -2111,7 +2111,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<AbstractCodeFragment> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment>();
 						for(AbstractCodeFragment codeFragment : replacementInfo.statements2) {
 							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
-							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
+							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment_RENAMED();
 							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
 								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);
 								replacementInfo.getReplacements().add(r);
@@ -4100,7 +4100,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				//check for possible extract or inline
 				if(leaveSize2 <= 2) {
 					for(StatementObject leaf2 : leaves2) {
-						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
+						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment_RENAMED();
 						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
 							mappedLeavesSize++;
 						}
@@ -4108,7 +4108,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				else if(leaveSize1 <= 2) {
 					for(StatementObject leaf1 : leaves1) {
-						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
+						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment_RENAMED();
 						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
 							mappedLeavesSize++;
 						}

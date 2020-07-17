@@ -1210,7 +1210,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
-							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							OperationInvocation invocation = statement.invocationCoveringEntireFragment_RENAMED();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker1 = statement;
 								break;
@@ -1223,7 +1223,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : addedOperation.getParameterNameList()) {
-							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							OperationInvocation invocation = statement.invocationCoveringEntireFragment_RENAMED();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker2 = statement;
 								break;
@@ -1363,12 +1363,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
-			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
+			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment_RENAMED();
 			if(invocationT2 != null) {
 				for(UMLOperation addedOperation : addedOperations) {
 					if(invocationT2.matchesOperation(addedOperation, operationBodyMapper.getOperation2().variableTypeMap(), modelDiff)) {
 						StatementObject statementT1 = nonMappedLeavesT1.get(0);
-						OperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment();
+						OperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment_RENAMED();
 						if(invocationT1 != null && addedOperation.getAllOperationInvocations().contains(invocationT1)) {
 							return true;
 						}
