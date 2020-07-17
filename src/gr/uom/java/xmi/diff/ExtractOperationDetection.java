@@ -78,14 +78,14 @@ public class ExtractOperationDetection {
 			generateCallTree(addedOperation, root, callTree);
 			callTreeMap.put(root, callTree);
 		}
-		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
+		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod_RENAMED(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
 		if(operationBodyMapper != null) {
 			List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
 			List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 			for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 				CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 				if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation2().variableTypeMap()).size() == 0) {
-					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
+					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod_RENAMED(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
@@ -200,7 +200,7 @@ public class ExtractOperationDetection {
 		}
 	}
 
-	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
+	private UMLOperationBodyMapper createMapperForExtractedMethod_RENAMED(UMLOperationBodyMapper mapper,
 			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
 		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
