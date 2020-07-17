@@ -31,7 +31,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return arguments;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
@@ -432,7 +432,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public CodeRange codeRange() {
-		LocationInfo info = getLocationInfo();
+		LocationInfo info = getLocationInfo_RENAMED();
 		return info.codeRange();
 	}
 
