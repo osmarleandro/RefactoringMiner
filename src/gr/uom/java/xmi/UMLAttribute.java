@@ -33,7 +33,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return type;
 	}
 
-	public void setType(UMLType type) {
+	public void setType_RENAMED(UMLType type) {
 		this.type = type;
 	}
 
