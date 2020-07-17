@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RefFinderResultReader {
 
-    private static Map<String, Function<List<String>, RefactoringRelationship>> mappers = initMappings();
+    private static Map<String, Function<List<String>, RefactoringRelationship>> mappers = initMappings_RENAMED();
     
     public static RefactoringSet read(String project, String revision, String folderPath) {
         try {
@@ -66,7 +66,7 @@ public class RefFinderResultReader {
         return null;
     }
 
-    private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings() {
+    private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings_RENAMED() {
         Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
         mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
         mappers.put("extract_interface", args -> parse(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
