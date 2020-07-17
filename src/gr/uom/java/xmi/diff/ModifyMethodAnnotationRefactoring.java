@@ -72,7 +72,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
@@ -92,7 +92,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(annotationBefore);
 		sb.append(" to ");
 		sb.append(annotationAfter);
