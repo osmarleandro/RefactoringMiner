@@ -116,7 +116,7 @@ public class GitServiceImpl implements GitService {
 	    return repository;
 	}
 
-	public void checkout(Repository repository, String commitId) throws Exception {
+	public void checkout_RENAMED(Repository repository, String commitId) throws Exception {
 	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
 	    try (Git git = new Git(repository)) {
 	        CheckoutCommand checkout = git.checkout().setName(commitId);
