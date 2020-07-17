@@ -16,7 +16,7 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 		return invokedOperation;
 	}
 
-	public Direction getDirection() {
+	public Direction getDirection_RENAMED() {
 		return direction;
 	}
 
