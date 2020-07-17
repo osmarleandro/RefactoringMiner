@@ -243,7 +243,7 @@ public class StatementObject extends AbstractStatement {
 		return 1;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
