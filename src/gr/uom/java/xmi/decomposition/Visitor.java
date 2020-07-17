@@ -567,7 +567,7 @@ public class Visitor extends ASTVisitor {
 		return sb.toString();
 	}
 	
-	public static String processClassInstanceCreation(ClassInstanceCreation node) {
+	public static String processClassInstanceCreation_RENAMED(ClassInstanceCreation node) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("new").append(" ");
 		sb.append(node.getType().toString());

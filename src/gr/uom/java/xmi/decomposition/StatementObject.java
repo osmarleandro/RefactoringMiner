@@ -87,7 +87,7 @@ public class StatementObject extends AbstractStatement {
 						}
 						else if(initializer instanceof ClassInstanceCreation) {
 							ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)initializer;
-							sb.append(Visitor.processClassInstanceCreation(classInstanceCreation));
+							sb.append(Visitor.processClassInstanceCreation_RENAMED(classInstanceCreation));
 						}
 					}
 				}
@@ -104,7 +104,7 @@ public class StatementObject extends AbstractStatement {
 				}
 				else if(expression instanceof ClassInstanceCreation) {
 					ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)expression;
-					sb.append(Visitor.processClassInstanceCreation(classInstanceCreation));
+					sb.append(Visitor.processClassInstanceCreation_RENAMED(classInstanceCreation));
 				}
 				this.statement = sb.toString();
 			}
@@ -118,7 +118,7 @@ public class StatementObject extends AbstractStatement {
 				}
 				else if(expression instanceof ClassInstanceCreation) {
 					ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)expression;
-					sb.append(Visitor.processClassInstanceCreation(classInstanceCreation));
+					sb.append(Visitor.processClassInstanceCreation_RENAMED(classInstanceCreation));
 				}
 				this.statement = sb.toString();
 			}
