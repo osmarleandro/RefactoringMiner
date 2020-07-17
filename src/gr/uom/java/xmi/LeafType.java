@@ -105,12 +105,12 @@ public class LeafType extends UMLType {
 					leafType.getClassType().endsWith(this.getClassType()) ||
 					this.containsTypeArgument(leafType.getClassType()) ||
 					leafType.containsTypeArgument(this.getClassType()) ||
-					this.commonTokenInClassType(leafType);
+					this.commonTokenInClassType_RENAMED(leafType);
 		}
 		return false;
 	}
 
-	private boolean commonTokenInClassType(LeafType type) {
+	private boolean commonTokenInClassType_RENAMED(LeafType type) {
 		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(this.nonQualifiedClassType);
 		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(type.nonQualifiedClassType);
 		for(String token1 : tokens1) {
