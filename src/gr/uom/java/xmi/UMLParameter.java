@@ -43,7 +43,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return kind;
 	}
 
-	public boolean isVarargs() {
+	public boolean isVarargs_RENAMED() {
 		return varargs;
 	}
 

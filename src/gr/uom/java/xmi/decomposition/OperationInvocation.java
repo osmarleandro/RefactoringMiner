@@ -243,11 +243,11 @@ public class OperationInvocation extends AbstractCall {
     		return true;
     	if(type1.equals("long") && type2.equals("int"))
     		return true;
-    	if(!parameter.isVarargs() && type1.endsWith("Object") && !type2.endsWith("Object"))
+    	if(!parameter.isVarargs_RENAMED() && type1.endsWith("Object") && !type2.endsWith("Object"))
     		return true;
-    	if(!parameter.isVarargs() && type1.endsWith("Base") && type2.endsWith("Impl"))
+    	if(!parameter.isVarargs_RENAMED() && type1.endsWith("Base") && type2.endsWith("Impl"))
     		return true;
-    	if(parameter.isVarargs() && type1.endsWith("Object[]") && (type2.equals("Throwable") || type2.endsWith("Exception")))
+    	if(parameter.isVarargs_RENAMED() && type1.endsWith("Object[]") && (type2.equals("Throwable") || type2.endsWith("Exception")))
     		return true;
     	if(parameter.getType().equalsWithSubType(type))
     		return true;
@@ -460,7 +460,7 @@ public class OperationInvocation extends AbstractCall {
 					String argument = getArguments().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameter.isVarargs() ?
+						UMLType paremeterType = parameter.isVarargs_RENAMED() ?
 								UMLType.extractTypeObject(parameter.getType().getClassType()) :
 								parameter.getType();
 						if(!argumentType.equals(paremeterType))
