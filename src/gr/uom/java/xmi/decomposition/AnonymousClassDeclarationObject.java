@@ -126,7 +126,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return variables;
 	}
 
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject> getLambdas_RENAMED() {
 		return lambdas;
 	}
 
