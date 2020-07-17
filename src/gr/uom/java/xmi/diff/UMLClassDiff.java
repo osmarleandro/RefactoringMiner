@@ -162,7 +162,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		addedOperations.removeAll(addedOperationsToBeRemoved);
 	}
 
-	protected void checkForAttributeChanges() {
+	protected void checkForAttributeChanges_RENAMED() {
 		for(Iterator<UMLAttribute> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();) {
 			UMLAttribute removedAttribute = removedAttributeIterator.next();
 			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {

@@ -94,7 +94,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		processOperations();
 		createBodyMappers();
 		processAttributes();
-		checkForAttributeChanges();
+		checkForAttributeChanges_RENAMED();
 		processAnonymousClasses();
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
