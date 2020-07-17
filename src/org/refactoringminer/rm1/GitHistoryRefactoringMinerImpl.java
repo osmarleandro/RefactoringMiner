@@ -196,8 +196,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				downloadAndExtractZipFile(projectFolder, cloneURL, parentCommitId);
 			}
 			if (currentFolder.exists() && parentFolder.exists()) {
-				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
-				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
+				UMLModel currentUMLModel = createModel_RENAMED(currentFolder, filesCurrent);
+				UMLModel parentUMLModel = createModel_RENAMED(parentFolder, filesBefore);
 				// Diff between currentModel e parentModel
 				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
 				refactoringsAtRevision = filter(refactoringsAtRevision);
@@ -348,7 +348,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
-	protected UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
+	protected UMLModel createModel_RENAMED(File projectFolder, List<String> filePaths) throws Exception {
 		return new UMLModelASTReader(projectFolder, filePaths).getUmlModel();
 	}
 
