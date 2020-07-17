@@ -349,7 +349,7 @@ public class ResultComparator {
         }
     }
 
-    public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
+    public static RefactoringSet[] collectRmResult_RENAMED(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
         RefactoringSet[] result = new RefactoringSet[oracle.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = collectRmResult(rm, oracle[i].getProject(), oracle[i].getRevision());
