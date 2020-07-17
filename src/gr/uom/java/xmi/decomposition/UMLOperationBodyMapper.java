@@ -943,7 +943,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
@@ -964,7 +964,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
@@ -994,7 +994,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mapping.addReplacements(replacements);
 						mappingSet.add(mapping);
 					}
@@ -1018,7 +1018,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1039,7 +1039,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1069,7 +1069,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping mapping = createCompositeMapping_RENAMED(statement1, statement2, parameterToArgumentMap, score);
 						mapping.addReplacements(replacements);
 						mappingSet.add(mapping);
 					}
@@ -1092,7 +1092,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return compositeChildMatchingScore(statement1, statement2, mappings, removedOperations, addedOperations);
 	}
 
-	private CompositeStatementObjectMapping createCompositeMapping(CompositeStatementObject statement1,
+	private CompositeStatementObjectMapping createCompositeMapping_RENAMED(CompositeStatementObject statement1,
 			CompositeStatementObject statement2, Map<String, String> parameterToArgumentMap, double score) {
 		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(statement1) ? codeFragmentOperationMap1.get(statement1) : this.operation1;
 		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(statement2) ? codeFragmentOperationMap2.get(statement2) : this.operation2;
