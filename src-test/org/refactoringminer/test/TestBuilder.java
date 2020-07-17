@@ -153,7 +153,7 @@ public class TestBuilder {
 		return mainResultMessage;
 	}
 
-	private List<String> normalize(String refactoring) {
+	private List<String> normalize_RENAMED(String refactoring) {
 		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
 		refactoring = normalizeSingle(refactoring);
 		if (aggregate) {
@@ -252,7 +252,7 @@ public class TestBuilder {
 				matcher.analyzed = true;
 				Set<String> refactoringsFound = new HashSet<String>();
 				for (Refactoring refactoring : refactorings) {
-					refactoringsFound.addAll(normalize(refactoring.toString()));
+					refactoringsFound.addAll(normalize_RENAMED(refactoring.toString()));
 				}
 				// count true positives
 				for (Iterator<String> iter = matcher.expected.iterator(); iter.hasNext();) {
@@ -398,7 +398,7 @@ public class TestBuilder {
 
 			public ProjectMatcher contains(String... refactorings) {
 				for (String refactoring : refactorings) {
-					expected.addAll(normalize(refactoring));
+					expected.addAll(normalize_RENAMED(refactoring));
 				}
 				return ProjectMatcher.this;
 			}
@@ -408,7 +408,7 @@ public class TestBuilder {
 				this.expected = new HashSet<String>();
 				this.notExpected = new HashSet<String>();
 				for (String refactoring : refactorings) {
-					expected.addAll(normalize(refactoring));
+					expected.addAll(normalize_RENAMED(refactoring));
 				}
 				return ProjectMatcher.this;
 			}
@@ -419,7 +419,7 @@ public class TestBuilder {
 
 			public ProjectMatcher notContains(String... refactorings) {
 				for (String refactoring : refactorings) {
-					notExpected.addAll(normalize(refactoring));
+					notExpected.addAll(normalize_RENAMED(refactoring));
 				}
 				return ProjectMatcher.this;
 			}
