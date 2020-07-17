@@ -108,10 +108,10 @@ public class UMLModel {
     }
 
     public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
-    	return this.diff(umlModel, Collections.<String, String>emptyMap());
+    	return this.diff_RENAMED(umlModel, Collections.<String, String>emptyMap());
     }
 
-	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
+	public UMLModelDiff diff_RENAMED(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
     	UMLModelDiff modelDiff = new UMLModelDiff();
     	for(UMLClass umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
