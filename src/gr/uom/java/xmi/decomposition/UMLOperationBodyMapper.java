@@ -1193,7 +1193,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						postponedMappingSets.add(mappingSet);
 					}
 					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
-						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases_RENAMED(switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves2.remove(bestMapping.getFragment1());
 						leafIterator1.remove();
@@ -1291,7 +1291,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						postponedMappingSets.add(mappingSet);
 					}
 					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
-						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases_RENAMED(switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves1.remove(bestMapping.getFragment1());
 						leafIterator2.remove();
@@ -1392,7 +1392,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
+	private LeafMapping findBestMappingBasedOnMappedSwitchCases_RENAMED(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
 		CompositeStatementObject switchParent1 = switchParentEntry.getKey();
 		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
 		AbstractCodeMapping currentSwitchCase = null;
