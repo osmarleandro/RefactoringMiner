@@ -491,15 +491,15 @@ public class UMLModelASTReader {
 			
 			int fieldModifiers = fieldDeclaration.getModifiers();
 			if((fieldModifiers & Modifier.PUBLIC) != 0)
-				umlAttribute.setVisibility("public");
+				umlAttribute.setVisibility_RENAMED("public");
 			else if((fieldModifiers & Modifier.PROTECTED) != 0)
-				umlAttribute.setVisibility("protected");
+				umlAttribute.setVisibility_RENAMED("protected");
 			else if((fieldModifiers & Modifier.PRIVATE) != 0)
-				umlAttribute.setVisibility("private");
+				umlAttribute.setVisibility_RENAMED("private");
 			else if(isInterfaceField)
-				umlAttribute.setVisibility("public");
+				umlAttribute.setVisibility_RENAMED("public");
 			else
-				umlAttribute.setVisibility("package");
+				umlAttribute.setVisibility_RENAMED("package");
 			
 			if((fieldModifiers & Modifier.FINAL) != 0)
 				umlAttribute.setFinal(true);
