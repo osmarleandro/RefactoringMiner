@@ -388,7 +388,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		for(UMLOperation operation : getOperations()) {
-			if(operation.isConstructor()) {
+			if(operation.isConstructor_RENAMED()) {
 				Map<String, Set<String>> aliased = operation.aliasedAttributes();
 				if(!aliased.isEmpty()) {
 					return aliased;
