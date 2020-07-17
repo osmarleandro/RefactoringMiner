@@ -174,7 +174,7 @@ public class UMLOperationDiff {
 		return removedOperation;
 	}
 
-	public UMLOperation getAddedOperation() {
+	public UMLOperation getAddedOperation_RENAMED() {
 		return addedOperation;
 	}
 
