@@ -188,7 +188,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		return false;
 	}
 
-	public boolean matches(String className) {
+	public boolean matches_RENAMED(String className) {
 		return this.className.equals(className);
 	}
 
