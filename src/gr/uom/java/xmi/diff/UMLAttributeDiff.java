@@ -44,7 +44,7 @@ public class UMLAttributeDiff {
 			staticChanged = true;
 		if(removedAttribute.isFinal() != addedAttribute.isFinal())
 			finalChanged = true;
-		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
+		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations_RENAMED(), addedAttribute.getAnnotations_RENAMED());
 	}
 
 	public UMLAttribute getRemovedAttribute() {
