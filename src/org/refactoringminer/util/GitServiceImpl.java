@@ -228,7 +228,7 @@ public class GitServiceImpl implements GitService {
 		Ref refFrom = repository.findRef(startTag);
 		Ref refTo = repository.findRef(endTag);
 		try (Git git = new Git(repository)) {
-			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId_RENAMED(refFrom), getActualRefObjectId_RENAMED(refTo)).call()
 					.spliterator(), false)
 			        .filter(r -> r.getParentCount() == 1)
 			        .collect(Collectors.toList());
@@ -237,7 +237,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private ObjectId getActualRefObjectId(Ref ref) {
+	private ObjectId getActualRefObjectId_RENAMED(Ref ref) {
 		if(ref.getPeeledObjectId() != null) {
 			return ref.getPeeledObjectId();
 		}
