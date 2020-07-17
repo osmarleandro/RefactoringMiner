@@ -677,7 +677,7 @@ public class Visitor extends ASTVisitor {
 				argument instanceof StringLiteral ||
 				argument instanceof BooleanLiteral ||
 				(argument instanceof FieldAccess && ((FieldAccess)argument).getExpression() instanceof ThisExpression) ||
-				(argument instanceof ArrayAccess && invalidArrayAccess((ArrayAccess)argument)) ||
+				(argument instanceof ArrayAccess && invalidArrayAccess_RENAMED((ArrayAccess)argument)) ||
 				(argument instanceof InfixExpression && invalidInfix((InfixExpression)argument)))
 			return;
 		this.arguments.add(argument.toString());
@@ -860,7 +860,7 @@ public class Visitor extends ASTVisitor {
 		return lambdas;
 	}
 
-	private static boolean invalidArrayAccess(ArrayAccess e) {
+	private static boolean invalidArrayAccess_RENAMED(ArrayAccess e) {
 		return e.getArray() instanceof SimpleName && simpleNameOrNumberLiteral(e.getIndex());
 	}
 
