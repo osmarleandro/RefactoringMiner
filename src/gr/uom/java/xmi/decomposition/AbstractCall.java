@@ -214,7 +214,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
 				!identicalName(call) &&
-				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
+				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance_RENAMED(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
@@ -233,7 +233,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		}
 		return getExpression() == null && call.getExpression() == null &&
 				!identicalName(call) &&
-				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
+				(normalizedNameDistance_RENAMED(call) <= distance || allExactLambdaMappers) &&
 				equalArguments(call);
 	}
 
@@ -247,7 +247,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		}
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
-				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
+				(normalizedNameDistance_RENAMED(call) <= distance || allExactLambdaMappers) &&
 				!equalArguments(call) &&
 				getArguments().size() != call.getArguments().size();
 	}

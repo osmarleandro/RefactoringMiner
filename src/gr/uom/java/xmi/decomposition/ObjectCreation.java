@@ -128,7 +128,7 @@ public class ObjectCreation extends AbstractCall {
     	return false;
     }
 
-	public double normalizedNameDistance(AbstractCall call) {
+	public double normalizedNameDistance_RENAMED(AbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
