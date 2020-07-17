@@ -42,7 +42,7 @@ public class CodeRange {
 		return endLine;
 	}
 
-	public int getStartColumn() {
+	public int getStartColumn_RENAMED() {
 		return startColumn;
 	}
 
