@@ -34,7 +34,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(extractedClass.isInterface())
+		if(extractedClass.isInterface_RENAMED())
 			return RefactoringType.EXTRACT_INTERFACE;
 		else
 			return RefactoringType.EXTRACT_SUPERCLASS;
