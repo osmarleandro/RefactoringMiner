@@ -105,7 +105,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param commitId The SHA key that identifies the commit.
 	 * @param handler A handler object that is responsible to process the detected refactorings. 
 	 */
-	Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler);
+	Churn churnAtCommit_RENAMED(Repository repository, String commitId, RefactoringHandler handler);
 
 	/**
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
