@@ -115,7 +115,7 @@ public class VariableReplacementAnalysis {
 								SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
 								SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(new Replacement(declaration.getVariableName(), "", ReplacementType.VARIABLE_NAME));
 								if(v2 != null && v1 != null) {
-									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), mappings);
+									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences_RENAMED(v1.getKey(), v2.getKey(), mappings);
 									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 										variableRenames.add(ref);
