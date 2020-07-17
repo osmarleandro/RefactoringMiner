@@ -246,11 +246,11 @@ public class UMLOperationDiff {
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
 			RenameVariableRefactoring renameRefactoring = null;
-			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
+			if(parameterDiff.isNameChanged() && !inconsistentReplacement_RENAMED(originalVariable, newVariable)) {
 				renameRefactoring = new RenameVariableRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
 				refactorings.add(renameRefactoring);
 			}
-			if((parameterDiff.isTypeChanged() || parameterDiff.isQualifiedTypeChanged()) && !inconsistentReplacement(originalVariable, newVariable)) {
+			if((parameterDiff.isTypeChanged() || parameterDiff.isQualifiedTypeChanged()) && !inconsistentReplacement_RENAMED(originalVariable, newVariable)) {
 				ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
 				if(renameRefactoring != null) {
 					refactoring.addRelatedRefactoring(renameRefactoring);
@@ -273,7 +273,7 @@ public class UMLOperationDiff {
 		return refactorings;
 	}
 	
-	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
+	private boolean inconsistentReplacement_RENAMED(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
