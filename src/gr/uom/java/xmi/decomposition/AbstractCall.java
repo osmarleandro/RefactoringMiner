@@ -354,7 +354,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return argumentIntersectionSize;
 	}
 
-	private boolean argumentIsEqual(String statement) {
+	private boolean argumentIsEqual_RENAMED(String statement) {
 		return statement.endsWith(";\n") && getArguments().size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the statement
 				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(0, statement.length()-2));
@@ -371,7 +371,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			return new Replacement(getArguments().get(0), statement.substring(7, statement.length()-2),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
-		else if(argumentIsEqual(statement)) {
+		else if(argumentIsEqual_RENAMED(statement)) {
 			return new Replacement(getArguments().get(0), statement.substring(0, statement.length()-2),
 					ReplacementType.ARGUMENT_REPLACED_WITH_STATEMENT);
 		}
@@ -383,7 +383,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			return new Replacement(statement.substring(7, statement.length()-2), getArguments().get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
-		else if(argumentIsEqual(statement)) {
+		else if(argumentIsEqual_RENAMED(statement)) {
 			return new Replacement(statement.substring(0, statement.length()-2), getArguments().get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_STATEMENT);
 		}
