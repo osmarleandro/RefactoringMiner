@@ -146,7 +146,7 @@ public class VariableReplacementAnalysis {
 		return variableSplits;
 	}
 
-	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
+	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames_RENAMED() {
 		return candidateAttributeRenames;
 	}
 
