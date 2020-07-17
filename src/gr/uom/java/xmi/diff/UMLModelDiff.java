@@ -740,7 +740,7 @@ public class UMLModelDiff {
 	   for(Refactoring ref : refactorings) {
 		   if(ref instanceof MoveOperationRefactoring) {
 			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
-			   if(moveRef.compatibleWith(candidate)) {
+			   if(moveRef.compatibleWith_RENAMED(candidate)) {
 				   count++;
 			   }
 		   }
