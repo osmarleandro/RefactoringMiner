@@ -91,12 +91,12 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return result;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		if(kind.equals("return"))
-			return type.toString();
+			return type.toString_RENAMED();
 		else {
 			if(varargs) {
-				return name + " " + type.toString().substring(0, type.toString().lastIndexOf("[]")) + "...";
+				return name + " " + type.toString_RENAMED().substring(0, type.toString_RENAMED().lastIndexOf("[]")) + "...";
 			}
 			else {
 				return name + " " + type;
