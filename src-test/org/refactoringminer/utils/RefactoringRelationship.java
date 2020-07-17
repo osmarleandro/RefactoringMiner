@@ -65,14 +65,14 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
 
   public static String normalize(String entity) {
-    return normalizeParameters(stripTypeArguments(entity).replace('#', '.')).replace(" ", "");
+    return normalizeParameters_RENAMED(stripTypeArguments(entity).replace('#', '.')).replace(" ", "");
   }
 
   public static String parentOf(String entity) {
       return entity.substring(0, entity.lastIndexOf('.'));
   }
 
-  private static String normalizeParameters(String r) {
+  private static String normalizeParameters_RENAMED(String r) {
     int indexOfPar = r.indexOf('(');
     if (indexOfPar != -1) {
       String paramsS = r.substring(indexOfPar + 1, r.indexOf(')'));
