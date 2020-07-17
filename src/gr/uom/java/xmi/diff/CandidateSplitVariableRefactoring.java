@@ -48,7 +48,7 @@ public class CandidateSplitVariableRefactoring {
 		return splitAttributes;
 	}
 
-	public void setSplitAttributes(Set<UMLAttribute> splitAttributes) {
+	public void setSplitAttributes_RENAMED(Set<UMLAttribute> splitAttributes) {
 		this.splitAttributes = splitAttributes;
 	}
 
