@@ -31,7 +31,7 @@ public class RefactoringMiner {
 		} else if (option.equalsIgnoreCase("-bt")) {
 			detectBetweenTags(args);
 		} else if (option.equalsIgnoreCase("-c")) {
-			detectAtCommit(args);
+			detectAtCommit_RENAMED(args);
 		} else if (option.equalsIgnoreCase("-gc")) {
 			detectAtGitHubCommit(args);
 		} else if (option.equalsIgnoreCase("-gp")) {
@@ -166,7 +166,7 @@ public class RefactoringMiner {
 		}
 	}
 
-	private static void detectAtCommit(String[] args) throws Exception {
+	private static void detectAtCommit_RENAMED(String[] args) throws Exception {
 		if (args.length != 3) {
 			throw argumentException();
 		}
