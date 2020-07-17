@@ -76,13 +76,13 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 	}
 
 	private double parentEditDistance() {
-		CompositeStatementObject parent1 = getFragment1().getParent();
+		CompositeStatementObject parent1 = getFragment1().getParent_RENAMED();
 		while(parent1 != null && parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
-			parent1 = parent1.getParent();
+			parent1 = parent1.getParent_RENAMED();
 		}
-		CompositeStatementObject parent2 = getFragment2().getParent();
+		CompositeStatementObject parent2 = getFragment2().getParent_RENAMED();
 		while(parent2 != null && parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
-			parent2 = parent2.getParent();
+			parent2 = parent2.getParent_RENAMED();
 		}
 		if(parent1 == null && parent2 == null) {
 			//method signature is the parent
