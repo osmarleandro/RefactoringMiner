@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 class ExternalProcess {
 
-	public static String execute(File workingDir, String ... commandAndArgs) {
+	public static String execute_RENAMED(File workingDir, String ... commandAndArgs) {
 		try {
 			Process p = new ProcessBuilder(commandAndArgs)
 			.directory(workingDir)
