@@ -33,13 +33,13 @@ public class RefFinderResultReader {
         File folder = new File(path);
         for (File f : folder.listFiles()) {
             if (f.isFile()) {
-                readXml(f.getPath(), result);
+                readXml_RENAMED(f.getPath(), result);
             }
         }
         return result;
     }
 
-    public static void readXml(String path, List<RefactoringRelationship> result) throws Exception {
+    public static void readXml_RENAMED(String path, List<RefactoringRelationship> result) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
