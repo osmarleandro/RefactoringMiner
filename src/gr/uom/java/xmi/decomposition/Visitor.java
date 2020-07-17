@@ -792,7 +792,7 @@ public class Visitor extends ASTVisitor {
 		return this.methodInvocationMap;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration> getVariableDeclarations_RENAMED() {
 		return variableDeclarations;
 	}
 
