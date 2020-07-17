@@ -1164,7 +1164,7 @@ public class UMLModelDiff {
       return parent.equals(addedClassName);
    }
 
-   private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
+   private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings_RENAMED() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
 	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
@@ -1282,7 +1282,7 @@ public class UMLModelDiff {
       Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
       refactorings.addAll(getMoveClassRefactorings());
       refactorings.addAll(getRenameClassRefactorings());
-      refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
+      refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings_RENAMED());
       Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
       Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
