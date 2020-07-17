@@ -446,7 +446,7 @@ public class UMLModelASTReader {
 			OperationBody body = new OperationBody(cu, sourceFile, block);
 			umlOperation.setBody(body);
 			if(block.statements().size() == 0) {
-				umlOperation.setEmptyBody(true);
+				umlOperation.setEmptyBody_RENAMED(true);
 			}
 		}
 		else {
