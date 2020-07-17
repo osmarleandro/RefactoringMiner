@@ -29,7 +29,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<VariableDeclaration> getSplitVariables() {
+	public Set<VariableDeclaration> getSplitVariables_RENAMED() {
 		return splitVariables;
 	}
 
