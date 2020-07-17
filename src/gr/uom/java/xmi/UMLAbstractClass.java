@@ -216,7 +216,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
-		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
+		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix_RENAMED(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
 		RenamePattern pattern = null;
 		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {

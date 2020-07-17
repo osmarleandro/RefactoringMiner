@@ -658,7 +658,7 @@ public class UMLModelDiff {
 		   List<MoveAttributeRefactoring> sourceFilePathGroup = groupBySourceFilePath.get(sourceFilePath);
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> groupByLongestCommonSourceFilePath = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring ref : sourceFilePathGroup) {
-			   String longestCommonFilePathPrefix = PrefixSuffixUtils.longestCommonPrefix(ref.getOriginalAttribute().getLocationInfo().getFilePath(),
+			   String longestCommonFilePathPrefix = PrefixSuffixUtils.longestCommonPrefix_RENAMED(ref.getOriginalAttribute().getLocationInfo().getFilePath(),
 					   ref.getMovedAttribute().getLocationInfo().getFilePath());
 			   int length = longestCommonFilePathPrefix.length();
 			   if(groupByLongestCommonSourceFilePath.containsKey(length)) {

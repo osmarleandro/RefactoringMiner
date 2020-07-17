@@ -3065,7 +3065,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(operationDiff == null) {
 			operationDiff = new UMLOperationDiff(operation1, operation2);
 		}
-		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
+		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix_RENAMED(s1, s2);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
 		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty() && !commonPrefix.equals("return ")) {
 			int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();
@@ -3417,7 +3417,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean differOnlyInCastExpressionOrPrefixOperator(String s1, String s2, ReplacementInfo info) {
-		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
+		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix_RENAMED(s1, s2);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
 		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
 			int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();

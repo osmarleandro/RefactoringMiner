@@ -396,7 +396,7 @@ public abstract class AbstractCodeMapping {
 				return true;
 			}
 		}
-		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString(), input);
+		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix_RENAMED(initializer.toString(), input);
 		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
 				!longestCommonPrefix.equals(initializer.toString()) && !longestCommonPrefix.equals(input) &&
 				!longestCommonSuffix.equals(initializer.toString()) && !longestCommonSuffix.equals(input) &&
