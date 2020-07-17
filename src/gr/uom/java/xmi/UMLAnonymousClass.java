@@ -31,7 +31,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     		return packageName + "." + name;
     }
 
-    public boolean equals(Object o) {
+    public boolean equals_RENAMED(Object o) {
     	if(this == o) {
     		return true;
     	}
