@@ -536,7 +536,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			UMLParameter thisReturnParameter = this.getReturnParameter();
 			UMLParameter otherReturnParameter = operation.getReturnParameter();
 			if(thisReturnParameter != null && otherReturnParameter != null) {
-				if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
+				if(!thisReturnParameter.getType().equalsQualified_RENAMED(otherReturnParameter.getType())) {
 					return false;
 				}
 			}
@@ -548,7 +548,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			for(int i=0; i<thisParameterTypeList.size(); i++) {
 				UMLType thisParameterType = thisParameterTypeList.get(i);
 				UMLType otherParameterType = otherParameterTypeList.get(i);
-				if(!thisParameterType.equalsQualified(otherParameterType)) {
+				if(!thisParameterType.equalsQualified_RENAMED(otherParameterType)) {
 					return false;
 				}
 			}

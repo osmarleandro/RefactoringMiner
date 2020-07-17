@@ -16,7 +16,7 @@ public class UMLParameterDiff {
 		this.nameChanged = false;
 		if(!removedParameter.getType().equals(addedParameter.getType()))
 			typeChanged = true;
-		else if(!removedParameter.getType().equalsQualified(addedParameter.getType()))
+		else if(!removedParameter.getType().equalsQualified_RENAMED(addedParameter.getType()))
 			qualifiedTypeChanged = true;
 		if(!removedParameter.getName().equals(addedParameter.getName()))
 			nameChanged = true;
