@@ -464,7 +464,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return refactorings;
 	}
 
-	public List<Refactoring> getRefactorings() {
+	public List<Refactoring> getRefactorings_RENAMED() {
 		List<Refactoring> refactorings = new ArrayList<Refactoring>(this.refactorings);
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
