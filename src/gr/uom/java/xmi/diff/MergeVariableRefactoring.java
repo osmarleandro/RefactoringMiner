@@ -147,7 +147,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(newVariable.codeRange()
 				.setDescription("new variable declaration")
