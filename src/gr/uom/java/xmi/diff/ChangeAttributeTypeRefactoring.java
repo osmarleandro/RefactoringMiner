@@ -146,7 +146,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(changedTypeAttribute.codeRange()
 				.setDescription("changed-type attribute declaration")
