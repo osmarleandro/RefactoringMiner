@@ -40,7 +40,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public abstract boolean identicalName(AbstractCall call);
-	public abstract String getName();
+	public abstract String getName_RENAMED();
 	public abstract double normalizedNameDistance(AbstractCall call);
 	public abstract AbstractCall update(String oldExpression, String newExpression);
 
@@ -49,7 +49,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		if(expression != null) {
 			sb.append(expression).append(".");
 		}
-		sb.append(getName());
+		sb.append(getName_RENAMED());
 		sb.append("(");
 		int size = arguments.size();
 		if(size > 0) {
@@ -218,7 +218,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
-		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
+		return (this.getName_RENAMED().contains(call.getName_RENAMED()) || call.getName_RENAMED().contains(this.getName_RENAMED())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
 				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
 	}

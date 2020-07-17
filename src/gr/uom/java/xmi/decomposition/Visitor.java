@@ -514,7 +514,7 @@ public class Visitor extends ASTVisitor {
 			List<OperationInvocation> invocations = methodInvocationMap.get(key);
 			OperationInvocation invocation = invocations.get(0);
 			if(key.startsWith(methodInvocation) && invocation.numberOfSubExpressions() > 0 &&
-					!(invocation.getName().equals("length") && invocation.getArguments().size() == 0)) {
+					!(invocation.getName_RENAMED().equals("length") && invocation.getArguments().size() == 0)) {
 				builderPatternChains.add(node);
 			}
 			if(key.startsWith(methodInvocation) && complexInvocation(invocation)) {
