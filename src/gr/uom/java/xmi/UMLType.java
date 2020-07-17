@@ -39,7 +39,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return annotations;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 

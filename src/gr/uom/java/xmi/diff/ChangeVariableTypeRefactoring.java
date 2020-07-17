@@ -140,7 +140,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(originalVariable.codeRange()
+		ranges.add(originalVariable.codeRange_RENAMED()
 				.setDescription("original variable declaration")
 				.setCodeElement(originalVariable.toString()));
 		return ranges;
@@ -149,7 +149,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(changedTypeVariable.codeRange()
+		ranges.add(changedTypeVariable.codeRange_RENAMED()
 				.setDescription("changed-type variable declaration")
 				.setCodeElement(changedTypeVariable.toString()));
 		return ranges;
