@@ -4,7 +4,7 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 
 public class StringDistance {
 	
-	public static int editDistance(String a, String b, int threshold) {
+	public static int editDistance_RENAMED(String a, String b, int threshold) {
 		return new LevenshteinDistance(threshold).apply(a, b);
 	}
 
