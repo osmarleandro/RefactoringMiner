@@ -212,7 +212,7 @@ public class UMLModelDiff {
 	   return classDiffs;
    }
 
-   private List<UMLClassBaseDiff> getUMLClassDiffWithNewAttributeAfter(Replacement pattern) {
+   private List<UMLClassBaseDiff> getUMLClassDiffWithNewAttributeAfter_RENAMED(Replacement pattern) {
 	   List<UMLClassBaseDiff> classDiffs = new ArrayList<UMLClassBaseDiff>();
 	   for(UMLClassDiff classDiff : commonClassDiffList) {
 		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) == null &&
@@ -1378,7 +1378,7 @@ public class UMLModelDiff {
 			 }
 			 else if(candidate.getOriginalVariableDeclaration() != null) {
 				 List<UMLClassBaseDiff> diffs1 = getUMLClassDiffWithExistingAttributeAfter(pattern);
-				 List<UMLClassBaseDiff> diffs2 = getUMLClassDiffWithNewAttributeAfter(pattern);
+				 List<UMLClassBaseDiff> diffs2 = getUMLClassDiffWithNewAttributeAfter_RENAMED(pattern);
 				 if(!diffs1.isEmpty()) {
 					 UMLClassBaseDiff diff1 = diffs1.get(0);
 					 UMLClassBaseDiff originalClassDiff = null;
