@@ -128,7 +128,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.topLevel = topLevel;
 	}
 
-	public String getVisibility() {
+	public String getVisibility_RENAMED() {
 		return visibility;
 	}
 
