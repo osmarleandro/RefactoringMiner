@@ -765,7 +765,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return locationInfo.codeRange();
 	}
 
-	public boolean overridesObject() {
+	public boolean overridesObject_RENAMED() {
 		return isEquals() || isHashCode() || isToString() || isClone() || isCompareTo();
 	}
 
