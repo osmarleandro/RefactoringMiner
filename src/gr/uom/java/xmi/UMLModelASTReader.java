@@ -217,7 +217,7 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
+				List<UMLAttribute> attributes = processFieldDeclaration_RENAMED(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(umlClass.getName());
 	    			umlClass.addAttribute(attribute);
@@ -292,7 +292,7 @@ public class UMLModelASTReader {
     	
     	FieldDeclaration[] fieldDeclarations = typeDeclaration.getFields();
     	for(FieldDeclaration fieldDeclaration : fieldDeclarations) {
-    		List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
+    		List<UMLAttribute> attributes = processFieldDeclaration_RENAMED(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
     		for(UMLAttribute attribute : attributes) {
     			attribute.setClassName(umlClass.getName());
     			umlClass.addAttribute(attribute);
@@ -474,7 +474,7 @@ public class UMLModelASTReader {
 	}
 
 
-	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
+	private List<UMLAttribute> processFieldDeclaration_RENAMED(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
 		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
 		Type fieldType = fieldDeclaration.getType();
@@ -520,7 +520,7 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
+				List<UMLAttribute> attributes = processFieldDeclaration_RENAMED(cu, fieldDeclaration, false, sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(anonymousClass.getCodePath());
 	    			anonymousClass.addAttribute(attribute);
