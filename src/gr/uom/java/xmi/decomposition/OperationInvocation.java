@@ -279,7 +279,7 @@ public class OperationInvocation extends AbstractCall {
     	if(other.expression != null && other.expression.startsWith("new ") && this.expression == null)
     		return false;
     	if(this.subExpressions.size() > 1 || other.subExpressions.size() > 1) {
-    		Set<String> intersection = subExpressionIntersection(other);
+    		Set<String> intersection = subExpressionIntersection_RENAMED(other);
     		int thisUnmatchedSubExpressions = this.subExpressions().size() - intersection.size();
     		int otherUnmatchedSubExpressions = other.subExpressions().size() - intersection.size();
     		if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
@@ -308,7 +308,7 @@ public class OperationInvocation extends AbstractCall {
     	return intersection;
     }
 
-    private Set<String> subExpressionIntersection(OperationInvocation other) {
+    private Set<String> subExpressionIntersection_RENAMED(OperationInvocation other) {
     	Set<String> subExpressions1 = this.subExpressions();
     	Set<String> subExpressions2 = other.subExpressions();
     	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
@@ -520,7 +520,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
-		Set<String> subExpressionIntersection = subExpressionIntersection(other);
+		Set<String> subExpressionIntersection = subExpressionIntersection_RENAMED(other);
 		return identicalName(other) &&
 				equalArguments(other) &&
 				subExpressionIntersection.size() > 0 &&
