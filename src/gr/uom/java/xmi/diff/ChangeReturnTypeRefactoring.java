@@ -59,7 +59,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		boolean qualified = originalType.equals(changedType) && !originalType.equalsQualified(changedType);
+		boolean qualified = originalType.equals_RENAMED(changedType) && !originalType.equalsQualified(changedType);
 		sb.append(getName()).append("\t");
 		sb.append(qualified ? originalType.toQualifiedString() : originalType.toString());
 		sb.append(" to ");
@@ -82,7 +82,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -93,22 +93,22 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		if (changedType == null) {
 			if (other.changedType != null)
 				return false;
-		} else if (!changedType.equals(other.changedType))
+		} else if (!changedType.equals_RENAMED(other.changedType))
 			return false;
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
+		} else if (!operationAfter.equals_RENAMED(other.operationAfter))
 			return false;
 		if (operationBefore == null) {
 			if (other.operationBefore != null)
 				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
+		} else if (!operationBefore.equals_RENAMED(other.operationBefore))
 			return false;
 		if (originalType == null) {
 			if (other.originalType != null)
 				return false;
-		} else if (!originalType.equals(other.originalType))
+		} else if (!originalType.equals_RENAMED(other.originalType))
 			return false;
 		return true;
 	}
