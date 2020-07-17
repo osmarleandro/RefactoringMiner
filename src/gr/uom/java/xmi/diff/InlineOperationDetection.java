@@ -31,7 +31,7 @@ public class InlineOperationDetection {
 		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
 	}
 
-	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
+	public List<InlineOperationRefactoring> check_RENAMED(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
 		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
