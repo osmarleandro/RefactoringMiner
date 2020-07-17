@@ -69,17 +69,17 @@ public class ExtractOperationRefactoring implements Refactoring {
 		sb.append(getClassName());
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
 			sb.append(" & moved to class ");
-			sb.append(extractedOperation.getClassName());
+			sb.append(extractedOperation.getClassName_RENAMED());
 		}
 		return sb.toString();
 	}
 
 	private String getClassName() {
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
-			return getSourceOperationBeforeExtraction().getClassName();
+			return getSourceOperationBeforeExtraction().getClassName_RENAMED();
 		}
-		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
-		String targetClassName = getSourceOperationAfterExtraction().getClassName();
+		String sourceClassName = getSourceOperationBeforeExtraction().getClassName_RENAMED();
+		String targetClassName = getSourceOperationAfterExtraction().getClassName_RENAMED();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 
@@ -166,21 +166,21 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
+		if(!getSourceOperationAfterExtraction().getClassName_RENAMED().equals(getExtractedOperation().getClassName_RENAMED()))
 			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
 		return RefactoringType.EXTRACT_OPERATION;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName_RENAMED()));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getClassName()));
-		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getClassName_RENAMED()));
+		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getClassName_RENAMED()));
 		return pairs;
 	}
 

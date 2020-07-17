@@ -75,7 +75,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		sb.append(renamedVariable);
 		sb.append(" in method ");
 		sb.append(operationAfter);
-		sb.append(" in class ").append(operationAfter.getClassName());
+		sb.append(" in class ").append(operationAfter.getClassName_RENAMED());
 		return sb.toString();
 	}
 
@@ -124,13 +124,13 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName_RENAMED()));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName_RENAMED()));
 		return pairs;
 	}
 

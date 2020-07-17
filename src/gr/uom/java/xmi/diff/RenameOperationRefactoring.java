@@ -43,8 +43,8 @@ public class RenameOperationRefactoring implements Refactoring {
 	}
 
 	private String getClassName() {
-		String sourceClassName = originalOperation.getClassName();
-		String targetClassName = renamedOperation.getClassName();
+		String sourceClassName = originalOperation.getClassName_RENAMED();
+		String targetClassName = renamedOperation.getClassName_RENAMED();
 		boolean targetIsAnonymousInsideSource = false;
 		if(targetClassName.startsWith(sourceClassName + ".")) {
 			String targetClassNameSuffix = targetClassName.substring(sourceClassName.length() + 1, targetClassName.length());
@@ -100,13 +100,13 @@ public class RenameOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName_RENAMED()));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedOperation().getLocationInfo().getFilePath(), getRenamedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getRenamedOperation().getLocationInfo().getFilePath(), getRenamedOperation().getClassName_RENAMED()));
 		return pairs;
 	}
 
