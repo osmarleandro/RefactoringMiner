@@ -19,7 +19,7 @@ public class CompositeReplacement extends Replacement {
 		return additionallyMatchedStatements1;
 	}
 
-	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements2() {
+	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements2_RENAMED() {
 		return additionallyMatchedStatements2;
 	}
 }
