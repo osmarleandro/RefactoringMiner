@@ -629,7 +629,7 @@ public class VariableReplacementAnalysis {
 		if(operationDiff != null) {
 			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
-				if(parameterDiff.isNameChanged()) {
+				if(parameterDiff.isNameChanged_RENAMED()) {
 					allParameterDiffs.add(parameterDiff);
 				}
 			}
