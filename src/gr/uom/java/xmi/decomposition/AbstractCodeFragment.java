@@ -27,7 +27,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.depth = depth;
 	}
 
-	public int getIndex() {
+	public int getIndex_RENAMED() {
 		return index;
 	}
 

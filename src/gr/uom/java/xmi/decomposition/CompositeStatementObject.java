@@ -43,7 +43,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public void addExpression(AbstractExpression expression) {
 		//an expression has the same index and depth as the composite statement it belong to
 		expression.setDepth(this.getDepth());
-		expression.setIndex(this.getIndex());
+		expression.setIndex(this.getIndex_RENAMED());
 		expressionList.add(expression);
 		expression.setOwner(this);
 	}

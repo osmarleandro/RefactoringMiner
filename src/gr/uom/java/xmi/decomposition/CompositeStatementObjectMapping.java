@@ -52,8 +52,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 					return Integer.valueOf(depthDiff1).compareTo(Integer.valueOf(depthDiff2));
 				}
 				else {
-					int indexDiff1 = Math.abs(this.getFragment1().getIndex() - this.getFragment2().getIndex());
-					int indexDiff2 = Math.abs(o.getFragment1().getIndex() - o.getFragment2().getIndex());
+					int indexDiff1 = Math.abs(this.getFragment1().getIndex_RENAMED() - this.getFragment2().getIndex_RENAMED());
+					int indexDiff2 = Math.abs(o.getFragment1().getIndex_RENAMED() - o.getFragment2().getIndex_RENAMED());
 					return Integer.valueOf(indexDiff1).compareTo(Integer.valueOf(indexDiff2));
 				}
 			}

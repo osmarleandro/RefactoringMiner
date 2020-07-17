@@ -1414,10 +1414,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+							if(leafMapping.getFragment1().getIndex_RENAMED() > currentSwitchCase.getFragment1().getIndex_RENAMED() &&
+									leafMapping.getFragment2().getIndex_RENAMED() > currentSwitchCase.getFragment2().getIndex_RENAMED() &&
+									leafMapping.getFragment1().getIndex_RENAMED() < mapping.getFragment1().getIndex_RENAMED() &&
+									leafMapping.getFragment2().getIndex_RENAMED() < mapping.getFragment2().getIndex_RENAMED()) {
 								return leafMapping;
 							}
 						}
@@ -1428,10 +1428,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+							if(leafMapping.getFragment1().getIndex_RENAMED() > currentSwitchCase.getFragment1().getIndex_RENAMED() &&
+									leafMapping.getFragment2().getIndex_RENAMED() > currentSwitchCase.getFragment2().getIndex_RENAMED() &&
+									leafMapping.getFragment1().getIndex_RENAMED() < mapping.getFragment1().getIndex_RENAMED() &&
+									leafMapping.getFragment2().getIndex_RENAMED() < mapping.getFragment2().getIndex_RENAMED()) {
 								return leafMapping;
 							}
 						}
