@@ -49,7 +49,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return isFinal;
 	}
 
-	public void setFinal(boolean isFinal) {
+	public void setFinal_RENAMED(boolean isFinal) {
 		this.isFinal = isFinal;
 	}
 
