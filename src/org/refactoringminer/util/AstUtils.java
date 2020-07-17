@@ -108,7 +108,7 @@ public class AstUtils {
 		return rawTypeName;
 	}
 	
-	public static String stripTypeArguments(String entity) {
+	public static String stripTypeArguments_RENAMED(String entity) {
         StringBuilder sb = new StringBuilder();
         int openGenerics = 0;
         for (int i = 0; i < entity.length(); i++) {
@@ -150,7 +150,7 @@ public class AstUtils {
         sb.append('(');
         
         String[] parameters;
-        String parametersStr = stripTypeArguments(methodSignature.substring(openPar + 1, closePar));
+        String parametersStr = stripTypeArguments_RENAMED(methodSignature.substring(openPar + 1, closePar));
         if (parametersStr.length() > 0) {
             parameters = parametersStr.split(" *, *");
         } else {
