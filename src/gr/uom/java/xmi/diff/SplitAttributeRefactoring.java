@@ -129,7 +129,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(oldAttribute.codeRange()
+		ranges.add(oldAttribute.codeRange_RENAMED()
 				.setDescription("original attribute declaration")
 				.setCodeElement(oldAttribute.toString()));
 		return ranges;
@@ -139,7 +139,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration splitAttribute : splitAttributes) {
-			ranges.add(splitAttribute.codeRange()
+			ranges.add(splitAttribute.codeRange_RENAMED()
 					.setDescription("split attribute declaration")
 					.setCodeElement(splitAttribute.toString()));
 		}

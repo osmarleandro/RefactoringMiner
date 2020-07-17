@@ -129,7 +129,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(originalType.codeRange()
+		ranges.add(originalType.codeRange_RENAMED()
 				.setDescription("original return type")
 				.setCodeElement(originalType.toString()));
 		return ranges;
@@ -138,7 +138,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(changedType.codeRange()
+		ranges.add(changedType.codeRange_RENAMED()
 				.setDescription("changed return type")
 				.setCodeElement(changedType.toString()));
 		return ranges;
