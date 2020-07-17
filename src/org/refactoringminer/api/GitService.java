@@ -27,7 +27,7 @@ public interface GitService {
 
 	int countCommits(Repository repository, String branch) throws Exception;
 
-	void checkout(Repository repository, String commitId) throws Exception;
+	void checkout_RENAMED(Repository repository, String commitId) throws Exception;
 
 	RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception;
 
