@@ -52,7 +52,7 @@ public class CandidateSplitVariableRefactoring {
 		this.splitAttributes = splitAttributes;
 	}
 
-	public UMLAttribute getOldAttribute() {
+	public UMLAttribute getOldAttribute_RENAMED() {
 		return oldAttribute;
 	}
 
