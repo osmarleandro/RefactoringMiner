@@ -517,7 +517,7 @@ public class Visitor extends ASTVisitor {
 					!(invocation.getName().equals("length") && invocation.getArguments().size() == 0)) {
 				builderPatternChains.add(node);
 			}
-			if(key.startsWith(methodInvocation) && complexInvocation(invocation)) {
+			if(key.startsWith(methodInvocation) && complexInvocation_RENAMED(invocation)) {
 				builderPatternChain = true;
 			}
 		}
@@ -548,7 +548,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	private boolean complexInvocation(OperationInvocation invocation) {
+	private boolean complexInvocation_RENAMED(OperationInvocation invocation) {
 		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
 				invocation.numberOfSubExpressions() > 15;
 	}
