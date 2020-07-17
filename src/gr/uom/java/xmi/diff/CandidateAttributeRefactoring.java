@@ -79,7 +79,7 @@ public class CandidateAttributeRefactoring {
 		this.originalAttribute = originalAttribute;
 	}
 
-	public UMLAttribute getRenamedAttribute() {
+	public UMLAttribute getRenamedAttribute_RENAMED() {
 		return renamedAttribute;
 	}
 
