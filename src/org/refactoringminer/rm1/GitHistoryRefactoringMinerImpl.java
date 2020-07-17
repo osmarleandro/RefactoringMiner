@@ -665,7 +665,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
-			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+			detectAtCommit_RENAMED(cloneURL, commit.getSha(), handler, timeout);
 		}
 	}
 

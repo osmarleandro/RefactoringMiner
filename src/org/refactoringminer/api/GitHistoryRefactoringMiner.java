@@ -85,7 +85,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param handler A handler object that is responsible to process the detected refactorings.
 	 * @param timeout A timeout, in seconds. When timeout is reached, the operation stops and returns no refactorings.
 	 */
-	void detectAtCommit(String gitURL, String commitId, RefactoringHandler handler, int timeout);
+	void detectAtCommit_RENAMED(String gitURL, String commitId, RefactoringHandler handler, int timeout);
 
 	/**
 	 * Detect refactorings performed in the specified pull request. All required information is extracted using the GitHub API.
