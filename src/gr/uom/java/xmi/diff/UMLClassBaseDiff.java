@@ -643,7 +643,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
 			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
-			processSplit(splitMap, split, candidate);
+			processSplit_RENAMED(splitMap, split, candidate);
 		}
 	}
 
@@ -862,7 +862,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		mergeMap.put(newMerge, set);
 	}
 
-	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
+	private void processSplit_RENAMED(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
 			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
 		SplitVariableReplacement splitToBeRemoved = null;
 		for(SplitVariableReplacement split : splitMap.keySet()) {
