@@ -371,13 +371,13 @@ public class CompositeStatementObject extends AbstractStatement {
 		return lambdas;
 	}
 
-	public List<String> getAllVariables() {
+	public List<String> getAllVariables_RENAMED() {
 		List<String> variables = new ArrayList<String>();
 		variables.addAll(getVariables());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				variables.addAll(composite.getAllVariables());
+				variables.addAll(composite.getAllVariables_RENAMED());
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;

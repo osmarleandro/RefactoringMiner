@@ -74,7 +74,7 @@ public class OperationBody {
 	}
 
 	public List<String> getAllVariables() {
-		return new ArrayList<String>(compositeStatement.getAllVariables());
+		return new ArrayList<String>(compositeStatement.getAllVariables_RENAMED());
 	}
 
 	public List<VariableDeclaration> getAllVariableDeclarations() {
