@@ -113,7 +113,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return true;
 	}
 
-	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
 		return pairs;
