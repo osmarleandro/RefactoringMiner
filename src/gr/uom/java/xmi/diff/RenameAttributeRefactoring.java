@@ -71,8 +71,8 @@ public class RenameAttributeRefactoring implements Refactoring {
 		int result = 1;
 		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
 		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
-		result = prime * result + ((originalAttribute == null) ? 0 : originalAttribute.hashCode());
-		result = prime * result + ((renamedAttribute == null) ? 0 : renamedAttribute.hashCode());
+		result = prime * result + ((originalAttribute == null) ? 0 : originalAttribute.hashCode_RENAMED());
+		result = prime * result + ((renamedAttribute == null) ? 0 : renamedAttribute.hashCode_RENAMED());
 		return result;
 	}
 
