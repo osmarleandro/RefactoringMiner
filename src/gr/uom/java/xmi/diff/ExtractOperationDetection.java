@@ -264,14 +264,14 @@ public class ExtractOperationDetection {
 		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
 		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
 		while(iterator.hasNext()) {
-			if(iterator.next().toString().equals("{")) {
+			if(iterator.next().toString_RENAMED().equals("{")) {
 				iterator.remove();
 			}
 		}
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
-				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
-				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
+				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString_RENAMED().startsWith("if") &&
+				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString_RENAMED().startsWith("return ");
 	}
 
 	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {

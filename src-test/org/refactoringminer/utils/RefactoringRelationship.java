@@ -60,7 +60,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
   
   @Override
-  public String toString() {
+  public String toString_RENAMED() {
     return String.format("%s\t%s\t%s", refactoringType.getDisplayName(), entityBefore, entityAfter);
   }
 
