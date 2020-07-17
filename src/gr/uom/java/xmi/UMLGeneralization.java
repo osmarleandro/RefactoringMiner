@@ -9,7 +9,7 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
         this.parent = parent;
     }
 
-    public UMLClass getChild() {
+    public UMLClass getChild_RENAMED() {
         return child;
     }
 
