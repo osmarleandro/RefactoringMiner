@@ -363,7 +363,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return params;
 	}
 
-	public List<UMLType> commonParameterTypes(UMLOperation operation) {
+	public List<UMLType> commonParameterTypes_RENAMED(UMLOperation operation) {
 		List<UMLType> commonParameterTypes = new ArrayList<UMLType>();
 		List<UMLType> thisParameterTypeList = getParameterTypeList();
 		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
