@@ -79,7 +79,7 @@ public class VariableReplacementAnalysis {
 		findVariableSplits();
 		findVariableMerges();
 		findConsistentVariableRenames();
-		findParametersWrappedInLocalVariables();
+		findParametersWrappedInLocalVariables_RENAMED();
 		findAttributeExtractions();
 	}
 
@@ -103,7 +103,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private void findParametersWrappedInLocalVariables() {
+	private void findParametersWrappedInLocalVariables_RENAMED() {
 		for(StatementObject statement : nonMappedLeavesT2) {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 				AbstractExpression initializer = declaration.getInitializer();
