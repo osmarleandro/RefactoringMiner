@@ -800,7 +800,7 @@ public class Visitor extends ASTVisitor {
 		return types;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations_RENAMED() {
 		return anonymousClassDeclarations;
 	}
 
