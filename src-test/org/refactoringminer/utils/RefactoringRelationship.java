@@ -65,7 +65,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
 
   public static String normalize(String entity) {
-    return normalizeParameters(stripTypeArguments(entity).replace('#', '.')).replace(" ", "");
+    return normalizeParameters(stripTypeArguments_RENAMED(entity).replace('#', '.')).replace(" ", "");
   }
 
   public static String parentOf(String entity) {
@@ -96,7 +96,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return r;
   }
 
-  private static String stripTypeArguments(String entity) {
+  private static String stripTypeArguments_RENAMED(String entity) {
     StringBuilder sb = new StringBuilder();
     int openGenerics = 0;
     for (int i = 0; i < entity.length(); i++) {
