@@ -46,7 +46,7 @@ public class WildcardType extends UMLType {
 				sb.append(" extends ");
 			else
 				sb.append(" super ");
-			sb.append(bound.toString());
+			sb.append(bound.toString_RENAMED());
 		}
 		return sb.toString();
 	}
