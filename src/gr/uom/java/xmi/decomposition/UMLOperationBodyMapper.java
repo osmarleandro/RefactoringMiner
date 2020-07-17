@@ -4101,7 +4101,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(leaveSize2 <= 2) {
 					for(StatementObject leaf2 : leaves2) {
 						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
+						if(invocation != null && matchesOperation_RENAMED(invocation, addedOperations, operation2.variableTypeMap())) {
 							mappedLeavesSize++;
 						}
 					}
@@ -4109,7 +4109,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				else if(leaveSize1 <= 2) {
 					for(StatementObject leaf1 : leaves1) {
 						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
+						if(invocation != null && matchesOperation_RENAMED(invocation, removedOperations, operation1.variableTypeMap())) {
 							mappedLeavesSize++;
 						}
 					}
@@ -4154,7 +4154,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return score;
 	}
 
-	private boolean matchesOperation(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
+	private boolean matchesOperation_RENAMED(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
 		for(UMLOperation operation : operations) {
 			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff))
 				return true;
