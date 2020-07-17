@@ -65,12 +65,12 @@ public class CompositeStatementObject extends AbstractStatement {
 		return leaves;
 	}
 
-	public List<CompositeStatementObject> getInnerNodes() {
+	public List<CompositeStatementObject> getInnerNodes_RENAMED() {
 		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				innerNodes.addAll(composite.getInnerNodes());
+				innerNodes.addAll(composite.getInnerNodes_RENAMED());
 			}
 		}
 		innerNodes.add(this);
@@ -82,7 +82,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			return getLeaves().contains(fragment);
 		}
 		else if(fragment instanceof CompositeStatementObject) {
-			return getInnerNodes().contains(fragment);
+			return getInnerNodes_RENAMED().contains(fragment);
 		}
 		else if(fragment instanceof AbstractExpression) {
 			return getExpressions().contains(fragment);
@@ -487,7 +487,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		for(CompositeStatementObject innerNode : getInnerNodes()) {
+		for(CompositeStatementObject innerNode : getInnerNodes_RENAMED()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
