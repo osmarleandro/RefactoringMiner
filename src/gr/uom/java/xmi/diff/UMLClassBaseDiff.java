@@ -90,7 +90,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public void process() throws RefactoringMinerTimedOutException {
-		processInheritance();
+		processInheritance_RENAMED();
 		processOperations();
 		createBodyMappers();
 		processAttributes();
@@ -416,7 +416,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	private void processInheritance() {
+	private void processInheritance_RENAMED() {
 		if(!originalClass.getVisibility().equals(nextClass.getVisibility())) {
 			setVisibilityChanged(true);
 			setOldVisibility(originalClass.getVisibility());
