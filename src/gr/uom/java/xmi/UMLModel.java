@@ -131,7 +131,7 @@ public class UMLModel {
     		if(!this.generalizationList.contains(umlGeneralization))
     			modelDiff.reportAddedGeneralization(umlGeneralization);
     	}
-    	modelDiff.checkForGeneralizationChanges();
+    	modelDiff.checkForGeneralizationChanges_RENAMED();
     	for(UMLRealization umlRealization : realizationList) {
     		if(!umlModel.realizationList.contains(umlRealization))
     			modelDiff.reportRemovedRealization(umlRealization);
