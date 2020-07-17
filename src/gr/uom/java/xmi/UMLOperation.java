@@ -650,7 +650,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 	
-	public int compareTo(UMLOperation operation) {
+	public int compareTo_RENAMED(UMLOperation operation) {
 		return this.toString().compareTo(operation.toString());
 	}
 
