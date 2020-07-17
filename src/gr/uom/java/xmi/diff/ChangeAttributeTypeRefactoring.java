@@ -68,13 +68,13 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalAttribute.getType().equals(changedTypeAttribute.getType()) && !originalAttribute.getType().equalsQualified(changedTypeAttribute.getType());
 		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalAttribute.toQualifiedString() : originalAttribute.toString());
+		sb.append(qualified ? originalAttribute.toQualifiedString() : originalAttribute.toString_RENAMED());
 		sb.append(" to ");
-		sb.append(qualified ? changedTypeAttribute.toQualifiedString() : changedTypeAttribute.toString());
+		sb.append(qualified ? changedTypeAttribute.toQualifiedString() : changedTypeAttribute.toString_RENAMED());
 		sb.append(" in class ").append(classNameAfter);
 		return sb.toString();
 	}
@@ -141,7 +141,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
 				.setDescription("original attribute declaration")
-				.setCodeElement(originalAttribute.toString()));
+				.setCodeElement(originalAttribute.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -150,7 +150,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(changedTypeAttribute.codeRange()
 				.setDescription("changed-type attribute declaration")
-				.setCodeElement(changedTypeAttribute.toString()));
+				.setCodeElement(changedTypeAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
