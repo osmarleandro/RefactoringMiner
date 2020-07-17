@@ -343,7 +343,7 @@ public class UMLModelASTReader {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
     			String anonymousBinaryName = getAnonymousBinaryName(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
-    			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
+    			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration_RENAMED(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
     				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
@@ -512,7 +512,7 @@ public class UMLModelASTReader {
 		return attributes;
 	}
 	
-	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
+	private UMLAnonymousClass processAnonymousClassDeclaration_RENAMED(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
 		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
 		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
