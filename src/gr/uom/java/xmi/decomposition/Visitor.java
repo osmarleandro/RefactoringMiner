@@ -99,7 +99,7 @@ public class Visitor extends ASTVisitor {
 		prefixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getPrefixExpressions().add(node.toString());
+			anonymous.getPrefixExpressions_RENAMED().add(node.toString());
 		}
 		return super.visit(node);
 	}

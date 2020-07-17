@@ -106,7 +106,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return arrayAccesses;
 	}
 
-	public List<String> getPrefixExpressions() {
+	public List<String> getPrefixExpressions_RENAMED() {
 		return prefixExpressions;
 	}
 
