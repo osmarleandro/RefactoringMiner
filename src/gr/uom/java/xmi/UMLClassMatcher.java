@@ -5,21 +5,21 @@ public interface UMLClassMatcher {
 
 	public static class Move implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameNameAndKind(addedClass) 
+			return removedClass.hasSameNameAndKind_RENAMED(addedClass) 
 					&& (removedClass.hasSameAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
 	public static class RelaxedMove implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameNameAndKind(addedClass) 
+			return removedClass.hasSameNameAndKind_RENAMED(addedClass) 
 					&& (removedClass.hasCommonAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
 	public static class ExtremelyRelaxedMove implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameNameAndKind(addedClass) 
+			return removedClass.hasSameNameAndKind_RENAMED(addedClass) 
 					&& (removedClass.hasAttributesAndOperationsWithCommonNames(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}

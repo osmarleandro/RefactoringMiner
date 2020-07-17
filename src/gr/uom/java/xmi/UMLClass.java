@@ -267,7 +267,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public boolean hasSameNameAndKind(UMLClass umlClass) {
+    public boolean hasSameNameAndKind_RENAMED(UMLClass umlClass) {
     	if(!this.name.equals(umlClass.name))
     		return false;
     	if(!hasSameKind(umlClass))
