@@ -46,7 +46,7 @@ public class CodeRange {
 		return startColumn;
 	}
 
-	public int getEndColumn() {
+	public int getEndColumn_RENAMED() {
 		return endColumn;
 	}
 
