@@ -252,7 +252,7 @@ public class TestBuilder {
 				matcher.analyzed = true;
 				Set<String> refactoringsFound = new HashSet<String>();
 				for (Refactoring refactoring : refactorings) {
-					refactoringsFound.addAll(normalize(refactoring.toString()));
+					refactoringsFound.addAll(normalize(refactoring.toString_RENAMED()));
 				}
 				// count true positives
 				for (Iterator<String> iter = matcher.expected.iterator(); iter.hasNext();) {

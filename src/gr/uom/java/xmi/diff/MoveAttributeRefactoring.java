@@ -21,7 +21,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		this.movedAttribute = movedAttribute;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(getOriginalAttribute().toQualifiedString());
@@ -116,7 +116,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
 				.setDescription("original attribute declaration")
-				.setCodeElement(originalAttribute.toString()));
+				.setCodeElement(originalAttribute.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -125,7 +125,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("moved attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
+				.setCodeElement(movedAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
