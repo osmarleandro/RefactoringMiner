@@ -1313,8 +1313,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(!intersection.isEmpty()) {
 						for(Replacement commonReplacement : intersection) {
 							if(commonReplacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
-									variableDeclarationMapping.getFragment1().getVariableDeclaration(commonReplacement.getBefore()) != null &&
-									variableDeclarationMapping.getFragment2().getVariableDeclaration(commonReplacement.getAfter()) != null) {
+									variableDeclarationMapping.getFragment1().getVariableDeclaration_RENAMED(commonReplacement.getBefore()) != null &&
+									variableDeclarationMapping.getFragment2().getVariableDeclaration_RENAMED(commonReplacement.getAfter()) != null) {
 								mappingsToBeAdded.add(variableDeclarationMapping);
 							}
 						}
@@ -2110,7 +2110,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						boolean expressionMatched = false;
 						Set<AbstractCodeFragment> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment>();
 						for(AbstractCodeFragment codeFragment : replacementInfo.statements2) {
-							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
+							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration_RENAMED(invocationCoveringTheEntireStatement2.getExpression());
 							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
 							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
 								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);

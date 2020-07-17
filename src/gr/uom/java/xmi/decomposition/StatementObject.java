@@ -251,7 +251,7 @@ public class StatementObject extends AbstractStatement {
 		return locationInfo.codeRange();
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public VariableDeclaration getVariableDeclaration_RENAMED(String variableName) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
