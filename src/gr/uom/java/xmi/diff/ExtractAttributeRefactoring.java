@@ -117,7 +117,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(attributeDeclaration.codeRange()
 				.setDescription("extracted attribute declaration")
