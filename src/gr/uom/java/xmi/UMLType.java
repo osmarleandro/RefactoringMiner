@@ -187,7 +187,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 					sb.append(charAt);
 				}
 				else {
-					if(sb.length() > 0 && equalOpeningClosingTags(sb.toString())) {
+					if(sb.length() > 0 && equalOpeningClosingTags_RENAMED(sb.toString())) {
 						typeArgumentDecomposition.add(extractTypeObject(sb.toString()));
 						sb = new StringBuilder();
 					}
@@ -207,7 +207,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return (LeafType)typeObject;
 	}
 
-	private static boolean equalOpeningClosingTags(String typeArguments) {
+	private static boolean equalOpeningClosingTags_RENAMED(String typeArguments) {
 		int openingTags = 0;
 		int closingTags = 0;
 		for(int i=0; i<typeArguments.length(); i++) {
