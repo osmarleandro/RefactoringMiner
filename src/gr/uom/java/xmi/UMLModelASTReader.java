@@ -206,7 +206,7 @@ public class UMLModelASTReader {
 		
 		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
 		
-		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
+		processAnonymousClassDeclarations_RENAMED(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
 		
 		this.getUmlModel().addClass(umlClass);
 	}
@@ -306,7 +306,7 @@ public class UMLModelASTReader {
     		umlClass.addOperation(operation);
     	}
     	
-    	processAnonymousClassDeclarations(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
+    	processAnonymousClassDeclarations_RENAMED(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
     	
     	this.getUmlModel().addClass(umlClass);
 		
@@ -324,7 +324,7 @@ public class UMLModelASTReader {
 		}
 	}
 
-	private void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
+	private void processAnonymousClassDeclarations_RENAMED(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
 			String packageName, String sourceFile, String className, UMLClass umlClass) {
 		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
     	typeDeclaration.accept(visitor);
