@@ -38,7 +38,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.removedAttributes.add(umlAttribute);
 	}
 
-	protected void processAttributes() {
+	protected void processAttributes_RENAMED() {
 		for(UMLAttribute attribute : originalClass.getAttributes()) {
 			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
