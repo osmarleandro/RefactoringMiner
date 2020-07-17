@@ -38,7 +38,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration getVariableDeclaration_RENAMED() {
 		return variableDeclaration;
 	}
 

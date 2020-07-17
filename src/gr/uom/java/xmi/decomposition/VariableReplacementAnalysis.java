@@ -1156,7 +1156,7 @@ public class VariableReplacementAnalysis {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof InlineVariableRefactoring) {
 				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
-				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {
+				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration_RENAMED())) {
 					return true;
 				}
 			}
