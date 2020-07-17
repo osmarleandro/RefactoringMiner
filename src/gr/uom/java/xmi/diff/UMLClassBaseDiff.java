@@ -207,7 +207,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
-			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
+			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute_RENAMED().equals(attribute2))
 				return true;
 		}
 		return false;
