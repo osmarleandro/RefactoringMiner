@@ -14,7 +14,7 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public String getClassType() {
+	public String getClassType_RENAMED() {
 		return classType;
 	}
 
@@ -96,15 +96,15 @@ public class LeafType extends UMLType {
 	public boolean compatibleTypes(UMLType type) {
 		if(this.getClass() == type.getClass()) {
 			LeafType leafType = (LeafType)type;
-			return this.getClassType().equals(leafType.getClassType()) ||
-					this.getClassType().equals("Object") ||
-					leafType.getClassType().equals("Object") ||
-					this.getClassType().startsWith(leafType.getClassType()) ||
-					leafType.getClassType().startsWith(this.getClassType()) ||
-					this.getClassType().endsWith(leafType.getClassType()) ||
-					leafType.getClassType().endsWith(this.getClassType()) ||
-					this.containsTypeArgument(leafType.getClassType()) ||
-					leafType.containsTypeArgument(this.getClassType()) ||
+			return this.getClassType_RENAMED().equals(leafType.getClassType_RENAMED()) ||
+					this.getClassType_RENAMED().equals("Object") ||
+					leafType.getClassType_RENAMED().equals("Object") ||
+					this.getClassType_RENAMED().startsWith(leafType.getClassType_RENAMED()) ||
+					leafType.getClassType_RENAMED().startsWith(this.getClassType_RENAMED()) ||
+					this.getClassType_RENAMED().endsWith(leafType.getClassType_RENAMED()) ||
+					leafType.getClassType_RENAMED().endsWith(this.getClassType_RENAMED()) ||
+					this.containsTypeArgument(leafType.getClassType_RENAMED()) ||
+					leafType.containsTypeArgument(this.getClassType_RENAMED()) ||
 					this.commonTokenInClassType(leafType);
 		}
 		return false;
