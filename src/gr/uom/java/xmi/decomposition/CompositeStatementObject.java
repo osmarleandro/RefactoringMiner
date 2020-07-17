@@ -216,10 +216,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArrayAccesses() {
+	public List<String> getArrayAccesses_RENAMED() {
 		List<String> arrayAccesses = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			arrayAccesses.addAll(expression.getArrayAccesses());
+			arrayAccesses.addAll(expression.getArrayAccesses_RENAMED());
 		}
 		return arrayAccesses;
 	}
