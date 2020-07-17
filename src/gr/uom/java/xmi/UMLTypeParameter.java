@@ -18,7 +18,7 @@ public class UMLTypeParameter {
 		return name;
 	}
 
-	public List<UMLType> getTypeBounds() {
+	public List<UMLType> getTypeBounds_RENAMED() {
 		return typeBounds;
 	}
 
