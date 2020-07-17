@@ -475,7 +475,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
 			Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
 			Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
-			for(String mergedVariable : merge.getMergedVariables()) {
+			for(String mergedVariable : merge.getMergedVariables_RENAMED()) {
 				UMLAttribute a1 = findAttributeInOriginalClass(mergedVariable);
 				if(a1 != null) {
 					mergedAttributes.add(a1);
@@ -485,7 +485,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLAttribute a2 = findAttributeInNextClass(merge.getAfter());
 			Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
 			for(CandidateMergeVariableRefactoring candidate : set) {
-				if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
+				if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables_RENAMED().size() && a2 != null) {
 					MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), set);
 					if(!refactorings.contains(ref)) {
 						refactorings.add(ref);
@@ -837,8 +837,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			else if(merge.commonAfter(newMerge)) {
 				mergeToBeRemoved = merge;
 				Set<String> mergedVariables = new LinkedHashSet<String>();
-				mergedVariables.addAll(merge.getMergedVariables());
-				mergedVariables.addAll(newMerge.getMergedVariables());
+				mergedVariables.addAll(merge.getMergedVariables_RENAMED());
+				mergedVariables.addAll(newMerge.getMergedVariables_RENAMED());
 				MergeVariableReplacement replacement = new MergeVariableReplacement(mergedVariables, merge.getAfter());
 				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
 				candidates.add(candidate);

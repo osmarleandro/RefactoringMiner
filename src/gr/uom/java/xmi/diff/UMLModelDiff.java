@@ -1328,14 +1328,14 @@ public class UMLModelDiff {
       }
       for(MergeVariableReplacement merge : mergeMap.keySet()) {
     	  UMLClassBaseDiff diff = null;
-    	  for(String mergedVariable : merge.getMergedVariables()) {
+    	  for(String mergedVariable : merge.getMergedVariables_RENAMED()) {
     		  Replacement replacement = new Replacement(mergedVariable, merge.getAfter(), ReplacementType.VARIABLE_NAME);
     		  diff = getUMLClassDiffWithAttribute(replacement);
     	  }
     	  if(diff != null) {
     		  Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
     		  Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
-    		  for(String mergedVariable : merge.getMergedVariables()) {
+    		  for(String mergedVariable : merge.getMergedVariables_RENAMED()) {
     			  UMLAttribute a1 = diff.findAttributeInOriginalClass(mergedVariable);
     			  if(a1 != null) {
     				  mergedAttributes.add(a1);
@@ -1344,7 +1344,7 @@ public class UMLModelDiff {
     		  }
     		  UMLAttribute a2 = diff.findAttributeInNextClass(merge.getAfter());
     		  Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
-    		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
+    		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables_RENAMED().size() && a2 != null) {
     			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);

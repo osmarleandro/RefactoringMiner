@@ -11,7 +11,7 @@ public class MergeVariableReplacement extends Replacement {
 		this.mergedVariables = mergedVariables;
 	}
 
-	public Set<String> getMergedVariables() {
+	public Set<String> getMergedVariables_RENAMED() {
 		return mergedVariables;
 	}
 
