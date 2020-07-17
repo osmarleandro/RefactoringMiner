@@ -123,7 +123,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration mergedAttribute : mergedAttributes) {
 			ranges.add(mergedAttribute.codeRange()
