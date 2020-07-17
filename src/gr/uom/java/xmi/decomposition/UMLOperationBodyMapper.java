@@ -3561,28 +3561,28 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			if(s1.contains(" >= ") && s2.contains(" <= ")) {
-				Replacement r = invertConditionalDirection(s1, s2, " >= ", " <= ");
+				Replacement r = invertConditionalDirection_RENAMED(s1, s2, " >= ", " <= ");
 				if(r != null) {
 					info.addReplacement(r);
 					return true;
 				}
 			}
 			if(s1.contains(" <= ") && s2.contains(" >= ")) {
-				Replacement r = invertConditionalDirection(s1, s2, " <= ", " >= ");
+				Replacement r = invertConditionalDirection_RENAMED(s1, s2, " <= ", " >= ");
 				if(r != null) {
 					info.addReplacement(r);
 					return true;
 				}
 			}
 			if(s1.contains(" > ") && s2.contains(" < ")) {
-				Replacement r = invertConditionalDirection(s1, s2, " > ", " < ");
+				Replacement r = invertConditionalDirection_RENAMED(s1, s2, " > ", " < ");
 				if(r != null) {
 					info.addReplacement(r);
 					return true;
 				}
 			}
 			if(s1.contains(" < ") && s2.contains(" > ")) {
-				Replacement r = invertConditionalDirection(s1, s2, " < ", " > ");
+				Replacement r = invertConditionalDirection_RENAMED(s1, s2, " < ", " > ");
 				if(r != null) {
 					info.addReplacement(r);
 					return true;
@@ -3592,7 +3592,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private Replacement invertConditionalDirection(String s1, String s2, String operator1, String operator2) {
+	private Replacement invertConditionalDirection_RENAMED(String s1, String s2, String operator1, String operator2) {
 		int indexS1 = s1.indexOf(operator1);
 		int indexS2 = s2.indexOf(operator2);
 		//s1 goes right, s2 goes left
