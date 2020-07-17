@@ -1748,7 +1748,7 @@ public class UMLModelDiff {
 						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
 							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 							refactorings.add(inlineOperationRefactoring);
-							deleteRemovedOperation(removedOperation);
+							deleteRemovedOperation_RENAMED(removedOperation);
 						}
 				   }
 			   }
@@ -2139,7 +2139,7 @@ public class UMLModelDiff {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
-	                  deleteRemovedOperation(removedOperation);
+	                  deleteRemovedOperation_RENAMED(removedOperation);
 	                  deleteAddedOperation(addedOperation);
 	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
@@ -2224,7 +2224,7 @@ public class UMLModelDiff {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
-	                  deleteRemovedOperation(removedOperation);
+	                  deleteRemovedOperation_RENAMED(removedOperation);
 	                  deleteAddedOperation(addedOperation);
 	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
@@ -2513,7 +2513,7 @@ public class UMLModelDiff {
 		return null;
 	}
 
-   private void deleteRemovedOperation(UMLOperation operation) {
+   private void deleteRemovedOperation_RENAMED(UMLOperation operation) {
       UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
       if(classDiff != null)
     	  classDiff.getRemovedOperations().remove(operation);
