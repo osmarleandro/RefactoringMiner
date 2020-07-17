@@ -124,7 +124,7 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		if(hashCode == 0) {
 			int result = 17;
 			result = 37*result + classType.hashCode();
