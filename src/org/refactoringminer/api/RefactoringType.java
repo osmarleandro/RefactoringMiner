@@ -164,7 +164,7 @@ public enum RefactoringType {
     }
 
     public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
-        RefactoringType refType = extractFromDescription(refactoringDescription);
+        RefactoringType refType = extractFromDescription_RENAMED(refactoringDescription);
         Matcher m = refType.regex.matcher(refactoringDescription);
         if (m.matches()) {
             switch (refType) {
@@ -244,7 +244,7 @@ public enum RefactoringType {
         }
     }
 
-    public static RefactoringType extractFromDescription(String refactoringDescription) {
+    public static RefactoringType extractFromDescription_RENAMED(String refactoringDescription) {
         for (RefactoringType refType : RefactoringType.values()) {
             if (refactoringDescription.startsWith(refType.getDisplayName())) {
                 return refType;

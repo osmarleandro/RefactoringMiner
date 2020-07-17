@@ -70,7 +70,7 @@ public class TestBuilder {
 
 	private void count(int type, String refactoring) {
 		c.c[type]++;
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+		RefactoringType refType = RefactoringType.extractFromDescription_RENAMED(refactoring);
 		Counter refTypeCounter = cMap.get(refType);
 		if (refTypeCounter == null) {
 			refTypeCounter = new Counter();
@@ -154,7 +154,7 @@ public class TestBuilder {
 	}
 
 	private List<String> normalize(String refactoring) {
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+		RefactoringType refType = RefactoringType.extractFromDescription_RENAMED(refactoring);
 		refactoring = normalizeSingle(refactoring);
 		if (aggregate) {
 			refactoring = refType.aggregate(refactoring);
