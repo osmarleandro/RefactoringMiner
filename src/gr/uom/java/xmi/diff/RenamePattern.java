@@ -13,7 +13,7 @@ public class RenamePattern {
 		return before;
 	}
 
-	public String getAfter() {
+	public String getAfter_RENAMED() {
 		return after;
 	}
 

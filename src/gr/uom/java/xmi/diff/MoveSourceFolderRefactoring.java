@@ -42,7 +42,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		String originalPath = pattern.getBefore().endsWith("/") ? pattern.getBefore().substring(0, pattern.getBefore().length()-1) : pattern.getBefore();
 		sb.append(originalPath);
 		sb.append(" to ");
-		String movedPath = pattern.getAfter().endsWith("/") ? pattern.getAfter().substring(0, pattern.getAfter().length()-1) : pattern.getAfter();
+		String movedPath = pattern.getAfter_RENAMED().endsWith("/") ? pattern.getAfter_RENAMED().substring(0, pattern.getAfter_RENAMED().length()-1) : pattern.getAfter_RENAMED();
 		sb.append(movedPath);
 		return sb.toString();
 	}

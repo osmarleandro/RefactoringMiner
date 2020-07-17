@@ -116,7 +116,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation originalOperation : operations) {
 			String originalOperationName = originalOperation.getName();
 			if(originalOperationName.contains(pattern.getBefore())) {
-				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
+				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter_RENAMED());
 				if(originalOperationNameAfterReplacement.equals(operation.getName()))
 					return true;
 			}
@@ -154,7 +154,7 @@ public abstract class UMLAbstractClass {
 		for(UMLAttribute originalAttribute : attributes) {
 			String originalAttributeName = originalAttribute.getName();
 			if(originalAttributeName.contains(pattern.getBefore())) {
-				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
+				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter_RENAMED());
 				if(originalAttributeNameAfterReplacement.equals(attribute.getName()))
 					return true;
 			}

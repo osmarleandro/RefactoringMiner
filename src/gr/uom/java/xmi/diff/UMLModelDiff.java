@@ -1205,8 +1205,8 @@ public class UMLModelDiff {
 			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
 			   RenamePattern renamePattern = refactoring.getRenamePattern();
 			   //check if the the original path is a substring of the moved path and vice versa
-			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
-					   renamePattern.getAfter().contains(renamePattern.getBefore()) ||
+			   if(renamePattern.getBefore().contains(renamePattern.getAfter_RENAMED()) ||
+					   renamePattern.getAfter_RENAMED().contains(renamePattern.getBefore()) ||
 					   !originalClass.isTopLevel() || !movedClass.isTopLevel()) {
 				   refactorings.add(refactoring);
 			   }
@@ -1309,7 +1309,7 @@ public class UMLModelDiff {
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
-    		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
+    		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter_RENAMED()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
     			  renameDiff.process();
