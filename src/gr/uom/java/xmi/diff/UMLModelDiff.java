@@ -1288,22 +1288,22 @@ public class UMLModelDiff {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 extractRenamePatterns_RENAMED(classDiff, renameMap);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 extractRenamePatterns_RENAMED(classDiff, renameMap);
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 extractRenamePatterns_RENAMED(classDiff, renameMap);
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 extractRenamePatterns_RENAMED(classDiff, renameMap);
       }
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
@@ -1315,7 +1315,7 @@ public class UMLModelDiff {
     			  renameDiff.process();
     			  refactorings.addAll(renameDiff.getRefactorings());
     			  extractMergePatterns(renameDiff, mergeMap);
-    			  extractRenamePatterns(renameDiff, renameMap);
+    			  extractRenamePatterns_RENAMED(renameDiff, renameMap);
     			  classRenameDiffList.add(renameDiff);
     			  Refactoring refactoring = null;
     			  if(renameDiff.samePackage())
@@ -1698,7 +1698,7 @@ public class UMLModelDiff {
 		}
    }
 
-   private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
+   private void extractRenamePatterns_RENAMED(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
 	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
 		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
