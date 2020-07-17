@@ -26,7 +26,7 @@ public class Replacement {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((after == null) ? 0 : after.hashCode());
