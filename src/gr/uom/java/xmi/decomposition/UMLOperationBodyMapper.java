@@ -3090,7 +3090,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//if there is a variable replacement diff1 should be empty, otherwise diff1 should include a single variable
 			if(diff1.isEmpty() ||
 					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
-					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
+					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass_RENAMED().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
 				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
 				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
 					if(diff2.contains(addedParameter.getName())) {
@@ -3173,7 +3173,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(classDiff != null) {
 					List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
-					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes()) {
+					for(UMLAttribute attribute : classDiff.getNextClass_RENAMED().getAttributes()) {
 						if(diff2.contains(attribute.getName())) {
 							matchingAttributes.add(attribute);
 						}
@@ -3183,7 +3183,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						for(Replacement replacement : replacementInfo.getReplacements()) {
 							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 								if(classDiff.getOriginalClass().containsAttributeWithName(replacement.getBefore()) &&
-										classDiff.getNextClass().containsAttributeWithName(replacement.getAfter())) {
+										classDiff.getNextClass_RENAMED().containsAttributeWithName(replacement.getAfter())) {
 									matchingReplacement = replacement;
 									break;
 								}
