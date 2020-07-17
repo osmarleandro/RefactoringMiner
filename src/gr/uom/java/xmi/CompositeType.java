@@ -13,7 +13,7 @@ public class CompositeType extends UMLType {
 		return leftType;
 	}
 
-	public LeafType getRightType() {
+	public LeafType getRightType_RENAMED() {
 		return rightType;
 	}
 
