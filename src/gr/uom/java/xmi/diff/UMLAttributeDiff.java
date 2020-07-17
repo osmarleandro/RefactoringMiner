@@ -71,13 +71,13 @@ public class UMLAttributeDiff {
 		return qualifiedTypeChanged;
 	}
 
-	public boolean isEmpty() {
+	public boolean isEmpty_RENAMED() {
 		return !visibilityChanged && !typeChanged && !renamed && !qualifiedTypeChanged && annotationListDiff.isEmpty();
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
+		if(!isEmpty_RENAMED())
 			sb.append("\t").append(removedAttribute).append("\n");
 		if(renamed)
 			sb.append("\t").append("renamed from " + removedAttribute.getName() + " to " + addedAttribute.getName()).append("\n");

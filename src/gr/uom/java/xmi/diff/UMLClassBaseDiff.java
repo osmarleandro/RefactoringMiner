@@ -161,7 +161,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     		}
 			else if(!attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, operationBodyMapperList);
-				if(!attributeDiff.isEmpty()) {
+				if(!attributeDiff.isEmpty_RENAMED()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
 				}
@@ -174,7 +174,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     		}
 			else if(!attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, operationBodyMapperList);
-				if(!attributeDiff.isEmpty()) {
+				if(!attributeDiff.isEmpty_RENAMED()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
 				}
