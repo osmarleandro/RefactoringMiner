@@ -88,7 +88,7 @@ public class ReplacementUtil {
 					int start2 = m2.start();
 					String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp.charAt(start1 - 1));
 					String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(completeString2.charAt(start2 - 1));
-					if(compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
+					if(compatibleCharacterBeforeMatch_RENAMED(characterBeforeMatch1, characterBeforeMatch2)) {
 						m1.appendReplacement(sb, Matcher.quoteReplacement(subString2 + character));
 						replacementOccurred = true;
 					}
@@ -123,7 +123,7 @@ public class ReplacementUtil {
 		return temp;
 	}
 
-	private static boolean compatibleCharacterBeforeMatch(String characterBefore1, String characterBefore2) {
+	private static boolean compatibleCharacterBeforeMatch_RENAMED(String characterBefore1, String characterBefore2) {
 		if(characterBefore1 != null && characterBefore2 != null) {
 			if(characterBefore1.equals(characterBefore2))
 				return true;
