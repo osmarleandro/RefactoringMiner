@@ -202,7 +202,7 @@ public class UMLModelASTReader {
 		umlClass.setJavadoc(javadoc);
 		
 		umlClass.setEnum(true);
-		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
+		processModifiers_RENAMED(cu, sourceFile, enumDeclaration, umlClass);
 		
 		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
 		
@@ -255,7 +255,7 @@ public class UMLModelASTReader {
 			umlClass.setInterface(true);
     	}
     	
-    	processModifiers(cu, sourceFile, typeDeclaration, umlClass);
+    	processModifiers_RENAMED(cu, sourceFile, typeDeclaration, umlClass);
 		
     	List<TypeParameter> typeParameters = typeDeclaration.typeParameters();
 		for(TypeParameter typeParameter : typeParameters) {
@@ -362,7 +362,7 @@ public class UMLModelASTReader {
     	}
 	}
 
-	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
+	private void processModifiers_RENAMED(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
 		int modifiers = typeDeclaration.getModifiers();
     	if((modifiers & Modifier.ABSTRACT) != 0)
     		umlClass.setAbstract(true);
