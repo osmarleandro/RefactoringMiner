@@ -1386,7 +1386,7 @@ public class UMLModelDiff {
 						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName()); 
 					 }
 					 else {
-						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore().getClassName());
+						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore_RENAMED().getClassName());
 					 }
 					 if(diffs1.size() > 1) {
 						 for(UMLClassBaseDiff classDiff : diffs1) {
@@ -1408,7 +1408,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore_RENAMED(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1423,7 +1423,7 @@ public class UMLModelDiff {
 						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName()); 
 					 }
 					 else {
-						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore().getClassName());
+						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore_RENAMED().getClassName());
 					 }
 					 if(diffs2.size() > 1) {
 						 for(UMLClassBaseDiff classDiff : diffs2) {
@@ -1445,7 +1445,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore_RENAMED(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set

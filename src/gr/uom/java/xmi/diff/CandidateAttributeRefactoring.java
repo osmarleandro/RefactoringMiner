@@ -39,7 +39,7 @@ public class CandidateAttributeRefactoring {
 		return renamedVariableName;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation getOperationBefore_RENAMED() {
 		return operationBefore;
 	}
 
