@@ -156,7 +156,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		sb.append(" ");
 		sb.append(name);
 		sb.append(" : ");
-		sb.append(type.toQualifiedString());
+		sb.append(type.toQualifiedString_RENAMED());
 		return sb.toString();
 	}
 
