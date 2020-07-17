@@ -21,7 +21,7 @@ public class TernaryOperatorExpression {
 		this.expression = expression.toString();
 	}
 
-	public AbstractExpression getCondition() {
+	public AbstractExpression getCondition_RENAMED() {
 		return condition;
 	}
 
