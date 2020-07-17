@@ -1563,13 +1563,13 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					mapper.addChildMapper(operationBodyMapper);
 					operationsToBeRemoved.add(addedOperation);
 				}
-				checkForInconsistentVariableRenames(mapper);
+				checkForInconsistentVariableRenames_RENAMED(mapper);
 			}
 		}
 		addedOperations.removeAll(operationsToBeRemoved);
 	}
 
-	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
+	private void checkForInconsistentVariableRenames_RENAMED(UMLOperationBodyMapper mapper) {
 		if(mapper.getChildMappers().size() > 1) {
 			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
 			for(Refactoring r : refactorings) {
