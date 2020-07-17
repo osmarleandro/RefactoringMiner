@@ -21,7 +21,7 @@ public class MergeVariableReplacement extends Replacement {
 				other.mergedVariables.containsAll(this.mergedVariables);
 	}
 
-	public boolean commonAfter(MergeVariableReplacement other) {
+	public boolean commonAfter_RENAMED(MergeVariableReplacement other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.mergedVariables);
 		interestion.retainAll(other.mergedVariables);
 		return this.getAfter().equals(other.getAfter()) && interestion.size() == 0;

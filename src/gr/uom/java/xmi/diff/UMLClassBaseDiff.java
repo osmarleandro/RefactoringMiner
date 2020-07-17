@@ -834,7 +834,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				mergeMap.get(merge).add(candidate);
 				return;
 			}
-			else if(merge.commonAfter(newMerge)) {
+			else if(merge.commonAfter_RENAMED(newMerge)) {
 				mergeToBeRemoved = merge;
 				Set<String> mergedVariables = new LinkedHashSet<String>();
 				mergedVariables.addAll(merge.getMergedVariables());
