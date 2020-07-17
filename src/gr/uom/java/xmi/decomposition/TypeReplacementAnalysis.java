@@ -28,8 +28,8 @@ public class TypeReplacementAnalysis {
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
-					List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
+					List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations_RENAMED();
+					List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations_RENAMED();
 					for(VariableDeclaration declaration1 : declarations1) {
 						for(VariableDeclaration declaration2 : declarations2) {
 							if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
@@ -46,8 +46,8 @@ public class TypeReplacementAnalysis {
 			}
 			if(fragment1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
 					fragment2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-				List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
-				List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
+				List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations_RENAMED();
+				List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations_RENAMED();
 				for(VariableDeclaration declaration1 : declarations1) {
 					for(VariableDeclaration declaration2 : declarations2) {
 						if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&

@@ -105,7 +105,7 @@ public class VariableReplacementAnalysis {
 
 	private void findParametersWrappedInLocalVariables() {
 		for(StatementObject statement : nonMappedLeavesT2) {
-			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+			for(VariableDeclaration declaration : statement.getVariableDeclarations_RENAMED()) {
 				AbstractExpression initializer = declaration.getInitializer();
 				if(initializer != null) {
 					for(String key : initializer.getCreationMap().keySet()) {
@@ -834,8 +834,8 @@ public class VariableReplacementAnalysis {
 	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
-				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
-				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
+				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations_RENAMED();
+				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations_RENAMED();
 				if(variableDeclarations1.contains(v1)) {
 					if(variableDeclarations2.size() > 0 && !variableDeclarations2.contains(v2)) {
 						return true;
@@ -1044,7 +1044,7 @@ public class VariableReplacementAnalysis {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
-					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
+					if(mapping.getFragment1().getVariableDeclarations_RENAMED().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {
 							UMLOperation extractedMethod = mapper.getOperation2();
 							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
