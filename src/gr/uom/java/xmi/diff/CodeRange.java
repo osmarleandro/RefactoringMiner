@@ -54,7 +54,7 @@ public class CodeRange {
 		return codeElementType;
 	}
 
-	public String getDescription() {
+	public String getDescription_RENAMED() {
 		return description;
 	}
 
