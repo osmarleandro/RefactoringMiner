@@ -135,7 +135,7 @@ public class ExtractOperationDetection {
 	}
 
 	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject statement) {
-		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
+		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap_RENAMED();
 		for(String key : statementMethodInvocationMap.keySet()) {
 			for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
 				if(!containsInvocation(operationInvocations, statementInvocation)) {
@@ -153,7 +153,7 @@ public class ExtractOperationDetection {
 				}
 			}
 			if(lambda.getExpression() != null) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap_RENAMED();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
 						if(!containsInvocation(operationInvocations, statementInvocation)) {
