@@ -63,7 +63,7 @@ public abstract class AbstractCodeMapping {
 
 	public boolean isExact() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
-				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
+				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement_RENAMED()) && !isKeyword();
 	}
 
 	private boolean isKeyword() {
@@ -86,7 +86,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean containsIdenticalOrCompositeReplacement() {
+	private boolean containsIdenticalOrCompositeReplacement_RENAMED() {
 		for(Replacement r : replacements) {
 			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
 					r.getBefore().equals(r.getAfter())) {
