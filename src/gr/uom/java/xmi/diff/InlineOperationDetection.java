@@ -116,7 +116,7 @@ public class InlineOperationDetection {
 		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
-			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
+			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses_RENAMED()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
 					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {

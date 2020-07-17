@@ -1167,7 +1167,7 @@ public class UMLModelDiff {
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
+	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses_RENAMED()) {
 	         for(UMLClass addedClass : addedClasses) {
 	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
 	                  addedClass.getOperations().containsAll(anonymousClass.getOperations())) {
