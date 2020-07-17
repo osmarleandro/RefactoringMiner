@@ -148,7 +148,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return isInterface;
 	}
 
-	public void setInterface(boolean isInterface) {
+	public void setInterface_RENAMED(boolean isInterface) {
 		this.isInterface = isInterface;
 	}
 
