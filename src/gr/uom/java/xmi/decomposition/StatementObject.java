@@ -194,7 +194,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypeLiterals() {
+	public List<String> getTypeLiterals_RENAMED() {
 		return typeLiterals;
 	}
 
