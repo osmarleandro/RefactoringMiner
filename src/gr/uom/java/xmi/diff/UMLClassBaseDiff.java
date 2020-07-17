@@ -95,7 +95,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		createBodyMappers();
 		processAttributes();
 		checkForAttributeChanges();
-		processAnonymousClasses();
+		processAnonymousClasses_RENAMED();
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
 		checkForExtractedOperations();
@@ -142,7 +142,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		//optional step
 	}
 
-	protected void processAnonymousClasses() {
+	protected void processAnonymousClasses_RENAMED() {
 		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
     		if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
     			this.removedAnonymousClasses.add(umlAnonymousClass);
