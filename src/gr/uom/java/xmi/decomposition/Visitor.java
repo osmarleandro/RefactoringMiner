@@ -195,7 +195,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(VariableDeclarationFragment node) {
+	public boolean visit_RENAMED(VariableDeclarationFragment node) {
 		if(!(node.getParent() instanceof LambdaExpression)) {
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 			variableDeclarations.add(variableDeclaration);
