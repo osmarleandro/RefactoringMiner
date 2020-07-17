@@ -557,7 +557,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
