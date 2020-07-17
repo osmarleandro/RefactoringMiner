@@ -248,7 +248,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {

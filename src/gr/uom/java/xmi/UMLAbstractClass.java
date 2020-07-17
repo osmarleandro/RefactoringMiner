@@ -334,6 +334,6 @@ public abstract class UMLAbstractClass {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 }

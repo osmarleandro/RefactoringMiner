@@ -762,7 +762,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 
 	public boolean overridesObject() {

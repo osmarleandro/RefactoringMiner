@@ -201,6 +201,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 }

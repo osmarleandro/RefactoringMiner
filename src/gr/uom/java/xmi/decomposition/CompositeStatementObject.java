@@ -476,7 +476,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 
 	public boolean isLoop() {

@@ -193,7 +193,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return locationInfo.codeRange_RENAMED();
 	}
 
 	private static ASTNode getScopeNode(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {

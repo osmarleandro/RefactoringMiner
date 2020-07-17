@@ -433,7 +433,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
-		return info.codeRange();
+		return info.codeRange_RENAMED();
 	}
 
 	public enum StatementCoverageType {

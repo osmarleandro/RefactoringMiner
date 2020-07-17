@@ -75,7 +75,7 @@ public class LocationInfo {
 		return codeElementType;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return new CodeRange(getFilePath(),
 				getStartLine(), getEndLine(),
 				getStartColumn(), getEndColumn(), getCodeElementType());
