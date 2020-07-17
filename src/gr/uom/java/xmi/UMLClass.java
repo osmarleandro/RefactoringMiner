@@ -89,7 +89,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return typeParameterNames;
 	}
 
-	public void addTypeParameter(UMLTypeParameter typeParameter) {
+	public void addTypeParameter_RENAMED(UMLTypeParameter typeParameter) {
     	typeParameters.add(typeParameter);
     }
 
