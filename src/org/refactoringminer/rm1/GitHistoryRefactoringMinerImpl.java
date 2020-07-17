@@ -484,7 +484,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			Map<String, String> fileContentsBefore = new ConcurrentHashMap<String, String>();
 			Map<String, String> fileContentsCurrent = new ConcurrentHashMap<String, String>();
 			Map<String, String> renamedFilesHint = new ConcurrentHashMap<String, String>();
-			populateWithGitHubAPI(gitURL, currentCommitId, fileContentsBefore, fileContentsCurrent, renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent);
+			populateWithGitHubAPI_RENAMED(gitURL, currentCommitId, fileContentsBefore, fileContentsCurrent, renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent);
 			UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
 			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 			//  Diff between currentModel e parentModel
@@ -504,7 +504,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
-	private void populateWithGitHubAPI(String cloneURL, String currentCommitId,
+	private void populateWithGitHubAPI_RENAMED(String cloneURL, String currentCommitId,
 			Map<String, String> filesBefore, Map<String, String> filesCurrent, Map<String, String> renamedFilesHint,
 			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
