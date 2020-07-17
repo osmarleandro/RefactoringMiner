@@ -27,7 +27,7 @@ public class UMLJavadoc {
 		return false;
 	}
 
-	public boolean containsIgnoreCase(String s) {
+	public boolean containsIgnoreCase_RENAMED(String s) {
 		for(UMLTagElement tag : tags) {
 			if(tag.containsIgnoreCase(s)) {
 				return true;

@@ -193,7 +193,7 @@ public class UMLModelASTReader {
 	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
-		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
+		if(javadoc != null && javadoc.containsIgnoreCase_RENAMED(FREE_MARKER_GENERATED)) {
 			return;
 		}
 		String className = enumDeclaration.getName().getFullyQualifiedName();
@@ -243,7 +243,7 @@ public class UMLModelASTReader {
 	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
-		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
+		if(javadoc != null && javadoc.containsIgnoreCase_RENAMED(FREE_MARKER_GENERATED)) {
 			return;
 		}
 		String className = typeDeclaration.getName().getFullyQualifiedName();
