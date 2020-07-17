@@ -1668,7 +1668,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	public UMLModelDiff getModelDiff() {
+	public UMLModelDiff getModelDiff_RENAMED() {
 		return modelDiff;
 	}
 }
