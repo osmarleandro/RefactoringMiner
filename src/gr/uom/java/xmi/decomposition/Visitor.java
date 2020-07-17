@@ -483,7 +483,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(SimpleType node) {
+	public boolean visit_RENAMED(SimpleType node) {
 		Name name = node.getName();
 		types.add(name.getFullyQualifiedName());
 		if(current.getUserObject() != null) {
