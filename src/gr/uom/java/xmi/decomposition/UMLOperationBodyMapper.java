@@ -3090,7 +3090,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//if there is a variable replacement diff1 should be empty, otherwise diff1 should include a single variable
 			if(diff1.isEmpty() ||
 					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
-					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
+					(classDiff != null && classDiff.getOriginalClass_RENAMED().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
 				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
 				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
 					if(diff2.contains(addedParameter.getName())) {
@@ -3182,7 +3182,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Replacement matchingReplacement = null;
 						for(Replacement replacement : replacementInfo.getReplacements()) {
 							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-								if(classDiff.getOriginalClass().containsAttributeWithName(replacement.getBefore()) &&
+								if(classDiff.getOriginalClass_RENAMED().containsAttributeWithName(replacement.getBefore()) &&
 										classDiff.getNextClass().containsAttributeWithName(replacement.getAfter())) {
 									matchingReplacement = replacement;
 									break;
@@ -3227,7 +3227,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								return true;
 							}
 						}
-						if(classDiff.getOriginalClass().containsAttributeWithName(diff1)) {
+						if(classDiff.getOriginalClass_RENAMED().containsAttributeWithName(diff1)) {
 							Set<String> splitVariables = new LinkedHashSet<String>();
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;

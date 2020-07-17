@@ -239,7 +239,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return nextClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
+	public UMLClass getOriginalClass_RENAMED() {
 		return originalClass;
 	}
 
