@@ -13,7 +13,7 @@ public class RefactoringRelationshipGroup {
     refactoringRelationships.add(refactoringRelationship);
   }
 
-  public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
+  public RefactoringType addRefactoringRelationship_RENAMED(RefactoringRelationship r) {
     if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
       refactoringRelationships.add(r);
     }
