@@ -111,7 +111,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedCodeFragmentsFromSourceOperation;
 	}
 
-	public Set<AbstractCodeFragment> getExtractedCodeFragmentsToExtractedOperation() {
+	public Set<AbstractCodeFragment> getExtractedCodeFragmentsToExtractedOperation_RENAMED() {
 		return extractedCodeFragmentsToExtractedOperation;
 	}
 
