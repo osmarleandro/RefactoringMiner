@@ -19,7 +19,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 			childChanged = true;
 	}
 
-	public UMLGeneralization getRemovedGeneralization() {
+	public UMLGeneralization getRemovedGeneralization_RENAMED() {
 		return removedGeneralization;
 	}
 
