@@ -50,7 +50,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
+	public Set<AbstractCodeMapping> getReferences_RENAMED() {
 		return references;
 	}
 
