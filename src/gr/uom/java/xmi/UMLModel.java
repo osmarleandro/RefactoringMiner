@@ -122,7 +122,7 @@ public class UMLModel {
     			modelDiff.reportAddedClass(umlClass);
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.Move());
-    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
+    	modelDiff.checkForRenamedClasses_RENAMED(renamedFileHints, new UMLClassMatcher.Rename());
     	for(UMLGeneralization umlGeneralization : generalizationList) {
     		if(!umlModel.generalizationList.contains(umlGeneralization))
     			modelDiff.reportRemovedGeneralization(umlGeneralization);
@@ -150,7 +150,7 @@ public class UMLModel {
     		}
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.RelaxedMove());
-    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
+    	modelDiff.checkForRenamedClasses_RENAMED(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
 }
