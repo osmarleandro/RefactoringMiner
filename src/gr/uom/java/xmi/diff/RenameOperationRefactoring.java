@@ -111,7 +111,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalOperation.codeRange()
 				.setDescription("original method declaration")
