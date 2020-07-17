@@ -658,7 +658,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedInnerNodesT2;
 	}
 
-	public int mappingsWithoutBlocks() {
+	public int mappingsWithoutBlocks_RENAMED() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
 			if(mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement())
@@ -2041,7 +2041,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							for(UMLOperation operation2 : anonymousClass2.getOperations()) {
 								if(operation1.equals(operation2) || operation1.equalSignature(operation2) || operation1.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation2)) {	
 									UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation1, operation2, classDiff);
-									int mappings = mapper.mappingsWithoutBlocks();
+									int mappings = mapper.mappingsWithoutBlocks_RENAMED();
 									if(mappings > 0) {
 										int nonMappedElementsT1 = mapper.nonMappedElementsT1();
 										int nonMappedElementsT2 = mapper.nonMappedElementsT2();
@@ -2076,7 +2076,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					LambdaExpressionObject lambda1 = lambdas1.get(i);
 					LambdaExpressionObject lambda2 = lambdas2.get(j);
 					UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(lambda1, lambda2, this);
-					int mappings = mapper.mappingsWithoutBlocks();
+					int mappings = mapper.mappingsWithoutBlocks_RENAMED();
 					if(mappings > 0) {
 						int nonMappedElementsT1 = mapper.nonMappedElementsT1();
 						int nonMappedElementsT2 = mapper.nonMappedElementsT2();
@@ -3985,13 +3985,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(thisCallChainIntersectionSum != otherCallChainIntersectionSum) {
 			return -Integer.compare(thisCallChainIntersectionSum, otherCallChainIntersectionSum);
 		}
-		int thisMappings = this.mappingsWithoutBlocks();
+		int thisMappings = this.mappingsWithoutBlocks_RENAMED();
 		for(AbstractCodeMapping mapping : this.getMappings()) {
 			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
 				thisMappings++;
 			}
 		}
-		int otherMappings = operationBodyMapper.mappingsWithoutBlocks();
+		int otherMappings = operationBodyMapper.mappingsWithoutBlocks_RENAMED();
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
 				otherMappings++;
