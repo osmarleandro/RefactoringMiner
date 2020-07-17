@@ -271,7 +271,7 @@ public class Visitor extends ASTVisitor {
 
 	private DefaultMutableTreeNode deleteNode(AnonymousClassDeclaration childAnonymous) {
 		Enumeration enumeration = root.postorderEnumeration();
-		DefaultMutableTreeNode childNode = findNode(childAnonymous);
+		DefaultMutableTreeNode childNode = findNode_RENAMED(childAnonymous);
 		
 		DefaultMutableTreeNode parentNode = root;
 		while(enumeration.hasMoreElements()) {
@@ -306,7 +306,7 @@ public class Visitor extends ASTVisitor {
 		return childNode;
 	}
 
-	private DefaultMutableTreeNode findNode(AnonymousClassDeclaration anonymous) {
+	private DefaultMutableTreeNode findNode_RENAMED(AnonymousClassDeclaration anonymous) {
 		Enumeration enumeration = root.postorderEnumeration();
 		
 		while(enumeration.hasMoreElements()) {
