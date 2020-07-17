@@ -297,7 +297,7 @@ public class OperationInvocation extends AbstractCall {
     	return false;
     }
 
-    public Set<String> callChainIntersection(OperationInvocation other) {
+    public Set<String> callChainIntersection_RENAMED(OperationInvocation other) {
     	Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
     	s1.add(this.actualString());
     	Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
