@@ -143,7 +143,7 @@ public class ResultComparator {
         return tp == 0 ? 0.0 : 2.0 * precision * recall / (precision + recall);
     }
 
-    public void printDetails(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
+    public void printDetails_RENAMED(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
         String[] labels = {"TN", "FP", "FN", "TP"};
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         boolean headerPrinted = false;
