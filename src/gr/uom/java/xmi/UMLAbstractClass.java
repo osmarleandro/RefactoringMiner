@@ -277,7 +277,7 @@ public abstract class UMLAbstractClass {
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 
-	public boolean hasSameAttributesAndOperations(UMLAbstractClass umlClass) {
+	public boolean hasSameAttributesAndOperations_RENAMED(UMLAbstractClass umlClass) {
 		if(this.attributes.size() != umlClass.attributes.size())
 			return false;
 		if(this.operations.size() != umlClass.operations.size())
