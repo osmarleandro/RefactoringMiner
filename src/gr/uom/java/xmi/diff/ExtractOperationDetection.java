@@ -261,7 +261,7 @@ public class ExtractOperationDetection {
 
 	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
+		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2_RENAMED());
 		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
 		while(iterator.hasNext()) {
 			if(iterator.next().toString().equals("{")) {
