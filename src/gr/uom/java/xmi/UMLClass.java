@@ -309,7 +309,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.toString().compareTo(umlClass.toString());
 	}
 
-	public double normalizedNameDistance(UMLClass c) {
+	public double normalizedNameDistance_RENAMED(UMLClass c) {
 		String s1 = name.toLowerCase();
 		String s2 = c.name.toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);

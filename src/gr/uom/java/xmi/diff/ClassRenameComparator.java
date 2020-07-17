@@ -6,8 +6,8 @@ public class ClassRenameComparator implements Comparator<UMLClassRenameDiff> {
 
 	@Override
 	public int compare(UMLClassRenameDiff o1, UMLClassRenameDiff o2) {
-		double nameDistance1 = o1.getRenamedClass().normalizedNameDistance(o1.getOriginalClass());
-		double nameDistance2 = o2.getRenamedClass().normalizedNameDistance(o2.getOriginalClass());
+		double nameDistance1 = o1.getRenamedClass().normalizedNameDistance_RENAMED(o1.getOriginalClass());
+		double nameDistance2 = o2.getRenamedClass().normalizedNameDistance_RENAMED(o2.getOriginalClass());
 		
 		if(nameDistance1 != nameDistance2) {
 			return Double.compare(nameDistance1, nameDistance2);
