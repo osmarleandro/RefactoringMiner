@@ -317,7 +317,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
+				return handler.skipCommit_RENAMED(sha1);
 			}
 		};
 		RevWalk walk = gitService.createAllRevsWalk(repository, branch);
@@ -333,7 +333,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
+				return handler.skipCommit_RENAMED(sha1);
 			}
 		};
 		RevWalk walk = gitService.fetchAndCreateNewRevsWalk(repository);
@@ -410,7 +410,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
+				return handler.skipCommit_RENAMED(sha1);
 			}
 		};
 		
@@ -424,7 +424,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
+				return handler.skipCommit_RENAMED(sha1);
 			}
 		};
 		

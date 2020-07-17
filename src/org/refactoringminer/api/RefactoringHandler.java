@@ -15,7 +15,7 @@ public abstract class RefactoringHandler {
 	 * @param commitId The SHA key that identifies the commit.
 	 * @return True to skip the commit, false otherwise.
 	 */
-	public boolean skipCommit(String commitId) {
+	public boolean skipCommit_RENAMED(String commitId) {
 		return false;
 	}
 
