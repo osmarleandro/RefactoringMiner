@@ -302,7 +302,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.addedAnonymousClasses.add(umlClass);
 	}
 
-	public void reportRemovedAnonymousClass(UMLAnonymousClass umlClass) {
+	public void reportRemovedAnonymousClass_RENAMED(UMLAnonymousClass umlClass) {
 		this.removedAnonymousClasses.add(umlClass);
 	}
 
