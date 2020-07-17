@@ -34,7 +34,7 @@ public class RenameOperationRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(originalOperation);
 		sb.append(" renamed to ");
 		sb.append(renamedOperation);

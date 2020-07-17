@@ -33,7 +33,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return RefactoringType.CHANGE_RETURN_TYPE;
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return getRefactoringType().getDisplayName();
 	}
 
@@ -60,7 +60,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalType.equals(changedType) && !originalType.equalsQualified(changedType);
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(qualified ? originalType.toQualifiedString() : originalType.toString());
 		sb.append(" to ");
 		sb.append(qualified ? changedType.toQualifiedString() : changedType.toString());
