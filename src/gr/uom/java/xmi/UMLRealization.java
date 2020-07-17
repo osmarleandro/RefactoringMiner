@@ -13,7 +13,7 @@ public class UMLRealization implements Comparable<UMLRealization> {
         return supplier;
     }
 
-	public UMLClass getClient() {
+	public UMLClass getClient_RENAMED() {
         return client;
     }
 
