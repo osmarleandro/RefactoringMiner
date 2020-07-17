@@ -1632,8 +1632,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		variables2.removeAll(variableIntersection);
 		
 		// replace variables with the corresponding arguments
-		replaceVariablesWithArguments(variables1, parameterToArgumentMap);
-		replaceVariablesWithArguments(variables2, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(variables1, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(variables2, parameterToArgumentMap);
 		
 		Map<String, List<? extends AbstractCall>> methodInvocationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getMethodInvocationMap());
 		Map<String, List<? extends AbstractCall>> methodInvocationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getMethodInvocationMap());
@@ -3650,7 +3650,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return conditional;
 	}
 
-	private void replaceVariablesWithArguments(Set<String> variables, Map<String, String> parameterToArgumentMap) {
+	private void replaceVariablesWithArguments_RENAMED(Set<String> variables, Map<String, String> parameterToArgumentMap) {
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);
 			if(variables.contains(parameter)) {
