@@ -158,7 +158,7 @@ public class RefactoringPopulator {
 				List<Refactoring> refactorings = new ArrayList<>();
 	
 				root.refactorings.forEach((refactoring) -> {
-					if (isAdded(refactoring, flag))
+					if (isAdded_RENAMED(refactoring, flag))
 						refactorings.add(refactoring);
 				});
 	
@@ -172,7 +172,7 @@ public class RefactoringPopulator {
 		return filtered;
 	}
 
-	private static boolean isAdded(Refactoring refactoring, BigInteger flag) {
+	private static boolean isAdded_RENAMED(Refactoring refactoring, BigInteger flag) {
 		try {
 			BigInteger value = Enum.valueOf(Refactorings.class, refactoring.type.replace(" ", "")).getValue();
 			return value.and(flag).compareTo(BigInteger.ZERO) == 1;
