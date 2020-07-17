@@ -264,7 +264,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<LambdaExpressionObject> getLambdas() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 		for(AbstractExpression expression : expressionList) {
-			lambdas.addAll(expression.getLambdas());
+			lambdas.addAll(expression.getLambdas_RENAMED());
 		}
 		return lambdas;
 	}
@@ -319,7 +319,7 @@ public class CompositeStatementObject extends AbstractStatement {
 						map.put(key, list);
 					}
 				}
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(LambdaExpressionObject lambda : statementObject.getLambdas_RENAMED()) {
 					if(lambda.getBody() != null) {
 						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
 						for(String key : lambdaMap.keySet()) {
@@ -357,7 +357,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<LambdaExpressionObject> getAllLambdas() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
-		lambdas.addAll(getLambdas());
+		lambdas.addAll(getLambdas_RENAMED());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
@@ -365,7 +365,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
-				lambdas.addAll(statementObject.getLambdas());
+				lambdas.addAll(statementObject.getLambdas_RENAMED());
 			}
 		}
 		return lambdas;
@@ -398,7 +398,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(LambdaExpressionObject lambda : statementObject.getLambdas_RENAMED()) {
 					if(lambda.getBody() != null) {
 						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
 					}

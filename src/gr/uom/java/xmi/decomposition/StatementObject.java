@@ -234,7 +234,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject> getLambdas_RENAMED() {
 		return lambdas;
 	}
 
