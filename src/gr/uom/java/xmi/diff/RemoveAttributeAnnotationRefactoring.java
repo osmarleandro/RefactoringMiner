@@ -83,7 +83,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(annotation);
 		sb.append(" in attribute ");
 		sb.append(attributeBefore);
