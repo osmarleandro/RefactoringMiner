@@ -192,7 +192,7 @@ public class UMLOperationDiff {
 
 	public boolean isEmpty() {
 		return addedParameters.isEmpty() && removedParameters.isEmpty() && parameterDiffList.isEmpty() &&
-		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty();
+		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty_RENAMED();
 	}
 
 	public String toString() {

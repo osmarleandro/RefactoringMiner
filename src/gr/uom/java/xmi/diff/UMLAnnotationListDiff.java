@@ -62,7 +62,7 @@ public class UMLAnnotationListDiff {
 		return annotationDiffList;
 	}
 
-	public boolean isEmpty() {
+	public boolean isEmpty_RENAMED() {
 		return removedAnnotations.isEmpty() && addedAnnotations.isEmpty() && annotationDiffList.isEmpty();
 	}
 }

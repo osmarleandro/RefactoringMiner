@@ -72,7 +72,7 @@ public class UMLAttributeDiff {
 	}
 
 	public boolean isEmpty() {
-		return !visibilityChanged && !typeChanged && !renamed && !qualifiedTypeChanged && annotationListDiff.isEmpty();
+		return !visibilityChanged && !typeChanged && !renamed && !qualifiedTypeChanged && annotationListDiff.isEmpty_RENAMED();
 	}
 
 	public String toString() {
