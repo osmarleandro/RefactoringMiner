@@ -729,7 +729,7 @@ public class Visitor extends ASTVisitor {
 						}
 					}
 				}
-				EnhancedForStatement enhancedFor = findParentEnhancedForStatement(node);
+				EnhancedForStatement enhancedFor = findParentEnhancedForStatement_RENAMED(node);
 				if(enhancedFor != null) {
 					if(enhancedFor.getParameter().getName().getIdentifier().equals(qualifierIdentifier)) {
 						variables.add(node.toString());
@@ -744,7 +744,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	private EnhancedForStatement findParentEnhancedForStatement(ASTNode node) {
+	private EnhancedForStatement findParentEnhancedForStatement_RENAMED(ASTNode node) {
 		ASTNode parent = node.getParent();
 		while(parent != null) {
 			if(parent instanceof EnhancedForStatement) {
