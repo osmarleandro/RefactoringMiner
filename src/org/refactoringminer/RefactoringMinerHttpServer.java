@@ -46,7 +46,7 @@ public class RefactoringMinerHttpServer {
 	static class MyHandler implements HttpHandler {
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
-			printRequestInfo(exchange);
+			printRequestInfo_RENAMED(exchange);
 			URI requestURI = exchange.getRequestURI();
 			String query = requestURI.getQuery();
 			Map<String, String> queryToMap = queryToMap(query);
@@ -116,7 +116,7 @@ public class RefactoringMinerHttpServer {
 		return sb.toString();
 	}
 
-	private static void printRequestInfo(HttpExchange exchange) {
+	private static void printRequestInfo_RENAMED(HttpExchange exchange) {
 		System.out.println("-- headers --");
 		Headers requestHeaders = exchange.getRequestHeaders();
 		requestHeaders.entrySet().forEach(System.out::println);
