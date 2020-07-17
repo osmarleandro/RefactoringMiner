@@ -38,11 +38,11 @@ public class RenameOperationRefactoring implements Refactoring {
 		sb.append(originalOperation);
 		sb.append(" renamed to ");
 		sb.append(renamedOperation);
-		sb.append(" in class ").append(getClassName());
+		sb.append(" in class ").append(getClassName_RENAMED());
 		return sb.toString();
 	}
 
-	private String getClassName() {
+	private String getClassName_RENAMED() {
 		String sourceClassName = originalOperation.getClassName();
 		String targetClassName = renamedOperation.getClassName();
 		boolean targetIsAnonymousInsideSource = false;
