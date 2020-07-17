@@ -93,12 +93,12 @@ public class ExtractVariableRefactoring implements Refactoring {
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
+		} else if (!operationAfter.equals_RENAMED(other.operationAfter))
 			return false;
 		if (variableDeclaration == null) {
 			if (other.variableDeclaration != null)
 				return false;
-		} else if (!variableDeclaration.equals(other.variableDeclaration))
+		} else if (!variableDeclaration.equals_RENAMED(other.variableDeclaration))
 			return false;
 		return true;
 	}
