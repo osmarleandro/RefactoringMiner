@@ -68,7 +68,7 @@ public class WildcardType extends UMLType {
 	@Override
 	public String getClassType() {
 		if(bound != null) {
-			return bound.getClassType();
+			return bound.getClassType_RENAMED();
 		}
 		return "Object";
 	}
