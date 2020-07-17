@@ -19,7 +19,7 @@ public class VariableDeclarationReplacement extends Replacement {
 		this.operation2 = operation2;
 	}
 
-	public VariableDeclaration getVariableDeclaration1() {
+	public VariableDeclaration getVariableDeclaration1_RENAMED() {
 		return v1;
 	}
 
