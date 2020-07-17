@@ -738,7 +738,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public int nonMappedElementsT2CallingAddedOperation(List<UMLOperation> addedOperations) {
+	public int nonMappedElementsT2CallingAddedOperation_RENAMED(List<UMLOperation> addedOperations) {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
 			if(composite.countableStatement()) {
