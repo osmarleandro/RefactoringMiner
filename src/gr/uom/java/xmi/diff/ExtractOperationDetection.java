@@ -167,7 +167,7 @@ public class ExtractOperationDetection {
 
 	public static boolean containsInvocation(List<OperationInvocation> operationInvocations, OperationInvocation invocation) {
 		for(OperationInvocation operationInvocation : operationInvocations) {
-			if(operationInvocation.getLocationInfo().equals(invocation.getLocationInfo())) {
+			if(operationInvocation.getLocationInfo_RENAMED().equals(invocation.getLocationInfo_RENAMED())) {
 				return true;
 			}
 		}
