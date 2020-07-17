@@ -2188,7 +2188,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						replacementInfo.addReplacement(replacement);
 						return replacementInfo.getReplacements();
 					}
-					if(invocationCoveringTheEntireStatement1.identicalOrConcatenatedArguments(invocation2)) {
+					if(invocationCoveringTheEntireStatement1.identicalOrConcatenatedArguments_RENAMED(invocation2)) {
 						Replacement replacement = new MethodInvocationReplacement(invocationCoveringTheEntireStatement1.actualString(),
 								invocationCoveringTheEntireStatement2.actualString(), invocationCoveringTheEntireStatement1, invocationCoveringTheEntireStatement2, ReplacementType.METHOD_INVOCATION_ARGUMENT_CONCATENATED);
 						replacementInfo.addReplacement(replacement);
