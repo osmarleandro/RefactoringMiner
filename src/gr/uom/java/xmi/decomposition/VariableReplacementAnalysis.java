@@ -405,7 +405,7 @@ public class VariableReplacementAnalysis {
 					mergedVariableOperations.add(declaration.getValue());
 				}
 			}
-			SimpleEntry<VariableDeclaration,UMLOperation> newVariable = getVariableDeclaration2(merge);
+			SimpleEntry<VariableDeclaration,UMLOperation> newVariable = getVariableDeclaration2_RENAMED(merge);
 			if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && newVariable != null) {
 				UMLOperation operationBefore = mergedVariableOperations.iterator().next();
 				MergeVariableRefactoring refactoring = new MergeVariableRefactoring(mergedVariables, newVariable.getKey(), operationBefore, newVariable.getValue(), mergeMap.get(merge));
@@ -1008,7 +1008,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(MergeVariableReplacement replacement) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2_RENAMED(MergeVariableReplacement replacement) {
 		for(AbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {
