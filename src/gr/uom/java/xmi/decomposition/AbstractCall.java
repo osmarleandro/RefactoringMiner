@@ -150,7 +150,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean identicalOrWrappedArguments(AbstractCall call) {
+	public boolean identicalOrWrappedArguments_RENAMED(AbstractCall call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
