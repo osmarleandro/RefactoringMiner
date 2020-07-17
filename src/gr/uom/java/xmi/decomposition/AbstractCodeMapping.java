@@ -63,13 +63,13 @@ public abstract class AbstractCodeMapping {
 
 	public boolean isExact() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
-				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
+				fragment1.getString_RENAMED().equals(fragment2.getString_RENAMED()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
 	}
 
 	private boolean isKeyword() {
-		return fragment1.getString().startsWith("return;") ||
-				fragment1.getString().startsWith("break;") ||
-				fragment1.getString().startsWith("continue;");
+		return fragment1.getString_RENAMED().startsWith("return;") ||
+				fragment1.getString_RENAMED().startsWith("break;") ||
+				fragment1.getString_RENAMED().startsWith("continue;");
 	}
 
 	private boolean isExactAfterAbstraction() {
@@ -196,8 +196,8 @@ public abstract class AbstractCodeMapping {
 						if(refactoring instanceof RenameOperationRefactoring) {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
-								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
+								String initializerBeforeRename = initializer.getString_RENAMED().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
+								if(getFragment1().getString_RENAMED().contains(initializerBeforeRename) && getFragment2().getString_RENAMED().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}

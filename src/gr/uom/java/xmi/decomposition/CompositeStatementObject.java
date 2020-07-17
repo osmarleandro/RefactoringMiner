@@ -421,7 +421,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public int statementCount() {
 		int count = 0;
-		if(!this.getString().equals("{"))
+		if(!this.getString_RENAMED().equals("{"))
 			count++;
 		for(AbstractStatement statement : statementList) {
 			count += statement.statementCount();
@@ -446,7 +446,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public Map<String, Set<String>> aliasedAttributes() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
 		for(StatementObject statement : getLeaves()) {
-			String s = statement.getString();
+			String s = statement.getString_RENAMED();
 			if(s.startsWith("this.") && s.endsWith(";\n")) {
 				String firstLine = s.substring(0, s.indexOf("\n"));
 				if(firstLine.contains("=")) {

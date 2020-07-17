@@ -16,7 +16,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private String codeFragmentAfterReplacingParametersWithArguments;
 
 	public String getArgumentizedString() {
-		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString();
+		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString_RENAMED();
 	}
 
     public int getDepth() {
@@ -36,7 +36,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 	
 	public abstract CompositeStatementObject getParent();
-	public abstract String getString();
+	public abstract String getString_RENAMED();
 	public abstract List<String> getVariables();
 	public abstract List<String> getTypes();
 	public abstract List<VariableDeclaration> getVariableDeclarations();
@@ -59,7 +59,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract VariableDeclaration getVariableDeclaration(String variableName);
 	
 	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
-		String afterReplacements = getString();
+		String afterReplacements = getString_RENAMED();
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);
 			if(!parameter.equals(argument)) {
@@ -136,31 +136,31 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	public boolean equalFragment(AbstractCodeFragment other) {
-		if(this.getString().equals(other.getString())) {
+		if(this.getString_RENAMED().equals(other.getString_RENAMED())) {
 			return true;
 		}
-		else if(this.getString().contains(other.getString())) {
+		else if(this.getString_RENAMED().contains(other.getString_RENAMED())) {
 			return true;
 		}
-		else if(other.getString().contains(this.getString())) {
+		else if(other.getString_RENAMED().contains(this.getString_RENAMED())) {
 			return true;
 		}
 		else if(this.codeFragmentAfterReplacingParametersWithArguments != null) {
-			return this.codeFragmentAfterReplacingParametersWithArguments.equals(other.getString());
+			return this.codeFragmentAfterReplacingParametersWithArguments.equals(other.getString_RENAMED());
 		}
 		else if(other.codeFragmentAfterReplacingParametersWithArguments != null) {
-			return other.codeFragmentAfterReplacingParametersWithArguments.equals(this.getString());
+			return other.codeFragmentAfterReplacingParametersWithArguments.equals(this.getString_RENAMED());
 		}
 		return false;
 	}
 
 	public void resetArgumentization() {
-		this.codeFragmentAfterReplacingParametersWithArguments = getString();
+		this.codeFragmentAfterReplacingParametersWithArguments = getString_RENAMED();
 	}
 
 	public ObjectCreation creationCoveringEntireFragment() {
 		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
-		String statement = getString();
+		String statement = getString_RENAMED();
 		for(String objectCreation : creationMap.keySet()) {
 			List<ObjectCreation> creations = creationMap.get(objectCreation);
 			for(ObjectCreation creation : creations) {
@@ -187,7 +187,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 
 	public OperationInvocation invocationCoveringEntireFragment() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
-		String statement = getString();
+		String statement = getString_RENAMED();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
 			for(OperationInvocation invocation : invocations) {
@@ -231,7 +231,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	private boolean isCastExpressionCoveringEntireFragment(String expression) {
-		String statement = getString();
+		String statement = getString_RENAMED();
 		int index = statement.indexOf(expression + ";\n");
 		if(index != -1) {
 			String prefix = statement.substring(0, index);
@@ -273,7 +273,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
-		String statement = getString();
+		String statement = getString_RENAMED();
 		if(statement.contains("=")) {
 			List<String> variables = getVariables();
 			if(variables.size() > 0) {
@@ -287,11 +287,11 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	public boolean throwsNewException() {
-		return getString().startsWith("throw new ");
+		return getString_RENAMED().startsWith("throw new ");
 	}
 
 	public boolean countableStatement() {
-		String statement = getString();
+		String statement = getString_RENAMED();
 		//covers the cases of lambda expressions having an expression as their body
 		if(this instanceof AbstractExpression) {
 			return true;

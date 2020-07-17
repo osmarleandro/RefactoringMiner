@@ -38,20 +38,20 @@ public class TernaryOperatorExpression {
 	}
 
 	public Replacement makeReplacementWithTernaryOnTheRight(String statement) {
-		if(getElseExpression().getString().equals(statement)) {
+		if(getElseExpression().getString_RENAMED().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(getThenExpression().getString_RENAMED().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
 	}
 
 	public Replacement makeReplacementWithTernaryOnTheLeft(String statement) {
-		if(getElseExpression().getString().equals(statement)) {
+		if(getElseExpression().getString_RENAMED().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(getThenExpression().getString_RENAMED().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
