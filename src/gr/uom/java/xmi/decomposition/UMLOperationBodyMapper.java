@@ -888,7 +888,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return editDistance/maxLength;
 	}
 
-	public int operationNameEditDistance() {
+	public int operationNameEditDistance_RENAMED() {
 		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
 	}
 
@@ -4013,8 +4013,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					return Integer.compare(thisEditDistance, otherEditDistance);
 				}
 				else {
-					int thisOperationNameEditDistance = this.operationNameEditDistance();
-					int otherOperationNameEditDistance = operationBodyMapper.operationNameEditDistance();
+					int thisOperationNameEditDistance = this.operationNameEditDistance_RENAMED();
+					int otherOperationNameEditDistance = operationBodyMapper.operationNameEditDistance_RENAMED();
 					return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
 				}
 			}
