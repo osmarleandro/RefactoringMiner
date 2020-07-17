@@ -21,7 +21,7 @@ public class SplitVariableReplacement extends Replacement {
 				other.splitVariables.containsAll(this.splitVariables);
 	}
 
-	public boolean commonBefore(SplitVariableReplacement other) {
+	public boolean commonBefore_RENAMED(SplitVariableReplacement other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.splitVariables);
 		interestion.retainAll(other.splitVariables);
 		return this.getBefore().equals(other.getBefore()) && interestion.size() == 0;
