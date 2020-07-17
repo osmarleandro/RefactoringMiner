@@ -1783,7 +1783,7 @@ public class UMLModelDiff {
 			}
 		}
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
+		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED()-delegateStatements;
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
@@ -1806,7 +1806,7 @@ public class UMLModelDiff {
       for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
     	  UMLOperation addedOperation = addedOperationIterator.next();
     	  for(UMLOperationBodyMapper mapper : mappers) {
-    		  if((mapper.nonMappedElementsT1() > 0 || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) && !mapper.containsExtractOperationRefactoring(addedOperation)) {
+    		  if((mapper.nonMappedElementsT1_RENAMED() > 0 || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) && !mapper.containsExtractOperationRefactoring(addedOperation)) {
                List<OperationInvocation> operationInvocations = ExtractOperationDetection.getInvocationsInSourceOperationAfterExtraction(mapper);
                List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
                for(OperationInvocation invocation : operationInvocations) {
@@ -1974,7 +1974,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
-	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED();
 	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 	   int exactMatches = exactMatchList.size();
@@ -2303,7 +2303,7 @@ public class UMLModelDiff {
    }
 
    private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
-        int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+        int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
 		int nonMappedStatementsDeclaringSameVariable = 0;
@@ -2371,7 +2371,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.mappingsWithoutBlocks() > 0) {
-		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2() == 0)) {
+		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1_RENAMED() == 0 && mapper.nonMappedElementsT2() == 0)) {
 			   return false;
 		   }
 	   }
@@ -2385,7 +2385,7 @@ public class UMLModelDiff {
 	   if(exactLeafMappings == 0 && normalizedEditDistance > 0.24) {
 		   return false;
 	   }
-	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1() > 0 || mapper.nonMappedElementsT2() > 0)) {
+	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1_RENAMED() > 0 || mapper.nonMappedElementsT2() > 0)) {
 		   return false;
 	   }
 	   if(mapper.mappingsWithoutBlocks() == 1) {

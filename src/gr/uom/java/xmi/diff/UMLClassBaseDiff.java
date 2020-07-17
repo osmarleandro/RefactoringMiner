@@ -1155,9 +1155,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean exactMappings(UMLOperationBodyMapper operationBodyMapper) {
 		if(allMappingsAreExactMatches(operationBodyMapper)) {
-			if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
+			if(operationBodyMapper.nonMappedElementsT1_RENAMED() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
 				return true;
-			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
+			else if(operationBodyMapper.nonMappedElementsT1_RENAMED() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
 				int countableStatements = 0;
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
@@ -1186,7 +1186,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				return (countableStatements == parameterizedVariableDeclarationStatements || countableStatements == nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation + parameterizedVariableDeclarationStatements) && countableStatements > 0;
 			}
-			else if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() > 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
+			else if(operationBodyMapper.nonMappedElementsT1_RENAMED() == 0 && operationBodyMapper.nonMappedElementsT2() > 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
 				int countableStatements = 0;
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
@@ -1203,7 +1203,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				return countableStatements == parameterizedVariableDeclarationStatements && countableStatements > 0;
 			}
-			else if((operationBodyMapper.nonMappedElementsT1() == 1 || operationBodyMapper.nonMappedElementsT2() == 1) &&
+			else if((operationBodyMapper.nonMappedElementsT1_RENAMED() == 1 || operationBodyMapper.nonMappedElementsT2() == 1) &&
 					operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
 				StatementObject statementUsingParameterAsInvoker1 = null;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
@@ -1248,7 +1248,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		return (mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) ||
 				(nonMappedElementsT1 == 0 && mappings > Math.floor(nonMappedElementsT2/2.0)) ||
@@ -1264,7 +1264,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean mappedElementsMoreThanNonMappedT1(int mappings, UMLOperationBodyMapper operationBodyMapper) {
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED();
 		int nonMappedElementsT1CallingRemovedOperation = operationBodyMapper.nonMappedElementsT1CallingRemovedOperation(removedOperations);
 		int nonMappedElementsT1WithoutThoseCallingRemovedOperation = nonMappedElementsT1 - nonMappedElementsT1CallingRemovedOperation;
 		return mappings > nonMappedElementsT1 || (mappings >= nonMappedElementsT1WithoutThoseCallingRemovedOperation &&

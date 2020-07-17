@@ -140,7 +140,7 @@ public class InlineOperationDetection {
 			}
 		}
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
+		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1_RENAMED()-delegateStatements;
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
