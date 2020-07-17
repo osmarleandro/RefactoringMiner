@@ -91,14 +91,14 @@ public class CodeRange {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
-		encodeStringProperty(sb, "filePath", filePath, false);
+		encodeStringProperty_RENAMED(sb, "filePath", filePath, false);
 		encodeIntProperty(sb, "startLine", startLine, false);
 		encodeIntProperty(sb, "endLine", endLine, false);
 		encodeIntProperty(sb, "startColumn", startColumn, false);
 		encodeIntProperty(sb, "endColumn", endColumn, false);
-		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
-		encodeStringProperty(sb, "description", description, false);
-		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
+		encodeStringProperty_RENAMED(sb, "codeElementType", codeElementType.name(), false);
+		encodeStringProperty_RENAMED(sb, "description", description, false);
+		encodeStringProperty_RENAMED(sb, "codeElement", escapeQuotes(codeElement), true);
 		sb.append("}");
 		return sb.toString();
 	}
@@ -113,7 +113,7 @@ public class CodeRange {
 		return s;
 	}
 
-	private void encodeStringProperty(StringBuilder sb, String propertyName, String value, boolean last) {
+	private void encodeStringProperty_RENAMED(StringBuilder sb, String propertyName, String value, boolean last) {
 		if(value != null)
 			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + "\"" + value + "\"");
 		else
