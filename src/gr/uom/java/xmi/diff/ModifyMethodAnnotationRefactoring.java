@@ -67,13 +67,13 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.MODIFY_METHOD_ANNOTATION;
 	}
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	@Override
