@@ -76,9 +76,9 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	private String getClassName() {
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
-			return getSourceOperationBeforeExtraction().getClassName();
+			return getSourceOperationBeforeExtraction_RENAMED().getClassName();
 		}
-		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
+		String sourceClassName = getSourceOperationBeforeExtraction_RENAMED().getClassName();
 		String targetClassName = getSourceOperationAfterExtraction().getClassName();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
@@ -91,7 +91,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedOperation;
 	}
 
-	public UMLOperation getSourceOperationBeforeExtraction() {
+	public UMLOperation getSourceOperationBeforeExtraction_RENAMED() {
 		return sourceOperationBeforeExtraction;
 	}
 
@@ -173,7 +173,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction_RENAMED().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction_RENAMED().getClassName()));
 		return pairs;
 	}
 

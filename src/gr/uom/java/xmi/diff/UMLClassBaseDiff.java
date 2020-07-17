@@ -1659,7 +1659,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
-				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
+				if(extractRef.getSourceOperationBeforeExtraction_RENAMED().equals(sourceOperationBeforeExtraction) &&
 						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
 					return true;
 				}
