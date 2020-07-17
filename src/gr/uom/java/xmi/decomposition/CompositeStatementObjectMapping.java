@@ -14,7 +14,7 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 	}
 
 	@Override
-	public int compareTo(CompositeStatementObjectMapping o) {
+	public int compareTo_RENAMED(CompositeStatementObjectMapping o) {
 		double distance1;
 		double distance2;
 		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {
