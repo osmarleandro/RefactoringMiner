@@ -28,7 +28,7 @@ public class CandidateMergeVariableRefactoring {
 		return mergedVariables;
 	}
 
-	public String getNewVariable() {
+	public String getNewVariable_RENAMED() {
 		return newVariable;
 	}
 
