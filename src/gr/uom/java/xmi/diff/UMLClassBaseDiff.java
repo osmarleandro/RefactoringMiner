@@ -967,13 +967,13 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
 		for(Replacement r : renames.keySet()) {
 			if((rename.getAfter().equals(r.getBefore()) || rename.getBefore().equals(r.getAfter())) &&
-					(totalOccurrences(renames.get(rename)) > 1 || totalOccurrences(renames.get(r)) > 1))
+					(totalOccurrences_RENAMED(renames.get(rename)) > 1 || totalOccurrences_RENAMED(renames.get(r)) > 1))
 			return true;
 		}
 		return false;
 	}
 
-	private static int totalOccurrences(Set<CandidateAttributeRefactoring> candidates) {
+	private static int totalOccurrences_RENAMED(Set<CandidateAttributeRefactoring> candidates) {
 		int totalCount = 0;
 		for(CandidateAttributeRefactoring candidate : candidates) {
 			totalCount += candidate.getOccurrences();
