@@ -38,7 +38,7 @@ public class RenameClassRefactoring implements Refactoring {
 		return RefactoringType.RENAME_CLASS;
 	}
 
-	public String getOriginalClassName() {
+	public String getOriginalClassName_RENAMED() {
 		return originalClass.getName();
 	}
 
