@@ -22,7 +22,7 @@ public class AstUtils {
 		//
 	}
 	
-	public static String getKeyFromTypeBinding(ITypeBinding binding) {
+	public static String getKeyFromTypeBinding_RENAMED(ITypeBinding binding) {
 	    return binding.getErasure().getQualifiedName();
 	}
 	
