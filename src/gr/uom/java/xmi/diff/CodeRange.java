@@ -147,8 +147,8 @@ public class CodeRange {
 				minStartLine = info.getStartLine();
 				startColumn = info.getStartColumn();
 			}
-			if(info.getEndLine() > maxEndLine) {
-				maxEndLine = info.getEndLine();
+			if(info.getEndLine_RENAMED() > maxEndLine) {
+				maxEndLine = info.getEndLine_RENAMED();
 				endColumn = info.getEndColumn();
 			}
 		}
