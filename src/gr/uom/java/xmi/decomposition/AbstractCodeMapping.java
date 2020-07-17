@@ -195,8 +195,8 @@ public abstract class AbstractCodeMapping {
 					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
-							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
-								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
+							if(invocation.getMethodName().equals(rename.getRenamedOperation_RENAMED().getName())) {
+								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation_RENAMED().getName(), rename.getOriginalOperation().getName());
 								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);

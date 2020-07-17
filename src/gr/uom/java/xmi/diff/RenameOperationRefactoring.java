@@ -76,7 +76,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return originalOperation;
 	}
 
-	public UMLOperation getRenamedOperation() {
+	public UMLOperation getRenamedOperation_RENAMED() {
 		return renamedOperation;
 	}
 
@@ -106,7 +106,7 @@ public class RenameOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedOperation().getLocationInfo().getFilePath(), getRenamedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getRenamedOperation_RENAMED().getLocationInfo().getFilePath(), getRenamedOperation_RENAMED().getClassName()));
 		return pairs;
 	}
 
