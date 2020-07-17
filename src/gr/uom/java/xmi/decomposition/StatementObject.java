@@ -169,7 +169,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations_RENAMED() {
 		return anonymousClassDeclarations;
 	}
 

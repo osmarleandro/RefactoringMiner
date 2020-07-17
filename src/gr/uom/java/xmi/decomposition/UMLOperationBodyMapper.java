@@ -304,7 +304,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(StatementObject statement : leaves2) {
-				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
+				if(!statement.getAnonymousClassDeclarations_RENAMED().isEmpty()) {
 					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
@@ -443,7 +443,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				leaves1.add(statement);
 				addedLeaves1.add(statement);
 			}
-			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
+			if(!statement.getAnonymousClassDeclarations_RENAMED().isEmpty()) {
 				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
@@ -1964,8 +1964,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations_RENAMED();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations_RENAMED();
 		if(isEqualWithReplacement) {
 			List<Replacement> typeReplacements = replacementInfo.getReplacements(ReplacementType.TYPE);
 			if(typeReplacements.size() > 0 && invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null) {
@@ -2674,7 +2674,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
 					for(StatementObject leaf : leaves) {
-						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
+						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations_RENAMED()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
 								String statementWithoutAnonymous = statementWithoutAnonymous(leaf, anonymousClassDeclaration, operation);
 								if(statementWithoutAnonymous != null) {
@@ -2696,7 +2696,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			List<UMLOperation> anonymousOperations = new ArrayList<UMLOperation>();
-			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations()) {
+			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations_RENAMED()) {
 				for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
 					if(anonymousClass.getLocationInfo().equals(anonymousObject.getLocationInfo())) {
 						anonymousOperations.addAll(anonymousClass.getOperations());
@@ -2708,7 +2708,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
 					for(StatementObject leaf : leaves) {
-						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
+						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations_RENAMED()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo()) ||
 									anonymousObject.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
 								return statementWithoutAnonymous(leaf, anonymousClassDeclaration, anonymousOperation);
