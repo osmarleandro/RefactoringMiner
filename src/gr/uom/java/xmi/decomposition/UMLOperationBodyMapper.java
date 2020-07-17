@@ -1963,7 +1963,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
-				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
+				(validStatementForConcatComparison(statement1, statement2) && commonConcat_RENAMED(s1, s2, replacementInfo));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
 		if(isEqualWithReplacement) {
@@ -3465,7 +3465,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return true;
 	}
 
-	private boolean commonConcat(String s1, String s2, ReplacementInfo info) {
+	private boolean commonConcat_RENAMED(String s1, String s2, ReplacementInfo info) {
 		if(s1.contains("+") && s2.contains("+") && !s1.contains("++") && !s2.contains("++") &&
 				!containsMethodSignatureOfAnonymousClass(s1) && !containsMethodSignatureOfAnonymousClass(s2)) {
 			Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(s1.split(SPLIT_CONCAT_STRING_PATTERN)));
