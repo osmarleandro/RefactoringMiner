@@ -132,7 +132,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public UMLJavadoc getJavadoc() {
+	public UMLJavadoc getJavadoc_RENAMED() {
 		return javadoc;
 	}
 
