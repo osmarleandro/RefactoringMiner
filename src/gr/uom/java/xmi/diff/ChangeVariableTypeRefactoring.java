@@ -71,7 +71,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		boolean qualified = originalVariable.getType().equals(changedTypeVariable.getType()) && !originalVariable.getType().equalsQualified(changedTypeVariable.getType());
+		boolean qualified = originalVariable.getType().equals_RENAMED(changedTypeVariable.getType()) && !originalVariable.getType().equalsQualified(changedTypeVariable.getType());
 		sb.append(getName()).append("\t");
 		sb.append(qualified ? originalVariable.toQualifiedString() : originalVariable.toString());
 		sb.append(" to ");
@@ -105,22 +105,22 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		if (changedTypeVariable == null) {
 			if (other.changedTypeVariable != null)
 				return false;
-		} else if (!changedTypeVariable.equals(other.changedTypeVariable))
+		} else if (!changedTypeVariable.equals_RENAMED(other.changedTypeVariable))
 			return false;
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
+		} else if (!operationAfter.equals_RENAMED(other.operationAfter))
 			return false;
 		if (operationBefore == null) {
 			if (other.operationBefore != null)
 				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
+		} else if (!operationBefore.equals_RENAMED(other.operationBefore))
 			return false;
 		if (originalVariable == null) {
 			if (other.originalVariable != null)
 				return false;
-		} else if (!originalVariable.equals(other.originalVariable))
+		} else if (!originalVariable.equals_RENAMED(other.originalVariable))
 			return false;
 		return true;
 	}
