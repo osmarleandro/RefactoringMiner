@@ -93,7 +93,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	typeParameters.add(typeParameter);
     }
 
-    public List<UMLAnnotation> getAnnotations() {
+    public List<UMLAnnotation> getAnnotations_RENAMED() {
 		return annotations;
 	}
 
