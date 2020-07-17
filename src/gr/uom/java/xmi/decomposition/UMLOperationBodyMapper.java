@@ -856,7 +856,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return exactMatches;
 	}
 
-	private int editDistance() {
+	private int editDistance_RENAMED() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
 			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
@@ -4007,8 +4007,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return -Integer.compare(thisExactMatches, otherExactMatches);
 			}
 			else {
-				int thisEditDistance = this.editDistance();
-				int otherEditDistance = operationBodyMapper.editDistance();
+				int thisEditDistance = this.editDistance_RENAMED();
+				int otherEditDistance = operationBodyMapper.editDistance_RENAMED();
 				if(thisEditDistance != otherEditDistance) {
 					return Integer.compare(thisEditDistance, otherEditDistance);
 				}
