@@ -1680,7 +1680,7 @@ public class UMLModelDiff {
    }
 
    private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
-	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
+	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges_RENAMED()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));

@@ -376,7 +376,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return candidateAttributeRenames;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges_RENAMED() {
 		return candidateAttributeMerges;
 	}
 
