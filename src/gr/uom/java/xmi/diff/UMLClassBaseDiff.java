@@ -826,7 +826,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
 		MergeVariableReplacement mergeToBeRemoved = null;
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
-			if(merge.subsumes(newMerge)) {
+			if(merge.subsumes_RENAMED(newMerge)) {
 				mergeMap.get(merge).add(candidate);
 				return;
 			}
@@ -845,7 +845,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				mergeMap.put(replacement, candidates);
 				break;
 			}
-			else if(newMerge.subsumes(merge)) {
+			else if(newMerge.subsumes_RENAMED(merge)) {
 				mergeToBeRemoved = merge;
 				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
 				candidates.add(candidate);
