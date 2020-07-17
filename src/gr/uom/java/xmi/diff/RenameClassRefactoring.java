@@ -67,7 +67,7 @@ public class RenameClassRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalClass.codeRange()
 				.setDescription("original type declaration")
