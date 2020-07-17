@@ -70,7 +70,7 @@ public class AstUtils {
 		while (parameters.hasNext()) {
 			SingleVariableDeclaration parameter = parameters.next();
 			Type parameterType = parameter.getType();
-			String typeName = normalizeTypeName(parameterType, parameter.getExtraDimensions(), parameter.isVarargs());
+			String typeName = normalizeTypeName_RENAMED(parameterType, parameter.getExtraDimensions(), parameter.isVarargs());
 			sb.append(typeName);
 			if (parameters.hasNext()) {
 				sb.append(", ");
@@ -81,7 +81,7 @@ public class AstUtils {
 		return methodSignature;
 	}
 	
-	public static String normalizeTypeName(Type type, int extraDimensions, boolean varargs) {
+	public static String normalizeTypeName_RENAMED(Type type, int extraDimensions, boolean varargs) {
 	    StringBuilder sb = new StringBuilder();
 //	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
 	    String rawTypeName = stripTypeParamsFromTypeName(type.toString());
