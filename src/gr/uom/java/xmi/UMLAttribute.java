@@ -109,7 +109,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
+	public boolean equalsIgnoringChangedVisibility_RENAMED(UMLAttribute attribute) {
 		if(this.name.equals(attribute.name) && this.type.equals(attribute.type))
 			return true;
 		return false;
