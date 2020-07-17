@@ -1348,7 +1348,7 @@ public class UMLModelDiff {
     			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);
-    				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
+    				  Refactoring conflictingRefactoring = attributeRenamed_RENAMED(mergedVariables, a2.getVariableDeclaration(), refactorings);
     				  if(conflictingRefactoring != null) {
     					  refactorings.remove(conflictingRefactoring);
     				  }
@@ -2501,7 +2501,7 @@ public class UMLModelDiff {
 		return false;
 	}
 
-	private Refactoring attributeRenamed(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring> refactorings) {
+	private Refactoring attributeRenamed_RENAMED(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof RenameAttributeRefactoring) {
 				RenameAttributeRefactoring rename = (RenameAttributeRefactoring)refactoring;
