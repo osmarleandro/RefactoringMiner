@@ -96,9 +96,9 @@ public class CompositeStatementObject extends AbstractStatement {
 		if(expressionList.size() > 0) {
 			sb.append("(");
 			for(int i=0; i<expressionList.size()-1; i++) {
-				sb.append(expressionList.get(i).toString()).append("; ");
+				sb.append(expressionList.get(i).toString_RENAMED()).append("; ");
 			}
-			sb.append(expressionList.get(expressionList.size()-1).toString());
+			sb.append(expressionList.get(expressionList.size()-1).toString_RENAMED());
 			sb.append(")");
 		}
 		return sb.toString();

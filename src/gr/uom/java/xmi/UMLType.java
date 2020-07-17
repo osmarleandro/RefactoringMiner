@@ -119,7 +119,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	public boolean containsTypeArgument(String type) {
 		for(UMLType typeArgument : typeArguments) {
-			if(typeArgument.toString().equals(type)) {
+			if(typeArgument.toString_RENAMED().equals(type)) {
 				return true;
 			}
 		}
@@ -162,8 +162,8 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	public double normalizedNameDistance(UMLType type) {
-		String s1 = this.toString();
-		String s2 = type.toString();
+		String s1 = this.toString_RENAMED();
+		String s2 = type.toString_RENAMED();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;

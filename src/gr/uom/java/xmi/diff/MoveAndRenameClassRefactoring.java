@@ -21,7 +21,7 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 		this.renamedClass = renamedClass;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(originalClass.getName());
