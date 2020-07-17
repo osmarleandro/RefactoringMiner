@@ -1982,7 +1982,7 @@ public class UMLModelDiff {
 			   (exactMatches == mappings && nonMappedElementsT1 == 0) ||
 			   (exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT2-exactMatches <= 10) ||
 			   (exactMatches > 1 && nonMappedElementsT2-exactMatches < 20) ||
-			   (mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2()));
+			   (mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2_RENAMED()));
    }
 
    private void checkForOperationMovesIncludingRemovedClasses() throws RefactoringMinerTimedOutException {

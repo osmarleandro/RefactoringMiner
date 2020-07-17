@@ -704,7 +704,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
 	}
 
-	public int nonMappedLeafElementsT2() {
+	public int nonMappedLeafElementsT2_RENAMED() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
