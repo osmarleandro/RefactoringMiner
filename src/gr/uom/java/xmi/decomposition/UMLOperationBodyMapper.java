@@ -4056,7 +4056,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean containsExtractOperationRefactoring(UMLOperation extractedOperation) {
 		if(classDiff != null) {
-			return classDiff.containsExtractOperationRefactoring(operation1, extractedOperation);
+			return classDiff.containsExtractOperationRefactoring_RENAMED(operation1, extractedOperation);
 		}
 		return false;
 	}
