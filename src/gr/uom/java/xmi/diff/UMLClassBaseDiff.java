@@ -634,7 +634,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
-			processMerge(mergeMap, merge, candidate);
+			processMerge_RENAMED(mergeMap, merge, candidate);
 		}
 		for(CandidateSplitVariableRefactoring candidate : mapper.getCandidateAttributeSplits()) {
 			Set<String> after = new LinkedHashSet<String>();
@@ -822,7 +822,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
+	private void processMerge_RENAMED(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
 			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
 		MergeVariableReplacement mergeToBeRemoved = null;
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
