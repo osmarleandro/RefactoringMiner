@@ -536,7 +536,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   public List<UMLGeneralization> getAddedGeneralizations() {
+   public List<UMLGeneralization> getAddedGeneralizations_RENAMED() {
       return addedGeneralizations;
    }
 
