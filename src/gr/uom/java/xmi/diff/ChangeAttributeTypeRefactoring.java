@@ -54,7 +54,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
-	public Set<AbstractCodeMapping> getAttributeReferences() {
+	public Set<AbstractCodeMapping> getAttributeReferences_RENAMED() {
 		return attributeReferences;
 	}
 
