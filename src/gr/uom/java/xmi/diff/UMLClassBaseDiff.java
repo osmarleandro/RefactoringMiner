@@ -330,7 +330,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.newAbstraction = newAbstraction;
 	}
 
-	private void setSuperclassChanged(boolean superclassChanged) {
+	private void setSuperclassChanged_RENAMED(boolean superclassChanged) {
 		this.superclassChanged = superclassChanged;
 	}
 
@@ -431,18 +431,18 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
 			if(!originalClass.getSuperclass().equals(nextClass.getSuperclass())) {
-				setSuperclassChanged(true);
+				setSuperclassChanged_RENAMED(true);
 			}
 			setOldSuperclass(originalClass.getSuperclass());
 			setNewSuperclass(nextClass.getSuperclass());
 		}
 		else if(originalClass.getSuperclass() != null && nextClass.getSuperclass() == null) {
-			setSuperclassChanged(true);
+			setSuperclassChanged_RENAMED(true);
 			setOldSuperclass(originalClass.getSuperclass());
 			setNewSuperclass(nextClass.getSuperclass());
 		}
 		else if(originalClass.getSuperclass() == null && nextClass.getSuperclass() != null) {
-			setSuperclassChanged(true);
+			setSuperclassChanged_RENAMED(true);
 			setOldSuperclass(originalClass.getSuperclass());
 			setNewSuperclass(nextClass.getSuperclass());
 		}
