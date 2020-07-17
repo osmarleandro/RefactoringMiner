@@ -2077,7 +2077,7 @@ public class UMLModelDiff {
 	            
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
 	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
-	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
+	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2_RENAMED(mappings, operationBodyMapper)) {
 	               int exactMatches = operationBodyMapper.exactMatches();
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
 	                  List<UMLOperationBodyMapper> mapperList = operationBodyMapperMap.get(exactMatches);
@@ -2162,7 +2162,7 @@ public class UMLModelDiff {
 	            
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
 	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
-	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
+	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2_RENAMED(mappings, operationBodyMapper)) {
 	               int exactMatches = operationBodyMapper.exactMatches();
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
 	                  List<UMLOperationBodyMapper> mapperList = operationBodyMapperMap.get(exactMatches);
@@ -2302,7 +2302,7 @@ public class UMLModelDiff {
 	   return true;
    }
 
-   private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
+   private boolean mappedElementsMoreThanNonMappedT1AndT2_RENAMED(int mappings, UMLOperationBodyMapper operationBodyMapper) {
         int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
