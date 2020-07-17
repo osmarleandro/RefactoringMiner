@@ -875,7 +875,7 @@ public class UMLModelDiff {
       return addedOperations;
    }
 
-   private List<UMLOperation> getRemovedOperationsInCommonClasses() {
+   private List<UMLOperation> getRemovedOperationsInCommonClasses_RENAMED() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
@@ -1990,7 +1990,7 @@ public class UMLModelDiff {
       /*for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }*/
-      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
+      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses_RENAMED();
       for(UMLClass removedClass : removedClasses) {
     	  removedOperations.addAll(removedClass.getOperations());
       }
@@ -2004,7 +2004,7 @@ public class UMLModelDiff {
       for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }
-      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
+      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses_RENAMED();
       /*for(UMLClass removedClass : removedClasses) {
     	  removedOperations.addAll(removedClass.getOperations());
       }*/
