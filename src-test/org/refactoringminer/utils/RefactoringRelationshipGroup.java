@@ -29,7 +29,7 @@ public class RefactoringRelationshipGroup {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals_RENAMED(Object obj) {
     if (obj instanceof RefactoringRelationshipGroup) {
       RefactoringRelationshipGroup other = (RefactoringRelationshipGroup) obj;
       return other.getRefactoringType().equals(this.getRefactoringType()) && other.getMainEntity().equals(this.getMainEntity());
