@@ -26,7 +26,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.PULL_UP_ATTRIBUTE;
 	}
 
