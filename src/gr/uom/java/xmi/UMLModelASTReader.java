@@ -85,7 +85,7 @@ public class UMLModelASTReader {
 	}
 
 	public UMLModelASTReader(File rootFolder, List<String> javaFiles) throws IOException {
-		this(rootFolder, buildAstParser(rootFolder), javaFiles, getDirectories(rootFolder, javaFiles));
+		this(rootFolder, buildAstParser_RENAMED(rootFolder), javaFiles, getDirectories(rootFolder, javaFiles));
 	}
 
 	private static List<String> getJavaFilePaths(File folder) throws IOException {
@@ -131,7 +131,7 @@ public class UMLModelASTReader {
 		this.parser.createASTs((String[]) filesArray, null, emptyArray, fileASTRequestor, null);
 	}
 
-	private static ASTParser buildAstParser(File srcFolder) {
+	private static ASTParser buildAstParser_RENAMED(File srcFolder) {
 		ASTParser parser = ASTParser.newParser(AST.JLS11);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		Map<String, String> options = JavaCore.getOptions();
