@@ -159,7 +159,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	public ObjectCreation creationCoveringEntireFragment() {
-		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
+		Map<String, List<ObjectCreation>> creationMap = getCreationMap_RENAMED();
 		String statement = getString();
 		for(String objectCreation : creationMap.keySet()) {
 			List<ObjectCreation> creations = creationMap.get(objectCreation);
