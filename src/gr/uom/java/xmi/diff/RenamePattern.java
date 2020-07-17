@@ -17,7 +17,7 @@ public class RenamePattern {
 		return after;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		return before + "\t->\t" + after;
 	}
 	
