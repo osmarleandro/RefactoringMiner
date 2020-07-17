@@ -123,7 +123,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(InfixExpression node) {
+	public boolean visit_RENAMED(InfixExpression node) {
 		infixOperators.add(node.getOperator().toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
