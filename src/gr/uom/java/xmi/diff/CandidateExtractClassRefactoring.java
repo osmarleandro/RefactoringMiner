@@ -13,7 +13,7 @@ public class CandidateExtractClassRefactoring {
 		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass().getName() + ".");
 	}
 
-	public UMLClassBaseDiff getClassDiff() {
+	public UMLClassBaseDiff getClassDiff_RENAMED() {
 		return classDiff;
 	}
 
