@@ -126,7 +126,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getBooleanLiterals() {
+	public List<String> getBooleanLiterals_RENAMED() {
 		return booleanLiterals;
 	}
 
