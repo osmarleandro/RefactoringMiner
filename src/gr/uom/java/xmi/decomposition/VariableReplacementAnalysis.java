@@ -409,7 +409,7 @@ public class VariableReplacementAnalysis {
 			if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && newVariable != null) {
 				UMLOperation operationBefore = mergedVariableOperations.iterator().next();
 				MergeVariableRefactoring refactoring = new MergeVariableRefactoring(mergedVariables, newVariable.getKey(), operationBefore, newVariable.getValue(), mergeMap.get(merge));
-				if(!existsConflictingInlineVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
+				if(!existsConflictingInlineVariableRefactoring_RENAMED(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
 					variableMerges.add(refactoring);
 				}
 			}
@@ -1152,7 +1152,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingInlineVariableRefactoring(MergeVariableRefactoring ref) {
+	private boolean existsConflictingInlineVariableRefactoring_RENAMED(MergeVariableRefactoring ref) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof InlineVariableRefactoring) {
 				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
