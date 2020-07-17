@@ -115,7 +115,7 @@ public class UMLModelDiff {
 			   UMLClassBaseDiff interfaceDiff = getUMLClassDiff(commonInterface);
 			   if(interfaceDiff != null &&
 					   interfaceDiff.containsOperationWithTheSameSignatureInOriginalClass(operation1) &&
-					   interfaceDiff.containsOperationWithTheSameSignatureInNextClass(operation2)) {
+					   interfaceDiff.containsOperationWithTheSameSignatureInNextClass_RENAMED(operation2)) {
 				   return true;
 			   }
 		   }
@@ -2361,7 +2361,7 @@ public class UMLModelDiff {
 
    private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation, UMLOperationBodyMapper mapper) {
 	   UMLClassBaseDiff removedOperationClassDiff = getUMLClassDiff(removedOperation.getClassName());
-	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
+	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass_RENAMED(removedOperation)) {
 		   return false;
 	   }
 	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
