@@ -605,7 +605,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return operation1;
 	}
 
-	public UMLOperation getOperation2() {
+	public UMLOperation getOperation2_RENAMED() {
 		return operation2;
 	}
 
