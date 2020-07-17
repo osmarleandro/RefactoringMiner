@@ -91,7 +91,7 @@ public class UMLAttributeDiff {
 		if(finalChanged)
 			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
 					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations_RENAMED()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
@@ -109,7 +109,7 @@ public class UMLAttributeDiff {
 			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations_RENAMED()) {
 			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}

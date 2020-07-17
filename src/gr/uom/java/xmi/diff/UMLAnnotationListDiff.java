@@ -50,7 +50,7 @@ public class UMLAnnotationListDiff {
 		}
 	}
 	
-	public List<UMLAnnotation> getRemovedAnnotations() {
+	public List<UMLAnnotation> getRemovedAnnotations_RENAMED() {
 		return removedAnnotations;
 	}
 
