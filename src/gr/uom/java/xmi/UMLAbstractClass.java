@@ -234,7 +234,7 @@ public abstract class UMLAbstractClass {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
-	    				(pattern != null && umlClass.containsOperationWithTheSameRenamePattern(operation, pattern.reverse()))) {
+	    				(pattern != null && umlClass.containsOperationWithTheSameRenamePattern(operation, pattern.reverse_RENAMED()))) {
 	    			commonOperations.add(operation);
 	    		}
 			}
@@ -253,7 +253,7 @@ public abstract class UMLAbstractClass {
 		for(UMLAttribute attribute : attributes) {
 			totalAttributes++;
 			if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
-    				(pattern != null && umlClass.containsAttributeWithTheSameRenamePattern(attribute, pattern.reverse()))) {
+    				(pattern != null && umlClass.containsAttributeWithTheSameRenamePattern(attribute, pattern.reverse_RENAMED()))) {
 				commonAttributes.add(attribute);
 			}
 		}

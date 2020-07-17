@@ -39,7 +39,7 @@ public class RenamePattern {
 		return result;
 	}
 	
-	public RenamePattern reverse() {
+	public RenamePattern reverse_RENAMED() {
 		return new RenamePattern(after, before);
 	}
 }
