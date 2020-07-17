@@ -160,7 +160,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		if (scope == null) {
 			if (other.scope != null)
 				return false;
-		} else if (!scope.equals(other.scope))
+		} else if (!scope.equals_RENAMED(other.scope))
 			return false;
 		if (variableName == null) {
 			if (other.variableName != null)
