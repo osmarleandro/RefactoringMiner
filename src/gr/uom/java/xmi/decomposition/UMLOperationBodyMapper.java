@@ -155,7 +155,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				inlinedVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 		}
 	}
@@ -199,7 +199,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				inlinedVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 		}
 	}
@@ -429,7 +429,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				inlinedVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 		}
 	}
@@ -596,7 +596,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				inlinedVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 		}
 	}
@@ -725,7 +725,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
+	private void inlinedVariableAssignment_RENAMED(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
 		}
