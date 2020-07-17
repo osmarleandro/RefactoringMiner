@@ -83,12 +83,12 @@ public class RefactoringSet {
         }
         RefactoringSet newSet = new RefactoringSet(project, revision);
         newSet.add(refactorings.stream()
-            .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
+            .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters_RENAMED(r.getEntityBefore()), stripParameters_RENAMED(r.getEntityAfter())))
             .collect(Collectors.toList()));
         return newSet;
     }
 
-    private static String stripParameters(String entity) {
+    private static String stripParameters_RENAMED(String entity) {
         int openPar = entity.indexOf('(');
         return openPar != -1 ? entity.substring(0, openPar + 1) + ")" : entity;
     }
