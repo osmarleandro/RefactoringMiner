@@ -17,7 +17,7 @@ public class CandidateExtractClassRefactoring {
 		return classDiff;
 	}
 
-	public ExtractClassRefactoring getRefactoring() {
+	public ExtractClassRefactoring getRefactoring_RENAMED() {
 		return refactoring;
 	}
 }
