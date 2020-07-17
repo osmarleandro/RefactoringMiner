@@ -1668,10 +1668,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.getReplacements().addAll(replacementsToBeAdded);
 		
 		// replace variables with the corresponding arguments in method invocations
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(methodInvocationMap2, methodInvocations2, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(methodInvocationMap1, methodInvocations1, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(methodInvocationMap2, methodInvocations2, parameterToArgumentMap);
 		
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, map);
+		replaceVariablesWithArguments_RENAMED(methodInvocationMap1, methodInvocations1, map);
 		
 		//remove methodInvocation covering the entire statement
 		if(invocationCoveringTheEntireStatement1 != null) {
@@ -1726,10 +1726,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		removeCommonTypes(types1, types2, statement1.getTypes(), statement2.getTypes());
 		
 		// replace variables with the corresponding arguments in object creations
-		replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(creationMap2, creations2, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(creationMap1, creations1, parameterToArgumentMap);
+		replaceVariablesWithArguments_RENAMED(creationMap2, creations2, parameterToArgumentMap);
 		
-		replaceVariablesWithArguments(creationMap1, creations1, map);
+		replaceVariablesWithArguments_RENAMED(creationMap1, creations1, map);
 		
 		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
 		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
@@ -3695,7 +3695,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private void replaceVariablesWithArguments(Map<String, List<? extends AbstractCall>> callMap,
+	private void replaceVariablesWithArguments_RENAMED(Map<String, List<? extends AbstractCall>> callMap,
 			Set<String> calls, Map<String, String> parameterToArgumentMap) {
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);
