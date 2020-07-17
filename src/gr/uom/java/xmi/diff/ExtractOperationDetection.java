@@ -178,7 +178,7 @@ public class ExtractOperationDetection {
 			List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {
-			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff)) {
+			if(invocation.matchesOperation_RENAMED(operation, variableTypeMap, modelDiff)) {
 				addedOperationInvocations.add(invocation);
 			}
 		}
@@ -189,7 +189,7 @@ public class ExtractOperationDetection {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
-				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
+				if(invocation.matchesOperation_RENAMED(addedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(addedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
 						parent.addChild(node);
@@ -278,7 +278,7 @@ public class ExtractOperationDetection {
 		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
 		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
 			for(UMLOperation operation : addedOperations) {
-				if(delegateMethodInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), modelDiff)) {
+				if(delegateMethodInvocation.matchesOperation_RENAMED(operation, addedOperation.variableTypeMap(), modelDiff)) {
 					return operation;
 				}
 			}

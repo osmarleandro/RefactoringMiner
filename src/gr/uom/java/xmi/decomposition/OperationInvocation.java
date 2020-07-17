@@ -143,10 +143,10 @@ public class OperationInvocation extends AbstractCall {
     }
 
     public boolean matchesOperation(UMLOperation operation) {
-    	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
+    	return matchesOperation_RENAMED(operation, new HashMap<String, UMLType>(), null);
     }
 
-    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
+    public boolean matchesOperation_RENAMED(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
     	List<UMLType> inferredArgumentTypes = new ArrayList<UMLType>();
     	for(String arg : arguments) {
     		int indexOfOpeningParenthesis = arg.indexOf("(");

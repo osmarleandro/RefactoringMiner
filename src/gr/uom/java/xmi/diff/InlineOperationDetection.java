@@ -76,7 +76,7 @@ public class InlineOperationDetection {
 	private List<OperationInvocation> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {
-			if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
+			if(invocation.matchesOperation_RENAMED(removedOperation, variableTypeMap, modelDiff)) {
 				removedOperationInvocations.add(invocation);
 			}
 		}
@@ -101,7 +101,7 @@ public class InlineOperationDetection {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation removedOperation : removedOperations) {
 			for(OperationInvocation invocation : invocations) {
-				if(invocation.matchesOperation(removedOperation, operation.variableTypeMap(), modelDiff)) {
+				if(invocation.matchesOperation_RENAMED(removedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(removedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
 						parent.addChild(node);
@@ -151,7 +151,7 @@ public class InlineOperationDetection {
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
 			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {
+				if(removedOperationInvocation.matchesOperation_RENAMED(addedOperation, variableTypeMap, modelDiff)) {
 					return true;
 				}
 			}
