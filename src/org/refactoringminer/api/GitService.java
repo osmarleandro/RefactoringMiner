@@ -37,7 +37,7 @@ public interface GitService {
 
 	RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception;
 
-	Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception;
+	Iterable<RevCommit> createRevsWalkBetweenTags_RENAMED(Repository repository, String startTag, String endTag) throws Exception;
 
 	Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId) throws Exception;
 
