@@ -25,7 +25,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 		}
 	}
 
-	public OperationBody getBody() {
+	public OperationBody getBody_RENAMED() {
 		return body;
 	}
 

@@ -179,9 +179,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			leaves2.add(lambda2.getExpression());
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 		}
-		else if(lambda1.getBody() != null && lambda2.getBody() != null) {
-			CompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
-			CompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
+		else if(lambda1.getBody_RENAMED() != null && lambda2.getBody_RENAMED() != null) {
+			CompositeStatementObject composite1 = lambda1.getBody_RENAMED().getCompositeStatement();
+			CompositeStatementObject composite2 = lambda2.getBody_RENAMED().getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = composite2.getLeaves();
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
@@ -329,15 +329,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(!statement.getLambdas().isEmpty()) {
 					for(LambdaExpressionObject lambda : statement.getLambdas()) {
-						if(lambda.getBody() != null) {
-							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+						if(lambda.getBody_RENAMED() != null) {
+							List<StatementObject> lambdaLeaves = lambda.getBody_RENAMED().getCompositeStatement().getLeaves();
 							for(StatementObject lambdaLeaf : lambdaLeaves) {
 								if(!leaves2.contains(lambdaLeaf)) {
 									addedLeaves2.add(lambdaLeaf);
 									codeFragmentOperationMap2.put(lambdaLeaf, operation2);
 								}
 							}
-							List<CompositeStatementObject> lambdaInnerNodes = lambda.getBody().getCompositeStatement().getInnerNodes();
+							List<CompositeStatementObject> lambdaInnerNodes = lambda.getBody_RENAMED().getCompositeStatement().getInnerNodes();
 							for(CompositeStatementObject lambdaInnerNode : lambdaInnerNodes) {
 								if(!innerNodes2.contains(lambdaInnerNode)) {
 									addedInnerNodes2.add(lambdaInnerNode);
@@ -470,8 +470,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			if(!statement.getLambdas().isEmpty()) {
 				for(LambdaExpressionObject lambda : statement.getLambdas()) {
-					if(lambda.getBody() != null) {
-						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+					if(lambda.getBody_RENAMED() != null) {
+						List<StatementObject> lambdaLeaves = lambda.getBody_RENAMED().getCompositeStatement().getLeaves();
 						for(StatementObject lambdaLeaf : lambdaLeaves) {
 							if(!leaves1.contains(lambdaLeaf)) {
 								leaves1.add(lambdaLeaf);
@@ -479,7 +479,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								codeFragmentOperationMap1.put(lambdaLeaf, operation1);
 							}
 						}
-						List<CompositeStatementObject> lambdaInnerNodes = lambda.getBody().getCompositeStatement().getInnerNodes();
+						List<CompositeStatementObject> lambdaInnerNodes = lambda.getBody_RENAMED().getCompositeStatement().getInnerNodes();
 						for(CompositeStatementObject lambdaInnerNode : lambdaInnerNodes) {
 							if(!innerNodes1.contains(lambdaInnerNode)) {
 								innerNodes1.add(lambdaInnerNode);
@@ -2670,7 +2670,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		else {
 			for(LambdaExpressionObject lambda : statement.getLambdas()) {
-				OperationBody body = lambda.getBody();
+				OperationBody body = lambda.getBody_RENAMED();
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
 					for(StatementObject leaf : leaves) {
