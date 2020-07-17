@@ -3248,7 +3248,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				List<VariableDeclaration> matchingVariableDeclarations = new ArrayList<VariableDeclaration>();
-				for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
+				for(VariableDeclaration declaration : operation2.getAllVariableDeclarations_RENAMED()) {
 					if(diff2.contains(declaration.getVariableName())) {
 						matchingVariableDeclarations.add(declaration);
 					}

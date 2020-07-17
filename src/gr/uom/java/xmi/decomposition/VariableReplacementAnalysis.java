@@ -775,8 +775,8 @@ public class VariableReplacementAnalysis {
 				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations());
 			}
 			else {
-				allVariableDeclarations1.addAll(operation1.getAllVariableDeclarations());
-				allVariableDeclarations2.addAll(operation2.getAllVariableDeclarations());
+				allVariableDeclarations1.addAll(operation1.getAllVariableDeclarations_RENAMED());
+				allVariableDeclarations2.addAll(operation2.getAllVariableDeclarations_RENAMED());
 				break;
 			}
 		}
@@ -1057,7 +1057,7 @@ public class VariableReplacementAnalysis {
 										//check if the extracted method is called in the initializer of a variable used in the initializer of v2
 										List<String> initializerVariables = v2.getInitializer().getVariables();
 										for(String variable : initializerVariables) {
-											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
+											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations_RENAMED()) {
 												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
 													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
 													for(String key2 : methodInvocationMap2.keySet()) {

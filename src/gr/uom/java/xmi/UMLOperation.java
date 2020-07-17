@@ -158,7 +158,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<String>();
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
+	public List<VariableDeclaration> getAllVariableDeclarations_RENAMED() {
 		if(operationBody != null)
 			return operationBody.getAllVariableDeclarations();
 		return new ArrayList<VariableDeclaration>();
@@ -182,7 +182,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(!parameter.getKind().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
-		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
+		for(VariableDeclaration declaration : getAllVariableDeclarations_RENAMED()) {
 			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
 		}
 		return variableTypeMap;
