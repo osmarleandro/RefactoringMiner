@@ -135,7 +135,7 @@ public class InlineOperationDetection {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
+			if(invocation != null && invocation.matchesOperation_RENAMED(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
 			}
 		}

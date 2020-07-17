@@ -142,7 +142,7 @@ public class OperationInvocation extends AbstractCall {
     	return subExpressions.size();
     }
 
-    public boolean matchesOperation(UMLOperation operation) {
+    public boolean matchesOperation_RENAMED(UMLOperation operation) {
     	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
     }
 
