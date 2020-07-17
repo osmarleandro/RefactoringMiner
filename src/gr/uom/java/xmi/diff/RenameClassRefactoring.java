@@ -42,7 +42,7 @@ public class RenameClassRefactoring implements Refactoring {
 		return originalClass.getName();
 	}
 
-	public String getRenamedClassName() {
+	public String getRenamedClassName_RENAMED() {
 		return renamedClass.getName();
 	}
 
