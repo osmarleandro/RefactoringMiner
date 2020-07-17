@@ -62,7 +62,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public boolean isExact() {
-		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
+		return (fragment1.getArgumentizedString_RENAMED().equals(fragment2.getArgumentizedString_RENAMED()) ||
 				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
 	}
 
@@ -207,7 +207,7 @@ public abstract class AbstractCodeMapping {
 				}
 			}
 		}
-		String argumentizedString = statement.getArgumentizedString();
+		String argumentizedString = statement.getArgumentizedString_RENAMED();
 		if(argumentizedString.contains("=")) {
 			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
 			String[] tokens = beforeAssignment.split("\\s");
@@ -273,7 +273,7 @@ public abstract class AbstractCodeMapping {
 				}
 			}
 		}
-		String argumentizedString = statement.getArgumentizedString();
+		String argumentizedString = statement.getArgumentizedString_RENAMED();
 		if(argumentizedString.contains("=")) {
 			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
 			String[] tokens = beforeAssignment.split("\\s");
