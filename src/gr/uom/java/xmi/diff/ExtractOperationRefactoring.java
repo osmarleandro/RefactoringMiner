@@ -132,7 +132,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedOperationCodeRange() {
+	public CodeRange getExtractedOperationCodeRange_RENAMED() {
 		return extractedOperation.codeRange();
 	}
 
@@ -216,7 +216,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getExtractedOperationCodeRange()
+		ranges.add(getExtractedOperationCodeRange_RENAMED()
 				.setDescription("extracted method declaration")
 				.setCodeElement(extractedOperation.toString()));
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
