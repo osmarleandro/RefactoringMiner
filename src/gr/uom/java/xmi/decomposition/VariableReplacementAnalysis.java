@@ -470,7 +470,7 @@ public class VariableReplacementAnalysis {
 				Set<AbstractCodeMapping> variableReferences = finalConsistentRenames.get(replacement);
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref) &&
-						v1.getKey().isVarargsParameter() == v2.getKey().isVarargsParameter()) {
+						v1.getKey().isVarargsParameter_RENAMED() == v2.getKey().isVarargsParameter_RENAMED()) {
 					variableRenames.add(ref);
 					if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);

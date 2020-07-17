@@ -131,7 +131,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.isAttribute = isAttribute;
 	}
 
-	public boolean isVarargsParameter() {
+	public boolean isVarargsParameter_RENAMED() {
 		return varargsParameter;
 	}
 
