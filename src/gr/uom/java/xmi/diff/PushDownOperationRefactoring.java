@@ -18,7 +18,7 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 		super(originalOperation, movedOperation);
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.PUSH_DOWN_OPERATION;
 	}
 
