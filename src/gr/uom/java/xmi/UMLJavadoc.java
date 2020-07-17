@@ -14,7 +14,7 @@ public class UMLJavadoc {
 		tags.add(tag);
 	}
 
-	public List<UMLTagElement> getTags() {
+	public List<UMLTagElement> getTags_RENAMED() {
 		return tags;
 	}
 
