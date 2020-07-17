@@ -145,7 +145,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range(s) of the invocation(s) to the inlined method inside the target method in the <b>parent</b> commit
 	 */
-	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
+	public Set<CodeRange> getInlinedOperationInvocationCodeRanges_RENAMED() {
 		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
 			codeRanges.add(invocation.codeRange());
