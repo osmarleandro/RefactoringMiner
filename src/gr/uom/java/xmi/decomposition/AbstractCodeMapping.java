@@ -136,7 +136,7 @@ public abstract class AbstractCodeMapping {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
 			StatementObject statement = (StatementObject) getFragment2();
-			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
+			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations_RENAMED();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {
 				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
@@ -155,7 +155,7 @@ public abstract class AbstractCodeMapping {
 
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
-		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+		for(VariableDeclaration declaration : statement.getVariableDeclarations_RENAMED()) {
 			String variableName = declaration.getVariableName();
 			AbstractExpression initializer = declaration.getInitializer();
 			for(Replacement replacement : getReplacements()) {
@@ -238,7 +238,7 @@ public abstract class AbstractCodeMapping {
 
 	public void inlinedVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
-		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+		for(VariableDeclaration declaration : statement.getVariableDeclarations_RENAMED()) {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
 				AbstractExpression initializer = declaration.getInitializer();
