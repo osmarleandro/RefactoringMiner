@@ -77,7 +77,7 @@ public class VariableReplacementAnalysis {
 		this.operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		this.classDiff = classDiff;
 		findVariableSplits();
-		findVariableMerges();
+		findVariableMerges_RENAMED();
 		findConsistentVariableRenames();
 		findParametersWrappedInLocalVariables();
 		findAttributeExtractions();
@@ -285,7 +285,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private void findVariableMerges() {
+	private void findVariableMerges_RENAMED() {
 		Map<MergeVariableReplacement, Set<AbstractCodeMapping>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<AbstractCodeMapping>>();
 		Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap = new LinkedHashMap<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>>();
 		Map<String, Map<Replacement, Set<AbstractCodeMapping>>> variableInvocationVariableMap = new LinkedHashMap<String, Map<Replacement, Set<AbstractCodeMapping>>>();
