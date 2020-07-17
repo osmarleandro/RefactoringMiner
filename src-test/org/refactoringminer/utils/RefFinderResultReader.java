@@ -71,14 +71,14 @@ public class RefFinderResultReader {
         mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
         mappers.put("extract_interface", args -> parse(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
         mappers.put("rename_method", args -> parse(args, RefactoringType.RENAME_METHOD, member(1), member(2)));
-        mappers.put("move_method", args -> parse(args, RefactoringType.MOVE_OPERATION, member(2, 1), member(3, 1)));
-        mappers.put("push_down_method", args -> parse(args, RefactoringType.PUSH_DOWN_OPERATION, member(2, 1), member(3, 1)));
-        mappers.put("pull_up_method", args -> parse(args, RefactoringType.PULL_UP_OPERATION, member(2, 1), member(3, 1)));
+        mappers.put("move_method", args -> parse(args, RefactoringType.MOVE_OPERATION, member_RENAMED(2, 1), member_RENAMED(3, 1)));
+        mappers.put("push_down_method", args -> parse(args, RefactoringType.PUSH_DOWN_OPERATION, member_RENAMED(2, 1), member_RENAMED(3, 1)));
+        mappers.put("pull_up_method", args -> parse(args, RefactoringType.PULL_UP_OPERATION, member_RENAMED(2, 1), member_RENAMED(3, 1)));
         mappers.put("extract_method", args -> parse(args, RefactoringType.EXTRACT_OPERATION, member(1), member(2)));
         mappers.put("inline_method", args -> parse(args, RefactoringType.INLINE_OPERATION, member(2), member(1)));
-        mappers.put("move_field", args -> parse(args, RefactoringType.MOVE_ATTRIBUTE, member(2, 1), member(3, 1)));
-        mappers.put("push_down_field", args -> parse(args, RefactoringType.PUSH_DOWN_ATTRIBUTE, member(2, 1), member(3, 1)));
-        mappers.put("pull_up_field", args -> parse(args, RefactoringType.PULL_UP_ATTRIBUTE, member(2, 1), member(3, 1)));
+        mappers.put("move_field", args -> parse(args, RefactoringType.MOVE_ATTRIBUTE, member_RENAMED(2, 1), member_RENAMED(3, 1)));
+        mappers.put("push_down_field", args -> parse(args, RefactoringType.PUSH_DOWN_ATTRIBUTE, member_RENAMED(2, 1), member_RENAMED(3, 1)));
+        mappers.put("pull_up_field", args -> parse(args, RefactoringType.PULL_UP_ATTRIBUTE, member_RENAMED(2, 1), member_RENAMED(3, 1)));
         
         return mappers;
     }
@@ -96,7 +96,7 @@ public class RefFinderResultReader {
         };
     }
     
-    private static EntityParser member(final int i, final int j) {
+    private static EntityParser member_RENAMED(final int i, final int j) {
         return new EntityParser() {
             @Override
             String parse(List<String> args) {
