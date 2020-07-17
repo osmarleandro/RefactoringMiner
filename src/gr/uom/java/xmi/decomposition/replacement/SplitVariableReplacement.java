@@ -11,7 +11,7 @@ public class SplitVariableReplacement extends Replacement {
 		this.splitVariables = newVariables;
 	}
 
-	public Set<String> getSplitVariables() {
+	public Set<String> getSplitVariables_RENAMED() {
 		return splitVariables;
 	}
 

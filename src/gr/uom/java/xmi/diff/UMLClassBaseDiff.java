@@ -502,7 +502,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(SplitVariableReplacement split : splitMap.keySet()) {
 			Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
-			for(String splitVariable : split.getSplitVariables()) {
+			for(String splitVariable : split.getSplitVariables_RENAMED()) {
 				UMLAttribute a2 = findAttributeInNextClass(splitVariable);
 				if(a2 != null) {
 					splitAttributes.add(a2);
@@ -512,7 +512,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLAttribute a1 = findAttributeInOriginalClass(split.getBefore());
 			Set<CandidateSplitVariableRefactoring> set = splitMap.get(split);
 			for(CandidateSplitVariableRefactoring candidate : set) {
-				if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
+				if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables_RENAMED().size() && a1 != null) {
 					SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), set);
 					if(!refactorings.contains(ref)) {
 						refactorings.add(ref);
@@ -877,8 +877,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			else if(split.commonBefore(newSplit)) {
 				splitToBeRemoved = split;
 				Set<String> splitVariables = new LinkedHashSet<String>();
-				splitVariables.addAll(split.getSplitVariables());
-				splitVariables.addAll(newSplit.getSplitVariables());
+				splitVariables.addAll(split.getSplitVariables_RENAMED());
+				splitVariables.addAll(newSplit.getSplitVariables_RENAMED());
 				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore(), splitVariables);
 				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
 				candidates.add(candidate);
