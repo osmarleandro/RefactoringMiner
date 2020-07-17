@@ -27,7 +27,7 @@ public class VariableDeclarationReplacement extends Replacement {
 		return v2;
 	}
 
-	public UMLOperation getOperation1() {
+	public UMLOperation getOperation1_RENAMED() {
 		return operation1;
 	}
 
