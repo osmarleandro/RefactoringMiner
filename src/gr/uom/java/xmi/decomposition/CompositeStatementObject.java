@@ -45,7 +45,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		expression.setDepth(this.getDepth());
 		expression.setIndex(this.getIndex());
 		expressionList.add(expression);
-		expression.setOwner(this);
+		expression.setOwner_RENAMED(this);
 	}
 
 	public List<AbstractExpression> getExpressions() {
