@@ -83,7 +83,7 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
+    public UMLRealization matchRealization_RENAMED(UMLRealization otherRealization) {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
     		UMLRealization realization = realizationIt.next();
