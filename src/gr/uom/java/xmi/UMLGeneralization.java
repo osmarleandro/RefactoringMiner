@@ -17,14 +17,14 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
         return parent;
     }
 
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
     	if(this == o) {
     		return true;
     	}
     	
     	if(o instanceof UMLGeneralization) {
     		UMLGeneralization umlGeneralization = (UMLGeneralization)o;
-    		return this.child.equals(umlGeneralization.child) &&
+    		return this.child.equals_RENAMED(umlGeneralization.child) &&
     			this.parent.equals(umlGeneralization.parent);
     	}
     	return false;

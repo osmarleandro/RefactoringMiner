@@ -52,7 +52,7 @@ public class VariableDeclarationReplacement extends Replacement {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (!super.equals_RENAMED(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -60,12 +60,12 @@ public class VariableDeclarationReplacement extends Replacement {
 		if (v1 == null) {
 			if (other.v1 != null)
 				return false;
-		} else if (!v1.equals(other.v1))
+		} else if (!v1.equals_RENAMED(other.v1))
 			return false;
 		if (v2 == null) {
 			if (other.v2 != null)
 				return false;
-		} else if (!v2.equals(other.v2))
+		} else if (!v2.equals_RENAMED(other.v2))
 			return false;
 		return true;
 	}
