@@ -53,7 +53,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReturnReferences() {
+	public Set<AbstractCodeMapping> getReturnReferences_RENAMED() {
 		return returnReferences;
 	}
 
