@@ -782,8 +782,8 @@ public class VariableReplacementAnalysis {
 		}
 		return v1 != null && v2 != null &&
 				v1.equalVariableDeclarationType(v2) &&
-				!containsVariableDeclarationWithName(allVariableDeclarations1, v2.getVariableName()) &&
-				(!containsVariableDeclarationWithName(allVariableDeclarations2, v1.getVariableName()) || operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
+				!containsVariableDeclarationWithName_RENAMED(allVariableDeclarations1, v2.getVariableName()) &&
+				(!containsVariableDeclarationWithName_RENAMED(allVariableDeclarations2, v1.getVariableName()) || operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
 				consistencyCheck(v1, v2, set);
 	}
 
@@ -881,7 +881,7 @@ public class VariableReplacementAnalysis {
 				mapping.getFragment2().getVariables().contains(v1.getVariableName());
 	}
 
-	private static boolean containsVariableDeclarationWithName(Set<VariableDeclaration> variableDeclarations, String variableName) {
+	private static boolean containsVariableDeclarationWithName_RENAMED(Set<VariableDeclaration> variableDeclarations, String variableName) {
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return true;
