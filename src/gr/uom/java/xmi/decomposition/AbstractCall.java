@@ -357,13 +357,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	private boolean argumentIsEqual(String statement) {
 		return statement.endsWith(";\n") && getArguments().size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the statement
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(0, statement.length()-2));
+				equalsIgnoringExtraParenthesis_RENAMED(getArguments().get(0), statement.substring(0, statement.length()-2));
 	}
 
 	private boolean argumentIsReturned(String statement) {
 		return statement.startsWith("return ") && getArguments().size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the return statement, 7 to remove the prefix "return "
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(7, statement.length()-2));
+				equalsIgnoringExtraParenthesis_RENAMED(getArguments().get(0), statement.substring(7, statement.length()-2));
 	}
 
 	public Replacement makeReplacementForReturnedArgument(String statement) {
@@ -393,7 +393,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	private boolean argumentIsAssigned(String statement) {
 		return getArguments().size() == 1 && statement.contains("=") && statement.endsWith(";\n") &&
 				//length()-2 to remove ";\n" from the end of the assignment statement, indexOf("=")+1 to remove the left hand side of the assignment
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
+				equalsIgnoringExtraParenthesis_RENAMED(getArguments().get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
 	}
 
 	public Replacement makeReplacementForAssignedArgument(String statement) {
@@ -404,7 +404,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return null;
 	}
 
-	private static boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+	private static boolean equalsIgnoringExtraParenthesis_RENAMED(String s1, String s2) {
 		if(s1.equals(s2))
 			return true;
 		String parenthesizedS1 = "("+s1+")";
