@@ -65,7 +65,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return className.contains(".") ? className.substring(className.lastIndexOf(".")+1, className.length()) : className;
 	}
 
-	public String getClassName() {
+	public String getClassName_RENAMED() {
 		return className;
 	}
 

@@ -700,16 +700,16 @@ public class UMLModelDiff {
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
-		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
+		   if(isSubclassOf(removedAttribute.getClassName_RENAMED(), addedAttribute.getClassName_RENAMED())) {
 			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pullUpAttribute;
 		   }
-		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
+		   else if(isSubclassOf(addedAttribute.getClassName_RENAMED(), removedAttribute.getClassName_RENAMED())) {
 			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pushDownAttribute;
 		   }
-		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
-				   targetClassImportsSourceClass(removedAttribute.getClassName(), addedAttribute.getClassName())) {
+		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName_RENAMED(), addedAttribute.getClassName_RENAMED()) ||
+				   targetClassImportsSourceClass(removedAttribute.getClassName_RENAMED(), addedAttribute.getClassName_RENAMED())) {
 			   if(!initializerContainsTypeLiteral(addedAttribute, removedAttribute)) {
 				   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
 				   return moveAttribute;
@@ -1383,7 +1383,7 @@ public class UMLModelDiff {
 					 UMLClassBaseDiff diff1 = diffs1.get(0);
 					 UMLClassBaseDiff originalClassDiff = null;
 					 if(candidate.getOriginalAttribute() != null) {
-						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName()); 
+						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName_RENAMED()); 
 					 }
 					 else {
 						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore().getClassName());
@@ -1420,7 +1420,7 @@ public class UMLModelDiff {
 					 UMLClassBaseDiff diff2 = diffs2.get(0);
 					 UMLClassBaseDiff originalClassDiff = null;
 					 if(candidate.getOriginalAttribute() != null) {
-						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName()); 
+						 originalClassDiff = getUMLClassDiff(candidate.getOriginalAttribute().getClassName_RENAMED()); 
 					 }
 					 else {
 						 originalClassDiff = getUMLClassDiff(candidate.getOperationBefore().getClassName());
