@@ -96,7 +96,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
+		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode_RENAMED());
 		result = prime * result + ((attributeAfter == null) ? 0 : attributeAfter.hashCode());
 		result = prime * result + ((attributeBefore == null) ? 0 : attributeBefore.hashCode());
 		return result;
