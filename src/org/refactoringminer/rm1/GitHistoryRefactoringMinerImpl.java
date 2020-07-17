@@ -138,7 +138,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
 				
 				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-				refactoringsAtRevision = filter(refactoringsAtRevision);
+				refactoringsAtRevision = filter_RENAMED(refactoringsAtRevision);
 			} else {
 				//logger.info(String.format("Ignored revision %s with no changes in java files", commitId));
 				refactoringsAtRevision = Collections.emptyList();
@@ -200,7 +200,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
 				// Diff between currentModel e parentModel
 				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-				refactoringsAtRevision = filter(refactoringsAtRevision);
+				refactoringsAtRevision = filter_RENAMED(refactoringsAtRevision);
 			}
 			else {
 				logger.warn(String.format("Folder %s not found", currentFolder.getPath()));
@@ -299,7 +299,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	protected List<Refactoring> filter_RENAMED(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
@@ -489,7 +489,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 			//  Diff between currentModel e parentModel
 			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-			refactoringsAtRevision = filter(refactoringsAtRevision);
+			refactoringsAtRevision = filter_RENAMED(refactoringsAtRevision);
 		}
 		catch(RefactoringMinerTimedOutException e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", currentCommitId), e);
