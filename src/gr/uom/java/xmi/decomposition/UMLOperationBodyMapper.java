@@ -2957,7 +2957,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nullInitializer = true;
 			}
 			else if(initializer1 != null && initializer2 != null) {
-				nullInitializer = initializer1.getExpression().equals("null") && initializer2.getExpression().equals("null");
+				nullInitializer = initializer1.getExpression_RENAMED().equals("null") && initializer2.getExpression_RENAMED().equals("null");
 				if(initializer1.getCreationMap().size() == 1 && initializer2.getCreationMap().size() == 1) {
 					ObjectCreation creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
 					ObjectCreation creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
@@ -2989,14 +2989,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							initializer2 != null && invocationReplacement.getInvokedOperationAfter().actualString().equals(initializer2.getString())) {
 						methodInvocationReplacement = true;
 					}
-					if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
-							initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
+					if(initializer1 != null && initializer1.getExpression_RENAMED().equals(replacement.getBefore()) &&
+							initializer2 != null && initializer2.getExpression_RENAMED().equals(replacement.getAfter())) {
 						methodInvocationReplacement = true;
 					}
 				}
 				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION)) {
-					if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
-							initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
+					if(initializer1 != null && initializer1.getExpression_RENAMED().equals(replacement.getBefore()) &&
+							initializer2 != null && initializer2.getExpression_RENAMED().equals(replacement.getAfter())) {
 						methodInvocationReplacement = true;
 					}
 				}

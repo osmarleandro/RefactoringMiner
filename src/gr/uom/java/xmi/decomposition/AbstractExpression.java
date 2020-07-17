@@ -73,7 +73,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return getOwner();
 	}
 
-    public String getExpression() {
+    public String getExpression_RENAMED() {
     	return expression;
     }
 
@@ -82,7 +82,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     }
   
 	public String toString() {
-		return getExpression().toString();
+		return getExpression_RENAMED().toString();
 	}
 
 	@Override

@@ -67,14 +67,14 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		sb.append("@").append(typeName);
 		if(value != null) {
 			sb.append("(");
-			sb.append(value.getExpression());
+			sb.append(value.getExpression_RENAMED());
 			sb.append(")");
 		}
 		if(!memberValuePairs.isEmpty()) {
 			sb.append("(");
 			int i = 0;
 			for(String key : memberValuePairs.keySet()) {
-				sb.append(key).append(" = ").append(memberValuePairs.get(key).getExpression());
+				sb.append(key).append(" = ").append(memberValuePairs.get(key).getExpression_RENAMED());
 				if(i < memberValuePairs.size() - 1)
 					sb.append(", ");
 				i++;
@@ -100,7 +100,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		int result = 1;
 		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode());
 		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.getExpression().hashCode());
+		result = prime * result + ((value == null) ? 0 : value.getExpression_RENAMED().hashCode());
 		return result;
 	}
 
@@ -126,7 +126,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		if (value == null) {
 			if (other.value != null)
 				return false;
-		} else if (!value.getExpression().equals(other.value.getExpression()))
+		} else if (!value.getExpression_RENAMED().equals(other.value.getExpression_RENAMED()))
 			return false;
 		return true;
 	}
@@ -145,7 +145,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 				if (!(m.get(thisKey) == null && m.containsKey(thisKey)))
 					return false;
 			} else {
-				if (!thisValue.getExpression().equals(m.get(thisKey).getExpression()))
+				if (!thisValue.getExpression_RENAMED().equals(m.get(thisKey).getExpression_RENAMED()))
 					return false;
 			}
 		}
@@ -155,7 +155,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private int memberValuePairsHashCode() {
 		int h = 0;
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
-			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
+			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression_RENAMED().hashCode());
 		return h;
 	}
 }

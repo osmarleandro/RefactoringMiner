@@ -34,7 +34,7 @@ public class UMLAnnotationDiff {
 		AbstractExpression value1 = removedAnnotation.getValue();
 		AbstractExpression value2 = addedAnnotation.getValue();
 		if(value1 != null && value2 != null) {
-			if(!value1.getExpression().equals(value2.getExpression())) {
+			if(!value1.getExpression_RENAMED().equals(value2.getExpression_RENAMED())) {
 				valueChanged = true;
 			}
 		}
@@ -66,7 +66,7 @@ public class UMLAnnotationDiff {
 		}
 		for(SimpleEntry<String, AbstractExpression> key : matchedMemberValuePairs.keySet()) {
 			SimpleEntry<String, AbstractExpression> value = matchedMemberValuePairs.get(key);
-			if(!key.getValue().getExpression().equals(value.getValue().getExpression())) {
+			if(!key.getValue().getExpression_RENAMED().equals(value.getValue().getExpression_RENAMED())) {
 				matchedMemberValuePairsWithDifferentExpressions.put(key, value);
 			}
 		}
