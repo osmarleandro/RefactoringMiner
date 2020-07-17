@@ -545,7 +545,7 @@ public class UMLModelDiff {
    }
 
    private List<MoveAttributeRefactoring> checkForAttributeMovesIncludingRemovedClasses() {
-      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
+      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses_RENAMED();
       /*for(UMLClass addedClass : addedClasses) {
     	  addedAttributes.addAll(addedClass.getAttributes());
       }*/
@@ -557,7 +557,7 @@ public class UMLModelDiff {
    }
 
    private List<MoveAttributeRefactoring> checkForAttributeMovesIncludingAddedClasses() {
-      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
+      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses_RENAMED();
       for(UMLClass addedClass : addedClasses) {
     	  addedAttributes.addAll(addedClass.getAttributes());
       }
@@ -569,7 +569,7 @@ public class UMLModelDiff {
    }
 
    private List<MoveAttributeRefactoring> checkForAttributeMovesBetweenCommonClasses() {
-      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
+      List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses_RENAMED();
       List<UMLAttribute> removedAttributes = getRemovedAttributesInCommonClasses();
       return checkForAttributeMoves(addedAttributes, removedAttributes);
    }
@@ -823,7 +823,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private List<UMLAttribute> getAddedAttributesInCommonClasses() {
+   private List<UMLAttribute> getAddedAttributesInCommonClasses_RENAMED() {
       List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          addedAttributes.addAll(classDiff.getAddedAttributes());
