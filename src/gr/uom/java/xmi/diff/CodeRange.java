@@ -141,7 +141,7 @@ public class CodeRange {
 		int endColumn = 0;
 		
 		for(AbstractCodeFragment fragment : codeFragments) {
-			LocationInfo info = fragment.getLocationInfo();
+			LocationInfo info = fragment.getLocationInfo_RENAMED();
 			filePath = info.getFilePath();
 			if(minStartLine == 0 || info.getStartLine() < minStartLine) {
 				minStartLine = info.getStartLine();
