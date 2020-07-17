@@ -189,7 +189,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
 				.setDescription("source method declaration before extraction")
-				.setCodeElement(sourceOperationBeforeExtraction.toString()));
+				.setCodeElement(sourceOperationBeforeExtraction.toString_RENAMED()));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code from source method declaration"));
 		}
@@ -218,14 +218,14 @@ public class ExtractOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getExtractedOperationCodeRange()
 				.setDescription("extracted method declaration")
-				.setCodeElement(extractedOperation.toString()));
+				.setCodeElement(extractedOperation.toString_RENAMED()));
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
 		}
 		ranges.add(getSourceOperationCodeRangeAfterExtraction()
 				.setDescription("source method declaration after extraction")
-				.setCodeElement(sourceOperationAfterExtraction.toString()));
+				.setCodeElement(sourceOperationAfterExtraction.toString_RENAMED()));
 		for(OperationInvocation invocation : extractedOperationInvocations) {
 			ranges.add(invocation.codeRange()
 					.setDescription("extracted method invocation")
