@@ -194,7 +194,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return 0;
 	}
 
-	public void setBody(OperationBody body) {
+	public void setBody_RENAMED(OperationBody body) {
 		this.operationBody = body;
 	}
 
