@@ -531,7 +531,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
 		Map<String, Set<String>> aliasedAttributesInOriginalClass = originalClass.aliasedAttributes();
 		Map<String, Set<String>> aliasedAttributesInNextClass = nextClass.aliasedAttributes();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames,
+		ConsistentReplacementDetector.updateRenames_RENAMED(allConsistentRenames, allInconsistentRenames, renames,
 				aliasedAttributesInOriginalClass, aliasedAttributesInNextClass);
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		for(Replacement pattern : allConsistentRenames) {
