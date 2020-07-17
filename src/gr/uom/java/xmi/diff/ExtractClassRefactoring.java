@@ -48,7 +48,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public UMLClass getExtractedClass() {
+	public UMLClass getExtractedClass_RENAMED() {
 		return extractedClass;
 	}
 
@@ -76,7 +76,7 @@ public class ExtractClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getExtractedClass().getLocationInfo().getFilePath(), getExtractedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getExtractedClass_RENAMED().getLocationInfo().getFilePath(), getExtractedClass_RENAMED().getName()));
 		return pairs;
 	}
 
