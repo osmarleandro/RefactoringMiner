@@ -124,7 +124,7 @@ public class UMLAttributeDiff {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
-					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
+					VariableReferenceExtractor.findReferences_RENAMED(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
 		}
 		refactorings.addAll(getAnnotationRefactorings());
@@ -140,7 +140,7 @@ public class UMLAttributeDiff {
 		}
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
-					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
+					VariableReferenceExtractor.findReferences_RENAMED(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
 			if(rename != null) {
 				ref.addRelatedRefactoring(rename);
