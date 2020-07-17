@@ -795,7 +795,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return getName().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
 	}
 
-	public boolean compatibleSignature(UMLOperation removedOperation) {
+	public boolean compatibleSignature_RENAMED(UMLOperation removedOperation) {
 		return equalParameterTypes(removedOperation) || overloadedParameterTypes(removedOperation) || replacedParameterTypes(removedOperation) || equalParameterNames(removedOperation);
 	}
 

@@ -1467,7 +1467,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean compatibleSignatures(UMLOperation removedOperation, UMLOperation addedOperation, int absoluteDifferenceInPosition) {
-		return addedOperation.compatibleSignature(removedOperation) ||
+		return addedOperation.compatibleSignature_RENAMED(removedOperation) ||
 		(
 		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
 		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
