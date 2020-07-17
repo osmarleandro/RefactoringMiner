@@ -146,7 +146,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the extracted code fragment to the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedCodeRangeToExtractedOperation() {
+	public CodeRange getExtractedCodeRangeToExtractedOperation_RENAMED() {
 		return CodeRange.computeRange(extractedCodeFragmentsToExtractedOperation);
 	}
 
