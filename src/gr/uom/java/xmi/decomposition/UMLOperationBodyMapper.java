@@ -1993,7 +1993,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(variableAssignmentWithEverythingReplaced(statement1, statement2, replacementInfo)) {
 				return null;
 			}
-			if(classInstanceCreationWithEverythingReplaced(statement1, statement2, replacementInfo, parameterToArgumentMap)) {
+			if(classInstanceCreationWithEverythingReplaced_RENAMED(statement1, statement2, replacementInfo, parameterToArgumentMap)) {
 				return null;
 			}
 			if(!anonymousClassDeclarations1.isEmpty() && !anonymousClassDeclarations2.isEmpty()) {
@@ -2734,7 +2734,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean classInstanceCreationWithEverythingReplaced(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	private boolean classInstanceCreationWithEverythingReplaced_RENAMED(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
 			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
