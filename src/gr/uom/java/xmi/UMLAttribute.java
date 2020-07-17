@@ -77,7 +77,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return name;
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration getVariableDeclaration_RENAMED() {
 		return variableDeclaration;
 	}
 
