@@ -330,7 +330,7 @@ public class ResultComparator {
         String tempDir = "tmp";
         String resultCacheDir = "tmpResult";
         String projectName = cloneUrl.substring(cloneUrl.lastIndexOf('/') + 1, cloneUrl.lastIndexOf('.'));
-        File cachedResult = new File(resultCacheDir + "/" + rm.getConfigId() + "-" + projectName + "-" + commitId);
+        File cachedResult = new File(resultCacheDir + "/" + rm.getConfigId_RENAMED() + "-" + projectName + "-" + commitId);
         if (cachedResult.exists()) {
             RefactoringSet rs = new RefactoringSet(cloneUrl, commitId);
             rs.readFromFile(cachedResult);

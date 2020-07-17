@@ -400,7 +400,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public String getConfigId() {
+	public String getConfigId_RENAMED() {
 	    return "RM1";
 	}
 
