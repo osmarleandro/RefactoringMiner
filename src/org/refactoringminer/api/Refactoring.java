@@ -26,7 +26,7 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 	 */
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring();
 	
-	default public String toJSON() {
+	default public String toJSON_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
 		sb.append("{").append("\n");

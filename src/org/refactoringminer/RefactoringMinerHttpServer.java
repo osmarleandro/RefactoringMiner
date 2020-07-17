@@ -102,7 +102,7 @@ public class RefactoringMinerHttpServer {
 		sb.append("[");
 		int counter = 0;
 		for(Refactoring refactoring : refactoringsAtRevision) {
-			sb.append(refactoring.toJSON());
+			sb.append(refactoring.toJSON_RENAMED());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");
 			}
