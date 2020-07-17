@@ -196,7 +196,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getTargetOperationCodeRangeAfterInline()
 				.setDescription("target method declaration after inline")
