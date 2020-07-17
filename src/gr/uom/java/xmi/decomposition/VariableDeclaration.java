@@ -59,7 +59,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
-		Type astType = extractType(fragment);
+		Type astType = extractType_RENAMED(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		ASTNode scopeNode = getScopeNode(fragment);
 		int startOffset = 0;
@@ -86,7 +86,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
-		Type astType = extractType(fragment);
+		Type astType = extractType_RENAMED(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		int startOffset = fragment.getStartPosition();
 		ASTNode scopeNode = getScopeNode(fragment);
@@ -225,7 +225,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return null;
 	}
 
-	private static Type extractType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
+	private static Type extractType_RENAMED(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		Type returnedVariableType = null;
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
 			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)variableDeclaration;
