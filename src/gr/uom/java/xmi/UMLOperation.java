@@ -222,7 +222,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.anonymousClassList.add(anonymous);
 	}
 
-	public List<UMLAnonymousClass> getAnonymousClassList() {
+	public List<UMLAnonymousClass> getAnonymousClassList_RENAMED() {
 		return anonymousClassList;
 	}
 
