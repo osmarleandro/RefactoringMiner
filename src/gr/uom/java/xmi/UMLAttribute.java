@@ -29,7 +29,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return locationInfo;
 	}
 
-	public UMLType getType() {
+	public UMLType getType_RENAMED() {
 		return type;
 	}
 
