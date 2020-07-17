@@ -90,7 +90,7 @@ public class Visitor extends ASTVisitor {
 		arrayAccesses.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getArrayAccesses().add(node.toString());
+			anonymous.getArrayAccesses_RENAMED().add(node.toString());
 		}
 		return super.visit(node);
 	}

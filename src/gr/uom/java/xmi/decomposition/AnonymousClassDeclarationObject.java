@@ -102,7 +102,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return infixOperators;
 	}
 
-	public List<String> getArrayAccesses() {
+	public List<String> getArrayAccesses_RENAMED() {
 		return arrayAccesses;
 	}
 
