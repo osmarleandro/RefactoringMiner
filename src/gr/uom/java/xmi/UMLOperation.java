@@ -317,7 +317,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return true;
 	}
 
-	public boolean equalSignatureWithIdenticalNameIgnoringChangedTypes(UMLOperation operation) {
+	public boolean equalSignatureWithIdenticalNameIgnoringChangedTypes_RENAMED(UMLOperation operation) {
 		if(!(this.isConstructor && operation.isConstructor || this.name.equals(operation.name)))
 			return false;
 		if(this.isAbstract != operation.isAbstract)

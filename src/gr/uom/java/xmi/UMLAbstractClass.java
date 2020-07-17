@@ -64,7 +64,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation originalOperation : operations) {
 			boolean matchesOperation = isInterface() ?
 				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
-				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
+				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes_RENAMED(operation);
 			if(matchesOperation) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
 				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
