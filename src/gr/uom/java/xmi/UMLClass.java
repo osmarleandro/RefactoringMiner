@@ -156,7 +156,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return isAbstract;
 	}
 
-	public void setAbstract(boolean isAbstract) {
+	public void setAbstract_RENAMED(boolean isAbstract) {
 		this.isAbstract = isAbstract;
 	}
 
