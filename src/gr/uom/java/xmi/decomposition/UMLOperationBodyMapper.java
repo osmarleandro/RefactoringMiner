@@ -1818,7 +1818,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
 					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2(), minDistance);
-					boolean multipleInstances = ReplacementUtil.countInstances(temp, s2) > 1;
+					boolean multipleInstances = ReplacementUtil.countInstances_RENAMED(temp, s2) > 1;
 					if(distanceRaw == -1 && multipleInstances) {
 						distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
 					}

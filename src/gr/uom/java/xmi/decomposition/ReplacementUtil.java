@@ -21,7 +21,7 @@ public class ReplacementUtil {
 		return sb.toString();
 	}
 
-	public static int countInstances(String completeString, String subString) {
+	public static int countInstances_RENAMED(String completeString, String subString) {
 		for(String character : SPECIAL_CHARACTERS) {
 			int index = completeString.indexOf(subString + character);
 			if(index != -1) {
