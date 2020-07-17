@@ -1519,12 +1519,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		
 		boolean operationsBeforeMatch = false;
 		if(operationBefore1 != null && operationBefore2 != null) {
-			operationsBeforeMatch = operationBefore1.equalParameterTypes(operationBefore2) && operationBefore1.getName().equals(operationBefore2.getName());
+			operationsBeforeMatch = operationBefore1.equalParameterTypes_RENAMED(operationBefore2) && operationBefore1.getName().equals(operationBefore2.getName());
 		}
 		
 		boolean operationsAfterMatch = false;
 		if(operationAfter1 != null && operationAfter2 != null) {
-			operationsAfterMatch = operationAfter1.equalParameterTypes(operationAfter2) && operationAfter1.getName().equals(operationAfter2.getName());
+			operationsAfterMatch = operationAfter1.equalParameterTypes_RENAMED(operationAfter2) && operationAfter1.getName().equals(operationAfter2.getName());
 		}
 		
 		return operationsBeforeMatch || operationsAfterMatch;
