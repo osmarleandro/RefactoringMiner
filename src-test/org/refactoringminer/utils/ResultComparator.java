@@ -71,14 +71,14 @@ public class ResultComparator {
         for (String groupId : groupIds) {
             CompareResult r = getCompareResult(groupId, refTypesToConsider);
             out.println("# " + groupId + " #");
-            out.println("Total  " + getResultLine(r.getTPCount(), r.getFPCount(), r.getFNCount()));
+            out.println("Total  " + getResultLine_RENAMED(r.getTPCount(), r.getFPCount(), r.getFNCount()));
 
             for (RefactoringType refType : refTypesToConsider) {
                 int tpRt = r.getTPCount(refType);
                 int fpRt = r.getFPCount(refType);
                 int fnRt = r.getFNCount(refType);
                 if (tpRt > 0 || fpRt > 0 || fnRt > 0) {
-                    out.println(String.format("%-7s" + getResultLine(tpRt, fpRt, fnRt), refType.getAbbreviation()));
+                    out.println(String.format("%-7s" + getResultLine_RENAMED(tpRt, fpRt, fnRt), refType.getAbbreviation()));
                 }
             }
             out.println();
@@ -121,7 +121,7 @@ public class ResultComparator {
         return new CompareResult(truePositives, falsePositives, falseNegatives);
     }
 
-    private String getResultLine(int tp, int fp, int fn) {
+    private String getResultLine_RENAMED(int tp, int fp, int fn) {
         double precision = getPrecision(tp, fp, fn);
         double recall = getRecall(tp, fp, fn);
         double f1 = getF1(tp, fp, fn);
