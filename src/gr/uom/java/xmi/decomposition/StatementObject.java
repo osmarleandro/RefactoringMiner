@@ -55,7 +55,7 @@ public class StatementObject extends AbstractStatement {
 		this.stringLiterals = visitor.getStringLiterals();
 		this.numberLiterals = visitor.getNumberLiterals();
 		this.nullLiterals = visitor.getNullLiterals();
-		this.booleanLiterals = visitor.getBooleanLiterals();
+		this.booleanLiterals = visitor.getBooleanLiterals_RENAMED();
 		this.typeLiterals = visitor.getTypeLiterals();
 		this.creationMap = visitor.getCreationMap();
 		this.infixOperators = visitor.getInfixOperators();
