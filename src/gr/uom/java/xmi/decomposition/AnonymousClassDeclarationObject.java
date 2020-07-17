@@ -82,7 +82,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return numberLiterals;
 	}
 
-	public List<String> getNullLiterals() {
+	public List<String> getNullLiterals_RENAMED() {
 		return nullLiterals;
 	}
 
