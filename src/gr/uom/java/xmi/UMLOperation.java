@@ -238,7 +238,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
-			return thisReturnParameter.equals(otherReturnParameter);
+			return thisReturnParameter.equals_RENAMED(otherReturnParameter);
 		else if(thisReturnParameter == null && otherReturnParameter == null)
 			return true;
 		else
@@ -273,7 +273,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 							thisParameterType.getArrayDimension() == otherParameterType.getArrayDimension()) {
 						compatibleTypes++;
 					}
-					else if(thisParameterType.equals(otherParameterType)) {
+					else if(thisParameterType.equals_RENAMED(otherParameterType)) {
 						equalTypes++;
 					}
 				}
@@ -310,7 +310,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
 			UMLParameter otherParameter = operation.parameters.get(i);
-			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
+			if(!thisParameter.equals_RENAMED(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
 				return false;
 			i++;
 		}
@@ -333,7 +333,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
 			UMLParameter otherParameter = operation.parameters.get(i);
-			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
+			if(!thisParameter.equals_RENAMED(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
 				return false;
 			i++;
 		}
@@ -371,7 +371,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		for(int i=0; i<min; i++) {
 			UMLType thisParameterType = thisParameterTypeList.get(i);
 			UMLType otherParameterType = otherParameterTypeList.get(i);
-			if(thisParameterType.equals(otherParameterType)) {
+			if(thisParameterType.equals_RENAMED(otherParameterType)) {
 				commonParameterTypes.add(thisParameterType);
 			}
 		}
@@ -698,7 +698,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			for(int i=0; i<thisParameterTypes.size(); i++) {
 				UMLType thisParameterType = thisParameterTypes.get(i);
 				UMLType otherParameterType = otherParameterTypes.get(i);
-				if(thisParameterType.equals(otherParameterType) ||
+				if(thisParameterType.equals_RENAMED(otherParameterType) ||
 						(thisParameterType.getClassType().equals(otherParameterType.getClassType()) && thisParameterType.getArrayDimension() == otherParameterType.getArrayDimension()) ||
 						thisParameterType.equalsWithSubType(otherParameterType)) {
 					commonParameterTypes++;
@@ -715,7 +715,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			for(int i=0; i<otherParameterTypes.size(); i++) {
 				UMLType thisParameterType = thisParameterTypes.get(i);
 				UMLType otherParameterType = otherParameterTypes.get(i);
-				if(thisParameterType.equals(otherParameterType) ||
+				if(thisParameterType.equals_RENAMED(otherParameterType) ||
 						(thisParameterType.getClassType().equals(otherParameterType.getClassType()) && thisParameterType.getArrayDimension() == otherParameterType.getArrayDimension()) ||
 						thisParameterType.equalsWithSubType(otherParameterType)) {
 					commonParameterTypes++;
@@ -732,7 +732,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			for(int i=0; i<thisParameterTypes.size(); i++) {
 				UMLType thisParameterType = thisParameterTypes.get(i);
 				UMLType otherParameterType = otherParameterTypes.get(i);
-				if(thisParameterType.equals(otherParameterType) ||
+				if(thisParameterType.equals_RENAMED(otherParameterType) ||
 						(thisParameterType.getClassType().equals(otherParameterType.getClassType()) && thisParameterType.getArrayDimension() == otherParameterType.getArrayDimension()) ||
 						thisParameterType.equalsWithSubType(otherParameterType)) {
 					commonParameterTypes++;
@@ -752,7 +752,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
 				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
-					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+					if(anonymousClass.getLocationInfo().equals_RENAMED(anonymousClassDeclaration.getLocationInfo())) {
 						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
 					}
 				}
@@ -802,7 +802,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public boolean hasTwoParametersWithTheSameType() {
 		List<UMLType> parameterTypes = getParameterTypeList();
 		if(parameterTypes.size() == 2) {
-			if(parameterTypes.get(0).equals(parameterTypes.get(1))) {
+			if(parameterTypes.get(0).equals_RENAMED(parameterTypes.get(1))) {
 				return true;
 			}
 		}
