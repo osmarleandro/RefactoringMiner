@@ -373,7 +373,7 @@ public class ResultComparator {
         this.ignoreMethodParams = ignoreMethodParams;
     }
 
-    public boolean isIgnorePullUpToExtractedSupertype() {
+    public boolean isIgnorePullUpToExtractedSupertype_RENAMED() {
         return ignorePullUpToExtractedSupertype;
     }
 
