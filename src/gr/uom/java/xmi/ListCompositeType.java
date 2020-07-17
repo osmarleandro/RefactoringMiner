@@ -56,10 +56,10 @@ public class ListCompositeType extends UMLType {
 	}
 
 	@Override
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < types.size(); i++) {
-			sb.append(types.get(i).toString());
+			sb.append(types.get(i).toString_RENAMED());
 			if(i < types.size() - 1)
 				sb.append(kind.operand);
 		}

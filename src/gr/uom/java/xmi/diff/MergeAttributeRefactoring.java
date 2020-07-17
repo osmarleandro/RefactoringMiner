@@ -128,7 +128,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		for(VariableDeclaration mergedAttribute : mergedAttributes) {
 			ranges.add(mergedAttribute.codeRange()
 					.setDescription("merged attribute declaration")
-					.setCodeElement(mergedAttribute.toString()));
+					.setCodeElement(mergedAttribute.toString_RENAMED()));
 		}
 		return ranges;
 	}
@@ -138,7 +138,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(newAttribute.codeRange()
 				.setDescription("new attribute declaration")
-				.setCodeElement(newAttribute.toString()));
+				.setCodeElement(newAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
