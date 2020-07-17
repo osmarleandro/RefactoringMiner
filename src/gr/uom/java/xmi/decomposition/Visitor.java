@@ -95,7 +95,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(PrefixExpression node) {
+	public boolean visit_RENAMED(PrefixExpression node) {
 		prefixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
