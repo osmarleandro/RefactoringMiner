@@ -36,7 +36,7 @@ public class ExtractOperationDetection {
 		this.operationInvocations = getInvocationsInSourceOperationAfterExtraction(mapper);
 	}
 
-	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
+	public List<ExtractOperationRefactoring> check_RENAMED(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
 		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT1().isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
