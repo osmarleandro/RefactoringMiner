@@ -453,7 +453,7 @@ public class VariableReplacementAnalysis {
 			SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement);
 			Set<AbstractCodeMapping> set = replacementOccurrenceMap.get(replacement);
 			if((set.size() > 1 && v1 != null && v2 != null && consistencyCheck(v1.getKey(), v2.getKey(), set)) ||
-					potentialParameterRename(replacement, set) ||
+					potentialParameterRename_RENAMED(replacement, set) ||
 					v1 == null || v2 == null ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(replacement, set))) {
 				finalConsistentRenames.put(replacement, set);
@@ -1188,7 +1188,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean potentialParameterRename(Replacement replacement, Set<AbstractCodeMapping> set) {
+	private boolean potentialParameterRename_RENAMED(Replacement replacement, Set<AbstractCodeMapping> set) {
 		int index1 = operation1.getParameterNameList().indexOf(replacement.getBefore());
 		if(index1 == -1 && callSiteOperation != null) {
 			index1 = callSiteOperation.getParameterNameList().indexOf(replacement.getBefore());
