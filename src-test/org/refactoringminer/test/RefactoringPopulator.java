@@ -104,11 +104,11 @@ public class RefactoringPopulator {
 		
 		for (Root root : roots) {
 			test.project(root.repository, "master").atCommit(root.sha1)
-					.containsOnly(extractRefactorings(root.refactorings));
+					.containsOnly(extractRefactorings_RENAMED(root.refactorings));
 		}
 	}
 
-	public static String[] extractRefactorings(List<Refactoring> refactoring) {
+	public static String[] extractRefactorings_RENAMED(List<Refactoring> refactoring) {
 		int count = 0;
 		for (Refactoring ref : refactoring) {
 			if (ref.validation.contains("TP"))
