@@ -297,8 +297,8 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 			return true;
 		}
 		//covers the cases of methods with only one statement in their body
-		if(this instanceof AbstractStatement && ((AbstractStatement)this).getParent() != null &&
-				((AbstractStatement)this).getParent().statementCount() == 1 && ((AbstractStatement)this).getParent().getParent() == null) {
+		if(this instanceof AbstractStatement && ((AbstractStatement)this).getParent_RENAMED() != null &&
+				((AbstractStatement)this).getParent_RENAMED().statementCount() == 1 && ((AbstractStatement)this).getParent_RENAMED().getParent_RENAMED() == null) {
 			return true;
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&

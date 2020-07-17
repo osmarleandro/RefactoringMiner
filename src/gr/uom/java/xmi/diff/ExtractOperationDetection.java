@@ -240,8 +240,8 @@ public class ExtractOperationDetection {
 			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
 				StatementObject statement1 = (StatementObject)mapping.getFragment1();
 				StatementObject statement2 = (StatementObject)mapping.getFragment2();
-				if(statement1.getParent().getString().startsWith("catch(") &&
-						statement2.getParent().getString().startsWith("catch(")) {
+				if(statement1.getParent_RENAMED().getString().startsWith("catch(") &&
+						statement2.getParent_RENAMED().getString().startsWith("catch(")) {
 					exceptionHandlingExactMatch = true;
 				}
 			}

@@ -9,7 +9,7 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     	this.parent = parent;
     }
 
-    public CompositeStatementObject getParent() {
+    public CompositeStatementObject getParent_RENAMED() {
     	return this.parent;
     }
 

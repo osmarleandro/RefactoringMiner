@@ -1402,8 +1402,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
 				AbstractStatement statement1 = (AbstractStatement)fragment1;
 				AbstractStatement statement2 = (AbstractStatement)fragment2;
-				CompositeStatementObject parent1 = statement1.getParent();
-				CompositeStatementObject parent2 = statement2.getParent();
+				CompositeStatementObject parent1 = statement1.getParent_RENAMED();
+				CompositeStatementObject parent2 = statement2.getParent_RENAMED();
 				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
 						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
@@ -1452,8 +1452,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
 					AbstractStatement statement1 = (AbstractStatement)fragment1;
 					AbstractStatement statement2 = (AbstractStatement)fragment2;
-					CompositeStatementObject parent1 = statement1.getParent();
-					CompositeStatementObject parent2 = statement2.getParent();
+					CompositeStatementObject parent1 = statement1.getParent_RENAMED();
+					CompositeStatementObject parent2 = statement2.getParent_RENAMED();
 					if(parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT) &&
 							parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT)) {
 						if(switchParent1 == null && switchParent2 == null) {
