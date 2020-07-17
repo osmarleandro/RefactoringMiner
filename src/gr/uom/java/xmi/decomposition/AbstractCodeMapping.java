@@ -111,7 +111,7 @@ public abstract class AbstractCodeMapping {
 		return replacements;
 	}
 
-	public boolean containsReplacement(ReplacementType type) {
+	public boolean containsReplacement_RENAMED(ReplacementType type) {
 		for(Replacement replacement : replacements) {
 			if(replacement.getType().equals(type)) {
 				return true;
