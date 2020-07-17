@@ -610,7 +610,7 @@ public class VariableReplacementAnalysis {
 				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
 						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
+					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1_RENAMED(replacement, mapping);
 					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
 					if(v1 != null && v2 != null) {
 						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
@@ -1206,7 +1206,7 @@ public class VariableReplacementAnalysis {
 		return index1 >= 0 && index1 == index2;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement, AbstractCodeMapping mapping) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1_RENAMED(Replacement replacement, AbstractCodeMapping mapping) {
 		if(mapping.getReplacements().contains(replacement)) {
 			VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
 			if(vd != null) {
