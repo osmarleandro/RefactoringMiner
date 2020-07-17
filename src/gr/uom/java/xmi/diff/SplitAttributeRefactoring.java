@@ -57,7 +57,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(oldAttribute);
@@ -131,7 +131,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(oldAttribute.codeRange()
 				.setDescription("original attribute declaration")
-				.setCodeElement(oldAttribute.toString()));
+				.setCodeElement(oldAttribute.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -141,7 +141,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		for(VariableDeclaration splitAttribute : splitAttributes) {
 			ranges.add(splitAttribute.codeRange()
 					.setDescription("split attribute declaration")
-					.setCodeElement(splitAttribute.toString()));
+					.setCodeElement(splitAttribute.toString_RENAMED()));
 		}
 		return ranges;
 	}

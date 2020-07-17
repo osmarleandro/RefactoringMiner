@@ -306,7 +306,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
 	public int compareTo(UMLClass umlClass) {
-		return this.toString().compareTo(umlClass.toString());
+		return this.toString_RENAMED().compareTo(umlClass.toString_RENAMED());
 	}
 
 	public double normalizedNameDistance(UMLClass c) {
