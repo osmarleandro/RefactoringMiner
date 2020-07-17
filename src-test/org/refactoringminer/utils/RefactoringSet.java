@@ -31,7 +31,7 @@ public class RefactoringSet {
         this.refactoringGroups = new HashMap<>();
     }
 
-    public String getProject() {
+    public String getProject_RENAMED() {
         return project;
     }
 

@@ -45,14 +45,14 @@ public class ResultComparator {
 
     public ResultComparator expect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
-            expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
+            expectedMap.put(getProjectRevisionId(set.getProject_RENAMED(), set.getRevision()), set);
         }
         return this;
     }
 
     public ResultComparator dontExpect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
-            notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
+            notExpectedMap.put(getProjectRevisionId(set.getProject_RENAMED(), set.getRevision()), set);
         }
         return this;
     }
@@ -60,7 +60,7 @@ public class ResultComparator {
     public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
-            resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
+            resultMap.put(getResultId(actual.getProject_RENAMED(), actual.getRevision(), groupId), actual);
         }
         return this;
     }
@@ -94,7 +94,7 @@ public class ResultComparator {
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         
         for (RefactoringSet expected : expectedMap.values()) {
-            RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+            RefactoringSet actual = resultMap.get(getResultId(expected.getProject_RENAMED(), expected.getRevision(), groupId));
             if (actual != null) {
                 Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
                 Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -157,7 +157,7 @@ public class ResultComparator {
             for (String groupId : groupIds) {
                 header.append('\t');
                 header.append(groupId);
-                RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+                RefactoringSet actual = resultMap.get(getResultId(expected.getProject_RENAMED(), expected.getRevision(), groupId));
                 if (actual != null) {
                     all.addAll(actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings()); //
                 }
@@ -167,14 +167,14 @@ public class ResultComparator {
                 headerPrinted = true;
             }
             if (!all.isEmpty()) {
-                out.println(getProjectRevisionId(expected.getProject(), expected.getRevision()));
+                out.println(getProjectRevisionId(expected.getProject_RENAMED(), expected.getRevision()));
                 ArrayList<RefactoringRelationship> allList = new ArrayList<>();
                 allList.addAll(all);
                 Collections.sort(allList);
                 for (RefactoringRelationship r : allList) {
                     out.print(r.toString());
                     for (String groupId : groupIds) {
-                        RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+                        RefactoringSet actual = resultMap.get(getResultId(expected.getProject_RENAMED(), expected.getRevision(), groupId));
                         out.print('\t');
                         if (actual != null) {
                             Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -352,7 +352,7 @@ public class ResultComparator {
     public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
         RefactoringSet[] result = new RefactoringSet[oracle.length];
         for (int i = 0; i < result.length; i++) {
-            result[i] = collectRmResult(rm, oracle[i].getProject(), oracle[i].getRevision());
+            result[i] = collectRmResult(rm, oracle[i].getProject_RENAMED(), oracle[i].getRevision());
         }
         return result;
     }
