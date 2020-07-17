@@ -2027,8 +2027,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(int j=0; j<anonymousClassDeclarations2.size(); j++) {
 					AnonymousClassDeclarationObject anonymousClassDeclaration1 = anonymousClassDeclarations1.get(i);
 					AnonymousClassDeclarationObject anonymousClassDeclaration2 = anonymousClassDeclarations2.get(j);
-					String statementWithoutAnonymous1 = statementWithoutAnonymous(statement1, anonymousClassDeclaration1, operation1);
-					String statementWithoutAnonymous2 = statementWithoutAnonymous(statement2, anonymousClassDeclaration2, operation2);
+					String statementWithoutAnonymous1 = statementWithoutAnonymous_RENAMED(statement1, anonymousClassDeclaration1, operation1);
+					String statementWithoutAnonymous2 = statementWithoutAnonymous_RENAMED(statement2, anonymousClassDeclaration2, operation2);
 					if(statementWithoutAnonymous1.equals(statementWithoutAnonymous2) ||
 							identicalAfterVariableAndTypeReplacements(statementWithoutAnonymous1, statementWithoutAnonymous2, replacementInfo.getReplacements()) ||
 							(invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null &&
@@ -2663,7 +2663,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private String statementWithoutAnonymous(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
+	private String statementWithoutAnonymous_RENAMED(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
 		int index = statement.getString().indexOf(anonymousClassDeclaration.toString());
 		if(index != -1) {
 			return statement.getString().substring(0, index);
@@ -2676,7 +2676,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(StatementObject leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
-								String statementWithoutAnonymous = statementWithoutAnonymous(leaf, anonymousClassDeclaration, operation);
+								String statementWithoutAnonymous = statementWithoutAnonymous_RENAMED(leaf, anonymousClassDeclaration, operation);
 								if(statementWithoutAnonymous != null) {
 									return statementWithoutAnonymous;
 								}
@@ -2711,7 +2711,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo()) ||
 									anonymousObject.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
-								return statementWithoutAnonymous(leaf, anonymousClassDeclaration, anonymousOperation);
+								return statementWithoutAnonymous_RENAMED(leaf, anonymousClassDeclaration, anonymousOperation);
 							}
 						}
 					}
