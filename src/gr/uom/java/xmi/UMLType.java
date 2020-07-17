@@ -64,7 +64,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return sb.toString();
 	}
 
-	protected String typeArgumentsAndArrayDimensionToString() {
+	protected String typeArgumentsAndArrayDimensionToString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(isParameterized())
 			sb.append(typeArgumentsToString());

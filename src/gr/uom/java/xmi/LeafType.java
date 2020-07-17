@@ -140,7 +140,7 @@ public class LeafType extends UMLType {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(nonQualifiedClassType);
-		sb.append(typeArgumentsAndArrayDimensionToString());
+		sb.append(typeArgumentsAndArrayDimensionToString_RENAMED());
 		return sb.toString();
 	}
 
@@ -148,7 +148,7 @@ public class LeafType extends UMLType {
 	public String toQualifiedString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(classType);
-		sb.append(typeArgumentsAndArrayDimensionToString());
+		sb.append(typeArgumentsAndArrayDimensionToString_RENAMED());
 		return sb.toString();
 	}
 }
