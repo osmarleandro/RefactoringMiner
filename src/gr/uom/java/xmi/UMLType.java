@@ -47,7 +47,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		arrayDimension++;
 	}
 
-	protected String typeArgumentsToString() {
+	protected String typeArgumentsToString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(typeArguments.isEmpty()) {
 			sb.append("");
@@ -67,15 +67,15 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	protected String typeArgumentsAndArrayDimensionToString() {
 		StringBuilder sb = new StringBuilder();
 		if(isParameterized())
-			sb.append(typeArgumentsToString());
+			sb.append(typeArgumentsToString_RENAMED());
 		for(int i=0; i<getArrayDimension(); i++)
 			sb.append("[]");
 		return sb.toString();
 	}
 
 	private boolean equalTypeArguments(UMLType type) {
-		String thisTypeArguments = this.typeArgumentsToString();
-		String otherTypeArguments = type.typeArgumentsToString();
+		String thisTypeArguments = this.typeArgumentsToString_RENAMED();
+		String otherTypeArguments = type.typeArgumentsToString_RENAMED();
 		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
 				(thisTypeArguments.startsWith("<? ") && otherTypeArguments.equals("<?>"))) {
 			return true;
@@ -110,9 +110,9 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			return this.arrayDimension == typeObject.arrayDimension;
 		else if(this.isParameterized() && typeObject.isParameterized())
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized())
+		else if(this.isParameterized() && this.typeArgumentsToString_RENAMED().equals("<?>") && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString().equals("<?>"))
+		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString_RENAMED().equals("<?>"))
 			return this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
