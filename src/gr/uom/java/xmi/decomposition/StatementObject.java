@@ -219,7 +219,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getPostfixExpressions() {
+	public List<String> getPostfixExpressions_RENAMED() {
 		return postfixExpressions;
 	}
 
