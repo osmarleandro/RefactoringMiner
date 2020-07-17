@@ -146,7 +146,7 @@ public class ExtractOperationDetection {
 		List<LambdaExpressionObject> lambdas = statement.getLambdas();
 		for(LambdaExpressionObject lambda : lambdas) {
 			if(lambda.getBody() != null) {
-				for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
+				for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations_RENAMED()) {
 					if(!containsInvocation(operationInvocations, statementInvocation)) {
 						operationInvocations.add(statementInvocation);
 					}
