@@ -116,7 +116,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		if (memberValuePairs == null) {
 			if (other.memberValuePairs != null)
 				return false;
-		} else if (!this.memberValuePairsEquals(other))
+		} else if (!this.memberValuePairsEquals_RENAMED(other))
 			return false;
 		if (typeName == null) {
 			if (other.typeName != null)
@@ -131,7 +131,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	private boolean memberValuePairsEquals(UMLAnnotation other) {
+	private boolean memberValuePairsEquals_RENAMED(UMLAnnotation other) {
 		Map<String, AbstractExpression> m = other.memberValuePairs;
 		int thisSize = this.memberValuePairs.size();
 		int otherSize = other.memberValuePairs.size();
