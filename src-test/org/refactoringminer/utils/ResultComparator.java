@@ -389,7 +389,7 @@ public class ResultComparator {
         this.ignoreMoveToMovedType = ignoreMoveToMovedType;
     }
 
-    public boolean isIgnoreMoveToRenamedType() {
+    public boolean isIgnoreMoveToRenamedType_RENAMED() {
         return ignoreMoveToRenamedType;
     }
 
