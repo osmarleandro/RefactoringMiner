@@ -114,7 +114,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -125,22 +125,22 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		if (annotationAfter == null) {
 			if (other.annotationAfter != null)
 				return false;
-		} else if (!annotationAfter.equals(other.annotationAfter))
+		} else if (!annotationAfter.equals_RENAMED(other.annotationAfter))
 			return false;
 		if (annotationBefore == null) {
 			if (other.annotationBefore != null)
 				return false;
-		} else if (!annotationBefore.equals(other.annotationBefore))
+		} else if (!annotationBefore.equals_RENAMED(other.annotationBefore))
 			return false;
 		if (attributeAfter == null) {
 			if (other.attributeAfter != null)
 				return false;
-		} else if (!attributeAfter.equals(other.attributeAfter))
+		} else if (!attributeAfter.equals_RENAMED(other.attributeAfter))
 			return false;
 		if (attributeBefore == null) {
 			if (other.attributeBefore != null)
 				return false;
-		} else if (!attributeBefore.equals(other.attributeBefore))
+		} else if (!attributeBefore.equals_RENAMED(other.attributeBefore))
 			return false;
 		return true;
 	}
