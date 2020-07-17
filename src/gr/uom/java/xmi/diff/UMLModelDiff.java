@@ -568,7 +568,7 @@ public class UMLModelDiff {
       return checkForAttributeMoves(addedAttributes, removedAttributes);
    }
 
-   private List<MoveAttributeRefactoring> checkForAttributeMovesBetweenCommonClasses() {
+   private List<MoveAttributeRefactoring> checkForAttributeMovesBetweenCommonClasses_RENAMED() {
       List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
       List<UMLAttribute> removedAttributes = getRemovedAttributesInCommonClasses();
       return checkForAttributeMoves(addedAttributes, removedAttributes);
@@ -1467,7 +1467,7 @@ public class UMLModelDiff {
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
       checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
       checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses());
-      refactorings.addAll(checkForAttributeMovesBetweenCommonClasses());
+      refactorings.addAll(checkForAttributeMovesBetweenCommonClasses_RENAMED());
       refactorings.addAll(checkForAttributeMovesIncludingAddedClasses());
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
       refactorings.addAll(this.refactorings);
