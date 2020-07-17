@@ -374,7 +374,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean containsAnonymousWithSameAttributesAndOperations(UMLAnonymousClass anonymous) {
+	public boolean containsAnonymousWithSameAttributesAndOperations_RENAMED(UMLAnonymousClass anonymous) {
 		for(UMLAnonymousClass thisAnonymous : anonymousClassList) {
 			if(thisAnonymous.hasSameAttributesAndOperations(anonymous))
 				return true;
