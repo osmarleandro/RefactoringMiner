@@ -120,7 +120,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return false;
     }
 
-    public boolean isTopLevel() {
+    public boolean isTopLevel_RENAMED() {
 		return topLevel;
 	}
 
