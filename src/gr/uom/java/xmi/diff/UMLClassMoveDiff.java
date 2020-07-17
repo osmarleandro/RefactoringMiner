@@ -12,7 +12,7 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		return nextClass;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ");
 		sb.append(originalClass.getName());
