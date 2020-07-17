@@ -35,7 +35,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return renamedAttribute;
 	}
 
-	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
+	public Set<CandidateAttributeRefactoring> getAttributeRenames_RENAMED() {
 		return attributeRenames;
 	}
 
