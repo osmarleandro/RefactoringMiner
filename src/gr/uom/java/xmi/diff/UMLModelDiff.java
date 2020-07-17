@@ -2034,13 +2034,13 @@ public class UMLModelDiff {
 	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
 	   List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass addedClass : addedClasses) {
-		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
+		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed_RENAMED(addedClass)) {
 			   addedOperations.addAll(addedClass.getOperations());
 		   }
 	   }
 	   List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass removedClass : removedClasses) {
-		   if(!removedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(removedClass)) {
+		   if(!removedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed_RENAMED(removedClass)) {
 			   removedOperations.addAll(removedClass.getOperations());
 		   }
 	   }
@@ -2049,7 +2049,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
+   private boolean outerClassMovedOrRenamed_RENAMED(UMLClass umlClass) {
 	   if(!umlClass.isTopLevel()) {
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
 			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
