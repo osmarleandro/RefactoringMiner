@@ -333,7 +333,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 
-	public boolean implementsInterface(Set<UMLType> interfaces) {
+	public boolean implementsInterface_RENAMED(Set<UMLType> interfaces) {
 		for(UMLType type : interfaces) {
 			if(implementedInterfaces.contains(type))
 				return true;
