@@ -138,7 +138,7 @@ public class OperationInvocation extends AbstractCall {
 		return methodName;
 	}
 
-    public int numberOfSubExpressions() {
+    public int numberOfSubExpressions_RENAMED() {
     	return subExpressions.size();
     }
 

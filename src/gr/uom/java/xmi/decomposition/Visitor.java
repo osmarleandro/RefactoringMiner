@@ -513,7 +513,7 @@ public class Visitor extends ASTVisitor {
 		for(String key : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(key);
 			OperationInvocation invocation = invocations.get(0);
-			if(key.startsWith(methodInvocation) && invocation.numberOfSubExpressions() > 0 &&
+			if(key.startsWith(methodInvocation) && invocation.numberOfSubExpressions_RENAMED() > 0 &&
 					!(invocation.getName().equals("length") && invocation.getArguments().size() == 0)) {
 				builderPatternChains.add(node);
 			}
@@ -549,8 +549,8 @@ public class Visitor extends ASTVisitor {
 	}
 
 	private boolean complexInvocation(OperationInvocation invocation) {
-		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
-				invocation.numberOfSubExpressions() > 15;
+		return (invocation.numberOfSubExpressions_RENAMED() > 3 && invocation.containsVeryLongSubExpression()) ||
+				invocation.numberOfSubExpressions_RENAMED() > 15;
 	}
 
 	public static String processMethodInvocation(MethodInvocation node) {
