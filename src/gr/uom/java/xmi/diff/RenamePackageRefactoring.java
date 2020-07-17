@@ -33,7 +33,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return pattern;
 	}
 
-	public List<MoveClassRefactoring> getMoveClassRefactorings() {
+	public List<MoveClassRefactoring> getMoveClassRefactorings_RENAMED() {
 		return moveClassRefactorings;
 	}
 
