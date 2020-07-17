@@ -130,7 +130,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getChangedTypeAttribute().getLocationInfo().getFilePath(), getClassNameAfter()));
 		return pairs;
