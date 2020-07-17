@@ -988,7 +988,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void checkForOperationSignatureChanges() throws RefactoringMinerTimedOutException {
-		consistentMethodInvocationRenames = findConsistentMethodInvocationRenames();
+		consistentMethodInvocationRenames = findConsistentMethodInvocationRenames_RENAMED();
 		if(removedOperations.size() <= addedOperations.size()) {
 			for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
 				UMLOperation removedOperation = removedOperationIterator.next();
@@ -1071,7 +1071,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
+	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames_RENAMED() {
 		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
