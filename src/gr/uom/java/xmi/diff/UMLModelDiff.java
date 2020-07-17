@@ -936,7 +936,7 @@ public class UMLModelDiff {
 	   return mappers;
    }
 
-   private List<ExtractClassRefactoring> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
+   private List<ExtractClassRefactoring> identifyExtractClassRefactorings_RENAMED(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
 	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
 	   for(UMLClass addedClass : addedClasses) {
 		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
@@ -1457,10 +1457,10 @@ public class UMLModelDiff {
 		 }
 	  }
 	  refactorings.addAll(identifyExtractSuperclassRefactorings());
-	  refactorings.addAll(identifyExtractClassRefactorings(commonClassDiffList));
-      refactorings.addAll(identifyExtractClassRefactorings(classMoveDiffList));
-      refactorings.addAll(identifyExtractClassRefactorings(innerClassMoveDiffList));
-      refactorings.addAll(identifyExtractClassRefactorings(classRenameDiffList));
+	  refactorings.addAll(identifyExtractClassRefactorings_RENAMED(commonClassDiffList));
+      refactorings.addAll(identifyExtractClassRefactorings_RENAMED(classMoveDiffList));
+      refactorings.addAll(identifyExtractClassRefactorings_RENAMED(innerClassMoveDiffList));
+      refactorings.addAll(identifyExtractClassRefactorings_RENAMED(classRenameDiffList));
       checkForOperationMovesBetweenCommonClasses();
       checkForOperationMovesIncludingAddedClasses();
       checkForOperationMovesIncludingRemovedClasses();
