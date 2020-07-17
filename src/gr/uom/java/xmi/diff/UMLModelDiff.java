@@ -1867,7 +1867,7 @@ public class UMLModelDiff {
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
                   if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
                 		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
-                		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
+                		  extractAndMoveMatchCondition_RENAMED(operationBodyMapper, mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
                 		  //extract inside moved or renamed class
                 		  ExtractOperationRefactoring extractOperationRefactoring =
@@ -1954,7 +1954,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean extractAndMoveMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
+   private boolean extractAndMoveMatchCondition_RENAMED(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
 		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
