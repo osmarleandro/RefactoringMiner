@@ -900,7 +900,7 @@ public class UMLModelDiff {
       return removedOperations;
    }
 
-   private List<UMLOperation> getRemovedAndInlinedOperationsInCommonClasses() {
+   private List<UMLOperation> getRemovedAndInlinedOperationsInCommonClasses_RENAMED() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
@@ -1466,7 +1466,7 @@ public class UMLModelDiff {
       checkForOperationMovesIncludingRemovedClasses();
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
       checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
-      checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses());
+      checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses_RENAMED());
       refactorings.addAll(checkForAttributeMovesBetweenCommonClasses());
       refactorings.addAll(checkForAttributeMovesIncludingAddedClasses());
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
