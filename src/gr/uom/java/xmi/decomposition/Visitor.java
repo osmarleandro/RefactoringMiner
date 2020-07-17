@@ -235,7 +235,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public void endVisit(AnonymousClassDeclaration node) {
-		DefaultMutableTreeNode parentNode = deleteNode(node);
+		DefaultMutableTreeNode parentNode = deleteNode_RENAMED(node);
 		for(ASTNode parent : builderPatternChains) {
 			if(isParent(node, parent) || isParent(parent, node)) {
 				removeAnonymousData();
@@ -269,7 +269,7 @@ public class Visitor extends ASTVisitor {
 		}
 	}
 
-	private DefaultMutableTreeNode deleteNode(AnonymousClassDeclaration childAnonymous) {
+	private DefaultMutableTreeNode deleteNode_RENAMED(AnonymousClassDeclaration childAnonymous) {
 		Enumeration enumeration = root.postorderEnumeration();
 		DefaultMutableTreeNode childNode = findNode(childAnonymous);
 		
