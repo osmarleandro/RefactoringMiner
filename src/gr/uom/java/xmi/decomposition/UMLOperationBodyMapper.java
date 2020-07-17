@@ -995,7 +995,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
 						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mapping.addReplacements(replacements);
+						mapping.addReplacements_RENAMED(replacements);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1070,7 +1070,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
 						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mapping.addReplacements(replacements);
+						mapping.addReplacements_RENAMED(replacements);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1163,7 +1163,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
-						mapping.addReplacements(replacements);
+						mapping.addReplacements_RENAMED(replacements);
 						for(AbstractCodeFragment leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
 								break;
@@ -1261,7 +1261,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
-						mapping.addReplacements(replacements);
+						mapping.addReplacements_RENAMED(replacements);
 						for(AbstractCodeFragment leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
 								break;

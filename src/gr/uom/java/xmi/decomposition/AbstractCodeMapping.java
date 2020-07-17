@@ -103,7 +103,7 @@ public abstract class AbstractCodeMapping {
 		this.replacements.add(replacement);
 	}
 
-	public void addReplacements(Set<Replacement> replacements) {
+	public void addReplacements_RENAMED(Set<Replacement> replacements) {
 		this.replacements.addAll(replacements);
 	}
 
