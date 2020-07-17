@@ -1650,7 +1650,7 @@ public class UMLModelDiff {
 	   return mappers;
    }
 
-   public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2(UMLOperation operation2) {
+   public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2_RENAMED(UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
 	   for(UMLClassDiff classDiff : commonClassDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
