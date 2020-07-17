@@ -1104,7 +1104,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingParameterRenameInOperationDiff(MergeVariableRefactoring ref) {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
-				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
+				if(ref.getMergedVariables_RENAMED().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
 						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
 					
@@ -1156,7 +1156,7 @@ public class VariableReplacementAnalysis {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof InlineVariableRefactoring) {
 				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
-				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {
+				if(ref.getMergedVariables_RENAMED().contains(inlineVariableRef.getVariableDeclaration())) {
 					return true;
 				}
 			}
@@ -1168,7 +1168,7 @@ public class VariableReplacementAnalysis {
 		for(MergeVariableRefactoring merge : variableMerges) {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
 					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
-					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
+					merge.getMergedVariables_RENAMED().contains(ref.getOriginalVariable()) &&
 					merge.getNewVariable().equals(ref.getRenamedVariable())) {
 				return true;
 			}

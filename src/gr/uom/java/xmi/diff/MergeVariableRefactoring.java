@@ -29,7 +29,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<VariableDeclaration> getMergedVariables() {
+	public Set<VariableDeclaration> getMergedVariables_RENAMED() {
 		return mergedVariables;
 	}
 
