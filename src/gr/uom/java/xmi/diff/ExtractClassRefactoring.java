@@ -64,7 +64,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return extractedAttributes;
 	}
 
-	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
+	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass_RENAMED() {
 		return attributeOfExtractedClassTypeInOriginalClass;
 	}
 
