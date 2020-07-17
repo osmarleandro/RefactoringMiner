@@ -1016,7 +1016,7 @@ public class UMLModelDiff {
 	   }
 	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
 	   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
-		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(attribute)) {
 			   commonAttributes.add(attribute);
 		   }
 	   }

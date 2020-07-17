@@ -132,7 +132,7 @@ public abstract class UMLAbstractClass {
 		return null;
 	}
 
-	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
+	public boolean containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))
 				return true;
@@ -252,14 +252,14 @@ public abstract class UMLAbstractClass {
 		int totalAttributes = 0;
 		for(UMLAttribute attribute : attributes) {
 			totalAttributes++;
-			if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
+			if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(attribute) ||
     				(pattern != null && umlClass.containsAttributeWithTheSameRenamePattern(attribute, pattern.reverse()))) {
 				commonAttributes.add(attribute);
 			}
 		}
 		for(UMLAttribute attribute : umlClass.attributes) {
 			totalAttributes++;
-			if(this.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
+			if(this.containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(attribute) ||
     				(pattern != null && this.containsAttributeWithTheSameRenamePattern(attribute, pattern))) {
 				commonAttributes.add(attribute);
 			}
@@ -293,12 +293,12 @@ public abstract class UMLAbstractClass {
 			}
 		}
 		for(UMLAttribute attribute : attributes) {
-			if(!umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+			if(!umlClass.containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(attribute)) {
 				return false;
 			}
 		}
 		for(UMLAttribute attribute : umlClass.attributes) {
-			if(!this.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+			if(!this.containsAttributeWithTheSameNameIgnoringChangedType_RENAMED(attribute)) {
 				return false;
 			}
 		}
