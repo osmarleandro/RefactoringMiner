@@ -1537,7 +1537,7 @@ public class UMLModelDiff {
 					  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
 					  refactorings.addAll(signatureRefactorings);
 					  if(signatureRefactorings.isEmpty()) {
-						  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  inferRefactoringsFromMatchingMappers_RENAMED(mappers, operationSignatureDiff, refactorings);
 					  }
 				  }
 			  }
@@ -1557,7 +1557,7 @@ public class UMLModelDiff {
 						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
 						  refactorings.addAll(signatureRefactorings);
 						  if(signatureRefactorings.isEmpty()) {
-							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  inferRefactoringsFromMatchingMappers_RENAMED(mappers, operationSignatureDiff, refactorings);
 						  }
 					  }
 				  }
@@ -1566,7 +1566,7 @@ public class UMLModelDiff {
 	  }
    }
 
-   private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
+   private void inferRefactoringsFromMatchingMappers_RENAMED(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
 	   for(UMLOperationBodyMapper mapper : mappers) {
 		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
