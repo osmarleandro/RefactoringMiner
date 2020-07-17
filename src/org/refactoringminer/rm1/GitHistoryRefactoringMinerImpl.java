@@ -595,13 +595,13 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 		pool.shutdown();
 		pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-		repositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent, deletedAndRenamedFileParentDirectories);
+		repositoryDirectories_RENAMED(currentCommit.getTree(), "", repositoryDirectoriesCurrent, deletedAndRenamedFileParentDirectories);
 		//allRepositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent);
 		//GHCommit parentCommit = repository.getCommit(parentCommitId);
 		//allRepositoryDirectories(parentCommit.getTree(), "", repositoryDirectoriesBefore);
 	}
 
-	private void repositoryDirectories(GHTree tree, String pathFromRoot, Set<String> repositoryDirectories, Set<String> targetPaths) throws IOException {
+	private void repositoryDirectories_RENAMED(GHTree tree, String pathFromRoot, Set<String> repositoryDirectories, Set<String> targetPaths) throws IOException {
 		for(GHTreeEntry entry : tree.getTree()) {
 			String path = null;
 			if(pathFromRoot.equals("")) {
@@ -618,7 +618,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 					repositoryDirectories.add(path);
 					GHTree asTree = entry.asTree();
 					if(asTree != null) {
-						repositoryDirectories(asTree, path, repositoryDirectories, targetPaths);
+						repositoryDirectories_RENAMED(asTree, path, repositoryDirectories, targetPaths);
 					}
 				}
 			}
