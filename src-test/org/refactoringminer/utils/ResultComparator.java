@@ -43,7 +43,7 @@ public class ResultComparator {
         this(false, false);
     }
 
-    public ResultComparator expect(RefactoringSet ... sets) {
+    public ResultComparator expect_RENAMED(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
