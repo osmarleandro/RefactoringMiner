@@ -63,7 +63,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
+	public Set<AbstractCodeMapping> getVariableReferences_RENAMED() {
 		return variableReferences;
 	}
 
