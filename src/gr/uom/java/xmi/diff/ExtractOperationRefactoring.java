@@ -99,7 +99,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return sourceOperationAfterExtraction;
 	}
 
-	public List<OperationInvocation> getExtractedOperationInvocations() {
+	public List<OperationInvocation> getExtractedOperationInvocations_RENAMED() {
 		return extractedOperationInvocations;
 	}
 

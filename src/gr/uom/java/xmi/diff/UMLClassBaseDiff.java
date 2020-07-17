@@ -652,7 +652,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
-					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
+					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations_RENAMED();
 					if(extractedInvocations.size() > 1) {
 						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
