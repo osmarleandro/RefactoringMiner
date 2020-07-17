@@ -1132,7 +1132,7 @@ public class VariableReplacementAnalysis {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
-						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
+						extractVariableRef.getOperationAfter_RENAMED().equals(ref.getOperationAfter())) {
 					return true;
 				}
 			}
