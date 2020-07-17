@@ -180,7 +180,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
+	protected List<Refactoring> detectRefactorings_RENAMED(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			List<String> filesBefore = new ArrayList<String>();
@@ -369,7 +369,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
 			}
 		} catch (MissingObjectException moe) {
-			this.detectRefactorings(handler, projectFolder, cloneURL, commitId);
+			this.detectRefactorings_RENAMED(handler, projectFolder, cloneURL, commitId);
 		} catch (RefactoringMinerTimedOutException e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
 		} catch (Exception e) {
