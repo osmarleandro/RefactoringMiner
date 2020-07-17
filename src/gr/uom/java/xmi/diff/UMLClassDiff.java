@@ -89,7 +89,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     	}
 	}
 
-	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
+	protected void createBodyMappers_RENAMED() throws RefactoringMinerTimedOutException {
 		for(UMLOperation originalOperation : originalClass.getOperations()) {
 			for(UMLOperation nextOperation : nextClass.getOperations()) {
 				if(originalOperation.equalsQualified(nextOperation)) {
