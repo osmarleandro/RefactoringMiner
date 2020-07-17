@@ -13,7 +13,7 @@ public class CallTree {
 		this.root = root;
 	}
 	
-	public List<CallTreeNode> getNodesInBreadthFirstOrder() {
+	public List<CallTreeNode> getNodesInBreadthFirstOrder_RENAMED() {
 		List<CallTreeNode> nodes = new ArrayList<CallTreeNode>();
 		List<CallTreeNode> queue = new LinkedList<CallTreeNode>();
 		nodes.add(root);
@@ -27,7 +27,7 @@ public class CallTree {
 	}
 	
 	public boolean contains(UMLOperation invokedOperation) {
-		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
+		for(CallTreeNode node : getNodesInBreadthFirstOrder_RENAMED()) {
 			if(node.getInvokedOperation().equals(invokedOperation)) {
 				return true;
 			}
