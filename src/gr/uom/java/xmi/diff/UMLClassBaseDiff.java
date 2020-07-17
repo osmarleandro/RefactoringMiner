@@ -509,7 +509,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					splitVariables.add(a2.getVariableDeclaration());
 				}
 			}
-			UMLAttribute a1 = findAttributeInOriginalClass(split.getBefore());
+			UMLAttribute a1 = findAttributeInOriginalClass(split.getBefore_RENAMED());
 			Set<CandidateSplitVariableRefactoring> set = splitMap.get(split);
 			for(CandidateSplitVariableRefactoring candidate : set) {
 				if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
@@ -535,14 +535,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				aliasedAttributesInOriginalClass, aliasedAttributesInNextClass);
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		for(Replacement pattern : allConsistentRenames) {
-			UMLAttribute a1 = findAttributeInOriginalClass(pattern.getBefore());
+			UMLAttribute a1 = findAttributeInOriginalClass(pattern.getBefore_RENAMED());
 			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
 			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 			for(CandidateAttributeRefactoring candidate : set) {
 				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
-								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
+								(!nextClass.containsAttributeWithName(pattern.getBefore_RENAMED()) || cyclicRename(renameMap, pattern)) &&
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
@@ -879,7 +879,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				Set<String> splitVariables = new LinkedHashSet<String>();
 				splitVariables.addAll(split.getSplitVariables());
 				splitVariables.addAll(newSplit.getSplitVariables());
-				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore(), splitVariables);
+				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore_RENAMED(), splitVariables);
 				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
 				candidates.add(candidate);
 				splitMap.put(replacement, candidates);
@@ -924,7 +924,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
 		for(String key : aliasedAttributesInOriginalClass.keySet()) {
-			if(aliasedAttributesInOriginalClass.get(key).contains(pattern.getBefore())) {
+			if(aliasedAttributesInOriginalClass.get(key).contains(pattern.getBefore_RENAMED())) {
 				return false;
 			}
 		}
@@ -942,9 +942,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
 				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
 			}
-			boolean variables1contains = (allVariables1.contains(pattern.getBefore()) &&
-					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore())) ||
-					allVariables1.contains("this."+pattern.getBefore());
+			boolean variables1contains = (allVariables1.contains(pattern.getBefore_RENAMED()) &&
+					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore_RENAMED())) ||
+					allVariables1.contains("this."+pattern.getBefore_RENAMED());
 			boolean variables2Contains = (allVariables2.contains(pattern.getAfter()) &&
 					!mapper.getOperation2().getParameterNameList().contains(pattern.getAfter())) ||
 					allVariables2.contains("this."+pattern.getAfter());
@@ -966,7 +966,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
 		for(Replacement r : renames.keySet()) {
-			if((rename.getAfter().equals(r.getBefore()) || rename.getBefore().equals(r.getAfter())) &&
+			if((rename.getAfter().equals(r.getBefore_RENAMED()) || rename.getBefore_RENAMED().equals(r.getAfter())) &&
 					(totalOccurrences(renames.get(rename)) > 1 || totalOccurrences(renames.get(r)) > 1))
 			return true;
 		}
@@ -1322,7 +1322,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
 		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
-			if(mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
+			if(mapper.getOperation1().getName().equals(rename.getBefore_RENAMED()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
 			}
 		}
@@ -1331,10 +1331,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
 		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
-			if(mapper.getOperation1().getName().equals(rename.getBefore()) && !mapper.getOperation2().getName().equals(rename.getAfter())) {
+			if(mapper.getOperation1().getName().equals(rename.getBefore_RENAMED()) && !mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
 			}
-			else if(!mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
+			else if(!mapper.getOperation1().getName().equals(rename.getBefore_RENAMED()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
 			}
 		}

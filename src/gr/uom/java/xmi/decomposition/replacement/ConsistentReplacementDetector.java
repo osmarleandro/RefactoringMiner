@@ -10,10 +10,10 @@ public class ConsistentReplacementDetector {
 			Set<T> currentRenames, T newRename) {
 		Set<T> inconsistentRenames = new LinkedHashSet<T>();
 		for(T rename : currentRenames) {
-			if(rename.getBefore().equals(newRename.getBefore()) && !rename.getAfter().equals(newRename.getAfter())) {
+			if(rename.getBefore_RENAMED().equals(newRename.getBefore_RENAMED()) && !rename.getAfter().equals(newRename.getAfter())) {
 				inconsistentRenames.add(rename);
 			}
-			else if(!rename.getBefore().equals(newRename.getBefore()) && rename.getAfter().equals(newRename.getAfter())) {
+			else if(!rename.getBefore_RENAMED().equals(newRename.getBefore_RENAMED()) && rename.getAfter().equals(newRename.getAfter())) {
 				inconsistentRenames.add(rename);
 			}
 		}
@@ -63,7 +63,7 @@ public class ConsistentReplacementDetector {
 		for(String key : aliasedAttributesInOriginalClass.keySet()) {
 			Set<String> aliasedAttributes = aliasedAttributesInOriginalClass.get(key);
 			for(T r : inconsistentRenames) {
-				if(aliasedAttributes.contains(r.getBefore())) {
+				if(aliasedAttributes.contains(r.getBefore_RENAMED())) {
 					renamesToBeRemoved.add(r);
 				}
 			}

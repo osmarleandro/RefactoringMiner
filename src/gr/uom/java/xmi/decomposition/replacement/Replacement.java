@@ -13,7 +13,7 @@ public class Replacement {
 		this.type = type;
 	}
 
-	public String getBefore() {
+	public String getBefore_RENAMED() {
 		return before;
 	}
 
@@ -53,7 +53,7 @@ public class Replacement {
 	}
 
 	public double normalizedEditDistance() {
-		String s1 = getBefore();
+		String s1 = getBefore_RENAMED();
 		String s2 = getAfter();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());

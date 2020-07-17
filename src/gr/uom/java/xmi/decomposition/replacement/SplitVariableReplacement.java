@@ -16,7 +16,7 @@ public class SplitVariableReplacement extends Replacement {
 	}
 
 	public boolean equal(SplitVariableReplacement other) {
-		return this.getBefore().equals(other.getBefore()) &&
+		return this.getBefore_RENAMED().equals(other.getBefore_RENAMED()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				other.splitVariables.containsAll(this.splitVariables);
 	}
@@ -24,11 +24,11 @@ public class SplitVariableReplacement extends Replacement {
 	public boolean commonBefore(SplitVariableReplacement other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.splitVariables);
 		interestion.retainAll(other.splitVariables);
-		return this.getBefore().equals(other.getBefore()) && interestion.size() == 0;
+		return this.getBefore_RENAMED().equals(other.getBefore_RENAMED()) && interestion.size() == 0;
 	}
 
 	public boolean subsumes(SplitVariableReplacement other) {
-		return this.getBefore().equals(other.getBefore()) &&
+		return this.getBefore_RENAMED().equals(other.getBefore_RENAMED()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				this.splitVariables.size() > other.splitVariables.size();
 	}
