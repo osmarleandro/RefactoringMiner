@@ -204,7 +204,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public void addChildMapper(UMLOperationBodyMapper mapper) {
+	public void addChildMapper_RENAMED(UMLOperationBodyMapper mapper) {
 		this.childMappers.add(mapper);
 		//TODO add logic to remove the mappings from "this" mapper,
 		//which are less similar than the mappings of the mapper passed as parameter
