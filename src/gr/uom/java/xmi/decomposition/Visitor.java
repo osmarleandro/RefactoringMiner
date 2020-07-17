@@ -711,7 +711,7 @@ public class Visitor extends ASTVisitor {
 			}
 			else {
 				String qualifierIdentifier = ((SimpleName)qualifier).getIdentifier();
-				MethodDeclaration parentMethodDeclaration = findParentMethodDeclaration(node);
+				MethodDeclaration parentMethodDeclaration = findParentMethodDeclaration_RENAMED(node);
 				if(parentMethodDeclaration != null) {
 					boolean qualifierIsParameter = false;
 					List<SingleVariableDeclaration> parameters = parentMethodDeclaration.parameters();
@@ -755,7 +755,7 @@ public class Visitor extends ASTVisitor {
 		return null;
 	}
 
-	private MethodDeclaration findParentMethodDeclaration(ASTNode node) {
+	private MethodDeclaration findParentMethodDeclaration_RENAMED(ASTNode node) {
 		ASTNode parent = node.getParent();
 		while(parent != null) {
 			if(parent instanceof MethodDeclaration) {
