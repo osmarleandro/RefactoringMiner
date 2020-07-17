@@ -14,7 +14,7 @@ public class InheritanceDetection {
 
 	public InheritanceDetection(UMLModelDiff modelDiff) {
 		this.subclassMap = new LinkedHashMap<String, LinkedHashSet<String>>();
-		generateNewInheritanceHierarchies(modelDiff);
+		generateNewInheritanceHierarchies_RENAMED(modelDiff);
 	}
 
 	private void addSubclassToSuperclass(String superclass, String subclass) {
@@ -29,7 +29,7 @@ public class InheritanceDetection {
 		}
 	}
 
-	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
+	private void generateNewInheritanceHierarchies_RENAMED(UMLModelDiff modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
 		for(UMLGeneralization generalization : addedGeneralizations) {
 			String superclass = generalization.getParent();
