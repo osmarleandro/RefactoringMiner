@@ -542,7 +542,7 @@ public class VariableReplacementAnalysis {
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
-						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments_RENAMED(mapping.getReplacements()) &&
 						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 					if(map.containsKey(replacement)) {
 						map.get(replacement).add(mapping);
@@ -558,7 +558,7 @@ public class VariableReplacementAnalysis {
 					String after = replacement.getAfter().contains("[") ? replacement.getAfter().substring(0, replacement.getAfter().indexOf("[")) : replacement.getAfter();
 					Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
 					if(!returnVariableMapping(mapping, replacement) &&
-							!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+							!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments_RENAMED(mapping.getReplacements()) &&
 							replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 						if(map.containsKey(variableReplacement)) {
 							map.get(variableReplacement).add(mapping);
@@ -583,7 +583,7 @@ public class VariableReplacementAnalysis {
 								String after = argument2.contains("[") ? argument2.substring(0, argument2.indexOf("[")) : argument2;
 								Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
 								if(!returnVariableMapping(mapping, replacement) &&
-										!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+										!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments_RENAMED(mapping.getReplacements()) &&
 										replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 									if(map.containsKey(variableReplacement)) {
 										map.get(variableReplacement).add(mapping);
@@ -608,7 +608,7 @@ public class VariableReplacementAnalysis {
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
-						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments_RENAMED(mapping.getReplacements()) &&
 						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
 					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
@@ -670,7 +670,7 @@ public class VariableReplacementAnalysis {
 				mapping.getFragment2().getString().equals("return " + replacement.getAfter() + ";\n");
 	}
 
-	private boolean containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(Set<Replacement> replacements) {
+	private boolean containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments_RENAMED(Set<Replacement> replacements) {
 		for(Replacement replacement : replacements) {
 			if(replacement instanceof MethodInvocationReplacement) {
 				MethodInvocationReplacement r = (MethodInvocationReplacement)replacement;
