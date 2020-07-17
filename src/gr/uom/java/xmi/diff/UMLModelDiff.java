@@ -464,7 +464,7 @@ public class UMLModelDiff {
 		   UMLClassMoveDiff classMoveI = allClassMoves.get(i);
 		   for(int j=i+1; j<allClassMoves.size(); j++) {
 			   UMLClassMoveDiff classMoveJ = allClassMoves.get(j);
-			   if(classMoveI.isInnerClassMove(classMoveJ)) {
+			   if(classMoveI.isInnerClassMove_RENAMED(classMoveJ)) {
 				   innerClassMoveDiffList.add(classMoveJ);
 			   }
 		   }
@@ -515,7 +515,7 @@ public class UMLModelDiff {
       
       for(UMLClassRenameDiff classRename : classRenameDiffList) {
          for(UMLClassMoveDiff classMove : allClassMoves) {
-            if(classRename.isInnerClassMove(classMove)) {
+            if(classRename.isInnerClassMove_RENAMED(classMove)) {
                innerClassMoveDiffList.add(classMove);
             }
          }
