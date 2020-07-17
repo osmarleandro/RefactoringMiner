@@ -143,7 +143,7 @@ public class ExtractOperationDetection {
 				}
 			}
 		}
-		List<LambdaExpressionObject> lambdas = statement.getLambdas();
+		List<LambdaExpressionObject> lambdas = statement.getLambdas_RENAMED();
 		for(LambdaExpressionObject lambda : lambdas) {
 			if(lambda.getBody() != null) {
 				for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
