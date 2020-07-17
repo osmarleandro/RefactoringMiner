@@ -829,7 +829,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
-			return operationBody.loopWithVariables(currentElementName, collectionName);
+			return operationBody.loopWithVariables_RENAMED(currentElementName, collectionName);
 		}
 		return null;
 	}

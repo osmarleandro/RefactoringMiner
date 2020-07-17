@@ -294,7 +294,7 @@ public class OperationBody {
 		return compositeStatement.aliasedAttributes();
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public CompositeStatementObject loopWithVariables_RENAMED(String currentElementName, String collectionName) {
 		return compositeStatement.loopWithVariables(currentElementName, collectionName);
 	}
 }
