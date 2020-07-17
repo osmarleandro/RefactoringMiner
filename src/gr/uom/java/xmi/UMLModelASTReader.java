@@ -163,7 +163,7 @@ public class UMLModelASTReader {
         for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
         	if(abstractTypeDeclaration instanceof TypeDeclaration) {
         		TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
-        		processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
+        		processTypeDeclaration_RENAMED(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
         	}
         	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
         		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
@@ -231,7 +231,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof TypeDeclaration) {
 				TypeDeclaration typeDeclaration = (TypeDeclaration)bodyDeclaration;
-				processTypeDeclaration(cu, typeDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processTypeDeclaration_RENAMED(cu, typeDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 			else if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
@@ -240,7 +240,7 @@ public class UMLModelASTReader {
 		}
 	}
 
-	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
+	private void processTypeDeclaration_RENAMED(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
@@ -312,7 +312,7 @@ public class UMLModelASTReader {
 		
 		TypeDeclaration[] types = typeDeclaration.getTypes();
 		for(TypeDeclaration type : types) {
-			processTypeDeclaration(cu, type, umlClass.getName(), sourceFile, importedTypes);
+			processTypeDeclaration_RENAMED(cu, type, umlClass.getName(), sourceFile, importedTypes);
 		}
 		
 		List<BodyDeclaration> bodyDeclarations = typeDeclaration.bodyDeclarations();
