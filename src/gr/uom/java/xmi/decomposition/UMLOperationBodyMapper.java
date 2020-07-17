@@ -871,7 +871,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return count;
 	}
 
-	public double normalizedEditDistance() {
+	public double normalizedEditDistance_RENAMED() {
 		double editDistance = 0;
 		double maxLength = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
