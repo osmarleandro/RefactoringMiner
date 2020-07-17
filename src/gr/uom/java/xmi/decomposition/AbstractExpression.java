@@ -39,7 +39,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     	Visitor visitor = new Visitor(cu, filePath);
     	expression.accept(visitor);
 		this.variables = visitor.getVariables();
-		this.types = visitor.getTypes();
+		this.types = visitor.getTypes_RENAMED();
 		this.variableDeclarations = visitor.getVariableDeclarations();
 		this.methodInvocationMap = visitor.getMethodInvocationMap();
 		this.anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();

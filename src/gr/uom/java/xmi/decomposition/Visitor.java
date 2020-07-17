@@ -796,7 +796,7 @@ public class Visitor extends ASTVisitor {
 		return variableDeclarations;
 	}
 
-	public List<String> getTypes() {
+	public List<String> getTypes_RENAMED() {
 		return types;
 	}
 
