@@ -146,7 +146,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getArrayAccesses() {
+	public List<String> getArrayAccesses_RENAMED() {
 		return arrayAccesses;
 	}
 
