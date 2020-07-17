@@ -30,10 +30,10 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		if(extractedClass.isInterface())
 			return RefactoringType.EXTRACT_INTERFACE;
 		else
