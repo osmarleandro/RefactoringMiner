@@ -285,7 +285,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	public void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
+	public void fileTreeDiff_RENAMED(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
         if (currentCommit.getParentCount() > 0) {
         	ObjectId oldTree = currentCommit.getParent(0).getTree();
 	        ObjectId newTree = currentCommit.getTree();
