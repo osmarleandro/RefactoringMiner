@@ -2094,7 +2094,7 @@ public class UMLModelDiff {
 	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
 	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
 	            addedOperationIterator.remove();
-	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
+	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass_RENAMED(firstMappers);
 	            if(sameSourceAndTargetClass) {
 	            	TreeSet<UMLOperationBodyMapper> set = null;
 	            	if(allRenamedOperations(firstMappers)) {
@@ -2179,7 +2179,7 @@ public class UMLModelDiff {
 	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
 	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
 	            removedOperationIterator.remove();
-	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
+	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass_RENAMED(firstMappers);
 	            if(sameSourceAndTargetClass) {
 	            	TreeSet<UMLOperationBodyMapper> set = null;
 	            	if(allRenamedOperations(firstMappers)) {
@@ -2277,7 +2277,7 @@ public class UMLModelDiff {
 		return true;
 	}
 
-   private boolean sameSourceAndTargetClass(List<UMLOperationBodyMapper> mappers) {
+   private boolean sameSourceAndTargetClass_RENAMED(List<UMLOperationBodyMapper> mappers) {
 	   if(mappers.size() == 1) {
 		   return false;
 	   }
