@@ -138,7 +138,7 @@ public class VariableReplacementAnalysis {
 		return variableRenames;
 	}
 
-	public Set<MergeVariableRefactoring> getVariableMerges() {
+	public Set<MergeVariableRefactoring> getVariableMerges_RENAMED() {
 		return variableMerges;
 	}
 
