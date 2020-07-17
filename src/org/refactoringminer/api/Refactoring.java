@@ -32,7 +32,7 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("type").append("\"").append(": ").append("\"").append(getName()).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("description").append("\"").append(": ").append("\"");
-		encoder.quoteAsString(toString().replace('\t', ' '), sb);
+		encoder.quoteAsString(toString_RENAMED().replace('\t', ' '), sb);
 		sb.append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("leftSideLocations").append("\"").append(": ").append(leftSide()).append(",").append("\n");
 		sb.append("\t").append("\"").append("rightSideLocations").append("\"").append(": ").append(rightSide()).append("\n");

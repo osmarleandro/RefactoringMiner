@@ -140,7 +140,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 				this.type.equalsQualified(umlAttribute.type);
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
 		sb.append(" ");
@@ -161,7 +161,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	}
 
 	public int compareTo(UMLAttribute attribute) {
-		return this.toString().compareTo(attribute.toString());
+		return this.toString_RENAMED().compareTo(attribute.toString_RENAMED());
 	}
 
 	public double normalizedNameDistance(UMLAttribute attribute) {
