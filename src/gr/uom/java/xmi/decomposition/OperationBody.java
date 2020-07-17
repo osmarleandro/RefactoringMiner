@@ -137,7 +137,7 @@ public class OperationBody {
 			parent.addStatement(child);
 			SingleVariableDeclaration variableDeclaration = enhancedForStatement.getParameter();
 			VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
-			child.addVariableDeclaration(vd);
+			child.addVariableDeclaration_RENAMED(vd);
 			AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.ENHANCED_FOR_STATEMENT_PARAMETER_NAME);
 			child.addExpression(variableDeclarationName);
 			if(variableDeclaration.getInitializer() != null) {
@@ -235,7 +235,7 @@ public class OperationBody {
 				parent.addStatement(catchClauseStatementObject);
 				SingleVariableDeclaration variableDeclaration = catchClause.getException();
 				VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
-				catchClauseStatementObject.addVariableDeclaration(vd);
+				catchClauseStatementObject.addVariableDeclaration_RENAMED(vd);
 				AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.CATCH_CLAUSE_EXCEPTION_NAME);
 				catchClauseStatementObject.addExpression(variableDeclarationName);
 				if(variableDeclaration.getInitializer() != null) {

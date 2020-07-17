@@ -52,7 +52,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return expressionList;
 	}
 
-	public void addVariableDeclaration(VariableDeclaration declaration) {
+	public void addVariableDeclaration_RENAMED(VariableDeclaration declaration) {
 		this.variableDeclarations.add(declaration);
 	}
 
