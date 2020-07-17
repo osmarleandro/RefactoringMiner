@@ -634,13 +634,13 @@ public class UMLModelDiff {
 			   filtered.addAll(refs);
 		   }
 		   else {
-			   filtered.addAll(filterOutBasedOnFilePath(refs));
+			   filtered.addAll(filterOutBasedOnFilePath_RENAMED(refs));
 		   }
 	   }
 	   return filtered;
    }
 
-   private List<MoveAttributeRefactoring> filterOutBasedOnFilePath(List<MoveAttributeRefactoring> refs) {
+   private List<MoveAttributeRefactoring> filterOutBasedOnFilePath_RENAMED(List<MoveAttributeRefactoring> refs) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> groupBySourceFilePath = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
 	   for(MoveAttributeRefactoring ref : refs) {
