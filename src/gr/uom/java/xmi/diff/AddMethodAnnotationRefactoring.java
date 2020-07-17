@@ -37,7 +37,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(operationBefore.codeRange()
 				.setDescription("original method declaration")
