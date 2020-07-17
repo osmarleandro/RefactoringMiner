@@ -63,7 +63,7 @@ public class CodeRange {
 		return this;
 	}
 
-	public String getCodeElement() {
+	public String getCodeElement_RENAMED() {
 		return codeElement;
 	}
 
