@@ -51,7 +51,7 @@ public class ObjectCreation extends AbstractCall {
 		}
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return getType().toString();
 	}
 

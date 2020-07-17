@@ -328,7 +328,7 @@ public abstract class AbstractCodeMapping {
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
 		if(initializerInvocation != null && replacementInvocation != null) {
-			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
+			if(!initializerInvocation.getName_RENAMED().equals(replacementInvocation.getName_RENAMED())) {
 				methodInvocationMatch = false;
 			}
 		}
