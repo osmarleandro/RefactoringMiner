@@ -68,7 +68,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return normalizeParameters(stripTypeArguments(entity).replace('#', '.')).replace(" ", "");
   }
 
-  public static String parentOf(String entity) {
+  public static String parentOf_RENAMED(String entity) {
       return entity.substring(0, entity.lastIndexOf('.'));
   }
 
