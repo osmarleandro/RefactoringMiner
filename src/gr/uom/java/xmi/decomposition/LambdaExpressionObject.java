@@ -34,7 +34,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	}
 
 	@Override
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
