@@ -77,7 +77,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -103,7 +103,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		if (newAttribute == null) {
 			if (other.newAttribute != null)
 				return false;
-		} else if (!newAttribute.equals(other.newAttribute))
+		} else if (!newAttribute.equals_RENAMED(other.newAttribute))
 			return false;
 		return true;
 	}
