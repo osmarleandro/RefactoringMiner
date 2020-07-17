@@ -441,7 +441,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
 				if(statement.getString().startsWith("return ")) {
-					for(String variable : statement.getVariables()) {
+					for(String variable : statement.getVariables_RENAMED()) {
 						if(statement.getString().equals("return " + variable + ";\n") && parameters.size() == 0) {
 							return true;
 						}
@@ -472,7 +472,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
-				for(String variable : statement.getVariables()) {
+				for(String variable : statement.getVariables_RENAMED()) {
 					if(statement.getString().equals(variable + "=" + parameterNames.get(0) + ";\n")) {
 						return true;
 					}
