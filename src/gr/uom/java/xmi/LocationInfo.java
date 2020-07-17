@@ -47,7 +47,7 @@ public class LocationInfo {
 		return startOffset;
 	}
 
-	public int getEndOffset() {
+	public int getEndOffset_RENAMED() {
 		return endOffset;
 	}
 
