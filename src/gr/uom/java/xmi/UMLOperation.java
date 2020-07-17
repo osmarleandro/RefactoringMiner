@@ -164,7 +164,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<VariableDeclaration>();
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration> getVariableDeclarationsInScope_RENAMED(LocationInfo location) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclarationsInScope(location);
 		return new ArrayList<VariableDeclaration>();
