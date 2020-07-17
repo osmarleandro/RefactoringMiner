@@ -423,10 +423,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			setNewVisibility(nextClass.getVisibility());
 		}
 		if(!originalClass.isInterface() && !nextClass.isInterface()) {
-			if(originalClass.isAbstract() != nextClass.isAbstract()) {
+			if(originalClass.isAbstract_RENAMED() != nextClass.isAbstract_RENAMED()) {
 				setAbstractionChanged(true);
-				setOldAbstraction(originalClass.isAbstract());
-				setNewAbstraction(nextClass.isAbstract());
+				setOldAbstraction(originalClass.isAbstract_RENAMED());
+				setNewAbstraction(nextClass.isAbstract_RENAMED());
 			}
 		}
 		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
