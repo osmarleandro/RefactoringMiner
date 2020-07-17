@@ -23,7 +23,7 @@ public interface GitService {
 	 */
 	Repository cloneIfNotExists(String folder, String cloneUrl/*, String branch*/) throws Exception;
 	
-	Repository openRepository(String folder) throws Exception;
+	Repository openRepository_RENAMED(String folder) throws Exception;
 
 	int countCommits(Repository repository, String branch) throws Exception;
 

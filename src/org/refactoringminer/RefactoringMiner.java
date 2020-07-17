@@ -51,7 +51,7 @@ public class RefactoringMiner {
 			branch = args[2];
 		}
 		GitService gitService = new GitServiceImpl();
-		try (Repository repo = gitService.openRepository(folder)) {
+		try (Repository repo = gitService.openRepository_RENAMED(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
@@ -92,7 +92,7 @@ public class RefactoringMiner {
 		String startCommit = args[2];
 		String endCommit = (args.length == 4) ? args[3] : null;
 		GitService gitService = new GitServiceImpl();
-		try (Repository repo = gitService.openRepository(folder)) {
+		try (Repository repo = gitService.openRepository_RENAMED(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
@@ -133,7 +133,7 @@ public class RefactoringMiner {
 		String startTag = args[2];
 		String endTag = (args.length == 4) ? args[3] : null;
 		GitService gitService = new GitServiceImpl();
-		try (Repository repo = gitService.openRepository(folder)) {
+		try (Repository repo = gitService.openRepository_RENAMED(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
@@ -173,7 +173,7 @@ public class RefactoringMiner {
 		String folder = args[1];
 		String commitId = args[2];
 		GitService gitService = new GitServiceImpl();
-		try (Repository repo = gitService.openRepository(folder)) {
+		try (Repository repo = gitService.openRepository_RENAMED(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
