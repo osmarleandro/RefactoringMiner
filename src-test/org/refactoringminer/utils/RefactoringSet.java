@@ -63,7 +63,7 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
+    public RefactoringSet add_RENAMED(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
             this.add(r);
         }
@@ -72,7 +72,7 @@ public class RefactoringSet {
 
     public RefactoringSet ignoring(EnumSet<RefactoringType> refTypes) {
         RefactoringSet newSet = new RefactoringSet(project, revision);
-        newSet.add(refactorings.stream()
+        newSet.add_RENAMED(refactorings.stream()
             .filter(r -> !refTypes.contains(r.getRefactoringType()))
             .collect(Collectors.toList()));
         return newSet;
@@ -82,7 +82,7 @@ public class RefactoringSet {
             return this;
         }
         RefactoringSet newSet = new RefactoringSet(project, revision);
-        newSet.add(refactorings.stream()
+        newSet.add_RENAMED(refactorings.stream()
             .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
             .collect(Collectors.toList()));
         return newSet;
