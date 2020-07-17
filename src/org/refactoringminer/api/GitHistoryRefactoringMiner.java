@@ -96,7 +96,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param timeout A timeout, in seconds, per commit in the pull request. When timeout is reached, the operation stops and returns no refactorings.
 	 * @throws Exception propagated from org.kohsuke.github API
 	 */
-	void detectAtPullRequest(String gitURL, int pullRequest, RefactoringHandler handler, int timeout) throws Exception;
+	void detectAtPullRequest_RENAMED(String gitURL, int pullRequest, RefactoringHandler handler, int timeout) throws Exception;
 
 	/**
 	 * Detect refactorings performed in the specified commit. 
