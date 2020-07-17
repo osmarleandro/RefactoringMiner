@@ -1865,7 +1865,7 @@ public class UMLModelDiff {
             		  parameterToArgumentMap2.put("this.", "");
             	  }
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
-                  if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
+                  if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression_RENAMED(addedOperationInvocation, addedOperation, addedOperations) &&
                 		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
                 		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
@@ -1936,7 +1936,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
+   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression_RENAMED(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
 	   String expression = invocation.getExpression();
 	   if(expression != null) {
 		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
