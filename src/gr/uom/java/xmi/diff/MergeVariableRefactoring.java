@@ -49,7 +49,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		return variableReferences;
 	}
 
-	private boolean allVariablesAreParameters() {
+	private boolean allVariablesAreParameters_RENAMED() {
 		for(VariableDeclaration declaration : mergedVariables) {
 			if(!declaration.isParameter()) {
 				return false;
@@ -59,7 +59,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(allVariablesAreParameters())
+		if(allVariablesAreParameters_RENAMED())
 			return RefactoringType.MERGE_PARAMETER;
 		return RefactoringType.MERGE_VARIABLE;
 	}
