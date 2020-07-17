@@ -20,7 +20,7 @@ public class UMLJavadoc {
 
 	public boolean contains(String s) {
 		for(UMLTagElement tag : tags) {
-			if(tag.contains(s)) {
+			if(tag.contains_RENAMED(s)) {
 				return true;
 			}
 		}

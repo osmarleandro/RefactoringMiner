@@ -24,7 +24,7 @@ public class UMLTagElement {
 		return fragments;
 	}
 
-	public boolean contains(String s) {
+	public boolean contains_RENAMED(String s) {
 		for(String fragment : fragments) {
 			if(fragment.contains(s)) {
 				return true;
