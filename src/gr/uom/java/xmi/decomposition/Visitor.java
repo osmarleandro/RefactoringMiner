@@ -207,7 +207,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(SingleVariableDeclaration node) {
+	public boolean visit_RENAMED(SingleVariableDeclaration node) {
 		VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 		variableDeclarations.add(variableDeclaration);
 		if(current.getUserObject() != null) {
