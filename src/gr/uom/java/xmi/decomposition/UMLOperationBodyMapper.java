@@ -2030,7 +2030,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					String statementWithoutAnonymous1 = statementWithoutAnonymous(statement1, anonymousClassDeclaration1, operation1);
 					String statementWithoutAnonymous2 = statementWithoutAnonymous(statement2, anonymousClassDeclaration2, operation2);
 					if(statementWithoutAnonymous1.equals(statementWithoutAnonymous2) ||
-							identicalAfterVariableAndTypeReplacements(statementWithoutAnonymous1, statementWithoutAnonymous2, replacementInfo.getReplacements()) ||
+							identicalAfterVariableAndTypeReplacements_RENAMED(statementWithoutAnonymous1, statementWithoutAnonymous2, replacementInfo.getReplacements()) ||
 							(invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null &&
 							(invocationCoveringTheEntireStatement1.identicalWithMergedArguments(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements()) ||
 							invocationCoveringTheEntireStatement1.identicalWithDifferentNumberOfArguments(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)))) {
@@ -2721,7 +2721,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private boolean identicalAfterVariableAndTypeReplacements(String s1, String s2, Set<Replacement> replacements) {
+	private boolean identicalAfterVariableAndTypeReplacements_RENAMED(String s1, String s2, Set<Replacement> replacements) {
 		String s1AfterReplacements = new String(s1);
 		for(Replacement replacement : replacements) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) || replacement.getType().equals(ReplacementType.TYPE)) {
