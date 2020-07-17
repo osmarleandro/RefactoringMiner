@@ -48,7 +48,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return RefactoringType.MOVE_CLASS;
 	}
 
-	public String getOriginalClassName() {
+	public String getOriginalClassName_RENAMED() {
 		return originalClass.getName();
 	}
 
