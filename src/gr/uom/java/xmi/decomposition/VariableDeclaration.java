@@ -107,7 +107,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return initializer;
 	}
 
-	public UMLType getType() {
+	public UMLType getType_RENAMED() {
 		return type;
 	}
 

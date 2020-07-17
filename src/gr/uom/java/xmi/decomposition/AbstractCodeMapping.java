@@ -177,7 +177,7 @@ public abstract class AbstractCodeMapping {
 				}
 				if(variableName.equals(replacement.getAfter()) && initializer != null) {
 					if(initializer.toString().equals(replacement.getBefore()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
+							(initializer.toString().equals("(" + declaration.getType_RENAMED() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
@@ -260,7 +260,7 @@ public abstract class AbstractCodeMapping {
 				}
 				if(variableName.equals(replacement.getBefore()) && initializer != null) {
 					if(initializer.toString().equals(replacement.getAfter()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
+							(initializer.toString().equals("(" + declaration.getType_RENAMED() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
