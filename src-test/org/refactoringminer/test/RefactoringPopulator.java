@@ -100,7 +100,7 @@ public class RefactoringPopulator {
 
 	private static void prepareFSERefactorings(TestBuilder test, BigInteger flag)
 			throws JsonParseException, JsonMappingException, IOException {
-		List<Root> roots = getFSERefactorings(flag);
+		List<Root> roots = getFSERefactorings_RENAMED(flag);
 		
 		for (Root root : roots) {
 			test.project(root.repository, "master").atCommit(root.sha1)
@@ -143,7 +143,7 @@ public class RefactoringPopulator {
 		return deletedCommits;
 	}
 
-	public static List<Root> getFSERefactorings(BigInteger flag) throws JsonParseException, JsonMappingException, IOException {
+	public static List<Root> getFSERefactorings_RENAMED(BigInteger flag) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		String jsonFile = System.getProperty("user.dir") + "/src-test/Data/data.json";
@@ -185,7 +185,7 @@ public class RefactoringPopulator {
 	public static void printRefDiffResults(BigInteger flag) {
 		Hashtable<String, Tuple> result = new Hashtable<>();
 		try {
-			List<Root> roots = getFSERefactorings(flag);
+			List<Root> roots = getFSERefactorings_RENAMED(flag);
 			for (Refactorings ref : Refactorings.values()) {
 				if (ref == Refactorings.All)
 					continue;
