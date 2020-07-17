@@ -51,11 +51,11 @@ public class MergeVariableRefactoring implements Refactoring {
 
 	private boolean allVariablesAreParameters() {
 		for(VariableDeclaration declaration : mergedVariables) {
-			if(!declaration.isParameter()) {
+			if(!declaration.isParameter_RENAMED()) {
 				return false;
 			}
 		}
-		return newVariable.isParameter();
+		return newVariable.isParameter_RENAMED();
 	}
 
 	public RefactoringType getRefactoringType() {

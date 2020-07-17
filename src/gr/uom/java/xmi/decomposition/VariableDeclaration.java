@@ -115,7 +115,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return scope;
 	}
 
-	public boolean isParameter() {
+	public boolean isParameter_RENAMED() {
 		return isParameter;
 	}
 
