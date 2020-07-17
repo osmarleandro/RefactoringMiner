@@ -1305,7 +1305,7 @@ public class UMLModelDiff {
          extractMergePatterns(classDiff, mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
-      Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
+      Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap_RENAMED(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
@@ -1486,7 +1486,7 @@ public class UMLModelDiff {
       return new ArrayList<Refactoring>(refactorings);
    }
 
-   private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
+   private Map<RenamePattern, Integer> typeRenamePatternMap_RENAMED(Set<Refactoring> refactorings) {
 	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
 	  for(Refactoring ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
