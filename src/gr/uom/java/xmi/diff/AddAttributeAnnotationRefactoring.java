@@ -63,7 +63,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
@@ -83,7 +83,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(annotation);
 		sb.append(" in attribute ");
 		sb.append(attributeAfter);
