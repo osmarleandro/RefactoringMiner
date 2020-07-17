@@ -22,7 +22,7 @@ public class UMLTypeParameter {
 		return typeBounds;
 	}
 
-	public void addTypeBound(UMLType type) {
+	public void addTypeBound_RENAMED(UMLType type) {
 		typeBounds.add(type);
 	}
 
