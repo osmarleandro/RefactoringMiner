@@ -227,7 +227,7 @@ public class Visitor extends ASTVisitor {
 		anonymousClassDeclarations.add(childAnonymous);
 		this.current = childNode;
 		for(ASTNode parent : builderPatternChains) {
-			if(isParent(node, parent)) {
+			if(isParent_RENAMED(node, parent)) {
 				return false;
 			}
 		}
@@ -237,7 +237,7 @@ public class Visitor extends ASTVisitor {
 	public void endVisit(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode parentNode = deleteNode(node);
 		for(ASTNode parent : builderPatternChains) {
-			if(isParent(node, parent) || isParent(parent, node)) {
+			if(isParent_RENAMED(node, parent) || isParent_RENAMED(parent, node)) {
 				removeAnonymousData();
 				break;
 			}
@@ -277,7 +277,7 @@ public class Visitor extends ASTVisitor {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
+			if(currentAnonymous != null && isParent_RENAMED(childAnonymous, currentAnonymous.getAstNode())) {
 				parentNode = currentNode;
 				break;
 			}
@@ -297,7 +297,7 @@ public class Visitor extends ASTVisitor {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
+			if(currentAnonymous != null && isParent_RENAMED(childAnonymous, currentAnonymous.getAstNode())) {
 				parentNode = currentNode;
 				break;
 			}
@@ -319,7 +319,7 @@ public class Visitor extends ASTVisitor {
 		return null;
 	}
 
-	private boolean isParent(ASTNode child, ASTNode parent) {
+	private boolean isParent_RENAMED(ASTNode child, ASTNode parent) {
 		ASTNode current = child;
 		while(current.getParent() != null) {
 			if(current.getParent().equals(parent))
