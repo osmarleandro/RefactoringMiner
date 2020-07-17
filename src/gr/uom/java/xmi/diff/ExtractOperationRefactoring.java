@@ -125,7 +125,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>child</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeAfterExtraction() {
+	public CodeRange getSourceOperationCodeRangeAfterExtraction_RENAMED() {
 		return sourceOperationAfterExtraction.codeRange();
 	}
 
@@ -223,7 +223,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
 		}
-		ranges.add(getSourceOperationCodeRangeAfterExtraction()
+		ranges.add(getSourceOperationCodeRangeAfterExtraction_RENAMED()
 				.setDescription("source method declaration after extraction")
 				.setCodeElement(sourceOperationAfterExtraction.toString()));
 		for(OperationInvocation invocation : extractedOperationInvocations) {
