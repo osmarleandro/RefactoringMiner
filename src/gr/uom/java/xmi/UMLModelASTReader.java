@@ -85,7 +85,7 @@ public class UMLModelASTReader {
 	}
 
 	public UMLModelASTReader(File rootFolder, List<String> javaFiles) throws IOException {
-		this(rootFolder, buildAstParser(rootFolder), javaFiles, getDirectories(rootFolder, javaFiles));
+		this(rootFolder, buildAstParser(rootFolder), javaFiles, getDirectories_RENAMED(rootFolder, javaFiles));
 	}
 
 	private static List<String> getJavaFilePaths(File folder) throws IOException {
@@ -98,7 +98,7 @@ public class UMLModelASTReader {
 		return paths;
 	}
 
-	private static Set<String> getDirectories(File folder, List<String> paths) {
+	private static Set<String> getDirectories_RENAMED(File folder, List<String> paths) {
 		Set<String> repositoryDirectories = new LinkedHashSet<String>();
 		for(String path : paths) {
 			String directory = new String(path);
