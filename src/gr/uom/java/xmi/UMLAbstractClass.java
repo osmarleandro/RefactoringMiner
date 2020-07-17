@@ -170,7 +170,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
+	public boolean hasAttributesAndOperationsWithCommonNames_RENAMED(UMLAbstractClass umlClass) {
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
 		for(UMLOperation operation : operations) {
