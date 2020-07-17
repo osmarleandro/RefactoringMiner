@@ -214,7 +214,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getExtractedOperationCodeRange()
 				.setDescription("extracted method declaration")
