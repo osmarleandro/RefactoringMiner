@@ -417,7 +417,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public OperationInvocation isDelegate() {
 		if(getBody() != null) {
-			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
+			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements_RENAMED();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
 				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
@@ -436,7 +436,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean isGetter() {
 		if(getBody() != null) {
-			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
+			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements_RENAMED();
 			List<UMLParameter> parameters = getParametersWithoutReturnType();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
@@ -469,7 +469,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public boolean isSetter() {
 		List<String> parameterNames = getParameterNameList();
 		if(getBody() != null && parameterNames.size() == 1) {
-			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
+			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements_RENAMED();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
 				for(String variable : statement.getVariables()) {

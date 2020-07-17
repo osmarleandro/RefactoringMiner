@@ -36,7 +36,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		statement.setParent(this);
 	}
 
-	public List<AbstractStatement> getStatements() {
+	public List<AbstractStatement> getStatements_RENAMED() {
 		return statementList;
 	}
 
