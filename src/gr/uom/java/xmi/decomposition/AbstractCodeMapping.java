@@ -338,8 +338,8 @@ public abstract class AbstractCodeMapping {
 		else if(initializerInvocation == null && replacementInvocation != null) {
 			methodInvocationMatch = false;
 		}
-		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
-		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
+		String initializerReservedTokens = ReplacementUtil.keepReservedTokens_RENAMED(initializer.toString());
+		String replacementReservedTokens = ReplacementUtil.keepReservedTokens_RENAMED(replacedExpression);
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 

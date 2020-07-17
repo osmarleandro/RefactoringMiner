@@ -7,7 +7,7 @@ public class ReplacementUtil {
 	private static final String[] SPECIAL_CHARACTERS = {";", ",", ")", "=", "+", "-", ">", "<", ".", "]", " ", "(", "["};
 	private static final String[] SPECIAL_ARGUMENT_CHARACTERS = {";", ",", ")", "=", "+", "-", ">", "<", ".", "]", " "};
 	
-	public static String keepReservedTokens(String input) {
+	public static String keepReservedTokens_RENAMED(String input) {
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<input.length(); i++) {
 			char c = input.charAt(i);
