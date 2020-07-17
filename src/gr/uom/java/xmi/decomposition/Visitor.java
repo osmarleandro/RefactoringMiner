@@ -611,7 +611,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(SuperConstructorInvocation node) {
+	public boolean visit_RENAMED(SuperConstructorInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
 			processArgument(argument);
