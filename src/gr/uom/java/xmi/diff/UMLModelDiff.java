@@ -2091,7 +2091,7 @@ public class UMLModelDiff {
 	            }
 	         }
 	         if(!operationBodyMapperMap.isEmpty()) {
-	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
+	            List<UMLOperationBodyMapper> firstMappers = firstMappers_RENAMED(operationBodyMapperMap);
 	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
 	            addedOperationIterator.remove();
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
@@ -2176,7 +2176,7 @@ public class UMLModelDiff {
 	            }
 	         }
 	         if(!operationBodyMapperMap.isEmpty()) {
-	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
+	            List<UMLOperationBodyMapper> firstMappers = firstMappers_RENAMED(operationBodyMapperMap);
 	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
 	            removedOperationIterator.remove();
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
@@ -2236,7 +2236,7 @@ public class UMLModelDiff {
       }
    }
 
-	private List<UMLOperationBodyMapper> firstMappers(TreeMap<Integer, List<UMLOperationBodyMapper>> operationBodyMapperMap) {
+	private List<UMLOperationBodyMapper> firstMappers_RENAMED(TreeMap<Integer, List<UMLOperationBodyMapper>> operationBodyMapperMap) {
 		List<UMLOperationBodyMapper> firstMappers = new ArrayList<UMLOperationBodyMapper>(operationBodyMapperMap.get(operationBodyMapperMap.lastKey()));
 		List<UMLOperationBodyMapper> extraMappers = operationBodyMapperMap.get(0);
 		if(extraMappers != null && operationBodyMapperMap.lastKey() != 0) {
