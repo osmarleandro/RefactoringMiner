@@ -167,7 +167,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getInlinedOperationCodeRange()
 				.setDescription("inlined method declaration")
