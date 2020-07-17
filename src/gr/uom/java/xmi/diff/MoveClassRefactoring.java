@@ -52,7 +52,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return originalClass.getName();
 	}
 
-	public String getMovedClassName() {
+	public String getMovedClassName_RENAMED() {
 		return movedClass.getName();
 	}
 
