@@ -120,7 +120,7 @@ public class UMLAttributeDiff {
 		return refactorings;
 	}
 
-	public Set<Refactoring> getRefactorings() {
+	public Set<Refactoring> getRefactorings_RENAMED() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
