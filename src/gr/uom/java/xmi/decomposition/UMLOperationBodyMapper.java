@@ -774,7 +774,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
 	}
 
-	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
+	public int nonMappedElementsT1CallingRemovedOperation_RENAMED(List<UMLOperation> removedOperations) {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
 			if(composite.countableStatement()) {
