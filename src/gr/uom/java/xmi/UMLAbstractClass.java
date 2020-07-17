@@ -51,7 +51,7 @@ public abstract class UMLAbstractClass {
 		return null;
 	}
 
-	public boolean containsOperationWithTheSameSignature(UMLOperation operation) {
+	public boolean containsOperationWithTheSameSignature_RENAMED(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
 				return true;
