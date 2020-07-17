@@ -100,7 +100,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public Repository openRepository(String repositoryPath) throws Exception {
+	public Repository openRepository_RENAMED(String repositoryPath) throws Exception {
 	    File folder = new File(repositoryPath);
 	    Repository repository;
 	    if (folder.exists()) {
