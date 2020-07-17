@@ -88,7 +88,7 @@ public class ExtractOperationDetection {
 					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
-						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
+						if(extractMatchCondition_RENAMED(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition_RENAMED(operationBodyMapper, additionalExactMatches)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
@@ -114,7 +114,7 @@ public class ExtractOperationDetection {
 				}
 			}
 			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
-			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
+			if(extractMatchCondition_RENAMED(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
 				}
@@ -228,7 +228,7 @@ public class ExtractOperationDetection {
 		return null;
 	}
 
-	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
+	private boolean extractMatchCondition_RENAMED(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
