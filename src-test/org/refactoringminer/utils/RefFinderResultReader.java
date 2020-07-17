@@ -68,22 +68,22 @@ public class RefFinderResultReader {
 
     private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings() {
         Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
-        mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
-        mappers.put("extract_interface", args -> parse(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
-        mappers.put("rename_method", args -> parse(args, RefactoringType.RENAME_METHOD, member(1), member(2)));
-        mappers.put("move_method", args -> parse(args, RefactoringType.MOVE_OPERATION, member(2, 1), member(3, 1)));
-        mappers.put("push_down_method", args -> parse(args, RefactoringType.PUSH_DOWN_OPERATION, member(2, 1), member(3, 1)));
-        mappers.put("pull_up_method", args -> parse(args, RefactoringType.PULL_UP_OPERATION, member(2, 1), member(3, 1)));
-        mappers.put("extract_method", args -> parse(args, RefactoringType.EXTRACT_OPERATION, member(1), member(2)));
-        mappers.put("inline_method", args -> parse(args, RefactoringType.INLINE_OPERATION, member(2), member(1)));
-        mappers.put("move_field", args -> parse(args, RefactoringType.MOVE_ATTRIBUTE, member(2, 1), member(3, 1)));
-        mappers.put("push_down_field", args -> parse(args, RefactoringType.PUSH_DOWN_ATTRIBUTE, member(2, 1), member(3, 1)));
-        mappers.put("pull_up_field", args -> parse(args, RefactoringType.PULL_UP_ATTRIBUTE, member(2, 1), member(3, 1)));
+        mappers.put("extract_superclass", args -> parse_RENAMED(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
+        mappers.put("extract_interface", args -> parse_RENAMED(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
+        mappers.put("rename_method", args -> parse_RENAMED(args, RefactoringType.RENAME_METHOD, member(1), member(2)));
+        mappers.put("move_method", args -> parse_RENAMED(args, RefactoringType.MOVE_OPERATION, member(2, 1), member(3, 1)));
+        mappers.put("push_down_method", args -> parse_RENAMED(args, RefactoringType.PUSH_DOWN_OPERATION, member(2, 1), member(3, 1)));
+        mappers.put("pull_up_method", args -> parse_RENAMED(args, RefactoringType.PULL_UP_OPERATION, member(2, 1), member(3, 1)));
+        mappers.put("extract_method", args -> parse_RENAMED(args, RefactoringType.EXTRACT_OPERATION, member(1), member(2)));
+        mappers.put("inline_method", args -> parse_RENAMED(args, RefactoringType.INLINE_OPERATION, member(2), member(1)));
+        mappers.put("move_field", args -> parse_RENAMED(args, RefactoringType.MOVE_ATTRIBUTE, member(2, 1), member(3, 1)));
+        mappers.put("push_down_field", args -> parse_RENAMED(args, RefactoringType.PUSH_DOWN_ATTRIBUTE, member(2, 1), member(3, 1)));
+        mappers.put("pull_up_field", args -> parse_RENAMED(args, RefactoringType.PULL_UP_ATTRIBUTE, member(2, 1), member(3, 1)));
         
         return mappers;
     }
     
-    private static RefactoringRelationship parse(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
+    private static RefactoringRelationship parse_RENAMED(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
         return new RefactoringRelationship(type, parserBefore.parse(args), parserAfter.parse(args));
     }
     
