@@ -360,14 +360,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(0, statement.length()-2));
 	}
 
-	private boolean argumentIsReturned(String statement) {
+	private boolean argumentIsReturned_RENAMED(String statement) {
 		return statement.startsWith("return ") && getArguments().size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the return statement, 7 to remove the prefix "return "
 				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(7, statement.length()-2));
 	}
 
 	public Replacement makeReplacementForReturnedArgument(String statement) {
-		if(argumentIsReturned(statement)) {
+		if(argumentIsReturned_RENAMED(statement)) {
 			return new Replacement(getArguments().get(0), statement.substring(7, statement.length()-2),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
@@ -379,7 +379,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public Replacement makeReplacementForWrappedCall(String statement) {
-		if(argumentIsReturned(statement)) {
+		if(argumentIsReturned_RENAMED(statement)) {
 			return new Replacement(statement.substring(7, statement.length()-2), getArguments().get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
