@@ -221,8 +221,8 @@ public class OperationInvocation extends AbstractCall {
     	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
     		UMLType parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
-    			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
-    					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
+    			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString_RENAMED()) &&
+    					!parameterType.toString_RENAMED().equals(inferredArgumentTypes.get(i).toString_RENAMED()) &&
     					!compatibleTypes(parameter, inferredArgumentTypes.get(i), modelDiff)) {
     				return false;
     			}
@@ -233,8 +233,8 @@ public class OperationInvocation extends AbstractCall {
     }
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
-    	String type1 = parameter.getType().toString();
-    	String type2 = type.toString();
+    	String type1 = parameter.getType().toString_RENAMED();
+    	String type2 = type.toString_RENAMED();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
     		return true;
     	if(type1.equals("Exception") && type2.endsWith("Exception"))
@@ -411,7 +411,7 @@ public class OperationInvocation extends AbstractCall {
         return false;
     }
 
-    public String toString() {
+    public String toString_RENAMED() {
         StringBuilder sb = new StringBuilder();
         sb.append(methodName);
         sb.append("(");
