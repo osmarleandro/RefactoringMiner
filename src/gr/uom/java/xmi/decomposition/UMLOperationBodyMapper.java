@@ -1959,7 +1959,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.removeReplacements(replacementsToBeRemoved);
 		replacementInfo.addReplacements(replacementsToBeAdded);
 		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
-				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
+				oneIsVariableDeclarationTheOtherIsReturnStatement_RENAMED(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement_RENAMED(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
@@ -3401,7 +3401,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean oneIsVariableDeclarationTheOtherIsReturnStatement(String s1, String s2) {
+	private boolean oneIsVariableDeclarationTheOtherIsReturnStatement_RENAMED(String s1, String s2) {
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
 		if(!commonSuffix.equals("null;\n") && !commonSuffix.equals("true;\n") && !commonSuffix.equals("false;\n") && !commonSuffix.equals("0;\n")) {
 			if(s1.startsWith("return ") && s1.substring(7, s1.length()).equals(commonSuffix) &&
