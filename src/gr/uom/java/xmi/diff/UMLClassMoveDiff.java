@@ -29,7 +29,7 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		
 		if(o instanceof UMLClassMoveDiff) {
 			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
-			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
+			return this.originalClass.equals_RENAMED(classMoveDiff.originalClass) && this.nextClass.equals_RENAMED(classMoveDiff.nextClass);
 		}
 		return false;
 	}

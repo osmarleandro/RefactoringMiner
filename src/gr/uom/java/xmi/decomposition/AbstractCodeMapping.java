@@ -350,7 +350,7 @@ public abstract class AbstractCodeMapping {
 		}
 		else {
 			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
+				if(refactoring.equals_RENAMED(ref)) {
 					((InlineVariableRefactoring)refactoring).addReference(this);
 					break;
 				}
@@ -365,7 +365,7 @@ public abstract class AbstractCodeMapping {
 		}
 		else {
 			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
+				if(refactoring.equals_RENAMED(ref)) {
 					((ExtractVariableRefactoring)refactoring).addReference(this);
 					break;
 				}
@@ -462,12 +462,12 @@ public abstract class AbstractCodeMapping {
 		if (operation1 == null) {
 			if (other.operation1 != null)
 				return false;
-		} else if (!operation1.equals(other.operation1))
+		} else if (!operation1.equals_RENAMED(other.operation1))
 			return false;
 		if (operation2 == null) {
 			if (other.operation2 != null)
 				return false;
-		} else if (!operation2.equals(other.operation2))
+		} else if (!operation2.equals_RENAMED(other.operation2))
 			return false;
 		return true;
 	}
