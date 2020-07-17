@@ -788,7 +788,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap_RENAMED() {
 		return this.methodInvocationMap;
 	}
 
