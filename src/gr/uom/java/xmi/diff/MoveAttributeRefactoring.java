@@ -79,8 +79,8 @@ public class MoveAttributeRefactoring implements Refactoring {
 		
 		if(o instanceof MoveAttributeRefactoring) {
 			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
-			return this.originalAttribute.equals(other.originalAttribute) &&
-				this.movedAttribute.equals(other.movedAttribute) &&
+			return this.originalAttribute.equals_RENAMED(other.originalAttribute) &&
+				this.movedAttribute.equals_RENAMED(other.movedAttribute) &&
 				this.getSourceClassName().equals(other.getSourceClassName()) &&
 				this.getTargetClassName().equals(other.getTargetClassName());
 		}
