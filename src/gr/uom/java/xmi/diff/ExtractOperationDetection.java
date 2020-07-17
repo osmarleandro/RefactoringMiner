@@ -113,7 +113,7 @@ public class ExtractOperationDetection {
 					}
 				}
 			}
-			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+			UMLOperation delegateMethod = findDelegateMethod_RENAMED(mapper.getOperation1(), addedOperation, addedOperationInvocation);
 			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
@@ -220,7 +220,7 @@ public class ExtractOperationDetection {
 			}
 		}
 		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
-			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
+			UMLOperation delegateMethod = findDelegateMethod_RENAMED(originalOperation, addedOperation, addedOperationInvocation);
 			return new UMLOperationBodyMapper(mapper,
 					delegateMethod != null ? delegateMethod : addedOperation,
 					new LinkedHashMap<String, String>(), parameterToArgumentMap, classDiff);
@@ -274,7 +274,7 @@ public class ExtractOperationDetection {
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
 	}
 
-	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
+	private UMLOperation findDelegateMethod_RENAMED(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
 		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
 		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
 			for(UMLOperation operation : addedOperations) {
