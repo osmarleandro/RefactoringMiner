@@ -442,7 +442,7 @@ public class UMLModelDiff {
 				   }
 			   }
 			   if(matcher.match(removedClass, addedClass, renamedFile)) {
-				   if(!conflictingMoveOfTopLevelClass(removedClass, addedClass)) {
+				   if(!conflictingMoveOfTopLevelClass_RENAMED(removedClass, addedClass)) {
 					   UMLClassMoveDiff classMoveDiff = new UMLClassMoveDiff(removedClass, addedClass, this);
 					   diffSet.add(classMoveDiff);
 				   }
@@ -472,7 +472,7 @@ public class UMLModelDiff {
 	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
    }
 
-   private boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
+   private boolean conflictingMoveOfTopLevelClass_RENAMED(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   //check if classMoveDiffList contains already a move for the outer class to a different target
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
@@ -495,7 +495,7 @@ public class UMLModelDiff {
             UMLClass addedClass = addedClassIterator.next();
             String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
             if(matcher.match(removedClass, addedClass, renamedFile)) {
-               if(!conflictingMoveOfTopLevelClass(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
+               if(!conflictingMoveOfTopLevelClass_RENAMED(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
             	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
             	   diffSet.add(classRenameDiff);
                }
