@@ -35,7 +35,7 @@ public class CandidateAttributeRefactoring {
 		return originalVariableName;
 	}
 
-	public String getRenamedVariableName() {
+	public String getRenamedVariableName_RENAMED() {
 		return renamedVariableName;
 	}
 

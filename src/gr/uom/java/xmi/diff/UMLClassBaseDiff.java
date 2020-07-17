@@ -607,7 +607,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
 			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
 				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName_RENAMED());
 				if(before.contains(".") && after.contains(".")) {
 					String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
 					String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
@@ -668,7 +668,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 						}
 						if((attributeNamesMatchedWithArguments.contains(candidate.getOriginalVariableName()) ||
-								attributeNamesMatchedWithArguments.contains(candidate.getRenamedVariableName())) &&
+								attributeNamesMatchedWithArguments.contains(candidate.getRenamedVariableName_RENAMED())) &&
 								attributesMatchedWithArguments.size() > 1) {
 							return true;
 						}
@@ -685,7 +685,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
 			for(CandidateAttributeRefactoring candidate : candidates) {
 				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-				String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+				String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName_RENAMED());
 				UMLOperationBodyMapper candidateMapper = null;
 				for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 					if(mapper.getMappings().containsAll(candidate.getAttributeReferences())) {
