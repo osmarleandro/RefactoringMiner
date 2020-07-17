@@ -35,7 +35,7 @@ public class CallTreeNode {
 		children.add(node);
 	}
 
-	public List<CallTreeNode> getChildren() {
+	public List<CallTreeNode> getChildren_RENAMED() {
 		return children;
 	}
 
