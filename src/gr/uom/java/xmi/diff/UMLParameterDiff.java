@@ -22,7 +22,7 @@ public class UMLParameterDiff {
 			nameChanged = true;
 	}
 
-	public UMLParameter getRemovedParameter() {
+	public UMLParameter getRemovedParameter_RENAMED() {
 		return removedParameter;
 	}
 

@@ -3103,7 +3103,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 								if(parameterDiff.isNameChanged() &&
-										replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
+										replacement.getBefore().equals(parameterDiff.getRemovedParameter_RENAMED().getName()) &&
 										replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {
 									matchingReplacement = replacement;
 									break;

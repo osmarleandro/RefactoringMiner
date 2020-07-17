@@ -242,7 +242,7 @@ public class UMLOperationDiff {
 			}
 		}
 		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
-			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
+			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter_RENAMED().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
 			RenameVariableRefactoring renameRefactoring = null;
