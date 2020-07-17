@@ -1470,12 +1470,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return addedOperation.compatibleSignature(removedOperation) ||
 		(
 		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
-		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
+		!gettersWithDifferentReturnType_RENAMED(removedOperation, addedOperation) &&
 		(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
 		);
 	}
 
-	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private boolean gettersWithDifferentReturnType_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
 			UMLType type1 = removedOperation.getReturnParameter().getType();
 			UMLType type2 = addedOperation.getReturnParameter().getType();
