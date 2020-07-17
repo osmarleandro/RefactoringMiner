@@ -120,7 +120,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public Set<ReplacementType> getReplacementTypes() {
+	public Set<ReplacementType> getReplacementTypes_RENAMED() {
 		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
 		for(Replacement replacement : replacements) {
 			types.add(replacement.getType());
