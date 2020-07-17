@@ -66,7 +66,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	protected String typeArgumentsAndArrayDimensionToString() {
 		StringBuilder sb = new StringBuilder();
-		if(isParameterized())
+		if(isParameterized_RENAMED())
 			sb.append(typeArgumentsToString());
 		for(int i=0; i<getArrayDimension(); i++)
 			sb.append("[]");
@@ -98,21 +98,21 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
+		if(!this.isParameterized_RENAMED() && !typeObject.isParameterized_RENAMED())
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
+		else if(this.isParameterized_RENAMED() && typeObject.isParameterized_RENAMED())
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
 
 	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
+		if(!this.isParameterized_RENAMED() && !typeObject.isParameterized_RENAMED())
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
+		else if(this.isParameterized_RENAMED() && typeObject.isParameterized_RENAMED())
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized())
+		else if(this.isParameterized_RENAMED() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized_RENAMED())
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString().equals("<?>"))
+		else if(!this.isParameterized_RENAMED() && typeObject.isParameterized_RENAMED() && typeObject.typeArgumentsToString().equals("<?>"))
 			return this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
@@ -126,7 +126,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 
-	public boolean isParameterized() {
+	public boolean isParameterized_RENAMED() {
 		return typeArguments.size() > 0;
 	}
 
