@@ -3265,8 +3265,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									characterIndex1 < s1.length() && s1.charAt(characterIndex1) == '=' &&
 									characterIndex2 < s2.length() && s2.charAt(characterIndex2) == '=';
 							if(!isVariableDeclarationReplacement &&
-									operation1.getVariableDeclaration(replacement.getBefore()) != null &&
-									operation2.getVariableDeclaration(replacement.getAfter()) != null) {
+									operation1.getVariableDeclaration_RENAMED(replacement.getBefore()) != null &&
+									operation2.getVariableDeclaration_RENAMED(replacement.getAfter()) != null) {
 								matchingReplacement = replacement;
 								break;
 							}
@@ -3310,7 +3310,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							return true;
 						}
 					}
-					if(operation1.getVariableDeclaration(diff1) != null) {
+					if(operation1.getVariableDeclaration_RENAMED(diff1) != null) {
 						Set<String> splitVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
@@ -3732,7 +3732,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
 					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
 					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
-							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
+							operation1.getVariableDeclaration_RENAMED(s1) == null && operation2.getVariableDeclaration_RENAMED(s2) == null) {
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
@@ -3781,7 +3781,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
 					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
 					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
-							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
+							operation1.getVariableDeclaration_RENAMED(s1) == null && operation2.getVariableDeclaration_RENAMED(s2) == null) {
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
