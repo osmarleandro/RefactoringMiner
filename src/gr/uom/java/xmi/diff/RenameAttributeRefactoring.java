@@ -55,7 +55,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(originalAttribute);
@@ -125,7 +125,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
 				.setDescription("original attribute declaration")
-				.setCodeElement(originalAttribute.toString()));
+				.setCodeElement(originalAttribute.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -134,7 +134,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedAttribute.codeRange()
 				.setDescription("renamed attribute declaration")
-				.setCodeElement(renamedAttribute.toString()));
+				.setCodeElement(renamedAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
