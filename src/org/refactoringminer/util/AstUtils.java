@@ -172,7 +172,7 @@ public class AstUtils {
         return sb.toString();
     }
     
-    public static String normalizeAttribute(String attributeDescription) {
+    public static String normalizeAttribute_RENAMED(String attributeDescription) {
         int idx = attributeDescription.indexOf(':');
         if (idx == -1) {
             return attributeDescription.trim();

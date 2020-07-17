@@ -227,7 +227,7 @@ public enum RefactoringType {
     }
 
     private static String attributeKey(String attribute, String typeKey) {
-        return typeKey + "#" + AstUtils.normalizeAttribute(attribute);
+        return typeKey + "#" + AstUtils.normalizeAttribute_RENAMED(attribute);
     }
 
     public List<RefactoringRelationship> parseRefactoring(String refactoringDescription) {
