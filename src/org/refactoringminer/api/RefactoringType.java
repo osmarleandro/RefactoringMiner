@@ -253,7 +253,7 @@ public enum RefactoringType {
         throw new RuntimeException("Unknown refactoring type: " + refactoringDescription);
     }
 
-    public String getGroup(String refactoringDescription, int group) {
+    public String getGroup_RENAMED(String refactoringDescription, int group) {
         Matcher m = regex.matcher(refactoringDescription);
         if (m.matches()) {
             return m.group(group);
