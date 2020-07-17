@@ -546,7 +546,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
-							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
+							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings_RENAMED(set);
 							if(!refactorings.containsAll(attributeDiffRefactorings)) {
 								refactorings.addAll(attributeDiffRefactorings);
 								break;//it's not necessary to repeat the same process for all candidates in the set

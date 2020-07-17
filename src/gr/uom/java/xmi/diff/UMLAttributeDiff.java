@@ -131,7 +131,7 @@ public class UMLAttributeDiff {
 		return refactorings;
 	}
 	
-	public Set<Refactoring> getRefactorings(Set<CandidateAttributeRefactoring> set) {
+	public Set<Refactoring> getRefactorings_RENAMED(Set<CandidateAttributeRefactoring> set) {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		RenameAttributeRefactoring rename = null;
 		if(isRenamed()) {
