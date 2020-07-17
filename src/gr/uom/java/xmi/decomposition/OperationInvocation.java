@@ -438,7 +438,7 @@ public class OperationInvocation extends AbstractCall {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 
-	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
+	public boolean typeInferenceMatch_RENAMED(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
 		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
