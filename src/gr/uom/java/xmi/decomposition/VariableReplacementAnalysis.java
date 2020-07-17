@@ -399,7 +399,7 @@ public class VariableReplacementAnalysis {
 			Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 			Set<UMLOperation> mergedVariableOperations = new LinkedHashSet<UMLOperation>();
 			for(String variableName : merge.getMergedVariables()) {
-				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration1(merge, variableName);
+				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration1_RENAMED(merge, variableName);
 				if(declaration != null) {
 					mergedVariables.add(declaration.getKey());
 					mergedVariableOperations.add(declaration.getValue());
@@ -916,7 +916,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(MergeVariableReplacement replacement, String variableName) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1_RENAMED(MergeVariableReplacement replacement, String variableName) {
 		for(AbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {
