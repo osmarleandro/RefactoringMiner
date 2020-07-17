@@ -39,7 +39,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return attributeRenames;
 	}
 
-	public String getClassNameBefore() {
+	public String getClassNameBefore_RENAMED() {
 		return classNameBefore;
 	}
 
@@ -110,7 +110,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore_RENAMED()));
 		return pairs;
 	}
 
