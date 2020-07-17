@@ -146,7 +146,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<OperationInvocation>();
 	}
 
-	public List<LambdaExpressionObject> getAllLambdas() {
+	public List<LambdaExpressionObject> getAllLambdas_RENAMED() {
 		if(operationBody != null)
 			return operationBody.getAllLambdas();
 		return new ArrayList<LambdaExpressionObject>();
