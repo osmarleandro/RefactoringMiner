@@ -442,9 +442,9 @@ public class OperationInvocation extends AbstractCall {
 		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
-			if(getArguments().size() < parameters.size()) {
+			if(getArguments_RENAMED().size() < parameters.size()) {
 				int i = 0;
-				for(String argument : getArguments()) {
+				for(String argument : getArguments_RENAMED()) {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
 						UMLType paremeterType = parameters.get(i).getType();
@@ -457,7 +457,7 @@ public class OperationInvocation extends AbstractCall {
 			else {
 				int i = 0;
 				for(UMLParameter parameter : parameters) {
-					String argument = getArguments().get(i);
+					String argument = getArguments_RENAMED().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
 						UMLType paremeterType = parameter.isVarargs() ?
@@ -474,7 +474,7 @@ public class OperationInvocation extends AbstractCall {
 		else {
 			//we expect an equal number of parameters and arguments
 			int i = 0;
-			for(String argument : getArguments()) {
+			for(String argument : getArguments_RENAMED()) {
 				if(typeInferenceMapFromContext.containsKey(argument)) {
 					UMLType argumentType = typeInferenceMapFromContext.get(argument);
 					UMLType paremeterType = parameters.get(i).getType();

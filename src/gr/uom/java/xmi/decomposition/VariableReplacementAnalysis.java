@@ -574,10 +574,10 @@ public class VariableReplacementAnalysis {
 					MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
 					OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
 					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
-					if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments().size() == invocation2.getArguments().size()) {
-						for(int i=0; i<invocation1.getArguments().size(); i++) {
-							String argument1 = invocation1.getArguments().get(i);
-							String argument2 = invocation2.getArguments().get(i);
+					if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments_RENAMED().size() == invocation2.getArguments_RENAMED().size()) {
+						for(int i=0; i<invocation1.getArguments_RENAMED().size(); i++) {
+							String argument1 = invocation1.getArguments_RENAMED().get(i);
+							String argument2 = invocation2.getArguments_RENAMED().get(i);
 							if(argument1.contains("[") || argument2.contains("[")) {
 								String before = argument1.contains("[") ? argument1.substring(0, argument1.indexOf("[")) : argument1;
 								String after = argument2.contains("[") ? argument2.substring(0, argument2.indexOf("[")) : argument2;

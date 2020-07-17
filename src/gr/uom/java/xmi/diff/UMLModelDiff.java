@@ -1736,7 +1736,7 @@ public class UMLModelDiff {
 				   }
 				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
 						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
-						List<String> arguments = removedOperationInvocation.getArguments();
+						List<String> arguments = removedOperationInvocation.getArguments_RENAMED();
 						List<String> parameters = removedOperation.getParameterNameList();
 						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 						//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
@@ -1816,7 +1816,7 @@ public class UMLModelDiff {
                }
                if(addedOperationInvocations.size() > 0) {
             	  OperationInvocation addedOperationInvocation = addedOperationInvocations.get(0);
-            	  List<String> arguments = addedOperationInvocation.getArguments();
+            	  List<String> arguments = addedOperationInvocation.getArguments_RENAMED();
             	  List<String> parameters = addedOperation.getParameterNameList();
             	  Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
             	  //special handling for methods with varargs parameter for which no argument is passed in the matching invocation
