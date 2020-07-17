@@ -43,7 +43,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return classNameBefore;
 	}
 
-	public String getClassNameAfter() {
+	public String getClassNameAfter_RENAMED() {
 		return classNameAfter;
 	}
 
@@ -121,7 +121,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration splitAttribute : this.splitAttributes) {
-			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().getFilePath(), getClassNameAfter()));
+			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().getFilePath(), getClassNameAfter_RENAMED()));
 		}
 		return pairs;
 	}
