@@ -30,7 +30,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		this.variableDeclarations = new ArrayList<VariableDeclaration>();
 	}
 
-	public void addStatement(AbstractStatement statement) {
+	public void addStatement_RENAMED(AbstractStatement statement) {
 		statement.setIndex(statementList.size());
 		statementList.add(statement);
 		statement.setParent(this);
