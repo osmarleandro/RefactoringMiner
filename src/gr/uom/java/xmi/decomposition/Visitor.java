@@ -812,7 +812,7 @@ public class Visitor extends ASTVisitor {
 		return numberLiterals;
 	}
 
-	public List<String> getNullLiterals() {
+	public List<String> getNullLiterals_RENAMED() {
 		return nullLiterals;
 	}
 
