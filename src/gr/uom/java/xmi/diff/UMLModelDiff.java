@@ -260,14 +260,14 @@ public class UMLModelDiff {
 			   }
 		   }
 		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
-				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass_RENAMED(subclassDiff.getNewSuperclass()) != null) {
+			   UMLClass addedClass = looksLikeAddedClass_RENAMED(subclassDiff.getNewSuperclass());
 			   if(addedClass.getSuperclass() != null) {
 				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass_RENAMED(subclassDiff.getNewSuperclass()) != null) {
+			   UMLClass addedClass = looksLikeAddedClass_RENAMED(subclassDiff.getNewSuperclass());
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
 		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
@@ -283,7 +283,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass addedClass = getAddedClass(subclass);
 	   if(addedClass == null) {
-		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
+		   addedClass = looksLikeAddedClass_RENAMED(UMLType.extractTypeObject(subclass));
 	   }
 	   if(addedClass != null) {
 		   UMLType superclass = addedClass.getSuperclass();
@@ -321,7 +321,7 @@ public class UMLModelDiff {
 		   return isSubclassOf(superclass.getClassType(), finalSuperclass, visitedClasses);
    }
 
-   private UMLClass looksLikeAddedClass(UMLType type) {
+   private UMLClass looksLikeAddedClass_RENAMED(UMLType type) {
 	   for(UMLClass umlClass : addedClasses) {
 	         if(umlClass.getName().endsWith("." + type.getClassType())) {
 	        	 return umlClass;
@@ -815,7 +815,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass addedClass = getAddedClass(targetClassName);
 	   if(addedClass == null) {
-		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
+		   addedClass = looksLikeAddedClass_RENAMED(UMLType.extractTypeObject(targetClassName));
 	   }
 	   if(addedClass != null) {
 		   return addedClass.importsType(sourceClassName);
@@ -1309,7 +1309,7 @@ public class UMLModelDiff {
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
-    		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
+    		  UMLClass addedClass = looksLikeAddedClass_RENAMED(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
     			  renameDiff.process();
