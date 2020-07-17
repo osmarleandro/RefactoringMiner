@@ -77,7 +77,7 @@ public class RefactoringSet {
             .collect(Collectors.toList()));
         return newSet;
     }
-    public RefactoringSet ignoringMethodParameters(boolean active) {
+    public RefactoringSet ignoringMethodParameters_RENAMED(boolean active) {
         if (!active) {
             return this;
         }

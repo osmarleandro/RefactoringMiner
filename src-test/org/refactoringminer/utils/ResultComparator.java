@@ -96,9 +96,9 @@ public class ResultComparator {
         for (RefactoringSet expected : expectedMap.values()) {
             RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
             if (actual != null) {
-                Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                Set<RefactoringRelationship> expectedUnfiltered = expected.ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+                Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings();
+                Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings();
+                Set<RefactoringRelationship> expectedUnfiltered = expected.ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings();
                 for (RefactoringRelationship r : actualRefactorings) {
                     if (expectedRefactorings.contains(r)) {
                         truePositives.add(r);
@@ -149,7 +149,7 @@ public class ResultComparator {
         boolean headerPrinted = false;
         for (RefactoringSet expected : expectedMap.values()) {
             Set<RefactoringRelationship> all = new HashSet<>();
-            Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+            Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings();
             Set<RefactoringRelationship> expectedUnfiltered = expected.getRefactorings();
             all.addAll(expectedRefactorings); //
 
@@ -159,7 +159,7 @@ public class ResultComparator {
                 header.append(groupId);
                 RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
                 if (actual != null) {
-                    all.addAll(actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings()); //
+                    all.addAll(actual.ignoring(ignore).ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings()); //
                 }
             }
             if (!headerPrinted) {
@@ -177,7 +177,7 @@ public class ResultComparator {
                         RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
                         out.print('\t');
                         if (actual != null) {
-                            Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+                            Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters_RENAMED(ignoreMethodParams).getRefactorings();
                             int correct = expectedRefactorings.contains(r) ? 2 : 0;
                             int found = actualRefactorings.contains(r) ? 1 : 0;
                             String label = labels[correct + found];
