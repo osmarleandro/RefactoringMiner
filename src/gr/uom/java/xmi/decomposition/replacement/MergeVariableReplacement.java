@@ -15,7 +15,7 @@ public class MergeVariableReplacement extends Replacement {
 		return mergedVariables;
 	}
 
-	public boolean equal(MergeVariableReplacement other) {
+	public boolean equal_RENAMED(MergeVariableReplacement other) {
 		return this.getAfter().equals(other.getAfter()) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				other.mergedVariables.containsAll(this.mergedVariables);
