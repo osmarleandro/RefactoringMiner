@@ -218,7 +218,7 @@ public class AstUtils {
 		}
 	}
 	
-	public static Statement getEnclosingStatement(ASTNode node) {
+	public static Statement getEnclosingStatement_RENAMED(ASTNode node) {
 	    do {
 	        if (node instanceof Statement) {
 	            return (Statement) node;
