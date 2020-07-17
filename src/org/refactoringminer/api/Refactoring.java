@@ -12,7 +12,7 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 
 	public RefactoringType getRefactoringType();
 	
-	public String getName();
+	public String getName_RENAMED();
 
 	public String toString();
 	
@@ -30,7 +30,7 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		StringBuilder sb = new StringBuilder();
 		JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
 		sb.append("{").append("\n");
-		sb.append("\t").append("\"").append("type").append("\"").append(": ").append("\"").append(getName()).append("\"").append(",").append("\n");
+		sb.append("\t").append("\"").append("type").append("\"").append(": ").append("\"").append(getName_RENAMED()).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("description").append("\"").append(": ").append("\"");
 		encoder.quoteAsString(toString().replace('\t', ' '), sb);
 		sb.append("\"").append(",").append("\n");
