@@ -1366,7 +1366,7 @@ public class UMLModelDiff {
 					 UMLAttribute a2 = diff.findAttributeInNextClass(pattern.getAfter());
 					 if(!diff.getOriginalClass().containsAttributeWithName(pattern.getAfter()) &&
 								!diff.getNextClass().containsAttributeWithName(pattern.getBefore()) &&
-								!attributeMerged(a1, a2, refactorings)) {
+								!attributeMerged_RENAMED(a1, a2, refactorings)) {
 						 UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, diff.getOperationBodyMapperList());
 						 Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 						 if(!refactorings.containsAll(attributeDiffRefactorings)) {
@@ -2489,7 +2489,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
+	private boolean attributeMerged_RENAMED(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
