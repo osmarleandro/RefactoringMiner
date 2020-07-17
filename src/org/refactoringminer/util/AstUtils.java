@@ -186,7 +186,7 @@ public class AstUtils {
         }
     }
 
-	public static boolean containsDeprecatedTag(Javadoc javadoc) {
+	public static boolean containsDeprecatedTag_RENAMED(Javadoc javadoc) {
 		if (javadoc == null) {
 			return false;
 		}
