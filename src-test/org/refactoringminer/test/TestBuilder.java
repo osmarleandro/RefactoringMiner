@@ -79,7 +79,7 @@ public class TestBuilder {
 		refTypeCounter.c[type]++;
 	}
 
-	private int get(int type) {
+	private int get_RENAMED(int type) {
 		return c.c[type];
 	}
 
@@ -135,7 +135,7 @@ public class TestBuilder {
 			}
 		}
 
-		boolean success = get(FP) == 0 && get(FN) == 0 && get(TP) > 0;
+		boolean success = get_RENAMED(FP) == 0 && get_RENAMED(FN) == 0 && get_RENAMED(TP) > 0;
 		if (!success || verbose) {
 			for (ProjectMatcher m : map.values()) {
 				m.printResults();
