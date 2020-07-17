@@ -1647,7 +1647,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		Set<String> arguments1 = new LinkedHashSet<String>(statement1.getArguments());
 		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments());
-		removeCommonElements(arguments1, arguments2);
+		removeCommonElements_RENAMED(arguments1, arguments2);
 		
 		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
 			findReplacements(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
@@ -1764,27 +1764,27 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		Set<String> stringLiterals1 = new LinkedHashSet<String>(statement1.getStringLiterals());
 		Set<String> stringLiterals2 = new LinkedHashSet<String>(statement2.getStringLiterals());
-		removeCommonElements(stringLiterals1, stringLiterals2);
+		removeCommonElements_RENAMED(stringLiterals1, stringLiterals2);
 		
 		Set<String> numberLiterals1 = new LinkedHashSet<String>(statement1.getNumberLiterals());
 		Set<String> numberLiterals2 = new LinkedHashSet<String>(statement2.getNumberLiterals());
-		removeCommonElements(numberLiterals1, numberLiterals2);
+		removeCommonElements_RENAMED(numberLiterals1, numberLiterals2);
 		
 		Set<String> booleanLiterals1 = new LinkedHashSet<String>(statement1.getBooleanLiterals());
 		Set<String> booleanLiterals2 = new LinkedHashSet<String>(statement2.getBooleanLiterals());
-		removeCommonElements(booleanLiterals1, booleanLiterals2);
+		removeCommonElements_RENAMED(booleanLiterals1, booleanLiterals2);
 		
 		Set<String> infixOperators1 = new LinkedHashSet<String>(statement1.getInfixOperators());
 		Set<String> infixOperators2 = new LinkedHashSet<String>(statement2.getInfixOperators());
-		removeCommonElements(infixOperators1, infixOperators2);
+		removeCommonElements_RENAMED(infixOperators1, infixOperators2);
 		
 		Set<String> arrayAccesses1 = new LinkedHashSet<String>(statement1.getArrayAccesses());
 		Set<String> arrayAccesses2 = new LinkedHashSet<String>(statement2.getArrayAccesses());
-		removeCommonElements(arrayAccesses1, arrayAccesses2);
+		removeCommonElements_RENAMED(arrayAccesses1, arrayAccesses2);
 		
 		Set<String> prefixExpressions1 = new LinkedHashSet<String>(statement1.getPrefixExpressions());
 		Set<String> prefixExpressions2 = new LinkedHashSet<String>(statement2.getPrefixExpressions());
-		removeCommonElements(prefixExpressions1, prefixExpressions2);
+		removeCommonElements_RENAMED(prefixExpressions1, prefixExpressions2);
 		
 		//perform type replacements
 		findReplacements(types1, types2, replacementInfo, ReplacementType.TYPE);
@@ -2625,7 +2625,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private void removeCommonElements(Set<String> strings1, Set<String> strings2) {
+	private void removeCommonElements_RENAMED(Set<String> strings1, Set<String> strings2) {
 		Set<String> intersection = new LinkedHashSet<String>(strings1);
 		intersection.retainAll(strings2);
 		strings1.removeAll(intersection);
@@ -2650,7 +2650,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			strings2.removeAll(intersection);
 		}
 		else {
-			removeCommonElements(strings1, strings2);
+			removeCommonElements_RENAMED(strings1, strings2);
 		}
 	}
 
