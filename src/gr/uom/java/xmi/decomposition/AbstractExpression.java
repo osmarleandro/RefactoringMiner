@@ -55,7 +55,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		this.postfixExpressions = visitor.getPostfixExpressions();
 		this.arguments = visitor.getArguments();
 		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
-		this.lambdas = visitor.getLambdas();
+		this.lambdas = visitor.getLambdas_RENAMED();
     	this.expression = expression.toString();
     	this.owner = null;
     }

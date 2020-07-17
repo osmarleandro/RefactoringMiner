@@ -856,7 +856,7 @@ public class Visitor extends ASTVisitor {
 		return variables;
 	}
 
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject> getLambdas_RENAMED() {
 		return lambdas;
 	}
 
