@@ -1650,7 +1650,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		removeCommonElements(arguments1, arguments2);
 		
 		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
-			findReplacements(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
+			findReplacements_RENAMED(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
 		}
 		
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -1787,10 +1787,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		removeCommonElements(prefixExpressions1, prefixExpressions2);
 		
 		//perform type replacements
-		findReplacements(types1, types2, replacementInfo, ReplacementType.TYPE);
+		findReplacements_RENAMED(types1, types2, replacementInfo, ReplacementType.TYPE);
 		
 		//perform operator replacements
-		findReplacements(infixOperators1, infixOperators2, replacementInfo, ReplacementType.INFIX_OPERATOR);
+		findReplacements_RENAMED(infixOperators1, infixOperators2, replacementInfo, ReplacementType.INFIX_OPERATOR);
 		
 		//apply existing replacements on method invocations
 		for(String methodInvocation1 : methodInvocations1) {
@@ -1879,28 +1879,28 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		
 		//perform creation replacements
-		findReplacements(creations1, creations2, replacementInfo, ReplacementType.CLASS_INSTANCE_CREATION);
+		findReplacements_RENAMED(creations1, creations2, replacementInfo, ReplacementType.CLASS_INSTANCE_CREATION);
 		
 		//perform literal replacements
-		findReplacements(stringLiterals1, stringLiterals2, replacementInfo, ReplacementType.STRING_LITERAL);
-		findReplacements(numberLiterals1, numberLiterals2, replacementInfo, ReplacementType.NUMBER_LITERAL);
+		findReplacements_RENAMED(stringLiterals1, stringLiterals2, replacementInfo, ReplacementType.STRING_LITERAL);
+		findReplacements_RENAMED(numberLiterals1, numberLiterals2, replacementInfo, ReplacementType.NUMBER_LITERAL);
 		if(!statement1.containsInitializerOfVariableDeclaration(numberLiterals1) && !statement2.containsInitializerOfVariableDeclaration(variables2) &&
 				!statement1.getString().endsWith("=0;\n")) {
-			findReplacements(numberLiterals1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+			findReplacements_RENAMED(numberLiterals1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 		}
-		findReplacements(variables1, arrayAccesses2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS);
-		findReplacements(arrayAccesses1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS);
+		findReplacements_RENAMED(variables1, arrayAccesses2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS);
+		findReplacements_RENAMED(arrayAccesses1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS);
 		
-		findReplacements(methodInvocations1, arrayAccesses2, replacementInfo, ReplacementType.ARRAY_ACCESS_REPLACED_WITH_METHOD_INVOCATION);
-		findReplacements(arrayAccesses1, methodInvocations2, replacementInfo, ReplacementType.ARRAY_ACCESS_REPLACED_WITH_METHOD_INVOCATION);
+		findReplacements_RENAMED(methodInvocations1, arrayAccesses2, replacementInfo, ReplacementType.ARRAY_ACCESS_REPLACED_WITH_METHOD_INVOCATION);
+		findReplacements_RENAMED(arrayAccesses1, methodInvocations2, replacementInfo, ReplacementType.ARRAY_ACCESS_REPLACED_WITH_METHOD_INVOCATION);
 		
-		findReplacements(variables1, prefixExpressions2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
-		findReplacements(prefixExpressions1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
-		findReplacements(stringLiterals1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL);
+		findReplacements_RENAMED(variables1, prefixExpressions2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
+		findReplacements_RENAMED(prefixExpressions1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
+		findReplacements_RENAMED(stringLiterals1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL);
 		if(statement1.getNullLiterals().isEmpty() && !statement2.getNullLiterals().isEmpty()) {
 			Set<String> nullLiterals2 = new LinkedHashSet<String>();
 			nullLiterals2.add("null");
-			findReplacements(variables1, nullLiterals2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL);
+			findReplacements_RENAMED(variables1, nullLiterals2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL);
 		}
 
 		if(statement1.getTernaryOperatorExpressions().isEmpty() && !statement2.getTernaryOperatorExpressions().isEmpty()) {
@@ -1911,7 +1911,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(TernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions()) {
 					ternaryExpressions2.add(ternary.getExpression());	
 				}
-				findReplacements(nullLiterals1, ternaryExpressions2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
+				findReplacements_RENAMED(nullLiterals1, ternaryExpressions2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
 			}
 		}
 		else if(!statement1.getTernaryOperatorExpressions().isEmpty() && statement2.getTernaryOperatorExpressions().isEmpty()) {
@@ -1922,14 +1922,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(TernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions()) {
 					ternaryExpressions1.add(ternary.getExpression());	
 				}
-				findReplacements(ternaryExpressions1, nullLiterals2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
+				findReplacements_RENAMED(ternaryExpressions1, nullLiterals2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
 			}
 		}
 		if(!statement1.getString().endsWith("=true;\n") && !statement1.getString().endsWith("=false;\n")) {
-			findReplacements(booleanLiterals1, variables2, replacementInfo, ReplacementType.BOOLEAN_REPLACED_WITH_VARIABLE);
+			findReplacements_RENAMED(booleanLiterals1, variables2, replacementInfo, ReplacementType.BOOLEAN_REPLACED_WITH_VARIABLE);
 		}
 		if(!statement2.getString().endsWith("=true;\n") && !statement2.getString().endsWith("=false;\n")) {
-			findReplacements(arguments1, booleanLiterals2, replacementInfo, ReplacementType.BOOLEAN_REPLACED_WITH_ARGUMENT);
+			findReplacements_RENAMED(arguments1, booleanLiterals2, replacementInfo, ReplacementType.BOOLEAN_REPLACED_WITH_ARGUMENT);
 		}
 		
 		String s1 = preprocessInput1(statement1, statement2);
@@ -3719,7 +3719,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private void findReplacements(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo, ReplacementType type) throws RefactoringMinerTimedOutException {
+	private void findReplacements_RENAMED(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo, ReplacementType type) throws RefactoringMinerTimedOutException {
 		TreeMap<Double, Set<Replacement>> globalReplacementMap = new TreeMap<Double, Set<Replacement>>();
 		TreeMap<Double, Set<Replacement>> replacementCache = new TreeMap<Double, Set<Replacement>>();
 		if(strings1.size() <= strings2.size()) {
