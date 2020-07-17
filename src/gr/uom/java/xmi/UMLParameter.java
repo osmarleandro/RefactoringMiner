@@ -104,7 +104,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		}
 	}
 
-	public String toQualifiedString() {
+	public String toQualifiedString_RENAMED() {
 		if(kind.equals("return"))
 			return type.toQualifiedString();
 		else {
