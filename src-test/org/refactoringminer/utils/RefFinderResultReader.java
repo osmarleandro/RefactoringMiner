@@ -44,7 +44,7 @@ public class RefFinderResultReader {
             String line;
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
-                    RefactoringRelationship r = parse(line);
+                    RefactoringRelationship r = parse_RENAMED(line);
                     if (r != null) {
                         result.add(r);
                     }
@@ -53,7 +53,7 @@ public class RefFinderResultReader {
         }
     }
 
-    private static RefactoringRelationship parse(String line) {
+    private static RefactoringRelationship parse_RENAMED(String line) {
         int openPar = line.indexOf('(');
         String type = line.substring(0, openPar);
         String args = line.substring(openPar + 2, line.length() - 2);
