@@ -10,7 +10,7 @@ public class AddVariableReplacement extends Replacement {
 		this.addedVariables = addedVariables;
 	}
 
-	public Set<String> getAddedVariables() {
+	public Set<String> getAddedVariables_RENAMED() {
 		return addedVariables;
 	}
 }
