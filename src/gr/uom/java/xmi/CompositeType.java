@@ -9,7 +9,7 @@ public class CompositeType extends UMLType {
 		this.rightType = rightType;
 	}
 
-	public UMLType getLeftType() {
+	public UMLType getLeftType_RENAMED() {
 		return leftType;
 	}
 
