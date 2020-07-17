@@ -91,7 +91,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getTypes() {
+	public List<String> getTypes_RENAMED() {
 		return types;
 	}
 

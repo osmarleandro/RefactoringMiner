@@ -117,7 +117,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getTypes() {
 		List<String> types = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			types.addAll(expression.getTypes());
+			types.addAll(expression.getTypes_RENAMED());
 		}
 		return types;
 	}
