@@ -121,7 +121,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return entityBefore;
   }
 
-  public String getSecondaryEntity() {
+  public String getSecondaryEntity_RENAMED() {
     if (typesWithMainEntityAfter.contains(refactoringType)) {
       return entityBefore;
     }
@@ -132,7 +132,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   public int compareTo(RefactoringRelationship o) {
     int rt = getRefactoringType().compareTo(o.getRefactoringType());
     int cm = getMainEntity().compareTo(o.getMainEntity());
-    int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
+    int cs = getSecondaryEntity_RENAMED().compareTo(o.getSecondaryEntity_RENAMED());
     int ct = refactoringType.compareTo(o.refactoringType);
     return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
   }
