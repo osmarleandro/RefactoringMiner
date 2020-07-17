@@ -121,7 +121,7 @@ public enum RefactoringType {
 		this.aggregateGroups = aggregateGroups;
 	}
 
-	public Pattern getRegex() {
+	public Pattern getRegex_RENAMED() {
         return regex;
     }
 
