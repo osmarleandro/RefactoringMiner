@@ -179,7 +179,7 @@ public abstract class AbstractCodeMapping {
 					if(initializer.toString().equals(replacement.getBefore()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
+							reservedTokenMatch_RENAMED(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
@@ -262,7 +262,7 @@ public abstract class AbstractCodeMapping {
 					if(initializer.toString().equals(replacement.getAfter()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+							reservedTokenMatch_RENAMED(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 						processInlineVariableRefactoring(ref, refactorings);
@@ -323,7 +323,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+	private boolean reservedTokenMatch_RENAMED(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
