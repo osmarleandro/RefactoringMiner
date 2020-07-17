@@ -207,7 +207,7 @@ public class RefactoringPopulator {
 			Tuple[] tmp = {};
 			System.out.println("Total\t" + buildResultMessage(result.values().toArray(tmp)));
 			for (String key : result.keySet()) {
-				System.out.println(getInitials(key) + "\t" + buildResultMessage(result.get(key)));
+				System.out.println(getInitials_RENAMED(key) + "\t" + buildResultMessage(result.get(key)));
 			}
 		} catch (JsonParseException e) {
 			e.printStackTrace();
@@ -218,7 +218,7 @@ public class RefactoringPopulator {
 		}
 	}
 
-	private static String getInitials(String str) {
+	private static String getInitials_RENAMED(String str) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < str.length(); i++) {
 			String character = str.substring(i, i + 1);
