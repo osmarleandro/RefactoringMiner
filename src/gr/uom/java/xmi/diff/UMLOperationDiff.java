@@ -178,7 +178,7 @@ public class UMLOperationDiff {
 		return addedOperation;
 	}
 
-	public List<UMLParameter> getAddedParameters() {
+	public List<UMLParameter> getAddedParameters_RENAMED() {
 		return addedParameters;
 	}
 

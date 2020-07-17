@@ -93,7 +93,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			UMLOperationDiff operationDiff = new UMLOperationDiff(operation1, operation2);
 			Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
 			Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
-			List<UMLParameter> addedParameters = operationDiff.getAddedParameters();
+			List<UMLParameter> addedParameters = operationDiff.getAddedParameters_RENAMED();
 			if(addedParameters.size() == 1) {
 				UMLParameter addedParameter = addedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(addedParameter.getType().getClassType(), operation1.getClassName())) {
@@ -3092,7 +3092,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
 					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
 				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
-				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
+				for(UMLParameter addedParameter : operationDiff.getAddedParameters_RENAMED()) {
 					if(diff2.contains(addedParameter.getName())) {
 						matchingAddedParameters.add(addedParameter);
 					}
