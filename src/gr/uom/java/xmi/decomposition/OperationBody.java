@@ -290,7 +290,7 @@ public class OperationBody {
 		}
 	}
 
-	public Map<String, Set<String>> aliasedAttributes() {
+	public Map<String, Set<String>> aliasedAttributes_RENAMED() {
 		return compositeStatement.aliasedAttributes();
 	}
 
