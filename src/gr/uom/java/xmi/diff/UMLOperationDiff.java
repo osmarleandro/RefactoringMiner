@@ -195,7 +195,7 @@ public class UMLOperationDiff {
 		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(!isEmpty())
 			sb.append("\t").append(removedOperation).append("\n");
