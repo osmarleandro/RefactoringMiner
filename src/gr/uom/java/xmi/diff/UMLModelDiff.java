@@ -1225,7 +1225,7 @@ public class UMLModelDiff {
 			   }
 		   } else if(!originalPathPrefix.equals(movedPathPrefix)) {
 			   MovedClassToAnotherSourceFolder refactoring = new MovedClassToAnotherSourceFolder(originalClass, movedClass, originalPathPrefix, movedPathPrefix);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   RenamePattern renamePattern = refactoring.getRenamePattern_RENAMED();
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
 			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
 				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
