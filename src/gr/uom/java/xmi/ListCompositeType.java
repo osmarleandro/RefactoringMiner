@@ -23,7 +23,7 @@ public class ListCompositeType extends UMLType {
 		return types;
 	}
 
-	public Kind getKind() {
+	public Kind getKind_RENAMED() {
 		return kind;
 	}
 
