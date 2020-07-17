@@ -36,7 +36,7 @@ public class CandidateSplitVariableRefactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation getOperationAfter_RENAMED() {
 		return operationAfter;
 	}
 
