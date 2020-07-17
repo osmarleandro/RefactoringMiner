@@ -206,7 +206,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return className;
 	}
 
-	public void setClassName(String className) {
+	public void setClassName_RENAMED(String className) {
 		this.className = className;
 	}
 
