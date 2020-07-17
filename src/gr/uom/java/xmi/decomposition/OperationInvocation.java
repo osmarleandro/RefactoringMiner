@@ -319,7 +319,7 @@ public class OperationInvocation extends AbstractCall {
     		while(it1.hasNext()) {
     			String subExpression1 = it1.next();
     			String subExpression2 = it2.next();
-    			if(!intersection.contains(subExpression1) && differInThisDot(subExpression1, subExpression2)) {
+    			if(!intersection.contains(subExpression1) && differInThisDot_RENAMED(subExpression1, subExpression2)) {
     				intersection.add(subExpression1);
     			}
     		}
@@ -327,7 +327,7 @@ public class OperationInvocation extends AbstractCall {
     	return intersection;
     }
 
-	private static boolean differInThisDot(String subExpression1, String subExpression2) {
+	private static boolean differInThisDot_RENAMED(String subExpression1, String subExpression2) {
 		if(subExpression1.length() < subExpression2.length()) {
 			String modified = subExpression1;
 			String previousCommonPrefix = "";
