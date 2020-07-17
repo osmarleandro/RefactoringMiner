@@ -103,7 +103,7 @@ public class UMLAttributeDiff {
 		return sb.toString();
 	}
 
-	private Set<Refactoring> getAnnotationRefactorings() {
+	private Set<Refactoring> getAnnotationRefactorings_RENAMED() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
 			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
@@ -127,7 +127,7 @@ public class UMLAttributeDiff {
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
 		}
-		refactorings.addAll(getAnnotationRefactorings());
+		refactorings.addAll(getAnnotationRefactorings_RENAMED());
 		return refactorings;
 	}
 	
@@ -146,7 +146,7 @@ public class UMLAttributeDiff {
 				ref.addRelatedRefactoring(rename);
 			}
 		}
-		refactorings.addAll(getAnnotationRefactorings());
+		refactorings.addAll(getAnnotationRefactorings_RENAMED());
 		return refactorings;
 	}
 }
