@@ -12,7 +12,7 @@ public class VariableDeclarationReplacement extends Replacement {
 	
 	public VariableDeclarationReplacement(VariableDeclaration v1, VariableDeclaration v2,
 			UMLOperation operation1, UMLOperation operation2) {
-		super(v1.toString() + " | " + v1.getScope(), v2.toString() + " | " + v2.getScope(), ReplacementType.VARIABLE_DECLARATION);
+		super(v1.toString() + " | " + v1.getScope_RENAMED(), v2.toString() + " | " + v2.getScope_RENAMED(), ReplacementType.VARIABLE_DECLARATION);
 		this.v1 = v1;
 		this.v2 = v2;
 		this.operation1 = operation1;

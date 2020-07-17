@@ -111,7 +111,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return type;
 	}
 
-	public VariableScope getScope() {
+	public VariableScope getScope_RENAMED() {
 		return scope;
 	}
 
