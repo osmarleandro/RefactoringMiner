@@ -78,7 +78,7 @@ public class CodeRange {
 				this.endLine >= other.endLine;
 	}
 
-	public boolean subsumes(List<? extends AbstractCodeFragment> statements) {
+	public boolean subsumes_RENAMED(List<? extends AbstractCodeFragment> statements) {
 		int subsumedStatements = 0;
 		for(AbstractCodeFragment statement : statements) {
 			if(subsumes(statement.codeRange())) {
