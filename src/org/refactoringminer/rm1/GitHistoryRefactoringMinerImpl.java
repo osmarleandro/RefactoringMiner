@@ -405,7 +405,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
+	public void detectBetweenTags_RENAMED(Repository repository, String startTag, String endTag, RefactoringHandler handler)
 			throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override

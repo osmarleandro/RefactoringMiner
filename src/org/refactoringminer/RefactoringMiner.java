@@ -138,7 +138,7 @@ public class RefactoringMiner {
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
-			detector.detectBetweenTags(repo, startTag, endTag, new RefactoringHandler() {
+			detector.detectBetweenTags_RENAMED(repo, startTag, endTag, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
