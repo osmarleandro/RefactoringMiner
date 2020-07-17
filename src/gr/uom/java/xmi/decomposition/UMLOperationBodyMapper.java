@@ -3969,7 +3969,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	@Override
-	public int compareTo(UMLOperationBodyMapper operationBodyMapper) {
+	public int compareTo_RENAMED(UMLOperationBodyMapper operationBodyMapper) {
 		int thisCallChainIntersectionSum = 0;
 		for(AbstractCodeMapping mapping : this.mappings) {
 			if(mapping instanceof LeafMapping) {

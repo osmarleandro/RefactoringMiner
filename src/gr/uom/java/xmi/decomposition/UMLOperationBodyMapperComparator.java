@@ -11,7 +11,7 @@ public class UMLOperationBodyMapperComparator implements Comparator<UMLOperation
 		if(thisOperationNameEditDistance != otherOperationNameEditDistance)
 			return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
 		else
-			return o1.compareTo(o2);
+			return o1.compareTo_RENAMED(o2);
 	}
 
 }
