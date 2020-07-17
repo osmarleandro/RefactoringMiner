@@ -229,7 +229,7 @@ public class OperationInvocation extends AbstractCall {
     		}
     		i++;
     	}
-    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
+    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch_RENAMED(operation));
     }
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
@@ -260,7 +260,7 @@ public class OperationInvocation extends AbstractCall {
     	return false;
     }
 
-    private boolean varArgsMatch(UMLOperation operation) {
+    private boolean varArgsMatch_RENAMED(UMLOperation operation) {
     	//0 varargs arguments passed
     	return this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
     			//>=1 varargs arguments passed
