@@ -341,10 +341,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	private boolean equivalentName(UMLOperation operation) {
-		return this.name.equals(operation.name) || equivalentNames(this, operation) || equivalentNames(operation, this);
+		return this.name.equals(operation.name) || equivalentNames_RENAMED(this, operation) || equivalentNames_RENAMED(operation, this);
 	}
 
-	private static boolean equivalentNames(UMLOperation operation1, UMLOperation operation2) {
+	private static boolean equivalentNames_RENAMED(UMLOperation operation1, UMLOperation operation2) {
 		boolean equalReturn = operation1.equalReturnParameter(operation2) && operation1.getParametersWithoutReturnType().size() > 0 && operation2.getParametersWithoutReturnType().size() > 0;
 		if(operation1.name.startsWith(operation2.name) && !operation2.name.equals("get") && !operation2.name.equals("set") && !operation2.name.equals("print")) {
 			String suffix1 = operation1.name.substring(operation2.name.length(), operation1.name.length());
