@@ -31,13 +31,13 @@ public class RefactoringCrawlerResultReader {
     File folder = new File(path);
     for (File f : folder.listFiles()) {
       if (f.isFile()) {
-        readXml(f.getPath(), result);
+        readXml_RENAMED(f.getPath(), result);
       }
     }
     return result;
   }
 
-  public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
+  public static void readXml_RENAMED(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
     String content = readFile(path, StandardCharsets.UTF_8);
     Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
     Matcher m = p.matcher(content);
