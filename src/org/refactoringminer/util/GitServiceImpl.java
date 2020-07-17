@@ -326,7 +326,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+	public Churn churn_RENAMED(Repository repository, RevCommit currentCommit) throws Exception {
 		if (currentCommit.getParentCount() > 0) {
         	ObjectId oldTree = currentCommit.getParent(0).getTree();
 	        ObjectId newTree = currentCommit.getTree();

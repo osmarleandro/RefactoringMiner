@@ -440,7 +440,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
 			if (commit.getParentCount() > 0) {
 				walk.parseCommit(commit.getParent(0));
-				return gitService.churn(repository, commit);
+				return gitService.churn_RENAMED(repository, commit);
 			}
 			else {
 				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
