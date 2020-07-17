@@ -50,7 +50,7 @@ public class CodeRange {
 		return endColumn;
 	}
 
-	public CodeElementType getCodeElementType() {
+	public CodeElementType getCodeElementType_RENAMED() {
 		return codeElementType;
 	}
 
