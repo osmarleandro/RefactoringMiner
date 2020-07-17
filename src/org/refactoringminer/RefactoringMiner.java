@@ -63,7 +63,7 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 					commitCount++;
 				}
 
@@ -104,7 +104,7 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 					commitCount++;
 				}
 
@@ -145,7 +145,7 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 					commitCount++;
 				}
 
@@ -181,7 +181,7 @@ public class RefactoringMiner {
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
-					commitJSON(sb, gitURL, commitId, refactorings);
+					commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 				}
 
 				@Override
@@ -208,7 +208,7 @@ public class RefactoringMiner {
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 			@Override
 			public void handle(String commitId, List<Refactoring> refactorings) {
-				commitJSON(sb, gitURL, commitId, refactorings);
+				commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 			}
 
 			@Override
@@ -238,7 +238,7 @@ public class RefactoringMiner {
 				if(commitCount > 0) {
 					sb.append(",").append("\n");
 				}
-				commitJSON(sb, gitURL, commitId, refactorings);
+				commitJSON_RENAMED(sb, gitURL, commitId, refactorings);
 				commitCount++;
 			}
 
@@ -252,7 +252,7 @@ public class RefactoringMiner {
 		System.out.println(sb.toString());
 	}
 
-	private static void commitJSON(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
+	private static void commitJSON_RENAMED(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(cloneURL).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
