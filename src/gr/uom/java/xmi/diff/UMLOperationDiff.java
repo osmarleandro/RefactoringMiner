@@ -44,7 +44,7 @@ public class UMLOperationDiff {
 		this.operationRenamed = false;
 		if(!removedOperation.getName().equals(addedOperation.getName()))
 			operationRenamed = true;
-		if(!removedOperation.getVisibility().equals(addedOperation.getVisibility()))
+		if(!removedOperation.getVisibility_RENAMED().equals(addedOperation.getVisibility_RENAMED()))
 			visibilityChanged = true;
 		if(removedOperation.isAbstract() != addedOperation.isAbstract())
 			abstractionChanged = true;
@@ -202,7 +202,7 @@ public class UMLOperationDiff {
 		if(operationRenamed)
 			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
 		if(visibilityChanged)
-			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility() + " to " + addedOperation.getVisibility()).append("\n");
+			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility_RENAMED() + " to " + addedOperation.getVisibility_RENAMED()).append("\n");
 		if(abstractionChanged)
 			sb.append("\t").append("abstraction changed from " + (removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
 					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
