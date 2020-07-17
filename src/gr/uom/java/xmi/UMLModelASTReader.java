@@ -341,7 +341,7 @@ public class UMLModelASTReader {
     		DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumeration.nextElement();
     		if(node.getUserObject() != null) {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
-    			String anonymousBinaryName = getAnonymousBinaryName(node);
+    			String anonymousBinaryName = getAnonymousBinaryName_RENAMED(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
@@ -601,7 +601,7 @@ public class UMLModelASTReader {
 		return name.toString();
 	}
 
-	private String getAnonymousBinaryName(DefaultMutableTreeNode node) {
+	private String getAnonymousBinaryName_RENAMED(DefaultMutableTreeNode node) {
 		StringBuilder name = new StringBuilder();
 		TreeNode[] path = node.getPath();
 		for(int i=0; i<path.length; i++) {
