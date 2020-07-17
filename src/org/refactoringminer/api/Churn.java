@@ -18,7 +18,7 @@ public class Churn {
 		return linesRemoved;
 	}
 	
-	public int getChurn() {
+	public int getChurn_RENAMED() {
 		return linesAdded + linesRemoved;
 	}
 }
