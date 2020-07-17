@@ -1192,7 +1192,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
-					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
+					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch_RENAMED(mappingSet)) != null) {
 						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves2.remove(bestMapping.getFragment1());
@@ -1290,7 +1290,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
-					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
+					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch_RENAMED(mappingSet)) != null) {
 						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves1.remove(bestMapping.getFragment1());
@@ -1442,7 +1442,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mappingSet.first();
 	}
 
-	private AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> multipleMappingsUnderTheSameSwitch(Set<LeafMapping> mappingSet) {
+	private AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> multipleMappingsUnderTheSameSwitch_RENAMED(Set<LeafMapping> mappingSet) {
 		CompositeStatementObject switchParent1 = null;
 		CompositeStatementObject switchParent2 = null;
 		if(mappingSet.size() > 1) {
