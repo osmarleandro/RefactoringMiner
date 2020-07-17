@@ -80,10 +80,10 @@ public class VariableReplacementAnalysis {
 		findVariableMerges();
 		findConsistentVariableRenames();
 		findParametersWrappedInLocalVariables();
-		findAttributeExtractions();
+		findAttributeExtractions_RENAMED();
 	}
 
-	private void findAttributeExtractions() {
+	private void findAttributeExtractions_RENAMED() {
 		if(classDiff != null) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
