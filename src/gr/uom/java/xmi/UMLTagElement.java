@@ -12,7 +12,7 @@ public class UMLTagElement {
 		this.fragments = new ArrayList<String>();
 	}
 	
-	public void addFragment(String fragment) {
+	public void addFragment_RENAMED(String fragment) {
 		fragments.add(fragment);
 	}
 
