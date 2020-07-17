@@ -73,7 +73,7 @@ public class ReplacementUtil {
 		return temp;
 	}
 
-	public static String performReplacement(String completeString1, String completeString2, String subString1, String subString2) {	
+	public static String performReplacement_RENAMED(String completeString1, String completeString2, String subString1, String subString2) {	
 		String temp = new String(completeString1);
 		boolean replacementOccurred = false;
 		for(String character : SPECIAL_CHARACTERS) {
