@@ -519,7 +519,7 @@ public class OperationInvocation extends AbstractCall {
 		return differentExpression && differentName && differentArguments;
 	}
 
-	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
+	public boolean identicalWithExpressionCallChainDifference_RENAMED(OperationInvocation other) {
 		Set<String> subExpressionIntersection = subExpressionIntersection(other);
 		return identicalName(other) &&
 				equalArguments(other) &&
