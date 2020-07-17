@@ -399,7 +399,7 @@ public class OperationInvocation extends AbstractCall {
 		return normalized;
 	}
 
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
         if(this == o) {
             return true;
         }
@@ -448,7 +448,7 @@ public class OperationInvocation extends AbstractCall {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
 						UMLType paremeterType = parameters.get(i).getType();
-						if(!argumentType.equals(paremeterType))
+						if(!argumentType.equals_RENAMED(paremeterType))
 							return false;
 					}
 					i++;
@@ -463,7 +463,7 @@ public class OperationInvocation extends AbstractCall {
 						UMLType paremeterType = parameter.isVarargs() ?
 								UMLType.extractTypeObject(parameter.getType().getClassType()) :
 								parameter.getType();
-						if(!argumentType.equals(paremeterType))
+						if(!argumentType.equals_RENAMED(paremeterType))
 							return false;
 					}
 					i++;
@@ -478,7 +478,7 @@ public class OperationInvocation extends AbstractCall {
 				if(typeInferenceMapFromContext.containsKey(argument)) {
 					UMLType argumentType = typeInferenceMapFromContext.get(argument);
 					UMLType paremeterType = parameters.get(i).getType();
-					if(!argumentType.equals(paremeterType))
+					if(!argumentType.equals_RENAMED(paremeterType))
 						return false;
 				}
 				i++;
