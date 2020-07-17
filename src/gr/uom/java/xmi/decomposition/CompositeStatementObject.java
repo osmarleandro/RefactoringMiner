@@ -180,10 +180,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getNullLiterals() {
+	public List<String> getNullLiterals_RENAMED() {
 		List<String> nullLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			nullLiterals.addAll(expression.getNullLiterals());
+			nullLiterals.addAll(expression.getNullLiterals_RENAMED());
 		}
 		return nullLiterals;
 	}
