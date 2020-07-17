@@ -60,7 +60,7 @@ public class CandidateMergeVariableRefactoring {
 		this.newAttribute = newAttribute;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Merge Attribute").append("\t");
 		sb.append(mergedVariables);

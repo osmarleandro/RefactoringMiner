@@ -619,13 +619,13 @@ public class UMLModelDiff {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> map = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
 	   for(MoveAttributeRefactoring ref : refactorings) {
-		   if(map.containsKey(ref.toString())) {
-			   map.get(ref.toString()).add(ref);
+		   if(map.containsKey(ref.toString_RENAMED())) {
+			   map.get(ref.toString_RENAMED()).add(ref);
 		   }
 		   else {
 			   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
 			   refs.add(ref);
-			   map.put(ref.toString(), refs);
+			   map.put(ref.toString_RENAMED(), refs);
 		   }
 	   }
 	   for(String key : map.keySet()) {
@@ -1491,7 +1491,7 @@ public class UMLModelDiff {
 	  for(Refactoring ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
     		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
+    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString_RENAMED(), refactoring.getChangedTypeVariable().getType().toString_RENAMED());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
@@ -1501,7 +1501,7 @@ public class UMLModelDiff {
     	  }
     	  else if(ref instanceof ChangeAttributeTypeRefactoring) {
     		  ChangeAttributeTypeRefactoring refactoring = (ChangeAttributeTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalAttribute().getType().toString(), refactoring.getChangedTypeAttribute().getType().toString());
+    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalAttribute().getType().toString_RENAMED(), refactoring.getChangedTypeAttribute().getType().toString_RENAMED());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
@@ -1511,7 +1511,7 @@ public class UMLModelDiff {
     	  }
     	  else if(ref instanceof ChangeReturnTypeRefactoring) {
     		  ChangeReturnTypeRefactoring refactoring = (ChangeReturnTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalType().toString(), refactoring.getChangedType().toString());
+    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalType().toString_RENAMED(), refactoring.getChangedType().toString_RENAMED());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
