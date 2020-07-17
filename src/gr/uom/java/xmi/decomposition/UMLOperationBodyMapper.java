@@ -1960,7 +1960,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.addReplacements(replacementsToBeAdded);
 		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
-				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
+				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements_RENAMED(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
@@ -3450,7 +3450,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return (diff1.isEmpty() && diff2.startsWith("(") && diff2.endsWith(")")) || diff2.equals("(" + diff1 + ")");
 	}
 
-	private boolean containsValidOperatorReplacements(ReplacementInfo replacementInfo) {
+	private boolean containsValidOperatorReplacements_RENAMED(ReplacementInfo replacementInfo) {
 		List<Replacement> operatorReplacements = replacementInfo.getReplacements(ReplacementType.INFIX_OPERATOR);
 		for(Replacement replacement : operatorReplacements) {
 			if(replacement.getBefore().equals("==") && !replacement.getAfter().equals("!="))
