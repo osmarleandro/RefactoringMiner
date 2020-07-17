@@ -67,7 +67,7 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	@Override
