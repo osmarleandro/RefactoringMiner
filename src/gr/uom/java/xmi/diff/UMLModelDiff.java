@@ -270,7 +270,7 @@ public class UMLModelDiff {
 			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
-		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
+		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces_RENAMED()) {
 			   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
 				   return true;
 			   }

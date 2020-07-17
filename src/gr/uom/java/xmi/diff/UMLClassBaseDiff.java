@@ -356,7 +356,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return newSuperclass;
 	}
 
-	public List<UMLType> getAddedImplementedInterfaces() {
+	public List<UMLType> getAddedImplementedInterfaces_RENAMED() {
 		return addedImplementedInterfaces;
 	}
 
