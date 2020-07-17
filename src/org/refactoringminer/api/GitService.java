@@ -39,7 +39,7 @@ public interface GitService {
 
 	Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception;
 
-	Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId) throws Exception;
+	Iterable<RevCommit> createRevsWalkBetweenCommits_RENAMED(Repository repository, String startCommitId, String endCommitId) throws Exception;
 
 	void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws Exception;
 
