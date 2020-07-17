@@ -32,7 +32,7 @@ public class InheritanceDetection {
 	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
 		for(UMLGeneralization generalization : addedGeneralizations) {
-			String superclass = generalization.getParent();
+			String superclass = generalization.getParent_RENAMED();
 			String subclass = generalization.getChild().getName();
 			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
 				addSubclassToSuperclass(superclass, subclass);

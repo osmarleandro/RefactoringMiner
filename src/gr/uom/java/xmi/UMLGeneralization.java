@@ -13,7 +13,7 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
         return child;
     }
 
-	public String getParent() {
+	public String getParent_RENAMED() {
         return parent;
     }
 

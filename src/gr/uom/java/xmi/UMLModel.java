@@ -64,8 +64,8 @@ public class UMLModel {
     	while(generalizationIt.hasNext()) {
     		UMLGeneralization generalization = generalizationIt.next();
     		if(generalization.getChild().equals(otherGeneralization.getChild())) {
-    			String thisParent = generalization.getParent();
-    			String otherParent = otherGeneralization.getParent();
+    			String thisParent = generalization.getParent_RENAMED();
+    			String otherParent = otherGeneralization.getParent_RENAMED();
     			String thisParentComparedString = null;
     			if(thisParent.contains("."))
     				thisParentComparedString = thisParent.substring(thisParent.lastIndexOf(".")+1);
