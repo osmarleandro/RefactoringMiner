@@ -742,7 +742,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
 			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap_RENAMED();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
@@ -758,7 +758,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap_RENAMED();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
@@ -778,7 +778,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
 			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap_RENAMED();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
@@ -794,7 +794,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap_RENAMED();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
@@ -1635,8 +1635,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replaceVariablesWithArguments(variables1, parameterToArgumentMap);
 		replaceVariablesWithArguments(variables2, parameterToArgumentMap);
 		
-		Map<String, List<? extends AbstractCall>> methodInvocationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getMethodInvocationMap());
-		Map<String, List<? extends AbstractCall>> methodInvocationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getMethodInvocationMap());
+		Map<String, List<? extends AbstractCall>> methodInvocationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getMethodInvocationMap_RENAMED());
+		Map<String, List<? extends AbstractCall>> methodInvocationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getMethodInvocationMap_RENAMED());
 		Set<String> methodInvocations1 = new LinkedHashSet<String>(methodInvocationMap1.keySet());
 		Set<String> methodInvocations2 = new LinkedHashSet<String>(methodInvocationMap2.keySet());
 		
@@ -2884,13 +2884,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				compatibleTypes = type1.compatibleTypes(type2);
 			}
 			OperationInvocation inv1 = null, inv2 = null;
-			Map<String, List<OperationInvocation>> methodInvocationMap1 = statement1.getMethodInvocationMap();
+			Map<String, List<OperationInvocation>> methodInvocationMap1 = statement1.getMethodInvocationMap_RENAMED();
 			for(String invocation1 : methodInvocationMap1.keySet()) {
 				if(invocation1.equals(assignment1)) {
 					inv1 = methodInvocationMap1.get(invocation1).get(0);
 				}
 			}
-			Map<String, List<OperationInvocation>> methodInvocationMap2 = statement2.getMethodInvocationMap();
+			Map<String, List<OperationInvocation>> methodInvocationMap2 = statement2.getMethodInvocationMap_RENAMED();
 			for(String invocation2 : methodInvocationMap2.keySet()) {
 				if(invocation2.equals(assignment2)) {
 					inv2 = methodInvocationMap2.get(invocation2).get(0);

@@ -1047,7 +1047,7 @@ public class VariableReplacementAnalysis {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {
 							UMLOperation extractedMethod = mapper.getOperation2();
-							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
+							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap_RENAMED();
 							for(String key : methodInvocationMap.keySet()) {
 								for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 									if(invocation.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
@@ -1059,7 +1059,7 @@ public class VariableReplacementAnalysis {
 										for(String variable : initializerVariables) {
 											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
 												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
-													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
+													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap_RENAMED();
 													for(String key2 : methodInvocationMap2.keySet()) {
 														for(OperationInvocation invocation2 : methodInvocationMap2.get(key2)) {
 															if(invocation2.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
