@@ -14,13 +14,13 @@ public class RefactoringRelationshipGroup {
   }
 
   public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
-    if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
+    if (r.getRefactoringType().equals(this.getRefactoringType_RENAMED()) && r.getMainEntity().equals(this.getMainEntity())) {
       refactoringRelationships.add(r);
     }
     throw new IllegalArgumentException(String.format("refactoring relatiships are note from the same group: [] []", r, refactoringRelationships.get(0)));
   }
 
-  public RefactoringType getRefactoringType() {
+  public RefactoringType getRefactoringType_RENAMED() {
     return refactoringRelationships.get(0).getRefactoringType();
   }
 
@@ -32,7 +32,7 @@ public class RefactoringRelationshipGroup {
   public boolean equals(Object obj) {
     if (obj instanceof RefactoringRelationshipGroup) {
       RefactoringRelationshipGroup other = (RefactoringRelationshipGroup) obj;
-      return other.getRefactoringType().equals(this.getRefactoringType()) && other.getMainEntity().equals(this.getMainEntity());
+      return other.getRefactoringType_RENAMED().equals(this.getRefactoringType_RENAMED()) && other.getMainEntity().equals(this.getMainEntity());
     }
     return false;
   }
@@ -42,7 +42,7 @@ public class RefactoringRelationshipGroup {
     final int prime = 31;
     int result = 1;
     result = prime * result + getMainEntity().hashCode();
-    result = prime * result + getRefactoringType().hashCode();
+    result = prime * result + getRefactoringType_RENAMED().hashCode();
     return result;
   }
 }
