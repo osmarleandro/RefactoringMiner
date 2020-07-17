@@ -59,13 +59,13 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.CHANGE_ATTRIBUTE_TYPE;
 	}
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public String toString() {
