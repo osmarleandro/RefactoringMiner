@@ -58,9 +58,9 @@ public class InlineOperationRefactoring implements Refactoring {
 			sb.append(" moved from class ");
 			sb.append(inlinedOperation.getClassName());
 			sb.append(" to class ");
-			sb.append(getTargetOperationAfterInline().getClassName());
+			sb.append(getTargetOperationAfterInline_RENAMED().getClassName());
 			sb.append(" & inlined to ");
-			sb.append(getTargetOperationAfterInline());
+			sb.append(getTargetOperationAfterInline_RENAMED());
 		}
 		return sb.toString();
 	}
@@ -87,7 +87,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return inlinedOperation;
 	}
 
-	public UMLOperation getTargetOperationAfterInline() {
+	public UMLOperation getTargetOperationAfterInline_RENAMED() {
 		return targetOperationAfterInline;
 	}
 
@@ -162,7 +162,7 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getTargetOperationAfterInline().getLocationInfo().getFilePath(), getTargetOperationAfterInline().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getTargetOperationAfterInline_RENAMED().getLocationInfo().getFilePath(), getTargetOperationAfterInline_RENAMED().getClassName()));
 		return pairs;
 	}
 
