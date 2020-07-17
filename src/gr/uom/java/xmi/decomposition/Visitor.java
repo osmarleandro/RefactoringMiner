@@ -687,7 +687,7 @@ public class Visitor extends ASTVisitor {
 		}
 	}
 
-	public boolean visit(QualifiedName node) {
+	public boolean visit_RENAMED(QualifiedName node) {
 		Name qualifier = node.getQualifier();
 		if(Character.isUpperCase(qualifier.getFullyQualifiedName().charAt(0))) {
 			types.add(qualifier.getFullyQualifiedName());
