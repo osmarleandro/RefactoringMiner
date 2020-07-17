@@ -103,7 +103,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		if (newAttribute == null) {
 			if (other.newAttribute != null)
 				return false;
-		} else if (!newAttribute.equals(other.newAttribute))
+		} else if (!newAttribute.equals_RENAMED(other.newAttribute))
 			return false;
 		return true;
 	}
