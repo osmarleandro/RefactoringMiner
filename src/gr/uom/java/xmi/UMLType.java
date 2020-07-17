@@ -90,7 +90,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		for(int i=0; i<this.typeArguments.size(); i++) {
 			UMLType thisComponent = this.typeArguments.get(i);
 			UMLType otherComponent = type.typeArguments.get(i);
-			if(!thisComponent.equals(otherComponent)) {
+			if(!thisComponent.equals_RENAMED(otherComponent)) {
 				return false;
 			}
 		}
@@ -130,7 +130,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return typeArguments.size() > 0;
 	}
 
-	public abstract boolean equals(Object o);
+	public abstract boolean equals_RENAMED(Object o);
 	public abstract int hashCode();
 	public abstract String toString();
 	public abstract String toQualifiedString();
@@ -138,25 +138,25 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	public boolean equalsQualified(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
+			return this.equals_RENAMED(type);
 		}
 		return false;
 	}
 	public boolean equalsWithSubType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
+			return this.equals_RENAMED(type);
 		}
 		return false;
 	}
 	public boolean equalClassType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
+			return this.equals_RENAMED(type);
 		}
 		return false;
 	}
 	public boolean compatibleTypes(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
+			return this.equals_RENAMED(type);
 		}
 		return false;
 	}
