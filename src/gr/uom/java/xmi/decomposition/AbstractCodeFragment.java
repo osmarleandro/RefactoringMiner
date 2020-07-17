@@ -37,7 +37,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	
 	public abstract CompositeStatementObject getParent();
 	public abstract String getString();
-	public abstract List<String> getVariables();
+	public abstract List<String> getVariables_RENAMED();
 	public abstract List<String> getTypes();
 	public abstract List<VariableDeclaration> getVariableDeclarations();
 	public abstract Map<String, List<OperationInvocation>> getMethodInvocationMap();
@@ -275,7 +275,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
 		String statement = getString();
 		if(statement.contains("=")) {
-			List<String> variables = getVariables();
+			List<String> variables = getVariables_RENAMED();
 			if(variables.size() > 0) {
 				String s = variables.get(0) + "=" + expression + ";\n";
 				if(statement.equals(s)) {

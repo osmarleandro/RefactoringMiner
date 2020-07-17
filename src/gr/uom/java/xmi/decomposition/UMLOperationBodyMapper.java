@@ -1585,8 +1585,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		VariableDeclaration variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
 		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment();
 		OperationInvocation invocationCoveringTheEntireStatement2 = statement2.invocationCoveringEntireFragment();
-		Set<String> variables1 = new LinkedHashSet<String>(statement1.getVariables());
-		Set<String> variables2 = new LinkedHashSet<String>(statement2.getVariables());
+		Set<String> variables1 = new LinkedHashSet<String>(statement1.getVariables_RENAMED());
+		Set<String> variables2 = new LinkedHashSet<String>(statement2.getVariables_RENAMED());
 		Set<String> variableIntersection = new LinkedHashSet<String>(variables1);
 		variableIntersection.retainAll(variables2);
 		// ignore the variables in the intersection that also appear with "this." prefix in the sets of variables
