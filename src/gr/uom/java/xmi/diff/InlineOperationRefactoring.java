@@ -103,7 +103,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return replacements;
 	}
 
-	public Set<AbstractCodeFragment> getInlinedCodeFragments() {
+	public Set<AbstractCodeFragment> getInlinedCodeFragments_RENAMED() {
 		return inlinedCodeFragmentsInTargetOperation;
 	}
 
