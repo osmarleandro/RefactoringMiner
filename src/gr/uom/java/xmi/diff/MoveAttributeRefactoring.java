@@ -28,7 +28,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		sb.append(" from class ");
 		sb.append(getSourceClassName());
 		sb.append(" to ");
-		sb.append(getMovedAttribute().toQualifiedString());
+		sb.append(getMovedAttribute_RENAMED().toQualifiedString());
 		sb.append(" from class ");
 		sb.append(getTargetClassName());
 		return sb.toString();
@@ -46,7 +46,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
-	public UMLAttribute getMovedAttribute() {
+	public UMLAttribute getMovedAttribute_RENAMED() {
 		return movedAttribute;
 	}
 
@@ -107,7 +107,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedAttribute().getLocationInfo().getFilePath(), getMovedAttribute().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedAttribute_RENAMED().getLocationInfo().getFilePath(), getMovedAttribute_RENAMED().getClassName()));
 		return pairs;
 	}
 

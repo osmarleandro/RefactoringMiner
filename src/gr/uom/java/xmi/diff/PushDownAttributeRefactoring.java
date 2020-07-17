@@ -20,7 +20,7 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 		sb.append(" from class ");
 		sb.append(getSourceClassName());
 		sb.append(" to ");
-		sb.append(getMovedAttribute().toQualifiedString());
+		sb.append(getMovedAttribute_RENAMED().toQualifiedString());
 		sb.append(" from class ");
 		sb.append(getTargetClassName());
 		return sb.toString();
