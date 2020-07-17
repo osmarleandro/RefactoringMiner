@@ -9,7 +9,7 @@ public class UMLRealization implements Comparable<UMLRealization> {
         this.client = client;
     }
 
-    public String getSupplier() {
+    public String getSupplier_RENAMED() {
         return supplier;
     }
 

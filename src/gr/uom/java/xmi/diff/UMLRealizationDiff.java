@@ -13,7 +13,7 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 		this.addedRealization = addedRealization;
 		this.parentChanged = false;
 		this.childChanged = false;
-		if(!removedRealization.getSupplier().equals(addedRealization.getSupplier()))
+		if(!removedRealization.getSupplier_RENAMED().equals(addedRealization.getSupplier_RENAMED()))
 			parentChanged = true;
 		if(!removedRealization.getClient().equals(addedRealization.getClient()))
 			childChanged = true;
@@ -26,7 +26,7 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 		if(childChanged)
 			sb.append("\t").append("child changed from " + removedRealization.getClient() + " to " + addedRealization.getClient()).append("\n");
 		if(parentChanged)
-			sb.append("\t").append("parent changed from " + removedRealization.getSupplier() + " to " + addedRealization.getSupplier()).append("\n");
+			sb.append("\t").append("parent changed from " + removedRealization.getSupplier_RENAMED() + " to " + addedRealization.getSupplier_RENAMED()).append("\n");
 		return sb.toString();
 	}
 
