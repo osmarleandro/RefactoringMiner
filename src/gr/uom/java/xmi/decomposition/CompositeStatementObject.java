@@ -225,10 +225,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getPrefixExpressions() {
+	public List<String> getPrefixExpressions_RENAMED() {
 		List<String> prefixExpressions = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			prefixExpressions.addAll(expression.getPrefixExpressions());
+			prefixExpressions.addAll(expression.getPrefixExpressions_RENAMED());
 		}
 		return prefixExpressions;
 	}
