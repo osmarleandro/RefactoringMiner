@@ -2399,7 +2399,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   if(addedOperation.isAbstract() == removedOperation.isAbstract() &&
-			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
+			   addedOperation.getTypeParameters_RENAMED().equals(removedOperation.getTypeParameters_RENAMED())) {
 		   List<UMLType> addedOperationParameterTypeList = addedOperation.getParameterTypeList();
 		   List<UMLType> removedOperationParameterTypeList = removedOperation.getParameterTypeList();
 		   if(addedOperationParameterTypeList.equals(removedOperationParameterTypeList) && addedOperationParameterTypeList.size() > 0) {
@@ -2442,7 +2442,7 @@ public class UMLModelDiff {
 	   if(addedOperation.getName().equals(removedOperation.getName()) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
-			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
+			   addedOperation.getTypeParameters_RENAMED().equals(removedOperation.getTypeParameters_RENAMED())) {
 		   if(addedOperation.getParameters().equals(removedOperation.getParameters())) {
 			   return true;
 		   }
