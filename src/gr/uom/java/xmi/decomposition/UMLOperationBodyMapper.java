@@ -734,7 +734,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-			mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff);
+			mapping.temporaryVariableAssignment_RENAMED(statement, nonMappedLeavesT2, refactorings, classDiff);
 		}
 	}
 
@@ -1169,7 +1169,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 							UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-							mapping.temporaryVariableAssignment(leaf, leaves2, refactorings, classDiff);
+							mapping.temporaryVariableAssignment_RENAMED(leaf, leaves2, refactorings, classDiff);
 							if(mapping.isIdenticalWithExtractedVariable()) {
 								break;
 							}
@@ -1267,7 +1267,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 							UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-							mapping.temporaryVariableAssignment(leaf, leaves2, refactorings, classDiff);
+							mapping.temporaryVariableAssignment_RENAMED(leaf, leaves2, refactorings, classDiff);
 							if(mapping.isIdenticalWithExtractedVariable()) {
 								break;
 							}

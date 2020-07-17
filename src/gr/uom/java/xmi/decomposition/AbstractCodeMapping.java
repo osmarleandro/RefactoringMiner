@@ -153,7 +153,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void temporaryVariableAssignment(AbstractCodeFragment statement,
+	public void temporaryVariableAssignment_RENAMED(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
