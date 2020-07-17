@@ -53,7 +53,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getChangedTypeVariable() {
+	public VariableDeclaration getChangedTypeVariable_RENAMED() {
 		return changedTypeVariable;
 	}
 
