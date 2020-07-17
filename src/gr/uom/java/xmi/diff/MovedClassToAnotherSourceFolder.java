@@ -31,7 +31,7 @@ public class MovedClassToAnotherSourceFolder {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
+	public UMLClass getMovedClass_RENAMED() {
 		return movedClass;
 	}
 
