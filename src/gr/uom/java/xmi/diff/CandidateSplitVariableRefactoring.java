@@ -60,7 +60,7 @@ public class CandidateSplitVariableRefactoring {
 		this.oldAttribute = oldAttribute;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Split Attribute").append("\t");
 		sb.append(oldVariable);
