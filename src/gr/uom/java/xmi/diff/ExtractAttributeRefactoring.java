@@ -42,7 +42,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return attributeDeclaration;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
+	public Set<AbstractCodeMapping> getReferences_RENAMED() {
 		return references;
 	}
 
