@@ -80,7 +80,7 @@ public class VariableScope {
 		return true;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(startLine).append(":").append(startColumn);
 		sb.append("-");
