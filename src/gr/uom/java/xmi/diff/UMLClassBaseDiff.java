@@ -1163,7 +1163,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
 				List<String> nonMappedLeavesT1 = new ArrayList<String>();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-					if(statement.countableStatement()) {
+					if(statement.countableStatement_RENAMED()) {
 						nonMappedLeavesT1.add(statement.getString());
 						for(String parameterName : addedOperation.getParameterNameList()) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
@@ -1191,7 +1191,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
-					if(statement.countableStatement()) {
+					if(statement.countableStatement_RENAMED()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
@@ -1208,7 +1208,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				StatementObject statementUsingParameterAsInvoker1 = null;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-					if(statement.countableStatement()) {
+					if(statement.countableStatement_RENAMED()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
@@ -1221,7 +1221,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				StatementObject statementUsingParameterAsInvoker2 = null;
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
-					if(statement.countableStatement()) {
+					if(statement.countableStatement_RENAMED()) {
 						for(String parameterName : addedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {

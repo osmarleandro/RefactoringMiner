@@ -661,7 +661,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int mappingsWithoutBlocks() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement())
+			if(mapping.getFragment1().countableStatement_RENAMED() && mapping.getFragment2().countableStatement_RENAMED())
 				count++;
 		}
 		return count;
@@ -670,12 +670,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedElementsT1() {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
-			if(composite.countableStatement())
+			if(composite.countableStatement_RENAMED())
 				nonMappedInnerNodeCount++;
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
-			if(statement.countableStatement())
+			if(statement.countableStatement_RENAMED())
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
@@ -684,7 +684,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedLeafElementsT1() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
-			if(statement.countableStatement())
+			if(statement.countableStatement_RENAMED())
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount;
@@ -693,12 +693,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedElementsT2() {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
-			if(composite.countableStatement())
+			if(composite.countableStatement_RENAMED())
 				nonMappedInnerNodeCount++;
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement_RENAMED() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
@@ -707,7 +707,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement_RENAMED() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount;
@@ -741,7 +741,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedElementsT2CallingAddedOperation(List<UMLOperation> addedOperations) {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
-			if(composite.countableStatement()) {
+			if(composite.countableStatement_RENAMED()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
@@ -757,7 +757,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement()) {
+			if(statement.countableStatement_RENAMED()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
@@ -777,7 +777,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
 		int nonMappedInnerNodeCount = 0;
 		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
-			if(composite.countableStatement()) {
+			if(composite.countableStatement_RENAMED()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
@@ -793,7 +793,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
-			if(statement.countableStatement()) {
+			if(statement.countableStatement_RENAMED()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
@@ -839,7 +839,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int exactMatches() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+			if(mapping.isExact() && mapping.getFragment1().countableStatement_RENAMED() && mapping.getFragment2().countableStatement_RENAMED() &&
 					!mapping.getFragment1().getString().equals("try"))
 				count++;
 		}
@@ -849,7 +849,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public List<AbstractCodeMapping> getExactMatches() {
 		List<AbstractCodeMapping> exactMatches = new ArrayList<AbstractCodeMapping>();
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+			if(mapping.isExact() && mapping.getFragment1().countableStatement_RENAMED() && mapping.getFragment2().countableStatement_RENAMED() &&
 					!mapping.getFragment1().getString().equals("try"))
 				exactMatches.add(mapping);
 		}
