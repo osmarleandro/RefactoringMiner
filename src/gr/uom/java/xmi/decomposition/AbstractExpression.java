@@ -69,7 +69,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     }
 
 	@Override
-	public CompositeStatementObject getParent() {
+	public CompositeStatementObject getParent_RENAMED() {
 		return getOwner();
 	}
 
