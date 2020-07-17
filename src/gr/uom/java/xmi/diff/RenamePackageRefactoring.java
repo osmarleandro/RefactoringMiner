@@ -84,7 +84,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
 			ranges.add(ref.getMovedClass().codeRange()
