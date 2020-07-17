@@ -56,7 +56,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void fetchAndDetectNew(Repository repository, RefactoringHandler handler) throws Exception;
+	void fetchAndDetectNew_RENAMED(Repository repository, RefactoringHandler handler) throws Exception;
 
 	/**
 	 * Detect refactorings performed in the specified commit. 
