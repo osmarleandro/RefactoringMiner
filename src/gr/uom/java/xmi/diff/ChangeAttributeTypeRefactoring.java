@@ -42,7 +42,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
-	public VariableDeclaration getChangedTypeAttribute() {
+	public VariableDeclaration getChangedTypeAttribute_RENAMED() {
 		return changedTypeAttribute;
 	}
 
@@ -132,7 +132,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getChangedTypeAttribute().getLocationInfo().getFilePath(), getClassNameAfter()));
+		pairs.add(new ImmutablePair<String, String>(getChangedTypeAttribute_RENAMED().getLocationInfo().getFilePath(), getClassNameAfter()));
 		return pairs;
 	}
 
