@@ -922,7 +922,7 @@ public class UMLModelDiff {
       return mappers;
    }
 
-   private List<UMLOperationBodyMapper> getOperationBodyMappersInMovedAndRenamedClasses() {
+   private List<UMLOperationBodyMapper> getOperationBodyMappersInMovedAndRenamedClasses_RENAMED() {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
 	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
 		   mappers.addAll(classDiff.getOperationBodyMapperList());
@@ -1465,7 +1465,7 @@ public class UMLModelDiff {
       checkForOperationMovesIncludingAddedClasses();
       checkForOperationMovesIncludingRemovedClasses();
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
-      checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
+      checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses_RENAMED(), getAddedOperationsInMovedAndRenamedClasses());
       checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses());
       refactorings.addAll(checkForAttributeMovesBetweenCommonClasses());
       refactorings.addAll(checkForAttributeMovesIncludingAddedClasses());
