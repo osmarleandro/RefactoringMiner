@@ -1005,7 +1005,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
-						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+						updateMapperSet_RENAMED(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}
 				}
 				if(!mapperSet.isEmpty()) {
@@ -1045,7 +1045,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
-						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+						updateMapperSet_RENAMED(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}
 				}
 				if(!mapperSet.isEmpty()) {
@@ -1127,7 +1127,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation operationInsideAnonymousClass, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
+	private void updateMapperSet_RENAMED(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation operationInsideAnonymousClass, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
