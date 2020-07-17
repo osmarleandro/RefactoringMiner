@@ -52,7 +52,7 @@ public class ObjectCreation extends AbstractCall {
 	}
 
 	public String getName() {
-		return getType().toString();
+		return getType().toString_RENAMED();
 	}
 
 	public UMLType getType() {
@@ -91,7 +91,7 @@ public class ObjectCreation extends AbstractCall {
         return false;
     }
 
-    public String toString() {
+    public String toString_RENAMED() {
         StringBuilder sb = new StringBuilder();
         sb.append("new ");
         sb.append(type);
@@ -129,8 +129,8 @@ public class ObjectCreation extends AbstractCall {
     }
 
 	public double normalizedNameDistance(AbstractCall call) {
-		String s1 = getType().toString().toLowerCase();
-		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
+		String s1 = getType().toString_RENAMED().toLowerCase();
+		String s2 = ((ObjectCreation)call).getType().toString_RENAMED().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
