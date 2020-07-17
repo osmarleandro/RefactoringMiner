@@ -133,7 +133,7 @@ public class CodeRange {
 			sb.append(",").append("\n");
 	}
 
-	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
+	public static CodeRange computeRange_RENAMED(Set<AbstractCodeFragment> codeFragments) {
 		String filePath = null;
 		int minStartLine = 0;
 		int maxEndLine = 0;

@@ -132,14 +132,14 @@ public class InlineOperationRefactoring implements Refactoring {
 	 * @return the code range of the inlined code fragment from the inlined method in the <b>parent</b> commit
 	 */
 	public CodeRange getInlinedCodeRangeFromInlinedOperation() {
-		return CodeRange.computeRange(inlinedCodeFragmentsFromInlinedOperation);
+		return CodeRange.computeRange_RENAMED(inlinedCodeFragmentsFromInlinedOperation);
 	}
 
 	/**
 	 * @return the code range of the inlined code fragment in the target method in the <b>child</b> commit
 	 */
 	public CodeRange getInlinedCodeRangeInTargetOperation() {
-		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
+		return CodeRange.computeRange_RENAMED(inlinedCodeFragmentsInTargetOperation);
 	}
 
 	/**
