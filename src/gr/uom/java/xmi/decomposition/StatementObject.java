@@ -204,7 +204,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getInfixOperators() {
+	public List<String> getInfixOperators_RENAMED() {
 		return infixOperators;
 	}
 

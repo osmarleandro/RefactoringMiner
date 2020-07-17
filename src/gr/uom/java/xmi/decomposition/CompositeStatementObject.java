@@ -210,7 +210,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getInfixOperators() {
 		List<String> infixOperators = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			infixOperators.addAll(expression.getInfixOperators());
+			infixOperators.addAll(expression.getInfixOperators_RENAMED());
 		}
 		return infixOperators;
 	}
