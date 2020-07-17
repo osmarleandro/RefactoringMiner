@@ -13,7 +13,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 		super(originalAttribute, movedAttribute);
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(getOriginalAttribute().toQualifiedString());
@@ -35,7 +35,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("pulled up attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
+				.setCodeElement(movedAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
