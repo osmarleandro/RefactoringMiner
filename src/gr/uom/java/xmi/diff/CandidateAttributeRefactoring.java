@@ -43,7 +43,7 @@ public class CandidateAttributeRefactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation getOperationAfter_RENAMED() {
 		return operationAfter;
 	}
 
