@@ -296,7 +296,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   UMLClass removedClass = getRemovedClass(subclass);
+	   UMLClass removedClass = getRemovedClass_RENAMED(subclass);
 	   if(removedClass == null) {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
 	   }
@@ -347,7 +347,7 @@ public class UMLModelDiff {
       return null;
    }
 
-   public UMLClass getRemovedClass(String className) {
+   public UMLClass getRemovedClass_RENAMED(String className) {
       for(UMLClass umlClass : removedClasses) {
          if(umlClass.getName().equals(className))
             return umlClass;
@@ -795,7 +795,7 @@ public class UMLModelDiff {
 	   if(classDiff != null) {
 		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
 	   }
-	   UMLClass removedClass = getRemovedClass(sourceClassName);
+	   UMLClass removedClass = getRemovedClass_RENAMED(sourceClassName);
 	   if(removedClass == null) {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
 	   }
