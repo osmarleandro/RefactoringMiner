@@ -64,13 +64,13 @@ public class AbstractExpression extends AbstractCodeFragment {
     	this.owner = owner;
     }
 
-    public CompositeStatementObject getOwner() {
+    public CompositeStatementObject getOwner_RENAMED() {
     	return this.owner;
     }
 
 	@Override
 	public CompositeStatementObject getParent() {
-		return getOwner();
+		return getOwner_RENAMED();
 	}
 
     public String getExpression() {
