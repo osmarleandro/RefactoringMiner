@@ -365,7 +365,7 @@ public class ResultComparator {
         this.groupRefactorings = groupRefactorings;
     }
 
-    public boolean isIgnoreMethodParams() {
+    public boolean isIgnoreMethodParams_RENAMED() {
         return ignoreMethodParams;
     }
 
