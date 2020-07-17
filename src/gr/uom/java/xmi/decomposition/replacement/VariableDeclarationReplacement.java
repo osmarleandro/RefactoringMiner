@@ -35,7 +35,7 @@ public class VariableDeclarationReplacement extends Replacement {
 		return operation2;
 	}
 
-	public Replacement getVariableNameReplacement() {
+	public Replacement getVariableNameReplacement_RENAMED() {
 		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
 	}
 
