@@ -789,11 +789,11 @@ public class VariableReplacementAnalysis {
 
 	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		return !variableAppearsInExtractedMethod(v1, v2) &&
-				!variableAppearsInTheInitializerOfTheOtherVariable(v1, v2) &&
+				!variableAppearsInTheInitializerOfTheOtherVariable_RENAMED(v1, v2) &&
 				!inconsistentVariableMapping(v1, v2, set);
 	}
 
-	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
+	private boolean variableAppearsInTheInitializerOfTheOtherVariable_RENAMED(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1.getInitializer() != null) {
 			if(v1.getInitializer().getString().equals(v2.getVariableName())) {
 				return true;
