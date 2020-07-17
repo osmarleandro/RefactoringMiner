@@ -79,12 +79,12 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void processAnonymousClasses() {
-		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
-    		if(!nextClass.getAnonymousClassList().contains(umlAnonymousClass))
+		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList_RENAMED()) {
+    		if(!nextClass.getAnonymousClassList_RENAMED().contains(umlAnonymousClass))
     			this.reportRemovedAnonymousClass(umlAnonymousClass);
     	}
-    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
-    		if(!originalClass.getAnonymousClassList().contains(umlAnonymousClass))
+    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList_RENAMED()) {
+    		if(!originalClass.getAnonymousClassList_RENAMED().contains(umlAnonymousClass))
     			this.reportAddedAnonymousClass(umlAnonymousClass);
     	}
 	}

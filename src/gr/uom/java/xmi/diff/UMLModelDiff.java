@@ -1830,7 +1830,7 @@ public class UMLModelDiff {
             		  //add enclosing class fields + anonymous class fields
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
-            		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
+            		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList_RENAMED()) {
             			  if(anonymous.getName().equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
             				  break;
