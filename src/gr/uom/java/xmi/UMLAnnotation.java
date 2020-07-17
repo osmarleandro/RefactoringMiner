@@ -42,7 +42,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return typeName;
 	}
 
-	public AbstractExpression getValue() {
+	public AbstractExpression getValue_RENAMED() {
 		return value;
 	}
 
