@@ -46,7 +46,7 @@ public class InheritanceDetection {
 		}
 	}
 
-	public Set<String> getRoots() {
+	public Set<String> getRoots_RENAMED() {
 		return subclassMap.keySet();
 	}
 }
