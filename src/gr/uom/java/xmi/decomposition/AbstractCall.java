@@ -213,7 +213,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
-				!identicalName(call) &&
+				!identicalName_RENAMED(call) &&
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
@@ -232,7 +232,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			}
 		}
 		return getExpression() == null && call.getExpression() == null &&
-				!identicalName(call) &&
+				!identicalName_RENAMED(call) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				equalArguments(call);
 	}
@@ -254,7 +254,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
-				identicalName(call) &&
+				identicalName_RENAMED(call) &&
 				!equalArguments(call) &&
 				getArguments().size() != call.getArguments().size();
 	}
@@ -316,7 +316,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
-				identicalName(call) &&
+				identicalName_RENAMED(call) &&
 				equalArguments(call);
 	}
 
