@@ -20,7 +20,7 @@ public class PrefixSuffixUtils {
 		return s1.substring(s1.length() - i, s1.length());
 	}
 
-	public static int separatorPosOfCommonSuffix(char separator, String s1, String s2) {
+	public static int separatorPosOfCommonSuffix_RENAMED(char separator, String s1, String s2) {
 		int l1 = s1.length();
 		int l2 = s2.length();
 		int separatorPos = -1; 

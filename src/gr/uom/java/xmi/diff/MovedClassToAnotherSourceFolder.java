@@ -36,7 +36,7 @@ public class MovedClassToAnotherSourceFolder {
 	}
 
 	public RenamePattern getRenamePattern() {
-		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('/', originalPath, movedPath);
+		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix_RENAMED('/', originalPath, movedPath);
 		if (separatorPos == -1) {
 			return new RenamePattern(originalPath, movedPath);
 		}
