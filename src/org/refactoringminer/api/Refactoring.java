@@ -19,7 +19,7 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 	/**
 	 * @return a Set of ImmutablePair where left is the file path of a program element, and right is the qualified name of the class containing the program element
 	 */
-	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring();
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring_RENAMED();
 	
 	/**
 	 * @return a Set of ImmutablePair where left is the file path of a program element, and right is the qualified name of the class containing the program element
