@@ -93,7 +93,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		while (i.hasNext()) {
 			RevCommit currentCommit = i.next();
 			try {
-				List<Refactoring> refactoringsAtRevision = detectRefactorings(gitService, repository, handler, projectFolder, currentCommit);
+				List<Refactoring> refactoringsAtRevision = detectRefactorings_RENAMED(gitService, repository, handler, projectFolder, currentCommit);
 				refactoringsCount += refactoringsAtRevision.size();
 				
 			} catch (Exception e) {
@@ -114,7 +114,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
 	}
 
-	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
+	protected List<Refactoring> detectRefactorings_RENAMED(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
 		List<Refactoring> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
 		List<String> filePathsBefore = new ArrayList<String>();
@@ -363,7 +363,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
 			if (commit.getParentCount() > 0) {
 				walk.parseCommit(commit.getParent(0));
-				this.detectRefactorings(gitService, repository, handler, projectFolder, commit);
+				this.detectRefactorings_RENAMED(gitService, repository, handler, projectFolder, commit);
 			}
 			else {
 				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
