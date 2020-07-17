@@ -2432,7 +2432,7 @@ public class UMLModelDiff {
 			   boolean parameterMatch = oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
 					   removedOperation.isStatic() || addedOperation.isStatic();
 			   return (parameterMatch && oldParameters.size() > 0 && newParameters.size() > 0) ||
-					   (parameterMatch && addedOperation.equalReturnParameter(removedOperation) && (oldParameters.size() == 0 || newParameters.size() == 0));
+					   (parameterMatch && addedOperation.equalReturnParameter_RENAMED(removedOperation) && (oldParameters.size() == 0 || newParameters.size() == 0));
 		   }
 	   }
 	   return false;
@@ -2440,7 +2440,7 @@ public class UMLModelDiff {
 
    private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   if(addedOperation.getName().equals(removedOperation.getName()) &&
-			   addedOperation.equalReturnParameter(removedOperation) &&
+			   addedOperation.equalReturnParameter_RENAMED(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
 		   if(addedOperation.getParameters().equals(removedOperation.getParameters())) {

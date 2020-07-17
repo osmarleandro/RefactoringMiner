@@ -48,7 +48,7 @@ public class UMLOperationDiff {
 			visibilityChanged = true;
 		if(removedOperation.isAbstract() != addedOperation.isAbstract())
 			abstractionChanged = true;
-		if(!removedOperation.equalReturnParameter(addedOperation))
+		if(!removedOperation.equalReturnParameter_RENAMED(addedOperation))
 			returnTypeChanged = true;
 		else if(!removedOperation.equalQualifiedReturnParameter(addedOperation))
 			qualifiedReturnTypeChanged = true;
