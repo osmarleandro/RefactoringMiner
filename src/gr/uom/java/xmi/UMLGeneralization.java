@@ -34,7 +34,7 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     	return child + "->" + parent;
     }
 
-	public int compareTo(UMLGeneralization generalization) {
+	public int compareTo_RENAMED(UMLGeneralization generalization) {
 		return this.toString().compareTo(generalization.toString());
 	}
 }
