@@ -2246,7 +2246,7 @@ public class UMLModelDiff {
 				if(operation1.equalSignature(operation2)) {
 					List<AbstractCodeMapping> mappings = new ArrayList<AbstractCodeMapping>(extraMapper.getMappings());
 					if(mappings.size() == 1) {
-						Set<Replacement> replacements = mappings.get(0).getReplacements();
+						Set<Replacement> replacements = mappings.get(0).getReplacements_RENAMED();
 						if(replacements.size() == 1) {
 							Replacement replacement = replacements.iterator().next();
 							List<String> parameterNames1 = operation1.getParameterNameList();
