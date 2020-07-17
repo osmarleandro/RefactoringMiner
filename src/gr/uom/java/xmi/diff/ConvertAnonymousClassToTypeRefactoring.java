@@ -31,14 +31,14 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(anonymousClass);
 		sb.append(" was converted to ");
 		sb.append(addedClass);
 		return sb.toString();
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
