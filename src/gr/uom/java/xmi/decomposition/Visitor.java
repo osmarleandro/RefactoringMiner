@@ -778,7 +778,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(LambdaExpression node) {
+	public boolean visit_RENAMED(LambdaExpression node) {
 		LambdaExpressionObject lambda = new LambdaExpressionObject(cu, filePath, node);
 		lambdas.add(lambda);
 		if(current.getUserObject() != null) {
