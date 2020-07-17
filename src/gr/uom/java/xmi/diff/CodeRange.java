@@ -92,10 +92,10 @@ public class CodeRange {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
 		encodeStringProperty(sb, "filePath", filePath, false);
-		encodeIntProperty(sb, "startLine", startLine, false);
-		encodeIntProperty(sb, "endLine", endLine, false);
-		encodeIntProperty(sb, "startColumn", startColumn, false);
-		encodeIntProperty(sb, "endColumn", endColumn, false);
+		encodeIntProperty_RENAMED(sb, "startLine", startLine, false);
+		encodeIntProperty_RENAMED(sb, "endLine", endLine, false);
+		encodeIntProperty_RENAMED(sb, "startColumn", startColumn, false);
+		encodeIntProperty_RENAMED(sb, "endColumn", endColumn, false);
 		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
 		encodeStringProperty(sb, "description", description, false);
 		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
@@ -121,7 +121,7 @@ public class CodeRange {
 		insertNewLine(sb, last);
 	}
 
-	private void encodeIntProperty(StringBuilder sb, String propertyName, int value, boolean last) {
+	private void encodeIntProperty_RENAMED(StringBuilder sb, String propertyName, int value, boolean last) {
 		sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
 		insertNewLine(sb, last);
 	}
