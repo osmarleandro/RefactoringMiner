@@ -188,7 +188,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(operationWithTheSameSignature == null) {
 				this.removedOperations.add(operation);
     		}
-			else if(!mapperListContainsOperation(operation, operationWithTheSameSignature)) {
+			else if(!mapperListContainsOperation_RENAMED(operation, operationWithTheSameSignature)) {
 				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation, operationWithTheSameSignature, this);
 				this.operationBodyMapperList.add(mapper);
 			}
@@ -198,7 +198,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(operationWithTheSameSignature == null) {
 				this.addedOperations.add(operation);
     		}
-			else if(!mapperListContainsOperation(operationWithTheSameSignature, operation)) {
+			else if(!mapperListContainsOperation_RENAMED(operationWithTheSameSignature, operation)) {
 				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operationWithTheSameSignature, operation, this);
 				this.operationBodyMapperList.add(mapper);
 			}
@@ -213,7 +213,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean mapperListContainsOperation(UMLOperation operation1, UMLOperation operation2) {
+	private boolean mapperListContainsOperation_RENAMED(UMLOperation operation1, UMLOperation operation2) {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			if(mapper.getOperation1().equals(operation1) || mapper.getOperation2().equals(operation2))
 				return true;
