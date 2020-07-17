@@ -62,7 +62,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return this.methodInvocationMap;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration> getVariableDeclarations_RENAMED() {
 		return variableDeclarations;
 	}
 
