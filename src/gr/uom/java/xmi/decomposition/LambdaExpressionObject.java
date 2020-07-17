@@ -29,7 +29,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 		return body;
 	}
 
-	public AbstractExpression getExpression() {
+	public AbstractExpression getExpression_RENAMED() {
 		return expression;
 	}
 

@@ -172,11 +172,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
-		if(lambda1.getExpression() != null && lambda2.getExpression() != null) {
+		if(lambda1.getExpression_RENAMED() != null && lambda2.getExpression_RENAMED() != null) {
 			List<AbstractExpression> leaves1 = new ArrayList<AbstractExpression>();
-			leaves1.add(lambda1.getExpression());
+			leaves1.add(lambda1.getExpression_RENAMED());
 			List<AbstractExpression> leaves2 = new ArrayList<AbstractExpression>();
-			leaves2.add(lambda2.getExpression());
+			leaves2.add(lambda2.getExpression_RENAMED());
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 		}
 		else if(lambda1.getBody() != null && lambda2.getBody() != null) {

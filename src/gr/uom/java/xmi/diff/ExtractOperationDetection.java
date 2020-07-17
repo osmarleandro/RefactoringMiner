@@ -152,8 +152,8 @@ public class ExtractOperationDetection {
 					}
 				}
 			}
-			if(lambda.getExpression() != null) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
+			if(lambda.getExpression_RENAMED() != null) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression_RENAMED().getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
 						if(!containsInvocation(operationInvocations, statementInvocation)) {
