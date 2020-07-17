@@ -1776,7 +1776,7 @@ public class UMLModelDiff {
 			}
 		}
 		int delegateStatements = 0;
-		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1_RENAMED()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
@@ -2307,7 +2307,7 @@ public class UMLModelDiff {
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
 		int nonMappedStatementsDeclaringSameVariable = 0;
-		for(ListIterator<StatementObject> leafIterator1 = operationBodyMapper.getNonMappedLeavesT1().listIterator(); leafIterator1.hasNext();) {
+		for(ListIterator<StatementObject> leafIterator1 = operationBodyMapper.getNonMappedLeavesT1_RENAMED().listIterator(); leafIterator1.hasNext();) {
 			StatementObject s1 = leafIterator1.next();
 			for(StatementObject s2 : operationBodyMapper.getNonMappedLeavesT2()) {
 				if(s1.getVariableDeclarations().size() == 1 && s2.getVariableDeclarations().size() == 1) {

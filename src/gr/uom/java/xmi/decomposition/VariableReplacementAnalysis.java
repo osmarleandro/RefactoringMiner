@@ -60,7 +60,7 @@ public class VariableReplacementAnalysis {
 
 	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		this.mappings = mapper.getMappings();
-		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
+		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1_RENAMED();
 		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
 		this.nonMappedInnerNodesT1 = mapper.getNonMappedInnerNodesT1();
 		this.nonMappedInnerNodesT2 = mapper.getNonMappedInnerNodesT2();

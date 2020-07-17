@@ -184,7 +184,7 @@ public class InlineOperationRefactoring implements Refactoring {
 					.setDescription("inlined method invocation")
 					.setCodeElement(invocation.actualString()));
 		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
+		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1_RENAMED()) {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}
