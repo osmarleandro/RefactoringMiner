@@ -387,7 +387,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return parameterTypeList;
 	}
 
-	public List<String> getParameterNameList() {
+	public List<String> getParameterNameList_RENAMED() {
 		List<String> parameterNameList = new ArrayList<String>();
 		for(UMLParameter parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
@@ -467,7 +467,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean isSetter() {
-		List<String> parameterNames = getParameterNameList();
+		List<String> parameterNames = getParameterNameList_RENAMED();
 		if(getBody() != null && parameterNames.size() == 1) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
@@ -675,7 +675,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalParameterNames(UMLOperation operation) {
-		return this.equalReturnParameter(operation) && this.getParameterNameList().equals(operation.getParameterNameList());
+		return this.equalReturnParameter(operation) && this.getParameterNameList_RENAMED().equals(operation.getParameterNameList_RENAMED());
 	}
 
 	public boolean overloadedParameters(UMLOperation operation) {
@@ -811,7 +811,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		if(operationBody != null && isConstructor) {
-			List<String> parameterNames = getParameterNameList();
+			List<String> parameterNames = getParameterNameList_RENAMED();
 			Map<String, Set<String>> map = operationBody.aliasedAttributes();
 			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
 			for(String key : map.keySet()) {
