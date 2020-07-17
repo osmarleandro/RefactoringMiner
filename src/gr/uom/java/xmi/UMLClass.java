@@ -81,7 +81,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return typeParameters;
 	}
 
-    public List<String> getTypeParameterNames() {
+    public List<String> getTypeParameterNames_RENAMED() {
     	List<String> typeParameterNames = new ArrayList<String>();
 		for(UMLTypeParameter typeParameter : typeParameters) {
 			typeParameterNames.add(typeParameter.getName());
@@ -286,7 +286,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
 	private boolean equalTypeParameters(UMLClass umlClass) {
-		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
+		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames_RENAMED().equals(umlClass.getTypeParameterNames_RENAMED());
 	}
 
     public boolean equals(Object o) {
