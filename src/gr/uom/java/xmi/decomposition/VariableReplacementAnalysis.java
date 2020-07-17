@@ -1131,7 +1131,7 @@ public class VariableReplacementAnalysis {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
-				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
+				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable_RENAMED()) &&
 						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
 					return true;
 				}
@@ -1169,7 +1169,7 @@ public class VariableReplacementAnalysis {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
 					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
 					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
-					merge.getNewVariable().equals(ref.getRenamedVariable())) {
+					merge.getNewVariable().equals(ref.getRenamedVariable_RENAMED())) {
 				return true;
 			}
 		}
@@ -1180,7 +1180,7 @@ public class VariableReplacementAnalysis {
 		for(SplitVariableRefactoring split : variableSplits) {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
 					split.getOperationAfter().equals(ref.getOperationAfter()) &&
-					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
+					split.getSplitVariables().contains(ref.getRenamedVariable_RENAMED()) &&
 					split.getOldVariable().equals(ref.getOriginalVariable())) {
 				return true;
 			}

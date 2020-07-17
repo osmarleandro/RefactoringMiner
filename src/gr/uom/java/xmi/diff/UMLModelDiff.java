@@ -1581,8 +1581,8 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
-							   parameter.getType().equals(rename.getRenamedVariable().getType())) {
+					   if(parameter.getName().equals(rename.getRenamedVariable_RENAMED().getVariableName()) &&
+							   parameter.getType().equals(rename.getRenamedVariable_RENAMED().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
 					   }

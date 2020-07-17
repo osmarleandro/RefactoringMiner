@@ -51,7 +51,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getRenamedVariable() {
+	public VariableDeclaration getRenamedVariable_RENAMED() {
 		return renamedVariable;
 	}
 
