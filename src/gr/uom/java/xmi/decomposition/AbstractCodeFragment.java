@@ -154,7 +154,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	public void resetArgumentization() {
+	public void resetArgumentization_RENAMED() {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
 

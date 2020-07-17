@@ -224,7 +224,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private void resetNodes(List<? extends AbstractCodeFragment> nodes) {
 		for(AbstractCodeFragment node : nodes) {
-			node.resetArgumentization();
+			node.resetArgumentization_RENAMED();
 		}
 	}
 	
