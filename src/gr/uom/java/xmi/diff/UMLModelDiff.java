@@ -145,19 +145,19 @@ public class UMLModelDiff {
 
    private UMLClassBaseDiff getUMLClassDiff(UMLType type) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         if(classDiff.matches(type))
+         if(classDiff.matches_RENAMED(type))
             return classDiff;
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-         if(classDiff.matches(type))
+         if(classDiff.matches_RENAMED(type))
             return classDiff;
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-         if(classDiff.matches(type))
+         if(classDiff.matches_RENAMED(type))
             return classDiff;
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-         if(classDiff.matches(type))
+         if(classDiff.matches_RENAMED(type))
             return classDiff;
       }
       return null;
