@@ -490,7 +490,7 @@ public class VariableReplacementAnalysis {
 				if(v1 != null)
 					candidate.setOriginalVariableDeclaration(v1.getKey());
 				if(v2 != null)
-					candidate.setRenamedVariableDeclaration(v2.getKey());
+					candidate.setRenamedVariableDeclaration_RENAMED(v2.getKey());
 				this.candidateAttributeRenames.add(candidate);
 			}
 		}
