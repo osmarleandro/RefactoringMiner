@@ -27,7 +27,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		return addedGeneralization;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(parentChanged || childChanged)
 			sb.append("generalization ").append(removedGeneralization).append(":").append("\n");
