@@ -1461,7 +1461,7 @@ public class UMLModelDiff {
       refactorings.addAll(identifyExtractClassRefactorings(classMoveDiffList));
       refactorings.addAll(identifyExtractClassRefactorings(innerClassMoveDiffList));
       refactorings.addAll(identifyExtractClassRefactorings(classRenameDiffList));
-      checkForOperationMovesBetweenCommonClasses();
+      checkForOperationMovesBetweenCommonClasses_RENAMED();
       checkForOperationMovesIncludingAddedClasses();
       checkForOperationMovesIncludingRemovedClasses();
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
@@ -2013,7 +2013,7 @@ public class UMLModelDiff {
       }
    }
 
-   private void checkForOperationMovesBetweenCommonClasses() throws RefactoringMinerTimedOutException {
+   private void checkForOperationMovesBetweenCommonClasses_RENAMED() throws RefactoringMinerTimedOutException {
       List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
       List<UMLOperation> removedOperations = getRemovedOperationsInCommonMovedRenamedClasses();
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
