@@ -135,7 +135,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean equalFragment(AbstractCodeFragment other) {
+	public boolean equalFragment_RENAMED(AbstractCodeFragment other) {
 		if(this.getString().equals(other.getString())) {
 			return true;
 		}
