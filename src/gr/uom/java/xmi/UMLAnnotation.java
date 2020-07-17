@@ -46,7 +46,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return value;
 	}
 
-	public Map<String, AbstractExpression> getMemberValuePairs() {
+	public Map<String, AbstractExpression> getMemberValuePairs_RENAMED() {
 		return memberValuePairs;
 	}
 
