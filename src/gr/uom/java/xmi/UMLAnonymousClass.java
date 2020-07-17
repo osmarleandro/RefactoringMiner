@@ -24,7 +24,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     		return packageName + "." + codePath;
 	}
 
-    public String getName() {
+    public String getName_RENAMED() {
     	if(packageName.equals(""))
     		return name;
     	else
@@ -45,7 +45,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     }
 
     public String toString() {
-    	return getName();
+    	return getName_RENAMED();
     }
 
 	public int compareTo(UMLAnonymousClass umlClass) {
