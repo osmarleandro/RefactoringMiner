@@ -34,7 +34,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
-				.setDescription("pulled up attribute declaration")
+				.setDescription_RENAMED("pulled up attribute declaration")
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}

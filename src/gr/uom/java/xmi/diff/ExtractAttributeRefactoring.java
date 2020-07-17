@@ -111,7 +111,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted attribute"));
+			ranges.add(mapping.getFragment1().codeRange().setDescription_RENAMED("statement with the initializer of the extracted attribute"));
 		}
 		return ranges;
 	}
@@ -120,10 +120,10 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(attributeDeclaration.codeRange()
-				.setDescription("extracted attribute declaration")
+				.setDescription_RENAMED("extracted attribute declaration")
 				.setCodeElement(attributeDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted attribute"));
+			ranges.add(mapping.getFragment2().codeRange().setDescription_RENAMED("statement with the name of the extracted attribute"));
 		}
 		return ranges;
 	}

@@ -188,10 +188,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
-				.setDescription("source method declaration before extraction")
+				.setDescription_RENAMED("source method declaration before extraction")
 				.setCodeElement(sourceOperationBeforeExtraction.toString()));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
-			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code from source method declaration"));
+			ranges.add(extractedCodeFragment.codeRange().setDescription_RENAMED("extracted code from source method declaration"));
 		}
 		/*
 		CodeRange extractedCodeRangeFromSourceOperation = getExtractedCodeRangeFromSourceOperation();
@@ -217,27 +217,27 @@ public class ExtractOperationRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getExtractedOperationCodeRange()
-				.setDescription("extracted method declaration")
+				.setDescription_RENAMED("extracted method declaration")
 				.setCodeElement(extractedOperation.toString()));
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
-			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
+			ranges.add(extractedCodeFragment.codeRange().setDescription_RENAMED("extracted code to extracted method declaration"));
 		}
 		ranges.add(getSourceOperationCodeRangeAfterExtraction()
-				.setDescription("source method declaration after extraction")
+				.setDescription_RENAMED("source method declaration after extraction")
 				.setCodeElement(sourceOperationAfterExtraction.toString()));
 		for(OperationInvocation invocation : extractedOperationInvocations) {
 			ranges.add(invocation.codeRange()
-					.setDescription("extracted method invocation")
+					.setDescription_RENAMED("extracted method invocation")
 					.setCodeElement(invocation.actualString()));
 		}
 		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
 			ranges.add(statement.codeRange().
-					setDescription("added statement in extracted method declaration"));
+					setDescription_RENAMED("added statement in extracted method declaration"));
 		}
 		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
 			ranges.add(statement.codeRange().
-					setDescription("added statement in extracted method declaration"));
+					setDescription_RENAMED("added statement in extracted method declaration"));
 		}
 		return ranges;
 	}

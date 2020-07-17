@@ -143,7 +143,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(oldVariable.codeRange()
-				.setDescription("original variable declaration")
+				.setDescription_RENAMED("original variable declaration")
 				.setCodeElement(oldVariable.toString()));
 		return ranges;
 	}
@@ -153,7 +153,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration splitVariable : splitVariables) {
 			ranges.add(splitVariable.codeRange()
-					.setDescription("split variable declaration")
+					.setDescription_RENAMED("split variable declaration")
 					.setCodeElement(splitVariable.toString()));
 		}
 		return ranges;

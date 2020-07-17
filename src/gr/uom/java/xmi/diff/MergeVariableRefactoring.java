@@ -140,7 +140,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration mergedVariable : mergedVariables) {
 			ranges.add(mergedVariable.codeRange()
-					.setDescription("merged variable declaration")
+					.setDescription_RENAMED("merged variable declaration")
 					.setCodeElement(mergedVariable.toString()));
 		}
 		return ranges;
@@ -150,7 +150,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(newVariable.codeRange()
-				.setDescription("new variable declaration")
+				.setDescription_RENAMED("new variable declaration")
 				.setCodeElement(newVariable.toString()));
 		return ranges;
 	}

@@ -26,7 +26,7 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedOperation.codeRange()
-				.setDescription("pulled up method declaration")
+				.setDescription_RENAMED("pulled up method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}

@@ -70,7 +70,7 @@ public class RenameClassRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalClass.codeRange()
-				.setDescription("original type declaration")
+				.setDescription_RENAMED("original type declaration")
 				.setCodeElement(originalClass.getName()));
 		return ranges;
 	}
@@ -79,7 +79,7 @@ public class RenameClassRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedClass.codeRange()
-				.setDescription("renamed type declaration")
+				.setDescription_RENAMED("renamed type declaration")
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
 	}

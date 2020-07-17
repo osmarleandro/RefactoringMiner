@@ -124,7 +124,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
-				.setDescription("original attribute declaration")
+				.setDescription_RENAMED("original attribute declaration")
 				.setCodeElement(originalAttribute.toString()));
 		return ranges;
 	}
@@ -133,7 +133,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedAttribute.codeRange()
-				.setDescription("renamed attribute declaration")
+				.setDescription_RENAMED("renamed attribute declaration")
 				.setCodeElement(renamedAttribute.toString()));
 		return ranges;
 	}

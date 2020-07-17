@@ -170,27 +170,27 @@ public class InlineOperationRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getInlinedOperationCodeRange()
-				.setDescription("inlined method declaration")
+				.setDescription_RENAMED("inlined method declaration")
 				.setCodeElement(inlinedOperation.toString()));
 		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
+			ranges.add(inlinedCodeFragment.codeRange().setDescription_RENAMED("inlined code from inlined method declaration"));
 		}
 		ranges.add(getTargetOperationCodeRangeBeforeInline()
-				.setDescription("target method declaration before inline")
+				.setDescription_RENAMED("target method declaration before inline")
 				.setCodeElement(targetOperationBeforeInline.toString()));
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
 			ranges.add(invocation.codeRange()
-					.setDescription("inlined method invocation")
+					.setDescription_RENAMED("inlined method invocation")
 					.setCodeElement(invocation.actualString()));
 		}
 		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
 			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
+					setDescription_RENAMED("deleted statement in inlined method declaration"));
 		}
 		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
 			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
+					setDescription_RENAMED("deleted statement in inlined method declaration"));
 		}
 		return ranges;
 	}
@@ -199,10 +199,10 @@ public class InlineOperationRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getTargetOperationCodeRangeAfterInline()
-				.setDescription("target method declaration after inline")
+				.setDescription_RENAMED("target method declaration after inline")
 				.setCodeElement(targetOperationAfterInline.toString()));
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
+			ranges.add(inlinedCodeFragment.codeRange().setDescription_RENAMED("inlined code in target method declaration"));
 		}
 		/*
 		CodeRange inlinedCodeRangeInTargetOperation = getInlinedCodeRangeInTargetOperation();

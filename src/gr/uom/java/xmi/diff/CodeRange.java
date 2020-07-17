@@ -58,7 +58,7 @@ public class CodeRange {
 		return description;
 	}
 
-	public CodeRange setDescription(String description) {
+	public CodeRange setDescription_RENAMED(String description) {
 		this.description = description;
 		return this;
 	}

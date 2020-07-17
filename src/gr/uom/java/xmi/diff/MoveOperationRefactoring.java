@@ -113,7 +113,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalOperation.codeRange()
-				.setDescription("original method declaration")
+				.setDescription_RENAMED("original method declaration")
 				.setCodeElement(originalOperation.toString()));
 		return ranges;
 	}
@@ -122,7 +122,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedOperation.codeRange()
-				.setDescription("moved method declaration")
+				.setDescription_RENAMED("moved method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}

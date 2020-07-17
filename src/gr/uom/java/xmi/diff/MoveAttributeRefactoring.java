@@ -115,7 +115,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
-				.setDescription("original attribute declaration")
+				.setDescription_RENAMED("original attribute declaration")
 				.setCodeElement(originalAttribute.toString()));
 		return ranges;
 	}
@@ -124,7 +124,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
-				.setDescription("moved attribute declaration")
+				.setDescription_RENAMED("moved attribute declaration")
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}

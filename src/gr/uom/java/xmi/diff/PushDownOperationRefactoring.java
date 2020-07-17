@@ -26,7 +26,7 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedOperation.codeRange()
-				.setDescription("pushed down method declaration")
+				.setDescription_RENAMED("pushed down method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}

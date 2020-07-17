@@ -140,7 +140,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalAttribute.codeRange()
-				.setDescription("original attribute declaration")
+				.setDescription_RENAMED("original attribute declaration")
 				.setCodeElement(originalAttribute.toString()));
 		return ranges;
 	}
@@ -149,7 +149,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(changedTypeAttribute.codeRange()
-				.setDescription("changed-type attribute declaration")
+				.setDescription_RENAMED("changed-type attribute declaration")
 				.setCodeElement(changedTypeAttribute.toString()));
 		return ranges;
 	}
