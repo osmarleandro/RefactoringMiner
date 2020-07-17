@@ -38,7 +38,7 @@ public class CodeRange {
 		return startLine;
 	}
 
-	public int getEndLine() {
+	public int getEndLine_RENAMED() {
 		return endLine;
 	}
 
