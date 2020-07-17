@@ -54,7 +54,7 @@ public class TestBuilder {
 		this.refactoringFilter = refactorings;
 	}
 
-	public TestBuilder verbose() {
+	public TestBuilder verbose_RENAMED() {
 		this.verbose = true;
 		return this;
 	}
