@@ -24,7 +24,7 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     	
     	if(o instanceof UMLGeneralization) {
     		UMLGeneralization umlGeneralization = (UMLGeneralization)o;
-    		return this.child.equals(umlGeneralization.child) &&
+    		return this.child.equals_RENAMED(umlGeneralization.child) &&
     			this.parent.equals(umlGeneralization.parent);
     	}
     	return false;
