@@ -31,7 +31,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		this.relatedRefactorings = new LinkedHashSet<Refactoring>();
 	}
 
-	public void addRelatedRefactoring(Refactoring refactoring) {
+	public void addRelatedRefactoring_RENAMED(Refactoring refactoring) {
 		this.relatedRefactorings.add(refactoring);
 	}
 

@@ -253,7 +253,7 @@ public class UMLOperationDiff {
 			if((parameterDiff.isTypeChanged() || parameterDiff.isQualifiedTypeChanged()) && !inconsistentReplacement(originalVariable, newVariable)) {
 				ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
 				if(renameRefactoring != null) {
-					refactoring.addRelatedRefactoring(renameRefactoring);
+					refactoring.addRelatedRefactoring_RENAMED(renameRefactoring);
 				}
 				refactorings.add(refactoring);
 			}
