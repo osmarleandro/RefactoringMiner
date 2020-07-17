@@ -76,8 +76,8 @@ public class InlineVariableRefactoring implements Refactoring {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((variableDeclaration == null) ? 0 : variableDeclaration.hashCode());
+		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode_RENAMED());
+		result = prime * result + ((variableDeclaration == null) ? 0 : variableDeclaration.hashCode_RENAMED());
 		return result;
 	}
 

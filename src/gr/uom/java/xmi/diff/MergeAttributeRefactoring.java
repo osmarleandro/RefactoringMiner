@@ -66,13 +66,13 @@ public class MergeAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
 		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
 		result = prime * result + ((mergedAttributes == null) ? 0 : mergedAttributes.hashCode());
-		result = prime * result + ((newAttribute == null) ? 0 : newAttribute.hashCode());
+		result = prime * result + ((newAttribute == null) ? 0 : newAttribute.hashCode_RENAMED());
 		return result;
 	}
 
