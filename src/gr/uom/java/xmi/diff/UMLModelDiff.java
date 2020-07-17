@@ -1229,7 +1229,7 @@ public class UMLModelDiff {
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
 			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
 				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
-					   moveSourceFolderRefactoring.addMovedClassToAnotherSourceFolder(refactoring);
+					   moveSourceFolderRefactoring.addMovedClassToAnotherSourceFolder_RENAMED(refactoring);
 					   foundInMatchingMoveSourceFolderRefactoring = true;
 					   break;
 				   }
