@@ -82,11 +82,11 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				this.varargs == parameter.varargs;
 	}
 
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((kind == null) ? 0 : kind.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode_RENAMED());
 		result = prime * result + (varargs ? 1231 : 1237);
 		return result;
 	}
