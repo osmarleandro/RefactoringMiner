@@ -291,7 +291,7 @@ public class OperationBody {
 	}
 
 	public Map<String, Set<String>> aliasedAttributes() {
-		return compositeStatement.aliasedAttributes();
+		return compositeStatement.aliasedAttributes_RENAMED();
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {

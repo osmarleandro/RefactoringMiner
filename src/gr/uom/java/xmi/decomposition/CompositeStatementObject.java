@@ -443,7 +443,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return null;
 	}
 
-	public Map<String, Set<String>> aliasedAttributes() {
+	public Map<String, Set<String>> aliasedAttributes_RENAMED() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
 		for(StatementObject statement : getLeaves()) {
 			String s = statement.getString();
