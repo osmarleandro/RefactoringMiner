@@ -178,7 +178,7 @@ public abstract class AbstractCodeMapping {
 				if(variableName.equals(replacement.getAfter()) && initializer != null) {
 					if(initializer.toString().equals(replacement.getBefore()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
-							ternaryMatch(initializer, replacement.getBefore()) ||
+							ternaryMatch_RENAMED(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
@@ -261,7 +261,7 @@ public abstract class AbstractCodeMapping {
 				if(variableName.equals(replacement.getBefore()) && initializer != null) {
 					if(initializer.toString().equals(replacement.getAfter()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
-							ternaryMatch(initializer, replacement.getAfter()) ||
+							ternaryMatch_RENAMED(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
@@ -302,7 +302,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+	private boolean ternaryMatch_RENAMED(AbstractExpression initializer, String replacedExpression) {
 		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
 		for(TernaryOperatorExpression ternary : ternaryList) {
 			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
