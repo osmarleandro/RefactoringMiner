@@ -229,7 +229,7 @@ public class UMLOperationDiff {
 		return sb.toString();
 	}
 
-	public Set<Refactoring> getRefactorings() {
+	public Set<Refactoring> getRefactorings_RENAMED() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(returnTypeChanged || qualifiedReturnTypeChanged) {
 			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();

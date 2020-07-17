@@ -468,7 +468,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<Refactoring> refactorings = new ArrayList<Refactoring>(this.refactorings);
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
-			refactorings.addAll(operationSignatureDiff.getRefactorings());
+			refactorings.addAll(operationSignatureDiff.getRefactorings_RENAMED());
 			processMapperRefactorings(mapper, refactorings);
 		}
 		refactorings.addAll(inferAttributeMergesAndSplits(renameMap, refactorings));
@@ -1018,7 +1018,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	
 						UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
 						operationDiffList.add(operationSignatureDiff);
-						refactorings.addAll(operationSignatureDiff.getRefactorings());
+						refactorings.addAll(operationSignatureDiff.getRefactorings_RENAMED());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
 								!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
@@ -1058,7 +1058,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	
 						UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
 						operationDiffList.add(operationSignatureDiff);
-						refactorings.addAll(operationSignatureDiff.getRefactorings());
+						refactorings.addAll(operationSignatureDiff.getRefactorings_RENAMED());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
 								!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
