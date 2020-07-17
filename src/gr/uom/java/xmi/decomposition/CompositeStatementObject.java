@@ -255,7 +255,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
 		for(AbstractExpression expression : expressionList) {
-			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
+			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions_RENAMED());
 		}
 		return ternaryOperatorExpressions;
 	}

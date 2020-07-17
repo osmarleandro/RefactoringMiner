@@ -303,7 +303,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
-		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
+		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions_RENAMED();
 		for(TernaryOperatorExpression ternary : ternaryList) {
 			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
 				return true;
@@ -410,7 +410,7 @@ public abstract class AbstractCodeMapping {
 					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
 						return true;
 					}
-					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();
+					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions_RENAMED();
 					for(TernaryOperatorExpression ternaryOperator : ternaryOperators) {
 						if(ternaryOperator.getThenExpression().toString().equals(s1) ||
 								ternaryOperator.getElseExpression().toString().equals(s1)) {

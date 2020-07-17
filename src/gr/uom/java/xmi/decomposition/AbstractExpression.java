@@ -166,7 +166,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+	public List<TernaryOperatorExpression> getTernaryOperatorExpressions_RENAMED() {
 		return ternaryOperatorExpressions;
 	}
 
