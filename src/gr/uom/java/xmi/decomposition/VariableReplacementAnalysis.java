@@ -232,7 +232,7 @@ public class VariableReplacementAnalysis {
 			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 			Set<UMLOperation> splitVariableOperations = new LinkedHashSet<UMLOperation>();
 			for(String variableName : split.getSplitVariables()) {
-				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration2(split, variableName);
+				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration2_RENAMED(split, variableName);
 				if(declaration != null) {
 					splitVariables.add(declaration.getKey());
 					splitVariableOperations.add(declaration.getValue());
@@ -974,7 +974,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(SplitVariableReplacement replacement, String variableName) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2_RENAMED(SplitVariableReplacement replacement, String variableName) {
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				Set<String> foundSplitVariables = new LinkedHashSet<String>();
