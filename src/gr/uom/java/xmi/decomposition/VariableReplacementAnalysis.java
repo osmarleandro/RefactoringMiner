@@ -78,7 +78,7 @@ public class VariableReplacementAnalysis {
 		this.classDiff = classDiff;
 		findVariableSplits();
 		findVariableMerges();
-		findConsistentVariableRenames();
+		findConsistentVariableRenames_RENAMED();
 		findParametersWrappedInLocalVariables();
 		findAttributeExtractions();
 	}
@@ -420,7 +420,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private void findConsistentVariableRenames() {
+	private void findConsistentVariableRenames_RENAMED() {
 		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
 		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
