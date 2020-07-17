@@ -3702,7 +3702,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!parameter.equals(argument)) {
 				Set<String> toBeAdded = new LinkedHashSet<String>();
 				for(String call : calls) {
-					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+					String afterReplacement = ReplacementUtil.performArgumentReplacement_RENAMED(call, parameter, argument);
 					if(!call.equals(afterReplacement)) {
 						toBeAdded.add(afterReplacement);
 						List<? extends AbstractCall> oldCalls = callMap.get(call);

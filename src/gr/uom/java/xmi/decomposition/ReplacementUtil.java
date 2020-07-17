@@ -40,7 +40,7 @@ public class ReplacementUtil {
 		return false;
 	}
 
-	public static String performArgumentReplacement(String completeString, String subString, String replacement) {
+	public static String performArgumentReplacement_RENAMED(String completeString, String subString, String replacement) {
 		String temp = new String(completeString);
 		for(String character : SPECIAL_ARGUMENT_CHARACTERS) {
 			if(completeString.contains(subString + character)) {
