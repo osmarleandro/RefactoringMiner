@@ -981,7 +981,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return totalCount;
 	}
 
-	private int computeAbsoluteDifferenceInPositionWithinClass(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private int computeAbsoluteDifferenceInPositionWithinClass_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 		int index1 = originalClass.getOperations().indexOf(removedOperation);
 		int index2 = nextClass.getOperations().indexOf(addedOperation);
 		return Math.abs(index1-index2);
@@ -1088,7 +1088,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass_RENAMED(removedOperation, addedOperation);
 			if(exactMappings(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
@@ -1118,7 +1118,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		if(totalMappings.size() > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass_RENAMED(removedOperation, addedOperation);
 			if(singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
@@ -1131,7 +1131,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass_RENAMED(removedOperation, addedOperation);
 			if(exactMappings(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
