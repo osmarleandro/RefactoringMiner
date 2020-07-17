@@ -90,7 +90,7 @@ public class RefactoringPopulator {
 		}
 	}
 
-	public static void feedRefactoringsInstances(BigInteger refactoringsFlag, int systemsFlag, TestBuilder test)
+	public static void feedRefactoringsInstances_RENAMED(BigInteger refactoringsFlag, int systemsFlag, TestBuilder test)
 			throws JsonParseException, JsonMappingException, IOException {
 
 		if ((systemsFlag & Systems.FSE.getValue()) > 0) {
