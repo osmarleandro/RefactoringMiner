@@ -51,7 +51,7 @@ public class UMLModel {
         return this.classList;
     }
 
-    public List<UMLGeneralization> getGeneralizationList() {
+    public List<UMLGeneralization> getGeneralizationList_RENAMED() {
         return this.generalizationList;
     }
 
