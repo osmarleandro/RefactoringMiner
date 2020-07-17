@@ -40,7 +40,7 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
 		if(this == o) {
 			return true;
 		}
