@@ -201,7 +201,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getTypeLiterals() {
 		List<String> typeLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			typeLiterals.addAll(expression.getTypeLiterals());
+			typeLiterals.addAll(expression.getTypeLiterals_RENAMED());
 		}
 		return typeLiterals;
 	}
