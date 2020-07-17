@@ -19,7 +19,7 @@ public class MovedClassToAnotherSourceFolder {
 		this.movedPath = movedPath;
 	}
 	
-	public String getOriginalClassName() {
+	public String getOriginalClassName_RENAMED() {
 		return originalClass.getName();
 	}
 
