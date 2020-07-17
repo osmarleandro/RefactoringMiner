@@ -203,7 +203,7 @@ public class VariableReplacementAnalysis {
 					if(initializer != null) {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {
-							String expression = invocation.getExpression();
+							String expression = invocation.getExpression_RENAMED();
 							if(expression != null) {
 								VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), parameterName, invocation, Direction.INVOCATION_TO_VARIABLE);
 								processVariableReplacementWithMethodInvocation(variableReplacement, null, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
@@ -256,7 +256,7 @@ public class VariableReplacementAnalysis {
 	private void processVariableReplacementWithMethodInvocation(
 			VariableReplacementWithMethodInvocation variableReplacement, AbstractCodeMapping mapping,
 			Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap, Direction direction) {
-		String expression = variableReplacement.getInvokedOperation().getExpression();
+		String expression = variableReplacement.getInvokedOperation().getExpression_RENAMED();
 		if(expression != null && variableReplacement.getDirection().equals(direction)) {
 			if(variableInvocationExpressionMap.containsKey(expression)) {
 				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(expression);
