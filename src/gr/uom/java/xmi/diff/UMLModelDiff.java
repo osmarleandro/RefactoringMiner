@@ -2364,7 +2364,7 @@ public class UMLModelDiff {
 	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
 		   return false;
 	   }
-	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
+	   if((removedOperation.isGetter() || removedOperation.isSetter_RENAMED() || addedOperation.isGetter() || addedOperation.isSetter_RENAMED()) &&
 			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
 		   if(!mapper.getMappings().iterator().next().isExact()) {
 			   return false;

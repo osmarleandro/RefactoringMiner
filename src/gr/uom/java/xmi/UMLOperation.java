@@ -466,7 +466,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean isSetter() {
+	public boolean isSetter_RENAMED() {
 		List<String> parameterNames = getParameterNameList();
 		if(getBody() != null && parameterNames.size() == 1) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
