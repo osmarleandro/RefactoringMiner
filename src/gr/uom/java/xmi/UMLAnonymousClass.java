@@ -44,12 +44,12 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     	return false;
     }
 
-    public String toString() {
+    public String toString_RENAMED() {
     	return getName();
     }
 
 	public int compareTo(UMLAnonymousClass umlClass) {
-		return this.toString().compareTo(umlClass.toString());
+		return this.toString_RENAMED().compareTo(umlClass.toString_RENAMED());
 	}
 
 	public boolean isSingleAbstractMethodInterface() {

@@ -61,11 +61,11 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalType.equals(changedType) && !originalType.equalsQualified(changedType);
 		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalType.toQualifiedString() : originalType.toString());
+		sb.append(qualified ? originalType.toQualifiedString() : originalType.toString_RENAMED());
 		sb.append(" to ");
-		sb.append(qualified ? changedType.toQualifiedString() : changedType.toString());
+		sb.append(qualified ? changedType.toQualifiedString() : changedType.toString_RENAMED());
 		sb.append(" in method ");
-		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString());
+		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString_RENAMED());
 		sb.append(" in class ").append(operationAfter.getClassName());
 		return sb.toString();
 	}
@@ -131,7 +131,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalType.codeRange()
 				.setDescription("original return type")
-				.setCodeElement(originalType.toString()));
+				.setCodeElement(originalType.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -140,7 +140,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(changedType.codeRange()
 				.setDescription("changed return type")
-				.setCodeElement(changedType.toString()));
+				.setCodeElement(changedType.toString_RENAMED()));
 		return ranges;
 	}
 }
