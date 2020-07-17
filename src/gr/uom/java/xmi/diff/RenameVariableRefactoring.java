@@ -33,7 +33,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		if(originalVariable.isParameter() && renamedVariable.isParameter())
 			return RefactoringType.RENAME_PARAMETER;
 		if(!originalVariable.isParameter() && renamedVariable.isParameter())
@@ -44,7 +44,7 @@ public class RenameVariableRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public VariableDeclaration getOriginalVariable() {
