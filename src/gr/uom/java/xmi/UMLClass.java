@@ -140,7 +140,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return isEnum;
 	}
 
-	public void setEnum(boolean isEnum) {
+	public void setEnum_RENAMED(boolean isEnum) {
 		this.isEnum = isEnum;
 	}
 
