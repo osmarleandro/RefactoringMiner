@@ -141,7 +141,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		for(VariableDeclaration mergedVariable : mergedVariables) {
 			ranges.add(mergedVariable.codeRange()
 					.setDescription("merged variable declaration")
-					.setCodeElement(mergedVariable.toString()));
+					.setCodeElement(mergedVariable.toString_RENAMED()));
 		}
 		return ranges;
 	}
@@ -151,7 +151,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(newVariable.codeRange()
 				.setDescription("new variable declaration")
-				.setCodeElement(newVariable.toString()));
+				.setCodeElement(newVariable.toString_RENAMED()));
 		return ranges;
 	}
 }

@@ -29,7 +29,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		this.attributeOfExtractedClassTypeInOriginalClass = attributeOfExtractedClassType;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(extractedClass);

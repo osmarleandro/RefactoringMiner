@@ -35,6 +35,6 @@ public class UMLRealization implements Comparable<UMLRealization> {
     }
 
 	public int compareTo(UMLRealization realization) {
-		return this.toString().compareTo(realization.toString());
+		return this.toString_RENAMED().compareTo(realization.toString_RENAMED());
 	}
 }
