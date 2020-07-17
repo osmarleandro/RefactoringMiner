@@ -1205,8 +1205,8 @@ public class UMLModelDiff {
 			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
 			   RenamePattern renamePattern = refactoring.getRenamePattern();
 			   //check if the the original path is a substring of the moved path and vice versa
-			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
-					   renamePattern.getAfter().contains(renamePattern.getBefore()) ||
+			   if(renamePattern.getBefore_RENAMED().contains(renamePattern.getAfter()) ||
+					   renamePattern.getAfter().contains(renamePattern.getBefore_RENAMED()) ||
 					   !originalClass.isTopLevel() || !movedClass.isTopLevel()) {
 				   refactorings.add(refactoring);
 			   }
@@ -1254,7 +1254,7 @@ public class UMLModelDiff {
 
    private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
 	   for(String deletedFolderPath : deletedFolderPaths) {
-		   String originalPath = renamePackageRefactoring.getPattern().getBefore();
+		   String originalPath = renamePackageRefactoring.getPattern().getBefore_RENAMED();
 		   //remove last .
 		   String trimmedOriginalPath = originalPath.endsWith(".") ? originalPath.substring(0, originalPath.length()-1) : originalPath;
 		   String convertedPackageToFilePath = trimmedOriginalPath.replaceAll("\\.", "/");
@@ -1308,7 +1308,7 @@ public class UMLModelDiff {
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
-    		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
+    		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore_RENAMED()));
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
