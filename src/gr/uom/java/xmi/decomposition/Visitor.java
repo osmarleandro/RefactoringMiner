@@ -374,7 +374,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ThisExpression node) {
+	public boolean visit_RENAMED(ThisExpression node) {
 		if(!(node.getParent() instanceof FieldAccess)) {
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
