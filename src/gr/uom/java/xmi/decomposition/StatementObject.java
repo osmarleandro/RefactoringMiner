@@ -224,7 +224,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArguments() {
+	public List<String> getArguments_RENAMED() {
 		return arguments;
 	}
 
