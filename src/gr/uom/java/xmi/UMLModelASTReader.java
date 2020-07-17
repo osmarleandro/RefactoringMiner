@@ -344,7 +344,7 @@ public class UMLModelASTReader {
     			String anonymousBinaryName = getAnonymousBinaryName(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
-    			umlClass.addAnonymousClass(anonymousClass);
+    			umlClass.addAnonymousClass_RENAMED(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
     				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
     					operation.addAnonymousClass(anonymousClass);
