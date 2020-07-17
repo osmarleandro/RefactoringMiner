@@ -433,7 +433,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
+	public Churn churnAtCommit_RENAMED(Repository repository, String commitId, RefactoringHandler handler) {
 		GitService gitService = new GitServiceImpl();
 		RevWalk walk = new RevWalk(repository);
 		try {
