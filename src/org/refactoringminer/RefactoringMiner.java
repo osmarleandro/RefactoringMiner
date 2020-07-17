@@ -55,7 +55,7 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			startJSON_RENAMED(sb);
 			detector.detectAll(repo, branch, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -96,7 +96,7 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			startJSON_RENAMED(sb);
 			detector.detectBetweenCommits(repo, startCommit, endCommit, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -137,7 +137,7 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			startJSON_RENAMED(sb);
 			detector.detectBetweenTags(repo, startTag, endTag, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -177,7 +177,7 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			startJSON_RENAMED(sb);
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
@@ -204,7 +204,7 @@ public class RefactoringMiner {
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
-		startJSON(sb);
+		startJSON_RENAMED(sb);
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 			@Override
 			public void handle(String commitId, List<Refactoring> refactorings) {
@@ -230,7 +230,7 @@ public class RefactoringMiner {
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
-		startJSON(sb);
+		startJSON_RENAMED(sb);
 		detector.detectAtPullRequest(gitURL, pullId, new RefactoringHandler() {
 			private int commitCount = 0;
 			@Override
@@ -273,7 +273,7 @@ public class RefactoringMiner {
 		sb.append("}");
 	}
 
-	private static void startJSON(StringBuilder sb) {
+	private static void startJSON_RENAMED(StringBuilder sb) {
 		sb.append("{").append("\n");
 		sb.append("\"").append("commits").append("\"").append(": ");
 		sb.append("[").append("\n");
