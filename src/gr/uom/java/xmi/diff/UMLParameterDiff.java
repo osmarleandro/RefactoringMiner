@@ -34,7 +34,7 @@ public class UMLParameterDiff {
 		return typeChanged;
 	}
 
-	public boolean isQualifiedTypeChanged() {
+	public boolean isQualifiedTypeChanged_RENAMED() {
 		return qualifiedTypeChanged;
 	}
 
