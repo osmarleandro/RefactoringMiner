@@ -184,7 +184,7 @@ public class UMLModelASTReader {
 				for(Object docElement : fragments) {
 					tagElement.addFragment(docElement.toString());
 				}
-				doc.addTag(tagElement);
+				doc.addTag_RENAMED(tagElement);
 			}
 		}
 		return doc;

@@ -10,7 +10,7 @@ public class UMLJavadoc {
 		this.tags = new ArrayList<UMLTagElement>();
 	}
 	
-	public void addTag(UMLTagElement tag) {
+	public void addTag_RENAMED(UMLTagElement tag) {
 		tags.add(tag);
 	}
 
