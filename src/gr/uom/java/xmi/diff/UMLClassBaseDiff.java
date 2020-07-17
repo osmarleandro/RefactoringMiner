@@ -1154,7 +1154,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean exactMappings(UMLOperationBodyMapper operationBodyMapper) {
-		if(allMappingsAreExactMatches(operationBodyMapper)) {
+		if(allMappingsAreExactMatches_RENAMED(operationBodyMapper)) {
 			if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
 				return true;
 			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
@@ -1445,7 +1445,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return numberOfInvocationsCalledByAddedOperationFoundInOtherRemovedOperations > numberOfInvocationsMissingFromAddedOperationWithoutThoseFoundInOtherRemovedOperations;
 	}
 
-	public static boolean allMappingsAreExactMatches(UMLOperationBodyMapper operationBodyMapper) {
+	public static boolean allMappingsAreExactMatches_RENAMED(UMLOperationBodyMapper operationBodyMapper) {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;

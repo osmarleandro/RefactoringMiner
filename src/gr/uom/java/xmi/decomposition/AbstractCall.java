@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
-import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
+import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches_RENAMED;
 
 public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
@@ -226,7 +226,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
-			if(!allMappingsAreExactMatches(lambdaMapper)) {
+			if(!allMappingsAreExactMatches_RENAMED(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;
 			}
@@ -240,7 +240,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
-			if(!allMappingsAreExactMatches(lambdaMapper)) {
+			if(!allMappingsAreExactMatches_RENAMED(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;
 			}
