@@ -15,7 +15,7 @@ public class CompositeReplacement extends Replacement {
 		this.additionallyMatchedStatements2 = additionallyMatchedStatements2;
 	}
 
-	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements1() {
+	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements1_RENAMED() {
 		return additionallyMatchedStatements1;
 	}
 
