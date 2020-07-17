@@ -46,7 +46,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return locationInfo;
 	}
 
-	public AnonymousClassDeclaration getAstNode() {
+	public AnonymousClassDeclaration getAstNode_RENAMED() {
 		return astNode;
 	}
 
