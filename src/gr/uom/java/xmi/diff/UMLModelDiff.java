@@ -1035,13 +1035,13 @@ public class UMLModelDiff {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
          for(UMLGeneralization addedGeneralization : addedGeneralizations) {
-        	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
+        	 processAddedGeneralization_RENAMED(addedClass, subclassSet, addedGeneralization);
          }
          for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
         	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
         	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
-        		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
+        		 processAddedGeneralization_RENAMED(addedClass, subclassSet, addedGeneralization);
         	 }
          }
          for(UMLRealization addedRealization : addedRealizations) {
@@ -1070,7 +1070,7 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
+   private void processAddedGeneralization_RENAMED(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
