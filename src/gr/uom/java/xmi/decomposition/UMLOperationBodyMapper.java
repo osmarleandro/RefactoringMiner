@@ -2914,13 +2914,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(typeReplacement && !compatibleTypes && variableRename && classInstanceCreationReplacement) {
 				return true;
 			}
-			if(variableRename && inv1 != null && inv2 != null && inv1.differentExpressionNameAndArguments(inv2)) {
+			if(variableRename && inv1 != null && inv2 != null && inv1.differentExpressionNameAndArguments_RENAMED(inv2)) {
 				if(inv1.getArguments().size() > inv2.getArguments().size()) {
 					for(String argument : inv1.getArguments()) {
 						List<OperationInvocation> argumentInvocations = methodInvocationMap1.get(argument);
 						if(argumentInvocations != null) {
 							for(OperationInvocation argumentInvocation : argumentInvocations) {
-								if(!argumentInvocation.differentExpressionNameAndArguments(inv2)) {
+								if(!argumentInvocation.differentExpressionNameAndArguments_RENAMED(inv2)) {
 									return false;
 								}
 							}
@@ -2932,7 +2932,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						List<OperationInvocation> argumentInvocations = methodInvocationMap2.get(argument);
 						if(argumentInvocations != null) {
 							for(OperationInvocation argumentInvocation : argumentInvocations) {
-								if(!inv1.differentExpressionNameAndArguments(argumentInvocation)) {
+								if(!inv1.differentExpressionNameAndArguments_RENAMED(argumentInvocation)) {
 									return false;
 								}
 							}

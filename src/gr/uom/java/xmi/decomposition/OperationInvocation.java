@@ -487,7 +487,7 @@ public class OperationInvocation extends AbstractCall {
 		return true;
 	}
 	
-	public boolean differentExpressionNameAndArguments(OperationInvocation other) {
+	public boolean differentExpressionNameAndArguments_RENAMED(OperationInvocation other) {
 		boolean differentExpression = false;
 		if(this.expression == null && other.expression != null)
 			differentExpression = true;
