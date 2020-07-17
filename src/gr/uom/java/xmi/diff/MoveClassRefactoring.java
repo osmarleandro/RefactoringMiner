@@ -60,7 +60,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
+	public UMLClass getMovedClass_RENAMED() {
 		return movedClass;
 	}
 
@@ -72,7 +72,7 @@ public class MoveClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedClass().getLocationInfo().getFilePath(), getMovedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedClass_RENAMED().getLocationInfo().getFilePath(), getMovedClass_RENAMED().getName()));
 		return pairs;
 	}
 
