@@ -61,7 +61,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source attribute in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
+	public CodeRange getSourceAttributeCodeRangeBeforeMove_RENAMED() {
 		return originalAttribute.codeRange();
 	}
 
