@@ -262,7 +262,7 @@ public class UMLModelASTReader {
 			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
 			List<Type> typeBounds = typeParameter.typeBounds();
 			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
+				umlTypeParameter.addTypeBound(UMLType.extractTypeObject_RENAMED(cu, sourceFile, type, 0));
 			}
 			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
@@ -276,7 +276,7 @@ public class UMLModelASTReader {
     	
     	Type superclassType = typeDeclaration.getSuperclassType();
     	if(superclassType != null) {
-    		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, superclassType, 0);
+    		UMLType umlType = UMLType.extractTypeObject_RENAMED(cu, sourceFile, superclassType, 0);
     		UMLGeneralization umlGeneralization = new UMLGeneralization(umlClass, umlType.getClassType());
     		umlClass.setSuperclass(umlType);
     		getUmlModel().addGeneralization(umlGeneralization);
@@ -284,7 +284,7 @@ public class UMLModelASTReader {
     	
     	List<Type> superInterfaceTypes = typeDeclaration.superInterfaceTypes();
     	for(Type interfaceType : superInterfaceTypes) {
-    		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, interfaceType, 0);
+    		UMLType umlType = UMLType.extractTypeObject_RENAMED(cu, sourceFile, interfaceType, 0);
     		UMLRealization umlRealization = new UMLRealization(umlClass, umlType.getClassType());
     		umlClass.addImplementedInterface(umlType);
     		getUmlModel().addRealization(umlRealization);
@@ -429,7 +429,7 @@ public class UMLModelASTReader {
 			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
 			List<Type> typeBounds = typeParameter.typeBounds();
 			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
+				umlTypeParameter.addTypeBound(UMLType.extractTypeObject_RENAMED(cu, sourceFile, type, 0));
 			}
 			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
@@ -455,7 +455,7 @@ public class UMLModelASTReader {
 		
 		Type returnType = methodDeclaration.getReturnType2();
 		if(returnType != null) {
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, returnType, methodDeclaration.getExtraDimensions());
+			UMLType type = UMLType.extractTypeObject_RENAMED(cu, sourceFile, returnType, methodDeclaration.getExtraDimensions());
 			UMLParameter returnParameter = new UMLParameter("return", type, "return", false);
 			umlOperation.addParameter(returnParameter);
 		}
@@ -463,7 +463,7 @@ public class UMLModelASTReader {
 		for(SingleVariableDeclaration parameter : parameters) {
 			Type parameterType = parameter.getType();
 			String parameterName = parameter.getName().getFullyQualifiedName();
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, parameterType, parameter.getExtraDimensions());
+			UMLType type = UMLType.extractTypeObject_RENAMED(cu, sourceFile, parameterType, parameter.getExtraDimensions());
 			UMLParameter umlParameter = new UMLParameter(parameterName, type, "in", parameter.isVarargs());
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, parameter, parameter.isVarargs());
 			variableDeclaration.setParameter(true);
@@ -480,7 +480,7 @@ public class UMLModelASTReader {
 		Type fieldType = fieldDeclaration.getType();
 		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
 		for(VariableDeclarationFragment fragment : fragments) {
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
+			UMLType type = UMLType.extractTypeObject_RENAMED(cu, sourceFile, fieldType, fragment.getExtraDimensions());
 			String fieldName = fragment.getName().getFullyQualifiedName();
 			LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
 			UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
