@@ -581,7 +581,7 @@ public class Visitor extends ASTVisitor {
 		return sb.toString();
 	}
 	
-	public boolean visit(SuperMethodInvocation node) {
+	public boolean visit_RENAMED(SuperMethodInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
 			processArgument(argument);
