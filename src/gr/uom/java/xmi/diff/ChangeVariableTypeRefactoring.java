@@ -73,11 +73,11 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalVariable.getType().equals(changedTypeVariable.getType()) && !originalVariable.getType().equalsQualified(changedTypeVariable.getType());
 		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalVariable.toQualifiedString() : originalVariable.toString());
+		sb.append(qualified ? originalVariable.toQualifiedString() : originalVariable.toString_RENAMED());
 		sb.append(" to ");
-		sb.append(qualified ? changedTypeVariable.toQualifiedString() : changedTypeVariable.toString());
+		sb.append(qualified ? changedTypeVariable.toQualifiedString() : changedTypeVariable.toString_RENAMED());
 		sb.append(" in method ");
-		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString());
+		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString_RENAMED());
 		sb.append(" in class ").append(operationAfter.getClassName());
 		return sb.toString();
 	}
@@ -142,7 +142,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalVariable.codeRange()
 				.setDescription("original variable declaration")
-				.setCodeElement(originalVariable.toString()));
+				.setCodeElement(originalVariable.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -151,7 +151,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(changedTypeVariable.codeRange()
 				.setDescription("changed-type variable declaration")
-				.setCodeElement(changedTypeVariable.toString()));
+				.setCodeElement(changedTypeVariable.toString_RENAMED()));
 		return ranges;
 	}
 }

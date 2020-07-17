@@ -87,7 +87,7 @@ public class CandidateAttributeRefactoring {
 		this.renamedAttribute = renamedAttribute;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Rename Attribute").append("\t");
 		sb.append(originalVariableName);
