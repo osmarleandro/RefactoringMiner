@@ -500,7 +500,7 @@ public class Visitor extends ASTVisitor {
 		}
 		String methodInvocation = null;
 		if(METHOD_INVOCATION_PATTERN.matcher(node.toString()).matches()) {
-			methodInvocation = processMethodInvocation(node);
+			methodInvocation = processMethodInvocation_RENAMED(node);
 		}
 		else {
 			methodInvocation = node.toString();
@@ -553,7 +553,7 @@ public class Visitor extends ASTVisitor {
 				invocation.numberOfSubExpressions() > 15;
 	}
 
-	public static String processMethodInvocation(MethodInvocation node) {
+	public static String processMethodInvocation_RENAMED(MethodInvocation node) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(node.getName().getIdentifier());
 		sb.append("(");

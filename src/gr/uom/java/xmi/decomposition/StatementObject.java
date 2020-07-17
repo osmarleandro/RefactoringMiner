@@ -83,7 +83,7 @@ public class StatementObject extends AbstractStatement {
 						sb.append(" = ");
 						if(initializer instanceof MethodInvocation) {
 							MethodInvocation methodInvocation = (MethodInvocation)initializer;
-							sb.append(Visitor.processMethodInvocation(methodInvocation));
+							sb.append(Visitor.processMethodInvocation_RENAMED(methodInvocation));
 						}
 						else if(initializer instanceof ClassInstanceCreation) {
 							ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)initializer;
@@ -100,7 +100,7 @@ public class StatementObject extends AbstractStatement {
 				Expression expression = returnStatement.getExpression();
 				if(expression instanceof MethodInvocation) {
 					MethodInvocation methodInvocation = (MethodInvocation)expression;
-					sb.append(Visitor.processMethodInvocation(methodInvocation));
+					sb.append(Visitor.processMethodInvocation_RENAMED(methodInvocation));
 				}
 				else if(expression instanceof ClassInstanceCreation) {
 					ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)expression;
@@ -114,7 +114,7 @@ public class StatementObject extends AbstractStatement {
 				Expression expression = expressionStatement.getExpression();
 				if(expression instanceof MethodInvocation) {
 					MethodInvocation methodInvocation = (MethodInvocation)expression;
-					sb.append(Visitor.processMethodInvocation(methodInvocation));
+					sb.append(Visitor.processMethodInvocation_RENAMED(methodInvocation));
 				}
 				else if(expression instanceof ClassInstanceCreation) {
 					ClassInstanceCreation classInstanceCreation = (ClassInstanceCreation)expression;
