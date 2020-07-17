@@ -102,15 +102,15 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 			return false;
 		if(this.isFinal != attribute.isFinal)
 			return false;
-		if(this.name.equals(attribute.name) && this.type.equals(attribute.type) && this.type.equalsQualified(attribute.type))
+		if(this.name.equals(attribute.name) && this.type.equals_RENAMED(attribute.type) && this.type.equalsQualified(attribute.type))
 			return true;
-		if(!this.type.equals(attribute.type))
+		if(!this.type.equals_RENAMED(attribute.type))
 			return this.name.equals(attribute.name);
 		return false;
 	}
 
 	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
-		if(this.name.equals(attribute.name) && this.type.equals(attribute.type))
+		if(this.name.equals(attribute.name) && this.type.equals_RENAMED(attribute.type))
 			return true;
 		return false;
 	}
@@ -120,7 +120,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return info.codeRange();
 	}
 
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
 		if(this == o) {
     		return true;
     	}
@@ -129,7 +129,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     		UMLAttribute umlAttribute = (UMLAttribute)o;
     		return this.name.equals(umlAttribute.name) &&
 			this.visibility.equals(umlAttribute.visibility) &&
-			this.type.equals(umlAttribute.type);
+			this.type.equals_RENAMED(umlAttribute.type);
     	}
     	return false;
 	}
