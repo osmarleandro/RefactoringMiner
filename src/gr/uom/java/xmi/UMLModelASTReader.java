@@ -167,7 +167,7 @@ public class UMLModelASTReader {
         	}
         	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
         		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
-        		processEnumDeclaration(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
+        		processEnumDeclaration_RENAMED(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
         	}
         }
 	}
@@ -190,7 +190,7 @@ public class UMLModelASTReader {
 		return doc;
 	}
 
-	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
+	private void processEnumDeclaration_RENAMED(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
@@ -235,7 +235,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processEnumDeclaration_RENAMED(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
 	}
@@ -319,7 +319,7 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processEnumDeclaration_RENAMED(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
 	}
