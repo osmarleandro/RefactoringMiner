@@ -52,7 +52,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType().getDisplayName_RENAMED();
 	}
 
 	public String toString() {

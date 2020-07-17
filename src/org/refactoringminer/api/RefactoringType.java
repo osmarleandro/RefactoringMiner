@@ -125,7 +125,7 @@ public enum RefactoringType {
         return regex;
     }
 
-    public String getDisplayName() {
+    public String getDisplayName_RENAMED() {
 		return this.displayName;
 	}
 
@@ -246,7 +246,7 @@ public enum RefactoringType {
 
     public static RefactoringType extractFromDescription(String refactoringDescription) {
         for (RefactoringType refType : RefactoringType.values()) {
-            if (refactoringDescription.startsWith(refType.getDisplayName())) {
+            if (refactoringDescription.startsWith(refType.getDisplayName_RENAMED())) {
                 return refType;
             }
         }
@@ -265,7 +265,7 @@ public enum RefactoringType {
     public static RefactoringType fromName(String name) {
       String lcName = name.toLowerCase();
       for (RefactoringType rt : RefactoringType.values()) {
-        if (lcName.equals(rt.getDisplayName().toLowerCase())) {
+        if (lcName.equals(rt.getDisplayName_RENAMED().toLowerCase())) {
           return rt;
         }
       }

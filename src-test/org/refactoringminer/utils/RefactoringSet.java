@@ -104,7 +104,7 @@ public class RefactoringSet {
     public void saveToFile(File file) {
         try (PrintStream pw = new PrintStream(file)) {
             for (RefactoringRelationship r : refactorings) {
-                pw.printf("%s\t%s\t%s\n", r.getRefactoringType().getDisplayName(), r.getEntityBefore(), r.getEntityAfter());
+                pw.printf("%s\t%s\t%s\n", r.getRefactoringType().getDisplayName_RENAMED(), r.getEntityBefore(), r.getEntityAfter());
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

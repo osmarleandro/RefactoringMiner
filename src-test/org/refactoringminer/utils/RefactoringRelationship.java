@@ -61,7 +61,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   
   @Override
   public String toString() {
-    return String.format("%s\t%s\t%s", refactoringType.getDisplayName(), entityBefore, entityAfter);
+    return String.format("%s\t%s\t%s", refactoringType.getDisplayName_RENAMED(), entityBefore, entityAfter);
   }
 
   public static String normalize(String entity) {
@@ -178,7 +178,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     
     @Override
     public String toString() {
-      return String.format("%s\t%s", refactoringType.getDisplayName(), mainEntity);
+      return String.format("%s\t%s", refactoringType.getDisplayName_RENAMED(), mainEntity);
     }
   }
 }
