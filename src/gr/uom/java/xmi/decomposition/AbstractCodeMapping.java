@@ -57,7 +57,7 @@ public abstract class AbstractCodeMapping {
 		return identicalWithExtractedVariable;
 	}
 
-	public boolean isIdenticalWithInlinedVariable() {
+	public boolean isIdenticalWithInlinedVariable_RENAMED() {
 		return identicalWithInlinedVariable;
 	}
 
