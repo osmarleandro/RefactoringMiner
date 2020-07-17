@@ -152,7 +152,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				temporaryVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -196,7 +196,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				temporaryVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -426,7 +426,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				temporaryVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -593,7 +593,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				temporaryVariableAssignment_RENAMED(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -731,7 +731,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
+	private void temporaryVariableAssignment_RENAMED(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
 			mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff);
