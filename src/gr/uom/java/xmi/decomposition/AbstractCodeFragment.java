@@ -31,7 +31,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return index;
 	}
 
-	public void setIndex(int index) {
+	public void setIndex_RENAMED(int index) {
 		this.index = index;
 	}
 	
