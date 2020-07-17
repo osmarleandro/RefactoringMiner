@@ -49,7 +49,7 @@ public class OperationBody {
 	}
 
 	public int statementCount() {
-		return compositeStatement.statementCount();
+		return compositeStatement.statementCount_RENAMED();
 	}
 
 	public CompositeStatementObject getCompositeStatement() {
