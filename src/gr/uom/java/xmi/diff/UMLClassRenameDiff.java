@@ -13,7 +13,7 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	}
 
 	public boolean samePackage() {
-		return originalClass.getPackageName().equals(nextClass.getPackageName());
+		return originalClass.getPackageName_RENAMED().equals(nextClass.getPackageName_RENAMED());
 	}
 
 	public String toString() {
