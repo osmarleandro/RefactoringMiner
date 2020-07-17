@@ -56,7 +56,7 @@ public class InlineOperationDetection {
 					if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation1().variableTypeMap()).size() == 0) {
 						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod(mapper, node.getInvokedOperation(), node.getInvocation());
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
-						if(inlineMatchCondition(nestedMapper)) {
+						if(inlineMatchCondition_RENAMED(nestedMapper)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
@@ -64,7 +64,7 @@ public class InlineOperationDetection {
 						}
 					}
 				}
-				if(inlineMatchCondition(operationBodyMapper)) {
+				if(inlineMatchCondition_RENAMED(operationBodyMapper)) {
 					InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 					refactorings.add(inlineOperationRefactoring);
 				}
@@ -131,7 +131,7 @@ public class InlineOperationDetection {
 		return operationInvocations;
 	}
 
-	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
+	private boolean inlineMatchCondition_RENAMED(UMLOperationBodyMapper operationBodyMapper) {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
