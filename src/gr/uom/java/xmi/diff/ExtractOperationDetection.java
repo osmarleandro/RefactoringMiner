@@ -96,8 +96,8 @@ public class ExtractOperationDetection {
 						}
 						//add back to mapper non-exact matches
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
-							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
-								AbstractCodeFragment fragment1 = mapping.getFragment1();
+							if(!mapping.isExact() || mapping.getFragment1_RENAMED().getString().equals("{")) {
+								AbstractCodeFragment fragment1 = mapping.getFragment1_RENAMED();
 								if(fragment1 instanceof StatementObject) {
 									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {
 										mapper.getNonMappedLeavesT1().add((StatementObject)fragment1);
@@ -237,15 +237,15 @@ public class ExtractOperationDetection {
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
 			AbstractCodeMapping mapping = exactMatchList.get(0);
-			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
-				StatementObject statement1 = (StatementObject)mapping.getFragment1();
+			if(mapping.getFragment1_RENAMED() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
+				StatementObject statement1 = (StatementObject)mapping.getFragment1_RENAMED();
 				StatementObject statement2 = (StatementObject)mapping.getFragment2();
 				if(statement1.getParent().getString().startsWith("catch(") &&
 						statement2.getParent().getString().startsWith("catch(")) {
 					exceptionHandlingExactMatch = true;
 				}
 			}
-			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
+			if(mapping.getFragment1_RENAMED().throwsNewException() && mapping.getFragment2().throwsNewException()) {
 				throwsNewExceptionExactMatch = true;
 			}
 		}

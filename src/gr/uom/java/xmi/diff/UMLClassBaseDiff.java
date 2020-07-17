@@ -1233,8 +1233,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				if(statementUsingParameterAsInvoker1 != null && statementUsingParameterAsInvoker2 != null) {
 					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
-							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
+						if(mapping.getFragment1_RENAMED() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
+							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1_RENAMED();
 							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
 							if(parent1.getLeaves().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves().contains(statementUsingParameterAsInvoker2)) {
 								return true;
@@ -1450,7 +1450,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
+			if(mapping.getFragment1_RENAMED().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
 				tryMappings++;
 			}
 			if(mapping.containsReplacement(ReplacementType.TYPE)) {
@@ -1577,11 +1577,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
 					for(AbstractCodeMapping reference : references) {
-						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
+						if(reference.getFragment1_RENAMED().getVariableDeclarations().size() > 0 && !reference.isExact()) {
 							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
 							for(UMLOperationBodyMapper childMapper : mapper.getChildMappers()) {
 								for(AbstractCodeMapping mapping : childMapper.getMappings()) {
-									if(mapping.getFragment1().equals(reference.getFragment1())) {
+									if(mapping.getFragment1_RENAMED().equals(reference.getFragment1_RENAMED())) {
 										allMappingsForReference.add(mapping);
 										break;
 									}

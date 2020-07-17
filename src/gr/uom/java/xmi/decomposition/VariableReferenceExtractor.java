@@ -13,7 +13,7 @@ public class VariableReferenceExtractor {
 		VariableScope scope1 = declaration1.getScope();
 		VariableScope scope2 = declaration2.getScope();
 		for(AbstractCodeMapping mapping : mappings) {
-			AbstractCodeFragment fragment1 = mapping.getFragment1();
+			AbstractCodeFragment fragment1 = mapping.getFragment1_RENAMED();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
 					usesVariable(fragment1, declaration1) && usesVariable(fragment2, declaration2)) {
@@ -32,7 +32,7 @@ public class VariableReferenceExtractor {
 	public static Set<AbstractCodeMapping> findReturnReferences(Set<AbstractCodeMapping> mappings) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		for(AbstractCodeMapping mapping : mappings) {
-			if(mapping.getFragment1().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
+			if(mapping.getFragment1_RENAMED().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
 					mapping.getFragment2().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
 				references.add(mapping);
 			}

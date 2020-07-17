@@ -1787,7 +1787,7 @@ public class UMLModelDiff {
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
-				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
+				(exactMatches == 1 && !exactMatchList.get(0).getFragment1_RENAMED().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
 	}
 
@@ -1959,14 +1959,14 @@ public class UMLModelDiff {
 	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
 		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
 		   for(AbstractCodeMapping mapping : parentMappingList) {
-			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
+			   if(mapping.getFragment1_RENAMED().equals(mappingList.get(0).getFragment1_RENAMED())) {
 				   return false;
 			   }
 			   if(mapping instanceof CompositeStatementObjectMapping) {
 				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
+				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1_RENAMED();
 				   for(AbstractExpression expression : fragment1.getExpressions()) {
-					   if(expression.equals(mappingList.get(0).getFragment1())) {
+					   if(expression.equals(mappingList.get(0).getFragment1_RENAMED())) {
 						   return false;
 					   }
 				   }
@@ -1980,7 +1980,7 @@ public class UMLModelDiff {
 	   int exactMatches = exactMatchList.size();
 	   return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
 			   (exactMatches == mappings && nonMappedElementsT1 == 0) ||
-			   (exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT2-exactMatches <= 10) ||
+			   (exactMatches == 1 && !exactMatchList.get(0).getFragment1_RENAMED().throwsNewException() && nonMappedElementsT2-exactMatches <= 10) ||
 			   (exactMatches > 1 && nonMappedElementsT2-exactMatches < 20) ||
 			   (mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2()));
    }
@@ -2377,7 +2377,7 @@ public class UMLModelDiff {
 	   }
 	   int exactLeafMappings = 0;
 	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
+		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1_RENAMED().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
 	   }
@@ -2390,7 +2390,7 @@ public class UMLModelDiff {
 	   }
 	   if(mapper.mappingsWithoutBlocks() == 1) {
 		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-			   String fragment1 = mapping.getFragment1().getString();
+			   String fragment1 = mapping.getFragment1_RENAMED().getString();
 			   String fragment2 = mapping.getFragment2().getString();
 			   if(fragment1.startsWith("return true;") || fragment1.startsWith("return false;") || fragment1.startsWith("return this;") || fragment1.startsWith("return null;") || fragment1.startsWith("return;") ||
 					   fragment2.startsWith("return true;") || fragment2.startsWith("return false;") || fragment2.startsWith("return this;") || fragment2.startsWith("return null;") || fragment2.startsWith("return;")) {

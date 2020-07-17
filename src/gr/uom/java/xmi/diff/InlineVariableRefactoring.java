@@ -122,7 +122,7 @@ public class InlineVariableRefactoring implements Refactoring {
 				.setDescription("inlined variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the name of the inlined variable"));
+			ranges.add(mapping.getFragment1_RENAMED().codeRange().setDescription("statement with the name of the inlined variable"));
 		}
 		return ranges;
 	}
