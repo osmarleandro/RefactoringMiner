@@ -70,7 +70,7 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet ignoring(EnumSet<RefactoringType> refTypes) {
+    public RefactoringSet ignoring_RENAMED(EnumSet<RefactoringType> refTypes) {
         RefactoringSet newSet = new RefactoringSet(project, revision);
         newSet.add(refactorings.stream()
             .filter(r -> !refTypes.contains(r.getRefactoringType()))
