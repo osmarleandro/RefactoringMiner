@@ -96,7 +96,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration> getVariableDeclarations_RENAMED() {
 		return variableDeclarations;
 	}
 
@@ -191,7 +191,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations_RENAMED();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
