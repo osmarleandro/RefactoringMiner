@@ -245,7 +245,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
+	public Iterable<RevCommit> createRevsWalkBetweenCommits_RENAMED(Repository repository, String startCommitId, String endCommitId)
 			throws Exception {
 		ObjectId from = repository.resolve(startCommitId);
 		ObjectId to = repository.resolve(endCommitId);

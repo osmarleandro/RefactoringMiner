@@ -428,7 +428,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			}
 		};
 		
-		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenCommits(repository, startCommitId, endCommitId);
+		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenCommits_RENAMED(repository, startCommitId, endCommitId);
 		detect(gitService, repository, handler, walk.iterator());
 	}
 
