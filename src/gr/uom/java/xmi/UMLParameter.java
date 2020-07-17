@@ -47,7 +47,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return varargs;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation> getAnnotations_RENAMED() {
 		return variableDeclaration.getAnnotations();
 	}
 
