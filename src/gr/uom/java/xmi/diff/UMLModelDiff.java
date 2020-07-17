@@ -2131,7 +2131,7 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedMethodSignature_RENAMED(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
@@ -2216,7 +2216,7 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedMethodSignature_RENAMED(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
@@ -2438,7 +2438,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
+   private boolean movedMethodSignature_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   if(addedOperation.getName().equals(removedOperation.getName()) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
