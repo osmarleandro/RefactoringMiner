@@ -68,7 +68,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return movedOperation;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement> getReplacements_RENAMED() {
 		return replacements;
 	}
 
