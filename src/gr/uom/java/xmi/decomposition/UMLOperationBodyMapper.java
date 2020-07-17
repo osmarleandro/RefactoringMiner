@@ -4043,7 +4043,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 						CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
+						containsMapping = comp1.contains_RENAMED(mapping.getFragment1()) && comp2.contains_RENAMED(mapping.getFragment2());
 					}
 					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
 						count++;
