@@ -280,8 +280,8 @@ public class OperationInvocation extends AbstractCall {
     		return false;
     	if(this.subExpressions.size() > 1 || other.subExpressions.size() > 1) {
     		Set<String> intersection = subExpressionIntersection(other);
-    		int thisUnmatchedSubExpressions = this.subExpressions().size() - intersection.size();
-    		int otherUnmatchedSubExpressions = other.subExpressions().size() - intersection.size();
+    		int thisUnmatchedSubExpressions = this.subExpressions_RENAMED().size() - intersection.size();
+    		int otherUnmatchedSubExpressions = other.subExpressions_RENAMED().size() - intersection.size();
     		if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
     			return false;
     	}
@@ -309,8 +309,8 @@ public class OperationInvocation extends AbstractCall {
     }
 
     private Set<String> subExpressionIntersection(OperationInvocation other) {
-    	Set<String> subExpressions1 = this.subExpressions();
-    	Set<String> subExpressions2 = other.subExpressions();
+    	Set<String> subExpressions1 = this.subExpressions_RENAMED();
+    	Set<String> subExpressions2 = other.subExpressions_RENAMED();
     	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
     	intersection.retainAll(subExpressions2);
     	if(subExpressions1.size() == subExpressions2.size()) {
@@ -355,7 +355,7 @@ public class OperationInvocation extends AbstractCall {
 		return false;
 	}
 
-	private Set<String> subExpressions() {
+	private Set<String> subExpressions_RENAMED() {
 		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);
 		String thisExpression = this.expression;
 		if(thisExpression != null) {
@@ -524,7 +524,7 @@ public class OperationInvocation extends AbstractCall {
 		return identicalName(other) &&
 				equalArguments(other) &&
 				subExpressionIntersection.size() > 0 &&
-				(subExpressionIntersection.size() == this.subExpressions().size() ||
-				subExpressionIntersection.size() == other.subExpressions().size());
+				(subExpressionIntersection.size() == this.subExpressions_RENAMED().size() ||
+				subExpressionIntersection.size() == other.subExpressions_RENAMED().size());
 	}
 }
