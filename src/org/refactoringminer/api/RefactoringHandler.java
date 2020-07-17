@@ -47,5 +47,5 @@ public abstract class RefactoringHandler {
 	 * @param commitsCount Total number of commits analyzed.
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
-	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+	public void onFinish_RENAMED(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
 }
