@@ -723,8 +723,8 @@ public class UMLModelDiff {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
 	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
 	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
-		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
-		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
+		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals_RENAMED();
+		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals_RENAMED();
 		   String className1 = addedAttribute.getNonQualifiedClassName();
 		   String className2 = removedAttribute.getNonQualifiedClassName();
 		   if(typeLiterals1.contains(className1 + ".class") && typeLiterals2.contains(className2 + ".class") &&

@@ -198,10 +198,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypeLiterals() {
+	public List<String> getTypeLiterals_RENAMED() {
 		List<String> typeLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			typeLiterals.addAll(expression.getTypeLiterals());
+			typeLiterals.addAll(expression.getTypeLiterals_RENAMED());
 		}
 		return typeLiterals;
 	}
