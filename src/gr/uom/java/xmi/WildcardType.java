@@ -19,7 +19,7 @@ public class WildcardType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -30,7 +30,7 @@ public class WildcardType extends UMLType {
 		if (bound == null) {
 			if (other.bound != null)
 				return false;
-		} else if (!bound.equals(other.bound))
+		} else if (!bound.equals_RENAMED(other.bound))
 			return false;
 		if (upperBound != other.upperBound)
 			return false;
