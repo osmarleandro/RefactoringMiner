@@ -199,7 +199,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 					invocation.coverage = StatementCoverageType.RETURN_CALL;
 					return invocation;
 				}
-				else if(isCastExpressionCoveringEntireFragment(methodInvocation)) {
+				else if(isCastExpressionCoveringEntireFragment_RENAMED(methodInvocation)) {
 					invocation.coverage = StatementCoverageType.CAST_CALL;
 					return invocation;
 				}
@@ -230,7 +230,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	private boolean isCastExpressionCoveringEntireFragment(String expression) {
+	private boolean isCastExpressionCoveringEntireFragment_RENAMED(String expression) {
 		String statement = getString();
 		int index = statement.indexOf(expression + ";\n");
 		if(index != -1) {
