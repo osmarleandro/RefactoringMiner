@@ -1177,7 +1177,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
 				for(UMLOperation operation : addedOperations) {
 					if(!operation.equals(addedOperation) && operation.getBody() != null) {
-						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
+						for(StatementObject statement : operation.getBody().getCompositeStatement_RENAMED().getLeaves()) {
 							if(nonMappedLeavesT1.contains(statement.getString())) {
 								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
 							}

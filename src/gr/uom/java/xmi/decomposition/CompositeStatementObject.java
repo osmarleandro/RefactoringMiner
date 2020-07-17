@@ -321,7 +321,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
-						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
+						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement_RENAMED().getAllMethodInvocations();
 						for(String key : lambdaMap.keySet()) {
 							if(map.containsKey(key)) {
 								map.get(key).addAll(lambdaMap.get(key));

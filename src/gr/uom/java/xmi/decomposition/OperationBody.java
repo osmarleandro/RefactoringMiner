@@ -52,7 +52,7 @@ public class OperationBody {
 		return compositeStatement.statementCount();
 	}
 
-	public CompositeStatementObject getCompositeStatement() {
+	public CompositeStatementObject getCompositeStatement_RENAMED() {
 		return compositeStatement;
 	}
 
