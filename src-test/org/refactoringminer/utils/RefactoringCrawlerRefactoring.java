@@ -42,7 +42,7 @@ public class RefactoringCrawlerRefactoring {
   }
   
   @Override
-  public String toString() {
+  public String toString_RENAMED() {
     return type + '\t' + oldElement + '\t' + newElement;
   }
 
