@@ -219,7 +219,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getArrayAccesses() {
 		List<String> arrayAccesses = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			arrayAccesses.addAll(expression.getArrayAccesses());
+			arrayAccesses.addAll(expression.getArrayAccesses_RENAMED());
 		}
 		return arrayAccesses;
 	}
