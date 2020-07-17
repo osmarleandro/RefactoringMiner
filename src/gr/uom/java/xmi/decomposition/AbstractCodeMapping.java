@@ -165,7 +165,7 @@ public abstract class AbstractCodeMapping {
 						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixBefore) ||
-									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
+									overlappingExtractVariable_RENAMED(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
 								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 								processExtractVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
@@ -180,7 +180,7 @@ public abstract class AbstractCodeMapping {
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
-							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
+							overlappingExtractVariable_RENAMED(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
@@ -248,7 +248,7 @@ public abstract class AbstractCodeMapping {
 						String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixAfter) ||
-									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
+									overlappingExtractVariable_RENAMED(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
 								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 								processInlineVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
@@ -263,7 +263,7 @@ public abstract class AbstractCodeMapping {
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
-							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
+							overlappingExtractVariable_RENAMED(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 						processInlineVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
@@ -373,7 +373,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	private boolean overlappingExtractVariable_RENAMED(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
