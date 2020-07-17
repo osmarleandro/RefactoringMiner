@@ -39,14 +39,14 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return relatedRefactorings;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		if(originalVariable.isParameter() && changedTypeVariable.isParameter())
 			return RefactoringType.CHANGE_PARAMETER_TYPE;
 		return RefactoringType.CHANGE_VARIABLE_TYPE;
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public VariableDeclaration getOriginalVariable() {
