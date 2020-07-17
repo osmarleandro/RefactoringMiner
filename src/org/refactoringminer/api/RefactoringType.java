@@ -209,8 +209,8 @@ public enum RefactoringType {
             case MOVE_ATTRIBUTE:
             case PULL_UP_ATTRIBUTE:
             case PUSH_DOWN_ATTRIBUTE: {
-                String entityBefore = attributeKey(m.group(1), m.group(2));
-                String entityAfter = attributeKey(m.group(1), m.group(3));
+                String entityBefore = attributeKey_RENAMED(m.group(1), m.group(2));
+                String entityAfter = attributeKey_RENAMED(m.group(1), m.group(3));
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
@@ -226,7 +226,7 @@ public enum RefactoringType {
         return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
     }
 
-    private static String attributeKey(String attribute, String typeKey) {
+    private static String attributeKey_RENAMED(String attribute, String typeKey) {
         return typeKey + "#" + AstUtils.normalizeAttribute(attribute);
     }
 
