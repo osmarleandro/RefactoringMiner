@@ -975,7 +975,7 @@ public class UMLModelDiff {
 			   for(CandidateExtractClassRefactoring candidate : candidates) {
 				   if(candidate.innerClassExtract()) {
 					   innerClassExtract = true;
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   detectSubRefactorings_RENAMED(candidate.getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
@@ -984,7 +984,7 @@ public class UMLModelDiff {
 			   }
 			   if(!innerClassExtract) {
 				   for(CandidateExtractClassRefactoring candidate : candidates) {
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   detectSubRefactorings_RENAMED(candidate.getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
@@ -1076,13 +1076,13 @@ public class UMLModelDiff {
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
-			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
+			   detectSubRefactorings_RENAMED(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
 		   }
 		   subclassSet.add(subclass);
 	   }
    }
 
-   private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
+   private void detectSubRefactorings_RENAMED(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
 	   for(UMLOperation addedOperation : addedClass.getOperations()) {
 		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
 		   if(removedOperation != null) {
