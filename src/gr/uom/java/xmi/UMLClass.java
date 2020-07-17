@@ -164,7 +164,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return superclass;
 	}
 
-	public void setSuperclass(UMLType superclass) {
+	public void setSuperclass_RENAMED(UMLType superclass) {
 		this.superclass = superclass;
 	}
 
