@@ -332,7 +332,7 @@ public class UMLModelASTReader {
     	
     	DefaultMutableTreeNode root = new DefaultMutableTreeNode();
     	for(AnonymousClassDeclaration anonymous : anonymousClassDeclarations) {
-    		insertNode(anonymous, root);
+    		insertNode_RENAMED(anonymous, root);
     	}
     	
     	List<UMLAnonymousClass> createdAnonymousClasses = new ArrayList<UMLAnonymousClass>();
@@ -537,7 +537,7 @@ public class UMLModelASTReader {
 		return anonymousClass;
 	}
 	
-	private void insertNode(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
+	private void insertNode_RENAMED(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
 		Enumeration enumeration = root.postorderEnumeration();
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(childAnonymous);
 		
