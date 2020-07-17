@@ -397,7 +397,7 @@ public class UMLModelDiff {
       }
    }
 
-   public void checkForRealizationChanges() {
+   public void checkForRealizationChanges_RENAMED() {
       for(Iterator<UMLRealization> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
          UMLRealization removedRealization = removedRealizationIterator.next();
          for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
