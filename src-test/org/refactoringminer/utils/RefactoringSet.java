@@ -43,7 +43,7 @@ public class RefactoringSet {
         return refactorings;
     }
 
-    public Set<RefactoringRelationship.GroupKey> getRefactoringsGroups() {
+    public Set<RefactoringRelationship.GroupKey> getRefactoringsGroups_RENAMED() {
         return refactoringGroups.keySet();
     }
 
