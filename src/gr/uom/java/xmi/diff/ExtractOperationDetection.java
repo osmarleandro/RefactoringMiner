@@ -53,18 +53,18 @@ public class ExtractOperationDetection {
 				}
 				if(otherAddedMethodsCalled == 0) {
 					for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
-						processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocation);
+						processAddedOperation_RENAMED(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocation);
 					}
 				}
 				else {
-					processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocations.get(0));
+					processAddedOperation_RENAMED(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocations.get(0));
 				}
 			}
 		}
 		return refactorings;
 	}
 
-	private void processAddedOperation(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
+	private void processAddedOperation_RENAMED(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
 			List<ExtractOperationRefactoring> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
