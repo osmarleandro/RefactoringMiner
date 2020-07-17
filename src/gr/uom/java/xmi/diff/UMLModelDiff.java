@@ -1029,7 +1029,7 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   private List<ExtractSuperclassRefactoring> identifyExtractSuperclassRefactorings() throws RefactoringMinerTimedOutException {
+   private List<ExtractSuperclassRefactoring> identifyExtractSuperclassRefactorings_RENAMED() throws RefactoringMinerTimedOutException {
       List<ExtractSuperclassRefactoring> refactorings = new ArrayList<ExtractSuperclassRefactoring>();
       for(UMLClass addedClass : addedClasses) {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
@@ -1456,7 +1456,7 @@ public class UMLModelDiff {
 			 }
 		 }
 	  }
-	  refactorings.addAll(identifyExtractSuperclassRefactorings());
+	  refactorings.addAll(identifyExtractSuperclassRefactorings_RENAMED());
 	  refactorings.addAll(identifyExtractClassRefactorings(commonClassDiffList));
       refactorings.addAll(identifyExtractClassRefactorings(classMoveDiffList));
       refactorings.addAll(identifyExtractClassRefactorings(innerClassMoveDiffList));
