@@ -49,7 +49,7 @@ public class AstUtils {
 		return sb.toString();
 	}
 
-	public static String getKeyFromFieldBinding(IVariableBinding binding) {
+	public static String getKeyFromFieldBinding_RENAMED(IVariableBinding binding) {
 	    StringBuilder sb = new StringBuilder();
 	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
 	    sb.append(className);
