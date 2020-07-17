@@ -55,7 +55,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		else {
 			sb.append("<");
 			for(int i = 0; i < typeArguments.size(); i++) {
-				sb.append(typeArguments.get(i).toQualifiedString());
+				sb.append(typeArguments.get(i).toQualifiedString_RENAMED());
 				if(i < typeArguments.size() - 1)
 					sb.append(",");
 			}
@@ -133,7 +133,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	public abstract boolean equals(Object o);
 	public abstract int hashCode();
 	public abstract String toString();
-	public abstract String toQualifiedString();
+	public abstract String toQualifiedString_RENAMED();
 	public abstract String getClassType();
 
 	public boolean equalsQualified(UMLType type) {
