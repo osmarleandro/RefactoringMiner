@@ -314,7 +314,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public List<UMLAttribute> attributesOfType(String targetClass) {
+	public List<UMLAttribute> attributesOfType_RENAMED(String targetClass) {
 		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
 		for(UMLAttribute attribute : attributes) {
 			if(targetClass.endsWith("." + attribute.getType().getClassType()) ||
