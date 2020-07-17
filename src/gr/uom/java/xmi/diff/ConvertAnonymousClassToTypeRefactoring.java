@@ -68,7 +68,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(addedClass.codeRange()
 				.setDescription("added type declaration")
