@@ -123,7 +123,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.isParameter = isParameter;
 	}
 
-	public boolean isAttribute() {
+	public boolean isAttribute_RENAMED() {
 		return isAttribute;
 	}
 
