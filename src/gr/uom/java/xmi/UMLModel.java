@@ -29,7 +29,7 @@ public class UMLModel {
         classList.add(umlClass);
     }
 
-    public void addGeneralization(UMLGeneralization umlGeneralization) {
+    public void addGeneralization_RENAMED(UMLGeneralization umlGeneralization) {
         generalizationList.add(umlGeneralization);
     }
 
