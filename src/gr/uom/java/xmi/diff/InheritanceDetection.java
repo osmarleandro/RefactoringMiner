@@ -17,7 +17,7 @@ public class InheritanceDetection {
 		generateNewInheritanceHierarchies(modelDiff);
 	}
 
-	private void addSubclassToSuperclass(String superclass, String subclass) {
+	private void addSubclassToSuperclass_RENAMED(String superclass, String subclass) {
 		if(subclassMap.containsKey(superclass)) {
 			LinkedHashSet<String> subclasses = subclassMap.get(superclass);
 			subclasses.add(subclass);
@@ -35,14 +35,14 @@ public class InheritanceDetection {
 			String superclass = generalization.getParent();
 			String subclass = generalization.getChild().getName();
 			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
-				addSubclassToSuperclass(superclass, subclass);
+				addSubclassToSuperclass_RENAMED(superclass, subclass);
 		}
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
 		for(UMLRealization realization : addedRealizations) {
 			String supplier = realization.getSupplier();
 			String client = realization.getClient().getName();
 			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
-				addSubclassToSuperclass(supplier, client);
+				addSubclassToSuperclass_RENAMED(supplier, client);
 		}
 	}
 
