@@ -1089,7 +1089,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
-			if(exactMappings(operationBodyMapper)) {
+			if(exactMappings_RENAMED(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
@@ -1132,7 +1132,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
-			if(exactMappings(operationBodyMapper)) {
+			if(exactMappings_RENAMED(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
@@ -1153,7 +1153,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private boolean exactMappings(UMLOperationBodyMapper operationBodyMapper) {
+	private boolean exactMappings_RENAMED(UMLOperationBodyMapper operationBodyMapper) {
 		if(allMappingsAreExactMatches(operationBodyMapper)) {
 			if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
 				return true;
