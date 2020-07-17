@@ -1360,7 +1360,7 @@ public class UMLModelDiff {
 		 UMLClassBaseDiff diff = getUMLClassDiffWithAttribute(pattern);
 		 Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 		 for(CandidateAttributeRefactoring candidate : set) {
-			 if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
+			 if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration_RENAMED() == null) {
 				 if(diff != null) {
 					 UMLAttribute a1 = diff.findAttributeInOriginalClass(pattern.getBefore());
 					 UMLAttribute a2 = diff.findAttributeInNextClass(pattern.getAfter());
