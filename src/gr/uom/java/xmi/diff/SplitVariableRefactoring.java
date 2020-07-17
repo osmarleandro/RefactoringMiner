@@ -119,17 +119,17 @@ public class SplitVariableRefactoring implements Refactoring {
 		if (oldVariable == null) {
 			if (other.oldVariable != null)
 				return false;
-		} else if (!oldVariable.equals(other.oldVariable))
+		} else if (!oldVariable.equals_RENAMED(other.oldVariable))
 			return false;
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
+		} else if (!operationAfter.equals_RENAMED(other.operationAfter))
 			return false;
 		if (operationBefore == null) {
 			if (other.operationBefore != null)
 				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
+		} else if (!operationBefore.equals_RENAMED(other.operationBefore))
 			return false;
 		if (splitVariables == null) {
 			if (other.splitVariables != null)

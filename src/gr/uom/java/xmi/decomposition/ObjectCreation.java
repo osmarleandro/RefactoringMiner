@@ -79,13 +79,13 @@ public class ObjectCreation extends AbstractCall {
 		return newObjectCreation;
 	}
 
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
         if(this == o) {
             return true;
         }
         if (o instanceof ObjectCreation) {
         	ObjectCreation creation = (ObjectCreation)o;
-            return type.equals(creation.type) && isArray == creation.isArray &&
+            return type.equals_RENAMED(creation.type) && isArray == creation.isArray &&
                 typeArguments == creation.typeArguments;
         }
         return false;
@@ -137,6 +137,6 @@ public class ObjectCreation extends AbstractCall {
 	}
 
 	public boolean identicalName(AbstractCall call) {
-		return getType().equals(((ObjectCreation)call).getType());
+		return getType().equals_RENAMED(((ObjectCreation)call).getType());
 	}
 }
