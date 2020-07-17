@@ -59,7 +59,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return annotations;
 	}
 
-	public void addAnnotation(UMLAnnotation annotation) {
+	public void addAnnotation_RENAMED(UMLAnnotation annotation) {
 		annotations.add(annotation);
 	}
 
