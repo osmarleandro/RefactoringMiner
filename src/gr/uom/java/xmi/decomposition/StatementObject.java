@@ -58,7 +58,7 @@ public class StatementObject extends AbstractStatement {
 		this.booleanLiterals = visitor.getBooleanLiterals();
 		this.typeLiterals = visitor.getTypeLiterals();
 		this.creationMap = visitor.getCreationMap();
-		this.infixOperators = visitor.getInfixOperators();
+		this.infixOperators = visitor.getInfixOperators_RENAMED();
 		this.arrayAccesses = visitor.getArrayAccesses();
 		this.prefixExpressions = visitor.getPrefixExpressions();
 		this.postfixExpressions = visitor.getPostfixExpressions();
