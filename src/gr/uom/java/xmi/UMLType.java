@@ -117,7 +117,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 
-	public boolean containsTypeArgument(String type) {
+	public boolean containsTypeArgument_RENAMED(String type) {
 		for(UMLType typeArgument : typeArguments) {
 			if(typeArgument.toString().equals(type)) {
 				return true;
