@@ -167,7 +167,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			UMLAttribute removedAttribute = removedAttributeIterator.next();
 			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
 				UMLAttribute addedAttribute = addedAttributeIterator.next();
-				if(removedAttribute.getName().equals(addedAttribute.getName())) {
+				if(removedAttribute.getName_RENAMED().equals(addedAttribute.getName_RENAMED())) {
 					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, getOperationBodyMapperList());
 					refactorings.addAll(attributeDiff.getRefactorings());
 					addedAttributeIterator.remove();

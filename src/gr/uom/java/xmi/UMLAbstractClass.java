@@ -142,7 +142,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsAttributeWithTheSameName(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.getName().equals(attribute.getName()))
+			if(originalAttribute.getName_RENAMED().equals(attribute.getName_RENAMED()))
 				return true;
 		}
 		return false;
@@ -152,10 +152,10 @@ public abstract class UMLAbstractClass {
 		if(pattern == null)
 			return false;
 		for(UMLAttribute originalAttribute : attributes) {
-			String originalAttributeName = originalAttribute.getName();
+			String originalAttributeName = originalAttribute.getName_RENAMED();
 			if(originalAttributeName.contains(pattern.getBefore())) {
 				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
-				if(originalAttributeNameAfterReplacement.equals(attribute.getName()))
+				if(originalAttributeNameAfterReplacement.equals(attribute.getName_RENAMED()))
 					return true;
 			}
 		}
@@ -164,7 +164,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsAttributeWithName(String attributeName) {
 		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.getName().equals(attributeName))
+			if(originalAttribute.getName_RENAMED().equals(attributeName))
 				return true;
 		}
 		return false;
