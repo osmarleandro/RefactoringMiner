@@ -915,7 +915,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return replacements;
 	}
 
-	public Set<MethodInvocationReplacement> getMethodInvocationRenameReplacements() {
+	public Set<MethodInvocationReplacement> getMethodInvocationRenameReplacements_RENAMED() {
 		Set<MethodInvocationReplacement> replacements = new LinkedHashSet<MethodInvocationReplacement>();
 		for(AbstractCodeMapping mapping : getMappings()) {
 			for(Replacement replacement : mapping.getReplacements()) {
