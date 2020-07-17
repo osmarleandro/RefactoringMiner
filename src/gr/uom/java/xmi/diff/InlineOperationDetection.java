@@ -48,13 +48,13 @@ public class InlineOperationDetection {
 					generateCallTree(removedOperation, root, callTree);
 					callTreeMap.put(root, callTree);
 				}
-				UMLOperationBodyMapper operationBodyMapper = createMapperForInlinedMethod(mapper, removedOperation, removedOperationInvocation);
+				UMLOperationBodyMapper operationBodyMapper = createMapperForInlinedMethod_RENAMED(mapper, removedOperation, removedOperationInvocation);
 				List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
 				List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 				for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 					CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 					if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation1().variableTypeMap()).size() == 0) {
-						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod(mapper, node.getInvokedOperation(), node.getInvocation());
+						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod_RENAMED(mapper, node.getInvokedOperation(), node.getInvocation());
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(inlineMatchCondition(nestedMapper)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
@@ -83,7 +83,7 @@ public class InlineOperationDetection {
 		return removedOperationInvocations;
 	}
 
-	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,
+	private UMLOperationBodyMapper createMapperForInlinedMethod_RENAMED(UMLOperationBodyMapper mapper,
 			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<String> arguments = removedOperationInvocation.getArguments();
 		List<String> parameters = removedOperation.getParameterNameList();
