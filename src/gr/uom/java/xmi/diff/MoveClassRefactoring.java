@@ -41,10 +41,10 @@ public class MoveClassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.MOVE_CLASS;
 	}
 
