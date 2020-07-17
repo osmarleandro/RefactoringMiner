@@ -128,7 +128,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
+	public Set<UMLType> nextClassCommonInterfaces_RENAMED(UMLClassBaseDiff other) {
 		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
 		common.retainAll(other.nextClass.getImplementedInterfaces());
 		return common;
