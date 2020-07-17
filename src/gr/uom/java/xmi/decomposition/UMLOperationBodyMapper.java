@@ -307,7 +307,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
 					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
 					for(UMLAnonymousClass anonymous : anonymousList) {
-						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
+						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes_RENAMED(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
 								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
 								for(StatementObject anonymousLeaf : anonymousClassLeaves) {
@@ -446,7 +446,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
 				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
 				for(UMLAnonymousClass anonymous : anonymousList) {
-					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
+					if(statement.getLocationInfo().subsumes_RENAMED(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
 							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
 							for(StatementObject anonymousLeaf : anonymousClassLeaves) {
@@ -2690,7 +2690,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				List<ObjectCreation> objectCreations = creationMap.get(key);
 				for(ObjectCreation creation : objectCreations) {
 					if(creation.getAnonymousClassDeclaration() != null && creation.getAnonymousClassDeclaration().equals(anonymousClassDeclaration.toString()) &&
-							creation.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
+							creation.getLocationInfo().subsumes_RENAMED(anonymousClassDeclaration.getLocationInfo())) {
 						return creation.actualString();
 					}
 				}
@@ -2710,7 +2710,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(StatementObject leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo()) ||
-									anonymousObject.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
+									anonymousObject.getLocationInfo().subsumes_RENAMED(anonymousClassDeclaration.getLocationInfo())) {
 								return statementWithoutAnonymous(leaf, anonymousClassDeclaration, anonymousOperation);
 							}
 						}
