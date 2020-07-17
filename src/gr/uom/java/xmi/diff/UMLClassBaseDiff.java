@@ -1611,7 +1611,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			!visibilityChanged && !abstractionChanged;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(!isEmpty())
 			sb.append(originalClass.getName()).append(":").append("\n");
