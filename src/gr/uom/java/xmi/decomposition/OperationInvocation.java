@@ -41,11 +41,11 @@ public class OperationInvocation extends AbstractCall {
 		}
 		if(invocation.getExpression() != null) {
 			this.expression = invocation.getExpression().toString();
-			processExpression(invocation.getExpression(), this.subExpressions);
+			processExpression_RENAMED(invocation.getExpression(), this.subExpressions);
 		}
 	}
 	
-	private void processExpression(Expression expression, List<String> subExpressions) {
+	private void processExpression_RENAMED(Expression expression, List<String> subExpressions) {
 		if(expression instanceof MethodInvocation) {
 			MethodInvocation invocation = (MethodInvocation)expression;
 			if(invocation.getExpression() != null) {
@@ -53,7 +53,7 @@ public class OperationInvocation extends AbstractCall {
 				String invocationAsString = invocation.toString();
 				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
 				subExpressions.add(0, suffix);
-				processExpression(invocation.getExpression(), subExpressions);
+				processExpression_RENAMED(invocation.getExpression(), subExpressions);
 			}
 			else {
 				subExpressions.add(0, invocation.toString());
@@ -66,7 +66,7 @@ public class OperationInvocation extends AbstractCall {
 				String invocationAsString = creation.toString();
 				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
 				subExpressions.add(0, suffix);
-				processExpression(creation.getExpression(), subExpressions);
+				processExpression_RENAMED(creation.getExpression(), subExpressions);
 			}
 			else {
 				subExpressions.add(0, creation.toString());
@@ -98,7 +98,7 @@ public class OperationInvocation extends AbstractCall {
 		}
 		if(invocation.getExpression() != null) {
 			this.expression = invocation.getExpression().toString();
-			processExpression(invocation.getExpression(), this.subExpressions);
+			processExpression_RENAMED(invocation.getExpression(), this.subExpressions);
 		}
 	}
 
