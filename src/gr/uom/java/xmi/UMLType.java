@@ -136,7 +136,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	public abstract String toQualifiedString();
 	public abstract String getClassType();
 
-	public boolean equalsQualified(UMLType type) {
+	public boolean equalsQualified_RENAMED(UMLType type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}

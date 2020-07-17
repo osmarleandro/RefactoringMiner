@@ -102,7 +102,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 			return false;
 		if(this.isFinal != attribute.isFinal)
 			return false;
-		if(this.name.equals(attribute.name) && this.type.equals(attribute.type) && this.type.equalsQualified(attribute.type))
+		if(this.name.equals(attribute.name) && this.type.equals(attribute.type) && this.type.equalsQualified_RENAMED(attribute.type))
 			return true;
 		if(!this.type.equals(attribute.type))
 			return this.name.equals(attribute.name);
@@ -137,7 +137,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	public boolean equalsQualified(UMLAttribute umlAttribute) {
 		return this.name.equals(umlAttribute.name) &&
 				this.visibility.equals(umlAttribute.visibility) &&
-				this.type.equalsQualified(umlAttribute.type);
+				this.type.equalsQualified_RENAMED(umlAttribute.type);
 	}
 
 	public String toString() {

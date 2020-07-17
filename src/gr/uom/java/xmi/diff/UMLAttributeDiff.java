@@ -38,7 +38,7 @@ public class UMLAttributeDiff {
 			visibilityChanged = true;
 		if(!removedAttribute.getType().equals(addedAttribute.getType()))
 			typeChanged = true;
-		else if(!removedAttribute.getType().equalsQualified(addedAttribute.getType()))
+		else if(!removedAttribute.getType().equalsQualified_RENAMED(addedAttribute.getType()))
 			qualifiedTypeChanged = true;
 		if(removedAttribute.isStatic() != addedAttribute.isStatic())
 			staticChanged = true;
