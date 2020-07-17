@@ -50,7 +50,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return astNode;
 	}
 
-	public void setAstNode(AnonymousClassDeclaration node) {
+	public void setAstNode_RENAMED(AnonymousClassDeclaration node) {
 		this.astNode = node;
 	}
 	
