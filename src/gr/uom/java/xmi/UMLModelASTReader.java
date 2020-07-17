@@ -142,7 +142,7 @@ public class UMLModelASTReader {
 		return parser;
 	}
 
-	public UMLModel getUmlModel() {
+	public UMLModel getUmlModel_RENAMED() {
 		return this.umlModel;
 	}
 
@@ -208,7 +208,7 @@ public class UMLModelASTReader {
 		
 		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
 		
-		this.getUmlModel().addClass(umlClass);
+		this.getUmlModel_RENAMED().addClass(umlClass);
 	}
 
 	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
@@ -279,7 +279,7 @@ public class UMLModelASTReader {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, superclassType, 0);
     		UMLGeneralization umlGeneralization = new UMLGeneralization(umlClass, umlType.getClassType());
     		umlClass.setSuperclass(umlType);
-    		getUmlModel().addGeneralization(umlGeneralization);
+    		getUmlModel_RENAMED().addGeneralization(umlGeneralization);
     	}
     	
     	List<Type> superInterfaceTypes = typeDeclaration.superInterfaceTypes();
@@ -287,7 +287,7 @@ public class UMLModelASTReader {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, interfaceType, 0);
     		UMLRealization umlRealization = new UMLRealization(umlClass, umlType.getClassType());
     		umlClass.addImplementedInterface(umlType);
-    		getUmlModel().addRealization(umlRealization);
+    		getUmlModel_RENAMED().addRealization(umlRealization);
     	}
     	
     	FieldDeclaration[] fieldDeclarations = typeDeclaration.getFields();
@@ -308,7 +308,7 @@ public class UMLModelASTReader {
     	
     	processAnonymousClassDeclarations(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
     	
-    	this.getUmlModel().addClass(umlClass);
+    	this.getUmlModel_RENAMED().addClass(umlClass);
 		
 		TypeDeclaration[] types = typeDeclaration.getTypes();
 		for(TypeDeclaration type : types) {
