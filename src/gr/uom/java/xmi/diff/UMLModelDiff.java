@@ -1180,7 +1180,7 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   private List<Refactoring> getMoveClassRefactorings() {
+   private List<Refactoring> getMoveClassRefactorings_RENAMED() {
 	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
 	   List<RenamePackageRefactoring> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring>();
 	   List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring>();
@@ -1280,7 +1280,7 @@ public class UMLModelDiff {
 
    public List<Refactoring> getRefactorings() throws RefactoringMinerTimedOutException {
       Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-      refactorings.addAll(getMoveClassRefactorings());
+      refactorings.addAll(getMoveClassRefactorings_RENAMED());
       refactorings.addAll(getRenameClassRefactorings());
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
       Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
