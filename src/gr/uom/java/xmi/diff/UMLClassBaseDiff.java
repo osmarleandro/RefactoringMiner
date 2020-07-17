@@ -710,8 +710,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							else {
 								for(StatementObject statement : candidateMapper.getNonMappedLeavesT1()) {
-									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
-											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
+									if(statement.getString_RENAMED().startsWith(variableDeclaration.getVariableName() + "=") ||
+											statement.getString_RENAMED().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
 										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
 										break;
 									}
@@ -756,8 +756,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							else {
 								for(StatementObject statement : candidateMapper.getNonMappedLeavesT2()) {
-									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
-											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
+									if(statement.getString_RENAMED().startsWith(variableDeclaration.getVariableName() + "=") ||
+											statement.getString_RENAMED().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
 										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
 										break;
 									}
@@ -1164,7 +1164,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				List<String> nonMappedLeavesT1 = new ArrayList<String>();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 					if(statement.countableStatement()) {
-						nonMappedLeavesT1.add(statement.getString());
+						nonMappedLeavesT1.add(statement.getString_RENAMED());
 						for(String parameterName : addedOperation.getParameterNameList()) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
@@ -1178,7 +1178,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(UMLOperation operation : addedOperations) {
 					if(!operation.equals(addedOperation) && operation.getBody() != null) {
 						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
-							if(nonMappedLeavesT1.contains(statement.getString())) {
+							if(nonMappedLeavesT1.contains(statement.getString_RENAMED())) {
 								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
 							}
 						}
@@ -1450,7 +1450,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
+			if(mapping.getFragment1().getString_RENAMED().equals("try") && mapping.getFragment2().getString_RENAMED().equals("try")) {
 				tryMappings++;
 			}
 			if(mapping.containsReplacement(ReplacementType.TYPE)) {

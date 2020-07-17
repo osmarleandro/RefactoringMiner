@@ -77,7 +77,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     	return expression;
     }
 
-	public String getString() {
+	public String getString_RENAMED() {
     	return toString();
     }
   
