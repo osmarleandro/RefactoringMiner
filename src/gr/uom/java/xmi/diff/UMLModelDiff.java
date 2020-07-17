@@ -107,7 +107,7 @@ public class UMLModelDiff {
       this.commonClassDiffList.add(classDiff);
    }
 
-   public boolean commonlyImplementedOperations(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
+   public boolean commonlyImplementedOperations_RENAMED(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
 	   UMLClassBaseDiff classDiff1 = getUMLClassDiff(operation1.getClassName());
 	   if(classDiff1 != null) {
 		   Set<UMLType> commonInterfaces = classDiff1.nextClassCommonInterfaces(classDiff2);
