@@ -51,7 +51,7 @@ public class LocationInfo {
 		return endOffset;
 	}
 
-	public int getLength() {
+	public int getLength_RENAMED() {
 		return length;
 	}
 
