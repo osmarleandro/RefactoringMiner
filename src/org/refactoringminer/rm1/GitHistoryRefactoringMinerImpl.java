@@ -120,7 +120,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		List<String> filePathsBefore = new ArrayList<String>();
 		List<String> filePathsCurrent = new ArrayList<String>();
 		Map<String, String> renamedFilesHint = new HashMap<String, String>();
-		gitService.fileTreeDiff(repository, currentCommit, filePathsBefore, filePathsCurrent, renamedFilesHint);
+		gitService.fileTreeDiff_RENAMED(repository, currentCommit, filePathsBefore, filePathsCurrent, renamedFilesHint);
 		
 		Set<String> repositoryDirectoriesBefore = new LinkedHashSet<String>();
 		Set<String> repositoryDirectoriesCurrent = new LinkedHashSet<String>();
