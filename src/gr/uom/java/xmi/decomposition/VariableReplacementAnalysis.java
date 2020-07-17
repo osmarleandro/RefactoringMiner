@@ -87,7 +87,7 @@ public class VariableReplacementAnalysis {
 		if(classDiff != null) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
-					if(replacement.involvesVariable()) {
+					if(replacement.involvesVariable_RENAMED()) {
 						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
 							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
 							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&

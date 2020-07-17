@@ -60,7 +60,7 @@ public class Replacement {
 		return normalized;
 	}
 	
-	public boolean involvesVariable() {
+	public boolean involvesVariable_RENAMED() {
 		return type.equals(ReplacementType.VARIABLE_NAME) ||
 				type.equals(ReplacementType.BOOLEAN_REPLACED_WITH_VARIABLE) ||
 				type.equals(ReplacementType.TYPE_LITERAL_REPLACED_WITH_VARIABLE) ||
