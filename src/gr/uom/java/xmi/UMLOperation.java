@@ -494,7 +494,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				equalTypeParameters(operation);
 	}
 
-	public boolean equalsIgnoringNameCase(UMLOperation operation) {
+	public boolean equalsIgnoringNameCase_RENAMED(UMLOperation operation) {
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 		return this.className.equals(operation.className) &&
