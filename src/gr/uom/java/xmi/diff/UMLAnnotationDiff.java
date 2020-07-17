@@ -80,7 +80,7 @@ public class UMLAnnotationDiff {
 		return addedAnnotation;
 	}
 
-	public boolean isEmpty() {
+	public boolean isEmpty_RENAMED() {
 		return !typeNameChanged && !valueChanged && !valueAdded && !valueRemoved &&
 				removedMemberValuePairs.isEmpty() && addedMemberValuePairs.isEmpty() &&
 				matchedMemberValuePairsWithDifferentExpressions.isEmpty();
