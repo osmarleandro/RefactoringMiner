@@ -21,7 +21,7 @@ public class Replacement {
 		return after;
 	}
 
-	public ReplacementType getType() {
+	public ReplacementType getType_RENAMED() {
 		return type;
 	}
 

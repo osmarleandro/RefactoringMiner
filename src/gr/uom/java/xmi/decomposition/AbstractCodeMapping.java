@@ -88,11 +88,11 @@ public abstract class AbstractCodeMapping {
 
 	private boolean containsIdenticalOrCompositeReplacement() {
 		for(Replacement r : replacements) {
-			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
+			if(r.getType_RENAMED().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
 					r.getBefore().equals(r.getAfter())) {
 				return true;
 			}
-			else if(r.getType().equals(ReplacementType.COMPOSITE)) {
+			else if(r.getType_RENAMED().equals(ReplacementType.COMPOSITE)) {
 				return true;
 			}
 		}
@@ -113,7 +113,7 @@ public abstract class AbstractCodeMapping {
 
 	public boolean containsReplacement(ReplacementType type) {
 		for(Replacement replacement : replacements) {
-			if(replacement.getType().equals(type)) {
+			if(replacement.getType_RENAMED().equals(type)) {
 				return true;
 			}
 		}
@@ -123,7 +123,7 @@ public abstract class AbstractCodeMapping {
 	public Set<ReplacementType> getReplacementTypes() {
 		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
 		for(Replacement replacement : replacements) {
-			types.add(replacement.getType());
+			types.add(replacement.getType_RENAMED());
 		}
 		return types;
 	}
@@ -314,7 +314,7 @@ public abstract class AbstractCodeMapping {
 
 	private boolean containsVariableNameReplacement(String variableName) {
 		for(Replacement replacement : getReplacements()) {
-			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+			if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME)) {
 				if(replacement.getBefore().equals(variableName) || replacement.getAfter().equals(variableName)) {
 					return true;
 				}

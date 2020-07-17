@@ -178,7 +178,7 @@ public class VariableReplacementAnalysis {
 					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
 					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
 				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				else if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME)) {
 					for(StatementObject statement : nonMappedLeavesT1) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
@@ -306,7 +306,7 @@ public class VariableReplacementAnalysis {
 					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
 					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
 				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				else if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME)) {
 					for(StatementObject statement : nonMappedLeavesT2) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
@@ -541,7 +541,7 @@ public class VariableReplacementAnalysis {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+				if(replacement.getType_RENAMED().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
 						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 					if(map.containsKey(replacement)) {
@@ -553,7 +553,7 @@ public class VariableReplacementAnalysis {
 						map.put(replacement, list);
 					}
 				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS)) {
+				else if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS)) {
 					String before = replacement.getBefore().contains("[") ? replacement.getBefore().substring(0, replacement.getBefore().indexOf("[")) : replacement.getBefore();
 					String after = replacement.getAfter().contains("[") ? replacement.getAfter().substring(0, replacement.getAfter().indexOf("[")) : replacement.getAfter();
 					Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
@@ -570,7 +570,7 @@ public class VariableReplacementAnalysis {
 						}
 					}
 				}
-				else if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION)) {
+				else if(replacement.getType_RENAMED().equals(ReplacementType.METHOD_INVOCATION)) {
 					MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
 					OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
 					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
@@ -607,7 +607,7 @@ public class VariableReplacementAnalysis {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+				if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
 						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
 					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);

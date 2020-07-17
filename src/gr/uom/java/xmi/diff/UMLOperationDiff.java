@@ -277,7 +277,7 @@ public class UMLOperationDiff {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
-					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+					if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME)) {
 						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {
 							return true;
 						}

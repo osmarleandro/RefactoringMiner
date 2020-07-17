@@ -88,7 +88,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String expression2 = call.getExpression();
 			String expression1AfterReplacements = new String(expression1);
 			for(Replacement replacement : replacements) {
-				if(replacement.getType().equals(ReplacementType.TYPE)) {
+				if(replacement.getType_RENAMED().equals(ReplacementType.TYPE)) {
 					expression1AfterReplacements = ReplacementUtil.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
 				}
 			}
@@ -264,7 +264,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
 			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
 			for(Replacement replacement : replacements) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				if(replacement.getType_RENAMED().equals(ReplacementType.VARIABLE_NAME)) {
 					String key = replacement.getAfter();
 					if(commonVariableReplacementMap.containsKey(key)) {
 						commonVariableReplacementMap.get(key).add(replacement);
