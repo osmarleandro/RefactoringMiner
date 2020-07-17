@@ -230,7 +230,7 @@ public enum RefactoringType {
         return typeKey + "#" + AstUtils.normalizeAttribute(attribute);
     }
 
-    public List<RefactoringRelationship> parseRefactoring(String refactoringDescription) {
+    public List<RefactoringRelationship> parseRefactoring_RENAMED(String refactoringDescription) {
         List<RefactoringRelationship> result;
         Matcher m = regex.matcher(refactoringDescription);
         if (m.matches()) {
