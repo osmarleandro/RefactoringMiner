@@ -105,10 +105,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getVariables() {
+	public List<String> getVariables_RENAMED() {
 		List<String> variables = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			variables.addAll(expression.getVariables());
+			variables.addAll(expression.getVariables_RENAMED());
 		}
 		return variables;
 	}
@@ -373,7 +373,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<String> getAllVariables() {
 		List<String> variables = new ArrayList<String>();
-		variables.addAll(getVariables());
+		variables.addAll(getVariables_RENAMED());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
@@ -381,7 +381,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
-				variables.addAll(statementObject.getVariables());
+				variables.addAll(statementObject.getVariables_RENAMED());
 			}
 		}
 		return variables;
@@ -498,7 +498,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				boolean collectionNameMatched = false;
 				for(AbstractExpression expression : innerNode.getExpressions()) {
-					if(expression.getVariables().contains(collectionName)) {
+					if(expression.getVariables_RENAMED().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
 					}
@@ -511,7 +511,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
 				for(AbstractExpression expression : innerNode.getExpressions()) {
-					if(expression.getVariables().contains(collectionName)) {
+					if(expression.getVariables_RENAMED().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
 					}
@@ -519,7 +519,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				boolean currentElementNameMatched = false;
 				for(StatementObject statement : innerNode.getLeaves()) {
 					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
-					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
+					if(variableDeclaration != null && statement.getVariables_RENAMED().contains(collectionName)) {
 						currentElementNameMatched = true;
 						break;
 					}

@@ -800,9 +800,9 @@ public class VariableReplacementAnalysis {
 			}
 			if(v1.getInitializer().getTernaryOperatorExpressions().size() == 1) {
 				TernaryOperatorExpression ternary = v1.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
+				if(ternary.getThenExpression().getVariables_RENAMED().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables_RENAMED().contains(v2.getVariableName())) {
 					boolean v2InitializerContainsThisReference = false;
-					if(v2.getInitializer() != null && v2.getInitializer().getVariables().contains("this." + v2.getVariableName())) {
+					if(v2.getInitializer() != null && v2.getInitializer().getVariables_RENAMED().contains("this." + v2.getVariableName())) {
 						v2InitializerContainsThisReference = true;
 					}
 					if(!v2InitializerContainsThisReference) {
@@ -817,9 +817,9 @@ public class VariableReplacementAnalysis {
 			}
 			if(v2.getInitializer().getTernaryOperatorExpressions().size() == 1) {
 				TernaryOperatorExpression ternary = v2.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables().contains(v1.getVariableName())) {
+				if(ternary.getThenExpression().getVariables_RENAMED().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables_RENAMED().contains(v1.getVariableName())) {
 					boolean v1InitializerContainsThisReference = false;
-					if(v1.getInitializer() != null && v1.getInitializer().getVariables().contains("this." + v1.getVariableName())) {
+					if(v1.getInitializer() != null && v1.getInitializer().getVariables_RENAMED().contains("this." + v1.getVariableName())) {
 						v1InitializerContainsThisReference = true;
 					}
 					if(!v1InitializerContainsThisReference) {
@@ -877,8 +877,8 @@ public class VariableReplacementAnalysis {
 	}
 
 	public static boolean bothFragmentsUseVariable(VariableDeclaration v1, AbstractCodeMapping mapping) {
-		return mapping.getFragment1().getVariables().contains(v1.getVariableName()) &&
-				mapping.getFragment2().getVariables().contains(v1.getVariableName());
+		return mapping.getFragment1().getVariables_RENAMED().contains(v1.getVariableName()) &&
+				mapping.getFragment2().getVariables_RENAMED().contains(v1.getVariableName());
 	}
 
 	private static boolean containsVariableDeclarationWithName(Set<VariableDeclaration> variableDeclarations, String variableName) {
@@ -1055,7 +1055,7 @@ public class VariableReplacementAnalysis {
 									}
 									else {
 										//check if the extracted method is called in the initializer of a variable used in the initializer of v2
-										List<String> initializerVariables = v2.getInitializer().getVariables();
+										List<String> initializerVariables = v2.getInitializer().getVariables_RENAMED();
 										for(String variable : initializerVariables) {
 											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
 												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
