@@ -67,7 +67,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return variableReferences;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(originalVariable);
@@ -139,7 +139,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalVariable.codeRange()
 				.setDescription("original variable declaration")
-				.setCodeElement(originalVariable.toString()));
+				.setCodeElement(originalVariable.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -148,7 +148,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedVariable.codeRange()
 				.setDescription("renamed variable declaration")
-				.setCodeElement(renamedVariable.toString()));
+				.setCodeElement(renamedVariable.toString_RENAMED()));
 		return ranges;
 	}
 }
