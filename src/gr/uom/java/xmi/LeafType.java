@@ -10,7 +10,7 @@ public class LeafType extends UMLType {
 	
 	public LeafType(String type) {
 		this.classType = type;
-		this.nonQualifiedClassType = simpleNameOf(type);
+		this.nonQualifiedClassType = simpleNameOf_RENAMED(type);
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class LeafType extends UMLType {
 		return classType;
 	}
 
-	private static String simpleNameOf(String name) {
+	private static String simpleNameOf_RENAMED(String name) {
 		int numberOfDots = 0;
 		int indexOfFirstUpperCaseCharacterFollowedByDot = -1;
 		for (int i = 0; i < name.length(); i++) {
