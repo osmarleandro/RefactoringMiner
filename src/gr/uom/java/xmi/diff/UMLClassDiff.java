@@ -67,7 +67,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     	}
 	}
 
-	protected void processOperations() {
+	protected void processOperations_RENAMED() {
 		for(UMLOperation operation : originalClass.getOperations()) {
     		if(!nextClass.getOperations().contains(operation))
     			this.reportRemovedOperation(operation);

@@ -91,7 +91,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public void process() throws RefactoringMinerTimedOutException {
 		processInheritance();
-		processOperations();
+		processOperations_RENAMED();
 		createBodyMappers();
 		processAttributes();
 		checkForAttributeChanges();
