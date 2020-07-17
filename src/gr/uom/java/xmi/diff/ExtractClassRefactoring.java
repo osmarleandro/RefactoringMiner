@@ -85,7 +85,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(classDiff.getOriginalClass().codeRange()
 				.setDescription("original type declaration")
-				.setCodeElement(classDiff.getOriginalClass().getName()));
+				.setCodeElement_RENAMED(classDiff.getOriginalClass().getName()));
 		return ranges;
 	}
 
@@ -94,7 +94,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(extractedClass.codeRange()
 				.setDescription("extracted type declaration")
-				.setCodeElement(extractedClass.getName()));
+				.setCodeElement_RENAMED(extractedClass.getName()));
 		return ranges;
 	}
 }

@@ -47,10 +47,10 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationBefore.codeRange()
 				.setDescription("original annotation")
-				.setCodeElement(annotationBefore.toString()));
+				.setCodeElement_RENAMED(annotationBefore.toString()));
 		ranges.add(operationBefore.codeRange()
 				.setDescription("original method declaration")
-				.setCodeElement(operationBefore.toString()));
+				.setCodeElement_RENAMED(operationBefore.toString()));
 		return ranges;
 	}
 
@@ -59,10 +59,10 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationAfter.codeRange()
 				.setDescription("modified annotation")
-				.setCodeElement(annotationAfter.toString()));
+				.setCodeElement_RENAMED(annotationAfter.toString()));
 		ranges.add(operationAfter.codeRange()
 				.setDescription("method declaration with modified annotation")
-				.setCodeElement(operationAfter.toString()));
+				.setCodeElement_RENAMED(operationAfter.toString()));
 		return ranges;
 	}
 

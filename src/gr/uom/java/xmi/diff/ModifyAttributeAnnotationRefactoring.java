@@ -47,10 +47,10 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationBefore.codeRange()
 				.setDescription("original annotation")
-				.setCodeElement(annotationBefore.toString()));
+				.setCodeElement_RENAMED(annotationBefore.toString()));
 		ranges.add(attributeBefore.codeRange()
 				.setDescription("original attribute declaration")
-				.setCodeElement(attributeBefore.toString()));
+				.setCodeElement_RENAMED(attributeBefore.toString()));
 		return ranges;
 	}
 
@@ -59,10 +59,10 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationAfter.codeRange()
 				.setDescription("modified annotation")
-				.setCodeElement(annotationAfter.toString()));
+				.setCodeElement_RENAMED(annotationAfter.toString()));
 		ranges.add(attributeAfter.codeRange()
 				.setDescription("attribute declaration with modified annotation")
-				.setCodeElement(attributeAfter.toString()));
+				.setCodeElement_RENAMED(attributeAfter.toString()));
 		return ranges;
 	}
 

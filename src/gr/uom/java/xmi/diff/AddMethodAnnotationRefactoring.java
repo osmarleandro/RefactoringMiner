@@ -41,7 +41,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(operationBefore.codeRange()
 				.setDescription("original method declaration")
-				.setCodeElement(operationBefore.toString()));
+				.setCodeElement_RENAMED(operationBefore.toString()));
 		return ranges;
 	}
 
@@ -50,10 +50,10 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotation.codeRange()
 				.setDescription("added annotation")
-				.setCodeElement(annotation.toString()));
+				.setCodeElement_RENAMED(annotation.toString()));
 		ranges.add(operationAfter.codeRange()
 				.setDescription("method declaration with added annotation")
-				.setCodeElement(operationAfter.toString()));
+				.setCodeElement_RENAMED(operationAfter.toString()));
 		return ranges;
 	}
 

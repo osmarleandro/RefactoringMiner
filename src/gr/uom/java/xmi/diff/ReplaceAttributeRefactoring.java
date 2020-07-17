@@ -47,7 +47,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("replaced attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
+				.setCodeElement_RENAMED(movedAttribute.toString()));
 		return ranges;
 	}
 }

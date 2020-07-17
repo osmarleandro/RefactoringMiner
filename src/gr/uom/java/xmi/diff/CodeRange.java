@@ -67,7 +67,7 @@ public class CodeRange {
 		return codeElement;
 	}
 
-	public CodeRange setCodeElement(String codeElement) {
+	public CodeRange setCodeElement_RENAMED(String codeElement) {
 		this.codeElement = codeElement;
 		return this;
 	}

@@ -41,10 +41,10 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotation.codeRange()
 				.setDescription("deleted annotation")
-				.setCodeElement(annotation.toString()));
+				.setCodeElement_RENAMED(annotation.toString()));
 		ranges.add(operationBefore.codeRange()
 				.setDescription("original method declaration")
-				.setCodeElement(operationBefore.toString()));
+				.setCodeElement_RENAMED(operationBefore.toString()));
 		return ranges;
 	}
 
@@ -53,7 +53,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(operationAfter.codeRange()
 				.setDescription("method declaration with removed annotation")
-				.setCodeElement(operationAfter.toString()));
+				.setCodeElement_RENAMED(operationAfter.toString()));
 		return ranges;
 	}
 

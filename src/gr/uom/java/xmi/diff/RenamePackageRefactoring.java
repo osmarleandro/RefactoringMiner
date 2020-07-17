@@ -78,7 +78,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
 			ranges.add(ref.getOriginalClass().codeRange()
 					.setDescription("original type declaration")
-					.setCodeElement(ref.getOriginalClass().getName()));
+					.setCodeElement_RENAMED(ref.getOriginalClass().getName()));
 		}
 		return ranges;
 	}
@@ -89,7 +89,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
 			ranges.add(ref.getMovedClass().codeRange()
 					.setDescription("moved type declaration")
-					.setCodeElement(ref.getMovedClass().getName()));
+					.setCodeElement_RENAMED(ref.getMovedClass().getName()));
 		}
 		return ranges;
 	}
