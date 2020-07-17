@@ -68,7 +68,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return RefactoringType.RENAME_METHOD;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
+	public UMLOperationBodyMapper getBodyMapper_RENAMED() {
 		return bodyMapper;
 	}
 
