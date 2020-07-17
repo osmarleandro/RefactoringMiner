@@ -217,7 +217,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(AnonymousClassDeclaration node) {
+	public boolean visit_RENAMED(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode childNode = insertNode(node);
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
 		if(current.getUserObject() != null) {
