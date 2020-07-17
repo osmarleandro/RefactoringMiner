@@ -58,7 +58,7 @@ public class UMLAnnotationListDiff {
 		return addedAnnotations;
 	}
 
-	public List<UMLAnnotationDiff> getAnnotationDiffList() {
+	public List<UMLAnnotationDiff> getAnnotationDiffList_RENAMED() {
 		return annotationDiffList;
 	}
 
