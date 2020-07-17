@@ -231,7 +231,7 @@ public class OperationBody {
 			for(CatchClause catchClause : catchClauses) {
 				Block catchClauseBody = catchClause.getBody();
 				CompositeStatementObject catchClauseStatementObject = new CompositeStatementObject(cu, filePath, catchClauseBody, parent.getDepth()+1, CodeElementType.CATCH_CLAUSE);
-				child.addCatchClause(catchClauseStatementObject);
+				child.addCatchClause_RENAMED(catchClauseStatementObject);
 				parent.addStatement(catchClauseStatementObject);
 				SingleVariableDeclaration variableDeclaration = catchClause.getException();
 				VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
