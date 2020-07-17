@@ -342,7 +342,7 @@ public class UMLModelASTReader {
     		if(node.getUserObject() != null) {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
     			String anonymousBinaryName = getAnonymousBinaryName(node);
-    			String anonymousCodePath = getAnonymousCodePath(node);
+    			String anonymousCodePath = getAnonymousCodePath_RENAMED(node);
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
@@ -553,7 +553,7 @@ public class UMLModelASTReader {
 		parentNode.add(childNode);
 	}
 
-	private String getAnonymousCodePath(DefaultMutableTreeNode node) {
+	private String getAnonymousCodePath_RENAMED(DefaultMutableTreeNode node) {
 		AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
 		String name = "";
 		ASTNode parent = anonymous.getParent();
