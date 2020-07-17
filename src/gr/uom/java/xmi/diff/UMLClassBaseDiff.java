@@ -429,22 +429,22 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				setNewAbstraction(nextClass.isAbstract());
 			}
 		}
-		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
-			if(!originalClass.getSuperclass().equals(nextClass.getSuperclass())) {
+		if(originalClass.getSuperclass_RENAMED() != null && nextClass.getSuperclass_RENAMED() != null) {
+			if(!originalClass.getSuperclass_RENAMED().equals(nextClass.getSuperclass_RENAMED())) {
 				setSuperclassChanged(true);
 			}
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.getSuperclass_RENAMED());
+			setNewSuperclass(nextClass.getSuperclass_RENAMED());
 		}
-		else if(originalClass.getSuperclass() != null && nextClass.getSuperclass() == null) {
+		else if(originalClass.getSuperclass_RENAMED() != null && nextClass.getSuperclass_RENAMED() == null) {
 			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.getSuperclass_RENAMED());
+			setNewSuperclass(nextClass.getSuperclass_RENAMED());
 		}
-		else if(originalClass.getSuperclass() == null && nextClass.getSuperclass() != null) {
+		else if(originalClass.getSuperclass_RENAMED() == null && nextClass.getSuperclass_RENAMED() != null) {
 			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.getSuperclass_RENAMED());
+			setNewSuperclass(nextClass.getSuperclass_RENAMED());
 		}
 		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
 			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))
