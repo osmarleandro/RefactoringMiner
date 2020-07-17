@@ -1574,7 +1574,7 @@ public class UMLModelDiff {
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
-							   parameter.getType().equals(rename.getOriginalVariable().getType())) {
+							   parameter.getType_RENAMED().equals(rename.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
 					   }
@@ -1582,7 +1582,7 @@ public class UMLModelDiff {
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
 					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
-							   parameter.getType().equals(rename.getRenamedVariable().getType())) {
+							   parameter.getType_RENAMED().equals(rename.getRenamedVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
 					   }
@@ -1598,7 +1598,7 @@ public class UMLModelDiff {
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
-							   parameter.getType().equals(changeType.getOriginalVariable().getType())) {
+							   parameter.getType_RENAMED().equals(changeType.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
 					   }
@@ -1606,7 +1606,7 @@ public class UMLModelDiff {
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
 					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
-							   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
+							   parameter.getType_RENAMED().equals(changeType.getChangedTypeVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
 					   }
@@ -2411,8 +2411,8 @@ public class UMLModelDiff {
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   && !looksLikeSameType(oldParameter.getType_RENAMED().getClassType(), addedOperation.getClassName())
+						   && !looksLikeSameType(oldParameter.getType_RENAMED().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
 					   oldParameterNames.add(oldParameter.getName());
 				   }
@@ -2421,8 +2421,8 @@ public class UMLModelDiff {
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   !looksLikeSameType(newParameter.getType_RENAMED().getClassType(), addedOperation.getClassName()) &&
+						   !looksLikeSameType(newParameter.getType_RENAMED().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
 					   newParameterNames.add(newParameter.getName());
 				   }
@@ -2452,8 +2452,8 @@ public class UMLModelDiff {
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   && !looksLikeSameType(oldParameter.getType_RENAMED().getClassType(), addedOperation.getClassName())
+						   && !looksLikeSameType(oldParameter.getType_RENAMED().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
 					   oldParameterNames.add(oldParameter.getName());
 				   }
@@ -2462,8 +2462,8 @@ public class UMLModelDiff {
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   !looksLikeSameType(newParameter.getType_RENAMED().getClassType(), addedOperation.getClassName()) &&
+						   !looksLikeSameType(newParameter.getType_RENAMED().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
 					   newParameterNames.add(newParameter.getName());
 				   }

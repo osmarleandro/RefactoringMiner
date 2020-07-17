@@ -219,7 +219,7 @@ public class OperationInvocation extends AbstractCall {
     	}
     	int i=0;
     	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
-    		UMLType parameterType = parameter.getType();
+    		UMLType parameterType = parameter.getType_RENAMED();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
     					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -233,7 +233,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
-    	String type1 = parameter.getType().toString();
+    	String type1 = parameter.getType_RENAMED().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
     		return true;
@@ -249,12 +249,12 @@ public class OperationInvocation extends AbstractCall {
     		return true;
     	if(parameter.isVarargs() && type1.endsWith("Object[]") && (type2.equals("Throwable") || type2.endsWith("Exception")))
     		return true;
-    	if(parameter.getType().equalsWithSubType(type))
+    	if(parameter.getType_RENAMED().equalsWithSubType(type))
     		return true;
-    	if(parameter.getType().isParameterized() && type.isParameterized() &&
-    			parameter.getType().getClassType().equals(type.getClassType()))
+    	if(parameter.getType_RENAMED().isParameterized() && type.isParameterized() &&
+    			parameter.getType_RENAMED().getClassType().equals(type.getClassType()))
     		return true;
-    	if(modelDiff != null && modelDiff.isSubclassOf(type.getClassType(), parameter.getType().getClassType())) {
+    	if(modelDiff != null && modelDiff.isSubclassOf(type.getClassType(), parameter.getType_RENAMED().getClassType())) {
     		return true;
     	}
     	return false;
@@ -447,7 +447,7 @@ public class OperationInvocation extends AbstractCall {
 				for(String argument : getArguments()) {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameters.get(i).getType();
+						UMLType paremeterType = parameters.get(i).getType_RENAMED();
 						if(!argumentType.equals(paremeterType))
 							return false;
 					}
@@ -461,8 +461,8 @@ public class OperationInvocation extends AbstractCall {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);
 						UMLType paremeterType = parameter.isVarargs() ?
-								UMLType.extractTypeObject(parameter.getType().getClassType()) :
-								parameter.getType();
+								UMLType.extractTypeObject(parameter.getType_RENAMED().getClassType()) :
+								parameter.getType_RENAMED();
 						if(!argumentType.equals(paremeterType))
 							return false;
 					}
@@ -477,7 +477,7 @@ public class OperationInvocation extends AbstractCall {
 			for(String argument : getArguments()) {
 				if(typeInferenceMapFromContext.containsKey(argument)) {
 					UMLType argumentType = typeInferenceMapFromContext.get(argument);
-					UMLType paremeterType = parameters.get(i).getType();
+					UMLType paremeterType = parameters.get(i).getType_RENAMED();
 					if(!argumentType.equals(paremeterType))
 						return false;
 				}

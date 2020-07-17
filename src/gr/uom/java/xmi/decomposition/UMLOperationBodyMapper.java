@@ -96,7 +96,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<UMLParameter> addedParameters = operationDiff.getAddedParameters();
 			if(addedParameters.size() == 1) {
 				UMLParameter addedParameter = addedParameters.get(0);
-				if(UMLModelDiff.looksLikeSameType(addedParameter.getType().getClassType(), operation1.getClassName())) {
+				if(UMLModelDiff.looksLikeSameType(addedParameter.getType_RENAMED().getClassType(), operation1.getClassName())) {
 					parameterToArgumentMap1.put("this.", "");
 					//replace "parameterName." with ""
 					parameterToArgumentMap2.put(addedParameter.getName() + ".", "");
@@ -105,7 +105,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters();
 			if(removedParameters.size() == 1) {
 				UMLParameter removedParameter = removedParameters.get(0);
-				if(UMLModelDiff.looksLikeSameType(removedParameter.getType().getClassType(), operation2.getClassName())) {
+				if(UMLModelDiff.looksLikeSameType(removedParameter.getType_RENAMED().getClassType(), operation2.getClassName())) {
 					parameterToArgumentMap1.put(removedParameter.getName() + ".", "");
 					parameterToArgumentMap2.put("this.", "");
 				}

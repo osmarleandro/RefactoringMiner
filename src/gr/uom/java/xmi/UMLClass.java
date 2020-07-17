@@ -239,10 +239,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     				int i = 0;
     				for(UMLParameter parameter : operation.getParameters()) {
     					UMLParameter otherParameter = otherOperation.getParameters().get(i);
-    					String thisParameterType = parameter.getType().getClassType();
-    					String otherParameterType = otherParameter.getType().getClassType();
-    					int thisArrayDimension = parameter.getType().getArrayDimension();
-    					int otherArrayDimension = otherParameter.getType().getArrayDimension();
+    					String thisParameterType = parameter.getType_RENAMED().getClassType();
+    					String otherParameterType = otherParameter.getType_RENAMED().getClassType();
+    					int thisArrayDimension = parameter.getType_RENAMED().getArrayDimension();
+    					int otherArrayDimension = otherParameter.getType_RENAMED().getArrayDimension();
     					String thisParameterTypeComparedString = null;
     	    			if(thisParameterType.contains("."))
     	    				thisParameterTypeComparedString = thisParameterType.substring(thisParameterType.lastIndexOf(".")+1);
