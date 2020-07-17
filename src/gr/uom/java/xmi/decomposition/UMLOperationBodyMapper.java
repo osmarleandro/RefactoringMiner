@@ -2501,27 +2501,27 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(ternaryOperatorExpressions1.isEmpty() && ternaryOperatorExpressions2.size() == 1) {
 			TernaryOperatorExpression ternary = ternaryOperatorExpressions2.get(0);
 			for(String creation : creationIntersection) {
-				if((r = ternary.makeReplacementWithTernaryOnTheRight(creation)) != null) {
+				if((r = ternary.makeReplacementWithTernaryOnTheRight_RENAMED(creation)) != null) {
 					replacementInfo.addReplacement(r);
 					return replacementInfo.getReplacements();
 				}
 			}
 			for(String methodInvocation : methodInvocationIntersection) {
-				if((r = ternary.makeReplacementWithTernaryOnTheRight(methodInvocation)) != null) {
+				if((r = ternary.makeReplacementWithTernaryOnTheRight_RENAMED(methodInvocation)) != null) {
 					replacementInfo.addReplacement(r);
 					return replacementInfo.getReplacements();
 				}
 			}
-			if(invocationCoveringTheEntireStatement1 != null && (r = ternary.makeReplacementWithTernaryOnTheRight(invocationCoveringTheEntireStatement1.actualString())) != null) {
+			if(invocationCoveringTheEntireStatement1 != null && (r = ternary.makeReplacementWithTernaryOnTheRight_RENAMED(invocationCoveringTheEntireStatement1.actualString())) != null) {
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
 			}
-			if(creationCoveringTheEntireStatement1 != null && (r = ternary.makeReplacementWithTernaryOnTheRight(creationCoveringTheEntireStatement1.actualString())) != null) {
+			if(creationCoveringTheEntireStatement1 != null && (r = ternary.makeReplacementWithTernaryOnTheRight_RENAMED(creationCoveringTheEntireStatement1.actualString())) != null) {
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
 			}
 			for(String creation2 : creations2) {
-				if((r = ternary.makeReplacementWithTernaryOnTheRight(creation2)) != null) {
+				if((r = ternary.makeReplacementWithTernaryOnTheRight_RENAMED(creation2)) != null) {
 					for(AbstractCall c2 : creationMap2.get(creation2)) {
 						for(String creation1 : creations1) {
 							for(AbstractCall c1 : creationMap1.get(creation1)) {

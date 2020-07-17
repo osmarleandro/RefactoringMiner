@@ -37,7 +37,7 @@ public class TernaryOperatorExpression {
 		return expression;
 	}
 
-	public Replacement makeReplacementWithTernaryOnTheRight(String statement) {
+	public Replacement makeReplacementWithTernaryOnTheRight_RENAMED(String statement) {
 		if(getElseExpression().getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
