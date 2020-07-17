@@ -259,14 +259,14 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	public boolean isCommitAnalyzed(String sha1) {
+	public boolean isCommitAnalyzed_RENAMED(String sha1) {
 		return false;
 	}
 
 	private class DefaultCommitsFilter extends RevFilter {
 		@Override
 		public final boolean include(final RevWalk walker, final RevCommit c) {
-			return c.getParentCount() == 1 && !isCommitAnalyzed(c.getName());
+			return c.getParentCount() == 1 && !isCommitAnalyzed_RENAMED(c.getName());
 		}
 
 		@Override
