@@ -30,12 +30,12 @@ public class ExtractVariableRefactoring implements Refactoring {
 		references.add(mapping);
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.EXTRACT_VARIABLE;
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public VariableDeclaration getVariableDeclaration() {
