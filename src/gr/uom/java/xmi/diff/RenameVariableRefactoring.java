@@ -102,22 +102,22 @@ public class RenameVariableRefactoring implements Refactoring {
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
+		} else if (!operationAfter.equals_RENAMED(other.operationAfter))
 			return false;
 		if (operationBefore == null) {
 			if (other.operationBefore != null)
 				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
+		} else if (!operationBefore.equals_RENAMED(other.operationBefore))
 			return false;
 		if (originalVariable == null) {
 			if (other.originalVariable != null)
 				return false;
-		} else if (!originalVariable.equals(other.originalVariable))
+		} else if (!originalVariable.equals_RENAMED(other.originalVariable))
 			return false;
 		if (renamedVariable == null) {
 			if (other.renamedVariable != null)
 				return false;
-		} else if (!renamedVariable.equals(other.renamedVariable))
+		} else if (!renamedVariable.equals_RENAMED(other.renamedVariable))
 			return false;
 		return true;
 	}

@@ -52,7 +52,7 @@ public class VariableScope {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
