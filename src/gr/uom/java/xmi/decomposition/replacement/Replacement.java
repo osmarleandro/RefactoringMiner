@@ -48,7 +48,7 @@ public class Replacement {
 		return false;
 	}
 	
-	public String toString() {
+	public String toString_RENAMED() {
 		return before + " -> " + after;
 	}
 
