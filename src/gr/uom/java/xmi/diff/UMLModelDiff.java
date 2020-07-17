@@ -1472,16 +1472,16 @@ public class UMLModelDiff {
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
       refactorings.addAll(this.refactorings);
       for(UMLClassDiff classDiff : commonClassDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  inferMethodSignatureRelatedRefactorings_RENAMED(classDiff, refactorings);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  inferMethodSignatureRelatedRefactorings_RENAMED(classDiff, refactorings);
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  inferMethodSignatureRelatedRefactorings_RENAMED(classDiff, refactorings);
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  inferMethodSignatureRelatedRefactorings_RENAMED(classDiff, refactorings);
       }
       return new ArrayList<Refactoring>(refactorings);
    }
@@ -1523,7 +1523,7 @@ public class UMLModelDiff {
 	  return typeRenamePatternMap;
    }
 
-   private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
+   private void inferMethodSignatureRelatedRefactorings_RENAMED(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
 	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
