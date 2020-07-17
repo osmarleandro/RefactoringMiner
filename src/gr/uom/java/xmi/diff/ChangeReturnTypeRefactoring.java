@@ -29,12 +29,12 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		this.returnReferences = returnReferences;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.CHANGE_RETURN_TYPE;
 	}
 
 	public String getName() {
-		return getRefactoringType().getDisplayName();
+		return getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public UMLType getOriginalType() {
