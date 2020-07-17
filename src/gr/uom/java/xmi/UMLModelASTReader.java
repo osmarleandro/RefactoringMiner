@@ -204,14 +204,14 @@ public class UMLModelASTReader {
 		umlClass.setEnum(true);
 		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
 		
-		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
+		processBodyDeclarations_RENAMED(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
 		
 		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
 		
 		this.getUmlModel().addClass(umlClass);
 	}
 
-	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
+	private void processBodyDeclarations_RENAMED(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
 			String sourceFile, List<String> importedTypes, UMLClass umlClass) {
 		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
