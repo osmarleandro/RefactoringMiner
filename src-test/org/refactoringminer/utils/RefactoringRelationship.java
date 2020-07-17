@@ -137,7 +137,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
   }
 
-  public GroupKey getGroupKey() {
+  public GroupKey getGroupKey_RENAMED() {
     return new GroupKey(refactoringType, getMainEntity());
   }
 
