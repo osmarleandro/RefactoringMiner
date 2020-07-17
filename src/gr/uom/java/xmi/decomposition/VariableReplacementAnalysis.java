@@ -445,7 +445,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
-		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = getReplacementOccurrenceMap(ReplacementType.VARIABLE_NAME);
+		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = getReplacementOccurrenceMap_RENAMED(ReplacementType.VARIABLE_NAME);
 		Set<Replacement> allConsistentRenames = allConsistentRenames(replacementOccurrenceMap);
 		Map<Replacement, Set<AbstractCodeMapping>> finalConsistentRenames = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(Replacement replacement : allConsistentRenames) {
@@ -537,7 +537,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private Map<Replacement, Set<AbstractCodeMapping>> getReplacementOccurrenceMap(ReplacementType type) {
+	private Map<Replacement, Set<AbstractCodeMapping>> getReplacementOccurrenceMap_RENAMED(ReplacementType type) {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
