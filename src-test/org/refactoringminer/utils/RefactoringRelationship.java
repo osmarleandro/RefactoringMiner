@@ -41,7 +41,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals_RENAMED(Object obj) {
     if (obj instanceof RefactoringRelationship) {
       RefactoringRelationship other = (RefactoringRelationship) obj;
       return other.refactoringType.equals(this.refactoringType) && other.entityBefore.equals(this.entityBefore) && other.entityAfter.equals(this.entityAfter);
