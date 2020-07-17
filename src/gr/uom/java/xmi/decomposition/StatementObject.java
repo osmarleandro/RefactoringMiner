@@ -131,7 +131,7 @@ public class StatementObject extends AbstractStatement {
 		}
 	}
 
-	public List<String> stringRepresentation() {
+	public List<String> stringRepresentation_RENAMED() {
 		List<String> stringRepresentation = new ArrayList<String>();
 		stringRepresentation.add(this.toString());
 		return stringRepresentation;
