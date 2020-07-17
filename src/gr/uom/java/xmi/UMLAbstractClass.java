@@ -162,7 +162,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsAttributeWithName(String attributeName) {
+	public boolean containsAttributeWithName_RENAMED(String attributeName) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.getName().equals(attributeName))
 				return true;
