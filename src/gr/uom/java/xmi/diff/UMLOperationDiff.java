@@ -190,14 +190,14 @@ public class UMLOperationDiff {
 		return operationRenamed;
 	}
 
-	public boolean isEmpty() {
+	public boolean isEmpty_RENAMED() {
 		return addedParameters.isEmpty() && removedParameters.isEmpty() && parameterDiffList.isEmpty() &&
 		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty();
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
+		if(!isEmpty_RENAMED())
 			sb.append("\t").append(removedOperation).append("\n");
 		if(operationRenamed)
 			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
