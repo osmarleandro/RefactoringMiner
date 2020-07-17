@@ -751,14 +751,14 @@ public class VariableReplacementAnalysis {
 		VariableDeclaration v1 = null;
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
-				v1 = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
+				v1 = mapping.getFragment1().searchVariableDeclaration_RENAMED(replacement.getBefore());
 				break;
 			}
 		}
 		VariableDeclaration v2 = null;
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
-				v2 = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
+				v2 = mapping.getFragment2().searchVariableDeclaration_RENAMED(replacement.getAfter());
 				break;
 			}
 		}
@@ -893,7 +893,7 @@ public class VariableReplacementAnalysis {
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement) {
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
-				VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
+				VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration_RENAMED(replacement.getBefore());
 				if(vd != null) {
 					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation1());
 				}
@@ -925,7 +925,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			if(mapping.getReplacements().contains(replacement) || foundMergedVariables.equals(replacement.getMergedVariables())) {
-				VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(variableName);
+				VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration_RENAMED(variableName);
 				if(vd != null) {
 					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation1());
 				}
@@ -951,7 +951,7 @@ public class VariableReplacementAnalysis {
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement) {
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
-				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
+				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration_RENAMED(replacement.getAfter());
 				if(vd != null) {
 					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
 				}
@@ -984,7 +984,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 				if(mapping.getReplacements().contains(replacement) || foundSplitVariables.equals(replacement.getSplitVariables())) {
-					VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(variableName);
+					VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration_RENAMED(variableName);
 					if(vd != null) {
 						return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
 					}
@@ -1017,7 +1017,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			if(mapping.getReplacements().contains(replacement) || foundMergedVariables.equals(replacement.getMergedVariables())) {
-				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
+				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration_RENAMED(replacement.getAfter());
 				if(vd != null) {
 					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
 				}
@@ -1208,7 +1208,7 @@ public class VariableReplacementAnalysis {
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement, AbstractCodeMapping mapping) {
 		if(mapping.getReplacements().contains(replacement)) {
-			VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
+			VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration_RENAMED(replacement.getBefore());
 			if(vd != null) {
 				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation1());
 			}
@@ -1232,7 +1232,7 @@ public class VariableReplacementAnalysis {
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement, AbstractCodeMapping mapping) {
 		if(mapping.getReplacements().contains(replacement)) {
-			VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
+			VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration_RENAMED(replacement.getAfter());
 			if(vd != null) {
 				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
 			}

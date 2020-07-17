@@ -23,7 +23,7 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     		return variableDeclaration;
     	}
     	else if(parent != null) {
-    		return parent.searchVariableDeclaration(variableName);
+    		return parent.searchVariableDeclaration_RENAMED(variableName);
     	}
     	return null;
     }

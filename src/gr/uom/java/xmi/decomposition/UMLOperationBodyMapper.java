@@ -1837,8 +1837,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									replacement = new Replacement(suffix1, suffix2, ReplacementType.VARIABLE_NAME);
 								}
 							}
-							VariableDeclaration v1 = statement1.searchVariableDeclaration(s1);
-							VariableDeclaration v2 = statement2.searchVariableDeclaration(s2);
+							VariableDeclaration v1 = statement1.searchVariableDeclaration_RENAMED(s1);
+							VariableDeclaration v2 = statement2.searchVariableDeclaration_RENAMED(s2);
 							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
 								replacement = null;
 							}

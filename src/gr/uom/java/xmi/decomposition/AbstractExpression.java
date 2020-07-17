@@ -179,13 +179,13 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return locationInfo;
 	}
 
-	public VariableDeclaration searchVariableDeclaration(String variableName) {
+	public VariableDeclaration searchVariableDeclaration_RENAMED(String variableName) {
 		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
 		if(variableDeclaration != null) {
 			return variableDeclaration;
 		}
 		else if(owner != null) {
-			return owner.searchVariableDeclaration(variableName);
+			return owner.searchVariableDeclaration_RENAMED(variableName);
 		}
 		return null;
 	}
