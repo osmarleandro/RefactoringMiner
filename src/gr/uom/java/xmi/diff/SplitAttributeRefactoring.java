@@ -31,7 +31,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return oldAttribute;
 	}
 
-	public Set<VariableDeclaration> getSplitAttributes() {
+	public Set<VariableDeclaration> getSplitAttributes_RENAMED() {
 		return splitAttributes;
 	}
 
