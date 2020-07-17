@@ -360,7 +360,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return addedImplementedInterfaces;
 	}
 
-	public List<UMLType> getRemovedImplementedInterfaces() {
+	public List<UMLType> getRemovedImplementedInterfaces_RENAMED() {
 		return removedImplementedInterfaces;
 	}
 
