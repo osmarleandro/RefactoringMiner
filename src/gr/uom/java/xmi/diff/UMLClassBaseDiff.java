@@ -1651,7 +1651,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return sb.toString();
 	}
 
-	public int compareTo(UMLClassBaseDiff other) {
+	public int compareTo_RENAMED(UMLClassBaseDiff other) {
 		return this.originalClass.getName().compareTo(other.originalClass.getName());
 	}
 
