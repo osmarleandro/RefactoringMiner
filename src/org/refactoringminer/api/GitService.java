@@ -21,7 +21,7 @@ public interface GitService {
 	 * @return The repository object (JGit library).
 	 * @throws Exception propagated from JGit library.
 	 */
-	Repository cloneIfNotExists(String folder, String cloneUrl/*, String branch*/) throws Exception;
+	Repository cloneIfNotExists_RENAMED(String folder, String cloneUrl/*, String branch*/) throws Exception;
 	
 	Repository openRepository(String folder) throws Exception;
 
