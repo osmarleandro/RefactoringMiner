@@ -33,7 +33,7 @@ public class UMLModel {
         generalizationList.add(umlGeneralization);
     }
 
-    public void addRealization(UMLRealization umlRealization) {
+    public void addRealization_RENAMED(UMLRealization umlRealization) {
     	realizationList.add(umlRealization);
     }
 
