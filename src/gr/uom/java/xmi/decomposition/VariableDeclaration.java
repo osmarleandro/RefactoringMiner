@@ -61,7 +61,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
-		ASTNode scopeNode = getScopeNode(fragment);
+		ASTNode scopeNode = getScopeNode_RENAMED(fragment);
 		int startOffset = 0;
 		if(locationInfo.getCodeElementType().equals(CodeElementType.FIELD_DECLARATION)) {
 			//field declarations have the entire type declaration as scope, regardless of the location they are declared
@@ -89,7 +89,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		Type astType = extractType(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		int startOffset = fragment.getStartPosition();
-		ASTNode scopeNode = getScopeNode(fragment);
+		ASTNode scopeNode = getScopeNode_RENAMED(fragment);
 		int endOffset = scopeNode.getStartPosition() + scopeNode.getLength();
 		this.scope = new VariableScope(cu, filePath, startOffset, endOffset);
 	}
@@ -196,7 +196,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return locationInfo.codeRange();
 	}
 
-	private static ASTNode getScopeNode(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
+	private static ASTNode getScopeNode_RENAMED(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
 			return variableDeclaration.getParent();
 		}
