@@ -836,7 +836,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return removedOperationCalled && addedOperationCalled;
 	}
 
-	public int exactMatches() {
+	public int exactMatches_RENAMED() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
 			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
@@ -4001,8 +4001,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return -Integer.compare(thisMappings, otherMappings);
 		}
 		else {
-			int thisExactMatches = this.exactMatches();
-			int otherExactMatches = operationBodyMapper.exactMatches();
+			int thisExactMatches = this.exactMatches_RENAMED();
+			int otherExactMatches = operationBodyMapper.exactMatches_RENAMED();
 			if(thisExactMatches != otherExactMatches) {
 				return -Integer.compare(thisExactMatches, otherExactMatches);
 			}
