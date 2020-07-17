@@ -93,7 +93,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		processInheritance();
 		processOperations();
 		createBodyMappers();
-		processAttributes();
+		processAttributes_RENAMED();
 		checkForAttributeChanges();
 		processAnonymousClasses();
 		checkForOperationSignatureChanges();
@@ -153,7 +153,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     	}
 	}
 
-	protected void processAttributes() {
+	protected void processAttributes_RENAMED() {
 		for(UMLAttribute attribute : originalClass.getAttributes()) {
     		UMLAttribute attributeWithTheSameName = nextClass.attributeWithTheSameNameIgnoringChangedType(attribute);
 			if(attributeWithTheSameName == null) {
