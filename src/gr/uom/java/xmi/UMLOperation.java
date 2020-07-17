@@ -799,7 +799,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return equalParameterTypes(removedOperation) || overloadedParameterTypes(removedOperation) || replacedParameterTypes(removedOperation) || equalParameterNames(removedOperation);
 	}
 
-	public boolean hasTwoParametersWithTheSameType() {
+	public boolean hasTwoParametersWithTheSameType_RENAMED() {
 		List<UMLType> parameterTypes = getParameterTypeList();
 		if(parameterTypes.size() == 2) {
 			if(parameterTypes.get(0).equals(parameterTypes.get(1))) {

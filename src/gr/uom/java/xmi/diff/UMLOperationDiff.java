@@ -119,7 +119,7 @@ public class UMLOperationDiff {
 	}
 
 	private boolean existsAnotherAddedParameterWithTheSameType(UMLParameter parameter) {
-		if(removedOperation.hasTwoParametersWithTheSameType() && addedOperation.hasTwoParametersWithTheSameType()) {
+		if(removedOperation.hasTwoParametersWithTheSameType_RENAMED() && addedOperation.hasTwoParametersWithTheSameType_RENAMED()) {
 			return false;
 		}
 		for(UMLParameter addedParameter : addedParameters) {
