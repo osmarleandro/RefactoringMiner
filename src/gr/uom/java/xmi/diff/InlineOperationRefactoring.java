@@ -138,7 +138,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the inlined code fragment in the target method in the <b>child</b> commit
 	 */
-	public CodeRange getInlinedCodeRangeInTargetOperation() {
+	public CodeRange getInlinedCodeRangeInTargetOperation_RENAMED() {
 		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
 	}
 
