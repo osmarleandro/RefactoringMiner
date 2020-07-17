@@ -127,7 +127,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalType.codeRange()
 				.setDescription("original return type")
