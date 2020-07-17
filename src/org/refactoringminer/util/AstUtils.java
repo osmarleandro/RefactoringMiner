@@ -26,7 +26,7 @@ public class AstUtils {
 	    return binding.getErasure().getQualifiedName();
 	}
 	
-	public static String getKeyFromMethodBinding(IMethodBinding binding) {
+	public static String getKeyFromMethodBinding_RENAMED(IMethodBinding binding) {
 		StringBuilder sb = new StringBuilder();
 		String className = binding.getDeclaringClass().getErasure().getQualifiedName();
 		sb.append(className);
