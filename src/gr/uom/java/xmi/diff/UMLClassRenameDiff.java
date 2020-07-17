@@ -8,7 +8,7 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		super(originalClass, renamedClass, modelDiff);
 	}
 
-	public UMLClass getRenamedClass() {
+	public UMLClass getRenamedClass_RENAMED() {
 		return nextClass;
 	}
 
