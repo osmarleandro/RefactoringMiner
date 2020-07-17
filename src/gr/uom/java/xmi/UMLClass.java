@@ -233,7 +233,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	ListIterator<UMLOperation> operationIt = operations.listIterator();
     	while(operationIt.hasNext()) {
     		UMLOperation operation = operationIt.next();
-    		if(operation.getName().equals(otherOperation.getName())) {
+    		if(operation.getName_RENAMED().equals(otherOperation.getName_RENAMED())) {
     			if(operation.getParameters().size() == otherOperation.getParameters().size()) {
     				boolean match = true;
     				int i = 0;

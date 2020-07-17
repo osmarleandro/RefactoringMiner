@@ -2270,7 +2270,7 @@ public class UMLModelDiff {
 
 	private boolean allRenamedOperations(List<UMLOperationBodyMapper> mappers) {
 		for (UMLOperationBodyMapper mapper : mappers) {
-			if(mapper.getOperation1().getName().equals(mapper.getOperation2().getName())) {
+			if(mapper.getOperation1().getName_RENAMED().equals(mapper.getOperation2().getName_RENAMED())) {
 				return false;
 			}
 		}
@@ -2439,7 +2439,7 @@ public class UMLModelDiff {
    }
 
    private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
-	   if(addedOperation.getName().equals(removedOperation.getName()) &&
+	   if(addedOperation.getName_RENAMED().equals(removedOperation.getName_RENAMED()) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {

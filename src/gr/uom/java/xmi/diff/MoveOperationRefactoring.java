@@ -50,7 +50,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!originalOperation.getName().equals(movedOperation.getName())) {
+		if(!originalOperation.getName_RENAMED().equals(movedOperation.getName_RENAMED())) {
 			return RefactoringType.MOVE_AND_RENAME_OPERATION;
 		}
 		return RefactoringType.MOVE_OPERATION;

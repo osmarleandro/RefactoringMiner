@@ -67,7 +67,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return locationInfo;
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return name;
 	}
 
@@ -424,7 +424,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
 					for(OperationInvocation operationInvocation : operationInvocations) {
-						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName())) {
+						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName_RENAMED())) {
 							return operationInvocation;
 						}
 					}
@@ -655,8 +655,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public double normalizedNameDistance(UMLOperation operation) {
-		String s1 = getName().toLowerCase();
-		String s2 = operation.getName().toLowerCase();
+		String s1 = getName_RENAMED().toLowerCase();
+		String s2 = operation.getName_RENAMED().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
@@ -771,28 +771,28 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	private boolean isEquals() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("equals") && getReturnParameter().getType().getClassType().equals("boolean") &&
+		return getName_RENAMED().equals("equals") && getReturnParameter().getType().getClassType().equals("boolean") &&
 				parameterTypeList.size() == 1 && parameterTypeList.get(0).getClassType().equals("Object");
 	}
 
 	private boolean isHashCode() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("hashCode") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
+		return getName_RENAMED().equals("hashCode") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
 	}
 
 	private boolean isToString() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
+		return getName_RENAMED().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
 	}
 
 	private boolean isClone() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("clone") && getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
+		return getName_RENAMED().equals("clone") && getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
 	}
 
 	private boolean isCompareTo() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
+		return getName_RENAMED().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
 	}
 
 	public boolean compatibleSignature(UMLOperation removedOperation) {
