@@ -190,7 +190,7 @@ public class ExtractOperationDetection {
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
-					if(!callTree.contains(addedOperation)) {
+					if(!callTree.contains_RENAMED(addedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
 						parent.addChild(node);
 						generateCallTree(addedOperation, node, callTree);

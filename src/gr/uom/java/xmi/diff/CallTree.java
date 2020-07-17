@@ -26,7 +26,7 @@ public class CallTree {
 		return nodes;
 	}
 	
-	public boolean contains(UMLOperation invokedOperation) {
+	public boolean contains_RENAMED(UMLOperation invokedOperation) {
 		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
 			if(node.getInvokedOperation().equals(invokedOperation)) {
 				return true;
