@@ -56,7 +56,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 		return false;
 	}
 
-	public boolean isInterface() {
+	public boolean isInterface_RENAMED() {
 		return false;
 	}
 }
