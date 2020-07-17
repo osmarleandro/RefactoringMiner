@@ -9,7 +9,7 @@ public class CandidateExtractClassRefactoring {
 		this.refactoring = refactoring;
 	}
 	
-	public boolean innerClassExtract() {
+	public boolean innerClassExtract_RENAMED() {
 		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass().getName() + ".");
 	}
 
