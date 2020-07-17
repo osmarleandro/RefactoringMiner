@@ -844,7 +844,7 @@ public class Visitor extends ASTVisitor {
 		return postfixExpressions;
 	}
 
-	public List<String> getArguments() {
+	public List<String> getArguments_RENAMED() {
 		return this.arguments;
 	}
 

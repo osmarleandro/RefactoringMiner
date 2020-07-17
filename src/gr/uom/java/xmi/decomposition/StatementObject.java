@@ -62,7 +62,7 @@ public class StatementObject extends AbstractStatement {
 		this.arrayAccesses = visitor.getArrayAccesses();
 		this.prefixExpressions = visitor.getPrefixExpressions();
 		this.postfixExpressions = visitor.getPostfixExpressions();
-		this.arguments = visitor.getArguments();
+		this.arguments = visitor.getArguments_RENAMED();
 		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
 		this.lambdas = visitor.getLambdas();
 		setDepth(depth);
