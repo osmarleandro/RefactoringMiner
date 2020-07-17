@@ -34,7 +34,7 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(originalOperation);
 		sb.append(" from class ");
 		sb.append(originalOperation.getClassName());
@@ -45,7 +45,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
