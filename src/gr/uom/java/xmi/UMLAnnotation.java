@@ -98,7 +98,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode());
+		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode_RENAMED());
 		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.getExpression().hashCode());
 		return result;
@@ -152,7 +152,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	private int memberValuePairsHashCode() {
+	private int memberValuePairsHashCode_RENAMED() {
 		int h = 0;
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
