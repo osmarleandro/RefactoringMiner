@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class UMLOperationBodyMapperComparator implements Comparator<UMLOperationBodyMapper> {
 
 	@Override
-	public int compare(UMLOperationBodyMapper o1, UMLOperationBodyMapper o2) {
+	public int compare_RENAMED(UMLOperationBodyMapper o1, UMLOperationBodyMapper o2) {
 		int thisOperationNameEditDistance = o1.operationNameEditDistance();
 		int otherOperationNameEditDistance = o2.operationNameEditDistance();
 		if(thisOperationNameEditDistance != otherOperationNameEditDistance)
