@@ -223,7 +223,7 @@ public class GitServiceImpl implements GitService {
 	}
 	
 	@Override
-	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag)
+	public Iterable<RevCommit> createRevsWalkBetweenTags_RENAMED(Repository repository, String startTag, String endTag)
 			throws Exception {
 		Ref refFrom = repository.findRef(startTag);
 		Ref refTo = repository.findRef(endTag);
