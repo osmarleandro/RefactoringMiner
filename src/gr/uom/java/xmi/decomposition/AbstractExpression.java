@@ -101,7 +101,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap_RENAMED() {
 		return methodInvocationMap;
 	}
 

@@ -137,7 +137,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
 		for(AbstractExpression expression : expressionList) {
-			Map<String, List<OperationInvocation>> expressionMap = expression.getMethodInvocationMap();
+			Map<String, List<OperationInvocation>> expressionMap = expression.getMethodInvocationMap_RENAMED();
 			for(String key : expressionMap.keySet()) {
 				if(map.containsKey(key)) {
 					map.get(key).addAll(expressionMap.get(key));
@@ -290,7 +290,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
-		map.putAll(getMethodInvocationMap());
+		map.putAll(getMethodInvocationMap_RENAMED());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
@@ -308,7 +308,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
-				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap_RENAMED();
 				for(String key : statementMap.keySet()) {
 					if(map.containsKey(key)) {
 						map.get(key).addAll(statementMap.get(key));
