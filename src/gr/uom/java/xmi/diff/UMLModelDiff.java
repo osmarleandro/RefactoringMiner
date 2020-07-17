@@ -1214,7 +1214,7 @@ public class UMLModelDiff {
 				   boolean foundInMatchingRenamePackageRefactoring = false;
 				   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
 					   if(renamePackageRefactoring.getPattern().equals(renamePattern)) {
-						   renamePackageRefactoring.addMoveClassRefactoring(refactoring);
+						   renamePackageRefactoring.addMoveClassRefactoring_RENAMED(refactoring);
 						   foundInMatchingRenamePackageRefactoring = true;
 						   break;
 					   }

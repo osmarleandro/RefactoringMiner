@@ -25,7 +25,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		this.pattern = moveClassRefactoring.getRenamePattern();
 	}
 
-	public void addMoveClassRefactoring(MoveClassRefactoring moveClassRefactoring) {
+	public void addMoveClassRefactoring_RENAMED(MoveClassRefactoring moveClassRefactoring) {
 		moveClassRefactorings.add(moveClassRefactoring);
 	}
 
