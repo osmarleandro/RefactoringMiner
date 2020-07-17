@@ -15,7 +15,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		this.childChanged = false;
 		if(!removedGeneralization.getParent().equals(addedGeneralization.getParent()))
 			parentChanged = true;
-		if(!removedGeneralization.getChild().equals(addedGeneralization.getChild()))
+		if(!removedGeneralization.getChild().equals_RENAMED(addedGeneralization.getChild()))
 			childChanged = true;
 	}
 

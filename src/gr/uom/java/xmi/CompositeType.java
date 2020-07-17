@@ -27,7 +27,7 @@ public class CompositeType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -38,12 +38,12 @@ public class CompositeType extends UMLType {
 		if (leftType == null) {
 			if (other.leftType != null)
 				return false;
-		} else if (!leftType.equals(other.leftType))
+		} else if (!leftType.equals_RENAMED(other.leftType))
 			return false;
 		if (rightType == null) {
 			if (other.rightType != null)
 				return false;
-		} else if (!rightType.equals(other.rightType))
+		} else if (!rightType.equals_RENAMED(other.rightType))
 			return false;
 		return true;
 	}
