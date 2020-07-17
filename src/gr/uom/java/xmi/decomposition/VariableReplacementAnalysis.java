@@ -427,7 +427,7 @@ public class VariableReplacementAnalysis {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
 			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
-					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
+					(set.size() == 1 && replacementInLocalVariableDeclaration_RENAMED(vdReplacement.getVariableNameReplacement(), set))) {
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
@@ -455,7 +455,7 @@ public class VariableReplacementAnalysis {
 			if((set.size() > 1 && v1 != null && v2 != null && consistencyCheck(v1.getKey(), v2.getKey(), set)) ||
 					potentialParameterRename(replacement, set) ||
 					v1 == null || v2 == null ||
-					(set.size() == 1 && replacementInLocalVariableDeclaration(replacement, set))) {
+					(set.size() == 1 && replacementInLocalVariableDeclaration_RENAMED(replacement, set))) {
 				finalConsistentRenames.put(replacement, set);
 			}
 			if(v1 != null && !v1.getKey().isParameter() && v2 != null && v2.getKey().isParameter() && consistencyCheck(v1.getKey(), v2.getKey(), set) &&
@@ -747,7 +747,7 @@ public class VariableReplacementAnalysis {
 		return allConsistentRenames;
 	}
 
-	private boolean replacementInLocalVariableDeclaration(Replacement replacement, Set<AbstractCodeMapping> set) {
+	private boolean replacementInLocalVariableDeclaration_RENAMED(Replacement replacement, Set<AbstractCodeMapping> set) {
 		VariableDeclaration v1 = null;
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
