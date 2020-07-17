@@ -18,7 +18,7 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 		super(originalOperation, movedOperation);
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.PULL_UP_OPERATION;
 	}
 
