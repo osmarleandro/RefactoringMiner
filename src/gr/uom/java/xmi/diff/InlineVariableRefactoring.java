@@ -82,7 +82,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -93,12 +93,12 @@ public class InlineVariableRefactoring implements Refactoring {
 		if (operationBefore == null) {
 			if (other.operationBefore != null)
 				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
+		} else if (!operationBefore.equals_RENAMED(other.operationBefore))
 			return false;
 		if (variableDeclaration == null) {
 			if (other.variableDeclaration != null)
 				return false;
-		} else if (!variableDeclaration.equals(other.variableDeclaration))
+		} else if (!variableDeclaration.equals_RENAMED(other.variableDeclaration))
 			return false;
 		return true;
 	}
