@@ -136,7 +136,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.visibility = visibility;
 	}
 
-	public boolean isEnum() {
+	public boolean isEnum_RENAMED() {
 		return isEnum;
 	}
 
