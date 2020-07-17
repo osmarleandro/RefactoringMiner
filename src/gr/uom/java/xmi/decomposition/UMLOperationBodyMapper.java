@@ -1188,7 +1188,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(!mappingSet.isEmpty()) {
 					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
-					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+					if(variableDeclarationMappingsWithSameReplacementTypes_RENAMED(mappingSet)) {
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
@@ -1286,7 +1286,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(!mappingSet.isEmpty()) {
 					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
-					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+					if(variableDeclarationMappingsWithSameReplacementTypes_RENAMED(mappingSet)) {
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
@@ -1349,7 +1349,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return replacementInfo;
 	}
 
-	private boolean variableDeclarationMappingsWithSameReplacementTypes(Set<LeafMapping> mappingSet) {
+	private boolean variableDeclarationMappingsWithSameReplacementTypes_RENAMED(Set<LeafMapping> mappingSet) {
 		if(mappingSet.size() > 1) {
 			Set<LeafMapping> variableDeclarationMappings = new LinkedHashSet<LeafMapping>();
 			for(LeafMapping mapping : mappingSet) {
