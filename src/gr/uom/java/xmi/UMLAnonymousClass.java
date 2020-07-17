@@ -52,7 +52,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 		return this.toString().compareTo(umlClass.toString());
 	}
 
-	public boolean isSingleAbstractMethodInterface() {
+	public boolean isSingleAbstractMethodInterface_RENAMED() {
 		return false;
 	}
 
