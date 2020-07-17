@@ -357,7 +357,7 @@ public class ResultComparator {
         return result;
     }
 
-    public boolean isGroupRefactorings() {
+    public boolean isGroupRefactorings_RENAMED() {
         return groupRefactorings;
     }
 
