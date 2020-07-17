@@ -827,7 +827,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new LinkedHashMap<String, Set<String>>();
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public CompositeStatementObject loopWithVariables_RENAMED(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
