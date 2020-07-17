@@ -33,7 +33,7 @@ public class UMLTagElement {
 		return false;
 	}
 
-	public boolean containsIgnoreCase(String s) {
+	public boolean containsIgnoreCase_RENAMED(String s) {
 		for(String fragment : fragments) {
 			if(fragment.toLowerCase().contains(s.toLowerCase())) {
 				return true;

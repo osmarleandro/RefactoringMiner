@@ -29,7 +29,7 @@ public class UMLJavadoc {
 
 	public boolean containsIgnoreCase(String s) {
 		for(UMLTagElement tag : tags) {
-			if(tag.containsIgnoreCase(s)) {
+			if(tag.containsIgnoreCase_RENAMED(s)) {
 				return true;
 			}
 		}
