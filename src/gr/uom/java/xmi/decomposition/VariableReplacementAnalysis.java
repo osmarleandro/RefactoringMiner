@@ -119,7 +119,7 @@ public class VariableReplacementAnalysis {
 									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 										variableRenames.add(ref);
-										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+										if(!v1.getKey().getType().equals_RENAMED(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
 											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 											refactoring.addRelatedRefactoring(ref);
 											refactorings.add(refactoring);
@@ -431,7 +431,7 @@ public class VariableReplacementAnalysis {
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
-					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
+					if(!vdReplacement.getVariableDeclaration1().getType().equals_RENAMED(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
@@ -472,7 +472,7 @@ public class VariableReplacementAnalysis {
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref) &&
 						v1.getKey().isVarargsParameter() == v2.getKey().isVarargsParameter()) {
 					variableRenames.add(ref);
-					if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+					if(!v1.getKey().getType().equals_RENAMED(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
@@ -637,8 +637,8 @@ public class VariableReplacementAnalysis {
 			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration2())) {
 						matchedParameterDiffs.add(parameterDiff);
 						break;
 					}
@@ -648,12 +648,12 @@ public class VariableReplacementAnalysis {
 			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration1()) &&
+							!parameterDiff.getAddedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration2())) {
 						keysToBeRemoved.add(vdR);
 					}
-					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals_RENAMED(vdR.getVariableDeclaration2())) {
 						keysToBeRemoved.add(vdR);
 					}
 				}
@@ -1079,7 +1079,7 @@ public class VariableReplacementAnalysis {
 				}
 				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
-					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
+					if(variableDeclaration2 != null && variableDeclaration2.getType().equals_RENAMED(v1.getType())) {
 						for(AbstractCodeMapping mapping : mapper.getMappings()) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
@@ -1105,7 +1105,7 @@ public class VariableReplacementAnalysis {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
-						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
+						ref.getNewVariable().equals_RENAMED(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
 					
 				}
@@ -1118,7 +1118,7 @@ public class VariableReplacementAnalysis {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getSplitVariables().contains(parameterDiff.getAddedParameter().getVariableDeclaration()) &&
-						ref.getOldVariable().equals(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
+						ref.getOldVariable().equals_RENAMED(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
 					return true;
 					
 				}
@@ -1131,8 +1131,8 @@ public class VariableReplacementAnalysis {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
-				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
-						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
+				if(extractVariableRef.getVariableDeclaration().equals_RENAMED(ref.getRenamedVariable()) &&
+						extractVariableRef.getOperationAfter().equals_RENAMED(ref.getOperationAfter())) {
 					return true;
 				}
 			}
@@ -1166,10 +1166,10 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingMergeVariableRefactoring(RenameVariableRefactoring ref) {
 		for(MergeVariableRefactoring merge : variableMerges) {
-			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
-					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
+			if(merge.getOperationBefore().equals_RENAMED(ref.getOperationBefore()) &&
+					merge.getOperationAfter().equals_RENAMED(ref.getOperationAfter()) &&
 					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
-					merge.getNewVariable().equals(ref.getRenamedVariable())) {
+					merge.getNewVariable().equals_RENAMED(ref.getRenamedVariable())) {
 				return true;
 			}
 		}
@@ -1178,10 +1178,10 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingSplitVariableRefactoring(RenameVariableRefactoring ref) {
 		for(SplitVariableRefactoring split : variableSplits) {
-			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
-					split.getOperationAfter().equals(ref.getOperationAfter()) &&
+			if(split.getOperationBefore().equals_RENAMED(ref.getOperationBefore()) &&
+					split.getOperationAfter().equals_RENAMED(ref.getOperationAfter()) &&
 					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
-					split.getOldVariable().equals(ref.getOriginalVariable())) {
+					split.getOldVariable().equals_RENAMED(ref.getOriginalVariable())) {
 				return true;
 			}
 		}
