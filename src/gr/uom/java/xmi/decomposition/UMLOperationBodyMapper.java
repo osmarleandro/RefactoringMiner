@@ -1766,8 +1766,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		Set<String> stringLiterals2 = new LinkedHashSet<String>(statement2.getStringLiterals());
 		removeCommonElements(stringLiterals1, stringLiterals2);
 		
-		Set<String> numberLiterals1 = new LinkedHashSet<String>(statement1.getNumberLiterals());
-		Set<String> numberLiterals2 = new LinkedHashSet<String>(statement2.getNumberLiterals());
+		Set<String> numberLiterals1 = new LinkedHashSet<String>(statement1.getNumberLiterals_RENAMED());
+		Set<String> numberLiterals2 = new LinkedHashSet<String>(statement2.getNumberLiterals_RENAMED());
 		removeCommonElements(numberLiterals1, numberLiterals2);
 		
 		Set<String> booleanLiterals1 = new LinkedHashSet<String>(statement1.getBooleanLiterals());

@@ -171,10 +171,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getNumberLiterals() {
+	public List<String> getNumberLiterals_RENAMED() {
 		List<String> numberLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			numberLiterals.addAll(expression.getNumberLiterals());
+			numberLiterals.addAll(expression.getNumberLiterals_RENAMED());
 		}
 		return numberLiterals;
 	}
