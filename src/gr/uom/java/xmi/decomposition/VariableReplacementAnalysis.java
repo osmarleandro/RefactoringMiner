@@ -790,7 +790,7 @@ public class VariableReplacementAnalysis {
 	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		return !variableAppearsInExtractedMethod(v1, v2) &&
 				!variableAppearsInTheInitializerOfTheOtherVariable(v1, v2) &&
-				!inconsistentVariableMapping(v1, v2, set);
+				!inconsistentVariableMapping_RENAMED(v1, v2, set);
 	}
 
 	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
@@ -831,7 +831,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
+	private boolean inconsistentVariableMapping_RENAMED(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
 				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
