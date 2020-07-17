@@ -55,7 +55,7 @@ public class UMLAttributeDiff {
 		return addedAttribute;
 	}
 
-	public boolean isRenamed() {
+	public boolean isRenamed_RENAMED() {
 		return renamed;
 	}
 
@@ -134,7 +134,7 @@ public class UMLAttributeDiff {
 	public Set<Refactoring> getRefactorings(Set<CandidateAttributeRefactoring> set) {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		RenameAttributeRefactoring rename = null;
-		if(isRenamed()) {
+		if(isRenamed_RENAMED()) {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
