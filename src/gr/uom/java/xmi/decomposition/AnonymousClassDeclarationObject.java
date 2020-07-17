@@ -114,7 +114,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return postfixExpressions;
 	}
 
-	public List<String> getArguments() {
+	public List<String> getArguments_RENAMED() {
 		return this.arguments;
 	}
 
