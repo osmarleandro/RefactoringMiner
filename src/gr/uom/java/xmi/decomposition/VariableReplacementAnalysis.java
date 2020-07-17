@@ -134,7 +134,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	public Set<RenameVariableRefactoring> getVariableRenames() {
+	public Set<RenameVariableRefactoring> getVariableRenames_RENAMED() {
 		return variableRenames;
 	}
 
