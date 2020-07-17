@@ -93,7 +93,7 @@ public class RefactoringSet {
         return openPar != -1 ? entity.substring(0, openPar + 1) + ")" : entity;
     }
 
-    public void printSourceCode(PrintStream pw) {
+    public void printSourceCode_RENAMED(PrintStream pw) {
         pw.printf("new RefactoringSet(\"%s\", \"%s\")", project, revision);
         for (RefactoringRelationship r : refactorings) {
             pw.printf("\n    .add(RefactoringType.%s, \"%s\", \"%s\")", r.getRefactoringType().toString(), r.getEntityBefore(), r.getEntityAfter());
