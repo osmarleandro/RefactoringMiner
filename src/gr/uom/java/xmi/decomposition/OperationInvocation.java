@@ -267,7 +267,7 @@ public class OperationInvocation extends AbstractCall {
     			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
-    public boolean compatibleExpression(OperationInvocation other) {
+    public boolean compatibleExpression_RENAMED(OperationInvocation other) {
     	if(this.expression != null && other.expression != null) {
     		if(this.expression.startsWith("new ") && !other.expression.startsWith("new "))
     			return false;
