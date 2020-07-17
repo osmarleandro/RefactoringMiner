@@ -149,7 +149,7 @@ public class Visitor extends ASTVisitor {
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
+			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap_RENAMED();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
 			}
@@ -175,7 +175,7 @@ public class Visitor extends ASTVisitor {
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
+			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap_RENAMED();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
 			}
@@ -253,8 +253,8 @@ public class Visitor extends ASTVisitor {
 			for(String key : anonymous.getMethodInvocationMap().keySet()) {
 				this.methodInvocationMap.remove(key, anonymous.getMethodInvocationMap().get(key));
 			}
-			for(String key : anonymous.getCreationMap().keySet()) {
-				this.creationMap.remove(key, anonymous.getCreationMap().get(key));
+			for(String key : anonymous.getCreationMap_RENAMED().keySet()) {
+				this.creationMap.remove(key, anonymous.getCreationMap_RENAMED().get(key));
 			}
 			this.variableDeclarations.removeAll(anonymous.getVariableDeclarations());
 			this.stringLiterals.removeAll(anonymous.getStringLiterals());

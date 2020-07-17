@@ -94,7 +94,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return typeLiterals;
 	}
 
-	public Map<String, List<ObjectCreation>> getCreationMap() {
+	public Map<String, List<ObjectCreation>> getCreationMap_RENAMED() {
 		return creationMap;
 	}
 
