@@ -298,7 +298,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass removedClass = getRemovedClass(subclass);
 	   if(removedClass == null) {
-		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
+		   removedClass = looksLikeRemovedClass_RENAMED(UMLType.extractTypeObject(subclass));
 	   }
 	   if(removedClass != null) {
 		   UMLType superclass = removedClass.getSuperclass();
@@ -330,7 +330,7 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   private UMLClass looksLikeRemovedClass(UMLType type) {
+   private UMLClass looksLikeRemovedClass_RENAMED(UMLType type) {
 	   for(UMLClass umlClass : removedClasses) {
 	         if(umlClass.getName().endsWith("." + type.getClassType())) {
 	        	 return umlClass;
@@ -797,7 +797,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass removedClass = getRemovedClass(sourceClassName);
 	   if(removedClass == null) {
-		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
+		   removedClass = looksLikeRemovedClass_RENAMED(UMLType.extractTypeObject(sourceClassName));
 	   }
 	   if(removedClass != null) {
 		   return removedClass.importsType(targetClassName);
@@ -1308,7 +1308,7 @@ public class UMLModelDiff {
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
-    		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
+    		  UMLClass removedClass = looksLikeRemovedClass_RENAMED(UMLType.extractTypeObject(pattern.getBefore()));
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
