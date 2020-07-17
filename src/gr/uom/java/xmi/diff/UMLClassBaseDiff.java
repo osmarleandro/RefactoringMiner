@@ -482,7 +482,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					mergedVariables.add(a1.getVariableDeclaration());
 				}
 			}
-			UMLAttribute a2 = findAttributeInNextClass(merge.getAfter());
+			UMLAttribute a2 = findAttributeInNextClass_RENAMED(merge.getAfter());
 			Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
 			for(CandidateMergeVariableRefactoring candidate : set) {
 				if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
@@ -503,7 +503,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 			for(String splitVariable : split.getSplitVariables()) {
-				UMLAttribute a2 = findAttributeInNextClass(splitVariable);
+				UMLAttribute a2 = findAttributeInNextClass_RENAMED(splitVariable);
 				if(a2 != null) {
 					splitAttributes.add(a2);
 					splitVariables.add(a2.getVariableDeclaration());
@@ -536,7 +536,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		for(Replacement pattern : allConsistentRenames) {
 			UMLAttribute a1 = findAttributeInOriginalClass(pattern.getBefore());
-			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
+			UMLAttribute a2 = findAttributeInNextClass_RENAMED(pattern.getAfter());
 			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 			for(CandidateAttributeRefactoring candidate : set) {
 				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
@@ -737,7 +737,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 									mergedVariables.add(a1.getVariableDeclaration());
 								}
 							}
-							UMLAttribute a2 = findAttributeInNextClass(renamedAttributeName);
+							UMLAttribute a2 = findAttributeInNextClass_RENAMED(renamedAttributeName);
 							if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
 								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
@@ -777,7 +777,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								allMatchingVariables.add(matchingVariableName);
 							}
 							for(String splitVariable : allMatchingVariables) {
-								UMLAttribute a2 = findAttributeInNextClass(splitVariable);
+								UMLAttribute a2 = findAttributeInNextClass_RENAMED(splitVariable);
 								if(a2 != null) {
 									splitAttributes.add(a2);
 									splitVariables.add(a2.getVariableDeclaration());
@@ -911,7 +911,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public UMLAttribute findAttributeInNextClass(String attributeName) {
+	public UMLAttribute findAttributeInNextClass_RENAMED(String attributeName) {
 		for(UMLAttribute attribute : nextClass.getAttributes()) {
 			if(attribute.getName().equals(attributeName)) {
 				return attribute;
