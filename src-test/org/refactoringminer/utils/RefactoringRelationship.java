@@ -24,8 +24,8 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
       throw new IllegalArgumentException("arguments should not be null");
     }
     this.refactoringType = refactoringType;
-    this.entityBefore = normalize(entityBefore).trim();
-    this.entityAfter = normalize(entityAfter).trim();
+    this.entityBefore = normalize_RENAMED(entityBefore).trim();
+    this.entityAfter = normalize_RENAMED(entityAfter).trim();
   }
 
   public RefactoringType getRefactoringType() {
@@ -64,7 +64,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return String.format("%s\t%s\t%s", refactoringType.getDisplayName(), entityBefore, entityAfter);
   }
 
-  public static String normalize(String entity) {
+  public static String normalize_RENAMED(String entity) {
     return normalizeParameters(stripTypeArguments(entity).replace('#', '.')).replace(" ", "");
   }
 
