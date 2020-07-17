@@ -23,7 +23,7 @@ public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring 
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(originalAttribute.toQualifiedString());
 		sb.append(" renamed to ");
 		sb.append(movedAttribute.toQualifiedString());
@@ -34,7 +34,7 @@ public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring 
 		return sb.toString();
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
