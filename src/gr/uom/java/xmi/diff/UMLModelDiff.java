@@ -1101,7 +1101,7 @@ public class UMLModelDiff {
 			   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, classDiff);
 			   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getMappings());
 			   refactorings.addAll(operationSignatureDiff.getRefactorings());
-			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
+			   checkForExtractedOperationsWithinMovedMethod_RENAMED(mapper, addedClass);
 		   }
 	   }
 	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
@@ -1123,7 +1123,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
+   private void checkForExtractedOperationsWithinMovedMethod_RENAMED(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
 	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
 	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
 	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
@@ -2146,7 +2146,7 @@ public class UMLModelDiff {
 	                  refactorings.add(refactoring);
 	                  UMLClass addedClass = getAddedClass(addedOperation.getClassName());
 	                  if(addedClass != null) {
-	                	  checkForExtractedOperationsWithinMovedMethod(firstMapper, addedClass);
+	                	  checkForExtractedOperationsWithinMovedMethod_RENAMED(firstMapper, addedClass);
 	                  }
 	               }
 	            }
