@@ -456,7 +456,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(WildcardType node) {
+	public boolean visit_RENAMED(WildcardType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
