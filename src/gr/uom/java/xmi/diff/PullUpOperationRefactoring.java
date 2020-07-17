@@ -23,7 +23,7 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedOperation.codeRange()
 				.setDescription("pulled up method declaration")
