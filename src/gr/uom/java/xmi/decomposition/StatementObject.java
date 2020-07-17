@@ -133,7 +133,7 @@ public class StatementObject extends AbstractStatement {
 
 	public List<String> stringRepresentation() {
 		List<String> stringRepresentation = new ArrayList<String>();
-		stringRepresentation.add(this.toString());
+		stringRepresentation.add(this.toString_RENAMED());
 		return stringRepresentation;
 	}
 
@@ -144,7 +144,7 @@ public class StatementObject extends AbstractStatement {
 		return leaves;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		return statement;
 	}
 
