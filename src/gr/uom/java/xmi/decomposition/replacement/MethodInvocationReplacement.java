@@ -22,7 +22,7 @@ public class MethodInvocationReplacement extends Replacement {
 		return invokedOperationAfter;
 	}
 
-	public boolean differentExpressionNameAndArguments() {
+	public boolean differentExpressionNameAndArguments_RENAMED() {
 		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
 	}
 }
