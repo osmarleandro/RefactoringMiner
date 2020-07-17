@@ -761,10 +761,10 @@ public class UMLModelDiff {
 				   count++;
 			   }
 		   }
-		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
+		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType_RENAMED(candidate.getTargetClassName());
 		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
 		   if(targetSuperclass != null) {
-			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
+			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType_RENAMED(targetSuperclass.getClassType()));
 			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
 		   }
 		   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
@@ -1829,7 +1829,7 @@ public class UMLModelDiff {
             	  if(className.contains(".") && isNumeric(className.substring(className.lastIndexOf(".")+1, className.length()))) {
             		  //add enclosing class fields + anonymous class fields
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
-            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
+            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType_RENAMED(addedOperation.getClassName()));
             		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
             			  if(anonymous.getName().equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
@@ -1853,7 +1853,7 @@ public class UMLModelDiff {
             				  }
             			  }
             		  }
-            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
+            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType_RENAMED(addedOperation.getClassName()));
             	  }
             	  Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
             	  for(UMLAttribute attribute : attributes) {

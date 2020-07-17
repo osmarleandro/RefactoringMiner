@@ -286,7 +286,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return nextClass.attributesOfType(targetClass);
 	}
 
-	public List<UMLAttribute> originalClassAttributesOfType(String targetClass) {
+	public List<UMLAttribute> originalClassAttributesOfType_RENAMED(String targetClass) {
 		return originalClass.attributesOfType(targetClass);
 	}
 
