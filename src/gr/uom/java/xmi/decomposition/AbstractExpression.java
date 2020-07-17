@@ -121,7 +121,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getNullLiterals() {
+	public List<String> getNullLiterals_RENAMED() {
 		return nullLiterals;
 	}
 
