@@ -34,7 +34,7 @@ public class CodeRange {
 		return filePath;
 	}
 
-	public int getStartLine() {
+	public int getStartLine_RENAMED() {
 		return startLine;
 	}
 
