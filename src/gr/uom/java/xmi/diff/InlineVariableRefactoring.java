@@ -34,7 +34,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return RefactoringType.INLINE_VARIABLE;
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
@@ -56,7 +56,7 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(variableDeclaration);
 		sb.append(" in method ");
 		sb.append(operationBefore);
