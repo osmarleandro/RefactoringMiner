@@ -80,7 +80,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return renamedOperation;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement> getReplacements_RENAMED() {
 		return replacements;
 	}
 
