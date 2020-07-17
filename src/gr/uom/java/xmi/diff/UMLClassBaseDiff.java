@@ -1002,7 +1002,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					else {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
-					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
+					updateMapperSet_RENAMED(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
@@ -1042,7 +1042,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					else {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
-					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
+					updateMapperSet_RENAMED(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
@@ -1083,7 +1083,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return allConsistentMethodInvocationRenames;
 	}
 
-	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
+	private void updateMapperSet_RENAMED(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
