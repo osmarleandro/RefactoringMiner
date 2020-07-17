@@ -239,7 +239,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public int statementCount() {
+	public int statementCount_RENAMED() {
 		return 1;
 	}
 
