@@ -260,7 +260,7 @@ public class Visitor extends ASTVisitor {
 			this.stringLiterals.removeAll(anonymous.getStringLiterals());
 			this.booleanLiterals.removeAll(anonymous.getBooleanLiterals());
 			this.typeLiterals.removeAll(anonymous.getTypeLiterals());
-			this.numberLiterals.removeAll(anonymous.getNumberLiterals());
+			this.numberLiterals.removeAll(anonymous.getNumberLiterals_RENAMED());
 			this.infixOperators.removeAll(anonymous.getInfixOperators());
 			this.arguments.removeAll(anonymous.getArguments());
 			this.ternaryOperatorExpressions.removeAll(anonymous.getTernaryOperatorExpressions());
@@ -342,7 +342,7 @@ public class Visitor extends ASTVisitor {
 		numberLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getNumberLiterals().add(node.toString());
+			anonymous.getNumberLiterals_RENAMED().add(node.toString());
 		}
 		return super.visit(node);
 	}
