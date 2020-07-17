@@ -65,7 +65,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param commitId The SHA key that identifies the commit.
 	 * @param handler A handler object that is responsible to process the detected refactorings. 
 	 */
-	void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler);
+	void detectAtCommit_RENAMED(Repository repository, String commitId, RefactoringHandler handler);
 
 	/**
 	 * Detect refactorings performed in the specified commit.

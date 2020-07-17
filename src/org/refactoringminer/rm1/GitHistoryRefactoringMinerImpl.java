@@ -385,7 +385,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
-			Runnable r = () -> detectAtCommit(repository, commitId, handler);
+			Runnable r = () -> detectAtCommit_RENAMED(repository, commitId, handler);
 			f = service.submit(r);
 			f.get(timeout, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
