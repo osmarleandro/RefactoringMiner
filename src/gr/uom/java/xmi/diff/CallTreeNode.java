@@ -23,7 +23,7 @@ public class CallTreeNode {
 		return originalOperation;
 	}
 
-	public UMLOperation getInvokedOperation() {
+	public UMLOperation getInvokedOperation_RENAMED() {
 		return invokedOperation;
 	}
 
