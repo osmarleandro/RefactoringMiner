@@ -3030,15 +3030,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(arg1.contains("(") && arg2.contains("(") && arg1.contains(")") && arg2.contains(")")) {
 					int indexOfOpeningParenthesis1 = arg1.indexOf("(");
 					int indexOfClosingParenthesis1 = arg1.indexOf(")");
-					boolean openingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes(arg1, indexOfOpeningParenthesis1);
+					boolean openingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes_RENAMED(arg1, indexOfOpeningParenthesis1);
 					boolean openingParenthesisInsideDoubleQuotes1 = isInsideDoubleQuotes(arg1, indexOfOpeningParenthesis1);
-					boolean closingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes(arg1, indexOfClosingParenthesis1);
+					boolean closingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes_RENAMED(arg1, indexOfClosingParenthesis1);
 					boolean closingParenthesisInsideDoubleQuotes1 = isInsideDoubleQuotes(arg1, indexOfClosingParenthesis1);
 					int indexOfOpeningParenthesis2 = arg2.indexOf("(");
 					int indexOfClosingParenthesis2 = arg2.indexOf(")");
-					boolean openingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes(arg2, indexOfOpeningParenthesis2);
+					boolean openingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes_RENAMED(arg2, indexOfOpeningParenthesis2);
 					boolean openingParenthesisInsideDoubleQuotes2 = isInsideDoubleQuotes(arg2, indexOfOpeningParenthesis2);
-					boolean closingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes(arg2, indexOfClosingParenthesis2);
+					boolean closingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes_RENAMED(arg2, indexOfClosingParenthesis2);
 					boolean closingParenthesisInsideDoubleQuotes2 = isInsideDoubleQuotes(arg2, indexOfClosingParenthesis2);
 					if(!openingParenthesisInsideSingleQuotes1 && !closingParenthesisInsideSingleQuotes1 &&
 							!openingParenthesisInsideDoubleQuotes1 && !closingParenthesisInsideDoubleQuotes1 &&
@@ -3658,8 +3658,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(argument.contains("(") && argument.contains(")")) {
 					int indexOfOpeningParenthesis = argument.indexOf("(");
 					int indexOfClosingParenthesis = argument.lastIndexOf(")");
-					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
+					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes_RENAMED(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes_RENAMED(argument, indexOfClosingParenthesis);
 					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
 					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
 					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
@@ -3675,7 +3675,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
+	private static boolean isInsideSingleQuotes_RENAMED(String argument, int indexOfChar) {
 		if(indexOfChar > 0 && indexOfChar < argument.length()-1) {
 			return argument.charAt(indexOfChar-1) == '\'' &&
 					argument.charAt(indexOfChar+1) == '\'';
