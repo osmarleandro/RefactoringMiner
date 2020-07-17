@@ -55,7 +55,7 @@ public class CompositeType extends UMLType {
 
 	@Override
 	public String toQualifiedString() {
-		return leftType.toQualifiedString() + "." + rightType.toQualifiedString();
+		return leftType.toQualifiedString_RENAMED() + "." + rightType.toQualifiedString_RENAMED();
 	}
 
 	@Override
