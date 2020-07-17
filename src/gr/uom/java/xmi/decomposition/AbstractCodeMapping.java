@@ -345,13 +345,13 @@ public abstract class AbstractCodeMapping {
 
 	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
+			ref.addReference_RENAMED(this);
 			refactorings.add(ref);
 		}
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((InlineVariableRefactoring)refactoring).addReference(this);
+					((InlineVariableRefactoring)refactoring).addReference_RENAMED(this);
 					break;
 				}
 			}
