@@ -1527,7 +1527,7 @@ public class UMLModelDiff {
 	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures_RENAMED(removedOperation, addedOperation);
 				  if(!mappers.isEmpty()) {
 					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 					  if(operationSignatureDiff.isOperationRenamed()) {
@@ -1547,7 +1547,7 @@ public class UMLModelDiff {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
 				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
-					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures_RENAMED(removedOperation, addedOperation);
 					  if(!mappers.isEmpty()) {
 						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 						  if(operationSignatureDiff.isOperationRenamed()) {
@@ -1621,7 +1621,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private List<UMLOperationBodyMapper> findMappersWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
+   private List<UMLOperationBodyMapper> findMappersWithMatchingSignatures_RENAMED(UMLOperation operation1, UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
 	   for(UMLClassDiff classDiff : commonClassDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
