@@ -1132,7 +1132,7 @@ public class VariableReplacementAnalysis {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
-						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
+						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter_RENAMED())) {
 					return true;
 				}
 			}
@@ -1167,7 +1167,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingMergeVariableRefactoring(RenameVariableRefactoring ref) {
 		for(MergeVariableRefactoring merge : variableMerges) {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
-					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
+					merge.getOperationAfter().equals(ref.getOperationAfter_RENAMED()) &&
 					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
 					merge.getNewVariable().equals(ref.getRenamedVariable())) {
 				return true;
@@ -1179,7 +1179,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingSplitVariableRefactoring(RenameVariableRefactoring ref) {
 		for(SplitVariableRefactoring split : variableSplits) {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
-					split.getOperationAfter().equals(ref.getOperationAfter()) &&
+					split.getOperationAfter().equals(ref.getOperationAfter_RENAMED()) &&
 					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
 					split.getOldVariable().equals(ref.getOriginalVariable())) {
 				return true;
