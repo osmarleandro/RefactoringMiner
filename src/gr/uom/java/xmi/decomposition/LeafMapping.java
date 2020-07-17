@@ -15,7 +15,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 	}
 
 	@Override
-	public int compareTo(LeafMapping o) {
+	public int compareTo_RENAMED(LeafMapping o) {
 		double distance1;
 		double distance2;
 		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {
