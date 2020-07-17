@@ -210,7 +210,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.className = className;
 	}
 
-	public void addParameter(UMLParameter parameter) {
+	public void addParameter_RENAMED(UMLParameter parameter) {
 		this.parameters.add(parameter);
 	}
 
