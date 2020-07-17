@@ -282,7 +282,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				}
 			}
 		}
-		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
+		return this.name.equals(operation.name) && equalTypeParameters_RENAMED(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
 	}
 
 	public boolean equalSignatureIgnoringOperationName(UMLOperation operation) {
@@ -291,7 +291,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.isFinal == operation.isFinal &&
 				this.isStatic == operation.isStatic &&
 				this.parameters.equals(operation.parameters) &&
-				equalTypeParameters(operation);
+				equalTypeParameters_RENAMED(operation);
 	}
 
 	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
@@ -305,7 +305,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;*/
 		if(this.parameters.size() != operation.parameters.size())
 			return false;
-		if(!equalTypeParameters(operation))
+		if(!equalTypeParameters_RENAMED(operation))
 			return false;
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
@@ -328,7 +328,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;*/
 		if(this.parameters.size() != operation.parameters.size())
 			return false;
-		if(!equalTypeParameters(operation))
+		if(!equalTypeParameters_RENAMED(operation))
 			return false;
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
@@ -491,7 +491,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				thisEmptyBody == otherEmptyBody &&
 				equalReturnParameter(operation) &&
 				this.getParameterTypeList().equals(operation.getParameterTypeList()) &&
-				equalTypeParameters(operation);
+				equalTypeParameters_RENAMED(operation);
 	}
 
 	public boolean equalsIgnoringNameCase(UMLOperation operation) {
@@ -504,7 +504,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				thisEmptyBody == otherEmptyBody &&
 				equalReturnParameter(operation) &&
 				this.getParameterTypeList().equals(operation.getParameterTypeList()) &&
-				equalTypeParameters(operation);
+				equalTypeParameters_RENAMED(operation);
 	}
 
 	public boolean equals(Object o) {
@@ -522,7 +522,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.isAbstract == operation.isAbstract &&
 				thisEmptyBody == otherEmptyBody &&
 				this.getParameterTypeList().equals(operation.getParameterTypeList()) &&
-				equalTypeParameters(operation);
+				equalTypeParameters_RENAMED(operation);
 		}
 		return false;
 	}
@@ -532,7 +532,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.name.equals(operation.name) &&
 				this.visibility.equals(operation.visibility) &&
 				this.isAbstract == operation.isAbstract &&
-				equalTypeParameters(operation)) {
+				equalTypeParameters_RENAMED(operation)) {
 			UMLParameter thisReturnParameter = this.getReturnParameter();
 			UMLParameter otherReturnParameter = operation.getReturnParameter();
 			if(thisReturnParameter != null && otherReturnParameter != null) {
@@ -667,10 +667,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalParameterTypes(UMLOperation operation) {
-		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters(operation);
+		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters_RENAMED(operation);
 	}
 
-	private boolean equalTypeParameters(UMLOperation operation) {
+	private boolean equalTypeParameters_RENAMED(UMLOperation operation) {
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
