@@ -37,7 +37,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.type = type;
 	}
 
-	public String getVisibility() {
+	public String getVisibility_RENAMED() {
 		return visibility;
 	}
 
