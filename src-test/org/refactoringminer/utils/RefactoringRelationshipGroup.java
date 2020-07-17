@@ -14,14 +14,14 @@ public class RefactoringRelationshipGroup {
   }
 
   public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
-    if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
+    if (r.getRefactoringType_RENAMED().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
       refactoringRelationships.add(r);
     }
     throw new IllegalArgumentException(String.format("refactoring relatiships are note from the same group: [] []", r, refactoringRelationships.get(0)));
   }
 
   public RefactoringType getRefactoringType() {
-    return refactoringRelationships.get(0).getRefactoringType();
+    return refactoringRelationships.get(0).getRefactoringType_RENAMED();
   }
 
   public String getMainEntity() {

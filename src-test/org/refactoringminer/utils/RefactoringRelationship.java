@@ -28,7 +28,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     this.entityAfter = normalize(entityAfter).trim();
   }
 
-  public RefactoringType getRefactoringType() {
+  public RefactoringType getRefactoringType_RENAMED() {
     return refactoringType;
   }
 
@@ -130,7 +130,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   
   @Override
   public int compareTo(RefactoringRelationship o) {
-    int rt = getRefactoringType().compareTo(o.getRefactoringType());
+    int rt = getRefactoringType_RENAMED().compareTo(o.getRefactoringType_RENAMED());
     int cm = getMainEntity().compareTo(o.getMainEntity());
     int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
     int ct = refactoringType.compareTo(o.refactoringType);

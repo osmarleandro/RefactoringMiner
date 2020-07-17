@@ -191,7 +191,7 @@ public class ResultComparator {
                             if (label == "FP" && isMoveToMovedType(r, expectedUnfiltered)) {
                                 out.print("<MT>");
                             }
-                            if (label == "FP" && (r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE || r.getRefactoringType() == RefactoringType.MOVE_OPERATION)) {
+                            if (label == "FP" && (r.getRefactoringType_RENAMED() == RefactoringType.MOVE_ATTRIBUTE || r.getRefactoringType_RENAMED() == RefactoringType.MOVE_OPERATION)) {
                                 if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                                     out.print("<ES>");
                                 }
@@ -222,7 +222,7 @@ public class ResultComparator {
     }
 
     private boolean isPullUpToExtractedSupertype(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
+        if (r.getRefactoringType_RENAMED() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType_RENAMED() == RefactoringType.PULL_UP_OPERATION) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
@@ -234,7 +234,7 @@ public class ResultComparator {
     }
 
     private boolean isMoveToRenamedType(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
+        if (r.getRefactoringType_RENAMED() == RefactoringType.MOVE_OPERATION || r.getRefactoringType_RENAMED() == RefactoringType.MOVE_ATTRIBUTE) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
@@ -246,7 +246,7 @@ public class ResultComparator {
     }
     
     private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
+        if (r.getRefactoringType_RENAMED() == RefactoringType.MOVE_OPERATION || r.getRefactoringType_RENAMED() == RefactoringType.MOVE_ATTRIBUTE) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
