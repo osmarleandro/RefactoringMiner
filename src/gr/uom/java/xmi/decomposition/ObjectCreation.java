@@ -63,7 +63,7 @@ public class ObjectCreation extends AbstractCall {
 		return isArray;
 	}
 
-	public String getAnonymousClassDeclaration() {
+	public String getAnonymousClassDeclaration_RENAMED() {
 		return anonymousClassDeclaration;
 	}
 
