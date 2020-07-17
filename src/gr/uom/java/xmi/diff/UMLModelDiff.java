@@ -1826,7 +1826,7 @@ public class UMLModelDiff {
             	  }
             	  String className = mapper.getOperation2().getClassName();
             	  List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
-            	  if(className.contains(".") && isNumeric(className.substring(className.lastIndexOf(".")+1, className.length()))) {
+            	  if(className.contains(".") && isNumeric_RENAMED(className.substring(className.lastIndexOf(".")+1, className.length()))) {
             		  //add enclosing class fields + anonymous class fields
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
@@ -2525,7 +2525,7 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
-	private static boolean isNumeric(String str) {
+	private static boolean isNumeric_RENAMED(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
 		}
