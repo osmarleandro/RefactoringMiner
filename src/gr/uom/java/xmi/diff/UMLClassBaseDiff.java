@@ -543,7 +543,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
-								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
+								!inconsistentAttributeRename_RENAMED(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
 							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
@@ -920,7 +920,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	private boolean inconsistentAttributeRename(Replacement pattern,
+	private boolean inconsistentAttributeRename_RENAMED(Replacement pattern,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
 		for(String key : aliasedAttributesInOriginalClass.keySet()) {
