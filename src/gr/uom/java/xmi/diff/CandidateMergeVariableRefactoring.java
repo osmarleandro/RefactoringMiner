@@ -78,8 +78,8 @@ public class CandidateMergeVariableRefactoring {
 		int result = 1;
 		result = prime * result + ((mergedVariables == null) ? 0 : mergedVariables.hashCode());
 		result = prime * result + ((newVariable == null) ? 0 : newVariable.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
+		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode_RENAMED());
+		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode_RENAMED());
 		return result;
 	}
 
