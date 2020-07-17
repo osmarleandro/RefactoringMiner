@@ -355,7 +355,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean importsType(String targetClass) {
+	public boolean importsType_RENAMED(String targetClass) {
 		if(targetClass.startsWith(getPackageName()))
 			return true;
 		for(String importedType : getImportedTypes()) {
