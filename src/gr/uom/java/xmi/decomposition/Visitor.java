@@ -493,7 +493,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(MethodInvocation node) {
+	public boolean visit_RENAMED(MethodInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
 			processArgument(argument);
