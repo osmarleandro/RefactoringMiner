@@ -27,7 +27,7 @@ public class RefactoringMiner {
 		if (option.equalsIgnoreCase("-a")) {
 			detectAll(args);
 		} else if (option.equalsIgnoreCase("-bc")) {
-			detectBetweenCommits(args);
+			detectBetweenCommits_RENAMED(args);
 		} else if (option.equalsIgnoreCase("-bt")) {
 			detectBetweenTags(args);
 		} else if (option.equalsIgnoreCase("-c")) {
@@ -84,7 +84,7 @@ public class RefactoringMiner {
 		}
 	}
 
-	private static void detectBetweenCommits(String[] args) throws Exception {
+	private static void detectBetweenCommits_RENAMED(String[] args) throws Exception {
 		if (!(args.length == 3 || args.length == 4)) {
 			throw argumentException();
 		}
