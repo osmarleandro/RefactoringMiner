@@ -1568,7 +1568,7 @@ public class UMLModelDiff {
 
    private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
 	   for(UMLOperationBodyMapper mapper : mappers) {
-		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
+		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing_RENAMED()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;

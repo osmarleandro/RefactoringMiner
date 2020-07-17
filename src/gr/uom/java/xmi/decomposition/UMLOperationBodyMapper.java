@@ -622,7 +622,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return refactorings;
 	}
 
-	public Set<Refactoring> getRefactoringsAfterPostProcessing() {
+	public Set<Refactoring> getRefactoringsAfterPostProcessing_RENAMED() {
 		return refactorings;
 	}
 
