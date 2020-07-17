@@ -37,12 +37,12 @@ public class RenamePackageRefactoring implements Refactoring {
 		return moveClassRefactorings;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		return RefactoringType.RENAME_PACKAGE;
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public String toString() {
