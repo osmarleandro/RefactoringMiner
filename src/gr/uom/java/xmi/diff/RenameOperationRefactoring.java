@@ -94,7 +94,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeAfterRename() {
+	public CodeRange getTargetOperationCodeRangeAfterRename_RENAMED() {
 		return renamedOperation.codeRange();
 	}
 
