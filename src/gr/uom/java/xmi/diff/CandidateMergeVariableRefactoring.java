@@ -52,7 +52,7 @@ public class CandidateMergeVariableRefactoring {
 		this.mergedAttributes = mergedAttributes;
 	}
 
-	public UMLAttribute getNewAttribute() {
+	public UMLAttribute getNewAttribute_RENAMED() {
 		return newAttribute;
 	}
 
