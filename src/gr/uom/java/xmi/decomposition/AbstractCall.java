@@ -396,7 +396,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
 	}
 
-	public Replacement makeReplacementForAssignedArgument(String statement) {
+	public Replacement makeReplacementForAssignedArgument_RENAMED(String statement) {
 		if(argumentIsAssigned(statement)) {
 			return new Replacement(statement.substring(statement.indexOf("=")+1, statement.length()-2),
 					getArguments().get(0), ReplacementType.ARGUMENT_REPLACED_WITH_RIGHT_HAND_SIDE_OF_ASSIGNMENT_EXPRESSION);
