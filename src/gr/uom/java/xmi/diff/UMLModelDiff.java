@@ -355,7 +355,7 @@ public class UMLModelDiff {
       return null;
    }
 
-   private String isRenamedClass(UMLClass umlClass) {
+   private String isRenamedClass_RENAMED(UMLClass umlClass) {
       for(UMLClassRenameDiff renameDiff : classRenameDiffList) {
          if(renameDiff.getOriginalClass().equals(umlClass))
             return renameDiff.getRenamedClass().getName();
@@ -376,7 +376,7 @@ public class UMLModelDiff {
          UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
          for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
             UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
-            String renamedChild = isRenamedClass(removedGeneralization.getChild());
+            String renamedChild = isRenamedClass_RENAMED(removedGeneralization.getChild());
             String movedChild = isMovedClass(removedGeneralization.getChild());
             if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
                UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
@@ -402,7 +402,7 @@ public class UMLModelDiff {
          UMLRealization removedRealization = removedRealizationIterator.next();
          for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
             UMLRealization addedRealization = addedRealizationIterator.next();
-            String renamedChild = isRenamedClass(removedRealization.getClient());
+            String renamedChild = isRenamedClass_RENAMED(removedRealization.getClient());
             String movedChild = isMovedClass(removedRealization.getClient());
             //String renamedParent = isRenamedClass(removedRealization.getSupplier());
             //String movedParent = isMovedClass(removedRealization.getSupplier());
