@@ -132,7 +132,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ClassInstanceCreation node) {
+	public boolean visit_RENAMED(ClassInstanceCreation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
 			processArgument(argument);
