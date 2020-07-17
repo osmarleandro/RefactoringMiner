@@ -522,7 +522,7 @@ public class OperationInvocation extends AbstractCall {
 	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
 		Set<String> subExpressionIntersection = subExpressionIntersection(other);
 		return identicalName(other) &&
-				equalArguments(other) &&
+				equalArguments_RENAMED(other) &&
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
