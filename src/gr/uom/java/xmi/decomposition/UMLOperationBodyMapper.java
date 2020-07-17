@@ -1649,7 +1649,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments());
 		removeCommonElements(arguments1, arguments2);
 		
-		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
+		if(!argumentsWithIdenticalMethodCalls_RENAMED(arguments1, arguments2, variables1, variables2)) {
 			findReplacements(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
 		}
 		
@@ -3018,7 +3018,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private boolean argumentsWithIdenticalMethodCalls(Set<String> arguments1, Set<String> arguments2,
+	private boolean argumentsWithIdenticalMethodCalls_RENAMED(Set<String> arguments1, Set<String> arguments2,
 			Set<String> variables1, Set<String> variables2) {
 		int identicalMethodCalls = 0;
 		if(arguments1.size() == arguments2.size()) {
