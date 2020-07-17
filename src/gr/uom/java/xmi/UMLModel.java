@@ -138,7 +138,7 @@ public class UMLModel {
     	}
     	for(UMLRealization umlRealization : umlModel.realizationList) {
     		if(!this.realizationList.contains(umlRealization))
-    			modelDiff.reportAddedRealization(umlRealization);
+    			modelDiff.reportAddedRealization_RENAMED(umlRealization);
     	}
     	modelDiff.checkForRealizationChanges();
     	for(UMLClass umlClass : classList) {
