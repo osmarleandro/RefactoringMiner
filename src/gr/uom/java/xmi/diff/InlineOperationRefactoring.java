@@ -171,14 +171,14 @@ public class InlineOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getInlinedOperationCodeRange()
 				.setDescription("inlined method declaration")
-				.setCodeElement(inlinedOperation.toString()));
+				.setCodeElement(inlinedOperation.toString_RENAMED()));
 		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
 		}
 		ranges.add(getTargetOperationCodeRangeBeforeInline()
 				.setDescription("target method declaration before inline")
-				.setCodeElement(targetOperationBeforeInline.toString()));
+				.setCodeElement(targetOperationBeforeInline.toString_RENAMED()));
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
 			ranges.add(invocation.codeRange()
 					.setDescription("inlined method invocation")
@@ -200,7 +200,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getTargetOperationCodeRangeAfterInline()
 				.setDescription("target method declaration after inline")
-				.setCodeElement(targetOperationAfterInline.toString()));
+				.setCodeElement(targetOperationAfterInline.toString_RENAMED()));
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
 		}

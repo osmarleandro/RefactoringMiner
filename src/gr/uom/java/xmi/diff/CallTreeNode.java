@@ -76,7 +76,7 @@ public class CallTreeNode {
 		return true;
 	}
 	
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(invokedOperation);
 		sb.append(" called from ");
