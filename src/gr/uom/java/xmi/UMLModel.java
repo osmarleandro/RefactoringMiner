@@ -47,7 +47,7 @@ public class UMLModel {
         return null;
     }
 
-    public List<UMLClass> getClassList() {
+    public List<UMLClass> getClassList_RENAMED() {
         return this.classList;
     }
 
