@@ -118,7 +118,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration splitAttribute : this.splitAttributes) {
 			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().getFilePath(), getClassNameAfter()));
