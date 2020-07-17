@@ -186,7 +186,7 @@ public class UMLOperationDiff {
 		return removedParameters;
 	}
 
-	public boolean isOperationRenamed() {
+	public boolean isOperationRenamed_RENAMED() {
 		return operationRenamed;
 	}
 
