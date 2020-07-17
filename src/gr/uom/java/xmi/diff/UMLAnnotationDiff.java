@@ -28,7 +28,7 @@ public class UMLAnnotationDiff {
 		this.matchedMemberValuePairsWithDifferentExpressions = new LinkedHashMap<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>>();
 		Map<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>> matchedMemberValuePairs =
 				new LinkedHashMap<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>>();
-		if(!removedAnnotation.getTypeName().equals(addedAnnotation.getTypeName())) {
+		if(!removedAnnotation.getTypeName_RENAMED().equals(addedAnnotation.getTypeName_RENAMED())) {
 			typeNameChanged = true;
 		}
 		AbstractExpression value1 = removedAnnotation.getValue();

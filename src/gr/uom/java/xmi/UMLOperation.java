@@ -125,7 +125,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean hasTestAnnotation() {
 		for(UMLAnnotation annotation : annotations) {
-			if(annotation.getTypeName().equals("Test")) {
+			if(annotation.getTypeName_RENAMED().equals("Test")) {
 				return true;
 			}
 		}

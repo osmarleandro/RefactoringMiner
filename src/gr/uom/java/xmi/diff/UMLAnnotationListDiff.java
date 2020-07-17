@@ -19,7 +19,7 @@ public class UMLAnnotationListDiff {
 		for(UMLAnnotation annotation1 : annotations1) {
 			boolean found = false;
 			for(UMLAnnotation annotation2 : annotations2) {
-				if(annotation1.getTypeName().equals(annotation2.getTypeName())) {
+				if(annotation1.getTypeName_RENAMED().equals(annotation2.getTypeName_RENAMED())) {
 					matchedAnnotations.add(new SimpleEntry<UMLAnnotation, UMLAnnotation>(annotation1, annotation2));
 					found = true;
 					break;
@@ -32,7 +32,7 @@ public class UMLAnnotationListDiff {
 		for(UMLAnnotation annotation2 : annotations2) {
 			boolean found = false;
 			for(UMLAnnotation annotation1 : annotations1) {
-				if(annotation1.getTypeName().equals(annotation2.getTypeName())) {
+				if(annotation1.getTypeName_RENAMED().equals(annotation2.getTypeName_RENAMED())) {
 					matchedAnnotations.add(new SimpleEntry<UMLAnnotation, UMLAnnotation>(annotation1, annotation2));
 					found = true;
 					break;

@@ -38,7 +38,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		}
 	}
 
-	public String getTypeName() {
+	public String getTypeName_RENAMED() {
 		return typeName;
 	}
 
