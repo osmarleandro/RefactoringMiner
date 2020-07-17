@@ -2525,7 +2525,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c2 : creationMap2.get(creation2)) {
 						for(String creation1 : creations1) {
 							for(AbstractCall c1 : creationMap1.get(creation1)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation)c1).getType().compatibleTypes_RENAMED(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2562,7 +2562,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c1 : creationMap1.get(creation1)) {
 						for(String creation2 : creations2) {
 							for(AbstractCall c2 : creationMap2.get(creation2)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation)c1).getType().compatibleTypes_RENAMED(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2772,7 +2772,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			int minArguments = 0;
 			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
+				compatibleTypes = type1.compatibleTypes_RENAMED(type2);
 				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
 			}
 			int replacedArguments = 0;
@@ -2824,7 +2824,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			int minArguments = 0;
 			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
+				compatibleTypes = type1.compatibleTypes_RENAMED(type2);
 				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
 			}
 			int replacedArguments = 0;
@@ -2881,7 +2881,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
+				compatibleTypes = type1.compatibleTypes_RENAMED(type2);
 			}
 			OperationInvocation inv1 = null, inv2 = null;
 			Map<String, List<OperationInvocation>> methodInvocationMap1 = statement1.getMethodInvocationMap();
@@ -3001,7 +3001,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			if(typeReplacement && !type1.compatibleTypes(type2) && variableRename && (methodInvocationReplacement || nullInitializer || zeroArgumentClassInstantiation || classInstantiationArgumentReplacement)) {
+			if(typeReplacement && !type1.compatibleTypes_RENAMED(type2) && variableRename && (methodInvocationReplacement || nullInitializer || zeroArgumentClassInstantiation || classInstantiationArgumentReplacement)) {
 				return true;
 			}
 		}
