@@ -101,7 +101,7 @@ public class RefactoringSet {
         pw.println(";");
     }
 
-    public void saveToFile(File file) {
+    public void saveToFile_RENAMED(File file) {
         try (PrintStream pw = new PrintStream(file)) {
             for (RefactoringRelationship r : refactorings) {
                 pw.printf("%s\t%s\t%s\n", r.getRefactoringType().getDisplayName(), r.getEntityBefore(), r.getEntityAfter());

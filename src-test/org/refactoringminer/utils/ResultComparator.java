@@ -344,7 +344,7 @@ public class ResultComparator {
                 throw new RuntimeException(e);
             }
             RefactoringSet rs = rc.assertAndGetResult();
-            rs.saveToFile(cachedResult);
+            rs.saveToFile_RENAMED(cachedResult);
             return rs;
         }
     }
