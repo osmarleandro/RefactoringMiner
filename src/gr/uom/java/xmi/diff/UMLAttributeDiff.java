@@ -67,7 +67,7 @@ public class UMLAttributeDiff {
 		return typeChanged;
 	}
 
-	public boolean isQualifiedTypeChanged() {
+	public boolean isQualifiedTypeChanged_RENAMED() {
 		return qualifiedTypeChanged;
 	}
 
@@ -122,7 +122,7 @@ public class UMLAttributeDiff {
 
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(isTypeChanged() || isQualifiedTypeChanged_RENAMED()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
@@ -138,7 +138,7 @@ public class UMLAttributeDiff {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(isTypeChanged() || isQualifiedTypeChanged_RENAMED()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
