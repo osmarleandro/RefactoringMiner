@@ -328,7 +328,7 @@ public class UMLModelASTReader {
 			String packageName, String sourceFile, String className, UMLClass umlClass) {
 		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
     	typeDeclaration.accept(visitor);
-    	Set<AnonymousClassDeclaration> anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
+    	Set<AnonymousClassDeclaration> anonymousClassDeclarations = visitor.getAnonymousClassDeclarations_RENAMED();
     	
     	DefaultMutableTreeNode root = new DefaultMutableTreeNode();
     	for(AnonymousClassDeclaration anonymous : anonymousClassDeclarations) {
