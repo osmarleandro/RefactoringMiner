@@ -27,7 +27,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return type;
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration getVariableDeclaration_RENAMED() {
 		return variableDeclaration;
 	}
 
