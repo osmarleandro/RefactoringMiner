@@ -1009,7 +1009,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 				}
 				if(!mapperSet.isEmpty()) {
-					UMLOperationBodyMapper bestMapper = findBestMapper(mapperSet);
+					UMLOperationBodyMapper bestMapper = findBestMapper_RENAMED(mapperSet);
 					if(bestMapper != null) {
 						removedOperation = bestMapper.getOperation1();
 						UMLOperation addedOperation = bestMapper.getOperation2();
@@ -1049,7 +1049,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 				}
 				if(!mapperSet.isEmpty()) {
-					UMLOperationBodyMapper bestMapper = findBestMapper(mapperSet);
+					UMLOperationBodyMapper bestMapper = findBestMapper_RENAMED(mapperSet);
 					if(bestMapper != null) {
 						UMLOperation removedOperation = bestMapper.getOperation1();
 						addedOperation = bestMapper.getOperation2();
@@ -1271,7 +1271,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				nonMappedElementsT1CallingRemovedOperation >= nonMappedElementsT1WithoutThoseCallingRemovedOperation);
 	}
 
-	private UMLOperationBodyMapper findBestMapper(TreeSet<UMLOperationBodyMapper> mapperSet) {
+	private UMLOperationBodyMapper findBestMapper_RENAMED(TreeSet<UMLOperationBodyMapper> mapperSet) {
 		List<UMLOperationBodyMapper> mapperList = new ArrayList<UMLOperationBodyMapper>(mapperSet);
 		UMLOperationBodyMapper bestMapper = mapperSet.first();
 		UMLOperation bestMapperOperation1 = bestMapper.getOperation1();
