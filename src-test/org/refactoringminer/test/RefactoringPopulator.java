@@ -125,7 +125,7 @@ public class RefactoringPopulator {
 		return refactorings;
 	}
 
-	private static List<String> getDeletedCommits() {
+	private static List<String> getDeletedCommits_RENAMED() {
 		List<String> deletedCommits = new ArrayList<String>();
 		String file = System.getProperty("user.dir") + "/src-test/Data/deleted_commits.txt";
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -152,7 +152,7 @@ public class RefactoringPopulator {
 				mapper.getTypeFactory().constructCollectionType(List.class, Root.class));
 
 		List<Root> filtered = new ArrayList<>();
-		List<String> deletedCommits = getDeletedCommits();
+		List<String> deletedCommits = getDeletedCommits_RENAMED();
 		for (Root root : roots) {
 			if(!deletedCommits.contains(root.sha1)) {
 				List<Refactoring> refactorings = new ArrayList<>();
