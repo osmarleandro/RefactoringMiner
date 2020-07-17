@@ -1003,7 +1003,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
-					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
+					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass_RENAMED(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}
@@ -1043,7 +1043,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
-					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
+					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass_RENAMED(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}

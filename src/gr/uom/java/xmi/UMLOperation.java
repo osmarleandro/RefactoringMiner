@@ -746,7 +746,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
+	public List<UMLOperation> getOperationsInsideAnonymousClass_RENAMED(List<UMLAnonymousClass> allAddedAnonymousClasses) {
 		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
 		if(this.operationBody != null) {
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
