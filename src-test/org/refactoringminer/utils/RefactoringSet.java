@@ -48,10 +48,10 @@ public class RefactoringSet {
     }
 
     public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
-        return add(new RefactoringRelationship(type, entityBefore, entityAfter));
+        return add_RENAMED(new RefactoringRelationship(type, entityBefore, entityAfter));
     }
 
-    public RefactoringSet add(RefactoringRelationship r) {
+    public RefactoringSet add_RENAMED(RefactoringRelationship r) {
         this.refactorings.add(r);
         GroupKey groupKey = r.getGroupKey();
         Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
@@ -65,7 +65,7 @@ public class RefactoringSet {
 
     public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
-            this.add(r);
+            this.add_RENAMED(r);
         }
         return this;
     }
