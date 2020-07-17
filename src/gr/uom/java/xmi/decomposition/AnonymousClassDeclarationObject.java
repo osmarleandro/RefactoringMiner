@@ -90,7 +90,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return booleanLiterals;
 	}
 
-	public List<String> getTypeLiterals() {
+	public List<String> getTypeLiterals_RENAMED() {
 		return typeLiterals;
 	}
 
