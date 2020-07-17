@@ -59,7 +59,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
-			pairs.add(new ImmutablePair<String, String>(ref.getOriginalClass().getLocationInfo().getFilePath(), ref.getOriginalClassName()));
+			pairs.add(new ImmutablePair<String, String>(ref.getOriginalClass().getLocationInfo().getFilePath_RENAMED(), ref.getOriginalClassName()));
 		}
 		return pairs;
 	}
@@ -67,7 +67,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
-			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getLocationInfo().getFilePath(), ref.getMovedClassName()));
+			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getLocationInfo().getFilePath_RENAMED(), ref.getMovedClassName()));
 		}
 		return pairs;
 	}

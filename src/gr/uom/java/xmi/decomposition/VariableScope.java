@@ -89,7 +89,7 @@ public class VariableScope {
 	}
 
 	public boolean subsumes(LocationInfo other) {
-		return this.filePath.equals(other.getFilePath()) &&
+		return this.filePath.equals(other.getFilePath_RENAMED()) &&
 				this.startOffset <= other.getStartOffset() &&
 				this.endOffset >= other.getEndOffset();
 	}

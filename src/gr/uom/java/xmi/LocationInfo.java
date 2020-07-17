@@ -39,7 +39,7 @@ public class LocationInfo {
 		}
 	}
 
-	public String getFilePath() {
+	public String getFilePath_RENAMED() {
 		return filePath;
 	}
 
@@ -76,7 +76,7 @@ public class LocationInfo {
 	}
 
 	public CodeRange codeRange() {
-		return new CodeRange(getFilePath(),
+		return new CodeRange(getFilePath_RENAMED(),
 				getStartLine(), getEndLine(),
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}

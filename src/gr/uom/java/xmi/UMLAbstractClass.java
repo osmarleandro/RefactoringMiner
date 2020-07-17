@@ -330,7 +330,7 @@ public abstract class UMLAbstractClass {
 	public abstract boolean isInterface();
 	
 	public String getSourceFile() {
-		return locationInfo.getFilePath();
+		return locationInfo.getFilePath_RENAMED();
 	}
 
 	public CodeRange codeRange() {
