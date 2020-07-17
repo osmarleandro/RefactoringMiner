@@ -327,8 +327,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 				}
-				if(!statement.getLambdas().isEmpty()) {
-					for(LambdaExpressionObject lambda : statement.getLambdas()) {
+				if(!statement.getLambdas_RENAMED().isEmpty()) {
+					for(LambdaExpressionObject lambda : statement.getLambdas_RENAMED()) {
 						if(lambda.getBody() != null) {
 							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
 							for(StatementObject lambdaLeaf : lambdaLeaves) {
@@ -468,8 +468,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			if(!statement.getLambdas().isEmpty()) {
-				for(LambdaExpressionObject lambda : statement.getLambdas()) {
+			if(!statement.getLambdas_RENAMED().isEmpty()) {
+				for(LambdaExpressionObject lambda : statement.getLambdas_RENAMED()) {
 					if(lambda.getBody() != null) {
 						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
 						for(StatementObject lambdaLeaf : lambdaLeaves) {
@@ -2067,8 +2067,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		List<LambdaExpressionObject> lambdas1 = statement1.getLambdas();
-		List<LambdaExpressionObject> lambdas2 = statement2.getLambdas();
+		List<LambdaExpressionObject> lambdas1 = statement1.getLambdas_RENAMED();
+		List<LambdaExpressionObject> lambdas2 = statement2.getLambdas_RENAMED();
 		List<UMLOperationBodyMapper> lambdaMappers = new ArrayList<UMLOperationBodyMapper>();
 		if(!lambdas1.isEmpty() && !lambdas2.isEmpty()) {
 			for(int i=0; i<lambdas1.size(); i++) {
@@ -2669,7 +2669,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return statement.getString().substring(0, index);
 		}
 		else {
-			for(LambdaExpressionObject lambda : statement.getLambdas()) {
+			for(LambdaExpressionObject lambda : statement.getLambdas_RENAMED()) {
 				OperationBody body = lambda.getBody();
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
