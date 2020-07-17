@@ -22,7 +22,7 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 		sb.append(" to ");
 		sb.append(getMovedAttribute().toQualifiedString());
 		sb.append(" from class ");
-		sb.append(getTargetClassName());
+		sb.append(getTargetClassName_RENAMED());
 		return sb.toString();
 	}
 
