@@ -21,7 +21,7 @@ public class TryStatementObject extends CompositeStatementObject {
 		catchClauses.add(catchClause);
 	}
 
-	public List<CompositeStatementObject> getCatchClauses() {
+	public List<CompositeStatementObject> getCatchClauses_RENAMED() {
 		return catchClauses;
 	}
 
