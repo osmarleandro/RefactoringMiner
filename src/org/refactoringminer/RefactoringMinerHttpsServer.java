@@ -113,7 +113,7 @@ public class RefactoringMinerHttpsServer {
 				}
 			}, timeout);
 
-			String response = JSON(gitURL, commitId, detectedRefactorings);
+			String response = JSON_RENAMED(gitURL, commitId, detectedRefactorings);
 			System.out.println(response);
 			exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 			exchange.sendResponseHeaders(200, response.length());
@@ -137,7 +137,7 @@ public class RefactoringMinerHttpsServer {
 		return result;
 	}
 
-	private static String JSON(String gitURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
+	private static String JSON_RENAMED(String gitURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
 		sb.append("\"").append("commits").append("\"").append(": ");
