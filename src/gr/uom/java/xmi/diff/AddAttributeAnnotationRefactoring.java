@@ -37,7 +37,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(attributeBefore.codeRange()
 				.setDescription("original attribute declaration")
