@@ -23,7 +23,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		return removedGeneralization;
 	}
 
-	public UMLGeneralization getAddedGeneralization() {
+	public UMLGeneralization getAddedGeneralization_RENAMED() {
 		return addedGeneralization;
 	}
 
