@@ -710,7 +710,7 @@ public class UMLModelDiff {
 		   }
 		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
 				   targetClassImportsSourceClass(removedAttribute.getClassName(), addedAttribute.getClassName())) {
-			   if(!initializerContainsTypeLiteral(addedAttribute, removedAttribute)) {
+			   if(!initializerContainsTypeLiteral_RENAMED(addedAttribute, removedAttribute)) {
 				   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
 				   return moveAttribute;
 			   }
@@ -719,7 +719,7 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
+   private boolean initializerContainsTypeLiteral_RENAMED(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
 	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
 	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
