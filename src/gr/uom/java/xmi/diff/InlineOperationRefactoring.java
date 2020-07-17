@@ -99,7 +99,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return inlinedOperationInvocations;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement> getReplacements_RENAMED() {
 		return replacements;
 	}
 
