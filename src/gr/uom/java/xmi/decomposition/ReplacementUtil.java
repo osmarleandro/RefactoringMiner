@@ -151,7 +151,7 @@ public class ReplacementUtil {
 		return false;
 	}
 	
-	public static boolean sameCharsBeforeAfter(String completeString1, String completeString2, String commonSubString) {
+	public static boolean sameCharsBeforeAfter_RENAMED(String completeString1, String completeString2, String commonSubString) {
 		Pattern p = Pattern.compile(Pattern.quote(commonSubString));
 		Matcher m1 = p.matcher(completeString1);
 		Matcher m2 = p.matcher(completeString2);

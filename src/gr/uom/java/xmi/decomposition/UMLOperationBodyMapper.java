@@ -1622,7 +1622,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			if(variable.toUpperCase().equals(variable) && !ReplacementUtil.sameCharsBeforeAfter(statement1.getString(), statement2.getString(), variable)) {
+			if(variable.toUpperCase().equals(variable) && !ReplacementUtil.sameCharsBeforeAfter_RENAMED(statement1.getString(), statement2.getString(), variable)) {
 				variablesToBeRemovedFromTheIntersection.add(variable);
 			}
 		}
