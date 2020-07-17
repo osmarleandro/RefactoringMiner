@@ -606,8 +606,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
 			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
-				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+				String before = PrefixSuffixUtils.normalize_RENAMED(candidate.getOriginalVariableName());
+				String after = PrefixSuffixUtils.normalize_RENAMED(candidate.getRenamedVariableName());
 				if(before.contains(".") && after.contains(".")) {
 					String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
 					String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
@@ -630,18 +630,18 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(CandidateMergeVariableRefactoring candidate : mapper.getCandidateAttributeMerges()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
-				before.add(PrefixSuffixUtils.normalize(mergedVariable));
+				before.add(PrefixSuffixUtils.normalize_RENAMED(mergedVariable));
 			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+			String after = PrefixSuffixUtils.normalize_RENAMED(candidate.getNewVariable());
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
 			processMerge(mergeMap, merge, candidate);
 		}
 		for(CandidateSplitVariableRefactoring candidate : mapper.getCandidateAttributeSplits()) {
 			Set<String> after = new LinkedHashSet<String>();
 			for(String splitVariable : candidate.getSplitVariables()) {
-				after.add(PrefixSuffixUtils.normalize(splitVariable));
+				after.add(PrefixSuffixUtils.normalize_RENAMED(splitVariable));
 			}
-			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
+			String before = PrefixSuffixUtils.normalize_RENAMED(candidate.getOldVariable());
 			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
 			processSplit(splitMap, split, candidate);
 		}
@@ -684,8 +684,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Replacement replacement : map.keySet()) {
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
 			for(CandidateAttributeRefactoring candidate : candidates) {
-				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-				String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+				String originalAttributeName = PrefixSuffixUtils.normalize_RENAMED(candidate.getOriginalVariableName());
+				String renamedAttributeName = PrefixSuffixUtils.normalize_RENAMED(candidate.getRenamedVariableName());
 				UMLOperationBodyMapper candidateMapper = null;
 				for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 					if(mapper.getMappings().containsAll(candidate.getAttributeReferences())) {

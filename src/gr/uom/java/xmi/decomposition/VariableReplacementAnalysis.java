@@ -218,7 +218,7 @@ public class VariableReplacementAnalysis {
 			Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 			Set<String> splitVariables = new LinkedHashSet<String>();
 			for(VariableReplacementWithMethodInvocation replacement : map.keySet()) {
-				if(!PrefixSuffixUtils.normalize(key).equals(PrefixSuffixUtils.normalize(replacement.getAfter()))) {
+				if(!PrefixSuffixUtils.normalize_RENAMED(key).equals(PrefixSuffixUtils.normalize_RENAMED(replacement.getAfter()))) {
 					splitVariables.add(replacement.getAfter());
 					mappings.addAll(map.get(replacement));
 				}
@@ -370,7 +370,7 @@ public class VariableReplacementAnalysis {
 			Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 			Set<String> mergedVariables = new LinkedHashSet<String>();
 			for(VariableReplacementWithMethodInvocation replacement : map.keySet()) {
-				if(!PrefixSuffixUtils.normalize(key).equals(PrefixSuffixUtils.normalize(replacement.getBefore()))) {
+				if(!PrefixSuffixUtils.normalize_RENAMED(key).equals(PrefixSuffixUtils.normalize_RENAMED(replacement.getBefore()))) {
 					mergedVariables.add(replacement.getBefore());
 					mappings.addAll(map.get(replacement));
 				}
@@ -385,7 +385,7 @@ public class VariableReplacementAnalysis {
 			Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 			Set<String> mergedVariables = new LinkedHashSet<String>();
 			for(Replacement replacement : map.keySet()) {
-				if(!PrefixSuffixUtils.normalize(key).equals(PrefixSuffixUtils.normalize(replacement.getBefore()))) {
+				if(!PrefixSuffixUtils.normalize_RENAMED(key).equals(PrefixSuffixUtils.normalize_RENAMED(replacement.getBefore()))) {
 					mergedVariables.add(replacement.getBefore());
 					mappings.addAll(map.get(replacement));
 				}
@@ -479,7 +479,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 			}
-			else if(!PrefixSuffixUtils.normalize(replacement.getBefore()).equals(PrefixSuffixUtils.normalize(replacement.getAfter())) &&
+			else if(!PrefixSuffixUtils.normalize_RENAMED(replacement.getBefore()).equals(PrefixSuffixUtils.normalize_RENAMED(replacement.getAfter())) &&
 					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
@@ -504,8 +504,8 @@ public class VariableReplacementAnalysis {
 			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
 				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
 				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
-				String attribute1 = PrefixSuffixUtils.normalize(fragment1.substring(0, fragment1.indexOf("=")));
-				String attribute2 = PrefixSuffixUtils.normalize(fragment2.substring(0, fragment2.indexOf("=")));
+				String attribute1 = PrefixSuffixUtils.normalize_RENAMED(fragment1.substring(0, fragment1.indexOf("=")));
+				String attribute2 = PrefixSuffixUtils.normalize_RENAMED(fragment2.substring(0, fragment2.indexOf("=")));
 				if(value1.equals(attribute1) && classDiff.getOriginalClass().containsAttributeWithName(attribute1) && classDiff.getNextClass().containsAttributeWithName(attribute1)) {
 					return true;
 				}

@@ -1683,9 +1683,9 @@ public class UMLModelDiff {
 	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
-				before.add(PrefixSuffixUtils.normalize(mergedVariable));
+				before.add(PrefixSuffixUtils.normalize_RENAMED(mergedVariable));
 			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+			String after = PrefixSuffixUtils.normalize_RENAMED(candidate.getNewVariable());
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
 			if(mergeMap.containsKey(merge)) {
 				mergeMap.get(merge).add(candidate);
@@ -1700,8 +1700,8 @@ public class UMLModelDiff {
 
    private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
 	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
-		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+		 String before = PrefixSuffixUtils.normalize_RENAMED(candidate.getOriginalVariableName());
+		 String after = PrefixSuffixUtils.normalize_RENAMED(candidate.getRenamedVariableName());
 		 if(before.contains(".") && after.contains(".")) {
 				String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
 				String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
