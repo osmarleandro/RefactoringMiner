@@ -39,7 +39,7 @@ public class RefactoringSet {
         return revision;
     }
 
-    public Set<RefactoringRelationship> getRefactorings() {
+    public Set<RefactoringRelationship> getRefactorings_RENAMED() {
         return refactorings;
     }
 
