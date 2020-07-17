@@ -199,7 +199,7 @@ public class AstUtils {
 		return false;
 	}
 
-	public static int countNumberOfStatements(MethodDeclaration decl) {
+	public static int countNumberOfStatements_RENAMED(MethodDeclaration decl) {
 		return new StatementCounter().countStatements(decl);
 	}
 	
