@@ -24,7 +24,7 @@ public class CandidateMergeVariableRefactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<String> getMergedVariables() {
+	public Set<String> getMergedVariables_RENAMED() {
 		return mergedVariables;
 	}
 
