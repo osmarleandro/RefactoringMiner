@@ -291,12 +291,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<StatementObject> addedLeaves1 = new LinkedHashSet<StatementObject>();
 			Set<CompositeStatementObject> addedInnerNodes1 = new LinkedHashSet<CompositeStatementObject>();
 			for(StatementObject nonMappedLeaf1 : new ArrayList<>(operationBodyMapper.getNonMappedLeavesT1())) {
-				expandAnonymousAndLambdas(nonMappedLeaf1, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
+				expandAnonymousAndLambdas_RENAMED(nonMappedLeaf1, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 			}
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!returnWithVariableReplacement(mapping) && !nullLiteralReplacements(mapping) && (!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2()))) {
 					AbstractCodeFragment fragment = mapping.getFragment1();
-					expandAnonymousAndLambdas(fragment, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
+					expandAnonymousAndLambdas_RENAMED(fragment, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 				}
 			}
 			List<StatementObject> leaves2 = composite2.getLeaves();
@@ -434,7 +434,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject> leaves1,
+	private void expandAnonymousAndLambdas_RENAMED(AbstractCodeFragment fragment, List<StatementObject> leaves1,
 			List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1,
 			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
 		if(fragment instanceof StatementObject) {
