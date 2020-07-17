@@ -66,8 +66,8 @@ public abstract class UMLAbstractClass {
 				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
 				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
 			if(matchesOperation) {
-				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
-				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+				boolean originalOperationEmptyBody = originalOperation.getBody_RENAMED() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = operation.getBody_RENAMED() == null || operation.hasEmptyBody();
 				if(originalOperationEmptyBody == operationEmptyBody)
 					matchingOperations.add(originalOperation);
 			}
@@ -93,8 +93,8 @@ public abstract class UMLAbstractClass {
 	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
-				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
-				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+				boolean originalOperationEmptyBody = originalOperation.getBody_RENAMED() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = operation.getBody_RENAMED() == null || operation.hasEmptyBody();
 				if(originalOperationEmptyBody == operationEmptyBody)
 					return true;
 			}
