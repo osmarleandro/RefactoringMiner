@@ -25,7 +25,7 @@ public class TernaryOperatorExpression {
 		return condition;
 	}
 
-	public AbstractExpression getThenExpression() {
+	public AbstractExpression getThenExpression_RENAMED() {
 		return thenExpression;
 	}
 
@@ -41,7 +41,7 @@ public class TernaryOperatorExpression {
 		if(getElseExpression().getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(getThenExpression_RENAMED().getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
@@ -51,7 +51,7 @@ public class TernaryOperatorExpression {
 		if(getElseExpression().getString().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(getThenExpression_RENAMED().getString().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
