@@ -839,7 +839,7 @@ public class UMLModelDiff {
       return removedAttributes;
    }
 
-   private List<UMLOperation> getAddedOperationsInCommonClasses() {
+   private List<UMLOperation> getAddedOperationsInCommonClasses_RENAMED() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          addedOperations.addAll(classDiff.getAddedOperations());
@@ -1793,7 +1793,7 @@ public class UMLModelDiff {
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : getAddedOperationsInCommonClasses()) {
+			for(UMLOperation addedOperation : getAddedOperationsInCommonClasses_RENAMED()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, this)) {
 					return true;
 				}
@@ -2000,7 +2000,7 @@ public class UMLModelDiff {
    }
 
    private void checkForOperationMovesIncludingAddedClasses() throws RefactoringMinerTimedOutException {
-      List<UMLOperation> addedOperations = getAddedOperationsInCommonClasses();
+      List<UMLOperation> addedOperations = getAddedOperationsInCommonClasses_RENAMED();
       for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }
