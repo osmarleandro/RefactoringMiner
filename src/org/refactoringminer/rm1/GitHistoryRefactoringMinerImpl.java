@@ -658,7 +658,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	*/
 
 	@Override
-	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
+	public void detectAtPullRequest_RENAMED(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
 		GitHub gitHub = connectToGitHub();
 		String repoName = extractRepositoryName(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);

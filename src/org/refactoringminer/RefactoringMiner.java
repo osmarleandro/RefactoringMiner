@@ -231,7 +231,7 @@ public class RefactoringMiner {
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
 		startJSON(sb);
-		detector.detectAtPullRequest(gitURL, pullId, new RefactoringHandler() {
+		detector.detectAtPullRequest_RENAMED(gitURL, pullId, new RefactoringHandler() {
 			private int commitCount = 0;
 			@Override
 			public void handle(String commitId, List<Refactoring> refactorings) {
