@@ -58,7 +58,7 @@ public class AstUtils {
 	    return sb.toString();
 	}
 	
-	public static String getSignatureFromMethodDeclaration(MethodDeclaration methodDeclaration) {
+	public static String getSignatureFromMethodDeclaration_RENAMED(MethodDeclaration methodDeclaration) {
 		String methodName = methodDeclaration.isConstructor() ? "" : methodDeclaration.getName().getIdentifier();
 //		if (methodName.equals("allObjectsSorted")) {
 //			System.out.println();
