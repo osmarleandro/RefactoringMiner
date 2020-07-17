@@ -98,7 +98,7 @@ public class RefactoringMinerHttpsServer {
 			printRequestInfo(exchange);
 			URI requestURI = exchange.getRequestURI();
 			String query = requestURI.getQuery();
-			Map<String, String> queryToMap = queryToMap(query);
+			Map<String, String> queryToMap = queryToMap_RENAMED(query);
 
 			String gitURL = queryToMap.get("gitURL");
 			String commitId = queryToMap.get("commitId");
@@ -123,7 +123,7 @@ public class RefactoringMinerHttpsServer {
 		}
 	}
 
-	private static Map<String, String> queryToMap(String query) {
+	private static Map<String, String> queryToMap_RENAMED(String query) {
 		Map<String, String> result = new HashMap<>();
 		for (String param : query.split("&")) {
 			String[] entry = param.split("=");
