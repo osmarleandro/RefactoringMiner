@@ -164,7 +164,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap_RENAMED() {
 		return methodInvocationMap;
 	}
 

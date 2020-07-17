@@ -186,7 +186,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	public OperationInvocation invocationCoveringEntireFragment() {
-		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
+		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap_RENAMED();
 		String statement = getString();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
@@ -218,7 +218,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
-		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
+		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap_RENAMED();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
 			for(OperationInvocation invocation : invocations) {

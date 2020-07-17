@@ -420,7 +420,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
-				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap_RENAMED();
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
 					for(OperationInvocation operationInvocation : operationInvocations) {
