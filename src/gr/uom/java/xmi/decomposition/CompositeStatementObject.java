@@ -48,7 +48,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		expression.setOwner(this);
 	}
 
-	public List<AbstractExpression> getExpressions() {
+	public List<AbstractExpression> getExpressions_RENAMED() {
 		return expressionList;
 	}
 
@@ -85,7 +85,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			return getInnerNodes().contains(fragment);
 		}
 		else if(fragment instanceof AbstractExpression) {
-			return getExpressions().contains(fragment);
+			return getExpressions_RENAMED().contains(fragment);
 		}
 		return false;
 	}
@@ -497,7 +497,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression expression : innerNode.getExpressions_RENAMED()) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
@@ -510,7 +510,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
 					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression expression : innerNode.getExpressions_RENAMED()) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
