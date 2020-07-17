@@ -185,7 +185,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 			return variableDeclaration;
 		}
 		else if(owner != null) {
-			return owner.searchVariableDeclaration(variableName);
+			return owner.searchVariableDeclaration_RENAMED(variableName);
 		}
 		return null;
 	}
