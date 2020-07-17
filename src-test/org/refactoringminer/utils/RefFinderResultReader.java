@@ -84,7 +84,7 @@ public class RefFinderResultReader {
     }
     
     private static RefactoringRelationship parse(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
-        return new RefactoringRelationship(type, parserBefore.parse(args), parserAfter.parse(args));
+        return new RefactoringRelationship(type, parserBefore.parse_RENAMED(args), parserAfter.parse_RENAMED(args));
     }
     
     private static EntityParser type(final int i) {
@@ -120,7 +120,7 @@ public class RefFinderResultReader {
 }
 
 abstract class EntityParser {
-    abstract String parse(List<String> args);
+    abstract String parse_RENAMED(List<String> args);
 }
 
 
