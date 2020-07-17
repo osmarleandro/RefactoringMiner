@@ -722,9 +722,9 @@ public class UMLModelDiff {
    private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
 	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
-	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
-		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
-		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
+	   if(v1.getInitializer_RENAMED() != null && v2.getInitializer_RENAMED() != null) {
+		   List<String> typeLiterals1 = v1.getInitializer_RENAMED().getTypeLiterals();
+		   List<String> typeLiterals2 = v2.getInitializer_RENAMED().getTypeLiterals();
 		   String className1 = addedAttribute.getNonQualifiedClassName();
 		   String className2 = removedAttribute.getNonQualifiedClassName();
 		   if(typeLiterals1.contains(className1 + ".class") && typeLiterals2.contains(className2 + ".class") &&
@@ -2322,16 +2322,16 @@ public class UMLModelDiff {
 				VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
 				for(UMLAttribute attribute : addedClass.getAttributes()) {
 					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
-					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
-						String attributeInitializer = attributeDeclaration.getInitializer().getString();
-						String variableInitializer = v1.getInitializer().getString();
+					if(attributeDeclaration.getInitializer_RENAMED() != null && v1.getInitializer_RENAMED() != null) {
+						String attributeInitializer = attributeDeclaration.getInitializer_RENAMED().getString();
+						String variableInitializer = v1.getInitializer_RENAMED().getString();
 						if(attributeInitializer.equals(variableInitializer) && attribute.getType().equals(v1.getType()) &&
 								(attribute.getName().equals(v1.getVariableName()) ||
 								attribute.getName().toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
 								v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {
 							nonMappedStatementsDeclaringSameVariable++;
 							leafIterator1.remove();
-							LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
+							LeafMapping mapping = new LeafMapping(v1.getInitializer_RENAMED(), attributeDeclaration.getInitializer_RENAMED(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
 							operationBodyMapper.getMappings().add(mapping);
 							break;
 						}

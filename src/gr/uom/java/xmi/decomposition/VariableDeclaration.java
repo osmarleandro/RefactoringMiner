@@ -103,7 +103,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return variableName;
 	}
 
-	public AbstractExpression getInitializer() {
+	public AbstractExpression getInitializer_RENAMED() {
 		return initializer;
 	}
 

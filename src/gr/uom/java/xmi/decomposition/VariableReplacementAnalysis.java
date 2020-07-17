@@ -90,8 +90,8 @@ public class VariableReplacementAnalysis {
 					if(replacement.involvesVariable()) {
 						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
 							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
-							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
-									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
+							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer_RENAMED() != null &&
+									variableDeclaration.getInitializer_RENAMED().getString().equals(replacement.getBefore())) {
 								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
 								refactoring.addReference(mapping);
 								refactorings.add(refactoring);
@@ -106,7 +106,7 @@ public class VariableReplacementAnalysis {
 	private void findParametersWrappedInLocalVariables() {
 		for(StatementObject statement : nonMappedLeavesT2) {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-				AbstractExpression initializer = declaration.getInitializer();
+				AbstractExpression initializer = declaration.getInitializer_RENAMED();
 				if(initializer != null) {
 					for(String key : initializer.getCreationMap().keySet()) {
 						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
@@ -182,7 +182,7 @@ public class VariableReplacementAnalysis {
 					for(StatementObject statement : nonMappedLeavesT1) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
-							AbstractExpression initializer = variableDeclaration.getInitializer();
+							AbstractExpression initializer = variableDeclaration.getInitializer_RENAMED();
 							if(initializer != null) {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
@@ -199,7 +199,7 @@ public class VariableReplacementAnalysis {
 			for(String parameterName : operation2.getParameterNameList()) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
-					AbstractExpression initializer = variableDeclaration.getInitializer();
+					AbstractExpression initializer = variableDeclaration.getInitializer_RENAMED();
 					if(initializer != null) {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {
@@ -310,7 +310,7 @@ public class VariableReplacementAnalysis {
 					for(StatementObject statement : nonMappedLeavesT2) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
-							AbstractExpression initializer = variableDeclaration.getInitializer();
+							AbstractExpression initializer = variableDeclaration.getInitializer_RENAMED();
 							if(initializer != null) {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
@@ -354,7 +354,7 @@ public class VariableReplacementAnalysis {
 			for(String parameterName : operation1.getParameterNameList()) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
-					AbstractExpression initializer = variableDeclaration.getInitializer();
+					AbstractExpression initializer = variableDeclaration.getInitializer_RENAMED();
 					if(initializer != null) {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {
@@ -794,15 +794,15 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
-		if(v1.getInitializer() != null) {
-			if(v1.getInitializer().getString().equals(v2.getVariableName())) {
+		if(v1.getInitializer_RENAMED() != null) {
+			if(v1.getInitializer_RENAMED().getString().equals(v2.getVariableName())) {
 				return true;
 			}
-			if(v1.getInitializer().getTernaryOperatorExpressions().size() == 1) {
-				TernaryOperatorExpression ternary = v1.getInitializer().getTernaryOperatorExpressions().get(0);
+			if(v1.getInitializer_RENAMED().getTernaryOperatorExpressions().size() == 1) {
+				TernaryOperatorExpression ternary = v1.getInitializer_RENAMED().getTernaryOperatorExpressions().get(0);
 				if(ternary.getThenExpression().getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
 					boolean v2InitializerContainsThisReference = false;
-					if(v2.getInitializer() != null && v2.getInitializer().getVariables().contains("this." + v2.getVariableName())) {
+					if(v2.getInitializer_RENAMED() != null && v2.getInitializer_RENAMED().getVariables().contains("this." + v2.getVariableName())) {
 						v2InitializerContainsThisReference = true;
 					}
 					if(!v2InitializerContainsThisReference) {
@@ -811,15 +811,15 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
-		if(v2.getInitializer() != null) {
-			if(v2.getInitializer().getString().equals(v1.getVariableName())) {
+		if(v2.getInitializer_RENAMED() != null) {
+			if(v2.getInitializer_RENAMED().getString().equals(v1.getVariableName())) {
 				return true;
 			}
-			if(v2.getInitializer().getTernaryOperatorExpressions().size() == 1) {
-				TernaryOperatorExpression ternary = v2.getInitializer().getTernaryOperatorExpressions().get(0);
+			if(v2.getInitializer_RENAMED().getTernaryOperatorExpressions().size() == 1) {
+				TernaryOperatorExpression ternary = v2.getInitializer_RENAMED().getTernaryOperatorExpressions().get(0);
 				if(ternary.getThenExpression().getVariables().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables().contains(v1.getVariableName())) {
 					boolean v1InitializerContainsThisReference = false;
-					if(v1.getInitializer() != null && v1.getInitializer().getVariables().contains("this." + v1.getVariableName())) {
+					if(v1.getInitializer_RENAMED() != null && v1.getInitializer_RENAMED().getVariables().contains("this." + v1.getVariableName())) {
 						v1InitializerContainsThisReference = true;
 					}
 					if(!v1InitializerContainsThisReference) {
@@ -840,8 +840,8 @@ public class VariableReplacementAnalysis {
 					if(variableDeclarations2.size() > 0 && !variableDeclarations2.contains(v2)) {
 						return true;
 					}
-					else if(variableDeclarations2.size() == 0 && v1.getInitializer() != null &&
-							mapping.getFragment2().getString().startsWith(v1.getInitializer().getString())) {
+					else if(variableDeclarations2.size() == 0 && v1.getInitializer_RENAMED() != null &&
+							mapping.getFragment2().getString().startsWith(v1.getInitializer_RENAMED().getString())) {
 						return true;
 					}
 				}
@@ -849,8 +849,8 @@ public class VariableReplacementAnalysis {
 					if(variableDeclarations1.size() > 0 && !variableDeclarations1.contains(v1)) {
 						return true;
 					}
-					else if(variableDeclarations1.size() == 0 && v2.getInitializer() != null &&
-							mapping.getFragment1().getString().startsWith(v2.getInitializer().getString())) {
+					else if(variableDeclarations1.size() == 0 && v2.getInitializer_RENAMED() != null &&
+							mapping.getFragment1().getString().startsWith(v2.getInitializer_RENAMED().getString())) {
 						return true;
 					}
 				}
@@ -1045,9 +1045,9 @@ public class VariableReplacementAnalysis {
 			for(UMLOperationBodyMapper mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
-						if(v2 != null && v2.getInitializer() != null) {
+						if(v2 != null && v2.getInitializer_RENAMED() != null) {
 							UMLOperation extractedMethod = mapper.getOperation2();
-							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
+							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer_RENAMED().getMethodInvocationMap();
 							for(String key : methodInvocationMap.keySet()) {
 								for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 									if(invocation.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
@@ -1055,11 +1055,11 @@ public class VariableReplacementAnalysis {
 									}
 									else {
 										//check if the extracted method is called in the initializer of a variable used in the initializer of v2
-										List<String> initializerVariables = v2.getInitializer().getVariables();
+										List<String> initializerVariables = v2.getInitializer_RENAMED().getVariables();
 										for(String variable : initializerVariables) {
 											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
-												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
-													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
+												if(declaration.getVariableName().equals(variable) && declaration.getInitializer_RENAMED() != null) {
+													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer_RENAMED().getMethodInvocationMap();
 													for(String key2 : methodInvocationMap2.keySet()) {
 														for(OperationInvocation invocation2 : methodInvocationMap2.get(key2)) {
 															if(invocation2.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {

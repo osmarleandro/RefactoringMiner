@@ -157,7 +157,7 @@ public abstract class AbstractCodeMapping {
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
-			AbstractExpression initializer = declaration.getInitializer();
+			AbstractExpression initializer = declaration.getInitializer_RENAMED();
 			for(Replacement replacement : getReplacements()) {
 				if(replacement.getAfter().startsWith(variableName + ".")) {
 					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
@@ -241,7 +241,7 @@ public abstract class AbstractCodeMapping {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
-				AbstractExpression initializer = declaration.getInitializer();
+				AbstractExpression initializer = declaration.getInitializer_RENAMED();
 				if(replacement.getBefore().startsWith(variableName + ".")) {
 					String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
 					if(replacement.getAfter().endsWith(suffixBefore)) {
@@ -379,8 +379,8 @@ public abstract class AbstractCodeMapping {
 			if(ref instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
-				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
-					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+				if(declaration.getInitializer_RENAMED() != null && input.contains(declaration.getInitializer_RENAMED().toString())) {
+					output = output.replace(declaration.getInitializer_RENAMED().toString(), declaration.getVariableName());
 				}
 			}
 		}
@@ -407,7 +407,7 @@ public abstract class AbstractCodeMapping {
 			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
 				VariableDeclaration variable = statement.getVariableDeclaration(s2);
 				if(variable != null) {
-					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
+					if(variable.getInitializer_RENAMED() != null && variable.getInitializer_RENAMED().toString().equals(s1)) {
 						return true;
 					}
 					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();

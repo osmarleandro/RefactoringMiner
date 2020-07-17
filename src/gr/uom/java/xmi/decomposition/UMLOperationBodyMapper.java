@@ -534,7 +534,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(VariableDeclaration variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
 							String argument = parameterToArgumentMap.get(parameter);
-							if(variableDeclaration.getInitializer() != null && argument.equals(variableDeclaration.getInitializer().toString())) {
+							if(variableDeclaration.getInitializer_RENAMED() != null && argument.equals(variableDeclaration.getInitializer_RENAMED().toString())) {
 								parameterToArgumentMap.put(parameter, variableDeclaration.getVariableName());
 							}
 						}
@@ -2112,7 +2112,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						for(AbstractCodeFragment codeFragment : replacementInfo.statements2) {
 							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
 							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
-							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
+							if(variableDeclaration != null && variableDeclaration.getInitializer_RENAMED() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer_RENAMED().getString())) {
 								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);
 								replacementInfo.getReplacements().add(r);
 								additionallyMatchedStatements2.add(codeFragment);
@@ -2414,8 +2414,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
 			VariableDeclaration v1 = variableDeclarations1.get(0);
 			VariableDeclaration v2 = variableDeclarations2.get(0);
-			String initializer1 = v1.getInitializer() != null ? v1.getInitializer().getString() : null;
-			String initializer2 = v2.getInitializer() != null ? v2.getInitializer().getString() : null;
+			String initializer1 = v1.getInitializer_RENAMED() != null ? v1.getInitializer_RENAMED().getString() : null;
+			String initializer2 = v2.getInitializer_RENAMED() != null ? v2.getInitializer_RENAMED().getString() : null;
 			if(v1.getType().getArrayDimension() == 1 && v2.getType().containsTypeArgument(v1.getType().getClassType()) &&
 					creationCoveringTheEntireStatement1.isArray() && !creationCoveringTheEntireStatement2.isArray() &&
 					initializer1 != null && initializer2 != null &&
@@ -2951,8 +2951,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
 			UMLType type1 = variableDeclarations1.get(0).getType();
 			UMLType type2 = variableDeclarations2.get(0).getType();
-			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
-			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
+			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer_RENAMED();
+			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer_RENAMED();
 			if(initializer1 == null && initializer2 == null) {
 				nullInitializer = true;
 			}
@@ -3010,7 +3010,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
 		for(VariableDeclaration declaration : declarations) {
-			AbstractExpression initializer = declaration.getInitializer();
+			AbstractExpression initializer = declaration.getInitializer_RENAMED();
 			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
 				return declaration;
 			}
