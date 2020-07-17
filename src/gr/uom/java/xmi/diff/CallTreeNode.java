@@ -31,7 +31,7 @@ public class CallTreeNode {
 		return invocation;
 	}
 
-	public void addChild(CallTreeNode node) {
+	public void addChild_RENAMED(CallTreeNode node) {
 		children.add(node);
 	}
 

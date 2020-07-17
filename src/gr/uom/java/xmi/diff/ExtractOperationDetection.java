@@ -192,7 +192,7 @@ public class ExtractOperationDetection {
 				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(addedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
-						parent.addChild(node);
+						parent.addChild_RENAMED(node);
 						generateCallTree(addedOperation, node, callTree);
 					}
 				}
