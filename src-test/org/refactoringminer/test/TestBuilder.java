@@ -157,7 +157,7 @@ public class TestBuilder {
 		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
 		refactoring = normalizeSingle(refactoring);
 		if (aggregate) {
-			refactoring = refType.aggregate(refactoring);
+			refactoring = refType.aggregate_RENAMED(refactoring);
 		} else {
 			int begin = refactoring.indexOf("from classes [");
 			if (begin != -1) {

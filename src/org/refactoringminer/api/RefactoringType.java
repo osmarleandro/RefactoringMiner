@@ -140,7 +140,7 @@ public enum RefactoringType {
         return sb.toString();
     }
 
-    public String aggregate(String refactoringDescription) {
+    public String aggregate_RENAMED(String refactoringDescription) {
         Matcher m = regex.matcher(refactoringDescription);
         if (m.matches()) {
             StringBuilder sb = new StringBuilder();
