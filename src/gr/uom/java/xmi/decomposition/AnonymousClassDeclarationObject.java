@@ -54,7 +54,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		this.astNode = node;
 	}
 	
-	public String toString() {
+	public String toString_RENAMED() {
 		return astNodeString;
 	}
 
