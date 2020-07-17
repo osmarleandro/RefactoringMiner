@@ -237,7 +237,7 @@ public class UMLModelDiff {
 	   return classDiffs;
    }
 
-   public boolean isSubclassOf(String subclass, String finalSuperclass) {
+   public boolean isSubclassOf_RENAMED(String subclass, String finalSuperclass) {
 	   return isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>());
    }
 
@@ -700,11 +700,11 @@ public class UMLModelDiff {
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
-		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
+		   if(isSubclassOf_RENAMED(removedAttribute.getClassName(), addedAttribute.getClassName())) {
 			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pullUpAttribute;
 		   }
-		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
+		   else if(isSubclassOf_RENAMED(addedAttribute.getClassName(), removedAttribute.getClassName())) {
 			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pushDownAttribute;
 		   }
@@ -1390,7 +1390,7 @@ public class UMLModelDiff {
 					 }
 					 if(diffs1.size() > 1) {
 						 for(UMLClassBaseDiff classDiff : diffs1) {
-							 if(isSubclassOf(originalClassDiff.nextClass.getName(), classDiff.nextClass.getName())) {
+							 if(isSubclassOf_RENAMED(originalClassDiff.nextClass.getName(), classDiff.nextClass.getName())) {
 								 diff1 = classDiff;
 								 break;
 							 }
@@ -1427,7 +1427,7 @@ public class UMLModelDiff {
 					 }
 					 if(diffs2.size() > 1) {
 						 for(UMLClassBaseDiff classDiff : diffs2) {
-							 if(isSubclassOf(originalClassDiff.nextClass.getName(), classDiff.nextClass.getName())) {
+							 if(isSubclassOf_RENAMED(originalClassDiff.nextClass.getName(), classDiff.nextClass.getName())) {
 								 diff2 = classDiff;
 								 break;
 							 }
@@ -1875,14 +1875,14 @@ public class UMLModelDiff {
    	                      refactorings.add(extractOperationRefactoring);
    	                      deleteAddedOperation(addedOperation);
                 	  }
-                	  else if(isSubclassOf(className, addedOperation.getClassName())) {
+                	  else if(isSubclassOf_RENAMED(className, addedOperation.getClassName())) {
                 		  //extract and pull up method
                 		  ExtractOperationRefactoring extractOperationRefactoring =
    	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
    	                      refactorings.add(extractOperationRefactoring);
    	                      deleteAddedOperation(addedOperation);
                 	  }
-                	  else if(isSubclassOf(addedOperation.getClassName(), className)) {
+                	  else if(isSubclassOf_RENAMED(addedOperation.getClassName(), className)) {
                 		  //extract and push down method
                 		  ExtractOperationRefactoring extractOperationRefactoring =
    	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
@@ -2123,11 +2123,11 @@ public class UMLModelDiff {
 	            	  }
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
+	            		   isSubclassOf_RENAMED(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PullUpOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
+	            		   isSubclassOf_RENAMED(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
@@ -2208,11 +2208,11 @@ public class UMLModelDiff {
 	            	  }
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
+	            		   isSubclassOf_RENAMED(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PullUpOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
+	            		   isSubclassOf_RENAMED(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
