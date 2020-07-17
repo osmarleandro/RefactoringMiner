@@ -18,7 +18,7 @@ public class MethodInvocationReplacement extends Replacement {
 		return invokedOperationBefore;
 	}
 
-	public OperationInvocation getInvokedOperationAfter() {
+	public OperationInvocation getInvokedOperationAfter_RENAMED() {
 		return invokedOperationAfter;
 	}
 
