@@ -788,7 +788,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
-		return !variableAppearsInExtractedMethod(v1, v2) &&
+		return !variableAppearsInExtractedMethod_RENAMED(v1, v2) &&
 				!variableAppearsInTheInitializerOfTheOtherVariable(v1, v2) &&
 				!inconsistentVariableMapping(v1, v2, set);
 	}
@@ -1040,7 +1040,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
+	private boolean variableAppearsInExtractedMethod_RENAMED(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
