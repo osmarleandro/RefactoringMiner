@@ -184,7 +184,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	protected void processOperations() throws RefactoringMinerTimedOutException {
 		for(UMLOperation operation : originalClass.getOperations()) {
-    		UMLOperation operationWithTheSameSignature = nextClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+    		UMLOperation operationWithTheSameSignature = nextClass.operationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation);
 			if(operationWithTheSameSignature == null) {
 				this.removedOperations.add(operation);
     		}
@@ -194,7 +194,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
     	}
     	for(UMLOperation operation : nextClass.getOperations()) {
-    		UMLOperation operationWithTheSameSignature = originalClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+    		UMLOperation operationWithTheSameSignature = originalClass.operationWithTheSameSignatureIgnoringChangedTypes_RENAMED(operation);
 			if(operationWithTheSameSignature == null) {
 				this.addedOperations.add(operation);
     		}
