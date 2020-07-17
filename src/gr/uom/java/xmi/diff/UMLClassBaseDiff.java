@@ -98,7 +98,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		processAnonymousClasses();
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
-		checkForExtractedOperations();
+		checkForExtractedOperations_RENAMED();
 	}
 
 	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
@@ -1549,7 +1549,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		removedOperations.removeAll(operationsToBeRemoved);
 	}
 
-	private void checkForExtractedOperations() throws RefactoringMinerTimedOutException {
+	private void checkForExtractedOperations_RENAMED() throws RefactoringMinerTimedOutException {
 		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
 		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
 			UMLOperation addedOperation = addedOperationIterator.next();
