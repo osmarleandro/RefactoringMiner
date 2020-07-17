@@ -77,7 +77,7 @@ public class UMLModelDiff {
       this.deletedFolderPaths = new LinkedHashSet<String>();
    }
 
-   public void reportAddedClass(UMLClass umlClass) {
+   public void reportAddedClass_RENAMED(UMLClass umlClass) {
 	   if(!addedClasses.contains(umlClass))
 		   this.addedClasses.add(umlClass);
    }
