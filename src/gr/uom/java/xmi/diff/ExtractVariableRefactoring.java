@@ -73,11 +73,11 @@ public class ExtractVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((variableDeclaration == null) ? 0 : variableDeclaration.hashCode());
+		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode_RENAMED());
+		result = prime * result + ((variableDeclaration == null) ? 0 : variableDeclaration.hashCode_RENAMED());
 		return result;
 	}
 
