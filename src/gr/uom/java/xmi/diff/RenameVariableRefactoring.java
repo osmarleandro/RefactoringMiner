@@ -47,7 +47,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getOriginalVariable() {
+	public VariableDeclaration getOriginalVariable_RENAMED() {
 		return originalVariable;
 	}
 
