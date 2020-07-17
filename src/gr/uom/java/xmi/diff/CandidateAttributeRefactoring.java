@@ -55,7 +55,7 @@ public class CandidateAttributeRefactoring {
 		return attributeReferences.size();
 	}
 
-	public VariableDeclaration getOriginalVariableDeclaration() {
+	public VariableDeclaration getOriginalVariableDeclaration_RENAMED() {
 		return originalVariableDeclaration;
 	}
 

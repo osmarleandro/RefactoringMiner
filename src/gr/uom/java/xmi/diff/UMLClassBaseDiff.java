@@ -539,7 +539,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
 			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 			for(CandidateAttributeRefactoring candidate : set) {
-				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
+				if(candidate.getOriginalVariableDeclaration_RENAMED() == null && candidate.getRenamedVariableDeclaration() == null) {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
@@ -563,16 +563,16 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						candidateAttributeRenames.add(candidate);
 					}
 				}
-				else if(candidate.getOriginalVariableDeclaration() != null) {
+				else if(candidate.getOriginalVariableDeclaration_RENAMED() != null) {
 					if(a2 != null) {
 						RenameVariableRefactoring ref = new RenameVariableRefactoring(
-								candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(),
+								candidate.getOriginalVariableDeclaration_RENAMED(), a2.getVariableDeclaration(),
 								candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 						if(!refactorings.contains(ref)) {
 							refactorings.add(ref);
-							if(!candidate.getOriginalVariableDeclaration().getType().equals(a2.getVariableDeclaration().getType()) ||
-									!candidate.getOriginalVariableDeclaration().getType().equalsQualified(a2.getVariableDeclaration().getType())) {
-								ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(),
+							if(!candidate.getOriginalVariableDeclaration_RENAMED().getType().equals(a2.getVariableDeclaration().getType()) ||
+									!candidate.getOriginalVariableDeclaration_RENAMED().getType().equalsQualified(a2.getVariableDeclaration().getType())) {
+								ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(candidate.getOriginalVariableDeclaration_RENAMED(), a2.getVariableDeclaration(),
 										candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 								refactoring.addRelatedRefactoring(ref);
 								refactorings.add(refactoring);

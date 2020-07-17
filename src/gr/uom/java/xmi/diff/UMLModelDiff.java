@@ -1360,7 +1360,7 @@ public class UMLModelDiff {
 		 UMLClassBaseDiff diff = getUMLClassDiffWithAttribute(pattern);
 		 Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 		 for(CandidateAttributeRefactoring candidate : set) {
-			 if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
+			 if(candidate.getOriginalVariableDeclaration_RENAMED() == null && candidate.getRenamedVariableDeclaration() == null) {
 				 if(diff != null) {
 					 UMLAttribute a1 = diff.findAttributeInOriginalClass(pattern.getBefore());
 					 UMLAttribute a2 = diff.findAttributeInNextClass(pattern.getAfter());
@@ -1376,7 +1376,7 @@ public class UMLModelDiff {
 					 }
 				 }
 			 }
-			 else if(candidate.getOriginalVariableDeclaration() != null) {
+			 else if(candidate.getOriginalVariableDeclaration_RENAMED() != null) {
 				 List<UMLClassBaseDiff> diffs1 = getUMLClassDiffWithExistingAttributeAfter(pattern);
 				 List<UMLClassBaseDiff> diffs2 = getUMLClassDiffWithNewAttributeAfter(pattern);
 				 if(!diffs1.isEmpty()) {
@@ -1398,7 +1398,7 @@ public class UMLModelDiff {
 					 }
 					 UMLAttribute a2 = diff1.findAttributeInNextClass(pattern.getAfter());
 					 if(a2 != null) {
-						 if(candidate.getOriginalVariableDeclaration().isAttribute()) {
+						 if(candidate.getOriginalVariableDeclaration_RENAMED().isAttribute()) {
 							 if(originalClassDiff != null && originalClassDiff.removedAttributes.contains(candidate.getOriginalAttribute())) {
 								 ReplaceAttributeRefactoring ref = new ReplaceAttributeRefactoring(candidate.getOriginalAttribute(), a2, set);
 								 if(!refactorings.contains(ref)) {
@@ -1408,7 +1408,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration_RENAMED(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1435,7 +1435,7 @@ public class UMLModelDiff {
 					 }
 					 UMLAttribute a2 = diff2.findAttributeInNextClass(pattern.getAfter());
 					 if(a2 != null) {
-						 if(candidate.getOriginalVariableDeclaration().isAttribute()) {
+						 if(candidate.getOriginalVariableDeclaration_RENAMED().isAttribute()) {
 							 if(originalClassDiff != null && originalClassDiff.removedAttributes.contains(candidate.getOriginalAttribute())) {
 								 MoveAndRenameAttributeRefactoring ref = new MoveAndRenameAttributeRefactoring(candidate.getOriginalAttribute(), a2, set);
 								 if(!refactorings.contains(ref)) {
@@ -1445,7 +1445,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration_RENAMED(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
