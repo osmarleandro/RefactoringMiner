@@ -102,7 +102,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					parameterToArgumentMap2.put(addedParameter.getName() + ".", "");
 				}
 			}
-			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters();
+			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters_RENAMED();
 			if(removedParameters.size() == 1) {
 				UMLParameter removedParameter = removedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(removedParameter.getType().getClassType(), operation2.getClassName())) {

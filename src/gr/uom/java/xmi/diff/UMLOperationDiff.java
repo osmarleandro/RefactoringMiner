@@ -182,7 +182,7 @@ public class UMLOperationDiff {
 		return addedParameters;
 	}
 
-	public List<UMLParameter> getRemovedParameters() {
+	public List<UMLParameter> getRemovedParameters_RENAMED() {
 		return removedParameters;
 	}
 
