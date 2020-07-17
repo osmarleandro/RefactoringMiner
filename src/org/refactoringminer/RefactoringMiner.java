@@ -33,7 +33,7 @@ public class RefactoringMiner {
 		} else if (option.equalsIgnoreCase("-c")) {
 			detectAtCommit(args);
 		} else if (option.equalsIgnoreCase("-gc")) {
-			detectAtGitHubCommit(args);
+			detectAtGitHubCommit_RENAMED(args);
 		} else if (option.equalsIgnoreCase("-gp")) {
 			detectAtGitHubPullRequest(args);
 		} else {
@@ -195,7 +195,7 @@ public class RefactoringMiner {
 		}
 	}
 
-	private static void detectAtGitHubCommit(String[] args) throws Exception {
+	private static void detectAtGitHubCommit_RENAMED(String[] args) throws Exception {
 		if (args.length != 4) {
 			throw argumentException();
 		}
