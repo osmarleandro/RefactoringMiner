@@ -190,10 +190,10 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			File currentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + currentCommitId);
 			File parentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + parentCommitId);
 			if (!currentFolder.exists()) {	
-				downloadAndExtractZipFile(projectFolder, cloneURL, currentCommitId);
+				downloadAndExtractZipFile_RENAMED(projectFolder, cloneURL, currentCommitId);
 			}
 			if (!parentFolder.exists()) {	
-				downloadAndExtractZipFile(projectFolder, cloneURL, parentCommitId);
+				downloadAndExtractZipFile_RENAMED(projectFolder, cloneURL, parentCommitId);
 			}
 			if (currentFolder.exists() && parentFolder.exists()) {
 				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
@@ -214,7 +214,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
-	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
+	private void downloadAndExtractZipFile_RENAMED(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
 		String downloadLink = extractDownloadLink(cloneURL, commitId);
 		File destinationFile = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + commitId + ".zip");
