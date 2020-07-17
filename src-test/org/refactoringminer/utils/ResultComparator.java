@@ -78,7 +78,7 @@ public class ResultComparator {
                 int fpRt = r.getFPCount(refType);
                 int fnRt = r.getFNCount(refType);
                 if (tpRt > 0 || fpRt > 0 || fnRt > 0) {
-                    out.println(String.format("%-7s" + getResultLine(tpRt, fpRt, fnRt), refType.getAbbreviation()));
+                    out.println(String.format("%-7s" + getResultLine(tpRt, fpRt, fnRt), refType.getAbbreviation_RENAMED()));
                 }
             }
             out.println();

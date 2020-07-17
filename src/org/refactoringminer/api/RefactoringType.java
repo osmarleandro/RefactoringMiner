@@ -129,7 +129,7 @@ public enum RefactoringType {
 		return this.displayName;
 	}
 
-    public String getAbbreviation() {
+    public String getAbbreviation_RENAMED() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.displayName.length(); i++) {
             char c = this.displayName.charAt(i);

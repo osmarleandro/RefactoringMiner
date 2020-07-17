@@ -131,7 +131,7 @@ public class TestBuilder {
 			Counter refTypeCounter = cMap.get(refType);
 			if (refTypeCounter != null) {
 				System.out
-						.println(String.format("%-7s", refType.getAbbreviation()) + buildResultMessage(refTypeCounter));
+						.println(String.format("%-7s", refType.getAbbreviation_RENAMED()) + buildResultMessage(refTypeCounter));
 			}
 		}
 
