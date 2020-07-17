@@ -419,7 +419,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId,
+	public void detectBetweenCommits_RENAMED(Repository repository, String startCommitId, String endCommitId,
 			RefactoringHandler handler) throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
