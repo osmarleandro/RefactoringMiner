@@ -662,7 +662,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return normalized;
 	}
 
-	public boolean equalParameters(UMLOperation operation) {
+	public boolean equalParameters_RENAMED(UMLOperation operation) {
 		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
 	}
 
