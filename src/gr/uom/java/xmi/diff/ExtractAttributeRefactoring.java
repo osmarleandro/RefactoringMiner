@@ -38,7 +38,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public UMLAttribute getVariableDeclaration() {
+	public UMLAttribute getVariableDeclaration_RENAMED() {
 		return attributeDeclaration;
 	}
 
