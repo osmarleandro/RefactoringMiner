@@ -83,7 +83,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
 			ranges.add(ref.getMovedClass().codeRange()
