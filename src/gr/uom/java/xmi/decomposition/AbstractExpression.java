@@ -161,7 +161,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getArguments() {
+	public List<String> getArguments_RENAMED() {
 		return arguments;
 	}
 
