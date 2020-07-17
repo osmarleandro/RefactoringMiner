@@ -32,7 +32,7 @@ public class TypeReplacementAnalysis {
 					List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
 					for(VariableDeclaration declaration1 : declarations1) {
 						for(VariableDeclaration declaration2 : declarations2) {
-							if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
+							if(declaration1.getVariableName_RENAMED().equals(declaration2.getVariableName_RENAMED()) &&
 									(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 									!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
 								ChangeVariableTypeRefactoring ref = new ChangeVariableTypeRefactoring(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
@@ -50,7 +50,7 @@ public class TypeReplacementAnalysis {
 				List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
 				for(VariableDeclaration declaration1 : declarations1) {
 					for(VariableDeclaration declaration2 : declarations2) {
-						if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
+						if(declaration1.getVariableName_RENAMED().equals(declaration2.getVariableName_RENAMED()) &&
 								(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 								!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
 							ChangeVariableTypeRefactoring ref = new ChangeVariableTypeRefactoring(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
@@ -66,7 +66,7 @@ public class TypeReplacementAnalysis {
 
 	private boolean containsVariableDeclarationWithSameNameAndType(VariableDeclaration declaration, List<VariableDeclaration> declarations) {
 		for(VariableDeclaration d : declarations) {
-			if(d.getVariableName().equals(declaration.getVariableName()) && d.getType().equals(declaration.getType()) && d.getType().equalsQualified(declaration.getType())) {
+			if(d.getVariableName_RENAMED().equals(declaration.getVariableName_RENAMED()) && d.getType().equals(declaration.getType()) && d.getType().equalsQualified(declaration.getType())) {
 				return true;
 			}
 		}

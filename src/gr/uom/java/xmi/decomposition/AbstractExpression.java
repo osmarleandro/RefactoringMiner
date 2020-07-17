@@ -193,7 +193,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public VariableDeclaration getVariableDeclaration(String variableName) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		for(VariableDeclaration declaration : variableDeclarations) {
-			if(declaration.getVariableName().equals(variableName)) {
+			if(declaration.getVariableName_RENAMED().equals(variableName)) {
 				return declaration;
 			}
 		}

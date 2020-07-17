@@ -535,7 +535,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						for(String parameter : parameterToArgumentMap.keySet()) {
 							String argument = parameterToArgumentMap.get(parameter);
 							if(variableDeclaration.getInitializer() != null && argument.equals(variableDeclaration.getInitializer().toString())) {
-								parameterToArgumentMap.put(parameter, variableDeclaration.getVariableName());
+								parameterToArgumentMap.put(parameter, variableDeclaration.getVariableName_RENAMED());
 							}
 						}
 					}
@@ -1839,7 +1839,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							VariableDeclaration v1 = statement1.searchVariableDeclaration(s1);
 							VariableDeclaration v2 = statement2.searchVariableDeclaration(s2);
-							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
+							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName_RENAMED(), v2.getVariableName_RENAMED()) == null) {
 								replacement = null;
 							}
 						}
@@ -2113,7 +2113,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
 							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
 							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
-								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);
+								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName_RENAMED(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);
 								replacementInfo.getReplacements().add(r);
 								additionallyMatchedStatements2.add(codeFragment);
 								expressionMatched = true;
@@ -2980,8 +2980,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(replacement.getType().equals(ReplacementType.TYPE))
 					typeReplacement = true;
 				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
-						variableDeclarations1.get(0).getVariableName().equals(replacement.getBefore()) &&
-						variableDeclarations2.get(0).getVariableName().equals(replacement.getAfter()))
+						variableDeclarations1.get(0).getVariableName_RENAMED().equals(replacement.getBefore()) &&
+						variableDeclarations2.get(0).getVariableName_RENAMED().equals(replacement.getAfter()))
 					variableRename = true;
 				else if(replacement instanceof MethodInvocationReplacement) {
 					MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
@@ -3249,7 +3249,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				List<VariableDeclaration> matchingVariableDeclarations = new ArrayList<VariableDeclaration>();
 				for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
-					if(diff2.contains(declaration.getVariableName())) {
+					if(diff2.contains(declaration.getVariableName_RENAMED())) {
 						matchingVariableDeclarations.add(declaration);
 					}
 				}
@@ -3278,8 +3278,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							splitVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
+							splitVariables.add(declaration.getVariableName_RENAMED());
+							concat.append(declaration.getVariableName_RENAMED());
 							if(counter < matchingVariableDeclarations.size()-1) {
 								concat.append(",");
 							}
@@ -3297,8 +3297,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							addedVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
+							addedVariables.add(declaration.getVariableName_RENAMED());
+							concat.append(declaration.getVariableName_RENAMED());
 							if(counter < matchingVariableDeclarations.size()-1) {
 								concat.append(",");
 							}
@@ -3315,8 +3315,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							splitVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
+							splitVariables.add(declaration.getVariableName_RENAMED());
+							concat.append(declaration.getVariableName_RENAMED());
 							if(counter < matchingVariableDeclarations.size()-1) {
 								concat.append(",");
 							}

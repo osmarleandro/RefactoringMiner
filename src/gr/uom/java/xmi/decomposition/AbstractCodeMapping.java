@@ -156,7 +156,7 @@ public abstract class AbstractCodeMapping {
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-			String variableName = declaration.getVariableName();
+			String variableName = declaration.getVariableName_RENAMED();
 			AbstractExpression initializer = declaration.getInitializer();
 			for(Replacement replacement : getReplacements()) {
 				if(replacement.getAfter().startsWith(variableName + ".")) {
@@ -223,7 +223,7 @@ public abstract class AbstractCodeMapping {
 				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.getBefore())) {
 					List<VariableDeclaration> variableDeclarations = operation2.getVariableDeclarationsInScope(fragment2.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
-						if(declaration.getVariableName().equals(variable)) {
+						if(declaration.getVariableName_RENAMED().equals(variable)) {
 							ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 							processExtractVariableRefactoring(ref, refactorings);
 							if(getReplacements().size() == 1) {
@@ -240,7 +240,7 @@ public abstract class AbstractCodeMapping {
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
-				String variableName = declaration.getVariableName();
+				String variableName = declaration.getVariableName_RENAMED();
 				AbstractExpression initializer = declaration.getInitializer();
 				if(replacement.getBefore().startsWith(variableName + ".")) {
 					String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
@@ -289,7 +289,7 @@ public abstract class AbstractCodeMapping {
 				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
 					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
-						if(declaration.getVariableName().equals(variable)) {
+						if(declaration.getVariableName_RENAMED().equals(variable)) {
 							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 							processInlineVariableRefactoring(ref, refactorings);
 							if(getReplacements().size() == 1) {
@@ -380,7 +380,7 @@ public abstract class AbstractCodeMapping {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
 				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
-					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName_RENAMED());
 				}
 			}
 		}

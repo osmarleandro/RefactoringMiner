@@ -1573,7 +1573,7 @@ public class UMLModelDiff {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
-					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
+					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName_RENAMED()) &&
 							   parameter.getType().equals(rename.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
@@ -1581,7 +1581,7 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
+					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName_RENAMED()) &&
 							   parameter.getType().equals(rename.getRenamedVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
@@ -1597,7 +1597,7 @@ public class UMLModelDiff {
 				   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
-					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
+					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName_RENAMED()) &&
 							   parameter.getType().equals(changeType.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
@@ -1605,7 +1605,7 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
+					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName_RENAMED()) &&
 							   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
@@ -2313,7 +2313,7 @@ public class UMLModelDiff {
 				if(s1.getVariableDeclarations().size() == 1 && s2.getVariableDeclarations().size() == 1) {
 					VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
 					VariableDeclaration v2 = s2.getVariableDeclarations().get(0);
-					if(v1.getVariableName().equals(v2.getVariableName()) && v1.getType().equals(v2.getType())) {
+					if(v1.getVariableName_RENAMED().equals(v2.getVariableName_RENAMED()) && v1.getType().equals(v2.getType())) {
 						nonMappedStatementsDeclaringSameVariable++;
 					}
 				}
@@ -2326,9 +2326,9 @@ public class UMLModelDiff {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
 						String variableInitializer = v1.getInitializer().getString();
 						if(attributeInitializer.equals(variableInitializer) && attribute.getType().equals(v1.getType()) &&
-								(attribute.getName().equals(v1.getVariableName()) ||
-								attribute.getName().toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
-								v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {
+								(attribute.getName().equals(v1.getVariableName_RENAMED()) ||
+								attribute.getName().toLowerCase().contains(v1.getVariableName_RENAMED().toLowerCase()) ||
+								v1.getVariableName_RENAMED().toLowerCase().contains(attribute.getName().toLowerCase()))) {
 							nonMappedStatementsDeclaringSameVariable++;
 							leafIterator1.remove();
 							LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());

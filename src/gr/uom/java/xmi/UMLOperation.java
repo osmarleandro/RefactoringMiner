@@ -183,7 +183,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
 		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
-			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
+			variableTypeMap.put(declaration.getVariableName_RENAMED(), declaration.getType());
 		}
 		return variableTypeMap;
 	}
