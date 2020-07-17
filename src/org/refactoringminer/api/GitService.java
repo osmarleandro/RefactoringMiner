@@ -43,5 +43,5 @@ public interface GitService {
 
 	void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws Exception;
 
-	Churn churn(Repository repository, RevCommit currentCommit) throws Exception;
+	Churn churn_RENAMED(Repository repository, RevCommit currentCommit) throws Exception;
 }
