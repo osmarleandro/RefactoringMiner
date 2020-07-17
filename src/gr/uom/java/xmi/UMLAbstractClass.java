@@ -203,7 +203,7 @@ public abstract class UMLAbstractClass {
 				commonAttributes.add(attribute);
 			}
 		}
-		if(this.isTestClass() && umlClass.isTestClass()) {
+		if(this.isTestClass_RENAMED() && umlClass.isTestClass_RENAMED()) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
 		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
@@ -264,7 +264,7 @@ public abstract class UMLAbstractClass {
 				commonAttributes.add(attribute);
 			}
 		}
-		if(this.isTestClass() && umlClass.isTestClass()) {
+		if(this.isTestClass_RENAMED() && umlClass.isTestClass_RENAMED()) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
 		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
@@ -305,7 +305,7 @@ public abstract class UMLAbstractClass {
 		return true;
 	}
 
-	public boolean isTestClass() {
+	public boolean isTestClass_RENAMED() {
 		for(UMLOperation operation : operations) {
 			if(operation.hasTestAnnotation()) {
 				return true;

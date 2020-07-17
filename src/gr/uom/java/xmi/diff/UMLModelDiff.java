@@ -960,7 +960,7 @@ public class UMLModelDiff {
 				   boolean extendsAddedClass = classDiff.getNewSuperclass() != null &&
 						   addedClass.getName().endsWith("." + classDiff.getNewSuperclass().getClassType());
 				   UMLAttribute attributeOfExtractedClassType = attributeOfExtractedClassType(addedClass, classDiff);
-				   boolean isTestClass =  addedClass.isTestClass() && classDiff.getOriginalClass().isTestClass();
+				   boolean isTestClass =  addedClass.isTestClass_RENAMED() && classDiff.getOriginalClass().isTestClass_RENAMED();
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
 					   ExtractClassRefactoring refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
 					   if(refactoring != null) {
