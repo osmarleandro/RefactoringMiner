@@ -286,7 +286,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean throwsNewException() {
+	public boolean throwsNewException_RENAMED() {
 		return getString().startsWith("throw new ");
 	}
 
