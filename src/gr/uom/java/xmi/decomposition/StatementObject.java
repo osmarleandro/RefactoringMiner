@@ -184,7 +184,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getNullLiterals() {
+	public List<String> getNullLiterals_RENAMED() {
 		return nullLiterals;
 	}
 
