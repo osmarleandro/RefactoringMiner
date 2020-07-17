@@ -145,7 +145,7 @@ public class CodeRange {
 			filePath = info.getFilePath();
 			if(minStartLine == 0 || info.getStartLine() < minStartLine) {
 				minStartLine = info.getStartLine();
-				startColumn = info.getStartColumn();
+				startColumn = info.getStartColumn_RENAMED();
 			}
 			if(info.getEndLine() > maxEndLine) {
 				maxEndLine = info.getEndLine();
