@@ -98,12 +98,12 @@ public class CodeRange {
 		encodeIntProperty(sb, "endColumn", endColumn, false);
 		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
 		encodeStringProperty(sb, "description", description, false);
-		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
+		encodeStringProperty(sb, "codeElement", escapeQuotes_RENAMED(codeElement), true);
 		sb.append("}");
 		return sb.toString();
 	}
 
-	private String escapeQuotes(String s) {
+	private String escapeQuotes_RENAMED(String s) {
 		if(s != null) {
 			StringBuilder sb = new StringBuilder();
 			JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
