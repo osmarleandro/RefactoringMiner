@@ -32,7 +32,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation getOperationAfter_RENAMED() {
 		return operationAfter;
 	}
 
@@ -77,7 +77,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationAfter_RENAMED().getLocationInfo().getFilePath(), getOperationAfter_RENAMED().getClassName()));
 		return pairs;
 	}
 
