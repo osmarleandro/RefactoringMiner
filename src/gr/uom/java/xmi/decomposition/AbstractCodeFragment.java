@@ -38,7 +38,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract CompositeStatementObject getParent();
 	public abstract String getString();
 	public abstract List<String> getVariables();
-	public abstract List<String> getTypes();
+	public abstract List<String> getTypes_RENAMED();
 	public abstract List<VariableDeclaration> getVariableDeclarations();
 	public abstract Map<String, List<OperationInvocation>> getMethodInvocationMap();
 	public abstract List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations();
