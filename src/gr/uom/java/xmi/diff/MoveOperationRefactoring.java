@@ -56,7 +56,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return RefactoringType.MOVE_OPERATION;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
+	public UMLOperationBodyMapper getBodyMapper_RENAMED() {
 		return bodyMapper;
 	}
 
