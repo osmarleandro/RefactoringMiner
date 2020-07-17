@@ -20,7 +20,7 @@ public class ConsistentReplacementDetector {
 		return inconsistentRenames;
 	}
 
-	public static <T extends Replacement> void updateRenames(
+	public static <T extends Replacement> void updateRenames_RENAMED(
 			Set<T> allConsistentRenames,
 			Set<T> allInconsistentRenames,
 			Set<T> renames) {
