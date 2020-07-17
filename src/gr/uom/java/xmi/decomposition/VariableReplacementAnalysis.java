@@ -483,7 +483,7 @@ public class VariableReplacementAnalysis {
 					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
-					!fieldAssignmentToPreviouslyExistingAttribute(replacementOccurrenceMap.get(replacement))) {
+					!fieldAssignmentToPreviouslyExistingAttribute_RENAMED(replacementOccurrenceMap.get(replacement))) {
 				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
 						replacementOccurrenceMap.get(replacement));
@@ -496,7 +496,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private boolean fieldAssignmentToPreviouslyExistingAttribute(Set<AbstractCodeMapping> mappings) {
+	private boolean fieldAssignmentToPreviouslyExistingAttribute_RENAMED(Set<AbstractCodeMapping> mappings) {
 		if(mappings.size() == 1) {
 			AbstractCodeMapping mapping = mappings.iterator().next();
 			String fragment1 = mapping.getFragment1().getString();
@@ -1197,7 +1197,7 @@ public class VariableReplacementAnalysis {
 		if(index2 == -1 && callSiteOperation != null) {
 			index2 = callSiteOperation.getParameterNameList().indexOf(replacement.getAfter());
 		}
-		if(fieldAssignmentToPreviouslyExistingAttribute(set)) {
+		if(fieldAssignmentToPreviouslyExistingAttribute_RENAMED(set)) {
 			return false;
 		}
 		if(fieldAssignmentWithPreviouslyExistingParameter(set)) {
