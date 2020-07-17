@@ -274,7 +274,7 @@ public class UMLOperationDiff {
 	}
 	
 	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
-		if(removedOperation.isStatic() || addedOperation.isStatic()) {
+		if(removedOperation.isStatic_RENAMED() || addedOperation.isStatic_RENAMED()) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
 					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {

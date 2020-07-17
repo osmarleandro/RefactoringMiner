@@ -2430,7 +2430,7 @@ public class UMLModelDiff {
 			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
 			   intersection.retainAll(newParameterNames);
 			   boolean parameterMatch = oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
-					   removedOperation.isStatic() || addedOperation.isStatic();
+					   removedOperation.isStatic_RENAMED() || addedOperation.isStatic_RENAMED();
 			   return (parameterMatch && oldParameters.size() > 0 && newParameters.size() > 0) ||
 					   (parameterMatch && addedOperation.equalReturnParameter(removedOperation) && (oldParameters.size() == 0 || newParameters.size() == 0));
 		   }
@@ -2471,7 +2471,7 @@ public class UMLModelDiff {
 			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
 			   intersection.retainAll(newParameterNames);
 			   return oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
-					   removedOperation.isStatic() || addedOperation.isStatic();
+					   removedOperation.isStatic_RENAMED() || addedOperation.isStatic_RENAMED();
 		   }
 	   }
 	   return false;
