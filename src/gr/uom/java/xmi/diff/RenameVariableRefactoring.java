@@ -135,7 +135,7 @@ public class RenameVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalVariable.codeRange()
 				.setDescription("original variable declaration")
