@@ -56,7 +56,7 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(variableDeclaration);
 		sb.append(" in method ");
 		sb.append(operationBefore);

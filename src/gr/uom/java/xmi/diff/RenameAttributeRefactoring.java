@@ -51,13 +51,13 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return RefactoringType.RENAME_ATTRIBUTE;
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(originalAttribute);
 		sb.append(" to ");
 		sb.append(renamedAttribute);
