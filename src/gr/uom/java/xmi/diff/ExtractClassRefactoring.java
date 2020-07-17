@@ -38,14 +38,14 @@ public class ExtractClassRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		if(extractedClass.isSubTypeOf(classDiff.getOriginalClass()) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
 			return RefactoringType.EXTRACT_SUBCLASS;
 		return RefactoringType.EXTRACT_CLASS;
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public UMLClass getExtractedClass() {
