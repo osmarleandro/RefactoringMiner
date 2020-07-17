@@ -22,14 +22,14 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		return sb.toString();
 	}
 
-	public boolean equals(Object o) {
+	public boolean equals_RENAMED(Object o) {
 		if(this == o) {
     		return true;
     	}
 		
 		if(o instanceof UMLClassMoveDiff) {
 			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
-			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
+			return this.originalClass.equals_RENAMED(classMoveDiff.originalClass) && this.nextClass.equals_RENAMED(classMoveDiff.nextClass);
 		}
 		return false;
 	}
