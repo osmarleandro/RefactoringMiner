@@ -382,7 +382,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean isSingleAbstractMethodInterface() {
+	public boolean isSingleAbstractMethodInterface_RENAMED() {
 		return isInterface && operations.size() == 1;
 	}
 
