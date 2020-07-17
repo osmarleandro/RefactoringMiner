@@ -196,7 +196,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
-    		if(attribute.equals(otherAttribute)) {
+    		if(attribute.equals_RENAMED(otherAttribute)) {
     			return attribute;
     		}
     	}
@@ -289,7 +289,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
 	}
 
-    public boolean equals(Object o) {
+    public boolean equals_RENAMED(Object o) {
     	if(this == o) {
     		return true;
     	}
