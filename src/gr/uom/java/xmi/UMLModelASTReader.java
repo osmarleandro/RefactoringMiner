@@ -76,7 +76,7 @@ public class UMLModelASTReader {
 				return;
 			}
 			CompilationUnit compilationUnit = (CompilationUnit)parser.createAST(null);
-			processCompilationUnit(filePath, compilationUnit);
+			processCompilationUnit_RENAMED(filePath, compilationUnit);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class UMLModelASTReader {
 			@Override
 			public void acceptAST(String sourceFilePath, CompilationUnit ast) {
 				String relativePath = sourceFilePath.substring(projectRoot.length() + 1).replaceAll(systemFileSeparator, "/");
-				processCompilationUnit(relativePath, ast);
+				processCompilationUnit_RENAMED(relativePath, ast);
 			}
 		};
 		this.parser.createASTs((String[]) filesArray, null, emptyArray, fileASTRequestor, null);
@@ -146,7 +146,7 @@ public class UMLModelASTReader {
 		return this.umlModel;
 	}
 
-	protected void processCompilationUnit(String sourceFilePath, CompilationUnit compilationUnit) {
+	protected void processCompilationUnit_RENAMED(String sourceFilePath, CompilationUnit compilationUnit) {
 		PackageDeclaration packageDeclaration = compilationUnit.getPackage();
 		String packageName = null;
 		if(packageDeclaration != null)
