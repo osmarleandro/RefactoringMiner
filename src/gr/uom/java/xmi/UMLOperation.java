@@ -809,7 +809,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public Map<String, Set<String>> aliasedAttributes() {
+	public Map<String, Set<String>> aliasedAttributes_RENAMED() {
 		if(operationBody != null && isConstructor) {
 			List<String> parameterNames = getParameterNameList();
 			Map<String, Set<String>> map = operationBody.aliasedAttributes();
