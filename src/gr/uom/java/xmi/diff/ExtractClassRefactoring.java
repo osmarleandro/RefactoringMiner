@@ -68,7 +68,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return attributeOfExtractedClassTypeInOriginalClass;
 	}
 
-	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
 		return pairs;
