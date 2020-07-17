@@ -74,7 +74,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return anonymousClassDeclarations;
 	}
 
-	public List<String> getStringLiterals() {
+	public List<String> getStringLiterals_RENAMED() {
 		return stringLiterals;
 	}
 
