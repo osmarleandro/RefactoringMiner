@@ -95,7 +95,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return targetOperationBeforeInline;
 	}
 
-	public List<OperationInvocation> getInlinedOperationInvocations() {
+	public List<OperationInvocation> getInlinedOperationInvocations_RENAMED() {
 		return inlinedOperationInvocations;
 	}
 
