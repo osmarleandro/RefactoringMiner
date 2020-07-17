@@ -1995,7 +1995,7 @@ public class UMLModelDiff {
     	  removedOperations.addAll(removedClass.getOperations());
       }
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-    	  checkForOperationMoves(addedOperations, removedOperations);
+    	  checkForOperationMoves_RENAMED(addedOperations, removedOperations);
       }
    }
 
@@ -2009,7 +2009,7 @@ public class UMLModelDiff {
     	  removedOperations.addAll(removedClass.getOperations());
       }*/
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-    	  checkForOperationMoves(addedOperations, removedOperations);
+    	  checkForOperationMoves_RENAMED(addedOperations, removedOperations);
       }
    }
 
@@ -2017,7 +2017,7 @@ public class UMLModelDiff {
       List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
       List<UMLOperation> removedOperations = getRemovedOperationsInCommonMovedRenamedClasses();
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-    	  checkForOperationMoves(addedOperations, removedOperations);
+    	  checkForOperationMoves_RENAMED(addedOperations, removedOperations);
       }
    }
 
@@ -2045,7 +2045,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-		   checkForOperationMoves(addedOperations, removedOperations);
+		   checkForOperationMoves_RENAMED(addedOperations, removedOperations);
 	   }
    }
 
@@ -2067,7 +2067,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private void checkForOperationMoves(List<UMLOperation> addedOperations, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
+   private void checkForOperationMoves_RENAMED(List<UMLOperation> addedOperations, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
 	   if(addedOperations.size() <= removedOperations.size()) {
 	      for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
 	         UMLOperation addedOperation = addedOperationIterator.next();
