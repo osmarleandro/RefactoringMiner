@@ -27,7 +27,7 @@ public class CallTreeNode {
 		return invokedOperation;
 	}
 
-	public OperationInvocation getInvocation() {
+	public OperationInvocation getInvocation_RENAMED() {
 		return invocation;
 	}
 
