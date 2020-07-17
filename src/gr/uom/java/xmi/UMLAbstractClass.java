@@ -333,7 +333,7 @@ public abstract class UMLAbstractClass {
 		return locationInfo.getFilePath();
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 }
