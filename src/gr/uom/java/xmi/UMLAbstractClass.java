@@ -31,7 +31,7 @@ public abstract class UMLAbstractClass {
 		this.operations.add(operation);
 	}
 
-	public void addAttribute(UMLAttribute attribute) {
+	public void addAttribute_RENAMED(UMLAttribute attribute) {
 		this.attributes.add(attribute);
 	}
 
