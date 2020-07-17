@@ -40,11 +40,11 @@ public class VariableDeclarationReplacement extends Replacement {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((v1 == null) ? 0 : v1.hashCode());
-		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
+		int result = super.hashCode_RENAMED();
+		result = prime * result + ((v1 == null) ? 0 : v1.hashCode_RENAMED());
+		result = prime * result + ((v2 == null) ? 0 : v2.hashCode_RENAMED());
 		return result;
 	}
 
