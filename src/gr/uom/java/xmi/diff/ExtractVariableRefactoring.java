@@ -50,7 +50,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
+	public Set<AbstractCodeMapping> getReferences_RENAMED() {
 		return references;
 	}
 
