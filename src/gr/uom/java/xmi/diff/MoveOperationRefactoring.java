@@ -21,7 +21,7 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	public MoveOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
 		this.bodyMapper = bodyMapper;
-		this.originalOperation = bodyMapper.getOperation1();
+		this.originalOperation = bodyMapper.getOperation1_RENAMED();
 		this.movedOperation = bodyMapper.getOperation2();
 		this.replacements = bodyMapper.getReplacements();
 	}

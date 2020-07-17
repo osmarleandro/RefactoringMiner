@@ -31,7 +31,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.extractedOperation = bodyMapper.getOperation2();
-		this.sourceOperationBeforeExtraction = bodyMapper.getOperation1();
+		this.sourceOperationBeforeExtraction = bodyMapper.getOperation1_RENAMED();
 		this.sourceOperationAfterExtraction = sourceOperationAfterExtraction;
 		this.extractedOperationInvocations = operationInvocations;
 		this.replacements = bodyMapper.getReplacements();

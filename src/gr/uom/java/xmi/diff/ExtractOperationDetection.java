@@ -68,7 +68,7 @@ public class ExtractOperationDetection {
 			List<ExtractOperationRefactoring> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
-		CallTreeNode root = new CallTreeNode(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+		CallTreeNode root = new CallTreeNode(mapper.getOperation1_RENAMED(), addedOperation, addedOperationInvocation);
 		CallTree callTree = null;
 		if(callTreeMap.containsKey(root)) {
 			callTree = callTreeMap.get(root);
@@ -78,7 +78,7 @@ public class ExtractOperationDetection {
 			generateCallTree(addedOperation, root, callTree);
 			callTreeMap.put(root, callTree);
 		}
-		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
+		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1_RENAMED(), addedOperation, addedOperationInvocation);
 		if(operationBodyMapper != null) {
 			List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
 			List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
@@ -113,14 +113,14 @@ public class ExtractOperationDetection {
 					}
 				}
 			}
-			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1_RENAMED(), addedOperation, addedOperationInvocation);
 			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
 				}
 				else {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, addedOperation,
-							mapper.getOperation1(), mapper.getOperation2(), addedOperationInvocations));
+							mapper.getOperation1_RENAMED(), mapper.getOperation2(), addedOperationInvocations));
 				}
 			}
 		}

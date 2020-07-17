@@ -444,7 +444,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				addedLeaves1.add(statement);
 			}
 			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1_RENAMED().getAnonymousClassList();
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -601,7 +601,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public UMLOperation getOperation1() {
+	public UMLOperation getOperation1_RENAMED() {
 		return operation1;
 	}
 
