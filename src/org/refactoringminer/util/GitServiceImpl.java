@@ -200,7 +200,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
-		return this.createAllRevsWalk(repository, null);
+		return this.createAllRevsWalk_RENAMED(repository, null);
 	}
 
 	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
