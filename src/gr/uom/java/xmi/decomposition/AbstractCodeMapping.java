@@ -387,7 +387,7 @@ public abstract class AbstractCodeMapping {
 		if(initializer.toString().equals(output)) {
 			return true;
 		}
-		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString(), input);
+		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix_RENAMED(initializer.toString(), input);
 		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
 			String prefix1 = initializer.toString().substring(0, initializer.toString().indexOf(longestCommonSuffix));
 			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
