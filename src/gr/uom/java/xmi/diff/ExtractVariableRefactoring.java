@@ -54,7 +54,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return references;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(variableDeclaration);
@@ -129,7 +129,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("extracted variable declaration")
-				.setCodeElement(variableDeclaration.toString()));
+				.setCodeElement(variableDeclaration.toString_RENAMED()));
 		for(AbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
 		}
