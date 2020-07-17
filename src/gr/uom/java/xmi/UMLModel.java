@@ -59,7 +59,7 @@ public class UMLModel {
 		return realizationList;
 	}
 
-	public UMLGeneralization matchGeneralization(UMLGeneralization otherGeneralization) {
+	public UMLGeneralization matchGeneralization_RENAMED(UMLGeneralization otherGeneralization) {
     	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
     	while(generalizationIt.hasNext()) {
     		UMLGeneralization generalization = generalizationIt.next();
