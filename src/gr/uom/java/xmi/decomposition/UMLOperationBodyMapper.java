@@ -214,7 +214,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return childMappers;
 	}
 
-	public UMLOperationBodyMapper getParentMapper() {
+	public UMLOperationBodyMapper getParentMapper_RENAMED() {
 		return parentMapper;
 	}
 
