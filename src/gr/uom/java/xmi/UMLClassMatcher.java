@@ -1,7 +1,7 @@
 package gr.uom.java.xmi;
 
 public interface UMLClassMatcher {
-	public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile);
+	public boolean match_RENAMED(UMLClass removedClass, UMLClass addedClass, String renamedFile);
 
 	public static class Move implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {

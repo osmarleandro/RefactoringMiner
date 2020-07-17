@@ -441,7 +441,7 @@ public class UMLModelDiff {
 					   }
 				   }
 			   }
-			   if(matcher.match(removedClass, addedClass, renamedFile)) {
+			   if(matcher.match_RENAMED(removedClass, addedClass, renamedFile)) {
 				   if(!conflictingMoveOfTopLevelClass(removedClass, addedClass)) {
 					   UMLClassMoveDiff classMoveDiff = new UMLClassMoveDiff(removedClass, addedClass, this);
 					   diffSet.add(classMoveDiff);
@@ -494,7 +494,7 @@ public class UMLModelDiff {
          for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
             UMLClass addedClass = addedClassIterator.next();
             String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
-            if(matcher.match(removedClass, addedClass, renamedFile)) {
+            if(matcher.match_RENAMED(removedClass, addedClass, renamedFile)) {
                if(!conflictingMoveOfTopLevelClass(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
             	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
             	   diffSet.add(classRenameDiff);
