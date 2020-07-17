@@ -61,7 +61,7 @@ public abstract class AbstractCodeMapping {
 		return identicalWithInlinedVariable;
 	}
 
-	public boolean isExact() {
+	public boolean isExact_RENAMED() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
 				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
 	}
