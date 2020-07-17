@@ -1102,7 +1102,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					isPartOfMethodExtracted(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
 			}
-			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
+			else if(mappedElementsMoreThanNonMappedT1_RENAMED(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					isPartOfMethodInlined(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
@@ -1145,7 +1145,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					isPartOfMethodExtracted(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
 			}
-			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
+			else if(mappedElementsMoreThanNonMappedT1_RENAMED(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					isPartOfMethodInlined(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
@@ -1263,7 +1263,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				nonMappedElementsT2CallingAddedOperation >= nonMappedElementsT2WithoutThoseCallingAddedOperation);
 	}
 
-	private boolean mappedElementsMoreThanNonMappedT1(int mappings, UMLOperationBodyMapper operationBodyMapper) {
+	private boolean mappedElementsMoreThanNonMappedT1_RENAMED(int mappings, UMLOperationBodyMapper operationBodyMapper) {
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT1CallingRemovedOperation = operationBodyMapper.nonMappedElementsT1CallingRemovedOperation(removedOperations);
 		int nonMappedElementsT1WithoutThoseCallingRemovedOperation = nonMappedElementsT1 - nonMappedElementsT1CallingRemovedOperation;
