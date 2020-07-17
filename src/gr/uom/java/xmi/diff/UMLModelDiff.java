@@ -315,7 +315,7 @@ public class UMLModelDiff {
    }
 
    private boolean checkInheritanceRelationship(UMLType superclass, String finalSuperclass, Set<String> visitedClasses) {
-	   if(looksLikeSameType(superclass.getClassType(), finalSuperclass))
+	   if(looksLikeSameType_RENAMED(superclass.getClassType(), finalSuperclass))
 		   return true;
 	   else
 		   return isSubclassOf(superclass.getClassType(), finalSuperclass, visitedClasses);
@@ -754,10 +754,10 @@ public class UMLModelDiff {
 		   }
 		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
 		   for(UMLAttribute addedAttribute : addedAttributes) {
-			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
+			   if(looksLikeSameType_RENAMED(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
 				   count++;
 			   }
-			   if(targetSuperclass != null && looksLikeSameType(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
+			   if(targetSuperclass != null && looksLikeSameType_RENAMED(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
 				   count++;
 			   }
 		   }
@@ -1046,7 +1046,7 @@ public class UMLModelDiff {
          }
          for(UMLRealization addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
-			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
+			if(looksLikeSameType_RENAMED(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
                int implementedInterfaceOperations = 0;
                boolean clientImplementsSupplier = false;
@@ -1073,7 +1073,7 @@ public class UMLModelDiff {
    private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
-	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
+	   if(looksLikeSameType_RENAMED(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
 			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
@@ -1151,7 +1151,7 @@ public class UMLModelDiff {
 	   return true;
    }
 
-   public static boolean looksLikeSameType(String parent, String addedClassName) {
+   public static boolean looksLikeSameType_RENAMED(String parent, String addedClassName) {
       if (addedClassName.contains(".") && !parent.contains(".")) {
          return parent.equals(addedClassName.substring(addedClassName.lastIndexOf(".") + 1));
       }
@@ -2411,8 +2411,8 @@ public class UMLModelDiff {
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   && !looksLikeSameType_RENAMED(oldParameter.getType().getClassType(), addedOperation.getClassName())
+						   && !looksLikeSameType_RENAMED(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
 					   oldParameterNames.add(oldParameter.getName());
 				   }
@@ -2421,8 +2421,8 @@ public class UMLModelDiff {
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   !looksLikeSameType_RENAMED(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
+						   !looksLikeSameType_RENAMED(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
 					   newParameterNames.add(newParameter.getName());
 				   }
@@ -2452,8 +2452,8 @@ public class UMLModelDiff {
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   && !looksLikeSameType_RENAMED(oldParameter.getType().getClassType(), addedOperation.getClassName())
+						   && !looksLikeSameType_RENAMED(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   oldParameters.add(oldParameter);
 					   oldParameterNames.add(oldParameter.getName());
 				   }
@@ -2462,8 +2462,8 @@ public class UMLModelDiff {
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
 			   for (UMLParameter newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
+						   !looksLikeSameType_RENAMED(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
+						   !looksLikeSameType_RENAMED(newParameter.getType().getClassType(), removedOperation.getClassName())) {
 					   newParameters.add(newParameter);
 					   newParameterNames.add(newParameter.getName());
 				   }
