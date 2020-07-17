@@ -208,8 +208,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
     		if(attribute.getName().equals(otherAttribute.getName())) {
-    			String thisAttributeType = attribute.getType().getClassType();
-				String otherAttributeType = otherAttribute.getType().getClassType();
+    			String thisAttributeType = attribute.getType().getClassType_RENAMED();
+				String otherAttributeType = otherAttribute.getType().getClassType_RENAMED();
 				int thisArrayDimension = attribute.getType().getArrayDimension();
 				int otherArrayDimension = otherAttribute.getType().getArrayDimension();
 				String thisAttributeTypeComparedString = null;
@@ -239,8 +239,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     				int i = 0;
     				for(UMLParameter parameter : operation.getParameters()) {
     					UMLParameter otherParameter = otherOperation.getParameters().get(i);
-    					String thisParameterType = parameter.getType().getClassType();
-    					String otherParameterType = otherParameter.getType().getClassType();
+    					String thisParameterType = parameter.getType().getClassType_RENAMED();
+    					String otherParameterType = otherParameter.getType().getClassType_RENAMED();
     					int thisArrayDimension = parameter.getType().getArrayDimension();
     					int otherArrayDimension = otherParameter.getType().getArrayDimension();
     					String thisParameterTypeComparedString = null;
@@ -343,12 +343,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
 	public boolean isSubTypeOf(UMLClass umlClass) {
 		if(superclass != null) {
-			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
+			if(umlClass.getName().endsWith("." + superclass.getClassType_RENAMED())) {
 				return true;
 			}
 		}
 		for(UMLType implementedInterface : implementedInterfaces) {
-			if(umlClass.getName().endsWith("." + implementedInterface.getClassType())) {
+			if(umlClass.getName().endsWith("." + implementedInterface.getClassType_RENAMED())) {
 				return true;
 			}
 		}

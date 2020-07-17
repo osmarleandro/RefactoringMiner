@@ -59,7 +59,7 @@ public class CompositeType extends UMLType {
 	}
 
 	@Override
-	public String getClassType() {
-		return rightType.getClassType();
+	public String getClassType_RENAMED() {
+		return rightType.getClassType_RENAMED();
 	}
 }

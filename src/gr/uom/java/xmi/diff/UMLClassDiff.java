@@ -193,6 +193,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	public boolean matches(UMLType type) {
-		return this.className.endsWith("." + type.getClassType());
+		return this.className.endsWith("." + type.getClassType_RENAMED());
 	}
 }
