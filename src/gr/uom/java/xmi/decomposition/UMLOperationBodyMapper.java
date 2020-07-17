@@ -698,7 +698,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement() && !isTemporaryVariableAssignment_RENAMED(statement))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
@@ -707,13 +707,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement() && !isTemporaryVariableAssignment_RENAMED(statement))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount;
 	}
 
-	private boolean isTemporaryVariableAssignment(StatementObject statement) {
+	private boolean isTemporaryVariableAssignment_RENAMED(StatementObject statement) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
