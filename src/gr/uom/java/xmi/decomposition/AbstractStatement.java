@@ -14,7 +14,7 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     }
 
 	public String getString() {
-    	return toString();
+    	return toString_RENAMED();
     }
 
     public VariableDeclaration searchVariableDeclaration(String variableName) {

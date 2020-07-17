@@ -128,8 +128,8 @@ public abstract class AbstractCodeMapping {
 		return types;
 	}
 
-	public String toString() {
-		return fragment1.toString() + fragment2.toString();
+	public String toString_RENAMED() {
+		return fragment1.toString_RENAMED() + fragment2.toString_RENAMED();
 	}
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
@@ -164,7 +164,7 @@ public abstract class AbstractCodeMapping {
 					if(replacement.getBefore().endsWith(suffixAfter)) {
 						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
 						if(initializer != null) {
-							if(initializer.toString().equals(prefixBefore) ||
+							if(initializer.toString_RENAMED().equals(prefixBefore) ||
 									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
 								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 								processExtractVariableRefactoring(ref, refactorings);
@@ -176,8 +176,8 @@ public abstract class AbstractCodeMapping {
 					}
 				}
 				if(variableName.equals(replacement.getAfter()) && initializer != null) {
-					if(initializer.toString().equals(replacement.getBefore()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
+					if(initializer.toString_RENAMED().equals(replacement.getBefore()) ||
+							(initializer.toString_RENAMED().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
@@ -247,7 +247,7 @@ public abstract class AbstractCodeMapping {
 					if(replacement.getAfter().endsWith(suffixBefore)) {
 						String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
 						if(initializer != null) {
-							if(initializer.toString().equals(prefixAfter) ||
+							if(initializer.toString_RENAMED().equals(prefixAfter) ||
 									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
 								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 								processInlineVariableRefactoring(ref, refactorings);
@@ -259,8 +259,8 @@ public abstract class AbstractCodeMapping {
 					}
 				}
 				if(variableName.equals(replacement.getBefore()) && initializer != null) {
-					if(initializer.toString().equals(replacement.getAfter()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
+					if(initializer.toString_RENAMED().equals(replacement.getAfter()) ||
+							(initializer.toString_RENAMED().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
@@ -305,7 +305,7 @@ public abstract class AbstractCodeMapping {
 	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
 		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
 		for(TernaryOperatorExpression ternary : ternaryList) {
-			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
+			if(ternary.getThenExpression().toString_RENAMED().equals(replacedExpression) || ternary.getElseExpression().toString_RENAMED().equals(replacedExpression)) {
 				return true;
 			}
 		}
@@ -338,7 +338,7 @@ public abstract class AbstractCodeMapping {
 		else if(initializerInvocation == null && replacementInvocation != null) {
 			methodInvocationMatch = false;
 		}
-		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
+		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString_RENAMED());
 		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
@@ -379,41 +379,41 @@ public abstract class AbstractCodeMapping {
 			if(ref instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
-				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
-					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString_RENAMED())) {
+					output = output.replace(declaration.getInitializer().toString_RENAMED(), declaration.getVariableName());
 				}
 			}
 		}
-		if(initializer.toString().equals(output)) {
+		if(initializer.toString_RENAMED().equals(output)) {
 			return true;
 		}
-		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString(), input);
+		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString_RENAMED(), input);
 		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
-			String prefix1 = initializer.toString().substring(0, initializer.toString().indexOf(longestCommonSuffix));
+			String prefix1 = initializer.toString_RENAMED().substring(0, initializer.toString_RENAMED().indexOf(longestCommonSuffix));
 			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
 			//skip static variable prefixes
 			if(prefix1.equals(prefix2) || (!prefix1.toUpperCase().equals(prefix1) && !prefix2.toUpperCase().equals(prefix2))) {
 				return true;
 			}
 		}
-		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString(), input);
+		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString_RENAMED(), input);
 		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
-				!longestCommonPrefix.equals(initializer.toString()) && !longestCommonPrefix.equals(input) &&
-				!longestCommonSuffix.equals(initializer.toString()) && !longestCommonSuffix.equals(input) &&
+				!longestCommonPrefix.equals(initializer.toString_RENAMED()) && !longestCommonPrefix.equals(input) &&
+				!longestCommonSuffix.equals(initializer.toString_RENAMED()) && !longestCommonSuffix.equals(input) &&
 				longestCommonPrefix.length() + longestCommonSuffix.length() < input.length() &&
-				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString().length()) {
+				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString_RENAMED().length()) {
 			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
-			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
+			String s2 = initializer.toString_RENAMED().substring(longestCommonPrefix.length(), initializer.toString_RENAMED().lastIndexOf(longestCommonSuffix));
 			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
 				VariableDeclaration variable = statement.getVariableDeclaration(s2);
 				if(variable != null) {
-					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
+					if(variable.getInitializer() != null && variable.getInitializer().toString_RENAMED().equals(s1)) {
 						return true;
 					}
 					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();
 					for(TernaryOperatorExpression ternaryOperator : ternaryOperators) {
-						if(ternaryOperator.getThenExpression().toString().equals(s1) ||
-								ternaryOperator.getElseExpression().toString().equals(s1)) {
+						if(ternaryOperator.getThenExpression().toString_RENAMED().equals(s1) ||
+								ternaryOperator.getElseExpression().toString_RENAMED().equals(s1)) {
 							return true;
 						}
 					}
