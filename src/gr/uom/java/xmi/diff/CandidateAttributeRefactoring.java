@@ -103,8 +103,8 @@ public class CandidateAttributeRefactoring {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
+		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode_RENAMED());
+		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode_RENAMED());
 		result = prime * result + ((originalVariableName == null) ? 0 : originalVariableName.hashCode());
 		result = prime * result + ((renamedVariableName == null) ? 0 : renamedVariableName.hashCode());
 		return result;
