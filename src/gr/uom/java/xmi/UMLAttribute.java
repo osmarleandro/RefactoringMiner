@@ -61,7 +61,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.isStatic = isStatic;
 	}
 
-	public String getNonQualifiedClassName() {
+	public String getNonQualifiedClassName_RENAMED() {
 		return className.contains(".") ? className.substring(className.lastIndexOf(".")+1, className.length()) : className;
 	}
 
