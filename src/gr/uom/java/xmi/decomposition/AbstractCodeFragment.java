@@ -58,7 +58,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract VariableDeclaration searchVariableDeclaration(String variableName);
 	public abstract VariableDeclaration getVariableDeclaration(String variableName);
 	
-	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+	public void replaceParametersWithArguments_RENAMED(Map<String, String> parameterToArgumentMap) {
 		String afterReplacements = getString();
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);

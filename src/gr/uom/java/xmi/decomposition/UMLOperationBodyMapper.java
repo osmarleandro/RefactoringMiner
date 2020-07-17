@@ -114,14 +114,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
+					leave1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
-					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
+					leave2.replaceParametersWithArguments_RENAMED(parameterToArgumentMap2);
 				}
 			}
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
@@ -134,14 +134,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
+					innerNode1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(innerNodes2);
 			//replace parameters with arguments in innerNodes2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
-					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
+					innerNode2.replaceParametersWithArguments_RENAMED(parameterToArgumentMap2);
 				}
 			}
 			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
@@ -353,14 +353,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
+					leave1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
-					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
+					leave2.replaceParametersWithArguments_RENAMED(parameterToArgumentMap2);
 				}
 			}
 			//compare leaves from T1 with leaves from T2
@@ -385,14 +385,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
+					innerNode1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(innerNodes2);
 			//replace parameters with arguments in innerNode2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
-					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
+					innerNode2.replaceParametersWithArguments_RENAMED(parameterToArgumentMap2);
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
@@ -402,7 +402,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
 				for(AbstractExpression expression : composite.getExpressions()) {
-					expression.replaceParametersWithArguments(parameterToArgumentMap1);
+					expression.replaceParametersWithArguments_RENAMED(parameterToArgumentMap1);
 					expressionsT1.add(expression);
 				}
 			}
@@ -541,7 +541,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap);
+					leave1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap);
 				}
 			}
 			//compare leaves from T1 with leaves from T2
@@ -568,7 +568,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap);
+					innerNode1.replaceParametersWithArguments_RENAMED(parameterToArgumentMap);
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
