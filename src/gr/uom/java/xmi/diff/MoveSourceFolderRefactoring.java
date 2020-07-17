@@ -32,7 +32,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		return movedClassesToAnotherSourceFolder;
 	}
 
-	public RenamePattern getPattern() {
+	public RenamePattern getPattern_RENAMED() {
 		return pattern;
 	}
 

@@ -1228,7 +1228,7 @@ public class UMLModelDiff {
 			   RenamePattern renamePattern = refactoring.getRenamePattern();
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
 			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
-				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
+				   if(moveSourceFolderRefactoring.getPattern_RENAMED().equals(renamePattern)) {
 					   moveSourceFolderRefactoring.addMovedClassToAnotherSourceFolder(refactoring);
 					   foundInMatchingMoveSourceFolderRefactoring = true;
 					   break;
