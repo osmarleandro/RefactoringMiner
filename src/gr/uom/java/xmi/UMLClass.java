@@ -325,7 +325,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 	
-	public double normalizedSourceFolderDistance(UMLClass c) {
+	public double normalizedSourceFolderDistance_RENAMED(UMLClass c) {
 		String s1 = sourceFolder.toLowerCase();
 		String s2 = c.sourceFolder.toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
