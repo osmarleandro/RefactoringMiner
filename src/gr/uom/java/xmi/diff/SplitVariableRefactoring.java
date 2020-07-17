@@ -33,7 +33,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return splitVariables;
 	}
 
-	public VariableDeclaration getOldVariable() {
+	public VariableDeclaration getOldVariable_RENAMED() {
 		return oldVariable;
 	}
 

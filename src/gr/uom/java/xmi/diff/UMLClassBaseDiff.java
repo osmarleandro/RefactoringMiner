@@ -764,7 +764,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								}
 							}
 						}
-						if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable_RENAMED().getVariableName()) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
