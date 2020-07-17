@@ -419,12 +419,12 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public int statementCount() {
+	public int statementCount_RENAMED() {
 		int count = 0;
 		if(!this.getString().equals("{"))
 			count++;
 		for(AbstractStatement statement : statementList) {
-			count += statement.statementCount();
+			count += statement.statementCount_RENAMED();
 		}
 		return count;
 	}
