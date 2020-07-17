@@ -56,7 +56,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 				}
 			}
 		}
-		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
+		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType_RENAMED(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
@@ -83,7 +83,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 				this.annotations.add(new UMLAnnotation(cu, filePath, annotation));
 			}
 		}
-		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
+		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType_RENAMED(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
@@ -206,7 +206,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return null;
 	}
 
-	private static CodeElementType extractVariableDeclarationType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
+	private static CodeElementType extractVariableDeclarationType_RENAMED(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
 			return CodeElementType.SINGLE_VARIABLE_DECLARATION;
 		}
