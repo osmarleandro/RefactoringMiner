@@ -50,7 +50,7 @@ public class ResultComparator {
         return this;
     }
 
-    public ResultComparator dontExpect(RefactoringSet ... sets) {
+    public ResultComparator dontExpect_RENAMED(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
