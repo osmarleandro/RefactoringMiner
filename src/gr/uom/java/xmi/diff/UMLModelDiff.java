@@ -592,7 +592,7 @@ public class UMLModelDiff {
 		   for(UMLAttribute addedAttribute : addedAttributes) {
 			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
 			   for(UMLAttribute removedAttribute : removedAttributes) {
-				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
+				   MoveAttributeRefactoring candidate = processPairOfAttributes_RENAMED(addedAttribute, removedAttribute);
 				   if(candidate != null) {
 					   candidates.add(candidate);
 				   }
@@ -604,7 +604,7 @@ public class UMLModelDiff {
 		   for(UMLAttribute removedAttribute : removedAttributes) {
 			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
 			   for(UMLAttribute addedAttribute : addedAttributes) {
-				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
+				   MoveAttributeRefactoring candidate = processPairOfAttributes_RENAMED(addedAttribute, removedAttribute);
 				   if(candidate != null) {
 					   candidates.add(candidate);
 				   }
@@ -697,7 +697,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
+   private MoveAttributeRefactoring processPairOfAttributes_RENAMED(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
 		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
