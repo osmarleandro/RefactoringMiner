@@ -54,7 +54,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return references;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(variableDeclaration);
@@ -120,7 +120,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("inlined variable declaration")
-				.setCodeElement(variableDeclaration.toString()));
+				.setCodeElement(variableDeclaration.toString_RENAMED()));
 		for(AbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the name of the inlined variable"));
 		}
