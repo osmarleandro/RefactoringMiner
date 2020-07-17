@@ -179,21 +179,21 @@ public enum RefactoringType {
             case MOVE_OPERATION:
             case PULL_UP_OPERATION:
             case PUSH_DOWN_OPERATION: {
-                String entityBefore = methodKey(m.group(1), m.group(2));
-                String entityAfter = methodKey(m.group(3), m.group(4));
+                String entityBefore = methodKey_RENAMED(m.group(1), m.group(2));
+                String entityAfter = methodKey_RENAMED(m.group(3), m.group(4));
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
             case RENAME_METHOD:
             case INLINE_OPERATION: {
-                String entityBefore = methodKey(m.group(1), m.group(3));
-                String entityAfter = methodKey(m.group(2), m.group(3));
+                String entityBefore = methodKey_RENAMED(m.group(1), m.group(3));
+                String entityAfter = methodKey_RENAMED(m.group(2), m.group(3));
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
             case EXTRACT_OPERATION: {
-                String entityBefore = methodKey(m.group(2), m.group(3));
-                String entityAfter = methodKey(m.group(1), m.group(3));
+                String entityBefore = methodKey_RENAMED(m.group(2), m.group(3));
+                String entityAfter = methodKey_RENAMED(m.group(1), m.group(3));
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
@@ -222,7 +222,7 @@ public enum RefactoringType {
         }
     }
 
-    private static String methodKey(String methodSignature, String typeKey) {
+    private static String methodKey_RENAMED(String methodSignature, String typeKey) {
         return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
     }
 
