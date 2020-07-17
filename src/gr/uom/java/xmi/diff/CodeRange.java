@@ -88,7 +88,7 @@ public class CodeRange {
 		return subsumedStatements == statements.size();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
 		encodeStringProperty(sb, "filePath", filePath, false);
