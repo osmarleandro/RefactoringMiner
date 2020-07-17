@@ -188,7 +188,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return variableTypeMap;
 	}
 
-	public int statementCount() {
+	public int statementCount_RENAMED() {
 		if(operationBody != null)
 			return operationBody.statementCount();
 		return 0;
