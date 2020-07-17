@@ -206,7 +206,7 @@ public abstract class UMLAbstractClass {
 		if(this.isTestClass() && umlClass.isTestClass()) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
-		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
+		if(this.isSingleAbstractMethodInterface_RENAMED() && umlClass.isSingleAbstractMethodInterface_RENAMED()) {
 			return commonOperations.size() == totalOperations;
 		}
 		return (commonOperations.size() >= Math.floor(totalOperations/2.0) && (commonAttributes.size() > 2 || totalAttributes == 0)) ||
@@ -267,7 +267,7 @@ public abstract class UMLAbstractClass {
 		if(this.isTestClass() && umlClass.isTestClass()) {
 			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
 		}
-		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
+		if(this.isSingleAbstractMethodInterface_RENAMED() && umlClass.isSingleAbstractMethodInterface_RENAMED()) {
 			return commonOperations.size() == totalOperations;
 		}
 		return (commonOperations.size() > Math.floor(totalOperations/2.0) && (commonAttributes.size() > 2 || totalAttributes == 0)) ||
@@ -325,7 +325,7 @@ public abstract class UMLAbstractClass {
 		return attributesOfType;
 	}
 
-	public abstract boolean isSingleAbstractMethodInterface();
+	public abstract boolean isSingleAbstractMethodInterface_RENAMED();
 
 	public abstract boolean isInterface();
 	
