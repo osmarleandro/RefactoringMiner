@@ -35,7 +35,7 @@ public class RefactoringSet {
         return project;
     }
 
-    public String getRevision() {
+    public String getRevision_RENAMED() {
         return revision;
     }
 
