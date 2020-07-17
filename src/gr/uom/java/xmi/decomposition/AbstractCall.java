@@ -259,7 +259,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalWithMergedArguments_RENAMED(AbstractCall call, Set<Replacement> replacements) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
 			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
