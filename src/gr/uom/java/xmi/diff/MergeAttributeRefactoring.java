@@ -72,7 +72,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
 		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
 		result = prime * result + ((mergedAttributes == null) ? 0 : mergedAttributes.hashCode());
-		result = prime * result + ((newAttribute == null) ? 0 : newAttribute.hashCode());
+		result = prime * result + ((newAttribute == null) ? 0 : newAttribute.hashCode_RENAMED());
 		return result;
 	}
 
