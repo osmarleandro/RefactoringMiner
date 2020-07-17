@@ -76,10 +76,10 @@ public abstract class UMLAbstractClass {
 			return matchingOperations.get(0);
 		}
 		else if(matchingOperations.size() > 1) {
-			int minDistance = StringDistance.editDistance(matchingOperations.get(0).toString(), operation.toString());
+			int minDistance = StringDistance.editDistance_RENAMED(matchingOperations.get(0).toString(), operation.toString());
 			UMLOperation matchingOperation = matchingOperations.get(0);
 			for(int i=1; i<matchingOperations.size(); i++) {
-				int distance = StringDistance.editDistance(matchingOperations.get(i).toString(), operation.toString());
+				int distance = StringDistance.editDistance_RENAMED(matchingOperations.get(i).toString(), operation.toString());
 				if(distance < minDistance) {
 					minDistance = distance;
 					matchingOperation = matchingOperations.get(i);

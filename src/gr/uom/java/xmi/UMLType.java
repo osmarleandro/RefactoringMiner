@@ -164,7 +164,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	public double normalizedNameDistance(UMLType type) {
 		String s1 = this.toString();
 		String s2 = type.toString();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

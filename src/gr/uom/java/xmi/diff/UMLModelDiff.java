@@ -1939,12 +1939,12 @@ public class UMLModelDiff {
    private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
 	   String expression = invocation.getExpression();
 	   if(expression != null) {
-		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
+		   int originalDistance = StringDistance.editDistance_RENAMED(expression, addedOperation.getNonQualifiedClassName());
 		   for(UMLOperation operation : addedOperations) {
 			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
 			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
 			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
-				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
+				   int newDistance = StringDistance.editDistance_RENAMED(expression, operation.getNonQualifiedClassName());
 				   if(newDistance < originalDistance) {
 					   return true;
 				   }

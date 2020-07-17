@@ -8,7 +8,7 @@ public class StringDistance {
 		return new LevenshteinDistance(threshold).apply(a, b);
 	}
 
-	public static int editDistance(String a, String b) {
+	public static int editDistance_RENAMED(String a, String b) {
 		return new LevenshteinDistance().apply(a, b);
 	}
 }

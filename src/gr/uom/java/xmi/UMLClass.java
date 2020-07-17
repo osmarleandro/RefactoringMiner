@@ -312,7 +312,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	public double normalizedNameDistance(UMLClass c) {
 		String s1 = name.toLowerCase();
 		String s2 = c.name.toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
@@ -320,7 +320,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	public double normalizedPackageNameDistance(UMLClass c) {
 		String s1 = packageName.toLowerCase();
 		String s2 = c.packageName.toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
@@ -328,7 +328,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	public double normalizedSourceFolderDistance(UMLClass c) {
 		String s1 = sourceFolder.toLowerCase();
 		String s2 = c.sourceFolder.toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

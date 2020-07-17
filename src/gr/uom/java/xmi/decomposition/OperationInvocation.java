@@ -394,7 +394,7 @@ public class OperationInvocation extends AbstractCall {
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
 		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

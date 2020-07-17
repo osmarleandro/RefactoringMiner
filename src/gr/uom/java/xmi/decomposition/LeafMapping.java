@@ -24,7 +24,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		else {
 			String s1 = this.getFragment1().getString().toLowerCase();
 			String s2 = this.getFragment2().getString().toLowerCase();
-			int distance = StringDistance.editDistance(s1, s2);
+			int distance = StringDistance.editDistance_RENAMED(s1, s2);
 			distance1 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		
@@ -34,7 +34,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		else {
 			String s1 = o.getFragment1().getString().toLowerCase();
 			String s2 = o.getFragment2().getString().toLowerCase();
-			int distance = StringDistance.editDistance(s1, s2);
+			int distance = StringDistance.editDistance_RENAMED(s1, s2);
 			distance2 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		
@@ -90,19 +90,19 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		else if(parent1 == null && parent2 != null) {
 			String s2 = parent2.getString();
-			int distance = StringDistance.editDistance("{", s2);
+			int distance = StringDistance.editDistance_RENAMED("{", s2);
 			double normalized = (double)distance/(double)Math.max(1, s2.length());
 			return normalized;
 		}
 		else if(parent1 != null && parent2 == null) {
 			String s1 = parent1.getString();
-			int distance = StringDistance.editDistance(s1, "{");
+			int distance = StringDistance.editDistance_RENAMED(s1, "{");
 			double normalized = (double)distance/(double)Math.max(s1.length(), 1);
 			return normalized;
 		}
 		String s1 = parent1.getString();
 		String s2 = parent2.getString();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance.editDistance_RENAMED(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

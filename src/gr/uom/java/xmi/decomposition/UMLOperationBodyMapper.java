@@ -865,7 +865,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
 			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
 			if(!s1.equals(s2)) {
-				count += StringDistance.editDistance(s1, s2);
+				count += StringDistance.editDistance_RENAMED(s1, s2);
 			}
 		}
 		return count;
@@ -881,7 +881,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
 			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
 			if(!s1.equals(s2)) {
-				editDistance += StringDistance.editDistance(s1, s2);
+				editDistance += StringDistance.editDistance_RENAMED(s1, s2);
 				maxLength += Math.max(s1.length(), s2.length());
 			}
 		}
@@ -889,7 +889,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public int operationNameEditDistance() {
-		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
+		return StringDistance.editDistance_RENAMED(this.operation1.getName(), this.operation2.getName());
 	}
 
 	public Set<Replacement> getReplacements() {
@@ -1522,7 +1522,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			this.argumentizedString2 = argumentizedString2;
 			this.statements1 = statements1;
 			this.statements2 = statements2;
-			this.rawDistance = StringDistance.editDistance(argumentizedString1, argumentizedString2);
+			this.rawDistance = StringDistance.editDistance_RENAMED(argumentizedString1, argumentizedString2);
 			this.replacements = new LinkedHashSet<Replacement>();
 		}
 		public String getArgumentizedString1() {
@@ -1533,7 +1533,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		public void setArgumentizedString1(String string) {
 			this.argumentizedString1 = string;
-			this.rawDistance = StringDistance.editDistance(this.argumentizedString1, this.argumentizedString2);
+			this.rawDistance = StringDistance.editDistance_RENAMED(this.argumentizedString1, this.argumentizedString2);
 		}
 		public int getRawDistance() {
 			return rawDistance;
@@ -1820,7 +1820,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2(), minDistance);
 					boolean multipleInstances = ReplacementUtil.countInstances(temp, s2) > 1;
 					if(distanceRaw == -1 && multipleInstances) {
-						distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+						distanceRaw = StringDistance.editDistance_RENAMED(temp, replacementInfo.getArgumentizedString2());
 					}
 					boolean multipleInstanceRule = multipleInstances && Math.abs(s1.length() - s2.length()) == Math.abs(distanceRaw - minDistance) && !s1.equals(s2);
 					if(distanceRaw >= 0 && (distanceRaw < replacementInfo.getRawDistance() || multipleInstanceRule)) {
@@ -3736,7 +3736,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+					int distanceRaw = StringDistance.editDistance_RENAMED(temp, replacementInfo.getArgumentizedString2());
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
 						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());
@@ -3785,7 +3785,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+					int distanceRaw = StringDistance.editDistance_RENAMED(temp, replacementInfo.getArgumentizedString2());
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
 						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());
