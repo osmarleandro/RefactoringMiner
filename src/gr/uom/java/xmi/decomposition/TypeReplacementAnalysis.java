@@ -44,8 +44,8 @@ public class TypeReplacementAnalysis {
 					}
 				}
 			}
-			if(fragment1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
-					fragment2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+			if(fragment1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
+					fragment2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
 				List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
 				for(VariableDeclaration declaration1 : declarations1) {

@@ -1405,13 +1405,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				CompositeStatementObject parent1 = statement1.getParent();
 				CompositeStatementObject parent2 = statement2.getParent();
 				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
+						statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.SWITCH_CASE) &&
+						statement2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.SWITCH_CASE)) {
 					currentSwitchCase = mapping;
 				}
 				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT)) {
+						statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.BREAK_STATEMENT) &&
+						statement2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.BREAK_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
 							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
@@ -1424,8 +1424,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
+						statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.RETURN_STATEMENT) &&
+						statement2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.RETURN_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
 							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
@@ -1454,8 +1454,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					AbstractStatement statement2 = (AbstractStatement)fragment2;
 					CompositeStatementObject parent1 = statement1.getParent();
 					CompositeStatementObject parent2 = statement2.getParent();
-					if(parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT) &&
-							parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT)) {
+					if(parent1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.SWITCH_STATEMENT) &&
+							parent2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.SWITCH_STATEMENT)) {
 						if(switchParent1 == null && switchParent2 == null) {
 							switchParent1 = parent1;
 							switchParent2 = parent2;
@@ -1986,8 +1986,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			if(variableDeclarationsWithEverythingReplaced(variableDeclarations1, variableDeclarations2, replacementInfo) &&
-					!statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
-					!statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+					!statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
+					!statement2.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				return null;
 			}
 			if(variableAssignmentWithEverythingReplaced(statement1, statement2, replacementInfo)) {
@@ -4040,7 +4040,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(mapping.isExact()) {
 					boolean containsMapping = true;
 					if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-							statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+							statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 						CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
@@ -4068,7 +4068,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int childrenSize1 = compStatements1.size();
 		int childrenSize2 = compStatements2.size();
 		
-		if(parentMapper != null && comp1.getLocationInfo().getCodeElementType().equals(comp2.getLocationInfo().getCodeElementType()) &&
+		if(parentMapper != null && comp1.getLocationInfo().getCodeElementType_RENAMED().equals(comp2.getLocationInfo().getCodeElementType_RENAMED()) &&
 				childrenSize1 == 1 && childrenSize2 == 1 && !comp1.getString().equals("{") && !comp2.getString().equals("{")) {
 			if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
 				CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);

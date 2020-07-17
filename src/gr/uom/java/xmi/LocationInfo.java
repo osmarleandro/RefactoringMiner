@@ -71,14 +71,14 @@ public class LocationInfo {
 		return endColumn;
 	}
 
-	public CodeElementType getCodeElementType() {
+	public CodeElementType getCodeElementType_RENAMED() {
 		return codeElementType;
 	}
 
 	public CodeRange codeRange() {
 		return new CodeRange(getFilePath(),
 				getStartLine(), getEndLine(),
-				getStartColumn(), getEndColumn(), getCodeElementType());
+				getStartColumn(), getEndColumn(), getCodeElementType_RENAMED());
 	}
 
 	public boolean subsumes(LocationInfo other) {

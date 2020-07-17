@@ -92,7 +92,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(locationInfo.getCodeElementType().getName());
+		sb.append(locationInfo.getCodeElementType_RENAMED().getName());
 		if(expressionList.size() > 0) {
 			sb.append("(");
 			for(int i=0; i<expressionList.size()-1; i++) {
@@ -480,15 +480,15 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public boolean isLoop() {
-		return this.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
+		return this.locationInfo.getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType_RENAMED().equals(CodeElementType.FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType_RENAMED().equals(CodeElementType.WHILE_STATEMENT) ||
+				this.locationInfo.getCodeElementType_RENAMED().equals(CodeElementType.DO_STATEMENT);
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
-			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+			if(innerNode.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
 					if(declaration.getVariableName().equals(currentElementName)) {
@@ -507,8 +507,8 @@ public class CompositeStatementObject extends AbstractStatement {
 					return innerNode;
 				}
 			}
-			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
-					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
+			else if(innerNode.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.FOR_STATEMENT) ||
+					innerNode.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
 				for(AbstractExpression expression : innerNode.getExpressions()) {
 					if(expression.getVariables().contains(collectionName)) {

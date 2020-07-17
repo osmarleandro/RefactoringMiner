@@ -63,7 +63,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		ASTNode scopeNode = getScopeNode(fragment);
 		int startOffset = 0;
-		if(locationInfo.getCodeElementType().equals(CodeElementType.FIELD_DECLARATION)) {
+		if(locationInfo.getCodeElementType_RENAMED().equals(CodeElementType.FIELD_DECLARATION)) {
 			//field declarations have the entire type declaration as scope, regardless of the location they are declared
 			startOffset = scopeNode.getStartPosition();
 		}
@@ -250,7 +250,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	}
 
 	public boolean equalVariableDeclarationType(VariableDeclaration other) {
-		return this.locationInfo.getCodeElementType().equals(other.locationInfo.getCodeElementType());
+		return this.locationInfo.getCodeElementType_RENAMED().equals(other.locationInfo.getCodeElementType_RENAMED());
 	}
 
 	public VariableDeclaration getVariableDeclaration() {

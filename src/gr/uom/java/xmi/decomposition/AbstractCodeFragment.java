@@ -207,8 +207,8 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 					invocation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
 					return invocation;
 				}
-				else if(invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.SUPER_CONSTRUCTOR_INVOCATION) ||
-						invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.CONSTRUCTOR_INVOCATION)) {
+				else if(invocation.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.SUPER_CONSTRUCTOR_INVOCATION) ||
+						invocation.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.CONSTRUCTOR_INVOCATION)) {
 					invocation.coverage = StatementCoverageType.ONLY_CALL;
 					return invocation;
 				}

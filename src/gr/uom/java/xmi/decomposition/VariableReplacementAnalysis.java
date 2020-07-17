@@ -768,7 +768,7 @@ public class VariableReplacementAnalysis {
 			AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+					statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 				CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations());
@@ -860,7 +860,7 @@ public class VariableReplacementAnalysis {
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 						boolean containsMapping = true;
 						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+								statement1.getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());

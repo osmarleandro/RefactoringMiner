@@ -32,8 +32,8 @@ public class VariableReferenceExtractor {
 	public static Set<AbstractCodeMapping> findReturnReferences(Set<AbstractCodeMapping> mappings) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		for(AbstractCodeMapping mapping : mappings) {
-			if(mapping.getFragment1().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
-					mapping.getFragment2().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
+			if(mapping.getFragment1().getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.RETURN_STATEMENT) &&
+					mapping.getFragment2().getLocationInfo().getCodeElementType_RENAMED().equals(CodeElementType.RETURN_STATEMENT)) {
 				references.add(mapping);
 			}
 		}
