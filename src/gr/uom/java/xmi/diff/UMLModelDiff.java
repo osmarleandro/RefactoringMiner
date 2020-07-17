@@ -847,7 +847,7 @@ public class UMLModelDiff {
       return addedOperations;
    }
 
-   private List<UMLOperation> getAddedAndExtractedOperationsInCommonClasses() {
+   private List<UMLOperation> getAddedAndExtractedOperationsInCommonClasses_RENAMED() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          addedOperations.addAll(classDiff.getAddedOperations());
@@ -1464,7 +1464,7 @@ public class UMLModelDiff {
       checkForOperationMovesBetweenCommonClasses();
       checkForOperationMovesIncludingAddedClasses();
       checkForOperationMovesIncludingRemovedClasses();
-      checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
+      checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses_RENAMED());
       checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
       checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses());
       refactorings.addAll(checkForAttributeMovesBetweenCommonClasses());
@@ -1986,7 +1986,7 @@ public class UMLModelDiff {
    }
 
    private void checkForOperationMovesIncludingRemovedClasses() throws RefactoringMinerTimedOutException {
-      List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
+      List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses_RENAMED();
       /*for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }*/
@@ -2014,7 +2014,7 @@ public class UMLModelDiff {
    }
 
    private void checkForOperationMovesBetweenCommonClasses() throws RefactoringMinerTimedOutException {
-      List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
+      List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses_RENAMED();
       List<UMLOperation> removedOperations = getRemovedOperationsInCommonMovedRenamedClasses();
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
     	  checkForOperationMoves(addedOperations, removedOperations);
