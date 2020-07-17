@@ -262,7 +262,7 @@ public enum RefactoringType {
         }
     }
     
-    public static RefactoringType fromName(String name) {
+    public static RefactoringType fromName_RENAMED(String name) {
       String lcName = name.toLowerCase();
       for (RefactoringType rt : RefactoringType.values()) {
         if (lcName.equals(rt.getDisplayName().toLowerCase())) {

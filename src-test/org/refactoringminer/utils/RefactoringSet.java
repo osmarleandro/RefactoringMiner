@@ -117,7 +117,7 @@ public class RefactoringSet {
             while ((line = br.readLine()) != null) {
                 if (!line.isEmpty()) {
                     String[] array = line.split("\t");
-                    RefactoringType refactoringType = RefactoringType.fromName(array[0].trim());
+                    RefactoringType refactoringType = RefactoringType.fromName_RENAMED(array[0].trim());
                     String entityBefore = array[1].trim();
                     String entityAfter = array[2].trim();
                     add(refactoringType, entityBefore, entityAfter);
