@@ -690,7 +690,7 @@ public class VariableReplacementAnalysis {
 			boolean replacementBeforeNotFoundInMethodSignature = false;
 			String[] lines1 = fragment1.getString().split("\\n");
 			for(String line : lines1) {
-				line = prepareLine(line);
+				line = prepareLine_RENAMED(line);
 				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getBefore())) {
 					replacementBeforeNotFoundInMethodSignature = true;
@@ -700,7 +700,7 @@ public class VariableReplacementAnalysis {
 			boolean replacementAfterNotFoundInMethodSignature = false;
 			String[] lines2 = fragment2.getString().split("\\n");
 			for(String line : lines2) {
-				line = prepareLine(line);
+				line = prepareLine_RENAMED(line);
 				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getAfter())) {
 					replacementAfterNotFoundInMethodSignature = true;
@@ -712,7 +712,7 @@ public class VariableReplacementAnalysis {
 		return true;
 	}
 
-	public static String prepareLine(String line) {
+	public static String prepareLine_RENAMED(String line) {
 		line = line.trim();
 		if(line.startsWith("@Nullable")) {
 			line = line.substring(9, line.length());

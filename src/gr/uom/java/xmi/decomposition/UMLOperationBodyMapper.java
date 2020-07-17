@@ -3922,7 +3922,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return true;
 		}
 		for(String line : lines) {
-			line = VariableReplacementAnalysis.prepareLine(line);
+			line = VariableReplacementAnalysis.prepareLine_RENAMED(line);
 			if(Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches()) {
 				return true;
 			}
