@@ -852,7 +852,7 @@ public class Visitor extends ASTVisitor {
 		return ternaryOperatorExpressions;
 	}
 
-	public List<String> getVariables() {
+	public List<String> getVariables_RENAMED() {
 		return variables;
 	}
 

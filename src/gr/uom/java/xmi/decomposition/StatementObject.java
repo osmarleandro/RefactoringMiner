@@ -47,7 +47,7 @@ public class StatementObject extends AbstractStatement {
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
 		Visitor visitor = new Visitor(cu, filePath);
 		statement.accept(visitor);
-		this.variables = visitor.getVariables();
+		this.variables = visitor.getVariables_RENAMED();
 		this.types = visitor.getTypes();
 		this.variableDeclarations = visitor.getVariableDeclarations();
 		this.methodInvocationMap = visitor.getMethodInvocationMap();
