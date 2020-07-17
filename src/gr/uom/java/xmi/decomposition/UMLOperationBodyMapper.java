@@ -1309,7 +1309,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<LeafMapping> mappingsToBeAdded = new LinkedHashSet<LeafMapping>();
 			for(LeafMapping variableDeclarationMapping : postponed) {
 				for(AbstractCodeMapping previousMapping : this.mappings) {
-					Set<Replacement> intersection = variableDeclarationMapping.commonReplacements(previousMapping);
+					Set<Replacement> intersection = variableDeclarationMapping.commonReplacements_RENAMED(previousMapping);
 					if(!intersection.isEmpty()) {
 						for(Replacement commonReplacement : intersection) {
 							if(commonReplacement.getType().equals(ReplacementType.VARIABLE_NAME) &&

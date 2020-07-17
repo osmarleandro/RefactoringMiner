@@ -423,7 +423,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
+	public Set<Replacement> commonReplacements_RENAMED(AbstractCodeMapping other) {
 		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
 		intersection.retainAll(other.replacements);
 		return intersection;
