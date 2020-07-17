@@ -67,7 +67,7 @@ public class ResultComparator {
 
     
     
-    public void printSummary(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
+    public void printSummary_RENAMED(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
         for (String groupId : groupIds) {
             CompareResult r = getCompareResult(groupId, refTypesToConsider);
             out.println("# " + groupId + " #");
