@@ -306,7 +306,7 @@ public class TestBuilder {
 			List<Refactoring> filteredRefactorings = new ArrayList<>();
 
 			for (Refactoring refactoring : refactorings) {
-				BigInteger value = Enum.valueOf(Refactorings.class, refactoring.getName().replace(" ", "")).getValue();
+				BigInteger value = Enum.valueOf(Refactorings.class, refactoring.getName_RENAMED().replace(" ", "")).getValue();
 				if (value.and(refactoringFilter).compareTo(BigInteger.ZERO) == 1) {
 					filteredRefactorings.add(refactoring);
 				}
