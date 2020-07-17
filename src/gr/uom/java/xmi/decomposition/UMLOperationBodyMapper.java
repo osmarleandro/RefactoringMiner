@@ -2477,7 +2477,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		if(variableDeclarationWithArrayInitializer1 != null && invocationCoveringTheEntireStatement2 != null && variableDeclarations2.isEmpty() &&
-				!containsMethodSignatureOfAnonymousClass(statement1.getString()) && !containsMethodSignatureOfAnonymousClass(statement2.getString())) {
+				!containsMethodSignatureOfAnonymousClass_RENAMED(statement1.getString()) && !containsMethodSignatureOfAnonymousClass_RENAMED(statement2.getString())) {
 			String args1 = s1.substring(s1.indexOf("{")+1, s1.lastIndexOf("}"));
 			String args2 = s2.substring(s2.indexOf("(")+1, s2.lastIndexOf(")"));
 			if(args1.equals(args2)) {
@@ -2487,7 +2487,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		if(variableDeclarationWithArrayInitializer2 != null && invocationCoveringTheEntireStatement1 != null && variableDeclarations1.isEmpty() &&
-				!containsMethodSignatureOfAnonymousClass(statement1.getString()) && !containsMethodSignatureOfAnonymousClass(statement2.getString())) {
+				!containsMethodSignatureOfAnonymousClass_RENAMED(statement1.getString()) && !containsMethodSignatureOfAnonymousClass_RENAMED(statement2.getString())) {
 			String args1 = s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")"));
 			String args2 = s2.substring(s2.indexOf("{")+1, s2.lastIndexOf("}"));
 			if(args1.equals(args2)) {
@@ -2738,10 +2738,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
-		if(containsMethodSignatureOfAnonymousClass(string1)) {
+		if(containsMethodSignatureOfAnonymousClass_RENAMED(string1)) {
 			string1 = string1.substring(0, string1.indexOf("\n"));
 		}
-		if(containsMethodSignatureOfAnonymousClass(string2)) {
+		if(containsMethodSignatureOfAnonymousClass_RENAMED(string2)) {
 			string2 = string2.substring(0, string2.indexOf("\n"));
 		}
 		if(string1.contains("=") && string1.endsWith(";\n") && string2.startsWith("return ") && string2.endsWith(";\n")) {
@@ -2855,10 +2855,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			ReplacementInfo replacementInfo) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
-		if(containsMethodSignatureOfAnonymousClass(string1)) {
+		if(containsMethodSignatureOfAnonymousClass_RENAMED(string1)) {
 			string1 = string1.substring(0, string1.indexOf("\n"));
 		}
-		if(containsMethodSignatureOfAnonymousClass(string2)) {
+		if(containsMethodSignatureOfAnonymousClass_RENAMED(string2)) {
 			string2 = string2.substring(0, string2.indexOf("\n"));
 		}
 		if(string1.contains("=") && string1.endsWith(";\n") && string2.contains("=") && string2.endsWith(";\n")) {
@@ -3089,8 +3089,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			//if there is a variable replacement diff1 should be empty, otherwise diff1 should include a single variable
 			if(diff1.isEmpty() ||
-					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
-					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
+					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass_RENAMED(diff2)) ||
+					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass_RENAMED(diff2))) {
 				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
 				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
 					if(diff2.contains(addedParameter.getName())) {
@@ -3467,7 +3467,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean commonConcat(String s1, String s2, ReplacementInfo info) {
 		if(s1.contains("+") && s2.contains("+") && !s1.contains("++") && !s2.contains("++") &&
-				!containsMethodSignatureOfAnonymousClass(s1) && !containsMethodSignatureOfAnonymousClass(s2)) {
+				!containsMethodSignatureOfAnonymousClass_RENAMED(s1) && !containsMethodSignatureOfAnonymousClass_RENAMED(s2)) {
 			Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(s1.split(SPLIT_CONCAT_STRING_PATTERN)));
 			Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(s2.split(SPLIT_CONCAT_STRING_PATTERN)));
 			Set<String> intersection = new LinkedHashSet<String>(tokens1);
@@ -3497,7 +3497,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean commonConditional(String s1, String s2, ReplacementInfo info) {
-		if(!containsMethodSignatureOfAnonymousClass(s1) && !containsMethodSignatureOfAnonymousClass(s2)) {
+		if(!containsMethodSignatureOfAnonymousClass_RENAMED(s1) && !containsMethodSignatureOfAnonymousClass_RENAMED(s2)) {
 			if((s1.contains("||") || s1.contains("&&") || s2.contains("||") || s2.contains("&&"))) {
 				String conditional1 = prepareConditional(s1);
 				String conditional2 = prepareConditional(s2);
@@ -3729,8 +3729,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(Thread.interrupted()) {
 						throw new RefactoringMinerTimedOutException();
 					}
-					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
-					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
+					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass_RENAMED(s1);
+					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass_RENAMED(s2);
 					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
 							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
 						continue;
@@ -3778,8 +3778,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(Thread.interrupted()) {
 						throw new RefactoringMinerTimedOutException();
 					}
-					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
-					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
+					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass_RENAMED(s1);
+					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass_RENAMED(s2);
 					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
 							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
 						continue;
@@ -3916,7 +3916,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return replacements;
 	}
 
-	public static boolean containsMethodSignatureOfAnonymousClass(String s) {
+	public static boolean containsMethodSignatureOfAnonymousClass_RENAMED(String s) {
 		String[] lines = s.split("\\n");
 		if(s.contains(" -> ") && lines.length > 1) {
 			return true;
