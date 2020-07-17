@@ -33,7 +33,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		return mergedVariables;
 	}
 
-	public VariableDeclaration getNewVariable() {
+	public VariableDeclaration getNewVariable_RENAMED() {
 		return newVariable;
 	}
 
