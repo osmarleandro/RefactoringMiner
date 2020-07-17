@@ -106,7 +106,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations_RENAMED() {
 		return anonymousClassDeclarations;
 	}
 
