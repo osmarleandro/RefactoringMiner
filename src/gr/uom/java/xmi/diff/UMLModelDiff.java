@@ -2021,7 +2021,7 @@ public class UMLModelDiff {
       }
    }
 
-   private void checkForOperationMovesBetweenRemovedAndAddedClasses() throws RefactoringMinerTimedOutException {
+   private void checkForOperationMovesBetweenRemovedAndAddedClasses_RENAMED() throws RefactoringMinerTimedOutException {
 	   Set<UMLType> interfacesImplementedByAddedClasses = new LinkedHashSet<UMLType>();
 	   for(UMLClass addedClass : addedClasses) {
 		   interfacesImplementedByAddedClasses.addAll(addedClass.getImplementedInterfaces());
