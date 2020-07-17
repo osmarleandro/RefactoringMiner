@@ -1645,8 +1645,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		Set<String> creations1 = new LinkedHashSet<String>(creationMap1.keySet());
 		Set<String> creations2 = new LinkedHashSet<String>(creationMap2.keySet());
 		
-		Set<String> arguments1 = new LinkedHashSet<String>(statement1.getArguments());
-		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments());
+		Set<String> arguments1 = new LinkedHashSet<String>(statement1.getArguments_RENAMED());
+		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments_RENAMED());
 		removeCommonElements(arguments1, arguments2);
 		
 		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
