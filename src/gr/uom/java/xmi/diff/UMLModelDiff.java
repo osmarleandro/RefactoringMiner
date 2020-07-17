@@ -644,7 +644,7 @@ public class UMLModelDiff {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> groupBySourceFilePath = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
 	   for(MoveAttributeRefactoring ref : refs) {
-		   String sourceFilePath = ref.getOriginalAttribute().getLocationInfo().getFilePath();
+		   String sourceFilePath = ref.getOriginalAttribute_RENAMED().getLocationInfo().getFilePath();
 		   if(groupBySourceFilePath.containsKey(sourceFilePath)) {
 			   groupBySourceFilePath.get(sourceFilePath).add(ref);
 		   }
@@ -658,7 +658,7 @@ public class UMLModelDiff {
 		   List<MoveAttributeRefactoring> sourceFilePathGroup = groupBySourceFilePath.get(sourceFilePath);
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> groupByLongestCommonSourceFilePath = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring ref : sourceFilePathGroup) {
-			   String longestCommonFilePathPrefix = PrefixSuffixUtils.longestCommonPrefix(ref.getOriginalAttribute().getLocationInfo().getFilePath(),
+			   String longestCommonFilePathPrefix = PrefixSuffixUtils.longestCommonPrefix(ref.getOriginalAttribute_RENAMED().getLocationInfo().getFilePath(),
 					   ref.getMovedAttribute().getLocationInfo().getFilePath());
 			   int length = longestCommonFilePathPrefix.length();
 			   if(groupByLongestCommonSourceFilePath.containsKey(length)) {
