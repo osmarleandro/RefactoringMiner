@@ -107,7 +107,7 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
+    public UMLModelDiff diff_RENAMED(UMLModel umlModel) throws RefactoringMinerTimedOutException {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
     }
 
