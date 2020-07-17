@@ -172,7 +172,7 @@ public class ResultComparator {
                 allList.addAll(all);
                 Collections.sort(allList);
                 for (RefactoringRelationship r : allList) {
-                    out.print(r.toString());
+                    out.print(r.toString_RENAMED());
                     for (String groupId : groupIds) {
                         RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
                         out.print('\t');
@@ -313,15 +313,15 @@ public class ResultComparator {
         }
 
         public int getTPCount(RefactoringType rt) {
-            return (int) this.truePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.truePositives.stream().filter(r -> r.toString_RENAMED().startsWith(rt.getDisplayName())).count();
         }
 
         public int getFPCount(RefactoringType rt) {
-            return (int) this.falsePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.falsePositives.stream().filter(r -> r.toString_RENAMED().startsWith(rt.getDisplayName())).count();
         }
 
         public int getFNCount(RefactoringType rt) {
-            return (int) this.falseNegatives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.falseNegatives.stream().filter(r -> r.toString_RENAMED().startsWith(rt.getDisplayName())).count();
         }
     }
 
