@@ -27,7 +27,7 @@ public class MovedClassToAnotherSourceFolder {
 		return movedClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
+	public UMLClass getOriginalClass_RENAMED() {
 		return originalClass;
 	}
 
