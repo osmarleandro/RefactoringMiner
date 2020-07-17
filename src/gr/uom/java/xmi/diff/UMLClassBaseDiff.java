@@ -544,7 +544,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
-								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
+								!attributeMerged_RENAMED(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
 							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 							if(!refactorings.containsAll(attributeDiffRefactorings)) {
@@ -798,7 +798,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return newRefactorings;
 	}
 
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
+	private boolean attributeMerged_RENAMED(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
