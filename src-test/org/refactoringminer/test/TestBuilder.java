@@ -100,7 +100,7 @@ public class TestBuilder {
 		return projectMatcher;
 	}
 
-	public void assertExpectations() throws Exception {
+	public void assertExpectations_RENAMED() throws Exception {
 		c = new Counter();
 		cMap = new HashMap<RefactoringType, Counter>();
 		commitsCount = 0;
