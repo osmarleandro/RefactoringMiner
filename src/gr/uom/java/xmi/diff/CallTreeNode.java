@@ -50,7 +50,7 @@ public class CallTreeNode {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -61,17 +61,17 @@ public class CallTreeNode {
 		if (invocation == null) {
 			if (other.invocation != null)
 				return false;
-		} else if (!invocation.equals(other.invocation))
+		} else if (!invocation.equals_RENAMED(other.invocation))
 			return false;
 		if (invokedOperation == null) {
 			if (other.invokedOperation != null)
 				return false;
-		} else if (!invokedOperation.equals(other.invokedOperation))
+		} else if (!invokedOperation.equals_RENAMED(other.invokedOperation))
 			return false;
 		if (originalOperation == null) {
 			if (other.originalOperation != null)
 				return false;
-		} else if (!originalOperation.equals(other.originalOperation))
+		} else if (!originalOperation.equals_RENAMED(other.originalOperation))
 			return false;
 		return true;
 	}
