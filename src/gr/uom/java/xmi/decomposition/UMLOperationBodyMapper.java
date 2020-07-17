@@ -1100,7 +1100,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(String key : parameterToArgumentMap.keySet()) {
 			String value = parameterToArgumentMap.get(key);
 			if(!key.equals(value) && ReplacementUtil.contains(statement2.getString(), key) && ReplacementUtil.contains(statement1.getString(), value)) {
-				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
+				mapping.addReplacement_RENAMED(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
 		return mapping;
@@ -1483,7 +1483,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(String key : parameterToArgumentMap.keySet()) {
 			String value = parameterToArgumentMap.get(key);
 			if(!key.equals(value) && ReplacementUtil.contains(leaf2.getString(), key) && ReplacementUtil.contains(leaf1.getString(), value)) {
-				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
+				mapping.addReplacement_RENAMED(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
 		return mapping;

@@ -99,7 +99,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public void addReplacement(Replacement replacement) {
+	public void addReplacement_RENAMED(Replacement replacement) {
 		this.replacements.add(replacement);
 	}
 
