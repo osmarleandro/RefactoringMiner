@@ -60,7 +60,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<StatementObject> getLeaves() {
 		List<StatementObject> leaves = new ArrayList<StatementObject>();
 		for(AbstractStatement statement : statementList) {
-			leaves.addAll(statement.getLeaves());
+			leaves.addAll(statement.getLeaves_RENAMED());
 		}
 		return leaves;
 	}
@@ -79,7 +79,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public boolean contains(AbstractCodeFragment fragment) {
 		if(fragment instanceof StatementObject) {
-			return getLeaves().contains(fragment);
+			return getLeaves_RENAMED().contains(fragment);
 		}
 		else if(fragment instanceof CompositeStatementObject) {
 			return getInnerNodes().contains(fragment);
@@ -445,7 +445,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
-		for(StatementObject statement : getLeaves()) {
+		for(StatementObject statement : getLeaves_RENAMED()) {
 			String s = statement.getString();
 			if(s.startsWith("this.") && s.endsWith(";\n")) {
 				String firstLine = s.substring(0, s.indexOf("\n"));
@@ -517,7 +517,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean currentElementNameMatched = false;
-				for(StatementObject statement : innerNode.getLeaves()) {
+				for(StatementObject statement : innerNode.getLeaves_RENAMED()) {
 					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;

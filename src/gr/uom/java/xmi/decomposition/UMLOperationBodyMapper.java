@@ -87,8 +87,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(body1 != null && body2 != null) {
 			CompositeStatementObject composite1 = body1.getCompositeStatement();
 			CompositeStatementObject composite2 = body2.getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject> leaves1 = composite1.getLeaves_RENAMED();
+			List<StatementObject> leaves2 = composite2.getLeaves_RENAMED();
 			
 			UMLOperationDiff operationDiff = new UMLOperationDiff(operation1, operation2);
 			Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
@@ -182,8 +182,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		else if(lambda1.getBody() != null && lambda2.getBody() != null) {
 			CompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
 			CompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject> leaves1 = composite1.getLeaves_RENAMED();
+			List<StatementObject> leaves2 = composite2.getLeaves_RENAMED();
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
@@ -299,7 +299,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					expandAnonymousAndLambdas(fragment, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 				}
 			}
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject> leaves2 = composite2.getLeaves_RENAMED();
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
@@ -309,7 +309,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves_RENAMED();
 								for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 									if(!leaves2.contains(anonymousLeaf)) {
 										addedLeaves2.add(anonymousLeaf);
@@ -330,7 +330,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(!statement.getLambdas().isEmpty()) {
 					for(LambdaExpressionObject lambda : statement.getLambdas()) {
 						if(lambda.getBody() != null) {
-							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves_RENAMED();
 							for(StatementObject lambdaLeaf : lambdaLeaves) {
 								if(!leaves2.contains(lambdaLeaf)) {
 									addedLeaves2.add(lambdaLeaf);
@@ -448,7 +448,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves_RENAMED();
 							for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 								if(!leaves1.contains(anonymousLeaf)) {
 									leaves1.add(anonymousLeaf);
@@ -471,7 +471,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!statement.getLambdas().isEmpty()) {
 				for(LambdaExpressionObject lambda : statement.getLambdas()) {
 					if(lambda.getBody() != null) {
-						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves_RENAMED();
 						for(StatementObject lambdaLeaf : lambdaLeaves) {
 							if(!leaves1.contains(lambdaLeaf)) {
 								leaves1.add(lambdaLeaf);
@@ -509,7 +509,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		OperationBody removedOperationBody = removedOperation.getBody();
 		if(removedOperationBody != null) {
 			CompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
+			List<StatementObject> leaves1 = composite1.getLeaves_RENAMED();
 			List<StatementObject> leaves2 = operationBodyMapper.getNonMappedLeavesT2();
 			//adding leaves that were mapped with replacements or are inexact matches
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
@@ -2672,7 +2672,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(LambdaExpressionObject lambda : statement.getLambdas()) {
 				OperationBody body = lambda.getBody();
 				if(body != null) {
-					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
+					List<StatementObject> leaves = body.getCompositeStatement().getLeaves_RENAMED();
 					for(StatementObject leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
@@ -2706,7 +2706,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(UMLOperation anonymousOperation : anonymousOperations) {
 				OperationBody body = anonymousOperation.getBody();
 				if(body != null) {
-					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
+					List<StatementObject> leaves = body.getCompositeStatement().getLeaves_RENAMED();
 					for(StatementObject leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo()) ||
@@ -4086,8 +4086,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		if(mappedChildrenSize == 0) {
-			List<StatementObject> leaves1 = comp1.getLeaves();
-			List<StatementObject> leaves2 = comp2.getLeaves();
+			List<StatementObject> leaves1 = comp1.getLeaves_RENAMED();
+			List<StatementObject> leaves2 = comp2.getLeaves_RENAMED();
 			int leaveSize1 = leaves1.size();
 			int leaveSize2 = leaves2.size();
 			int mappedLeavesSize = 0;

@@ -28,6 +28,6 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     	return null;
     }
 
-    public abstract List<StatementObject> getLeaves();
+    public abstract List<StatementObject> getLeaves_RENAMED();
     public abstract int statementCount();
 }
