@@ -610,7 +610,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			else {
 				path = pathFromRoot + "/" + entry.getPath();
 			}
-			if(atLeastOneStartsWith(targetPaths, path)) {
+			if(atLeastOneStartsWith_RENAMED(targetPaths, path)) {
 				if(targetPaths.contains(path)) {
 					repositoryDirectories.add(path);
 				}
@@ -625,7 +625,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	private boolean atLeastOneStartsWith(Set<String> targetPaths, String path) {
+	private boolean atLeastOneStartsWith_RENAMED(Set<String> targetPaths, String path) {
 		for(String targetPath : targetPaths) {
 			if(path.endsWith("/") && targetPath.startsWith(path)) {
 				return true;
