@@ -130,7 +130,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedAttribute.codeRange()
 				.setDescription("renamed attribute declaration")
