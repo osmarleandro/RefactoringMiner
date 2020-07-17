@@ -761,7 +761,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return operationsInsideAnonymousClass;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 
