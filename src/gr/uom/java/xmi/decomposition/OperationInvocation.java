@@ -288,7 +288,7 @@ public class OperationInvocation extends AbstractCall {
     	return true;
     }
 
-    public boolean containsVeryLongSubExpression() {
+    public boolean containsVeryLongSubExpression_RENAMED() {
     	for(String expression : subExpressions) {
     		if(expression.length() > 100 && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(expression)) {
     			return true;

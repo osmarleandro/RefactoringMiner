@@ -549,7 +549,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	private boolean complexInvocation(OperationInvocation invocation) {
-		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
+		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression_RENAMED()) ||
 				invocation.numberOfSubExpressions() > 15;
 	}
 
