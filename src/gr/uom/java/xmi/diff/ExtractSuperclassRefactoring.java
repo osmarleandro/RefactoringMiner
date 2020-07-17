@@ -71,7 +71,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
+	public List<CodeRange> leftSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(UMLClass subclass : subclassSet) {
 			ranges.add(subclass.codeRange()
