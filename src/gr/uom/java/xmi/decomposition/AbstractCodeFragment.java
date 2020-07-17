@@ -79,7 +79,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 						}
 						String beforeMatch = afterReplacements.substring(0, start);
 						String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
-						if(quoteBefore(beforeMatch) && quoteAfter(afterMatch)) {
+						if(quoteBefore_RENAMED(beforeMatch) && quoteAfter(afterMatch)) {
 							isInsideStringLiteral = true;
 						}
 					}
@@ -97,7 +97,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 	}
 
-	private static boolean quoteBefore(String beforeMatch) {
+	private static boolean quoteBefore_RENAMED(String beforeMatch) {
 		if(beforeMatch.contains("\"")) {
 			if(beforeMatch.contains("+")) {
 				int indexOfQuote = beforeMatch.lastIndexOf("\"");
