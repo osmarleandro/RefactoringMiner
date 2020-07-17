@@ -48,7 +48,7 @@ public class CandidateMergeVariableRefactoring {
 		return mergedAttributes;
 	}
 
-	public void setMergedAttributes(Set<UMLAttribute> mergedAttributes) {
+	public void setMergedAttributes_RENAMED(Set<UMLAttribute> mergedAttributes) {
 		this.mergedAttributes = mergedAttributes;
 	}
 
