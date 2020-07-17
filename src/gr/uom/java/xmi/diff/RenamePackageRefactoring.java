@@ -45,7 +45,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		String originalPath = pattern.getBefore().endsWith(".") ? pattern.getBefore().substring(0, pattern.getBefore().length()-1) : pattern.getBefore();
