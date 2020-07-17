@@ -192,7 +192,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return locationInfo;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 
