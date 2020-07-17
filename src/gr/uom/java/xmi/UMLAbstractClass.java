@@ -23,7 +23,7 @@ public abstract class UMLAbstractClass {
         this.attributes = new ArrayList<UMLAttribute>();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
