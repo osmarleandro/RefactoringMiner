@@ -137,7 +137,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				populateFileContents(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
 				UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
 				
-				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings_RENAMED();
 				refactoringsAtRevision = filter(refactoringsAtRevision);
 			} else {
 				//logger.info(String.format("Ignored revision %s with no changes in java files", commitId));
@@ -199,7 +199,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
 				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
 				// Diff between currentModel e parentModel
-				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings_RENAMED();
 				refactoringsAtRevision = filter(refactoringsAtRevision);
 			}
 			else {
@@ -488,7 +488,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
 			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 			//  Diff between currentModel e parentModel
-			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings_RENAMED();
 			refactoringsAtRevision = filter(refactoringsAtRevision);
 		}
 		catch(RefactoringMinerTimedOutException e) {

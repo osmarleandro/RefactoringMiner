@@ -1278,7 +1278,7 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   public List<Refactoring> getRefactorings() throws RefactoringMinerTimedOutException {
+   public List<Refactoring> getRefactorings_RENAMED() throws RefactoringMinerTimedOutException {
       Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
       refactorings.addAll(getMoveClassRefactorings());
       refactorings.addAll(getRenameClassRefactorings());
