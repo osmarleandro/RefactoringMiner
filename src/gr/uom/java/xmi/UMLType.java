@@ -105,7 +105,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 
-	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
+	protected boolean equalTypeArgumentsAndArrayDimensionForSubType_RENAMED(UMLType typeObject) {
 		if(!this.isParameterized() && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
 		else if(this.isParameterized() && typeObject.isParameterized())
