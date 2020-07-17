@@ -44,7 +44,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public abstract double normalizedNameDistance(AbstractCall call);
 	public abstract AbstractCall update(String oldExpression, String newExpression);
 
-	public String actualString() {
+	public String actualString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(expression != null) {
 			sb.append(expression).append(".");
