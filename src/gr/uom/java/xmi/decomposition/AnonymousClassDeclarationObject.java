@@ -70,7 +70,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return types;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations_RENAMED() {
 		return anonymousClassDeclarations;
 	}
 
