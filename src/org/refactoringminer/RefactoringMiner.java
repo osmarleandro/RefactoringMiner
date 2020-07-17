@@ -56,7 +56,7 @@ public class RefactoringMiner {
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
-			detector.detectAll(repo, branch, new RefactoringHandler() {
+			detector.detectAll_RENAMED(repo, branch, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {

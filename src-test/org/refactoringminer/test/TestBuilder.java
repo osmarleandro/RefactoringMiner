@@ -119,7 +119,7 @@ public class TestBuilder {
 					}
 				} else {
 					// Iterate over each commit
-					refactoringDetector.detectAll(rep, m.branch, m);
+					refactoringDetector.detectAll_RENAMED(rep, m.branch, m);
 				}
 			}
 		}
