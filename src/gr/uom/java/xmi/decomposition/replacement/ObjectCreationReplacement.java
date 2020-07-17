@@ -14,7 +14,7 @@ public class ObjectCreationReplacement extends Replacement {
 		this.createdObjectAfter = createdObjectAfter;
 	}
 
-	public ObjectCreation getCreatedObjectBefore() {
+	public ObjectCreation getCreatedObjectBefore_RENAMED() {
 		return createdObjectBefore;
 	}
 
