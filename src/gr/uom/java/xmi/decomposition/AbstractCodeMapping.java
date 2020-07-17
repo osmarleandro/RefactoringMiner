@@ -250,7 +250,7 @@ public abstract class AbstractCodeMapping {
 							if(initializer.toString().equals(prefixAfter) ||
 									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
 								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-								processInlineVariableRefactoring(ref, refactorings);
+								processInlineVariableRefactoring_RENAMED(ref, refactorings);
 								if(getReplacements().size() == 1) {
 									identicalWithInlinedVariable = true;
 								}
@@ -265,7 +265,7 @@ public abstract class AbstractCodeMapping {
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-						processInlineVariableRefactoring(ref, refactorings);
+						processInlineVariableRefactoring_RENAMED(ref, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithInlinedVariable = true;
 						}
@@ -291,7 +291,7 @@ public abstract class AbstractCodeMapping {
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
 							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-							processInlineVariableRefactoring(ref, refactorings);
+							processInlineVariableRefactoring_RENAMED(ref, refactorings);
 							if(getReplacements().size() == 1) {
 								identicalWithInlinedVariable = true;
 							}
@@ -343,7 +343,7 @@ public abstract class AbstractCodeMapping {
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
-	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
+	private void processInlineVariableRefactoring_RENAMED(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
