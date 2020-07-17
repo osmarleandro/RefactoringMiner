@@ -23,7 +23,7 @@ public class VariableDeclarationReplacement extends Replacement {
 		return v1;
 	}
 
-	public VariableDeclaration getVariableDeclaration2() {
+	public VariableDeclaration getVariableDeclaration2_RENAMED() {
 		return v2;
 	}
 
