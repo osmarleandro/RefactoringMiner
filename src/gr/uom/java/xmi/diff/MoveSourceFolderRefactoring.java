@@ -48,7 +48,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	public RefactoringType getRefactoringType() {
