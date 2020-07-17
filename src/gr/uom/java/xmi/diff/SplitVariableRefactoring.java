@@ -59,7 +59,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
+	public RefactoringType getRefactoringType_RENAMED() {
 		if(allVariablesAreParameters())
 			return RefactoringType.SPLIT_PARAMETER;
 		return RefactoringType.SPLIT_VARIABLE;
@@ -67,7 +67,7 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType_RENAMED().getDisplayName();
 	}
 
 	@Override
