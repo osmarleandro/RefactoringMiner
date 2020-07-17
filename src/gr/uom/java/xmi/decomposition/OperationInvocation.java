@@ -223,7 +223,7 @@ public class OperationInvocation extends AbstractCall {
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
     					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
-    					!compatibleTypes(parameter, inferredArgumentTypes.get(i), modelDiff)) {
+    					!compatibleTypes_RENAMED(parameter, inferredArgumentTypes.get(i), modelDiff)) {
     				return false;
     			}
     		}
@@ -232,7 +232,7 @@ public class OperationInvocation extends AbstractCall {
     	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
     }
 
-    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+    private boolean compatibleTypes_RENAMED(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
