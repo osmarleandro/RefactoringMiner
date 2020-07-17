@@ -72,7 +72,7 @@ public class UMLAnnotationDiff {
 		}
 	}
 	
-	public UMLAnnotation getRemovedAnnotation() {
+	public UMLAnnotation getRemovedAnnotation_RENAMED() {
 		return removedAnnotation;
 	}
 
