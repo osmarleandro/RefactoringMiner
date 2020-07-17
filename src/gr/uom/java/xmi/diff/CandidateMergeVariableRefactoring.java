@@ -44,7 +44,7 @@ public class CandidateMergeVariableRefactoring {
 		return variableReferences;
 	}
 
-	public Set<UMLAttribute> getMergedAttributes() {
+	public Set<UMLAttribute> getMergedAttributes_RENAMED() {
 		return mergedAttributes;
 	}
 
