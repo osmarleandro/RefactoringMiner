@@ -180,7 +180,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	public VariableDeclaration searchVariableDeclaration(String variableName) {
-		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
+		VariableDeclaration variableDeclaration = this.getVariableDeclaration_RENAMED(variableName);
 		if(variableDeclaration != null) {
 			return variableDeclaration;
 		}
@@ -190,7 +190,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return null;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public VariableDeclaration getVariableDeclaration_RENAMED(String variableName) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {

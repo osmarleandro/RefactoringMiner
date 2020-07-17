@@ -518,7 +518,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				boolean currentElementNameMatched = false;
 				for(StatementObject statement : innerNode.getLeaves()) {
-					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
+					VariableDeclaration variableDeclaration = statement.getVariableDeclaration_RENAMED(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;
 						break;
