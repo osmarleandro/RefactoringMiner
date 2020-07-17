@@ -329,7 +329,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void fetchAndDetectNew(Repository repository, final RefactoringHandler handler) throws Exception {
+	public void fetchAndDetectNew_RENAMED(Repository repository, final RefactoringHandler handler) throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
