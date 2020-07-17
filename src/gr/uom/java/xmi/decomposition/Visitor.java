@@ -108,7 +108,7 @@ public class Visitor extends ASTVisitor {
 		postfixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getPostfixExpressions().add(node.toString());
+			anonymous.getPostfixExpressions_RENAMED().add(node.toString());
 		}
 		return super.visit(node);
 	}

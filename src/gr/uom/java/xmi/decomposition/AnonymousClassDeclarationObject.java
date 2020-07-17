@@ -110,7 +110,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return prefixExpressions;
 	}
 
-	public List<String> getPostfixExpressions() {
+	public List<String> getPostfixExpressions_RENAMED() {
 		return postfixExpressions;
 	}
 
