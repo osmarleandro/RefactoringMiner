@@ -68,14 +68,14 @@ public class LeafType extends UMLType {
 	@Override
 	public boolean equalsWithSubType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			if(firstOrLastCamelCaseTokenMatch(this.nonQualifiedClassType, ((LeafType)type).nonQualifiedClassType) && equalTypeArgumentsAndArrayDimensionForSubType(type)) {
+			if(firstOrLastCamelCaseTokenMatch_RENAMED(this.nonQualifiedClassType, ((LeafType)type).nonQualifiedClassType) && equalTypeArgumentsAndArrayDimensionForSubType(type)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private static boolean firstOrLastCamelCaseTokenMatch(String classType1, String classType2) {
+	private static boolean firstOrLastCamelCaseTokenMatch_RENAMED(String classType1, String classType2) {
 		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(classType1);
 		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(classType2);
 		if(tokens1.length > 0 && tokens2.length > 0) {
