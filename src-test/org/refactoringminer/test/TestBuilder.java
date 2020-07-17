@@ -83,7 +83,7 @@ public class TestBuilder {
 		return c.c[type];
 	}
 
-	private int get(int type, Counter counter) {
+	private int get_RENAMED(int type, Counter counter) {
 		return counter.c[type];
 	}
 
@@ -145,11 +145,11 @@ public class TestBuilder {
 	}
 
 	private String buildResultMessage(Counter c) {
-		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
-		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
+		double precision = ((double) get_RENAMED(TP, c) / (get_RENAMED(TP, c) + get_RENAMED(FP, c)));
+		double recall = ((double) get_RENAMED(TP, c)) / (get_RENAMED(TP, c) + get_RENAMED(FN, c));
 		String mainResultMessage = String.format(
-				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get(TP, c), get(FP, c),
-				get(FN, c), get(TN, c), get(UNK, c), precision, recall);
+				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get_RENAMED(TP, c), get_RENAMED(FP, c),
+				get_RENAMED(FN, c), get_RENAMED(TN, c), get_RENAMED(UNK, c), precision, recall);
 		return mainResultMessage;
 	}
 
