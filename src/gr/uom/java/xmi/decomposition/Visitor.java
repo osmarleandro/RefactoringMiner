@@ -840,7 +840,7 @@ public class Visitor extends ASTVisitor {
 		return prefixExpressions;
 	}
 
-	public List<String> getPostfixExpressions() {
+	public List<String> getPostfixExpressions_RENAMED() {
 		return postfixExpressions;
 	}
 

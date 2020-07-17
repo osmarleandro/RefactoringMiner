@@ -52,7 +52,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		this.infixOperators = visitor.getInfixOperators();
 		this.arrayAccesses = visitor.getArrayAccesses();
 		this.prefixExpressions = visitor.getPrefixExpressions();
-		this.postfixExpressions = visitor.getPostfixExpressions();
+		this.postfixExpressions = visitor.getPostfixExpressions_RENAMED();
 		this.arguments = visitor.getArguments();
 		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
 		this.lambdas = visitor.getLambdas();
