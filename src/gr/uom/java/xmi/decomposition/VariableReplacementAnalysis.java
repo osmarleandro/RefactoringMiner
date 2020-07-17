@@ -108,8 +108,8 @@ public class VariableReplacementAnalysis {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 				AbstractExpression initializer = declaration.getInitializer();
 				if(initializer != null) {
-					for(String key : initializer.getCreationMap().keySet()) {
-						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
+					for(String key : initializer.getCreationMap_RENAMED().keySet()) {
+						List<ObjectCreation> creations = initializer.getCreationMap_RENAMED().get(key);
 						for(ObjectCreation creation : creations) {
 							for(String argument : creation.arguments) {
 								SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
