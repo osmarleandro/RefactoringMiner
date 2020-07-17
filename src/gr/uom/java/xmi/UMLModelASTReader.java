@@ -81,14 +81,14 @@ public class UMLModelASTReader {
 	}
 
 	public UMLModelASTReader(File rootFolder) throws IOException {
-		this(rootFolder, getJavaFilePaths(rootFolder));
+		this(rootFolder, getJavaFilePaths_RENAMED(rootFolder));
 	}
 
 	public UMLModelASTReader(File rootFolder, List<String> javaFiles) throws IOException {
 		this(rootFolder, buildAstParser(rootFolder), javaFiles, getDirectories(rootFolder, javaFiles));
 	}
 
-	private static List<String> getJavaFilePaths(File folder) throws IOException {
+	private static List<String> getJavaFilePaths_RENAMED(File folder) throws IOException {
 		Stream<Path> walk = Files.walk(Paths.get(folder.toURI()));
 		List<String> paths = walk.map(x -> x.toString())
 				.filter(f -> f.endsWith(".java"))
