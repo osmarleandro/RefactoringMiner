@@ -341,7 +341,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean isSubTypeOf(UMLClass umlClass) {
+	public boolean isSubTypeOf_RENAMED(UMLClass umlClass) {
 		if(superclass != null) {
 			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
 				return true;
