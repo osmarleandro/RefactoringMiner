@@ -86,7 +86,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<String> getVariables() {
+	public List<String> getVariables_RENAMED() {
 		return variables;
 	}
 
