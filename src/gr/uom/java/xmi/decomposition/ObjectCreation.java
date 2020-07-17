@@ -116,7 +116,7 @@ public class ObjectCreation extends AbstractCall {
     	return hashCode;
     }
 
-    public boolean identicalArrayInitializer(ObjectCreation other) {
+    public boolean identicalArrayInitializer_RENAMED(ObjectCreation other) {
     	if(this.isArray && other.isArray) {
     		if(this.anonymousClassDeclaration != null && other.anonymousClassDeclaration != null) {
     			return this.anonymousClassDeclaration.equals(other.anonymousClassDeclaration);
