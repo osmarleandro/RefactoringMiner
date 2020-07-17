@@ -15,7 +15,7 @@ public class SplitVariableReplacement extends Replacement {
 		return splitVariables;
 	}
 
-	public boolean equal(SplitVariableReplacement other) {
+	public boolean equal_RENAMED(SplitVariableReplacement other) {
 		return this.getBefore().equals(other.getBefore()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				other.splitVariables.containsAll(this.splitVariables);
