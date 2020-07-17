@@ -35,7 +35,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return newAttribute;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring> getAttributeMerges_RENAMED() {
 		return attributeMerges;
 	}
 
