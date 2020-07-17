@@ -79,7 +79,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.visibility = visibility;
 	}
 
-	public boolean isAbstract() {
+	public boolean isAbstract_RENAMED() {
 		return isAbstract;
 	}
 
