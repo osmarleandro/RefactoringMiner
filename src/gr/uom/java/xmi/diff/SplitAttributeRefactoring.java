@@ -136,7 +136,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration splitAttribute : splitAttributes) {
 			ranges.add(splitAttribute.codeRange()
