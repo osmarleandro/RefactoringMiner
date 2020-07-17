@@ -1721,9 +1721,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		variablesAndMethodInvocations2.addAll(methodInvocations2);
 		variablesAndMethodInvocations2.addAll(variables2);
 		
-		Set<String> types1 = new LinkedHashSet<String>(statement1.getTypes());
-		Set<String> types2 = new LinkedHashSet<String>(statement2.getTypes());
-		removeCommonTypes(types1, types2, statement1.getTypes(), statement2.getTypes());
+		Set<String> types1 = new LinkedHashSet<String>(statement1.getTypes_RENAMED());
+		Set<String> types2 = new LinkedHashSet<String>(statement2.getTypes_RENAMED());
+		removeCommonTypes(types1, types2, statement1.getTypes_RENAMED(), statement2.getTypes_RENAMED());
 		
 		// replace variables with the corresponding arguments in object creations
 		replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);

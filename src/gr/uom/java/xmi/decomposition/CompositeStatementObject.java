@@ -114,10 +114,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypes() {
+	public List<String> getTypes_RENAMED() {
 		List<String> types = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			types.addAll(expression.getTypes());
+			types.addAll(expression.getTypes_RENAMED());
 		}
 		return types;
 	}
