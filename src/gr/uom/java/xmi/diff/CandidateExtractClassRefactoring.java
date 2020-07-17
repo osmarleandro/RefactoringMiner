@@ -10,7 +10,7 @@ public class CandidateExtractClassRefactoring {
 	}
 	
 	public boolean innerClassExtract() {
-		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass().getName() + ".");
+		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass_RENAMED().getName() + ".");
 	}
 
 	public UMLClassBaseDiff getClassDiff() {
