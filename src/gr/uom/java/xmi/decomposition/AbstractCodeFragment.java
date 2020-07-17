@@ -217,7 +217,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
+	public OperationInvocation assignmentInvocationCoveringEntireStatement_RENAMED() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
