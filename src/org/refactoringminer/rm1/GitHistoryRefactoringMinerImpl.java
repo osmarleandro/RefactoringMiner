@@ -381,7 +381,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler, int timeout) {
+	public void detectAtCommit_RENAMED(Repository repository, String commitId, RefactoringHandler handler, int timeout) {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
