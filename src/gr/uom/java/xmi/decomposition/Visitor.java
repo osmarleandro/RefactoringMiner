@@ -135,7 +135,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ClassInstanceCreation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
-			processArgument(argument);
+			processArgument_RENAMED(argument);
 		}
 		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
 		String nodeAsString = node.toString();
@@ -496,7 +496,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(MethodInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
-			processArgument(argument);
+			processArgument_RENAMED(argument);
 		}
 		String methodInvocation = null;
 		if(METHOD_INVOCATION_PATTERN.matcher(node.toString()).matches()) {
@@ -584,7 +584,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(SuperMethodInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
-			processArgument(argument);
+			processArgument_RENAMED(argument);
 		}
 		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
 		String nodeAsString = node.toString();
@@ -614,7 +614,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(SuperConstructorInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
-			processArgument(argument);
+			processArgument_RENAMED(argument);
 		}
 		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
 		String nodeAsString = node.toString();
@@ -644,7 +644,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ConstructorInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
-			processArgument(argument);
+			processArgument_RENAMED(argument);
 		}
 		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
 		String nodeAsString = node.toString();
@@ -671,7 +671,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	private void processArgument(Expression argument) {
+	private void processArgument_RENAMED(Expression argument) {
 		if(argument instanceof SuperMethodInvocation ||
 				argument instanceof Name ||
 				argument instanceof StringLiteral ||
