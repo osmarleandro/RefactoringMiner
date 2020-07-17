@@ -18,7 +18,7 @@ public class TypeReplacementAnalysis {
 		findTypeChanges();
 	}
 
-	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
+	public Set<ChangeVariableTypeRefactoring> getChangedTypes_RENAMED() {
 		return changedTypes;
 	}
 
