@@ -17,7 +17,7 @@ public class RefactoringCrawlerResultReader {
 //    List<RefactoringCrawlerRefactoring> list = readFolder("D:\\Danilo\\Workspaces\\phd-rmdataset\\results\\atmosphere-cc2b3f1");
     try {
       RefactoringSet result = new RefactoringSet(project, revision);
-      for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
+      for (RefactoringCrawlerRefactoring r : readFolder_RENAMED(folderPath)) {
         result.add(r.toRefactoringRelationship());
       }
       return result;
@@ -26,7 +26,7 @@ public class RefactoringCrawlerResultReader {
     }
   }
 
-  private static List<RefactoringCrawlerRefactoring> readFolder(String path) throws Exception {
+  private static List<RefactoringCrawlerRefactoring> readFolder_RENAMED(String path) throws Exception {
     List<RefactoringCrawlerRefactoring> result = new ArrayList<>();
     File folder = new File(path);
     for (File f : folder.listFiles()) {
