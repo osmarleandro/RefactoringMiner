@@ -3708,7 +3708,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						List<? extends AbstractCall> oldCalls = callMap.get(call);
 						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
 						for(AbstractCall oldCall : oldCalls) {
-							AbstractCall newCall = oldCall.update(parameter, argument);
+							AbstractCall newCall = oldCall.update_RENAMED(parameter, argument);
 							newCalls.add(newCall);
 						}
 						callMap.put(afterReplacement, newCalls);
