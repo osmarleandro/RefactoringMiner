@@ -1962,7 +1962,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
-				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
+				equalAfterNewArgumentAdditions_RENAMED(s1, s2, replacementInfo) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
@@ -2017,7 +2017,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				for(Replacement replacement : replacementsInsideAnonymous) {
-					equalAfterNewArgumentAdditions(replacement.getBefore(), replacement.getAfter(), replacementInfo);
+					equalAfterNewArgumentAdditions_RENAMED(replacement.getBefore(), replacement.getAfter(), replacementInfo);
 				}
 			}
 			return replacementInfo.getReplacements();
@@ -3060,7 +3060,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
 	}
 
-	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
+	private boolean equalAfterNewArgumentAdditions_RENAMED(String s1, String s2, ReplacementInfo replacementInfo) {
 		UMLOperationDiff operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		if(operationDiff == null) {
 			operationDiff = new UMLOperationDiff(operation1, operation2);
