@@ -126,7 +126,7 @@ public abstract class UMLAbstractClass {
 
 	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.equalsIgnoringChangedType(attribute))
+			if(originalAttribute.equalsIgnoringChangedType_RENAMED(attribute))
 				return originalAttribute;
 		}
 		return null;
@@ -134,7 +134,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.equalsIgnoringChangedType(attribute))
+			if(originalAttribute.equalsIgnoringChangedType_RENAMED(attribute))
 				return true;
 		}
 		return false;
