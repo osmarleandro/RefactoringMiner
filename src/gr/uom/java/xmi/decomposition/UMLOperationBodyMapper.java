@@ -144,7 +144,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
 				}
 			}
-			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
+			processInnerNodes_RENAMED(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
 			
 			nonMappedLeavesT1.addAll(leaves1);
 			nonMappedLeavesT2.addAll(leaves2);
@@ -188,7 +188,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
-			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
+			processInnerNodes_RENAMED(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
 			
 			nonMappedLeavesT1.addAll(leaves1);
 			nonMappedLeavesT2.addAll(leaves2);
@@ -396,7 +396,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
-			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap2);
+			processInnerNodes_RENAMED(innerNodes1, innerNodes2, parameterToArgumentMap2);
 			
 			//match expressions in inner nodes from T1 with leaves from T2
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
@@ -572,7 +572,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
-			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap);
+			processInnerNodes_RENAMED(innerNodes1, innerNodes2, parameterToArgumentMap);
 			
 			//match expressions in inner nodes from T2 with leaves from T1
 			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
@@ -928,7 +928,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return replacements;
 	}
 
-	public void processInnerNodes(List<CompositeStatementObject> innerNodes1, List<CompositeStatementObject> innerNodes2,
+	public void processInnerNodes_RENAMED(List<CompositeStatementObject> innerNodes1, List<CompositeStatementObject> innerNodes2,
 			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
 		List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
 		List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
