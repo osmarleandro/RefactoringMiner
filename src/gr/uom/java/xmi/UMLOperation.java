@@ -294,7 +294,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				equalTypeParameters(operation);
 	}
 
-	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
+	public boolean equalSignatureIgnoringChangedTypes_RENAMED(UMLOperation operation) {
 		if(!(this.isConstructor && operation.isConstructor || equivalentName(operation)))
 			return false;
 		if(this.isAbstract != operation.isAbstract)
