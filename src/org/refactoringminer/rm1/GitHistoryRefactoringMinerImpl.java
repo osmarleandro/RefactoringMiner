@@ -131,10 +131,10 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			// only ADD's or only REMOVE's there is no refactoring
 			if (!filePathsBefore.isEmpty() && !filePathsCurrent.isEmpty() && currentCommit.getParentCount() > 0) {
 				RevCommit parentCommit = currentCommit.getParent(0);
-				populateFileContents(repository, parentCommit, filePathsBefore, fileContentsBefore, repositoryDirectoriesBefore);
+				populateFileContents_RENAMED(repository, parentCommit, filePathsBefore, fileContentsBefore, repositoryDirectoriesBefore);
 				UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 
-				populateFileContents(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
+				populateFileContents_RENAMED(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
 				UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
 				
 				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
@@ -150,7 +150,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
-	private void populateFileContents(Repository repository, RevCommit commit,
+	private void populateFileContents_RENAMED(Repository repository, RevCommit commit,
 			List<String> filePaths, Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
 		logger.info("Processing {} {} ...", repository.getDirectory().getParent().toString(), commit.getName());
 		RevTree parentTree = commit.getTree();
