@@ -90,7 +90,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	}
 
 	@Override
-	public CodeRange codeRange() {
+	public CodeRange codeRange_RENAMED() {
 		return locationInfo.codeRange();
 	}
 

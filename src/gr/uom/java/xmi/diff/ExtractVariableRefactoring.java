@@ -69,7 +69,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
 	 */
 	public CodeRange getExtractedVariableDeclarationCodeRange() {
-		return variableDeclaration.codeRange();
+		return variableDeclaration.codeRange_RENAMED();
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted variable"));
+			ranges.add(mapping.getFragment1().codeRange_RENAMED().setDescription("statement with the initializer of the extracted variable"));
 		}
 		return ranges;
 	}
@@ -127,11 +127,11 @@ public class ExtractVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(variableDeclaration.codeRange()
+		ranges.add(variableDeclaration.codeRange_RENAMED()
 				.setDescription("extracted variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
+			ranges.add(mapping.getFragment2().codeRange_RENAMED().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;
 	}
