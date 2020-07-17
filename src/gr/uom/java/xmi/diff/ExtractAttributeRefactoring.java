@@ -59,7 +59,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
 	 */
 	public CodeRange getExtractedVariableDeclarationCodeRange() {
-		return attributeDeclaration.codeRange();
+		return attributeDeclaration.codeRange_RENAMED();
 	}
 
 	public UMLClass getOriginalClass() {
@@ -111,7 +111,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted attribute"));
+			ranges.add(mapping.getFragment1().codeRange_RENAMED().setDescription("statement with the initializer of the extracted attribute"));
 		}
 		return ranges;
 	}
@@ -119,11 +119,11 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(attributeDeclaration.codeRange()
+		ranges.add(attributeDeclaration.codeRange_RENAMED()
 				.setDescription("extracted attribute declaration")
 				.setCodeElement(attributeDeclaration.toString()));
 		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted attribute"));
+			ranges.add(mapping.getFragment2().codeRange_RENAMED().setDescription("statement with the name of the extracted attribute"));
 		}
 		return ranges;
 	}

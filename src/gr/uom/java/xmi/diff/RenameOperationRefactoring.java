@@ -88,14 +88,14 @@ public class RenameOperationRefactoring implements Refactoring {
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
 	public CodeRange getSourceOperationCodeRangeBeforeRename() {
-		return originalOperation.codeRange();
+		return originalOperation.codeRange_RENAMED();
 	}
 
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
 	public CodeRange getTargetOperationCodeRangeAfterRename() {
-		return renamedOperation.codeRange();
+		return renamedOperation.codeRange_RENAMED();
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
@@ -113,7 +113,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(originalOperation.codeRange()
+		ranges.add(originalOperation.codeRange_RENAMED()
 				.setDescription("original method declaration")
 				.setCodeElement(originalOperation.toString()));
 		return ranges;
@@ -122,7 +122,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(renamedOperation.codeRange()
+		ranges.add(renamedOperation.codeRange_RENAMED()
 				.setDescription("renamed method declaration")
 				.setCodeElement(renamedOperation.toString()));
 		return ranges;
