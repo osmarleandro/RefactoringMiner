@@ -1104,7 +1104,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodInlined(removedOperation, addedOperation)) {
+					isPartOfMethodInlined_RENAMED(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
 			}
 		}
@@ -1147,7 +1147,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodInlined(removedOperation, addedOperation)) {
+					isPartOfMethodInlined_RENAMED(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
 			}
 		}
@@ -1417,7 +1417,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				numberOfInvocationsOriginallyCalledByRemovedOperationFoundInOtherAddedOperations > removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.size();
 	}
 
-	private boolean isPartOfMethodInlined(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private boolean isPartOfMethodInlined_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 		List<OperationInvocation> removedOperationInvocations = removedOperation.getAllOperationInvocations();
 		List<OperationInvocation> addedOperationInvocations = addedOperation.getAllOperationInvocations();
 		Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
