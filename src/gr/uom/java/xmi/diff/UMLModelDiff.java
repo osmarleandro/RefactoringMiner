@@ -125,19 +125,19 @@ public class UMLModelDiff {
 
    private UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         if(classDiff.matches(className))
+         if(classDiff.matches_RENAMED(className))
             return classDiff;
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-         if(classDiff.matches(className))
+         if(classDiff.matches_RENAMED(className))
             return classDiff;
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-         if(classDiff.matches(className))
+         if(classDiff.matches_RENAMED(className))
             return classDiff;
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-         if(classDiff.matches(className))
+         if(classDiff.matches_RENAMED(className))
             return classDiff;
       }
       return null;

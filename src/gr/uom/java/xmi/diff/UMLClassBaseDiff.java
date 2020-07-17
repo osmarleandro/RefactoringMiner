@@ -221,7 +221,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	public boolean matches(String className) {
+	public boolean matches_RENAMED(String className) {
 		return this.originalClass.getName().equals(className) ||
 				this.nextClass.getName().equals(className);
 	}
