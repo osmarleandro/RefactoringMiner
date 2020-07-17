@@ -227,7 +227,7 @@ public class UMLModelASTReader {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
 	    		operation.setClassName(umlClass.getName());
-	    		umlClass.addOperation(operation);
+	    		umlClass.addOperation_RENAMED(operation);
 			}
 			else if(bodyDeclaration instanceof TypeDeclaration) {
 				TypeDeclaration typeDeclaration = (TypeDeclaration)bodyDeclaration;
@@ -303,7 +303,7 @@ public class UMLModelASTReader {
     	for(MethodDeclaration methodDeclaration : methodDeclarations) {
     		UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
     		operation.setClassName(umlClass.getName());
-    		umlClass.addOperation(operation);
+    		umlClass.addOperation_RENAMED(operation);
     	}
     	
     	processAnonymousClassDeclarations(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
@@ -530,7 +530,7 @@ public class UMLModelASTReader {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
 				operation.setClassName(anonymousClass.getCodePath());
-				anonymousClass.addOperation(operation);
+				anonymousClass.addOperation_RENAMED(operation);
 			}
 		}
 		

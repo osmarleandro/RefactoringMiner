@@ -27,7 +27,7 @@ public abstract class UMLAbstractClass {
 		return locationInfo;
 	}
 
-	public void addOperation(UMLOperation operation) {
+	public void addOperation_RENAMED(UMLOperation operation) {
 		this.operations.add(operation);
 	}
 
