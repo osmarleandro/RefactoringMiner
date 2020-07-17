@@ -474,7 +474,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(PrimitiveType node) {
+	public boolean visit_RENAMED(PrimitiveType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
