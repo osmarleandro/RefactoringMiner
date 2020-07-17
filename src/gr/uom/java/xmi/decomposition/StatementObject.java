@@ -63,7 +63,7 @@ public class StatementObject extends AbstractStatement {
 		this.prefixExpressions = visitor.getPrefixExpressions();
 		this.postfixExpressions = visitor.getPostfixExpressions();
 		this.arguments = visitor.getArguments();
-		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
+		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions_RENAMED();
 		this.lambdas = visitor.getLambdas();
 		setDepth(depth);
 		if(Visitor.METHOD_INVOCATION_PATTERN.matcher(statement.toString()).matches()) {
