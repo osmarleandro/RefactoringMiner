@@ -189,10 +189,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getBooleanLiterals() {
+	public List<String> getBooleanLiterals_RENAMED() {
 		List<String> booleanLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			booleanLiterals.addAll(expression.getBooleanLiterals());
+			booleanLiterals.addAll(expression.getBooleanLiterals_RENAMED());
 		}
 		return booleanLiterals;
 	}
