@@ -42,7 +42,7 @@ public class UMLParameterDiff {
 		return nameChanged;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		if(typeChanged || nameChanged || qualifiedTypeChanged)
 			sb.append("\t\t").append("parameter ").append(removedParameter).append(":").append("\n");
