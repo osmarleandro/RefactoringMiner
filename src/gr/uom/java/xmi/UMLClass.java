@@ -301,12 +301,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return false;
     }
 
-    public String toString() {
+    public String toString_RENAMED() {
     	return getName();
     }
 
 	public int compareTo(UMLClass umlClass) {
-		return this.toString().compareTo(umlClass.toString());
+		return this.toString_RENAMED().compareTo(umlClass.toString_RENAMED());
 	}
 
 	public double normalizedNameDistance(UMLClass c) {
