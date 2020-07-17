@@ -305,7 +305,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 		List<Refactoring> filteredList = new ArrayList<Refactoring>();
 		for (Refactoring ref : refactoringsAtRevision) {
-			if (this.refactoringTypesToConsider.contains(ref.getRefactoringType())) {
+			if (this.refactoringTypesToConsider.contains(ref.getRefactoringType_RENAMED())) {
 				filteredList.add(ref);
 			}
 		}
