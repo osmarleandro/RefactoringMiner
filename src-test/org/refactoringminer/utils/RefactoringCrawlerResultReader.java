@@ -38,7 +38,7 @@ public class RefactoringCrawlerResultReader {
   }
 
   public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
-    String content = readFile(path, StandardCharsets.UTF_8);
+    String content = readFile_RENAMED(path, StandardCharsets.UTF_8);
     Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
     Matcher m = p.matcher(content);
     while (m.find()) {
@@ -46,7 +46,7 @@ public class RefactoringCrawlerResultReader {
     }
   }
   
-  static String readFile(String path, Charset encoding) throws IOException {
+  static String readFile_RENAMED(String path, Charset encoding) throws IOException {
     byte[] encoded = Files.readAllBytes(Paths.get(path));
     return new String(encoded, encoding);
   }
