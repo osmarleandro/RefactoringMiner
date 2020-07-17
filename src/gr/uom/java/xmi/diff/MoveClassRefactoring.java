@@ -30,7 +30,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public RenamePattern getRenamePattern() {
+	public RenamePattern getRenamePattern_RENAMED() {
 		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
 		if (separatorPos == -1) {
 			return new RenamePattern(originalClass.getName(), movedClass.getName());

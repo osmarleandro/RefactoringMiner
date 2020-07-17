@@ -22,7 +22,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	public RenamePackageRefactoring(MoveClassRefactoring moveClassRefactoring) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
 		this.moveClassRefactorings.add(moveClassRefactoring);
-		this.pattern = moveClassRefactoring.getRenamePattern();
+		this.pattern = moveClassRefactoring.getRenamePattern_RENAMED();
 	}
 
 	public void addMoveClassRefactoring(MoveClassRefactoring moveClassRefactoring) {

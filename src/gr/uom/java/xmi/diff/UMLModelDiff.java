@@ -1203,7 +1203,7 @@ public class UMLModelDiff {
 		   
 		   if (!originalName.equals(movedName)) {
 			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   RenamePattern renamePattern = refactoring.getRenamePattern_RENAMED();
 			   //check if the the original path is a substring of the moved path and vice versa
 			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
 					   renamePattern.getAfter().contains(renamePattern.getBefore()) ||
