@@ -110,7 +110,7 @@ public class ReplacementUtil {
 						int end2 = m2.end();
 						String characterAfterMatch1 = end1 == temp.length() ? "" : String.valueOf(temp.charAt(end1));
 						String characterAfterMatch2 = end2 == completeString2.length() ? "" : String.valueOf(completeString2.charAt(end2));
-						if(compatibleCharacterAfterMatch(characterAfterMatch1, characterAfterMatch2)) {
+						if(compatibleCharacterAfterMatch_RENAMED(characterAfterMatch1, characterAfterMatch2)) {
 							m1.appendReplacement(sb, Matcher.quoteReplacement(character + subString2));
 							replacementOccurred = true;
 						}
@@ -139,7 +139,7 @@ public class ReplacementUtil {
 		return false;
 	}
 
-	private static boolean compatibleCharacterAfterMatch(String characterAfter1, String characterAfter2) {
+	private static boolean compatibleCharacterAfterMatch_RENAMED(String characterAfter1, String characterAfter2) {
 		if(characterAfter1 != null && characterAfter2 != null) {
 			if(characterAfter1.equals(characterAfter2))
 				return true;
