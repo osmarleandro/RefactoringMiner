@@ -433,7 +433,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return locationInfo;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public VariableDeclaration getVariableDeclaration_RENAMED(String variableName) {
 		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations();
 		for(VariableDeclaration declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
@@ -518,7 +518,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				boolean currentElementNameMatched = false;
 				for(StatementObject statement : innerNode.getLeaves()) {
-					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
+					VariableDeclaration variableDeclaration = statement.getVariableDeclaration_RENAMED(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;
 						break;

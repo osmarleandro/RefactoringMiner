@@ -1166,7 +1166,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(statement.countableStatement()) {
 						nonMappedLeavesT1.add(statement.getString());
 						for(String parameterName : addedOperation.getParameterNameList()) {
-							if(statement.getVariableDeclaration(parameterName) != null) {
+							if(statement.getVariableDeclaration_RENAMED(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
 								break;
 							}
@@ -1193,7 +1193,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
-							if(statement.getVariableDeclaration(parameterName) != null) {
+							if(statement.getVariableDeclaration_RENAMED(parameterName) != null) {
 								parameterizedVariableDeclarationStatements++;
 								break;
 							}

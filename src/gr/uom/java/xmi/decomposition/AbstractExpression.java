@@ -180,7 +180,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	public VariableDeclaration searchVariableDeclaration(String variableName) {
-		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
+		VariableDeclaration variableDeclaration = this.getVariableDeclaration_RENAMED(variableName);
 		if(variableDeclaration != null) {
 			return variableDeclaration;
 		}
