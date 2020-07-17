@@ -71,7 +71,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((attributeDeclaration == null) ? 0 : attributeDeclaration.hashCode());
