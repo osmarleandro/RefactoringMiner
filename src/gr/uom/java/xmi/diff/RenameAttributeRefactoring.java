@@ -77,7 +77,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -98,12 +98,12 @@ public class RenameAttributeRefactoring implements Refactoring {
 		if (originalAttribute == null) {
 			if (other.originalAttribute != null)
 				return false;
-		} else if (!originalAttribute.equals(other.originalAttribute))
+		} else if (!originalAttribute.equals_RENAMED(other.originalAttribute))
 			return false;
 		if (renamedAttribute == null) {
 			if (other.renamedAttribute != null)
 				return false;
-		} else if (!renamedAttribute.equals(other.renamedAttribute))
+		} else if (!renamedAttribute.equals_RENAMED(other.renamedAttribute))
 			return false;
 		return true;
 	}
