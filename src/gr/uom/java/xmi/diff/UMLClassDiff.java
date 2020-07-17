@@ -97,7 +97,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
 						if(mappers.size() > 0) {
 							UMLOperation operation1 = mappers.get(0).getOperation1();
-							if(!operation1.equalSignature(originalOperation) &&
+							if(!operation1.equalSignature_RENAMED(originalOperation) &&
 									getModelDiff().commonlyImplementedOperations(operation1, nextOperation, this)) {
 								if(!removedOperations.contains(originalOperation)) {
 									removedOperations.add(originalOperation);

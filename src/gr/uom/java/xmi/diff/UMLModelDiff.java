@@ -1943,7 +1943,7 @@ public class UMLModelDiff {
 		   for(UMLOperation operation : addedOperations) {
 			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
 			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
-			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
+			   if(!operation.equals(addedOperation) && addedOperation.equalSignature_RENAMED(operation) && !operation.isAbstract() && !isInterface) {
 				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
 				   if(newDistance < originalDistance) {
 					   return true;
@@ -2243,7 +2243,7 @@ public class UMLModelDiff {
 			for(UMLOperationBodyMapper extraMapper : extraMappers) {
 				UMLOperation operation1 = extraMapper.getOperation1();
 				UMLOperation operation2 = extraMapper.getOperation2();
-				if(operation1.equalSignature(operation2)) {
+				if(operation1.equalSignature_RENAMED(operation2)) {
 					List<AbstractCodeMapping> mappings = new ArrayList<AbstractCodeMapping>(extraMapper.getMappings());
 					if(mappings.size() == 1) {
 						Set<Replacement> replacements = mappings.get(0).getReplacements();
