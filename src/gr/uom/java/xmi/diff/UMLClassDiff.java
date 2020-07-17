@@ -39,7 +39,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void processAttributes() {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
+		for(UMLAttribute attribute : originalClass.getAttributes_RENAMED()) {
 			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
     			this.reportRemovedAttribute(attribute);
@@ -52,7 +52,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			}
     		}
     	}
-    	for(UMLAttribute attribute : nextClass.getAttributes()) {
+    	for(UMLAttribute attribute : nextClass.getAttributes_RENAMED()) {
     		UMLAttribute matchingAttribute = originalClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
     			this.reportAddedAttribute(attribute);

@@ -3173,7 +3173,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(classDiff != null) {
 					List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
-					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes()) {
+					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes_RENAMED()) {
 						if(diff2.contains(attribute.getName())) {
 							matchingAttributes.add(attribute);
 						}

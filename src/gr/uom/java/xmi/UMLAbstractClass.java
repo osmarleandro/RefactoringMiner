@@ -39,7 +39,7 @@ public abstract class UMLAbstractClass {
 		return operations;
 	}
 
-	public List<UMLAttribute> getAttributes() {
+	public List<UMLAttribute> getAttributes_RENAMED() {
 		return attributes;
 	}
 
