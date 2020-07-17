@@ -2098,7 +2098,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(assignmentInvocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null) {
 			for(String key1 : methodInvocationMap1.keySet()) {
 				for(AbstractCall invocation1 : methodInvocationMap1.get(key1)) {
-					if(invocation1.identical(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements()) &&
+					if(invocation1.identical_RENAMED(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements()) &&
 							!assignmentInvocationCoveringTheEntireStatement1.getArguments().contains(key1)) {
 						String expression1 = assignmentInvocationCoveringTheEntireStatement1.getExpression();
 						if(expression1 == null || !expression1.contains(key1)) {
@@ -2373,7 +2373,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		//object creation is identical
 		if(creationCoveringTheEntireStatement1 != null && creationCoveringTheEntireStatement2 != null &&
-				creationCoveringTheEntireStatement1.identical(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
+				creationCoveringTheEntireStatement1.identical_RENAMED(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
 			boolean identicalArrayInitializer = true;
 			if(creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray()) {
 				identicalArrayInitializer = creationCoveringTheEntireStatement1.identicalArrayInitializer(creationCoveringTheEntireStatement2);
