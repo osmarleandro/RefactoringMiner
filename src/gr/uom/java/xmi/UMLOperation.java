@@ -434,7 +434,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return null;
 	}
 
-	public boolean isGetter() {
+	public boolean isGetter_RENAMED() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			List<UMLParameter> parameters = getParametersWithoutReturnType();

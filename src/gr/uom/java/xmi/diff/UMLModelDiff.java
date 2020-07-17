@@ -1758,7 +1758,7 @@ public class UMLModelDiff {
 
 	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
+		if((operationBodyMapper.getOperation1().isGetter_RENAMED() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
 			for(AbstractCodeMapping mapping : parentMappingList) {
 				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
@@ -1956,7 +1956,7 @@ public class UMLModelDiff {
 
    private boolean extractAndMoveMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
+	   if(operationBodyMapper.getOperation2().isGetter_RENAMED() && mappingList.size() == 1) {
 		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
 		   for(AbstractCodeMapping mapping : parentMappingList) {
 			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
@@ -2364,7 +2364,7 @@ public class UMLModelDiff {
 	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
 		   return false;
 	   }
-	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
+	   if((removedOperation.isGetter_RENAMED() || removedOperation.isSetter() || addedOperation.isGetter_RENAMED() || addedOperation.isSetter()) &&
 			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
 		   if(!mapper.getMappings().iterator().next().isExact()) {
 			   return false;
