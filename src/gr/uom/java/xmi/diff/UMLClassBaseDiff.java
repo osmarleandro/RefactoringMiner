@@ -89,7 +89,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.modelDiff = modelDiff;
 	}
 
-	public void process() throws RefactoringMinerTimedOutException {
+	public void process_RENAMED() throws RefactoringMinerTimedOutException {
 		processInheritance();
 		processOperations();
 		createBodyMappers();

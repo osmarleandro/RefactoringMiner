@@ -450,7 +450,7 @@ public class UMLModelDiff {
 		   }
 		   if(!diffSet.isEmpty()) {
 			   UMLClassMoveDiff minClassMoveDiff = diffSet.first();
-			   minClassMoveDiff.process();
+			   minClassMoveDiff.process_RENAMED();
 			   classMoveDiffList.add(minClassMoveDiff);
 			   addedClasses.remove(minClassMoveDiff.getMovedClass());
 			   removedClassIterator.remove();
@@ -503,7 +503,7 @@ public class UMLModelDiff {
          }
          if(!diffSet.isEmpty()) {
             UMLClassRenameDiff minClassRenameDiff = diffSet.first();
-            minClassRenameDiff.process();
+            minClassRenameDiff.process_RENAMED();
             classRenameDiffList.add(minClassRenameDiff);
             addedClasses.remove(minClassRenameDiff.getRenamedClass());
             removedClassIterator.remove();
@@ -1312,7 +1312,7 @@ public class UMLModelDiff {
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
-    			  renameDiff.process();
+    			  renameDiff.process_RENAMED();
     			  refactorings.addAll(renameDiff.getRefactorings());
     			  extractMergePatterns(renameDiff, mergeMap);
     			  extractRenamePatterns(renameDiff, renameMap);
