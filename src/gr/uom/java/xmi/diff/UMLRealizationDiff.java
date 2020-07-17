@@ -15,7 +15,7 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 		this.childChanged = false;
 		if(!removedRealization.getSupplier().equals(addedRealization.getSupplier()))
 			parentChanged = true;
-		if(!removedRealization.getClient().equals(addedRealization.getClient()))
+		if(!removedRealization.getClient().equals_RENAMED(addedRealization.getClient()))
 			childChanged = true;
 	}
 

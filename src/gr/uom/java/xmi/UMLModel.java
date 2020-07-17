@@ -41,7 +41,7 @@ public class UMLModel {
     	ListIterator<UMLClass> it = classList.listIterator();
         while(it.hasNext()) {
             UMLClass umlClass = it.next();
-            if(umlClass.equals(umlClassFromOtherModel))
+            if(umlClass.equals_RENAMED(umlClassFromOtherModel))
                 return umlClass;
         }
         return null;
@@ -63,7 +63,7 @@ public class UMLModel {
     	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
     	while(generalizationIt.hasNext()) {
     		UMLGeneralization generalization = generalizationIt.next();
-    		if(generalization.getChild().equals(otherGeneralization.getChild())) {
+    		if(generalization.getChild().equals_RENAMED(otherGeneralization.getChild())) {
     			String thisParent = generalization.getParent();
     			String otherParent = otherGeneralization.getParent();
     			String thisParentComparedString = null;
@@ -87,7 +87,7 @@ public class UMLModel {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
     		UMLRealization realization = realizationIt.next();
-    		if(realization.getClient().equals(otherRealization.getClient())) {
+    		if(realization.getClient().equals_RENAMED(otherRealization.getClient())) {
     			String thisSupplier = realization.getSupplier();
     			String otherSupplier = otherRealization.getSupplier();
     			String thisSupplierComparedString = null;
