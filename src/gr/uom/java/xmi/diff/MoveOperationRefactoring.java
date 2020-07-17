@@ -89,8 +89,8 @@ public class MoveOperationRefactoring implements Refactoring {
 	public boolean compatibleWith(MoveAttributeRefactoring ref) {
 		if(ref.getMovedAttribute().getClassName().equals(this.movedOperation.getClassName()) &&
 				ref.getOriginalAttribute().getClassName().equals(this.originalOperation.getClassName())) {
-			List<String> originalOperationVariables = this.originalOperation.getAllVariables();
-			List<String> movedOperationVariables = this.movedOperation.getAllVariables();
+			List<String> originalOperationVariables = this.originalOperation.getAllVariables_RENAMED();
+			List<String> movedOperationVariables = this.movedOperation.getAllVariables_RENAMED();
 			return originalOperationVariables.contains(ref.getOriginalAttribute().getName()) &&
 					movedOperationVariables.contains(ref.getMovedAttribute().getName());
 		}

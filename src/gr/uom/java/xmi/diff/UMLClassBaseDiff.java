@@ -936,11 +936,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int counter = 0;
 		int allCases = 0;
 		for(UMLOperationBodyMapper mapper : this.operationBodyMapperList) {
-			List<String> allVariables1 = mapper.getOperation1().getAllVariables();
-			List<String> allVariables2 = mapper.getOperation2().getAllVariables();
+			List<String> allVariables1 = mapper.getOperation1().getAllVariables_RENAMED();
+			List<String> allVariables2 = mapper.getOperation2().getAllVariables_RENAMED();
 			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
-				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
-				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
+				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables_RENAMED());
+				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables_RENAMED());
 			}
 			boolean variables1contains = (allVariables1.contains(pattern.getBefore()) &&
 					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore())) ||
