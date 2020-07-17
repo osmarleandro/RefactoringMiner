@@ -134,7 +134,7 @@ public class AstUtils {
 		return qualifiedTypeName;
 	}
 
-    public static String normalizeMethodSignature(String methodSignature) {
+    public static String normalizeMethodSignature_RENAMED(String methodSignature) {
         StringBuilder sb = new StringBuilder();
         int start = 0;
         int openPar = methodSignature.indexOf('(');

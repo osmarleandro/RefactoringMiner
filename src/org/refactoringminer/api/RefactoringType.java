@@ -223,7 +223,7 @@ public enum RefactoringType {
     }
 
     private static String methodKey(String methodSignature, String typeKey) {
-        return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
+        return typeKey + "#" + AstUtils.normalizeMethodSignature_RENAMED(methodSignature);
     }
 
     private static String attributeKey(String attribute, String typeKey) {
