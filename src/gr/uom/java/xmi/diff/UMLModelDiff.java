@@ -281,7 +281,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   UMLClass addedClass = getAddedClass(subclass);
+	   UMLClass addedClass = getAddedClass_RENAMED(subclass);
 	   if(addedClass == null) {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
 	   }
@@ -339,7 +339,7 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   public UMLClass getAddedClass(String className) {
+   public UMLClass getAddedClass_RENAMED(String className) {
       for(UMLClass umlClass : addedClasses) {
          if(umlClass.getName().equals(className))
             return umlClass;
@@ -813,7 +813,7 @@ public class UMLModelDiff {
 	   if(classDiff != null) {
 		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
 	   }
-	   UMLClass addedClass = getAddedClass(targetClassName);
+	   UMLClass addedClass = getAddedClass_RENAMED(targetClassName);
 	   if(addedClass == null) {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
 	   }
@@ -1046,7 +1046,7 @@ public class UMLModelDiff {
          }
          for(UMLRealization addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
-			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
+			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass_RENAMED(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
                int implementedInterfaceOperations = 0;
                boolean clientImplementsSupplier = false;
@@ -1073,7 +1073,7 @@ public class UMLModelDiff {
    private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
-	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
+	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass_RENAMED(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
 			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
@@ -2144,7 +2144,7 @@ public class UMLModelDiff {
 	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
 	                  refactorings.add(refactoring);
-	                  UMLClass addedClass = getAddedClass(addedOperation.getClassName());
+	                  UMLClass addedClass = getAddedClass_RENAMED(addedOperation.getClassName());
 	                  if(addedClass != null) {
 	                	  checkForExtractedOperationsWithinMovedMethod(firstMapper, addedClass);
 	                  }
@@ -2305,7 +2305,7 @@ public class UMLModelDiff {
    private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
         int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
+		UMLClass addedClass = getAddedClass_RENAMED(operationBodyMapper.getOperation2().getClassName());
 		int nonMappedStatementsDeclaringSameVariable = 0;
 		for(ListIterator<StatementObject> leafIterator1 = operationBodyMapper.getNonMappedLeavesT1().listIterator(); leafIterator1.hasNext();) {
 			StatementObject s1 = leafIterator1.next();

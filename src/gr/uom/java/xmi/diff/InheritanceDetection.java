@@ -34,14 +34,14 @@ public class InheritanceDetection {
 		for(UMLGeneralization generalization : addedGeneralizations) {
 			String superclass = generalization.getParent();
 			String subclass = generalization.getChild().getName();
-			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
+			if(modelDiff.getAddedClass_RENAMED(superclass) != null && modelDiff.getAddedClass_RENAMED(subclass) != null)
 				addSubclassToSuperclass(superclass, subclass);
 		}
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
 		for(UMLRealization realization : addedRealizations) {
 			String supplier = realization.getSupplier();
 			String client = realization.getClient().getName();
-			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
+			if(modelDiff.getAddedClass_RENAMED(supplier) != null && modelDiff.getAddedClass_RENAMED(client) != null)
 				addSubclassToSuperclass(supplier, client);
 		}
 	}
