@@ -377,7 +377,7 @@ public class ResultComparator {
         return ignorePullUpToExtractedSupertype;
     }
 
-    public void setIgnorePullUpToExtractedSupertype(boolean ignorePullUpToExtractedSupertype) {
+    public void setIgnorePullUpToExtractedSupertype_RENAMED(boolean ignorePullUpToExtractedSupertype) {
         this.ignorePullUpToExtractedSupertype = ignorePullUpToExtractedSupertype;
     }
 
