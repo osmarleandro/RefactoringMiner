@@ -127,7 +127,7 @@ public class Visitor extends ASTVisitor {
 		infixOperators.add(node.getOperator().toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getInfixOperators().add(node.getOperator().toString());
+			anonymous.getInfixOperators_RENAMED().add(node.getOperator().toString());
 		}
 		return super.visit(node);
 	}
@@ -261,7 +261,7 @@ public class Visitor extends ASTVisitor {
 			this.booleanLiterals.removeAll(anonymous.getBooleanLiterals());
 			this.typeLiterals.removeAll(anonymous.getTypeLiterals());
 			this.numberLiterals.removeAll(anonymous.getNumberLiterals());
-			this.infixOperators.removeAll(anonymous.getInfixOperators());
+			this.infixOperators.removeAll(anonymous.getInfixOperators_RENAMED());
 			this.arguments.removeAll(anonymous.getArguments());
 			this.ternaryOperatorExpressions.removeAll(anonymous.getTernaryOperatorExpressions());
 			this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());

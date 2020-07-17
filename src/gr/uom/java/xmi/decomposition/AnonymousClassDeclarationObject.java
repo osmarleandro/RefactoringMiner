@@ -98,7 +98,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return creationMap;
 	}
 
-	public List<String> getInfixOperators() {
+	public List<String> getInfixOperators_RENAMED() {
 		return infixOperators;
 	}
 
