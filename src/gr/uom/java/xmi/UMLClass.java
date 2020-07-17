@@ -210,8 +210,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     		if(attribute.getName().equals(otherAttribute.getName())) {
     			String thisAttributeType = attribute.getType().getClassType();
 				String otherAttributeType = otherAttribute.getType().getClassType();
-				int thisArrayDimension = attribute.getType().getArrayDimension();
-				int otherArrayDimension = otherAttribute.getType().getArrayDimension();
+				int thisArrayDimension = attribute.getType().getArrayDimension_RENAMED();
+				int otherArrayDimension = otherAttribute.getType().getArrayDimension_RENAMED();
 				String thisAttributeTypeComparedString = null;
     			if(thisAttributeType.contains("."))
     				thisAttributeTypeComparedString = thisAttributeType.substring(thisAttributeType.lastIndexOf(".")+1);
@@ -241,8 +241,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     					UMLParameter otherParameter = otherOperation.getParameters().get(i);
     					String thisParameterType = parameter.getType().getClassType();
     					String otherParameterType = otherParameter.getType().getClassType();
-    					int thisArrayDimension = parameter.getType().getArrayDimension();
-    					int otherArrayDimension = otherParameter.getType().getArrayDimension();
+    					int thisArrayDimension = parameter.getType().getArrayDimension_RENAMED();
+    					int otherArrayDimension = otherParameter.getType().getArrayDimension_RENAMED();
     					String thisParameterTypeComparedString = null;
     	    			if(thisParameterType.contains("."))
     	    				thisParameterTypeComparedString = thisParameterType.substring(thisParameterType.lastIndexOf(".")+1);
