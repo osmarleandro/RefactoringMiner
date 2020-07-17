@@ -80,13 +80,13 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((changedTypeAttribute == null) ? 0 : changedTypeAttribute.hashCode());
+		result = prime * result + ((changedTypeAttribute == null) ? 0 : changedTypeAttribute.hashCode_RENAMED());
 		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
 		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
-		result = prime * result + ((originalAttribute == null) ? 0 : originalAttribute.hashCode());
+		result = prime * result + ((originalAttribute == null) ? 0 : originalAttribute.hashCode_RENAMED());
 		return result;
 	}
 
