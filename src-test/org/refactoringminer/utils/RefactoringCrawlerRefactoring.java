@@ -29,7 +29,7 @@ public class RefactoringCrawlerRefactoring {
     this.oldElement = oldElement.trim();
   }
 
-  public String getType() {
+  public String getType_RENAMED() {
     return type;
   }
 
