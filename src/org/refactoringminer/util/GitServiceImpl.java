@@ -199,7 +199,7 @@ public class GitServiceImpl implements GitService {
 		return walk;
 	}
 
-	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
+	public RevWalk createAllRevsWalk_RENAMED(Repository repository) throws Exception {
 		return this.createAllRevsWalk(repository, null);
 	}
 
