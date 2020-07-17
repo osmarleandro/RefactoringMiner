@@ -541,8 +541,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			for(CandidateAttributeRefactoring candidate : set) {
 				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
 					if(a1 != null && a2 != null) {
-						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
-								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
+						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename_RENAMED(renameMap, pattern)) &&
+								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename_RENAMED(renameMap, pattern)) &&
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
@@ -964,7 +964,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
+	private static boolean cyclicRename_RENAMED(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
 		for(Replacement r : renames.keySet()) {
 			if((rename.getAfter().equals(r.getBefore()) || rename.getBefore().equals(r.getAfter())) &&
 					(totalOccurrences(renames.get(rename)) > 1 || totalOccurrences(renames.get(r)) > 1))
