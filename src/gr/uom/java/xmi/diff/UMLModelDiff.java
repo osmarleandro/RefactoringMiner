@@ -679,7 +679,7 @@ public class UMLModelDiff {
 	   if(candidates.size() > 1) {
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring candidate : candidates) {
-			   int compatibility = computeCompatibility(candidate);
+			   int compatibility = computeCompatibility_RENAMED(candidate);
 			   if(map.containsKey(compatibility)) {
 				   map.get(compatibility).add(candidate);
 			   }
@@ -735,7 +735,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private int computeCompatibility(MoveAttributeRefactoring candidate) {
+   private int computeCompatibility_RENAMED(MoveAttributeRefactoring candidate) {
 	   int count = 0;
 	   for(Refactoring ref : refactorings) {
 		   if(ref instanceof MoveOperationRefactoring) {
