@@ -1761,14 +1761,14 @@ public class UMLModelDiff {
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
 			for(AbstractCodeMapping mapping : parentMappingList) {
-				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
+				if(mapping.getFragment2_RENAMED().equals(mappingList.get(0).getFragment2_RENAMED())) {
 					return false;
 				}
 				if(mapping instanceof CompositeStatementObjectMapping) {
 					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
+					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2_RENAMED();
 					for(AbstractExpression expression : fragment2.getExpressions()) {
-						if(expression.equals(mappingList.get(0).getFragment2())) {
+						if(expression.equals(mappingList.get(0).getFragment2_RENAMED())) {
 							return false;
 						}
 					}
@@ -2391,7 +2391,7 @@ public class UMLModelDiff {
 	   if(mapper.mappingsWithoutBlocks() == 1) {
 		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
 			   String fragment1 = mapping.getFragment1().getString();
-			   String fragment2 = mapping.getFragment2().getString();
+			   String fragment2 = mapping.getFragment2_RENAMED().getString();
 			   if(fragment1.startsWith("return true;") || fragment1.startsWith("return false;") || fragment1.startsWith("return this;") || fragment1.startsWith("return null;") || fragment1.startsWith("return;") ||
 					   fragment2.startsWith("return true;") || fragment2.startsWith("return false;") || fragment2.startsWith("return this;") || fragment2.startsWith("return null;") || fragment2.startsWith("return;")) {
 				   return false;

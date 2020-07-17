@@ -39,7 +39,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
-			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
+			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2_RENAMED());
 		}
 	}
 
@@ -55,7 +55,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
-			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
+			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2_RENAMED());
 		}
 	}
 

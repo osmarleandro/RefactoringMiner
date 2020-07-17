@@ -237,15 +237,15 @@ public class ExtractOperationDetection {
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
 			AbstractCodeMapping mapping = exactMatchList.get(0);
-			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
+			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2_RENAMED() instanceof StatementObject) {
 				StatementObject statement1 = (StatementObject)mapping.getFragment1();
-				StatementObject statement2 = (StatementObject)mapping.getFragment2();
+				StatementObject statement2 = (StatementObject)mapping.getFragment2_RENAMED();
 				if(statement1.getParent().getString().startsWith("catch(") &&
 						statement2.getParent().getString().startsWith("catch(")) {
 					exceptionHandlingExactMatch = true;
 				}
 			}
-			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
+			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2_RENAMED().throwsNewException()) {
 				throwsNewExceptionExactMatch = true;
 			}
 		}

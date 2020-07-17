@@ -1233,9 +1233,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				if(statementUsingParameterAsInvoker1 != null && statementUsingParameterAsInvoker2 != null) {
 					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
+						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2_RENAMED() instanceof CompositeStatementObject) {
 							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
-							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
+							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2_RENAMED();
 							if(parent1.getLeaves().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves().contains(statementUsingParameterAsInvoker2)) {
 								return true;
 							}
@@ -1450,7 +1450,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
+			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2_RENAMED().getString().equals("try")) {
 				tryMappings++;
 			}
 			if(mapping.containsReplacement(ReplacementType.TYPE)) {

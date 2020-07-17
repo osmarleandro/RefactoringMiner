@@ -41,7 +41,7 @@ public abstract class AbstractCodeMapping {
 		return fragment1;
 	}
 
-	public AbstractCodeFragment getFragment2() {
+	public AbstractCodeFragment getFragment2_RENAMED() {
 		return fragment2;
 	}
 
@@ -134,8 +134,8 @@ public abstract class AbstractCodeMapping {
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
-				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
+				&& getFragment2_RENAMED() instanceof StatementObject) {
+			StatementObject statement = (StatementObject) getFragment2_RENAMED();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {
@@ -197,7 +197,7 @@ public abstract class AbstractCodeMapping {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
+								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2_RENAMED().getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}
