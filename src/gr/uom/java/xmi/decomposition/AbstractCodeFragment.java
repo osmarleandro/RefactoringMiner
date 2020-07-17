@@ -222,7 +222,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
 			for(OperationInvocation invocation : invocations) {
-				if(expressionIsTheRightHandSideOfAssignment(methodInvocation)) {
+				if(expressionIsTheRightHandSideOfAssignment_RENAMED(methodInvocation)) {
 					return invocation;
 				}
 			}
@@ -272,7 +272,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
+	private boolean expressionIsTheRightHandSideOfAssignment_RENAMED(String expression) {
 		String statement = getString();
 		if(statement.contains("=")) {
 			List<String> variables = getVariables();
