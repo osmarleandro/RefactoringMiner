@@ -482,7 +482,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringVisibility(UMLOperation operation) {
+	public boolean equalsIgnoringVisibility_RENAMED(UMLOperation operation) {
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 		return this.className.equals(operation.className) &&
