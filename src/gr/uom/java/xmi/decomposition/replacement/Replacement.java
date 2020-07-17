@@ -52,7 +52,7 @@ public class Replacement {
 		return before + " -> " + after;
 	}
 
-	public double normalizedEditDistance() {
+	public double normalizedEditDistance_RENAMED() {
 		String s1 = getBefore();
 		String s2 = getAfter();
 		int distance = StringDistance.editDistance(s1, s2);
