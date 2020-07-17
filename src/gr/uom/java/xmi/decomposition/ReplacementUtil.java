@@ -50,7 +50,7 @@ public class ReplacementUtil {
 		return temp;
 	}
 
-	public static String performReplacement(String completeString, String subString, String replacement) {
+	public static String performReplacement_RENAMED(String completeString, String subString, String replacement) {
 		String temp = new String(completeString);
 		if(completeString.equals(subString)) {
 			temp = temp.replace(subString, replacement);

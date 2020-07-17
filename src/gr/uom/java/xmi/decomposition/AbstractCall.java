@@ -427,7 +427,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		newCall.arguments = new ArrayList<String>();
 		for(String argument : this.arguments) {
 			newCall.arguments.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
+				ReplacementUtil.performReplacement_RENAMED(argument, oldExpression, newExpression));
 		}
 	}
 

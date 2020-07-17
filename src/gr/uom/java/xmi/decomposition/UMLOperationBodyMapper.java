@@ -1796,7 +1796,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(String methodInvocation1 : methodInvocations1) {
 			String temp = new String(methodInvocation1);
 			for(Replacement replacement : replacementInfo.getReplacements()) {
-				temp = ReplacementUtil.performReplacement(temp, replacement.getBefore(), replacement.getAfter());
+				temp = ReplacementUtil.performReplacement_RENAMED(temp, replacement.getBefore(), replacement.getAfter());
 			}
 			if(!temp.equals(methodInvocation1)) {
 				variablesAndMethodInvocations1.add(temp);

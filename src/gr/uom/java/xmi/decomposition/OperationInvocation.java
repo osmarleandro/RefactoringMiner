@@ -125,7 +125,7 @@ public class OperationInvocation extends AbstractCall {
 		newOperationInvocation.subExpressions = new ArrayList<String>();
 		for(String argument : this.subExpressions) {
 			newOperationInvocation.subExpressions.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
+				ReplacementUtil.performReplacement_RENAMED(argument, oldExpression, newExpression));
 		}
 		return newOperationInvocation;
 	}
