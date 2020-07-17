@@ -369,7 +369,7 @@ public class ResultComparator {
         return ignoreMethodParams;
     }
 
-    public void setIgnoreMethodParams(boolean ignoreMethodParams) {
+    public void setIgnoreMethodParams_RENAMED(boolean ignoreMethodParams) {
         this.ignoreMethodParams = ignoreMethodParams;
     }
 
