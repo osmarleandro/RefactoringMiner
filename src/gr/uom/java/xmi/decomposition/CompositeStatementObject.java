@@ -128,7 +128,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		//special handling for enhanced-for formal parameter
 		variableDeclarations.addAll(this.variableDeclarations);
 		for(AbstractExpression expression : expressionList) {
-			variableDeclarations.addAll(expression.getVariableDeclarations());
+			variableDeclarations.addAll(expression.getVariableDeclarations_RENAMED());
 		}
 		return variableDeclarations;
 	}
@@ -389,7 +389,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<VariableDeclaration> getAllVariableDeclarations() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-		variableDeclarations.addAll(getVariableDeclarations());
+		variableDeclarations.addAll(getVariableDeclarations_RENAMED());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
@@ -397,7 +397,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
-				variableDeclarations.addAll(statementObject.getVariableDeclarations());
+				variableDeclarations.addAll(statementObject.getVariableDeclarations_RENAMED());
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
 						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
@@ -490,7 +490,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
-				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
+				for(VariableDeclaration declaration : innerNode.getVariableDeclarations_RENAMED()) {
 					if(declaration.getVariableName().equals(currentElementName)) {
 						currentElementNameMatched = true;
 						break;

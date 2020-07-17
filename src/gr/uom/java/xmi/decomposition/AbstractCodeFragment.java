@@ -39,7 +39,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract String getString();
 	public abstract List<String> getVariables();
 	public abstract List<String> getTypes();
-	public abstract List<VariableDeclaration> getVariableDeclarations();
+	public abstract List<VariableDeclaration> getVariableDeclarations_RENAMED();
 	public abstract Map<String, List<OperationInvocation>> getMethodInvocationMap();
 	public abstract List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations();
 	public abstract List<String> getStringLiterals();
@@ -246,7 +246,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations_RENAMED();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
 			if(expressions.contains(initializer)) {
@@ -257,7 +257,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations_RENAMED();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
 			if(initializer.equals(expression))
