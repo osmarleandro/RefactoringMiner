@@ -45,7 +45,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.visibility = visibility;
 	}
 
-	public boolean isFinal() {
+	public boolean isFinal_RENAMED() {
 		return isFinal;
 	}
 
