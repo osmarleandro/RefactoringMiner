@@ -30,7 +30,7 @@ public class UMLParameterDiff {
 		return addedParameter;
 	}
 
-	public boolean isTypeChanged() {
+	public boolean isTypeChanged_RENAMED() {
 		return typeChanged;
 	}
 
