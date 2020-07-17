@@ -63,7 +63,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		annotations.add(annotation);
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
@@ -752,7 +752,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
 				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
-					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+					if(anonymousClass.getLocationInfo_RENAMED().equals(anonymousClassDeclaration.getLocationInfo_RENAMED())) {
 						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
 					}
 				}
