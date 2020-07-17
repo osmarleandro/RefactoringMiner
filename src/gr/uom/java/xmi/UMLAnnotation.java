@@ -58,7 +58,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return value != null;
 	}
 
- 	public boolean isNormalAnnotation() {
+ 	public boolean isNormalAnnotation_RENAMED() {
  		return memberValuePairs.size() > 0;
  	}
  
