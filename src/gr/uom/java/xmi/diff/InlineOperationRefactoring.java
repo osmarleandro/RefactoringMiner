@@ -52,7 +52,7 @@ public class InlineOperationRefactoring implements Refactoring {
 			sb.append(" inlined to ");
 			sb.append(targetOperationAfterInline);
 			sb.append(" in class ");
-			sb.append(getClassName());
+			sb.append(getClassName_RENAMED());
 		}
 		else if(getRefactoringType().equals(RefactoringType.MOVE_AND_INLINE_OPERATION)) {
 			sb.append(" moved from class ");
@@ -65,7 +65,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	private String getClassName() {
+	private String getClassName_RENAMED() {
 		return targetOperationAfterInline.getClassName();
 	}
 
