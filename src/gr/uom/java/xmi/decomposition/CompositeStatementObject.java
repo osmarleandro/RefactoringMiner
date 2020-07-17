@@ -183,7 +183,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getNullLiterals() {
 		List<String> nullLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			nullLiterals.addAll(expression.getNullLiterals());
+			nullLiterals.addAll(expression.getNullLiterals_RENAMED());
 		}
 		return nullLiterals;
 	}

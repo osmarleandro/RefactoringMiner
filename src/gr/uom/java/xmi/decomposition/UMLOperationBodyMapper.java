@@ -1897,14 +1897,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		findReplacements(variables1, prefixExpressions2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
 		findReplacements(prefixExpressions1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION);
 		findReplacements(stringLiterals1, variables2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL);
-		if(statement1.getNullLiterals().isEmpty() && !statement2.getNullLiterals().isEmpty()) {
+		if(statement1.getNullLiterals_RENAMED().isEmpty() && !statement2.getNullLiterals_RENAMED().isEmpty()) {
 			Set<String> nullLiterals2 = new LinkedHashSet<String>();
 			nullLiterals2.add("null");
 			findReplacements(variables1, nullLiterals2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL);
 		}
 
 		if(statement1.getTernaryOperatorExpressions().isEmpty() && !statement2.getTernaryOperatorExpressions().isEmpty()) {
-			if(!statement1.getNullLiterals().isEmpty()) {
+			if(!statement1.getNullLiterals_RENAMED().isEmpty()) {
 				Set<String> nullLiterals1 = new LinkedHashSet<String>();
 				nullLiterals1.add("null");
 				Set<String> ternaryExpressions2 = new LinkedHashSet<String>();
@@ -1915,7 +1915,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		else if(!statement1.getTernaryOperatorExpressions().isEmpty() && statement2.getTernaryOperatorExpressions().isEmpty()) {
-			if(!statement2.getNullLiterals().isEmpty()) {
+			if(!statement2.getNullLiterals_RENAMED().isEmpty()) {
 				Set<String> nullLiterals2 = new LinkedHashSet<String>();
 				nullLiterals2.add("null");
 				Set<String> ternaryExpressions1 = new LinkedHashSet<String>();
