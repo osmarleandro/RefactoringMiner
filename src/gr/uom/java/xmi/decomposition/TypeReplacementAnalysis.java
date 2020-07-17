@@ -15,14 +15,14 @@ public class TypeReplacementAnalysis {
 
 	public TypeReplacementAnalysis(Set<AbstractCodeMapping> mappings) {
 		this.mappings = mappings;
-		findTypeChanges();
+		findTypeChanges_RENAMED();
 	}
 
 	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
 		return changedTypes;
 	}
 
-	private void findTypeChanges() {
+	private void findTypeChanges_RENAMED() {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
