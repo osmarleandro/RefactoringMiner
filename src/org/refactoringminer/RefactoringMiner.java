@@ -79,7 +79,7 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			endJSON_RENAMED(sb);
 			System.out.println(sb.toString());
 		}
 	}
@@ -120,7 +120,7 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			endJSON_RENAMED(sb);
 			System.out.println(sb.toString());
 		}
 	}
@@ -161,7 +161,7 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			endJSON_RENAMED(sb);
 			System.out.println(sb.toString());
 		}
 	}
@@ -190,7 +190,7 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			endJSON_RENAMED(sb);
 			System.out.println(sb.toString());
 		}
 	}
@@ -217,7 +217,7 @@ public class RefactoringMiner {
 				e.printStackTrace(System.err);
 			}
 		}, timeout);
-		endJSON(sb);
+		endJSON_RENAMED(sb);
 		System.out.println(sb.toString());
 	}
 
@@ -248,7 +248,7 @@ public class RefactoringMiner {
 				e.printStackTrace(System.err);
 			}
 		}, timeout);
-		endJSON(sb);
+		endJSON_RENAMED(sb);
 		System.out.println(sb.toString());
 	}
 
@@ -279,7 +279,7 @@ public class RefactoringMiner {
 		sb.append("[").append("\n");
 	}
 
-	private static void endJSON(StringBuilder sb) {
+	private static void endJSON_RENAMED(StringBuilder sb) {
 		sb.append("]").append("\n");
 		sb.append("}");
 	}
