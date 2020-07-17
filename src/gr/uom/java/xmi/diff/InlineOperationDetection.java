@@ -28,7 +28,7 @@ public class InlineOperationDetection {
 		this.removedOperations = removedOperations;
 		this.classDiff = classDiff;
 		this.modelDiff = modelDiff;
-		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
+		this.operationInvocations = getInvocationsInTargetOperationBeforeInline_RENAMED(mapper);
 	}
 
 	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
@@ -112,7 +112,7 @@ public class InlineOperationDetection {
 		}
 	}
 
-	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
+	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline_RENAMED(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
