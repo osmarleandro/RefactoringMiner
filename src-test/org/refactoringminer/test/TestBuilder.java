@@ -125,13 +125,13 @@ public class TestBuilder {
 		}
 		System.out.println(String.format("Commits: %d  Errors: %d", commitsCount, errorCommitsCount));
 
-		String mainResultMessage = buildResultMessage(c);
+		String mainResultMessage = buildResultMessage_RENAMED(c);
 		System.out.println("Total  " + mainResultMessage);
 		for (RefactoringType refType : RefactoringType.values()) {
 			Counter refTypeCounter = cMap.get(refType);
 			if (refTypeCounter != null) {
 				System.out
-						.println(String.format("%-7s", refType.getAbbreviation()) + buildResultMessage(refTypeCounter));
+						.println(String.format("%-7s", refType.getAbbreviation()) + buildResultMessage_RENAMED(refTypeCounter));
 			}
 		}
 
@@ -144,7 +144,7 @@ public class TestBuilder {
 		Assert.assertTrue(mainResultMessage, success);
 	}
 
-	private String buildResultMessage(Counter c) {
+	private String buildResultMessage_RENAMED(Counter c) {
 		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
 		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
 		String mainResultMessage = String.format(
