@@ -205,9 +205,9 @@ public class RefactoringPopulator {
 				}
 			}
 			Tuple[] tmp = {};
-			System.out.println("Total\t" + buildResultMessage(result.values().toArray(tmp)));
+			System.out.println("Total\t" + buildResultMessage_RENAMED(result.values().toArray(tmp)));
 			for (String key : result.keySet()) {
-				System.out.println(getInitials(key) + "\t" + buildResultMessage(result.get(key)));
+				System.out.println(getInitials(key) + "\t" + buildResultMessage_RENAMED(result.get(key)));
 			}
 		} catch (JsonParseException e) {
 			e.printStackTrace();
@@ -228,7 +228,7 @@ public class RefactoringPopulator {
 		return sb.toString();
 	}
 
-	private static String buildResultMessage(Tuple... result) {
+	private static String buildResultMessage_RENAMED(Tuple... result) {
 		int trueP = 0;
 		int total = 0;
 		int ukn = 0;
