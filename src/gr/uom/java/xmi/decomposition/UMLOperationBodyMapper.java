@@ -1561,7 +1561,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private boolean nonMatchedStatementUsesVariableInArgument(List<? extends AbstractCodeFragment> statements, String variable, String otherArgument) {
+	private boolean nonMatchedStatementUsesVariableInArgument_RENAMED(List<? extends AbstractCodeFragment> statements, String variable, String otherArgument) {
 		for(AbstractCodeFragment statement : statements) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null) {
@@ -1605,7 +1605,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
 						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
 								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements1, variable, argument)) {
+								!nonMatchedStatementUsesVariableInArgument_RENAMED(replacementInfo.statements1, variable, argument)) {
 							variablesToBeRemovedFromTheIntersection.add(variable);
 						}
 					}
@@ -1616,7 +1616,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
 						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
 								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements2, variable, argument)) {
+								!nonMatchedStatementUsesVariableInArgument_RENAMED(replacementInfo.statements2, variable, argument)) {
 							variablesToBeRemovedFromTheIntersection.add(variable);
 						}
 					}
