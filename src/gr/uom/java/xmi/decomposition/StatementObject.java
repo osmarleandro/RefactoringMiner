@@ -179,7 +179,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getNumberLiterals() {
+	public List<String> getNumberLiterals_RENAMED() {
 		return numberLiterals;
 	}
 

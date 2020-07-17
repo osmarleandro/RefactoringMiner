@@ -174,7 +174,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getNumberLiterals() {
 		List<String> numberLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			numberLiterals.addAll(expression.getNumberLiterals());
+			numberLiterals.addAll(expression.getNumberLiterals_RENAMED());
 		}
 		return numberLiterals;
 	}
