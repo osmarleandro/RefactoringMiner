@@ -25,7 +25,7 @@ public interface GitService {
 	
 	Repository openRepository(String folder) throws Exception;
 
-	int countCommits(Repository repository, String branch) throws Exception;
+	int countCommits_RENAMED(Repository repository, String branch) throws Exception;
 
 	void checkout(Repository repository, String commitId) throws Exception;
 
