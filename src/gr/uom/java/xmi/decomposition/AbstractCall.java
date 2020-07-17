@@ -321,14 +321,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public Set<String> argumentIntersection(AbstractCall call) {
-		List<String> args1 = preprocessArguments(getArguments());
-		List<String> args2 = preprocessArguments(call.getArguments());
+		List<String> args1 = preprocessArguments_RENAMED(getArguments());
+		List<String> args2 = preprocessArguments_RENAMED(call.getArguments());
 		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
 		argumentIntersection.retainAll(args2);
 		return argumentIntersection;
 	}
 
-	private List<String> preprocessArguments(List<String> arguments) {
+	private List<String> preprocessArguments_RENAMED(List<String> arguments) {
 		List<String> args = new ArrayList<String>();
 		for(String arg : arguments) {
 			if(arg.contains("\n")) {
