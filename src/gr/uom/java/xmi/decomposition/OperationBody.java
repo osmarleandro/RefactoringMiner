@@ -250,7 +250,7 @@ public class OperationBody {
 			Block finallyBlock = tryStatement.getFinally();
 			if(finallyBlock != null) {
 				CompositeStatementObject finallyClauseStatementObject = new CompositeStatementObject(cu, filePath, finallyBlock, parent.getDepth()+1, CodeElementType.FINALLY_BLOCK);
-				child.setFinallyClause(finallyClauseStatementObject);
+				child.setFinallyClause_RENAMED(finallyClauseStatementObject);
 				parent.addStatement(finallyClauseStatementObject);
 				List<Statement> blockStatements = finallyBlock.statements();
 				for(Statement blockStatement : blockStatements) {
