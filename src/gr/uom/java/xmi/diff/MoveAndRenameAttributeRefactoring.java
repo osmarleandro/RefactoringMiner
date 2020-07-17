@@ -28,7 +28,7 @@ public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring 
 		sb.append(" renamed to ");
 		sb.append(movedAttribute.toQualifiedString());
 		sb.append(" and moved from class ");
-		sb.append(getSourceClassName());
+		sb.append(getSourceClassName_RENAMED());
 		sb.append(" to class ");
 		sb.append(getTargetClassName());
 		return sb.toString();

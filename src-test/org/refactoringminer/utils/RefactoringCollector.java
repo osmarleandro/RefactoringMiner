@@ -49,7 +49,7 @@ public class RefactoringCollector extends RefactoringHandler {
       } else if (r instanceof MoveAttributeRefactoring) {
         MoveAttributeRefactoring ref = (MoveAttributeRefactoring) r;
         String attrName = ref.getMovedAttribute().getName();
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName() + "#" + attrName, ref.getTargetClassName() + "#" + attrName));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName_RENAMED() + "#" + attrName, ref.getTargetClassName() + "#" + attrName));
       } else {
         throw new RuntimeException("refactoring not supported");
       }

@@ -745,7 +745,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   UMLClassBaseDiff sourceClassDiff = getUMLClassDiff(candidate.getSourceClassName());
+	   UMLClassBaseDiff sourceClassDiff = getUMLClassDiff(candidate.getSourceClassName_RENAMED());
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(candidate.getTargetClassName());
 	   if(sourceClassDiff != null) {
 		   UMLType targetSuperclass = null;

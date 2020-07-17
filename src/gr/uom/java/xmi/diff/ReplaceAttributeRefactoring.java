@@ -26,7 +26,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		sb.append(getName()).append("\t");
 		sb.append(originalAttribute.toQualifiedString());
 		sb.append(" from class ");
-		sb.append(getSourceClassName());
+		sb.append(getSourceClassName_RENAMED());
 		sb.append(" with ");
 		sb.append(movedAttribute.toQualifiedString());
 		sb.append(" from class ");
