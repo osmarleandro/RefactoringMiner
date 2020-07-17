@@ -28,7 +28,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		return annotation;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation getOperationBefore_RENAMED() {
 		return operationBefore;
 	}
 
@@ -70,7 +70,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOperationBefore_RENAMED().getLocationInfo().getFilePath(), getOperationBefore_RENAMED().getClassName()));
 		return pairs;
 	}
 
