@@ -18,7 +18,7 @@ public class ObjectCreationReplacement extends Replacement {
 		return createdObjectBefore;
 	}
 
-	public ObjectCreation getCreatedObjectAfter() {
+	public ObjectCreation getCreatedObjectAfter_RENAMED() {
 		return createdObjectAfter;
 	}
 
