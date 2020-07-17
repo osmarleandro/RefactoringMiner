@@ -143,7 +143,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				//logger.info(String.format("Ignored revision %s with no changes in java files", commitId));
 				refactoringsAtRevision = Collections.emptyList();
 			}
-			handler.handle(commitId, refactoringsAtRevision);
+			handler.handle_RENAMED(commitId, refactoringsAtRevision);
 			
 			walk.dispose();
 		}
@@ -209,7 +209,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
 			handler.handleException(currentCommitId, e);
 		}
-		handler.handle(currentCommitId, refactoringsAtRevision);
+		handler.handle_RENAMED(currentCommitId, refactoringsAtRevision);
 
 		return refactoringsAtRevision;
 	}
@@ -499,7 +499,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
 			handler.handleException(currentCommitId, e);
 		}
-		handler.handle(currentCommitId, refactoringsAtRevision);
+		handler.handle_RENAMED(currentCommitId, refactoringsAtRevision);
 
 		return refactoringsAtRevision;
 	}

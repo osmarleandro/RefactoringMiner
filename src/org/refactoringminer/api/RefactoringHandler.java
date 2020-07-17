@@ -26,7 +26,7 @@ public abstract class RefactoringHandler {
 	 * @param commitId The sha of the analyzed commit.
 	 * @param refactorings List of refactorings detected in the commit.
 	 */
-	public void handle(String commitId, List<Refactoring> refactorings) {}
+	public void handle_RENAMED(String commitId, List<Refactoring> refactorings) {}
 
 	/**
      * This method is called whenever an exception is thrown during the analysis of the given commit.
