@@ -145,7 +145,7 @@ public class UMLModel {
     		if(umlModel.classList.contains(umlClass)) {
     			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
     			classDiff.process();
-    			if(!classDiff.isEmpty())
+    			if(!classDiff.isEmpty_RENAMED())
     				modelDiff.addUMLClassDiff(classDiff);
     		}
     	}
