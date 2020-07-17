@@ -378,7 +378,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return null;
 	}
 
-	public Replacement makeReplacementForWrappedCall(String statement) {
+	public Replacement makeReplacementForWrappedCall_RENAMED(String statement) {
 		if(argumentIsReturned(statement)) {
 			return new Replacement(statement.substring(7, statement.length()-2), getArguments().get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
