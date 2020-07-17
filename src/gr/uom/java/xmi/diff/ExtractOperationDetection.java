@@ -75,7 +75,7 @@ public class ExtractOperationDetection {
 		}
 		else {
 			callTree = new CallTree(root);
-			generateCallTree(addedOperation, root, callTree);
+			generateCallTree_RENAMED(addedOperation, root, callTree);
 			callTreeMap.put(root, callTree);
 		}
 		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
@@ -185,7 +185,7 @@ public class ExtractOperationDetection {
 		return addedOperationInvocations;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree_RENAMED(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
@@ -193,7 +193,7 @@ public class ExtractOperationDetection {
 					if(!callTree.contains(addedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
 						parent.addChild(node);
-						generateCallTree(addedOperation, node, callTree);
+						generateCallTree_RENAMED(addedOperation, node, callTree);
 					}
 				}
 			}
