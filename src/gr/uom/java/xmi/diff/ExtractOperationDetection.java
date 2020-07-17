@@ -129,12 +129,12 @@ public class ExtractOperationDetection {
 	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
-			addStatementInvocations(operationInvocations, statement);
+			addStatementInvocations_RENAMED(operationInvocations, statement);
 		}
 		return operationInvocations;
 	}
 
-	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject statement) {
+	public static void addStatementInvocations_RENAMED(List<OperationInvocation> operationInvocations, StatementObject statement) {
 		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
 		for(String key : statementMethodInvocationMap.keySet()) {
 			for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
