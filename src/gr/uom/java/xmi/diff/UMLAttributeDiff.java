@@ -123,8 +123,8 @@ public class UMLAttributeDiff {
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
-			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
-					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
+			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration_RENAMED(), addedAttribute.getVariableDeclaration_RENAMED(), removedAttribute.getClassName(), addedAttribute.getClassName(),
+					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration_RENAMED(), addedAttribute.getVariableDeclaration_RENAMED(), operationBodyMapperList));
 			refactorings.add(ref);
 		}
 		refactorings.addAll(getAnnotationRefactorings());
@@ -135,12 +135,12 @@ public class UMLAttributeDiff {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		RenameAttributeRefactoring rename = null;
 		if(isRenamed()) {
-			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
+			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration_RENAMED(), addedAttribute.getVariableDeclaration_RENAMED(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
-			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
-					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
+			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration_RENAMED(), addedAttribute.getVariableDeclaration_RENAMED(), removedAttribute.getClassName(), addedAttribute.getClassName(),
+					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration_RENAMED(), addedAttribute.getVariableDeclaration_RENAMED(), operationBodyMapperList));
 			refactorings.add(ref);
 			if(rename != null) {
 				ref.addRelatedRefactoring(rename);

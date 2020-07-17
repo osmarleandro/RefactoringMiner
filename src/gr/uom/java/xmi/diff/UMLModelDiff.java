@@ -720,8 +720,8 @@ public class UMLModelDiff {
    }
 
    private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
-	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
-	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
+	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration_RENAMED();
+	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration_RENAMED();
 	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
 		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
 		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
@@ -1339,16 +1339,16 @@ public class UMLModelDiff {
     			  UMLAttribute a1 = diff.findAttributeInOriginalClass(mergedVariable);
     			  if(a1 != null) {
     				  mergedAttributes.add(a1);
-    				  mergedVariables.add(a1.getVariableDeclaration());
+    				  mergedVariables.add(a1.getVariableDeclaration_RENAMED());
     			  }
     		  }
     		  UMLAttribute a2 = diff.findAttributeInNextClass(merge.getAfter());
     		  Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
     		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-    			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
+    			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration_RENAMED(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);
-    				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
+    				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration_RENAMED(), refactorings);
     				  if(conflictingRefactoring != null) {
     					  refactorings.remove(conflictingRefactoring);
     				  }
@@ -1408,7 +1408,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration_RENAMED(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1445,7 +1445,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration_RENAMED(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1588,7 +1588,7 @@ public class UMLModelDiff {
 					   }
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
-					   RenameVariableRefactoring newRename = new RenameVariableRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+					   RenameVariableRefactoring newRename = new RenameVariableRefactoring(matchingRemovedParameter.getVariableDeclaration_RENAMED(), matchingAddedParameter.getVariableDeclaration_RENAMED(),
 							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newRename);
 				   }
@@ -1612,7 +1612,7 @@ public class UMLModelDiff {
 					   }
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
-					   ChangeVariableTypeRefactoring newChangeType = new ChangeVariableTypeRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+					   ChangeVariableTypeRefactoring newChangeType = new ChangeVariableTypeRefactoring(matchingRemovedParameter.getVariableDeclaration_RENAMED(), matchingAddedParameter.getVariableDeclaration_RENAMED(),
 							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newChangeType);
 				   }
@@ -2321,7 +2321,7 @@ public class UMLModelDiff {
 			if(addedClass != null && s1.getVariableDeclarations().size() == 1) {
 				VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
 				for(UMLAttribute attribute : addedClass.getAttributes()) {
-					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
+					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration_RENAMED();
 					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
 						String variableInitializer = v1.getInitializer().getString();
@@ -2493,7 +2493,7 @@ public class UMLModelDiff {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
-				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
+				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration_RENAMED()) && merge.getNewAttribute().equals(a2.getVariableDeclaration_RENAMED())) {
 					return true;
 				}
 			}
