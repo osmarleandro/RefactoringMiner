@@ -55,7 +55,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		typeParameters.add(typeParameter);
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation> getAnnotations_RENAMED() {
 		return annotations;
 	}
 
