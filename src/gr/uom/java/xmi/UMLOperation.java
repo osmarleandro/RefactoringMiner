@@ -629,7 +629,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 
-	public String getKey() {
+	public String getKey_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(className);
 		sb.append('#');
