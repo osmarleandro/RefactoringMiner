@@ -114,17 +114,17 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 		if (annotation == null) {
 			if (other.annotation != null)
 				return false;
-		} else if (!annotation.equals(other.annotation))
+		} else if (!annotation.equals_RENAMED(other.annotation))
 			return false;
 		if (attributeAfter == null) {
 			if (other.attributeAfter != null)
 				return false;
-		} else if (!attributeAfter.equals(other.attributeAfter))
+		} else if (!attributeAfter.equals_RENAMED(other.attributeAfter))
 			return false;
 		if (attributeBefore == null) {
 			if (other.attributeBefore != null)
 				return false;
-		} else if (!attributeBefore.equals(other.attributeBefore))
+		} else if (!attributeBefore.equals_RENAMED(other.attributeBefore))
 			return false;
 		return true;
 	}
