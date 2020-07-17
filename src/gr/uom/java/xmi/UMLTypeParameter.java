@@ -26,7 +26,7 @@ public class UMLTypeParameter {
 		typeBounds.add(type);
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation> getAnnotations_RENAMED() {
 		return annotations;
 	}
 
