@@ -2004,8 +2004,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							for(int j=0; j<anonymousClassDeclarations2.size(); j++) {
 								AnonymousClassDeclarationObject anonymousClassDeclaration1 = anonymousClassDeclarations1.get(i);
 								AnonymousClassDeclarationObject anonymousClassDeclaration2 = anonymousClassDeclarations2.get(j);
-								if(anonymousClassDeclaration1.getMethodInvocationMap().containsKey(replacement.getBefore()) &&
-										anonymousClassDeclaration2.getMethodInvocationMap().containsKey(replacement.getAfter())) {
+								if(anonymousClassDeclaration1.getMethodInvocationMap_RENAMED().containsKey(replacement.getBefore()) &&
+										anonymousClassDeclaration2.getMethodInvocationMap_RENAMED().containsKey(replacement.getAfter())) {
 									replacementsInsideAnonymous.add(replacement);
 									break;
 								}

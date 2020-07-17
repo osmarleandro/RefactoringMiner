@@ -58,7 +58,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return astNodeString;
 	}
 
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap_RENAMED() {
 		return this.methodInvocationMap;
 	}
 
