@@ -82,7 +82,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeAfterMove() {
+	public CodeRange getTargetOperationCodeRangeAfterMove_RENAMED() {
 		return movedOperation.codeRange();
 	}
 
