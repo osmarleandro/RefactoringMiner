@@ -29,7 +29,7 @@ public class TryStatementObject extends CompositeStatementObject {
 		this.finallyClause = finallyClause;
 	}
 
-	public CompositeStatementObject getFinallyClause() {
+	public CompositeStatementObject getFinallyClause_RENAMED() {
 		return finallyClause;
 	}
 

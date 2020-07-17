@@ -4145,8 +4145,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		if(try1.getFinallyClause() != null && try2.getFinallyClause() != null) {
-			double tmpScore = compositeChildMatchingScore(try1.getFinallyClause(), try2.getFinallyClause(), mappings, removedOperations, addedOperations);
+		if(try1.getFinallyClause_RENAMED() != null && try2.getFinallyClause_RENAMED() != null) {
+			double tmpScore = compositeChildMatchingScore(try1.getFinallyClause_RENAMED(), try2.getFinallyClause_RENAMED(), mappings, removedOperations, addedOperations);
 			if(tmpScore == 1) {
 				score += tmpScore;
 			}
