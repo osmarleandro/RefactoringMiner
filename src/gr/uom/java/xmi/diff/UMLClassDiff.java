@@ -114,7 +114,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			}
 		}
 		for(UMLOperation operation : originalClass.getOperations()) {
-			if(!containsMapperForOperation(operation) && nextClass.getOperations().contains(operation) && !removedOperations.contains(operation)) {
+			if(!containsMapperForOperation_RENAMED(operation) && nextClass.getOperations().contains(operation) && !removedOperations.contains(operation)) {
     			int index = nextClass.getOperations().indexOf(operation);
     			int lastIndex = nextClass.getOperations().lastIndexOf(operation);
     			int finalIndex = index;
@@ -179,7 +179,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		}
 	}
 
-	private boolean containsMapperForOperation(UMLOperation operation) {
+	private boolean containsMapperForOperation_RENAMED(UMLOperation operation) {
 		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 			if(mapper.getOperation1().equalsQualified(operation)) {
 				return true;
