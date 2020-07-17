@@ -209,7 +209,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArrayAccesses() {
+	public List<String> getArrayAccesses_RENAMED() {
 		return arrayAccesses;
 	}
 
