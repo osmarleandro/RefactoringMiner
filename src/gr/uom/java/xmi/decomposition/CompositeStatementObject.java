@@ -237,7 +237,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getPostfixExpressions() {
 		List<String> postfixExpressions = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
-			postfixExpressions.addAll(expression.getPostfixExpressions());
+			postfixExpressions.addAll(expression.getPostfixExpressions_RENAMED());
 		}
 		return postfixExpressions;
 	}
