@@ -1469,7 +1469,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean compatibleSignatures(UMLOperation removedOperation, UMLOperation addedOperation, int absoluteDifferenceInPosition) {
 		return addedOperation.compatibleSignature(removedOperation) ||
 		(
-		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
+		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch_RENAMED(removedOperation, addedOperation)) &&
 		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
 		(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
 		);
@@ -1486,7 +1486,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean operationsBeforeAndAfterMatch(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private boolean operationsBeforeAndAfterMatch_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 		UMLOperation operationBefore1 = null;
 		UMLOperation operationAfter1 = null;
 		List<UMLOperation> originalClassOperations = originalClass.getOperations();
