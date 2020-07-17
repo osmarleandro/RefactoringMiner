@@ -40,12 +40,12 @@ public class CallTreeNode {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((invocation == null) ? 0 : invocation.hashCode());
-		result = prime * result + ((invokedOperation == null) ? 0 : invokedOperation.hashCode());
-		result = prime * result + ((originalOperation == null) ? 0 : originalOperation.hashCode());
+		result = prime * result + ((invocation == null) ? 0 : invocation.hashCode_RENAMED());
+		result = prime * result + ((invokedOperation == null) ? 0 : invokedOperation.hashCode_RENAMED());
+		result = prime * result + ((originalOperation == null) ? 0 : originalOperation.hashCode_RENAMED());
 		return result;
 	}
 
