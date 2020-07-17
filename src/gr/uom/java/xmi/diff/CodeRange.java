@@ -72,7 +72,7 @@ public class CodeRange {
 		return this;
 	}
 
-	public boolean subsumes(CodeRange other) {
+	public boolean subsumes_RENAMED(CodeRange other) {
 		return this.filePath.equals(other.filePath) &&
 				this.startLine <= other.startLine &&
 				this.endLine >= other.endLine;
@@ -81,7 +81,7 @@ public class CodeRange {
 	public boolean subsumes(List<? extends AbstractCodeFragment> statements) {
 		int subsumedStatements = 0;
 		for(AbstractCodeFragment statement : statements) {
-			if(subsumes(statement.codeRange())) {
+			if(subsumes_RENAMED(statement.codeRange())) {
 				subsumedStatements++;
 			}
 		}
