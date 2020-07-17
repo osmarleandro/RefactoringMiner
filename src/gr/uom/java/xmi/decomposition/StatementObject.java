@@ -154,7 +154,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypes() {
+	public List<String> getTypes_RENAMED() {
 		return types;
 	}
 
