@@ -40,7 +40,7 @@ public class UMLAttributeDiff {
 			typeChanged = true;
 		else if(!removedAttribute.getType().equalsQualified(addedAttribute.getType()))
 			qualifiedTypeChanged = true;
-		if(removedAttribute.isStatic() != addedAttribute.isStatic())
+		if(removedAttribute.isStatic_RENAMED() != addedAttribute.isStatic_RENAMED())
 			staticChanged = true;
 		if(removedAttribute.isFinal() != addedAttribute.isFinal())
 			finalChanged = true;
@@ -86,8 +86,8 @@ public class UMLAttributeDiff {
 		if(typeChanged || qualifiedTypeChanged)
 			sb.append("\t").append("type changed from " + removedAttribute.getType() + " to " + addedAttribute.getType()).append("\n");
 		if(staticChanged)
-			sb.append("\t").append("modifier changed from " + (removedAttribute.isStatic() ? "static" : "non-static") + " to " +
-					(addedAttribute.isStatic() ? "static" : "non-static")).append("\n");
+			sb.append("\t").append("modifier changed from " + (removedAttribute.isStatic_RENAMED() ? "static" : "non-static") + " to " +
+					(addedAttribute.isStatic_RENAMED() ? "static" : "non-static")).append("\n");
 		if(finalChanged)
 			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
 					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
