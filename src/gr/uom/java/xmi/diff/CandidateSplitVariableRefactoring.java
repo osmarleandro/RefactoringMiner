@@ -44,7 +44,7 @@ public class CandidateSplitVariableRefactoring {
 		return variableReferences;
 	}
 
-	public Set<UMLAttribute> getSplitAttributes() {
+	public Set<UMLAttribute> getSplitAttributes_RENAMED() {
 		return splitAttributes;
 	}
 
