@@ -110,7 +110,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>parent</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeBeforeInline() {
+	public CodeRange getTargetOperationCodeRangeBeforeInline_RENAMED() {
 		return targetOperationBeforeInline.codeRange();
 	}
 
@@ -176,7 +176,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
 		}
-		ranges.add(getTargetOperationCodeRangeBeforeInline()
+		ranges.add(getTargetOperationCodeRangeBeforeInline_RENAMED()
 				.setDescription("target method declaration before inline")
 				.setCodeElement(targetOperationBeforeInline.toString()));
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
