@@ -99,7 +99,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return hashCode;
 	}
 
-	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring_RENAMED() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getOriginalAttribute().getClassName()));
 		return pairs;
