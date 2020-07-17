@@ -249,7 +249,7 @@ public class OperationInvocation extends AbstractCall {
     		return true;
     	if(parameter.isVarargs() && type1.endsWith("Object[]") && (type2.equals("Throwable") || type2.endsWith("Exception")))
     		return true;
-    	if(parameter.getType().equalsWithSubType(type))
+    	if(parameter.getType().equalsWithSubType_RENAMED(type))
     		return true;
     	if(parameter.getType().isParameterized() && type.isParameterized() &&
     			parameter.getType().getClassType().equals(type.getClassType()))
