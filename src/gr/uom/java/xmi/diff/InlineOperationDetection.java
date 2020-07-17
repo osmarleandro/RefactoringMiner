@@ -45,7 +45,7 @@ public class InlineOperationDetection {
 				}
 				else {
 					callTree = new CallTree(root);
-					generateCallTree(removedOperation, root, callTree);
+					generateCallTree_RENAMED(removedOperation, root, callTree);
 					callTreeMap.put(root, callTree);
 				}
 				UMLOperationBodyMapper operationBodyMapper = createMapperForInlinedMethod(mapper, removedOperation, removedOperationInvocation);
@@ -97,7 +97,7 @@ public class InlineOperationDetection {
 		return operationBodyMapper;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree_RENAMED(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation removedOperation : removedOperations) {
 			for(OperationInvocation invocation : invocations) {
@@ -105,7 +105,7 @@ public class InlineOperationDetection {
 					if(!callTree.contains(removedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
 						parent.addChild(node);
-						generateCallTree(removedOperation, node, callTree);
+						generateCallTree_RENAMED(removedOperation, node, callTree);
 					}
 				}
 			}
