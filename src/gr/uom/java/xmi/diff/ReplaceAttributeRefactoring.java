@@ -21,7 +21,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		return attributeRenames;
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(originalAttribute.toQualifiedString());
@@ -47,7 +47,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("replaced attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
+				.setCodeElement(movedAttribute.toString_RENAMED()));
 		return ranges;
 	}
 }
