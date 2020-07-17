@@ -98,7 +98,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				
 			} catch (Exception e) {
 				logger.warn(String.format("Ignored revision %s due to error", currentCommit.getId().getName()), e);
-				handler.handleException(currentCommit.getId().getName(),e);
+				handler.handleException_RENAMED(currentCommit.getId().getName(),e);
 				errorCommitsCount++;
 			}
 
@@ -207,7 +207,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			}
 		} catch (Exception e) {
 			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
+			handler.handleException_RENAMED(currentCommitId, e);
 		}
 		handler.handle(currentCommitId, refactoringsAtRevision);
 
@@ -374,7 +374,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
 		} catch (Exception e) {
 			logger.warn(String.format("Ignored revision %s due to error", commitId), e);
-			handler.handleException(commitId, e);
+			handler.handleException_RENAMED(commitId, e);
 		} finally {
 			walk.close();
 			walk.dispose();
@@ -449,7 +449,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			logger.warn(String.format("Ignored revision %s due to missing commit", commitId), moe);
 		} catch (Exception e) {
 			logger.warn(String.format("Ignored revision %s due to error", commitId), e);
-			handler.handleException(commitId, e);
+			handler.handleException_RENAMED(commitId, e);
 		} finally {
 			walk.close();
 			walk.dispose();
@@ -493,11 +493,11 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 		catch(RefactoringMinerTimedOutException e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
+			handler.handleException_RENAMED(currentCommitId, e);
 		}
 		catch (Exception e) {
 			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
+			handler.handleException_RENAMED(currentCommitId, e);
 		}
 		handler.handle(currentCommitId, refactoringsAtRevision);
 
