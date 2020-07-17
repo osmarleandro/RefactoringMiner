@@ -1084,7 +1084,7 @@ public class UMLModelDiff {
 
    private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
 	   for(UMLOperation addedOperation : addedClass.getOperations()) {
-		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
+		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature_RENAMED(addedOperation);
 		   if(removedOperation != null) {
 			   classDiff.getRemovedOperations().remove(removedOperation);
 			   Refactoring ref = null;
