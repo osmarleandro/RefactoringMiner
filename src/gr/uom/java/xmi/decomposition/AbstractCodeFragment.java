@@ -23,7 +23,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return depth;
 	}
 
-	public void setDepth(int depth) {
+	public void setDepth_RENAMED(int depth) {
 		this.depth = depth;
 	}
 
