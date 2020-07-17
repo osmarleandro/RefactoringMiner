@@ -93,8 +93,8 @@ public class UMLOperationDiff {
 			}
 		}
 		//third round match parameters with different type and name
-		List<UMLParameter> removedParametersWithoutReturnType = removedOperation.getParametersWithoutReturnType();
-		List<UMLParameter> addedParametersWithoutReturnType = addedOperation.getParametersWithoutReturnType();
+		List<UMLParameter> removedParametersWithoutReturnType = removedOperation.getParametersWithoutReturnType_RENAMED();
+		List<UMLParameter> addedParametersWithoutReturnType = addedOperation.getParametersWithoutReturnType_RENAMED();
 		if(matchedParameterCount == removedParametersWithoutReturnType.size()-1 && matchedParameterCount == addedParametersWithoutReturnType.size()-1) {
 			for(Iterator<UMLParameter> removedParameterIterator = removedParameters.iterator(); removedParameterIterator.hasNext();) {
 				UMLParameter removedParameter = removedParameterIterator.next();
