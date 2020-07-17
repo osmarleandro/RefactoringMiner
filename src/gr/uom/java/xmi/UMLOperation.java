@@ -600,7 +600,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 
-	public String toQualifiedString() {
+	public String toQualifiedString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
 		sb.append(" ");
