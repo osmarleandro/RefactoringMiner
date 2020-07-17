@@ -24,11 +24,11 @@ public class MoveAttributeRefactoring implements Refactoring {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
-		sb.append(getOriginalAttribute().toQualifiedString());
+		sb.append(getOriginalAttribute().toQualifiedString_RENAMED());
 		sb.append(" from class ");
 		sb.append(getSourceClassName());
 		sb.append(" to ");
-		sb.append(getMovedAttribute().toQualifiedString());
+		sb.append(getMovedAttribute().toQualifiedString_RENAMED());
 		sb.append(" from class ");
 		sb.append(getTargetClassName());
 		return sb.toString();

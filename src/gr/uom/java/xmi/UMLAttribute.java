@@ -150,7 +150,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return sb.toString();
 	}
 
-	public String toQualifiedString() {
+	public String toQualifiedString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
 		sb.append(" ");
