@@ -31,7 +31,7 @@ public class ExtractClassRefactoring implements Refactoring {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		sb.append(getName_RENAMED()).append("\t");
 		sb.append(extractedClass);
 		sb.append(" from class ");
 		sb.append(classDiff.getOriginalClass());
@@ -44,7 +44,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return RefactoringType.EXTRACT_CLASS;
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.getRefactoringType().getDisplayName();
 	}
 
