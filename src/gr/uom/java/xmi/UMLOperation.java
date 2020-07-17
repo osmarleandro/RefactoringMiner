@@ -179,7 +179,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public Map<String, UMLType> variableTypeMap() {
 		Map<String, UMLType> variableTypeMap = new LinkedHashMap<String, UMLType>();
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return"))
+			if(!parameter.getKind_RENAMED().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
 		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
@@ -228,7 +228,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public UMLParameter getReturnParameter() {
 		for(UMLParameter parameter : parameters) {
-			if(parameter.getKind().equals("return"))
+			if(parameter.getKind_RENAMED().equals("return"))
 				return parameter;
 		}
 		return null;
@@ -357,7 +357,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public List<UMLParameter> getParametersWithoutReturnType() {
 		List<UMLParameter> params = new ArrayList<UMLParameter>();
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return"))
+			if(!parameter.getKind_RENAMED().equals("return"))
 				params.add(parameter);
 		}
 		return params;
@@ -381,7 +381,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public List<UMLType> getParameterTypeList() {
 		List<UMLType> parameterTypeList = new ArrayList<UMLType>();
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return"))
+			if(!parameter.getKind_RENAMED().equals("return"))
 				parameterTypeList.add(parameter.getType());
 		}
 		return parameterTypeList;
@@ -390,7 +390,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public List<String> getParameterNameList() {
 		List<String> parameterNameList = new ArrayList<String>();
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return"))
+			if(!parameter.getKind_RENAMED().equals("return"))
 				parameterNameList.add(parameter.getName());
 		}
 		return parameterNameList;
@@ -399,7 +399,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public int getNumberOfNonVarargsParameters() {
 		int counter = 0;
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return") && !parameter.isVarargs()) {
+			if(!parameter.getKind_RENAMED().equals("return") && !parameter.isVarargs()) {
 				counter++;
 			}
 		}
@@ -408,7 +408,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean hasVarargsParameter() {
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return") && parameter.isVarargs()) {
+			if(!parameter.getKind_RENAMED().equals("return") && parameter.isVarargs()) {
 				return true;
 			}
 		}
@@ -586,7 +586,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		sb.append("(");
 		for(int i=0; i<parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
-			if(parameter.getKind().equals("in")) {
+			if(parameter.getKind_RENAMED().equals("in")) {
 				sb.append(parameter);
 				if(i < parameters.size()-1)
 					sb.append(", ");
@@ -615,7 +615,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		sb.append("(");
 		for(int i=0; i<parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
-			if(parameter.getKind().equals("in")) {
+			if(parameter.getKind_RENAMED().equals("in")) {
 				sb.append(parameter.toQualifiedString());
 				if(i < parameters.size()-1)
 					sb.append(", ");
@@ -640,7 +640,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		sb.append("(");
 		for (int i = 0; i < parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
-			if(parameter.getKind().equals("in")) {
+			if(parameter.getKind_RENAMED().equals("in")) {
 				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
 				if(i < parameters.size() - 1)
 					sb.append(", ");

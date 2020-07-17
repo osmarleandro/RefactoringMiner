@@ -39,7 +39,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return name;
 	}
 
-	public String getKind() {
+	public String getKind_RENAMED() {
 		return kind;
 	}
 
