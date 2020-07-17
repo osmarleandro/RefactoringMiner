@@ -25,7 +25,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 		return anonymousClass;
 	}
 
-	public UMLClass getAddedClass() {
+	public UMLClass getAddedClass_RENAMED() {
 		return addedClass;
 	}
 
@@ -54,7 +54,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAddedClass().getLocationInfo().getFilePath(), getAddedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getAddedClass_RENAMED().getLocationInfo().getFilePath(), getAddedClass_RENAMED().getName()));
 		return pairs;
 	}
 
