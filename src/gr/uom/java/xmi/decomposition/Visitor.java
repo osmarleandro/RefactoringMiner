@@ -832,7 +832,7 @@ public class Visitor extends ASTVisitor {
 		return infixOperators;
 	}
 
-	public List<String> getArrayAccesses() {
+	public List<String> getArrayAccesses_RENAMED() {
 		return arrayAccesses;
 	}
 
