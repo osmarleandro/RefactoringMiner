@@ -238,14 +238,14 @@ public class Visitor extends ASTVisitor {
 		DefaultMutableTreeNode parentNode = deleteNode(node);
 		for(ASTNode parent : builderPatternChains) {
 			if(isParent(node, parent) || isParent(parent, node)) {
-				removeAnonymousData();
+				removeAnonymousData_RENAMED();
 				break;
 			}
 		}
 		this.current = parentNode;
 	}
 
-	private void removeAnonymousData() {
+	private void removeAnonymousData_RENAMED() {
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			this.variables.removeAll(anonymous.getVariables());
