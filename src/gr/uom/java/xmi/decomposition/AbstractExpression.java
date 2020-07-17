@@ -175,7 +175,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return lambdas;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 

@@ -488,7 +488,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
-			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+			if(innerNode.getLocationInfo_RENAMED().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
 					if(declaration.getVariableName().equals(currentElementName)) {
@@ -507,8 +507,8 @@ public class CompositeStatementObject extends AbstractStatement {
 					return innerNode;
 				}
 			}
-			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
-					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
+			else if(innerNode.getLocationInfo_RENAMED().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+					innerNode.getLocationInfo_RENAMED().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
 				for(AbstractExpression expression : innerNode.getExpressions()) {
 					if(expression.getVariables().contains(collectionName)) {
