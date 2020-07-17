@@ -808,7 +808,7 @@ public class Visitor extends ASTVisitor {
 		return stringLiterals;
 	}
 
-	public List<String> getNumberLiterals() {
+	public List<String> getNumberLiterals_RENAMED() {
 		return numberLiterals;
 	}
 

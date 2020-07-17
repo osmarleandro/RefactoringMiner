@@ -53,7 +53,7 @@ public class StatementObject extends AbstractStatement {
 		this.methodInvocationMap = visitor.getMethodInvocationMap();
 		this.anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
 		this.stringLiterals = visitor.getStringLiterals();
-		this.numberLiterals = visitor.getNumberLiterals();
+		this.numberLiterals = visitor.getNumberLiterals_RENAMED();
 		this.nullLiterals = visitor.getNullLiterals();
 		this.booleanLiterals = visitor.getBooleanLiterals();
 		this.typeLiterals = visitor.getTypeLiterals();
