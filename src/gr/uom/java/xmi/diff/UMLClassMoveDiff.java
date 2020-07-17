@@ -8,7 +8,7 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		super(originalClass, movedClass, modelDiff);
 	}
 
-	public UMLClass getMovedClass() {
+	public UMLClass getMovedClass_RENAMED() {
 		return nextClass;
 	}
 
