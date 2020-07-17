@@ -21,7 +21,7 @@ public class RefactoringCollector extends RefactoringHandler {
     rs = new RefactoringSet(cloneUrl, commitId);
   }
   @Override
-  public void handle(String commitId, List<Refactoring> refactorings) {
+  public void handle_RENAMED(String commitId, List<Refactoring> refactorings) {
     for (Refactoring r : refactorings) {
       if (r instanceof MoveClassRefactoring) {
         MoveClassRefactoring ref = (MoveClassRefactoring) r;
