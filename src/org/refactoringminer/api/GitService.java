@@ -29,7 +29,7 @@ public interface GitService {
 
 	void checkout(Repository repository, String commitId) throws Exception;
 
-	RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception;
+	RevWalk fetchAndCreateNewRevsWalk_RENAMED(Repository repository) throws Exception;
 
 	RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception;
 
