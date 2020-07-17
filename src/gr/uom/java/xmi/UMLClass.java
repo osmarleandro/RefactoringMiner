@@ -114,7 +114,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
     //returns true if the "innerClass" parameter is inner class of this
-    public boolean isInnerClass(UMLClass innerClass) {
+    public boolean isInnerClass_RENAMED(UMLClass innerClass) {
     	if(this.getName().equals(innerClass.packageName))
     		return true;
     	return false;
