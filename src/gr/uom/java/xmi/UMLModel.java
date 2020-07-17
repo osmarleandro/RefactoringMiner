@@ -25,7 +25,7 @@ public class UMLModel {
         realizationList = new ArrayList<UMLRealization>();
     }
 
-	public void addClass(UMLClass umlClass) {
+	public void addClass_RENAMED(UMLClass umlClass) {
         classList.add(umlClass);
     }
 
