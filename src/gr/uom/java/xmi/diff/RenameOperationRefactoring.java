@@ -32,7 +32,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		this.replacements = new LinkedHashSet<Replacement>();
 	}
 
-	public String toString() {
+	public String toString_RENAMED() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(originalOperation);
@@ -115,7 +115,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalOperation.codeRange()
 				.setDescription("original method declaration")
-				.setCodeElement(originalOperation.toString()));
+				.setCodeElement(originalOperation.toString_RENAMED()));
 		return ranges;
 	}
 
@@ -124,7 +124,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedOperation.codeRange()
 				.setDescription("renamed method declaration")
-				.setCodeElement(renamedOperation.toString()));
+				.setCodeElement(renamedOperation.toString_RENAMED()));
 		return ranges;
 	}
 }
