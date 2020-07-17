@@ -2341,9 +2341,9 @@ public class UMLModelDiff {
 		}
 		int nonMappedLoopsIteratingOverSameVariable = 0;
 		for(CompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
-			if(c1.isLoop()) {
+			if(c1.isLoop_RENAMED()) {
 				for(CompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
-					if(c2.isLoop()) {
+					if(c2.isLoop_RENAMED()) {
 						Set<String> intersection = new LinkedHashSet<String>(c1.getVariables());
 						intersection.retainAll(c2.getVariables());
 						if(!intersection.isEmpty()) {
