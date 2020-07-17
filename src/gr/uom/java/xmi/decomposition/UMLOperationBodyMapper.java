@@ -410,7 +410,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			processLeaves(expressionsT1, leaves2, parameterToArgumentMap2);
 			List<AbstractCodeMapping> mappings = new ArrayList<>(this.mappings);
 			for(int i = numberOfMappings; i < mappings.size(); i++) {
-				mappings.get(i).temporaryVariableAssignment(refactorings);
+				mappings.get(i).temporaryVariableAssignment_RENAMED(refactorings);
 			}
 			// TODO remove non-mapped inner nodes from T1 corresponding to mapped expressions
 			
