@@ -60,7 +60,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return bodyMapper;
 	}
 
-	public UMLOperation getOriginalOperation() {
+	public UMLOperation getOriginalOperation_RENAMED() {
 		return originalOperation;
 	}
 
@@ -99,7 +99,7 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalOperation_RENAMED().getLocationInfo().getFilePath(), getOriginalOperation_RENAMED().getClassName()));
 		return pairs;
 	}
 
