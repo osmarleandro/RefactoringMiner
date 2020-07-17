@@ -486,7 +486,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public CompositeStatementObject loopWithVariables_RENAMED(String currentElementName, String collectionName) {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;

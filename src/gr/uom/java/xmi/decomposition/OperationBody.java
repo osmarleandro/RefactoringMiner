@@ -295,6 +295,6 @@ public class OperationBody {
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		return compositeStatement.loopWithVariables(currentElementName, collectionName);
+		return compositeStatement.loopWithVariables_RENAMED(currentElementName, collectionName);
 	}
 }
