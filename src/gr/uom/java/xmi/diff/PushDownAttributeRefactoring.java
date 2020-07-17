@@ -33,7 +33,7 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedAttribute.codeRange()
+		ranges.add(movedAttribute.codeRange_RENAMED()
 				.setDescription("pushed down attribute declaration")
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
