@@ -24,7 +24,7 @@ public class CandidateSplitVariableRefactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public String getOldVariable() {
+	public String getOldVariable_RENAMED() {
 		return oldVariable;
 	}
 
