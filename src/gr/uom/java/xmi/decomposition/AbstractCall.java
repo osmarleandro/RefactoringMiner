@@ -188,7 +188,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+	public boolean allArgumentsReplaced_RENAMED(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
