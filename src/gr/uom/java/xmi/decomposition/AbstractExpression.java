@@ -136,7 +136,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public Map<String, List<ObjectCreation>> getCreationMap() {
+	public Map<String, List<ObjectCreation>> getCreationMap_RENAMED() {
 		return creationMap;
 	}
 
