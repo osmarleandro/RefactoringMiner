@@ -1826,7 +1826,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(distanceRaw >= 0 && (distanceRaw < replacementInfo.getRawDistance() || multipleInstanceRule)) {
 						minDistance = distanceRaw;
 						Replacement replacement = null;
-						if(variables1.contains(s1) && variables2.contains(s2) && variablesStartWithSameCase(s1, s2, parameterToArgumentMap)) {
+						if(variables1.contains(s1) && variables2.contains(s2) && variablesStartWithSameCase_RENAMED(s1, s2, parameterToArgumentMap)) {
 							replacement = new Replacement(s1, s2, ReplacementType.VARIABLE_NAME);
 							if(s1.startsWith("(") && s2.startsWith("(") && s1.contains(")") && s2.contains(")")) {
 								String prefix1 = s1.substring(0, s1.indexOf(")")+1);
@@ -3930,7 +3930,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean variablesStartWithSameCase(String s1, String s2, Map<String, String> parameterToArgumentMap) {
+	private boolean variablesStartWithSameCase_RENAMED(String s1, String s2, Map<String, String> parameterToArgumentMap) {
 		if(parameterToArgumentMap.values().contains(s2)) {
 			return true;
 		}
