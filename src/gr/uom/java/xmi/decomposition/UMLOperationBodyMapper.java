@@ -1640,8 +1640,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		Set<String> methodInvocations1 = new LinkedHashSet<String>(methodInvocationMap1.keySet());
 		Set<String> methodInvocations2 = new LinkedHashSet<String>(methodInvocationMap2.keySet());
 		
-		Map<String, List<? extends AbstractCall>> creationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getCreationMap());
-		Map<String, List<? extends AbstractCall>> creationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getCreationMap());
+		Map<String, List<? extends AbstractCall>> creationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getCreationMap_RENAMED());
+		Map<String, List<? extends AbstractCall>> creationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getCreationMap_RENAMED());
 		Set<String> creations1 = new LinkedHashSet<String>(creationMap1.keySet());
 		Set<String> creations2 = new LinkedHashSet<String>(creationMap2.keySet());
 		
@@ -2685,7 +2685,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap = statement.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap = statement.getCreationMap_RENAMED();
 			for(String key : creationMap.keySet()) {
 				List<ObjectCreation> objectCreations = creationMap.get(key);
 				for(ObjectCreation creation : objectCreations) {
@@ -2751,14 +2751,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			UMLType type1 = null, type2 = null;
 			ObjectCreation objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap_RENAMED();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					objectCreation1 = creationMap1.get(creation1).get(0);
 					type1 = objectCreation1.getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap_RENAMED();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					objectCreation2 = creationMap2.get(creation2).get(0);
@@ -2803,14 +2803,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			UMLType type1 = null, type2 = null;
 			ObjectCreation objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap_RENAMED();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					objectCreation1 = creationMap1.get(creation1).get(0);
 					type1 = objectCreation1.getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap_RENAMED();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					objectCreation2 = creationMap2.get(creation2).get(0);
@@ -2868,13 +2868,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
 			UMLType type1 = null, type2 = null;
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap_RENAMED();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					type1 = creationMap1.get(creation1).get(0).getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap_RENAMED();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					type2 = creationMap2.get(creation2).get(0).getType();
@@ -2958,9 +2958,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			else if(initializer1 != null && initializer2 != null) {
 				nullInitializer = initializer1.getExpression().equals("null") && initializer2.getExpression().equals("null");
-				if(initializer1.getCreationMap().size() == 1 && initializer2.getCreationMap().size() == 1) {
-					ObjectCreation creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
-					ObjectCreation creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
+				if(initializer1.getCreationMap_RENAMED().size() == 1 && initializer2.getCreationMap_RENAMED().size() == 1) {
+					ObjectCreation creation1 = initializer1.getCreationMap_RENAMED().values().iterator().next().get(0);
+					ObjectCreation creation2 = initializer2.getCreationMap_RENAMED().values().iterator().next().get(0);
 					if(creation1.getArguments().size() == 0 && creation2.getArguments().size() == 0) {
 						zeroArgumentClassInstantiation = true;
 					}
