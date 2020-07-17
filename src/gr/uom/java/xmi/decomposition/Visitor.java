@@ -162,7 +162,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ArrayCreation node) {
+	public boolean visit_RENAMED(ArrayCreation node) {
 		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(creationMap.containsKey(nodeAsString)) {
