@@ -19,7 +19,7 @@ public class ListCompositeType extends UMLType {
 		this.kind = kind;
 	}
 
-	public List<UMLType> getTypes() {
+	public List<UMLType> getTypes_RENAMED() {
 		return types;
 	}
 
