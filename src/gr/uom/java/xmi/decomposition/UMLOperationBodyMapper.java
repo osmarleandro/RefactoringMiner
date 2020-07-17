@@ -1903,23 +1903,23 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			findReplacements(variables1, nullLiterals2, replacementInfo, ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL);
 		}
 
-		if(statement1.getTernaryOperatorExpressions().isEmpty() && !statement2.getTernaryOperatorExpressions().isEmpty()) {
+		if(statement1.getTernaryOperatorExpressions_RENAMED().isEmpty() && !statement2.getTernaryOperatorExpressions_RENAMED().isEmpty()) {
 			if(!statement1.getNullLiterals().isEmpty()) {
 				Set<String> nullLiterals1 = new LinkedHashSet<String>();
 				nullLiterals1.add("null");
 				Set<String> ternaryExpressions2 = new LinkedHashSet<String>();
-				for(TernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions()) {
+				for(TernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions_RENAMED()) {
 					ternaryExpressions2.add(ternary.getExpression());	
 				}
 				findReplacements(nullLiterals1, ternaryExpressions2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
 			}
 		}
-		else if(!statement1.getTernaryOperatorExpressions().isEmpty() && statement2.getTernaryOperatorExpressions().isEmpty()) {
+		else if(!statement1.getTernaryOperatorExpressions_RENAMED().isEmpty() && statement2.getTernaryOperatorExpressions_RENAMED().isEmpty()) {
 			if(!statement2.getNullLiterals().isEmpty()) {
 				Set<String> nullLiterals2 = new LinkedHashSet<String>();
 				nullLiterals2.add("null");
 				Set<String> ternaryExpressions1 = new LinkedHashSet<String>();
-				for(TernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions()) {
+				for(TernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions_RENAMED()) {
 					ternaryExpressions1.add(ternary.getExpression());	
 				}
 				findReplacements(ternaryExpressions1, nullLiterals2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
@@ -2496,8 +2496,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return replacementInfo.getReplacements();
 			}
 		}
-		List<TernaryOperatorExpression> ternaryOperatorExpressions1 = statement1.getTernaryOperatorExpressions();
-		List<TernaryOperatorExpression> ternaryOperatorExpressions2 = statement2.getTernaryOperatorExpressions();
+		List<TernaryOperatorExpression> ternaryOperatorExpressions1 = statement1.getTernaryOperatorExpressions_RENAMED();
+		List<TernaryOperatorExpression> ternaryOperatorExpressions2 = statement2.getTernaryOperatorExpressions_RENAMED();
 		if(ternaryOperatorExpressions1.isEmpty() && ternaryOperatorExpressions2.size() == 1) {
 			TernaryOperatorExpression ternary = ternaryOperatorExpressions2.get(0);
 			for(String creation : creationIntersection) {

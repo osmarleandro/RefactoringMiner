@@ -252,10 +252,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+	public List<TernaryOperatorExpression> getTernaryOperatorExpressions_RENAMED() {
 		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
 		for(AbstractExpression expression : expressionList) {
-			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
+			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions_RENAMED());
 		}
 		return ternaryOperatorExpressions;
 	}
