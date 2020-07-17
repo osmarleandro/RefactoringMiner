@@ -45,14 +45,14 @@ public class ResultComparator {
 
     public ResultComparator expect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
-            expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
+            expectedMap.put(getProjectRevisionId_RENAMED(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
     public ResultComparator dontExpect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
-            notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
+            notExpectedMap.put(getProjectRevisionId_RENAMED(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
@@ -167,7 +167,7 @@ public class ResultComparator {
                 headerPrinted = true;
             }
             if (!all.isEmpty()) {
-                out.println(getProjectRevisionId(expected.getProject(), expected.getRevision()));
+                out.println(getProjectRevisionId_RENAMED(expected.getProject(), expected.getRevision()));
                 ArrayList<RefactoringRelationship> allList = new ArrayList<>();
                 allList.addAll(all);
                 Collections.sort(allList);
@@ -260,7 +260,7 @@ public class ResultComparator {
         return false;
     }
     
-    private String getProjectRevisionId(String project, String revision) {
+    private String getProjectRevisionId_RENAMED(String project, String revision) {
         return project.substring(0, project.length() - 4) + "/commit/" + revision;
     }
 
