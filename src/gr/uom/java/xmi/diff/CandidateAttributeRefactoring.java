@@ -59,7 +59,7 @@ public class CandidateAttributeRefactoring {
 		return originalVariableDeclaration;
 	}
 
-	public void setOriginalVariableDeclaration(VariableDeclaration originalVariableDeclaration) {
+	public void setOriginalVariableDeclaration_RENAMED(VariableDeclaration originalVariableDeclaration) {
 		this.originalVariableDeclaration = originalVariableDeclaration;
 	}
 
