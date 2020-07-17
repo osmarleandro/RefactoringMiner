@@ -35,7 +35,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		this.relatedRefactorings.add(refactoring);
 	}
 
-	public Set<Refactoring> getRelatedRefactorings() {
+	public Set<Refactoring> getRelatedRefactorings_RENAMED() {
 		return relatedRefactorings;
 	}
 
