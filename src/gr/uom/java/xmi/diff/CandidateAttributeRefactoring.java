@@ -47,7 +47,7 @@ public class CandidateAttributeRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getAttributeReferences() {
+	public Set<AbstractCodeMapping> getAttributeReferences_RENAMED() {
 		return attributeReferences;
 	}
 
