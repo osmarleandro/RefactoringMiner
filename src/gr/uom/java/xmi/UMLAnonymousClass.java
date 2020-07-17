@@ -17,7 +17,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 		return !name.contains(".");
 	}
 
-	public String getCodePath() {
+	public String getCodePath_RENAMED() {
 		if(packageName.equals(""))
     		return codePath;
     	else

@@ -522,14 +522,14 @@ public class UMLModelASTReader {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(anonymousClass.getCodePath());
+	    			attribute.setClassName(anonymousClass.getCodePath_RENAMED());
 	    			anonymousClass.addAttribute(attribute);
 	    		}
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
-				operation.setClassName(anonymousClass.getCodePath());
+				operation.setClassName(anonymousClass.getCodePath_RENAMED());
 				anonymousClass.addOperation(operation);
 			}
 		}
