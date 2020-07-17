@@ -171,7 +171,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject> getLambdas_RENAMED() {
 		return lambdas;
 	}
 
