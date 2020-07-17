@@ -32,7 +32,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return refactoringType;
   }
 
-  public String getEntityBefore() {
+  public String getEntityBefore_RENAMED() {
     return entityBefore;
   }
 
