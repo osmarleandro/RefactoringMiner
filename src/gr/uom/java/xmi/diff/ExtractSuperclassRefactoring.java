@@ -47,7 +47,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	public Set<String> getSubclassSet() {
 		Set<String> subclassSet = new LinkedHashSet<String>();
 		for(UMLClass umlClass : this.subclassSet) {
-			subclassSet.add(umlClass.getName());
+			subclassSet.add(umlClass.getName_RENAMED());
 		}
 		return subclassSet;
 	}
@@ -59,14 +59,14 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(UMLClass umlClass : this.subclassSet) {
-			pairs.add(new ImmutablePair<String, String>(umlClass.getLocationInfo().getFilePath(), umlClass.getName()));
+			pairs.add(new ImmutablePair<String, String>(umlClass.getLocationInfo().getFilePath(), umlClass.getName_RENAMED()));
 		}
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getExtractedClass().getLocationInfo().getFilePath(), getExtractedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getExtractedClass().getLocationInfo().getFilePath(), getExtractedClass().getName_RENAMED()));
 		return pairs;
 	}
 
@@ -76,7 +76,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		for(UMLClass subclass : subclassSet) {
 			ranges.add(subclass.codeRange()
 					.setDescription("sub-type declaration")
-					.setCodeElement(subclass.getName()));
+					.setCodeElement(subclass.getName_RENAMED()));
 		}
 		return ranges;
 	}
@@ -86,7 +86,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(extractedClass.codeRange()
 				.setDescription("extracted super-type declaration")
-				.setCodeElement(extractedClass.getName()));
+				.setCodeElement(extractedClass.getName_RENAMED()));
 		return ranges;
 	}
 }
