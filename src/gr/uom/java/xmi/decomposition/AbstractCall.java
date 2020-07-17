@@ -71,7 +71,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalExpression(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalExpression_RENAMED(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call) ||
 		identicalExpressionAfterTypeReplacements(call, replacements);
 	}
@@ -212,7 +212,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
 		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
 		return getExpression() != null && call.getExpression() != null &&
-				identicalExpression(call, replacements) &&
+				identicalExpression_RENAMED(call, replacements) &&
 				!identicalName(call) &&
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
@@ -246,14 +246,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			}
 		}
 		return getExpression() != null && call.getExpression() != null &&
-				identicalExpression(call, replacements) &&
+				identicalExpression_RENAMED(call, replacements) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				!equalArguments(call) &&
 				getArguments().size() != call.getArguments().size();
 	}
 
 	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call, replacements) &&
+		return identicalExpression_RENAMED(call, replacements) &&
 				identicalName(call) &&
 				!equalArguments(call) &&
 				getArguments().size() != call.getArguments().size();
@@ -315,7 +315,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call, replacements) &&
+		return identicalExpression_RENAMED(call, replacements) &&
 				identicalName(call) &&
 				equalArguments(call);
 	}
