@@ -42,7 +42,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		this.astNodeString = anonymous.toString();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo getLocationInfo_RENAMED() {
 		return locationInfo;
 	}
 
