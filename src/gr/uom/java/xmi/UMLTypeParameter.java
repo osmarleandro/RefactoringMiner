@@ -14,7 +14,7 @@ public class UMLTypeParameter {
 		this.annotations = new ArrayList<UMLAnnotation>();
 	}
 
-	public String getName() {
+	public String getName_RENAMED() {
 		return name;
 	}
 
