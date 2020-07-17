@@ -527,7 +527,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsQualified(UMLOperation operation) {
+	public boolean equalsQualified_RENAMED(UMLOperation operation) {
 		if(this.className.equals(operation.className) &&
 				this.name.equals(operation.name) &&
 				this.visibility.equals(operation.visibility) &&
