@@ -93,12 +93,12 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
+		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode_RENAMED());
+		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode_RENAMED());
+		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode_RENAMED());
 		return result;
 	}
 
