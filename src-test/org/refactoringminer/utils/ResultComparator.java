@@ -325,7 +325,7 @@ public class ResultComparator {
         }
     }
 
-    public static RefactoringSet collectRmResult(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
+    public static RefactoringSet collectRmResult_RENAMED(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
         GitService git = new GitServiceImpl();
         String tempDir = "tmp";
         String resultCacheDir = "tmpResult";
@@ -352,7 +352,7 @@ public class ResultComparator {
     public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
         RefactoringSet[] result = new RefactoringSet[oracle.length];
         for (int i = 0; i < result.length; i++) {
-            result[i] = collectRmResult(rm, oracle[i].getProject(), oracle[i].getRevision());
+            result[i] = collectRmResult_RENAMED(rm, oracle[i].getProject(), oracle[i].getRevision());
         }
         return result;
     }
