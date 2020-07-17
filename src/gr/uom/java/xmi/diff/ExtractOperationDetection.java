@@ -128,7 +128,7 @@ public class ExtractOperationDetection {
 
 	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
+		for(StatementObject statement : mapper.getNonMappedLeavesT2_RENAMED()) {
 			addStatementInvocations(operationInvocations, statement);
 		}
 		return operationInvocations;
@@ -268,7 +268,7 @@ public class ExtractOperationDetection {
 				iterator.remove();
 			}
 		}
-		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
+		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2_RENAMED();
 		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
 				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");

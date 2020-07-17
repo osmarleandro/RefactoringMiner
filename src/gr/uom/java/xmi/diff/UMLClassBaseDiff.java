@@ -755,7 +755,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
 							else {
-								for(StatementObject statement : candidateMapper.getNonMappedLeavesT2()) {
+								for(StatementObject statement : candidateMapper.getNonMappedLeavesT2_RENAMED()) {
 									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
 											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
 										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
@@ -1190,7 +1190,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				int countableStatements = 0;
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
-				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
+				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2_RENAMED()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
 							if(statement.getVariableDeclaration(parameterName) != null) {
@@ -1220,7 +1220,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				StatementObject statementUsingParameterAsInvoker2 = null;
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
-				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
+				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2_RENAMED()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : addedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
@@ -1360,7 +1360,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean singleUnmatchedStatementCallsAddedOperation(UMLOperationBodyMapper operationBodyMapper) {
 		List<StatementObject> nonMappedLeavesT1 = operationBodyMapper.getNonMappedLeavesT1();
-		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
+		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2_RENAMED();
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
 			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();

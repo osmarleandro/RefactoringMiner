@@ -151,7 +151,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
@@ -195,7 +195,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
@@ -425,7 +425,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
@@ -510,7 +510,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(removedOperationBody != null) {
 			CompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = operationBodyMapper.getNonMappedLeavesT2();
+			List<StatementObject> leaves2 = operationBodyMapper.getNonMappedLeavesT2_RENAMED();
 			//adding leaves that were mapped with replacements or are inexact matches
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
@@ -592,7 +592,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
@@ -646,7 +646,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeavesT1;
 	}
 
-	public List<StatementObject> getNonMappedLeavesT2() {
+	public List<StatementObject> getNonMappedLeavesT2_RENAMED() {
 		return nonMappedLeavesT2;
 	}
 
@@ -697,7 +697,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nonMappedInnerNodeCount++;
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
@@ -706,7 +706,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
@@ -756,7 +756,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject statement : getNonMappedLeavesT2_RENAMED()) {
 			if(statement.countableStatement()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
@@ -3949,7 +3949,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean isEmpty() {
 		return getNonMappedLeavesT1().isEmpty() && getNonMappedInnerNodesT1().isEmpty() &&
-				getNonMappedLeavesT2().isEmpty() && getNonMappedInnerNodesT2().isEmpty();
+				getNonMappedLeavesT2_RENAMED().isEmpty() && getNonMappedInnerNodesT2().isEmpty();
 	}
 
 	public boolean equals(Object o) {
