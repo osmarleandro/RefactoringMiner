@@ -352,7 +352,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return oldSuperclass;
 	}
 
-	public UMLType getNewSuperclass() {
+	public UMLType getNewSuperclass_RENAMED() {
 		return newSuperclass;
 	}
 
