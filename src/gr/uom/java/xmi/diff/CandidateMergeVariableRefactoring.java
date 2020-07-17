@@ -32,7 +32,7 @@ public class CandidateMergeVariableRefactoring {
 		return newVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation getOperationBefore_RENAMED() {
 		return operationBefore;
 	}
 
