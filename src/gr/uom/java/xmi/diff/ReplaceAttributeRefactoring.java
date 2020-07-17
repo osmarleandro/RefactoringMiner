@@ -43,7 +43,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
+	public List<CodeRange> rightSide_RENAMED() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("replaced attribute declaration")
