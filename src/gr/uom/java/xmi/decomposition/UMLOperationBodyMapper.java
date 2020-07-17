@@ -939,7 +939,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
@@ -961,7 +961,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
 						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
@@ -986,7 +986,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
 					
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if(score == 0 && replacements != null && replacements.size() == 1 &&
 							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
 						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
@@ -1014,7 +1014,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
@@ -1036,7 +1036,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
 						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
@@ -1061,7 +1061,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
 					
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+					double score = computeScore_RENAMED(statement1, statement2, removedOperations, addedOperations);
 					if(score == 0 && replacements != null && replacements.size() == 1 &&
 							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
 						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
@@ -1084,7 +1084,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private double computeScore(CompositeStatementObject statement1, CompositeStatementObject statement2,
+	private double computeScore_RENAMED(CompositeStatementObject statement1, CompositeStatementObject statement2,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		if(statement1 instanceof TryStatementObject && statement2 instanceof TryStatementObject) {
 			return compositeChildMatchingScore((TryStatementObject)statement1, (TryStatementObject)statement2, mappings, removedOperations, addedOperations);
