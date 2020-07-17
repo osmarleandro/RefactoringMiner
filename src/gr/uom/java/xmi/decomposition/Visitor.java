@@ -365,7 +365,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(TypeLiteral node) {
+	public boolean visit_RENAMED(TypeLiteral node) {
 		typeLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
