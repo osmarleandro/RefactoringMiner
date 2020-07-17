@@ -1177,7 +1177,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
 				for(UMLOperation operation : addedOperations) {
 					if(!operation.equals(addedOperation) && operation.getBody() != null) {
-						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
+						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves_RENAMED()) {
 							if(nonMappedLeavesT1.contains(statement.getString())) {
 								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
 							}
@@ -1236,7 +1236,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
 							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
 							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
-							if(parent1.getLeaves().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves().contains(statementUsingParameterAsInvoker2)) {
+							if(parent1.getLeaves_RENAMED().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves_RENAMED().contains(statementUsingParameterAsInvoker2)) {
 								return true;
 							}
 						}

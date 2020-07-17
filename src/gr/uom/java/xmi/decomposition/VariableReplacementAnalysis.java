@@ -1084,7 +1084,7 @@ public class VariableReplacementAnalysis {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
 									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();
-									List<StatementObject> leaves1 = composite1.getLeaves();
+									List<StatementObject> leaves1 = composite1.getLeaves_RENAMED();
 									for(StatementObject leaf1 : leaves1) {
 										VariableDeclaration variableDeclaration1 = leaf1.getVariableDeclaration(variableDeclaration2.getVariableName());
 										if(variableDeclaration1 != null) {
