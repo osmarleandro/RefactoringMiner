@@ -456,7 +456,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	public void addOperationBodyMapper(UMLOperationBodyMapper operationBodyMapper) {
+	public void addOperationBodyMapper_RENAMED(UMLOperationBodyMapper operationBodyMapper) {
 		this.operationBodyMapperList.add(operationBodyMapper);
 	}
 
@@ -1024,7 +1024,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}
-						this.addOperationBodyMapper(bestMapper);
+						this.addOperationBodyMapper_RENAMED(bestMapper);
 					}
 				}
 			}
@@ -1064,7 +1064,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}
-						this.addOperationBodyMapper(bestMapper);
+						this.addOperationBodyMapper_RENAMED(bestMapper);
 					}
 				}
 			}
