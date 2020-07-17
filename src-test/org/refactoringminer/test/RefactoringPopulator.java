@@ -94,11 +94,11 @@ public class RefactoringPopulator {
 			throws JsonParseException, JsonMappingException, IOException {
 
 		if ((systemsFlag & Systems.FSE.getValue()) > 0) {
-			prepareFSERefactorings(test, refactoringsFlag);
+			prepareFSERefactorings_RENAMED(test, refactoringsFlag);
 		}
 	}
 
-	private static void prepareFSERefactorings(TestBuilder test, BigInteger flag)
+	private static void prepareFSERefactorings_RENAMED(TestBuilder test, BigInteger flag)
 			throws JsonParseException, JsonMappingException, IOException {
 		List<Root> roots = getFSERefactorings(flag);
 		
