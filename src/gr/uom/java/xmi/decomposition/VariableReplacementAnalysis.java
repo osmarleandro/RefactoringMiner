@@ -953,7 +953,7 @@ public class VariableReplacementAnalysis {
 			if(mapping.getReplacements().contains(replacement)) {
 				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 				if(vd != null) {
-					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
+					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2_RENAMED());
 				}
 			}
 		}
@@ -986,7 +986,7 @@ public class VariableReplacementAnalysis {
 				if(mapping.getReplacements().contains(replacement) || foundSplitVariables.equals(replacement.getSplitVariables())) {
 					VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(variableName);
 					if(vd != null) {
-						return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
+						return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2_RENAMED());
 					}
 				}
 			}
@@ -1019,7 +1019,7 @@ public class VariableReplacementAnalysis {
 			if(mapping.getReplacements().contains(replacement) || foundMergedVariables.equals(replacement.getMergedVariables())) {
 				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 				if(vd != null) {
-					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
+					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2_RENAMED());
 				}
 			}
 		}
@@ -1234,7 +1234,7 @@ public class VariableReplacementAnalysis {
 		if(mapping.getReplacements().contains(replacement)) {
 			VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 			if(vd != null) {
-				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
+				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2_RENAMED());
 			}
 		}
 		for(UMLParameter parameter : operation2.getParameters()) {
