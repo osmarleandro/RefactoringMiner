@@ -106,7 +106,7 @@ public class RefactoringMinerHttpsServer {
 			List<Refactoring> detectedRefactorings = new ArrayList<Refactoring>();
 
 			GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
-			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
+			miner.detectAtCommit_RENAMED(gitURL, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
 					detectedRefactorings.addAll(refactorings);

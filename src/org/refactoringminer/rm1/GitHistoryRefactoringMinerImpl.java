@@ -458,7 +458,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectAtCommit(String gitURL, String commitId, RefactoringHandler handler, int timeout) {
+	public void detectAtCommit_RENAMED(String gitURL, String commitId, RefactoringHandler handler, int timeout) {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
@@ -665,7 +665,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
-			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+			detectAtCommit_RENAMED(cloneURL, commit.getSha(), handler, timeout);
 		}
 	}
 
