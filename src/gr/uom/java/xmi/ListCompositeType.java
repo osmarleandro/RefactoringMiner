@@ -78,7 +78,7 @@ public class ListCompositeType extends UMLType {
 	}
 
 	@Override
-	public String getClassType() {
-		return types.get(types.size()-1).getClassType();
+	public String getClassType_RENAMED() {
+		return types.get(types.size()-1).getClassType_RENAMED();
 	}
 }
