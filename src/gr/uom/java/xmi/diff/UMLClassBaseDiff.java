@@ -1303,7 +1303,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					break;
 				}
 			}
-			boolean nextMapperMatchesConsistentRename = matchesConsistentMethodInvocationRename(mapper, consistentMethodInvocationRenames);
+			boolean nextMapperMatchesConsistentRename = matchesConsistentMethodInvocationRename_RENAMED(mapper, consistentMethodInvocationRenames);
 			boolean bestMapperMismatchesConsistentRename = mismatchesConsistentMethodInvocationRename(bestMapper, consistentMethodInvocationRenames);
 			if(bestMapperMismatchesConsistentRename && nextMapperMatchesConsistentRename) {
 				bestMapper = mapper;
@@ -1320,7 +1320,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return bestMapper;
 	}
 
-	private boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
+	private boolean matchesConsistentMethodInvocationRename_RENAMED(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
 		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
 			if(mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
