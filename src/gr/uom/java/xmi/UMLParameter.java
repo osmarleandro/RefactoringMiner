@@ -76,7 +76,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return false;
 	}
 
-	public boolean equalsQualified(UMLParameter parameter) {
+	public boolean equalsQualified_RENAMED(UMLParameter parameter) {
 		return this.type.equalsQualified(parameter.type) &&
 				this.kind.equals(parameter.kind) &&
 				this.varargs == parameter.varargs;
