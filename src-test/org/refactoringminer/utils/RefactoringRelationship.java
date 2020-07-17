@@ -129,7 +129,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
   
   @Override
-  public int compareTo(RefactoringRelationship o) {
+  public int compareTo_RENAMED(RefactoringRelationship o) {
     int rt = getRefactoringType().compareTo(o.getRefactoringType());
     int cm = getMainEntity().compareTo(o.getMainEntity());
     int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
