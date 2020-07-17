@@ -424,7 +424,7 @@ public class UMLModelDiff {
 		   TreeSet<UMLClassMoveDiff> diffSet = new TreeSet<UMLClassMoveDiff>(new ClassMoveComparator());
 		   for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
 			   UMLClass addedClass = addedClassIterator.next();
-			   String removedClassSourceFile = removedClass.getSourceFile();
+			   String removedClassSourceFile = removedClass.getSourceFile_RENAMED();
 			   String renamedFile =  renamedFileHints.get(removedClassSourceFile);
 			   String removedClassSourceFolder = "";
 			   if(removedClassSourceFile.contains("/")) {
@@ -493,7 +493,7 @@ public class UMLModelDiff {
          TreeSet<UMLClassRenameDiff> diffSet = new TreeSet<UMLClassRenameDiff>(new ClassRenameComparator());
          for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
             UMLClass addedClass = addedClassIterator.next();
-            String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
+            String renamedFile =  renamedFileHints.get(removedClass.getSourceFile_RENAMED());
             if(matcher.match(removedClass, addedClass, renamedFile)) {
                if(!conflictingMoveOfTopLevelClass(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
             	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
@@ -1190,8 +1190,8 @@ public class UMLModelDiff {
 		   UMLClass movedClass = classMoveDiff.getMovedClass();
 		   String movedName = movedClass.getName();
 		   
-		   String originalPath = originalClass.getSourceFile();
-		   String movedPath = movedClass.getSourceFile();
+		   String originalPath = originalClass.getSourceFile_RENAMED();
+		   String movedPath = movedClass.getSourceFile_RENAMED();
 		   String originalPathPrefix = "";
 		   if(originalPath.contains("/")) {
 			   originalPathPrefix = originalPath.substring(0, originalPath.lastIndexOf('/'));

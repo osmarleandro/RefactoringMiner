@@ -37,7 +37,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	else
     		this.qualifiedName = packageName + "." + name;
         
-        this.sourceFile = getSourceFile();
+        this.sourceFile = getSourceFile_RENAMED();
         this.sourceFolder = "";
         if(packageName.equals("")) {
         	int index = sourceFile.indexOf(name);

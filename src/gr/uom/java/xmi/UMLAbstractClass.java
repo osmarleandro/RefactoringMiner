@@ -329,7 +329,7 @@ public abstract class UMLAbstractClass {
 
 	public abstract boolean isInterface();
 	
-	public String getSourceFile() {
+	public String getSourceFile_RENAMED() {
 		return locationInfo.getFilePath();
 	}
 
