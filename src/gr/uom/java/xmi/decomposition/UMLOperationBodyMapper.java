@@ -630,7 +630,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return candidateAttributeRenames;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges_RENAMED() {
 		return candidateAttributeMerges;
 	}
 
