@@ -684,8 +684,8 @@ public class VariableReplacementAnalysis {
 	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
 		AbstractCodeFragment fragment1 = mapping.getFragment1();
 		AbstractCodeFragment fragment2 = mapping.getFragment2();
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations_RENAMED();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations_RENAMED();
 		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0) {
 			boolean replacementBeforeNotFoundInMethodSignature = false;
 			String[] lines1 = fragment1.getString().split("\\n");
