@@ -176,7 +176,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 					creation.coverage = StatementCoverageType.THROW_CALL;
 					return creation;
 				}
-				else if(expressionIsTheInitializerOfVariableDeclaration(objectCreation)) {
+				else if(expressionIsTheInitializerOfVariableDeclaration_RENAMED(objectCreation)) {
 					creation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
 					return creation;
 				}
@@ -203,7 +203,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 					invocation.coverage = StatementCoverageType.CAST_CALL;
 					return invocation;
 				}
-				else if(expressionIsTheInitializerOfVariableDeclaration(methodInvocation)) {
+				else if(expressionIsTheInitializerOfVariableDeclaration_RENAMED(methodInvocation)) {
 					invocation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
 					return invocation;
 				}
@@ -256,7 +256,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+	private boolean expressionIsTheInitializerOfVariableDeclaration_RENAMED(String expression) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
