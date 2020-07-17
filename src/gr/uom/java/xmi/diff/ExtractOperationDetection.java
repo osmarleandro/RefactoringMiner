@@ -211,10 +211,10 @@ public class ExtractOperationDetection {
 		int size = Math.min(arguments.size(), parameters.size());
 		for(int i=0; i<size; i++) {
 			String argumentName = arguments.get(i);
-			String parameterName = parameters.get(i).getName();
+			String parameterName = parameters.get(i).getName_RENAMED();
 			parameterToArgumentMap.put(parameterName, argumentName);
 			for(UMLParameter originalMethodParameter : originalMethodParameters) {
-				if(originalMethodParameter.getName().equals(argumentName)) {
+				if(originalMethodParameter.getName_RENAMED().equals(argumentName)) {
 					originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.put(originalMethodParameter, parameters.get(i));
 				}
 			}
