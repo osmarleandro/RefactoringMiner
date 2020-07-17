@@ -150,7 +150,7 @@ public class VariableReplacementAnalysis {
 		return candidateAttributeRenames;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges_RENAMED() {
 		return candidateAttributeMerges;
 	}
 
