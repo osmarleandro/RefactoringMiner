@@ -597,7 +597,7 @@ public class UMLModelDiff {
 					   candidates.add(candidate);
 				   }
 			   }
-			   processCandidates(candidates, refactorings);
+			   processCandidates_RENAMED(candidates, refactorings);
 		   }
 	   }
 	   else {
@@ -609,7 +609,7 @@ public class UMLModelDiff {
 					   candidates.add(candidate);
 				   }
 			   }
-			   processCandidates(candidates, refactorings);
+			   processCandidates_RENAMED(candidates, refactorings);
 		   }
 	   }
 	   return filterOutDuplicateRefactorings(refactorings);
@@ -675,7 +675,7 @@ public class UMLModelDiff {
 	   return filtered;
    }
 
-   private void processCandidates(List<MoveAttributeRefactoring> candidates, List<MoveAttributeRefactoring> refactorings) {
+   private void processCandidates_RENAMED(List<MoveAttributeRefactoring> candidates, List<MoveAttributeRefactoring> refactorings) {
 	   if(candidates.size() > 1) {
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring candidate : candidates) {
