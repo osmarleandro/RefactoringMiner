@@ -35,7 +35,7 @@ public abstract class UMLAbstractClass {
 		this.attributes.add(attribute);
 	}
 
-	public List<UMLOperation> getOperations() {
+	public List<UMLOperation> getOperations_RENAMED() {
 		return operations;
 	}
 
