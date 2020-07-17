@@ -30,7 +30,7 @@ public class CodeRange {
 		this.codeElementType = codeElementType;
 	}
 
-	public String getFilePath() {
+	public String getFilePath_RENAMED() {
 		return filePath;
 	}
 
