@@ -169,7 +169,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return normalized;
 	}
 
-	public static LeafType extractTypeObject(String qualifiedName) {
+	public static LeafType extractTypeObject_RENAMED(String qualifiedName) {
 		int arrayDimension = 0;
 		List<UMLType> typeArgumentDecomposition = new ArrayList<UMLType>();
 		if(qualifiedName.endsWith("[]")) {
@@ -188,7 +188,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 				}
 				else {
 					if(sb.length() > 0 && equalOpeningClosingTags(sb.toString())) {
-						typeArgumentDecomposition.add(extractTypeObject(sb.toString()));
+						typeArgumentDecomposition.add(extractTypeObject_RENAMED(sb.toString()));
 						sb = new StringBuilder();
 					}
 					else {
@@ -197,7 +197,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 				}
 			}
 			if(sb.length() > 0) {
-				typeArgumentDecomposition.add(extractTypeObject(sb.toString()));
+				typeArgumentDecomposition.add(extractTypeObject_RENAMED(sb.toString()));
 			}
 			qualifiedName = qualifiedName.substring(0, qualifiedName.indexOf("<"));
 		}
@@ -230,7 +230,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	private static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
 		if(type.isPrimitiveType() || type.isSimpleType()) {
-			LeafType leafType = extractTypeObject(type.toString());
+			LeafType leafType = extractTypeObject_RENAMED(type.toString());
 			AnnotatableType annotatableType = (AnnotatableType)type;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
@@ -241,7 +241,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		else if(type instanceof QualifiedType) {
 			QualifiedType qualified = (QualifiedType)type;
 			UMLType leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
-			LeafType rightType = extractTypeObject(qualified.getName().getFullyQualifiedName());
+			LeafType rightType = extractTypeObject_RENAMED(qualified.getName().getFullyQualifiedName());
 			AnnotatableType annotatableType = (AnnotatableType)qualified;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
@@ -251,8 +251,8 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		else if(type instanceof NameQualifiedType) {
 			NameQualifiedType nameQualified = (NameQualifiedType)type;
-			LeafType leftType = extractTypeObject(nameQualified.getQualifier().getFullyQualifiedName());
-			LeafType rightType = extractTypeObject(nameQualified.getName().getFullyQualifiedName());
+			LeafType leftType = extractTypeObject_RENAMED(nameQualified.getQualifier().getFullyQualifiedName());
+			LeafType rightType = extractTypeObject_RENAMED(nameQualified.getName().getFullyQualifiedName());
 			AnnotatableType annotatableType = (AnnotatableType)nameQualified;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
