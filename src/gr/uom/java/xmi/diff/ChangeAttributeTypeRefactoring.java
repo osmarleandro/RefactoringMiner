@@ -72,9 +72,9 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalAttribute.getType().equals(changedTypeAttribute.getType()) && !originalAttribute.getType().equalsQualified(changedTypeAttribute.getType());
 		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalAttribute.toQualifiedString() : originalAttribute.toString());
+		sb.append(qualified ? originalAttribute.toQualifiedString_RENAMED() : originalAttribute.toString());
 		sb.append(" to ");
-		sb.append(qualified ? changedTypeAttribute.toQualifiedString() : changedTypeAttribute.toString());
+		sb.append(qualified ? changedTypeAttribute.toQualifiedString_RENAMED() : changedTypeAttribute.toString());
 		sb.append(" in class ").append(classNameAfter);
 		return sb.toString();
 	}
