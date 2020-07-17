@@ -29,7 +29,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		moveClassRefactorings.add(moveClassRefactoring);
 	}
 
-	public RenamePattern getPattern() {
+	public RenamePattern getPattern_RENAMED() {
 		return pattern;
 	}
 
