@@ -103,7 +103,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
 		for(UMLOperationDiff diff : operationDiffList) {
-			if(diff.getRemovedOperation().equals(operation1) && diff.getAddedOperation().equals(operation2)) {
+			if(diff.getRemovedOperation().equals_RENAMED(operation1) && diff.getAddedOperation().equals_RENAMED(operation2)) {
 				return diff;
 			}
 		}
@@ -207,7 +207,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
-			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
+			if(diff.getRemovedAttribute().equals_RENAMED(attribute1) || diff.getAddedAttribute().equals_RENAMED(attribute2))
 				return true;
 		}
 		return false;
@@ -215,7 +215,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean mapperListContainsOperation(UMLOperation operation1, UMLOperation operation2) {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
-			if(mapper.getOperation1().equals(operation1) || mapper.getOperation2().equals(operation2))
+			if(mapper.getOperation1().equals_RENAMED(operation1) || mapper.getOperation2().equals_RENAMED(operation2))
 				return true;
 		}
 		return false;
@@ -430,7 +430,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
-			if(!originalClass.getSuperclass().equals(nextClass.getSuperclass())) {
+			if(!originalClass.getSuperclass().equals_RENAMED(nextClass.getSuperclass())) {
 				setSuperclassChanged(true);
 			}
 			setOldSuperclass(originalClass.getSuperclass());
@@ -570,7 +570,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 						if(!refactorings.contains(ref)) {
 							refactorings.add(ref);
-							if(!candidate.getOriginalVariableDeclaration().getType().equals(a2.getVariableDeclaration().getType()) ||
+							if(!candidate.getOriginalVariableDeclaration().getType().equals_RENAMED(a2.getVariableDeclaration().getType()) ||
 									!candidate.getOriginalVariableDeclaration().getType().equalsQualified(a2.getVariableDeclaration().getType())) {
 								ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(),
 										candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
@@ -651,7 +651,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
-				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
+				if(extractRefactoring.getExtractedOperation().equals_RENAMED(candidate.getOperationAfter())) {
 					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
 					if(extractedInvocations.size() > 1) {
 						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
@@ -802,7 +802,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
-				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
+				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals_RENAMED(a2.getVariableDeclaration())) {
 					return true;
 				}
 			}
@@ -814,7 +814,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
 				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
-				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
+				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals_RENAMED(a1.getVariableDeclaration())) {
 					return true;
 				}
 			}
@@ -1176,7 +1176,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
 				for(UMLOperation operation : addedOperations) {
-					if(!operation.equals(addedOperation) && operation.getBody() != null) {
+					if(!operation.equals_RENAMED(addedOperation) && operation.getBody() != null) {
 						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
 							if(nonMappedLeavesT1.contains(statement.getString())) {
 								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
@@ -1390,7 +1390,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
 			if(!intersection.contains(addedOperationInvocation)) {
 				for(UMLOperation operation : addedOperations) {
-					if(!operation.equals(addedOperation) && operation.getBody() != null) {
+					if(!operation.equals_RENAMED(addedOperation) && operation.getBody() != null) {
 						if(addedOperationInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), modelDiff)) {
 							//addedOperation calls another added method
 							operationInvocationsInMethodsCalledByAddedOperation.addAll(operation.getAllOperationInvocations());
@@ -1428,7 +1428,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(OperationInvocation removedOperationInvocation : removedOperationInvocations) {
 			if(!intersection.contains(removedOperationInvocation)) {
 				for(UMLOperation operation : removedOperations) {
-					if(!operation.equals(removedOperation) && operation.getBody() != null) {
+					if(!operation.equals_RENAMED(removedOperation) && operation.getBody() != null) {
 						if(removedOperationInvocation.matchesOperation(operation, removedOperation.variableTypeMap(), modelDiff)) {
 							//removedOperation calls another removed method
 							operationInvocationsInMethodsCalledByRemovedOperation.addAll(operation.getAllOperationInvocations());
@@ -1492,7 +1492,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<UMLOperation> originalClassOperations = originalClass.getOperations();
 		for(int i=0; i<originalClassOperations.size(); i++) {
 			UMLOperation current = originalClassOperations.get(i);
-			if(current.equals(removedOperation)) {
+			if(current.equals_RENAMED(removedOperation)) {
 				if(i>0) {
 					operationBefore1 = originalClassOperations.get(i-1);
 				}
@@ -1507,7 +1507,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<UMLOperation> nextClassOperations = nextClass.getOperations();
 		for(int i=0; i<nextClassOperations.size(); i++) {
 			UMLOperation current = nextClassOperations.get(i);
-			if(current.equals(addedOperation)) {
+			if(current.equals_RENAMED(addedOperation)) {
 				if(i>0) {
 					operationBefore2 = nextClassOperations.get(i-1);
 				}
@@ -1589,7 +1589,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							if(allMappingsForReference.size() > 1) {
 								for(AbstractCodeMapping mapping : allMappingsForReference) {
-									if(!mapping.equals(reference) && mapping.isExact()) {
+									if(!mapping.equals_RENAMED(reference) && mapping.isExact()) {
 										refactoringsToBeRemoved.add(rename);
 										break;
 									}
@@ -1659,7 +1659,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
-				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
+				if(extractRef.getSourceOperationBeforeExtraction().equals_RENAMED(sourceOperationBeforeExtraction) &&
 						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
 					return true;
 				}

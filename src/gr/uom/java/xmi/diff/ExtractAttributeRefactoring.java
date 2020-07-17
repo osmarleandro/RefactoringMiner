@@ -79,7 +79,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals_RENAMED(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -90,7 +90,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		if (attributeDeclaration == null) {
 			if (other.attributeDeclaration != null)
 				return false;
-		} else if (!attributeDeclaration.equals(other.attributeDeclaration))
+		} else if (!attributeDeclaration.equals_RENAMED(other.attributeDeclaration))
 			return false;
 		return true;
 	}
