@@ -28,7 +28,7 @@ public class CandidateSplitVariableRefactoring {
 		return oldVariable;
 	}
 
-	public Set<String> getSplitVariables() {
+	public Set<String> getSplitVariables_RENAMED() {
 		return splitVariables;
 	}
 
