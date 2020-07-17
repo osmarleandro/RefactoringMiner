@@ -159,7 +159,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(attributeWithTheSameName == null) {
     			this.removedAttributes.add(attribute);
     		}
-			else if(!attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
+			else if(!attributeDiffListContainsAttribute_RENAMED(attribute, attributeWithTheSameName)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
@@ -172,7 +172,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(attributeWithTheSameName == null) {
     			this.addedAttributes.add(attribute);
     		}
-			else if(!attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
+			else if(!attributeDiffListContainsAttribute_RENAMED(attributeWithTheSameName, attribute)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
@@ -205,7 +205,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     	}
 	}
 
-	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
+	private boolean attributeDiffListContainsAttribute_RENAMED(UMLAttribute attribute1, UMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
 			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
 				return true;
