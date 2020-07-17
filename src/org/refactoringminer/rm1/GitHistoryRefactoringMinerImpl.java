@@ -691,7 +691,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return repoName;
 	}
 
-	public static String extractCommitURL(String cloneURL, String commitId) {
+	public static String extractCommitURL_RENAMED(String cloneURL, String commitId) {
 		int indexOfDotGit = cloneURL.length();
 		if(cloneURL.endsWith(".git")) {
 			indexOfDotGit = cloneURL.indexOf(".git");

@@ -256,7 +256,7 @@ public class RefactoringMiner {
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(cloneURL).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
-		String url = GitHistoryRefactoringMinerImpl.extractCommitURL(cloneURL, currentCommitId);
+		String url = GitHistoryRefactoringMinerImpl.extractCommitURL_RENAMED(cloneURL, currentCommitId);
 		sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
