@@ -362,7 +362,7 @@ public class OperationInvocation extends AbstractCall {
 			if(thisExpression.contains(".")) {
 				int indexOfDot = thisExpression.indexOf(".");
 				String subString = thisExpression.substring(0, indexOfDot);
-				if(!subExpressions.contains(subString) && !dotInsideArguments(indexOfDot, thisExpression)) {
+				if(!subExpressions.contains(subString) && !dotInsideArguments_RENAMED(indexOfDot, thisExpression)) {
 					subExpressions.add(subString);
 				}
 			}
@@ -373,7 +373,7 @@ public class OperationInvocation extends AbstractCall {
 		return subExpressions;
 	}
 
-	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
+	private static boolean dotInsideArguments_RENAMED(int indexOfDot, String thisExpression) {
 		boolean openingParenthesisFound = false;
 		for(int i=indexOfDot; i>=0; i--) {
 			if(thisExpression.charAt(i) == '(') {
