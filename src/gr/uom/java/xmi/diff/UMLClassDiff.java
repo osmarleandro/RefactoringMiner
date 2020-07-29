@@ -26,10 +26,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.addedOperations.add(umlOperation);
 	}
 
-	private void reportRemovedOperation(UMLOperation umlOperation) {
-		this.removedOperations.add(umlOperation);
-	}
-
 	private void reportAddedAttribute(UMLAttribute umlAttribute) {
 		this.addedAttributes.add(umlAttribute);
 	}
@@ -70,7 +66,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	protected void processOperations() {
 		for(UMLOperation operation : originalClass.getOperations()) {
     		if(!nextClass.getOperations().contains(operation))
-    			this.reportRemovedOperation(operation);
+    			operation.reportRemovedOperation(this);
     	}
     	for(UMLOperation operation : nextClass.getOperations()) {
     		if(!originalClass.getOperations().contains(operation))
