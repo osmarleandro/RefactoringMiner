@@ -59,4 +59,8 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	public boolean isInterface() {
 		return false;
 	}
+
+	public void addAnonymousClass(UMLClass umlClass) {
+		umlClass.anonymousClassList.add(this);
+	}
 }
