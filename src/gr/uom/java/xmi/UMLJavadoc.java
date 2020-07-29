@@ -35,4 +35,10 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	boolean isEquals(UMLOperation umlOperation) {
+		List<UMLType> parameterTypeList = umlOperation.getParameterTypeList();
+		return umlOperation.getName().equals("equals") && umlOperation.getReturnParameter().getType().getClassType().equals("boolean") &&
+				parameterTypeList.size() == 1 && parameterTypeList.get(0).getClassType().equals("Object");
+	}
 }
