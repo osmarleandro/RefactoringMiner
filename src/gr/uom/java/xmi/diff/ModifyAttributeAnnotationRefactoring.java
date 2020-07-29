@@ -16,7 +16,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
 	private UMLAnnotation annotationAfter;
 	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAttribute attributeAfter;
 
 	public ModifyAttributeAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLAttribute attributeBefore, UMLAttribute attributeAfter) {
@@ -36,10 +36,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	public UMLAttribute getAttributeBefore() {
 		return attributeBefore;
-	}
-
-	public UMLAttribute getAttributeAfter() {
-		return attributeAfter;
 	}
 
 	@Override
@@ -86,7 +82,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeAfter().getLocationInfo().getFilePath(), getAttributeAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(annotationAfter.getAttributeAfter(this).getLocationInfo().getFilePath(), annotationAfter.getAttributeAfter(this).getClassName()));
 		return pairs;
 	}
 
