@@ -13,10 +13,10 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class ModifyAttributeAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
-	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAnnotation annotationBefore;
+	public UMLAnnotation annotationAfter;
+	public UMLAttribute attributeBefore;
+	public UMLAttribute attributeAfter;
 
 	public ModifyAttributeAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLAttribute attributeBefore, UMLAttribute attributeAfter) {
@@ -115,33 +115,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ModifyAttributeAnnotationRefactoring other = (ModifyAttributeAnnotationRefactoring) obj;
-		if (annotationAfter == null) {
-			if (other.annotationAfter != null)
-				return false;
-		} else if (!annotationAfter.equals(other.annotationAfter))
-			return false;
-		if (annotationBefore == null) {
-			if (other.annotationBefore != null)
-				return false;
-		} else if (!annotationBefore.equals(other.annotationBefore))
-			return false;
-		if (attributeAfter == null) {
-			if (other.attributeAfter != null)
-				return false;
-		} else if (!attributeAfter.equals(other.attributeAfter))
-			return false;
-		if (attributeBefore == null) {
-			if (other.attributeBefore != null)
-				return false;
-		} else if (!attributeBefore.equals(other.attributeBefore))
-			return false;
-		return true;
+		return annotationAfter.equals(this, obj);
 	}
 }

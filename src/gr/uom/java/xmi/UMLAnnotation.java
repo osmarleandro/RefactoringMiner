@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ModifyAttributeAnnotationRefactoring;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -157,5 +158,36 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
+	}
+
+	public boolean equals(ModifyAttributeAnnotationRefactoring modifyAttributeAnnotationRefactoring, Object obj) {
+		if (modifyAttributeAnnotationRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (modifyAttributeAnnotationRefactoring.getClass() != obj.getClass())
+			return false;
+		ModifyAttributeAnnotationRefactoring other = (ModifyAttributeAnnotationRefactoring) obj;
+		if (this == null) {
+			if (other.annotationAfter != null)
+				return false;
+		} else if (!equals(other.annotationAfter))
+			return false;
+		if (modifyAttributeAnnotationRefactoring.annotationBefore == null) {
+			if (other.annotationBefore != null)
+				return false;
+		} else if (!modifyAttributeAnnotationRefactoring.annotationBefore.equals(other.annotationBefore))
+			return false;
+		if (modifyAttributeAnnotationRefactoring.attributeAfter == null) {
+			if (other.attributeAfter != null)
+				return false;
+		} else if (!modifyAttributeAnnotationRefactoring.attributeAfter.equals(other.attributeAfter))
+			return false;
+		if (modifyAttributeAnnotationRefactoring.attributeBefore == null) {
+			if (other.attributeBefore != null)
+				return false;
+		} else if (!modifyAttributeAnnotationRefactoring.attributeBefore.equals(other.attributeBefore))
+			return false;
+		return true;
 	}
 }
