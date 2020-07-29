@@ -14,10 +14,10 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
-	private UMLType originalType;
-	private UMLType changedType;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLType originalType;
+	public UMLType changedType;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
@@ -83,34 +83,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChangeReturnTypeRefactoring other = (ChangeReturnTypeRefactoring) obj;
-		if (changedType == null) {
-			if (other.changedType != null)
-				return false;
-		} else if (!changedType.equals(other.changedType))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (originalType == null) {
-			if (other.originalType != null)
-				return false;
-		} else if (!originalType.equals(other.originalType))
-			return false;
-		return true;
+		return changedType.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

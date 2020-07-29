@@ -18,6 +18,7 @@ import org.eclipse.jdt.core.dom.WildcardType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.ChangeReturnTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -167,6 +168,37 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equals(ChangeReturnTypeRefactoring changeReturnTypeRefactoring, Object obj) {
+		if (changeReturnTypeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (changeReturnTypeRefactoring.getClass() != obj.getClass())
+			return false;
+		ChangeReturnTypeRefactoring other = (ChangeReturnTypeRefactoring) obj;
+		if (this == null) {
+			if (other.changedType != null)
+				return false;
+		} else if (!equals(other.changedType))
+			return false;
+		if (changeReturnTypeRefactoring.operationAfter == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!changeReturnTypeRefactoring.operationAfter.equals(other.operationAfter))
+			return false;
+		if (changeReturnTypeRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!changeReturnTypeRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		if (changeReturnTypeRefactoring.originalType == null) {
+			if (other.originalType != null)
+				return false;
+		} else if (!changeReturnTypeRefactoring.originalType.equals(other.originalType))
+			return false;
+		return true;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
