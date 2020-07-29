@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -255,5 +256,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	boolean consistencyCheck(VariableReplacementAnalysis variableReplacementAnalysis, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
+		return !variableReplacementAnalysis.variableAppearsInExtractedMethod(this, v2) &&
+				!variableReplacementAnalysis.variableAppearsInTheInitializerOfTheOtherVariable(this, v2) &&
+				!variableReplacementAnalysis.inconsistentVariableMapping(this, v2, set);
 	}
 }

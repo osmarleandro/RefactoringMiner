@@ -426,7 +426,7 @@ public class VariableReplacementAnalysis {
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
-			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
+			if((set.size() > 1 && vdReplacement.getVariableDeclaration1().consistencyCheck(this, vdReplacement.getVariableDeclaration2(), set)) ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
@@ -452,13 +452,13 @@ public class VariableReplacementAnalysis {
 			SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement);
 			SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement);
 			Set<AbstractCodeMapping> set = replacementOccurrenceMap.get(replacement);
-			if((set.size() > 1 && v1 != null && v2 != null && consistencyCheck(v1.getKey(), v2.getKey(), set)) ||
+			if((set.size() > 1 && v1 != null && v2 != null && v1.getKey().consistencyCheck(this, v2.getKey(), set)) ||
 					potentialParameterRename(replacement, set) ||
 					v1 == null || v2 == null ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(replacement, set))) {
 				finalConsistentRenames.put(replacement, set);
 			}
-			if(v1 != null && !v1.getKey().isParameter() && v2 != null && v2.getKey().isParameter() && consistencyCheck(v1.getKey(), v2.getKey(), set) &&
+			if(v1 != null && !v1.getKey().isParameter() && v2 != null && v2.getKey().isParameter() && v1.getKey().consistencyCheck(this, v2.getKey(), set) &&
 					!operation1.getParameterNameList().contains(v2.getKey().getVariableName())) {
 				finalConsistentRenames.put(replacement, set);
 			}
@@ -784,16 +784,10 @@ public class VariableReplacementAnalysis {
 				v1.equalVariableDeclarationType(v2) &&
 				!containsVariableDeclarationWithName(allVariableDeclarations1, v2.getVariableName()) &&
 				(!containsVariableDeclarationWithName(allVariableDeclarations2, v1.getVariableName()) || operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
-				consistencyCheck(v1, v2, set);
+				v1.consistencyCheck(this, v2, set);
 	}
 
-	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
-		return !variableAppearsInExtractedMethod(v1, v2) &&
-				!variableAppearsInTheInitializerOfTheOtherVariable(v1, v2) &&
-				!inconsistentVariableMapping(v1, v2, set);
-	}
-
-	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
+	boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1.getInitializer() != null) {
 			if(v1.getInitializer().getString().equals(v2.getVariableName())) {
 				return true;
@@ -831,7 +825,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
+	boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
 				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
@@ -1040,7 +1034,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
+	boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
