@@ -97,18 +97,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return variableDeclaration.getAnnotations();
 	}
 
-	public boolean equalsIgnoringChangedType(UMLAttribute attribute) {
-		if(this.isStatic != attribute.isStatic)
-			return false;
-		if(this.isFinal != attribute.isFinal)
-			return false;
-		if(this.name.equals(attribute.name) && this.type.equals(attribute.type) && this.type.equalsQualified(attribute.type))
-			return true;
-		if(!this.type.equals(attribute.type))
-			return this.name.equals(attribute.name);
-		return false;
-	}
-
 	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
 		if(this.name.equals(attribute.name) && this.type.equals(attribute.type))
 			return true;
@@ -170,5 +158,17 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equalsIgnoringChangedType(UMLAttribute umlAttribute) {
+		if(umlAttribute.isStatic != isStatic)
+			return false;
+		if(umlAttribute.isFinal != isFinal)
+			return false;
+		if(umlAttribute.name.equals(name) && umlAttribute.type.equals(type) && umlAttribute.type.equalsQualified(type))
+			return true;
+		if(!umlAttribute.type.equals(type))
+			return umlAttribute.name.equals(name);
+		return false;
 	}
 }
