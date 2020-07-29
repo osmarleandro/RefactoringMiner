@@ -44,7 +44,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
    private List<UMLClass> addedClasses;
-   private List<UMLClass> removedClasses;
+   public List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
@@ -298,7 +298,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass removedClass = getRemovedClass(subclass);
 	   if(removedClass == null) {
-		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
+		   removedClass = UMLType.extractTypeObject(subclass).looksLikeRemovedClass(this);
 	   }
 	   if(removedClass != null) {
 		   UMLType superclass = removedClass.getSuperclass();
@@ -323,15 +323,6 @@ public class UMLModelDiff {
 
    private UMLClass looksLikeAddedClass(UMLType type) {
 	   for(UMLClass umlClass : addedClasses) {
-	         if(umlClass.getName().endsWith("." + type.getClassType())) {
-	        	 return umlClass;
-	         }
-	   }
-	   return null;
-   }
-
-   private UMLClass looksLikeRemovedClass(UMLType type) {
-	   for(UMLClass umlClass : removedClasses) {
 	         if(umlClass.getName().endsWith("." + type.getClassType())) {
 	        	 return umlClass;
 	         }
@@ -797,7 +788,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass removedClass = getRemovedClass(sourceClassName);
 	   if(removedClass == null) {
-		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
+		   removedClass = UMLType.extractTypeObject(sourceClassName).looksLikeRemovedClass(this);
 	   }
 	   if(removedClass != null) {
 		   return removedClass.importsType(targetClassName);
@@ -1308,7 +1299,7 @@ public class UMLModelDiff {
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
-    		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
+    		  UMLClass removedClass = UMLType.extractTypeObject(pattern.getBefore()).looksLikeRemovedClass(this);
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
