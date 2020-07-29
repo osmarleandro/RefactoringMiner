@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	public UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
@@ -122,10 +122,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedAttribute.codeRange()
-				.setDescription("moved attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
-		return ranges;
+		return movedAttribute.rightSide();
 	}
 }
