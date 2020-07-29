@@ -35,7 +35,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> typeLiterals;
 	private Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
-	private List<String> arrayAccesses;
+	public List<String> arrayAccesses;
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
 	private List<String> arguments;
@@ -210,7 +210,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getArrayAccesses() {
-		return arrayAccesses;
+		return locationInfo.getArrayAccesses(this);
 	}
 
 	@Override
