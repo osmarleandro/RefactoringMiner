@@ -2525,6 +2525,10 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	public List<Refactoring> getRefactoringsBeforePostProcessing(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.refactorings;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
