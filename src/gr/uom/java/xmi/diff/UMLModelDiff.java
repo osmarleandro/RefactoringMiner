@@ -53,10 +53,10 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassDiff> commonClassDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -1643,35 +1643,6 @@ public class UMLModelDiff {
 	   }
 	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   return mappers;
-   }
-
-   public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2(UMLOperation operation2) {
-	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
 		   }
