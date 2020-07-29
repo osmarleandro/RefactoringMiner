@@ -26,7 +26,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
 			List<OperationInvocation> operationInvocations) {
@@ -77,10 +77,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
 			return RefactoringType.MOVE_AND_INLINE_OPERATION;
 		return RefactoringType.INLINE_OPERATION;
-	}
-
-	public UMLOperationBodyMapper getBodyMapper() {
-		return bodyMapper;
 	}
 
 	public UMLOperation getInlinedOperation() {
