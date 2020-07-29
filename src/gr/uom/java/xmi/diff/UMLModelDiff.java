@@ -917,7 +917,7 @@ public class UMLModelDiff {
    private List<UMLOperationBodyMapper> getOperationBodyMappersInCommonClasses() {
       List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         mappers.addAll(classDiff.getOperationBodyMapperList());
+         mappers.addAll(classDiff.getModelDiff().getOperationBodyMapperList(this));
       }
       return mappers;
    }
@@ -925,13 +925,13 @@ public class UMLModelDiff {
    private List<UMLOperationBodyMapper> getOperationBodyMappersInMovedAndRenamedClasses() {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
 	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-		   mappers.addAll(classDiff.getOperationBodyMapperList());
+		   mappers.addAll(classDiff.getModelDiff().getOperationBodyMapperList(this));
 	   }
 	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-		   mappers.addAll(classDiff.getOperationBodyMapperList());
+		   mappers.addAll(classDiff.getModelDiff().getOperationBodyMapperList(this));
 	   }
 	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-		   mappers.addAll(classDiff.getOperationBodyMapperList());
+		   mappers.addAll(classDiff.getModelDiff().getOperationBodyMapperList(this));
 	   }
 	   return mappers;
    }
@@ -1367,7 +1367,7 @@ public class UMLModelDiff {
 					 if(!diff.getOriginalClass().containsAttributeWithName(pattern.getAfter()) &&
 								!diff.getNextClass().containsAttributeWithName(pattern.getBefore()) &&
 								!attributeMerged(a1, a2, refactorings)) {
-						 UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, diff.getOperationBodyMapperList());
+						 UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, diff.getModelDiff().getOperationBodyMapperList(this));
 						 Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 						 if(!refactorings.containsAll(attributeDiffRefactorings)) {
 							 refactorings.addAll(attributeDiffRefactorings);
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLOperationBodyMapper> getOperationBodyMapperList(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.operationBodyMapperList;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {

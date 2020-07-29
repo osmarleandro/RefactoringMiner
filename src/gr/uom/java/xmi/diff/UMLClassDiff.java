@@ -45,7 +45,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			this.reportRemovedAttribute(attribute);
     		}
     		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, getOperationBodyMapperList());
+    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, modelDiff.getOperationBodyMapperList(this));
     			if(!attributeDiff.isEmpty()) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 	    			this.attributeDiffList.add(attributeDiff);
@@ -58,7 +58,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			this.reportAddedAttribute(attribute);
     		}
     		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, getOperationBodyMapperList());
+    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, modelDiff.getOperationBodyMapperList(this));
     			if(!attributeDiff.isEmpty()) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
@@ -168,7 +168,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
 				UMLAttribute addedAttribute = addedAttributeIterator.next();
 				if(removedAttribute.getName().equals(addedAttribute.getName())) {
-					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, getOperationBodyMapperList());
+					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, modelDiff.getOperationBodyMapperList(this));
 					refactorings.addAll(attributeDiff.getRefactorings());
 					addedAttributeIterator.remove();
 					removedAttributeIterator.remove();
@@ -180,7 +180,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	private boolean containsMapperForOperation(UMLOperation operation) {
-		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+		for(UMLOperationBodyMapper mapper : modelDiff.getOperationBodyMapperList(this)) {
 			if(mapper.getOperation1().equalsQualified(operation)) {
 				return true;
 			}
