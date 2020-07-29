@@ -13,10 +13,10 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLAnnotation annotationBefore;
+	public UMLAnnotation annotationAfter;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	
 	public ModifyMethodAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -104,13 +104,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((annotationAfter == null) ? 0 : annotationAfter.hashCode());
-		result = prime * result + ((annotationBefore == null) ? 0 : annotationBefore.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		return result;
+		return annotationAfter.hashCode(this);
 	}
 
 	@Override
