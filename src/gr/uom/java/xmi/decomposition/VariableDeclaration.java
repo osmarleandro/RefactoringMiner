@@ -20,6 +20,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
@@ -255,5 +256,18 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public String toString(ChangeVariableTypeRefactoring changeVariableTypeRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		boolean qualified = changeVariableTypeRefactoring.originalVariable.getType().equals(getType()) && !changeVariableTypeRefactoring.originalVariable.getType().equalsQualified(getType());
+		sb.append(changeVariableTypeRefactoring.getName()).append("\t");
+		sb.append(qualified ? changeVariableTypeRefactoring.originalVariable.toQualifiedString() : changeVariableTypeRefactoring.originalVariable.toString());
+		sb.append(" to ");
+		sb.append(qualified ? toQualifiedString() : toString());
+		sb.append(" in method ");
+		sb.append(qualified ? changeVariableTypeRefactoring.operationAfter.toQualifiedString() : changeVariableTypeRefactoring.operationAfter.toString());
+		sb.append(" in class ").append(changeVariableTypeRefactoring.operationAfter.getClassName());
+		return sb.toString();
 	}
 }

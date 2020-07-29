@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration changedTypeVariable;
+	public VariableDeclaration originalVariable;
+	public VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
@@ -70,16 +70,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		boolean qualified = originalVariable.getType().equals(changedTypeVariable.getType()) && !originalVariable.getType().equalsQualified(changedTypeVariable.getType());
-		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalVariable.toQualifiedString() : originalVariable.toString());
-		sb.append(" to ");
-		sb.append(qualified ? changedTypeVariable.toQualifiedString() : changedTypeVariable.toString());
-		sb.append(" in method ");
-		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString());
-		sb.append(" in class ").append(operationAfter.getClassName());
-		return sb.toString();
+		return changedTypeVariable.toString(this);
 	}
 
 	@Override
