@@ -111,7 +111,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		OperationInvocation invocation1 = this.getFragment1().invocationCoveringEntireFragment();
 		OperationInvocation invocation2 = this.getFragment2().invocationCoveringEntireFragment();
 		if(invocation1 != null && invocation2 != null) {
-			return invocation1.callChainIntersection(invocation2);
+			return invocation2.callChainIntersection(invocation1);
 		}
 		return new LinkedHashSet<String>();
 	}
