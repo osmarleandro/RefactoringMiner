@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -830,6 +831,44 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public UMLOperation matchOperation(UMLClass umlClass) {
+		ListIterator<UMLOperation> operationIt = umlClass.operations.listIterator();
+		while(operationIt.hasNext()) {
+			UMLOperation operation = operationIt.next();
+			if(operation.getName().equals(getName())) {
+				if(operation.getParameters().size() == getParameters().size()) {
+					boolean match = true;
+					int i = 0;
+					for(UMLParameter parameter : operation.getParameters()) {
+						UMLParameter otherParameter = getParameters().get(i);
+						String thisParameterType = parameter.getType().getClassType();
+						String otherParameterType = otherParameter.getType().getClassType();
+						int thisArrayDimension = parameter.getType().getArrayDimension();
+						int otherArrayDimension = otherParameter.getType().getArrayDimension();
+						String thisParameterTypeComparedString = null;
+		    			if(thisParameterType.contains("."))
+		    				thisParameterTypeComparedString = thisParameterType.substring(thisParameterType.lastIndexOf(".")+1);
+		    			else
+		    				thisParameterTypeComparedString = thisParameterType;
+		    			String otherParameterTypeComparedString = null;
+		    			if(otherParameterType.contains("."))
+		    				otherParameterTypeComparedString = otherParameterType.substring(otherParameterType.lastIndexOf(".")+1);
+		    			else
+		    				otherParameterTypeComparedString = otherParameterType;
+		    			if(!thisParameterTypeComparedString.equals(otherParameterTypeComparedString) || thisArrayDimension != otherArrayDimension) {
+							match = false;
+							break;
+						}
+						i++;
+					}
+					if(match)
+						return operation;
+				}
+			}
 		}
 		return null;
 	}

@@ -229,44 +229,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public UMLOperation matchOperation(UMLOperation otherOperation) {
-    	ListIterator<UMLOperation> operationIt = operations.listIterator();
-    	while(operationIt.hasNext()) {
-    		UMLOperation operation = operationIt.next();
-    		if(operation.getName().equals(otherOperation.getName())) {
-    			if(operation.getParameters().size() == otherOperation.getParameters().size()) {
-    				boolean match = true;
-    				int i = 0;
-    				for(UMLParameter parameter : operation.getParameters()) {
-    					UMLParameter otherParameter = otherOperation.getParameters().get(i);
-    					String thisParameterType = parameter.getType().getClassType();
-    					String otherParameterType = otherParameter.getType().getClassType();
-    					int thisArrayDimension = parameter.getType().getArrayDimension();
-    					int otherArrayDimension = otherParameter.getType().getArrayDimension();
-    					String thisParameterTypeComparedString = null;
-    	    			if(thisParameterType.contains("."))
-    	    				thisParameterTypeComparedString = thisParameterType.substring(thisParameterType.lastIndexOf(".")+1);
-    	    			else
-    	    				thisParameterTypeComparedString = thisParameterType;
-    	    			String otherParameterTypeComparedString = null;
-    	    			if(otherParameterType.contains("."))
-    	    				otherParameterTypeComparedString = otherParameterType.substring(otherParameterType.lastIndexOf(".")+1);
-    	    			else
-    	    				otherParameterTypeComparedString = otherParameterType;
-    	    			if(!thisParameterTypeComparedString.equals(otherParameterTypeComparedString) || thisArrayDimension != otherArrayDimension) {
-    						match = false;
-    						break;
-    					}
-    					i++;
-    				}
-    				if(match)
-    					return operation;
-    			}
-    		}
-    	}
-    	return null;
-    }
-
     public boolean hasSameNameAndKind(UMLClass umlClass) {
     	if(!this.name.equals(umlClass.name))
     		return false;
