@@ -5,7 +5,6 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
@@ -392,11 +391,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public double normalizedNameDistance(AbstractCall call) {
-		String s1 = getMethodName().toLowerCase();
-		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
-		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
-		return normalized;
+		return call.normalizedNameDistance(this);
 	}
 
 	public boolean equals(Object o) {

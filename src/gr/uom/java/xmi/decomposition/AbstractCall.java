@@ -14,6 +14,8 @@ import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.StringDistance;
+
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
@@ -434,6 +436,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public double normalizedNameDistance(OperationInvocation operationInvocation) {
+		String s1 = operationInvocation.getMethodName().toLowerCase();
+		String s2 = ((OperationInvocation)this).getMethodName().toLowerCase();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 
 	public enum StatementCoverageType {
