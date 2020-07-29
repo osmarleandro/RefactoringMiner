@@ -35,6 +35,7 @@ import org.eclipse.jdt.core.dom.WhileStatement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.CodeRange;
 
 public class OperationBody {
 
@@ -296,5 +297,9 @@ public class OperationBody {
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		return compositeStatement.loopWithVariables(currentElementName, collectionName);
+	}
+
+	public CodeRange codeRange(LambdaExpressionObject lambdaExpressionObject) {
+		return lambdaExpressionObject.locationInfo.codeRange();
 	}
 }
