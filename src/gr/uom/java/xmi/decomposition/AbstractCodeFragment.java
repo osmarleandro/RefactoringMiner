@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
@@ -303,5 +305,62 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	void expandAnonymousAndLambdas(UMLOperationBodyMapper umlOperationBodyMapper, List<StatementObject> leaves1, List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1, Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
+		if(this instanceof StatementObject) {
+			StatementObject statement = (StatementObject)this;
+			if(!leaves1.contains(statement)) {
+				leaves1.add(statement);
+				addedLeaves1.add(statement);
+			}
+			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
+				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+				for(UMLAnonymousClass anonymous : anonymousList) {
+					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
+						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
+							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+							for(StatementObject anonymousLeaf : anonymousClassLeaves) {
+								if(!leaves1.contains(anonymousLeaf)) {
+									leaves1.add(anonymousLeaf);
+									addedLeaves1.add(anonymousLeaf);
+									umlOperationBodyMapper.codeFragmentOperationMap1.put(anonymousLeaf, anonymousOperation);
+								}
+							}
+							List<CompositeStatementObject> anonymousClassInnerNodes = anonymousOperation.getBody().getCompositeStatement().getInnerNodes();
+							for(CompositeStatementObject anonymousInnerNode : anonymousClassInnerNodes) {
+								if(!innerNodes1.contains(anonymousInnerNode)) {
+									innerNodes1.add(anonymousInnerNode);
+									addedInnerNodes1.add(anonymousInnerNode);
+									umlOperationBodyMapper.codeFragmentOperationMap1.put(anonymousInnerNode, anonymousOperation);
+								}
+							}
+						}
+					}
+				}
+			}
+			if(!statement.getLambdas().isEmpty()) {
+				for(LambdaExpressionObject lambda : statement.getLambdas()) {
+					if(lambda.getBody() != null) {
+						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+						for(StatementObject lambdaLeaf : lambdaLeaves) {
+							if(!leaves1.contains(lambdaLeaf)) {
+								leaves1.add(lambdaLeaf);
+								addedLeaves1.add(lambdaLeaf);
+								umlOperationBodyMapper.codeFragmentOperationMap1.put(lambdaLeaf, umlOperationBodyMapper.operation1);
+							}
+						}
+						List<CompositeStatementObject> lambdaInnerNodes = lambda.getBody().getCompositeStatement().getInnerNodes();
+						for(CompositeStatementObject lambdaInnerNode : lambdaInnerNodes) {
+							if(!innerNodes1.contains(lambdaInnerNode)) {
+								innerNodes1.add(lambdaInnerNode);
+								addedInnerNodes1.add(lambdaInnerNode);
+								umlOperationBodyMapper.codeFragmentOperationMap1.put(lambdaInnerNode, umlOperationBodyMapper.operation1);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
