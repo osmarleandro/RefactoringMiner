@@ -14,8 +14,8 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
-	private UMLOperation operationBefore;
+	public VariableDeclaration variableDeclaration;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
@@ -74,11 +74,7 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((variableDeclaration == null) ? 0 : variableDeclaration.hashCode());
-		return result;
+		return operationAfter.hashCode(this);
 	}
 
 	@Override
