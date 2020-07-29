@@ -36,16 +36,16 @@ public class RefactoringCollector extends RefactoringHandler {
         }
       } else if (r instanceof MoveOperationRefactoring) {
         MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getJavadoc().getKey(this), ref.getMovedOperation().getJavadoc().getKey(this)));
       } else if (r instanceof RenameOperationRefactoring) {
         RenameOperationRefactoring ref = (RenameOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getJavadoc().getKey(this), ref.getRenamedOperation().getJavadoc().getKey(this)));
       } else if (r instanceof ExtractOperationRefactoring) {
         ExtractOperationRefactoring ref = (ExtractOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceOperationBeforeExtraction().getKey(), ref.getExtractedOperation().getKey()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceOperationBeforeExtraction().getJavadoc().getKey(this), ref.getExtractedOperation().getJavadoc().getKey(this)));
       } else if (r instanceof InlineOperationRefactoring) {
         InlineOperationRefactoring ref = (InlineOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getKey(), ref.getTargetOperationAfterInline().getKey()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getJavadoc().getKey(this), ref.getTargetOperationAfterInline().getJavadoc().getKey(this)));
       } else if (r instanceof MoveAttributeRefactoring) {
         MoveAttributeRefactoring ref = (MoveAttributeRefactoring) r;
         String attrName = ref.getMovedAttribute().getName();
