@@ -33,14 +33,12 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
 import org.eclipse.jdt.core.dom.IExtendedModifier;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
-import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.TypeParameter;
@@ -172,27 +170,9 @@ public class UMLModelASTReader {
         }
 	}
 
-	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
-		UMLJavadoc doc = null;
-		Javadoc javaDoc = bodyDeclaration.getJavadoc();
-		if(javaDoc != null) {
-			doc = new UMLJavadoc();
-			List<TagElement> tags = javaDoc.tags();
-			for(TagElement tag : tags) {
-				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
-				List fragments = tag.fragments();
-				for(Object docElement : fragments) {
-					tagElement.addFragment(docElement.toString());
-				}
-				doc.addTag(tagElement);
-			}
-		}
-		return doc;
-	}
-
 	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
+		UMLJavadoc javadoc = umlModel.generateJavadoc(enumDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -242,7 +222,7 @@ public class UMLModelASTReader {
 
 	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
+		UMLJavadoc javadoc = umlModel.generateJavadoc(typeDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -386,7 +366,7 @@ public class UMLModelASTReader {
 	}
 
 	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
+		UMLJavadoc javadoc = umlModel.generateJavadoc(methodDeclaration);
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
 		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
@@ -475,7 +455,7 @@ public class UMLModelASTReader {
 
 
 	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
+		UMLJavadoc javadoc = umlModel.generateJavadoc(fieldDeclaration);
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
 		Type fieldType = fieldDeclaration.getType();
 		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();

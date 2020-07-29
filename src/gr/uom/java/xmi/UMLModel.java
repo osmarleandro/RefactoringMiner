@@ -10,6 +10,9 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.Javadoc;
+import org.eclipse.jdt.core.dom.TagElement;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +156,22 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
+		UMLJavadoc doc = null;
+		Javadoc javaDoc = bodyDeclaration.getJavadoc();
+		if(javaDoc != null) {
+			doc = new UMLJavadoc();
+			List<TagElement> tags = javaDoc.tags();
+			for(TagElement tag : tags) {
+				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+				List fragments = tag.fragments();
+				for(Object docElement : fragments) {
+					tagElement.addFragment(docElement.toString());
+				}
+				doc.addTag(tagElement);
+			}
+		}
+		return doc;
+	}
 }
