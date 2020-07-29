@@ -800,7 +800,7 @@ public class VariableReplacementAnalysis {
 			}
 			if(v1.getInitializer().getTernaryOperatorExpressions().size() == 1) {
 				TernaryOperatorExpression ternary = v1.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
+				if(ternary.getCondition().getThenExpression(this).getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
 					boolean v2InitializerContainsThisReference = false;
 					if(v2.getInitializer() != null && v2.getInitializer().getVariables().contains("this." + v2.getVariableName())) {
 						v2InitializerContainsThisReference = true;
@@ -817,7 +817,7 @@ public class VariableReplacementAnalysis {
 			}
 			if(v2.getInitializer().getTernaryOperatorExpressions().size() == 1) {
 				TernaryOperatorExpression ternary = v2.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables().contains(v1.getVariableName())) {
+				if(ternary.getCondition().getThenExpression(this).getVariables().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables().contains(v1.getVariableName())) {
 					boolean v1InitializerContainsThisReference = false;
 					if(v1.getInitializer() != null && v1.getInitializer().getVariables().contains("this." + v1.getVariableName())) {
 						v1InitializerContainsThisReference = true;

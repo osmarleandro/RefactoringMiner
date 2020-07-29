@@ -10,7 +10,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 public class TernaryOperatorExpression {
 
 	private AbstractExpression condition;
-	private AbstractExpression thenExpression;
+	AbstractExpression thenExpression;
 	private AbstractExpression elseExpression;
 	private String expression;
 
@@ -25,10 +25,6 @@ public class TernaryOperatorExpression {
 		return condition;
 	}
 
-	public AbstractExpression getThenExpression() {
-		return thenExpression;
-	}
-
 	public AbstractExpression getElseExpression() {
 		return elseExpression;
 	}
@@ -41,7 +37,7 @@ public class TernaryOperatorExpression {
 		if(getElseExpression().getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(condition.getThenExpression(this).getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
@@ -51,7 +47,7 @@ public class TernaryOperatorExpression {
 		if(getElseExpression().getString().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
-		if(getThenExpression().getString().equals(statement)) {
+		if(condition.getThenExpression(this).getString().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
