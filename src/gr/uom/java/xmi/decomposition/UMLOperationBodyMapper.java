@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4161,39 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public void checkForInconsistentVariableRenames(UMLClassBaseDiff umlClassBaseDiff) {
+		if(getChildMappers().size() > 1) {
+			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
+			for(Refactoring r : umlClassBaseDiff.refactorings) {
+				if(r instanceof RenameVariableRefactoring) {
+					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
+					Set<AbstractCodeMapping> references = rename.getVariableReferences();
+					for(AbstractCodeMapping reference : references) {
+						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
+							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
+							for(UMLOperationBodyMapper childMapper : getChildMappers()) {
+								for(AbstractCodeMapping mapping : childMapper.getMappings()) {
+									if(mapping.getFragment1().equals(reference.getFragment1())) {
+										allMappingsForReference.add(mapping);
+										break;
+									}
+								}
+							}
+							if(allMappingsForReference.size() > 1) {
+								for(AbstractCodeMapping mapping : allMappingsForReference) {
+									if(!mapping.equals(reference) && mapping.isExact()) {
+										refactoringsToBeRemoved.add(rename);
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			umlClassBaseDiff.refactorings.removeAll(refactoringsToBeRemoved);
+		}
 	}
 }
