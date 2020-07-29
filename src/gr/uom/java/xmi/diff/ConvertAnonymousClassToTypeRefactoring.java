@@ -48,13 +48,13 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAnonymousClass().getLocationInfo().getFilePath(), getAnonymousClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getAnonymousClass().getLocationInfo().getLocationInfo().getFilePath(), getAnonymousClass().getName()));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAddedClass().getLocationInfo().getFilePath(), getAddedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getAddedClass().getLocationInfo().getLocationInfo().getFilePath(), getAddedClass().getName()));
 		return pairs;
 	}
 
