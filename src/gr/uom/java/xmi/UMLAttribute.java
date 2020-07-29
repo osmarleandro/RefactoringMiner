@@ -1,12 +1,21 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.AddAttributeAnnotationRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ModifyAttributeAnnotationRefactoring;
+import gr.uom.java.xmi.diff.RemoveAttributeAnnotationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLAnnotationDiff;
+import gr.uom.java.xmi.diff.UMLAttributeDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.refactoringminer.api.Refactoring;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +179,22 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public Set<Refactoring> getAnnotationRefactorings(UMLAttributeDiff umlAttributeDiff) {
+		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+		for(UMLAnnotation annotation : umlAttributeDiff.annotationListDiff.getAddedAnnotations()) {
+			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, umlAttributeDiff.removedAttribute, this);
+			refactorings.add(refactoring);
+		}
+		for(UMLAnnotation annotation : umlAttributeDiff.annotationListDiff.getRemovedAnnotations()) {
+			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, umlAttributeDiff.removedAttribute, this);
+			refactorings.add(refactoring);
+		}
+		for(UMLAnnotationDiff annotationDiff : umlAttributeDiff.annotationListDiff.getAnnotationDiffList()) {
+			ModifyAttributeAnnotationRefactoring refactoring = new ModifyAttributeAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), umlAttributeDiff.removedAttribute, this);
+			refactorings.add(refactoring);
+		}
+		return refactorings;
 	}
 }

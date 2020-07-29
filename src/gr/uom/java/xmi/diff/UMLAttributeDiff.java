@@ -12,7 +12,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
-	private UMLAttribute removedAttribute;
+	public UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
@@ -21,7 +21,7 @@ public class UMLAttributeDiff {
 	private boolean staticChanged;
 	private boolean finalChanged;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private UMLAnnotationListDiff annotationListDiff;
+	public UMLAnnotationListDiff annotationListDiff;
 
 	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
@@ -103,23 +103,6 @@ public class UMLAttributeDiff {
 		return sb.toString();
 	}
 
-	private Set<Refactoring> getAnnotationRefactorings() {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
-			refactorings.add(refactoring);
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
-			refactorings.add(refactoring);
-		}
-		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			ModifyAttributeAnnotationRefactoring refactoring = new ModifyAttributeAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), removedAttribute, addedAttribute);
-			refactorings.add(refactoring);
-		}
-		return refactorings;
-	}
-
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
@@ -127,7 +110,7 @@ public class UMLAttributeDiff {
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
 		}
-		refactorings.addAll(getAnnotationRefactorings());
+		refactorings.addAll(addedAttribute.getAnnotationRefactorings(this));
 		return refactorings;
 	}
 	
@@ -146,7 +129,7 @@ public class UMLAttributeDiff {
 				ref.addRelatedRefactoring(rename);
 			}
 		}
-		refactorings.addAll(getAnnotationRefactorings());
+		refactorings.addAll(addedAttribute.getAnnotationRefactorings(this));
 		return refactorings;
 	}
 }
