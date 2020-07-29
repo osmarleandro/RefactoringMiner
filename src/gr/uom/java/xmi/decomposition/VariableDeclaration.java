@@ -1,8 +1,11 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -20,6 +23,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
@@ -255,5 +259,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring(ChangeVariableTypeRefactoring changeVariableTypeRefactoring) {
+		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
+		pairs.add(new ImmutablePair<String, String>(changeVariableTypeRefactoring.getOperationAfter().getLocationInfo().getFilePath(), changeVariableTypeRefactoring.getOperationAfter().getClassName()));
+		return pairs;
 	}
 }
