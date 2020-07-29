@@ -4,6 +4,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -290,4 +291,58 @@ public class UMLOperationDiff {
 		}
 		return false;
 	}
+	void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, Set<Refactoring> refactorings) {
+		   for(UMLOperationBodyMapper mapper : mappers) {
+			   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
+				   if(refactoring instanceof RenameVariableRefactoring) {
+					   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
+					   UMLParameter matchingRemovedParameter = null;
+					   for(UMLParameter parameter : getRemovedParameters()) {
+						   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
+								   parameter.getType().equals(rename.getOriginalVariable().getType())) {
+							   matchingRemovedParameter = parameter;
+							   break;
+						   }
+					   }
+					   UMLParameter matchingAddedParameter = null;
+					   for(UMLParameter parameter : getAddedParameters()) {
+						   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
+								   parameter.getType().equals(rename.getRenamedVariable().getType())) {
+							   matchingAddedParameter = parameter;
+							   break;
+						   }
+					   }
+					   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
+						   RenameVariableRefactoring newRename = new RenameVariableRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+								   getRemovedOperation(), getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
+						   refactorings.add(newRename);
+					   }
+				   }
+				   else if(refactoring instanceof ChangeVariableTypeRefactoring) {
+					   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
+					   UMLParameter matchingRemovedParameter = null;
+					   for(UMLParameter parameter : getRemovedParameters()) {
+						   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
+								   parameter.getType().equals(changeType.getOriginalVariable().getType())) {
+							   matchingRemovedParameter = parameter;
+							   break;
+						   }
+					   }
+					   UMLParameter matchingAddedParameter = null;
+					   for(UMLParameter parameter : getAddedParameters()) {
+						   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
+								   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
+							   matchingAddedParameter = parameter;
+							   break;
+						   }
+					   }
+					   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
+						   ChangeVariableTypeRefactoring newChangeType = new ChangeVariableTypeRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+								   getRemovedOperation(), getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
+						   refactorings.add(newChangeType);
+					   }
+				   }
+			   }
+		   }
+	   }
 }
