@@ -256,4 +256,13 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	boolean containsVariableDeclarationWithSameNameAndType(List<VariableDeclaration> declarations) {
+		for(VariableDeclaration d : declarations) {
+			if(d.getVariableName().equals(getVariableName()) && d.getType().equals(getType()) && d.getType().equalsQualified(getType())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
