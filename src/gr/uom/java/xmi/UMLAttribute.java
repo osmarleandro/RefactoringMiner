@@ -171,4 +171,20 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public boolean initializerContainsTypeLiteral(UMLAttribute removedAttribute) {
+		   VariableDeclaration v1 = getVariableDeclaration();
+		   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
+		   if(v1.getInitializer() != null && v2.getInitializer() != null) {
+			   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
+			   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
+			   String className1 = getNonQualifiedClassName();
+			   String className2 = removedAttribute.getNonQualifiedClassName();
+			   if(typeLiterals1.contains(className1 + ".class") && typeLiterals2.contains(className2 + ".class") &&
+					   getType().getClassType().endsWith("Logger") && removedAttribute.getType().getClassType().endsWith("Logger")) {
+				   return true;
+			   }
+		   }
+		   return false;
+	   }
 }
