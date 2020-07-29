@@ -20,6 +20,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
@@ -255,5 +256,36 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean equals(ChangeVariableTypeRefactoring changeVariableTypeRefactoring, Object obj) {
+		if (changeVariableTypeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (changeVariableTypeRefactoring.getClass() != obj.getClass())
+			return false;
+		ChangeVariableTypeRefactoring other = (ChangeVariableTypeRefactoring) obj;
+		if (this == null) {
+			if (other.changedTypeVariable != null)
+				return false;
+		} else if (!equals(other.changedTypeVariable))
+			return false;
+		if (changeVariableTypeRefactoring.operationAfter == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!changeVariableTypeRefactoring.operationAfter.equals(other.operationAfter))
+			return false;
+		if (changeVariableTypeRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!changeVariableTypeRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		if (changeVariableTypeRefactoring.originalVariable == null) {
+			if (other.originalVariable != null)
+				return false;
+		} else if (!changeVariableTypeRefactoring.originalVariable.equals(other.originalVariable))
+			return false;
+		return true;
 	}
 }
