@@ -12,6 +12,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
@@ -530,5 +531,75 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	double compositeChildMatchingScore(UMLOperationBodyMapper umlOperationBodyMapper, CompositeStatementObject comp2, Set<AbstractCodeMapping> mappings, List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
+		List<AbstractStatement> compStatements1 = getStatements();
+		List<AbstractStatement> compStatements2 = comp2.getStatements();
+		int childrenSize1 = compStatements1.size();
+		int childrenSize2 = compStatements2.size();
+		
+		if(umlOperationBodyMapper.parentMapper != null && getLocationInfo().getCodeElementType().equals(comp2.getLocationInfo().getCodeElementType()) &&
+				childrenSize1 == 1 && childrenSize2 == 1 && !getString().equals("{") && !comp2.getString().equals("{")) {
+			if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
+				CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);
+				compStatements1.addAll(block.getStatements());
+			}
+			if(!compStatements1.get(0).getString().equals("{") && compStatements2.get(0).getString().equals("{")) {
+				CompositeStatementObject block = (CompositeStatementObject)compStatements2.get(0);
+				compStatements2.addAll(block.getStatements());
+			}
+		}
+		int mappedChildrenSize = 0;
+		for(AbstractCodeMapping mapping : mappings) {
+			if(compStatements1.contains(mapping.getFragment1()) && compStatements2.contains(mapping.getFragment2())) {
+				mappedChildrenSize++;
+			}
+		}
+		if(mappedChildrenSize == 0) {
+			List<StatementObject> leaves1 = getLeaves();
+			List<StatementObject> leaves2 = comp2.getLeaves();
+			int leaveSize1 = leaves1.size();
+			int leaveSize2 = leaves2.size();
+			int mappedLeavesSize = 0;
+			for(AbstractCodeMapping mapping : mappings) {
+				if(leaves1.contains(mapping.getFragment1()) && leaves2.contains(mapping.getFragment2())) {
+					mappedLeavesSize++;
+				}
+			}
+			if(mappedLeavesSize == 0) {
+				//check for possible extract or inline
+				if(leaveSize2 <= 2) {
+					for(StatementObject leaf2 : leaves2) {
+						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
+						if(invocation != null && umlOperationBodyMapper.matchesOperation(invocation, addedOperations, umlOperationBodyMapper.operation2.variableTypeMap())) {
+							mappedLeavesSize++;
+						}
+					}
+				}
+				else if(leaveSize1 <= 2) {
+					for(StatementObject leaf1 : leaves1) {
+						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
+						if(invocation != null && umlOperationBodyMapper.matchesOperation(invocation, removedOperations, umlOperationBodyMapper.operation1.variableTypeMap())) {
+							mappedLeavesSize++;
+						}
+					}
+				}
+				if(leaveSize1 == 1 && leaveSize2 == 1 && leaves1.get(0).getString().equals("continue;\n") && leaves2.get(0).getString().equals("return null;\n")) {
+					mappedLeavesSize++;
+				}
+			}
+			int max = Math.max(leaveSize1, leaveSize2);
+			if(max == 0)
+				return 0;
+			else
+				return (double)mappedLeavesSize/(double)max;
+		}
+		
+		int max = Math.max(childrenSize1, childrenSize2);
+		if(max == 0)
+			return 0;
+		else
+			return (double)mappedChildrenSize/(double)max;
 	}
 }
