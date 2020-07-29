@@ -128,4 +128,15 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public boolean compatibleWith(MoveOperationRefactoring moveOperationRefactoring) {
+		if(getMovedAttribute().getClassName().equals(moveOperationRefactoring.movedOperation.getClassName()) &&
+				getOriginalAttribute().getClassName().equals(moveOperationRefactoring.originalOperation.getClassName())) {
+			List<String> originalOperationVariables = moveOperationRefactoring.originalOperation.getAllVariables();
+			List<String> movedOperationVariables = moveOperationRefactoring.movedOperation.getAllVariables();
+			return originalOperationVariables.contains(getOriginalAttribute().getName()) &&
+					movedOperationVariables.contains(getMovedAttribute().getName());
+		}
+		return false;
+	}
 }
