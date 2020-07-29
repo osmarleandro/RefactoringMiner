@@ -73,7 +73,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return annotationAfter.getName(this);
 	}
 
 	@Override
