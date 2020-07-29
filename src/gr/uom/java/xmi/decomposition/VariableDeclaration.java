@@ -20,6 +20,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.diff.ChangeAttributeTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
@@ -255,5 +256,16 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public String toString(ChangeAttributeTypeRefactoring changeAttributeTypeRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		boolean qualified = changeAttributeTypeRefactoring.originalAttribute.getType().equals(getType()) && !changeAttributeTypeRefactoring.originalAttribute.getType().equalsQualified(getType());
+		sb.append(changeAttributeTypeRefactoring.getName()).append("\t");
+		sb.append(qualified ? changeAttributeTypeRefactoring.originalAttribute.toQualifiedString() : changeAttributeTypeRefactoring.originalAttribute.toString());
+		sb.append(" to ");
+		sb.append(qualified ? toQualifiedString() : toString());
+		sb.append(" in class ").append(changeAttributeTypeRefactoring.classNameAfter);
+		return sb.toString();
 	}
 }
