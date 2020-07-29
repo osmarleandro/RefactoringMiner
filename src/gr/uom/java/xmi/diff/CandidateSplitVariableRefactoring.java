@@ -7,10 +7,10 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateSplitVariableRefactoring {
-	private String oldVariable;
-	private Set<String> splitVariables;
+	public String oldVariable;
+	public Set<String> splitVariables;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
@@ -61,15 +61,7 @@ public class CandidateSplitVariableRefactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Split Attribute").append("\t");
-		sb.append(oldVariable);
-		sb.append(" to ");
-		sb.append(splitVariables);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" in class ").append(operationAfter.getClassName());
-		return sb.toString();
+		return oldAttribute.toString(this);
 	}
 
 	@Override
