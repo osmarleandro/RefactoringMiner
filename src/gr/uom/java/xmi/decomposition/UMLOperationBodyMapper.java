@@ -846,16 +846,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return count;
 	}
 
-	public List<AbstractCodeMapping> getExactMatches() {
-		List<AbstractCodeMapping> exactMatches = new ArrayList<AbstractCodeMapping>();
-		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
-					!mapping.getFragment1().getString().equals("try"))
-				exactMatches.add(mapping);
-		}
-		return exactMatches;
-	}
-
 	private int editDistance() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {

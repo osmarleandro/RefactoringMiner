@@ -55,7 +55,7 @@ public class InlineOperationDetection {
 					CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 					if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation1().variableTypeMap()).size() == 0) {
 						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod(mapper, node.getInvokedOperation(), node.getInvocation());
-						additionalExactMatches.addAll(nestedMapper.getExactMatches());
+						additionalExactMatches.addAll(nestedMapper.getCallSiteOperation().getExactMatches(this));
 						if(inlineMatchCondition(nestedMapper)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
@@ -141,7 +141,7 @@ public class InlineOperationDetection {
 		}
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
-		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
+		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getCallSiteOperation().getExactMatches(this);
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
 				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
