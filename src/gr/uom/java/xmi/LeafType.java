@@ -94,23 +94,10 @@ public class LeafType extends UMLType {
 
 	@Override
 	public boolean compatibleTypes(UMLType type) {
-		if(this.getClass() == type.getClass()) {
-			LeafType leafType = (LeafType)type;
-			return this.getClassType().equals(leafType.getClassType()) ||
-					this.getClassType().equals("Object") ||
-					leafType.getClassType().equals("Object") ||
-					this.getClassType().startsWith(leafType.getClassType()) ||
-					leafType.getClassType().startsWith(this.getClassType()) ||
-					this.getClassType().endsWith(leafType.getClassType()) ||
-					leafType.getClassType().endsWith(this.getClassType()) ||
-					this.containsTypeArgument(leafType.getClassType()) ||
-					leafType.containsTypeArgument(this.getClassType()) ||
-					this.commonTokenInClassType(leafType);
-		}
-		return false;
+		return type.compatibleTypes(this);
 	}
 
-	private boolean commonTokenInClassType(LeafType type) {
+	boolean commonTokenInClassType(LeafType type) {
 		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(this.nonQualifiedClassType);
 		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(type.nonQualifiedClassType);
 		for(String token1 : tokens1) {
