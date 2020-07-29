@@ -1086,7 +1086,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 		if(mappings > 0) {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
 			if(exactMappings(operationBodyMapper)) {
@@ -1129,7 +1129,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation operationInsideAnonymousClass, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 		if(mappings > 0) {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
 			if(exactMappings(operationBodyMapper)) {
@@ -1446,7 +1446,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public static boolean allMappingsAreExactMatches(UMLOperationBodyMapper operationBodyMapper) {
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int mappings = operationBodyMapper.getCallSiteOperation().mappingsWithoutBlocks(this);
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;
 		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
