@@ -1867,7 +1867,7 @@ public class UMLModelDiff {
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
                   if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
                 		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
-                		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
+                		  operationBodyMapper.extractAndMoveMatchCondition(mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
                 		  //extract inside moved or renamed class
                 		  ExtractOperationRefactoring extractOperationRefactoring =
@@ -1952,37 +1952,6 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return false;
-   }
-
-   private boolean extractAndMoveMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
-	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
-		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
-		   for(AbstractCodeMapping mapping : parentMappingList) {
-			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
-				   return false;
-			   }
-			   if(mapping instanceof CompositeStatementObjectMapping) {
-				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
-				   for(AbstractExpression expression : fragment1.getExpressions()) {
-					   if(expression.equals(mappingList.get(0).getFragment1())) {
-						   return false;
-					   }
-				   }
-			   }
-		   }
-	   }
-	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
-	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
-	   int exactMatches = exactMatchList.size();
-	   return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
-			   (exactMatches == mappings && nonMappedElementsT1 == 0) ||
-			   (exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT2-exactMatches <= 10) ||
-			   (exactMatches > 1 && nonMappedElementsT2-exactMatches < 20) ||
-			   (mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2()));
    }
 
    private void checkForOperationMovesIncludingRemovedClasses() throws RefactoringMinerTimedOutException {
