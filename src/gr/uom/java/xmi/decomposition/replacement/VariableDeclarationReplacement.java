@@ -5,8 +5,8 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class VariableDeclarationReplacement extends Replacement {
 
-	private VariableDeclaration v1;
-	private VariableDeclaration v2;
+	public VariableDeclaration v1;
+	public VariableDeclaration v2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	
@@ -33,10 +33,6 @@ public class VariableDeclarationReplacement extends Replacement {
 
 	public UMLOperation getOperation2() {
 		return operation2;
-	}
-
-	public Replacement getVariableNameReplacement() {
-		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
 	}
 
 	@Override
