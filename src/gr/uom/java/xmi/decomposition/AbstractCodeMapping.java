@@ -471,4 +471,31 @@ public abstract class AbstractCodeMapping {
 			return false;
 		return true;
 	}
+
+	boolean nullLiteralReplacements() {
+		int numberOfReplacements = getReplacements().size();
+		int nullLiteralReplacements = 0;
+		int methodInvocationReplacementsToIgnore = 0;
+		int variableNameReplacementsToIgnore = 0;
+		for(Replacement replacement : getReplacements()) {
+			if(replacement.getType().equals(ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION) ||
+					replacement.getType().equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
+					(replacement.getType().equals(ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE) && (replacement.getBefore().equals("null") || replacement.getAfter().equals("null")))) {
+				nullLiteralReplacements++;
+			}
+			else if(replacement instanceof MethodInvocationReplacement) {
+				MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
+				OperationInvocation invokedOperationBefore = invocationReplacement.getInvokedOperationBefore();
+				OperationInvocation invokedOperationAfter = invocationReplacement.getInvokedOperationAfter();
+				if(invokedOperationBefore.getName().equals(invokedOperationAfter.getName()) &&
+						invokedOperationBefore.getArguments().size() == invokedOperationAfter.getArguments().size()) {
+					methodInvocationReplacementsToIgnore++;
+				}
+			}
+			else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				variableNameReplacementsToIgnore++;
+			}
+		}
+		return nullLiteralReplacements > 0 && numberOfReplacements == nullLiteralReplacements + methodInvocationReplacementsToIgnore + variableNameReplacementsToIgnore;
+	}
 }
