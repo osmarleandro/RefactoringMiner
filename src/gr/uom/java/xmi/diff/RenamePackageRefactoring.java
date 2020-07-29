@@ -93,4 +93,17 @@ public class RenamePackageRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	boolean isSourcePackageDeleted(UMLModelDiff umlModelDiff) {
+		   for(String deletedFolderPath : umlModelDiff.deletedFolderPaths) {
+			   String originalPath = getPattern().getBefore();
+			   //remove last .
+			   String trimmedOriginalPath = originalPath.endsWith(".") ? originalPath.substring(0, originalPath.length()-1) : originalPath;
+			   String convertedPackageToFilePath = trimmedOriginalPath.replaceAll("\\.", "/");
+			   if(deletedFolderPath.endsWith(convertedPackageToFilePath)) {
+				   return true;
+			   }
+		   }
+		   return false;
+	   }
 }

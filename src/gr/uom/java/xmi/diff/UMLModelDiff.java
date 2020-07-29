@@ -58,7 +58,7 @@ public class UMLModelDiff {
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
-   private Set<String> deletedFolderPaths;
+   Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
       this.addedClasses = new ArrayList<UMLClass>();
@@ -1241,7 +1241,7 @@ public class UMLModelDiff {
 	   }
 	   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
 		   List<MoveClassRefactoring> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
-		   if(moveClassRefactorings.size() > 1 && isSourcePackageDeleted(renamePackageRefactoring)) {
+		   if(moveClassRefactorings.size() > 1 && renamePackageRefactoring.isSourcePackageDeleted(this)) {
 			   refactorings.add(renamePackageRefactoring);
 		   }
 		   //else {
@@ -1250,19 +1250,6 @@ public class UMLModelDiff {
 	   }
 	   refactorings.addAll(moveSourceFolderRefactorings);
 	   return refactorings;
-   }
-
-   private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
-	   for(String deletedFolderPath : deletedFolderPaths) {
-		   String originalPath = renamePackageRefactoring.getPattern().getBefore();
-		   //remove last .
-		   String trimmedOriginalPath = originalPath.endsWith(".") ? originalPath.substring(0, originalPath.length()-1) : originalPath;
-		   String convertedPackageToFilePath = trimmedOriginalPath.replaceAll("\\.", "/");
-		   if(deletedFolderPath.endsWith(convertedPackageToFilePath)) {
-			   return true;
-		   }
-	   }
-	   return false;
    }
 
    private List<Refactoring> getRenameClassRefactorings() {
