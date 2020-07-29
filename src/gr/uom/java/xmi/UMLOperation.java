@@ -9,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +834,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public RefactoringType getRefactoringType(RenameVariableRefactoring renameVariableRefactoring) {
+		if(renameVariableRefactoring.originalVariable.isParameter() && renameVariableRefactoring.renamedVariable.isParameter())
+			return RefactoringType.RENAME_PARAMETER;
+		if(!renameVariableRefactoring.originalVariable.isParameter() && renameVariableRefactoring.renamedVariable.isParameter())
+			return RefactoringType.PARAMETERIZE_VARIABLE;
+		if(!renameVariableRefactoring.originalVariable.isAttribute() && renameVariableRefactoring.renamedVariable.isAttribute())
+			return RefactoringType.REPLACE_VARIABLE_WITH_ATTRIBUTE;
+		return RefactoringType.RENAME_VARIABLE;
 	}
 }
