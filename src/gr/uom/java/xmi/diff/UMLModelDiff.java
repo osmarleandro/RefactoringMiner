@@ -2525,6 +2525,10 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void setOldVisibility(UMLClassBaseDiff umlClassBaseDiff, String oldVisibility) {
+	umlClassBaseDiff.oldVisibility = oldVisibility;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
