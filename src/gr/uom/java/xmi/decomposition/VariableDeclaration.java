@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.SplitAttributeRefactoring;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +256,36 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean equals(SplitAttributeRefactoring splitAttributeRefactoring, Object obj) {
+		if (splitAttributeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (splitAttributeRefactoring.getClass() != obj.getClass())
+			return false;
+		SplitAttributeRefactoring other = (SplitAttributeRefactoring) obj;
+		if (splitAttributeRefactoring.classNameAfter == null) {
+			if (other.classNameAfter != null)
+				return false;
+		} else if (!splitAttributeRefactoring.classNameAfter.equals(other.classNameAfter))
+			return false;
+		if (splitAttributeRefactoring.classNameBefore == null) {
+			if (other.classNameBefore != null)
+				return false;
+		} else if (!splitAttributeRefactoring.classNameBefore.equals(other.classNameBefore))
+			return false;
+		if (this == null) {
+			if (other.oldAttribute != null)
+				return false;
+		} else if (!equals(other.oldAttribute))
+			return false;
+		if (splitAttributeRefactoring.splitAttributes == null) {
+			if (other.splitAttributes != null)
+				return false;
+		} else if (!splitAttributeRefactoring.splitAttributes.equals(other.splitAttributes))
+			return false;
+		return true;
 	}
 }

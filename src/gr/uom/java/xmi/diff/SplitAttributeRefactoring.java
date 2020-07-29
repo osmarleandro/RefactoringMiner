@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitAttributeRefactoring implements Refactoring {
-	private VariableDeclaration oldAttribute;
-	private Set<VariableDeclaration> splitAttributes;
+	public VariableDeclaration oldAttribute;
+	public Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
-	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameBefore;
+	public String classNameAfter;
 
 	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
 			String classNameBefore, String classNameAfter, Set<CandidateSplitVariableRefactoring> attributeSplits) {
@@ -80,34 +80,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SplitAttributeRefactoring other = (SplitAttributeRefactoring) obj;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (oldAttribute == null) {
-			if (other.oldAttribute != null)
-				return false;
-		} else if (!oldAttribute.equals(other.oldAttribute))
-			return false;
-		if (splitAttributes == null) {
-			if (other.splitAttributes != null)
-				return false;
-		} else if (!splitAttributes.equals(other.splitAttributes))
-			return false;
-		return true;
+		return oldAttribute.equals(this, obj);
 	}
 
 	@Override
