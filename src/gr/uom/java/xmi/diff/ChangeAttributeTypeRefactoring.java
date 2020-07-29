@@ -65,7 +65,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return changedTypeAttribute.getName(this);
 	}
 
 	public String toString() {
