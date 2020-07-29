@@ -16,7 +16,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private String sourceFolder;
     private String visibility;
 	private boolean isAbstract;
-	private boolean isInterface;
+	boolean isInterface;
 	private boolean isEnum;
 	private boolean topLevel;
     private UMLType superclass;
@@ -383,7 +383,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	}
 
 	public boolean isSingleAbstractMethodInterface() {
-		return isInterface && operations.size() == 1;
+		return javadoc.isSingleAbstractMethodInterface(this);
 	}
 
 	public Map<String, Set<String>> aliasedAttributes() {
