@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1993,7 +1993,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(variableAssignmentWithEverythingReplaced(statement1, statement2, replacementInfo)) {
 				return null;
 			}
-			if(classInstanceCreationWithEverythingReplaced(statement1, statement2, replacementInfo, parameterToArgumentMap)) {
+			if(statement1.classInstanceCreationWithEverythingReplaced(statement2, replacementInfo, parameterToArgumentMap)) {
 				return null;
 			}
 			if(!anonymousClassDeclarations1.isEmpty() && !anonymousClassDeclarations2.isEmpty()) {
@@ -2730,123 +2730,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		if(s1AfterReplacements.equals(s2)) {
 			return true;
-		}
-		return false;
-	}
-
-	private boolean classInstanceCreationWithEverythingReplaced(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
-			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap) {
-		String string1 = statement1.getString();
-		String string2 = statement2.getString();
-		if(containsMethodSignatureOfAnonymousClass(string1)) {
-			string1 = string1.substring(0, string1.indexOf("\n"));
-		}
-		if(containsMethodSignatureOfAnonymousClass(string2)) {
-			string2 = string2.substring(0, string2.indexOf("\n"));
-		}
-		if(string1.contains("=") && string1.endsWith(";\n") && string2.startsWith("return ") && string2.endsWith(";\n")) {
-			boolean typeReplacement = false, compatibleTypes = false, classInstanceCreationReplacement = false;
-			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
-			String assignment2 = string2.substring(7, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
-			ObjectCreation objectCreation1 = null, objectCreation2 = null;
-			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
-			for(String creation1 : creationMap1.keySet()) {
-				if(creation1.equals(assignment1)) {
-					objectCreation1 = creationMap1.get(creation1).get(0);
-					type1 = objectCreation1.getType();
-				}
-			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
-			for(String creation2 : creationMap2.keySet()) {
-				if(creation2.equals(assignment2)) {
-					objectCreation2 = creationMap2.get(creation2).get(0);
-					type2 = objectCreation2.getType();
-					for(String argument : objectCreation2.getArguments()) {
-						if(parameterToArgumentMap.containsKey(argument)) {
-							argumentToParameterMap.put(parameterToArgumentMap.get(argument), argument);
-						}
-					}
-				}
-			}
-			int minArguments = 0;
-			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
-				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
-			}
-			int replacedArguments = 0;
-			for(Replacement replacement : replacementInfo.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					typeReplacement = true;
-					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
-						classInstanceCreationReplacement = true;
-				}
-				else if(objectCreation1 != null && objectCreation2 != null &&
-						objectCreation1.getArguments().contains(replacement.getBefore()) &&
-						(objectCreation2.getArguments().contains(replacement.getAfter()) || objectCreation2.getArguments().contains(argumentToParameterMap.get(replacement.getAfter())))) {
-					replacedArguments++;
-				}
-				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION) &&
-						assignment1.equals(replacement.getBefore()) &&
-						assignment2.equals(replacement.getAfter()))
-					classInstanceCreationReplacement = true;
-			}
-			if(typeReplacement && !compatibleTypes && replacedArguments == minArguments && classInstanceCreationReplacement) {
-				return true;
-			}
-		}
-		else if(string1.startsWith("return ") && string1.endsWith(";\n") && string2.contains("=") && string2.endsWith(";\n")) {
-			boolean typeReplacement = false, compatibleTypes = false, classInstanceCreationReplacement = false;
-			String assignment1 = string1.substring(7, string1.lastIndexOf(";\n"));
-			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
-			ObjectCreation objectCreation1 = null, objectCreation2 = null;
-			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
-			for(String creation1 : creationMap1.keySet()) {
-				if(creation1.equals(assignment1)) {
-					objectCreation1 = creationMap1.get(creation1).get(0);
-					type1 = objectCreation1.getType();
-				}
-			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
-			for(String creation2 : creationMap2.keySet()) {
-				if(creation2.equals(assignment2)) {
-					objectCreation2 = creationMap2.get(creation2).get(0);
-					type2 = objectCreation2.getType();
-					for(String argument : objectCreation2.getArguments()) {
-						if(parameterToArgumentMap.containsKey(argument)) {
-							argumentToParameterMap.put(parameterToArgumentMap.get(argument), argument);
-						}
-					}
-				}
-			}
-			int minArguments = 0;
-			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
-				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
-			}
-			int replacedArguments = 0;
-			for(Replacement replacement : replacementInfo.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					typeReplacement = true;
-					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
-						classInstanceCreationReplacement = true;
-				}
-				else if(objectCreation1 != null && objectCreation2 != null &&
-						objectCreation1.getArguments().contains(replacement.getBefore()) &&
-						(objectCreation2.getArguments().contains(replacement.getAfter()) || objectCreation2.getArguments().contains(argumentToParameterMap.get(replacement.getAfter())))) {
-					replacedArguments++;
-				}
-				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION) &&
-						assignment1.equals(replacement.getBefore()) &&
-						assignment2.equals(replacement.getAfter()))
-					classInstanceCreationReplacement = true;
-			}
-			if(typeReplacement && !compatibleTypes && replacedArguments == minArguments && classInstanceCreationReplacement) {
-				return true;
-			}
 		}
 		return false;
 	}
