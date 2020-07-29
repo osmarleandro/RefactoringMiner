@@ -169,6 +169,24 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return normalized;
 	}
 
+	public boolean equals(gr.uom.java.xmi.WildcardType wildcardType, Object obj) {
+		if (wildcardType == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (wildcardType.getClass() != obj.getClass())
+			return false;
+		gr.uom.java.xmi.WildcardType other = (gr.uom.java.xmi.WildcardType) obj;
+		if (this == null) {
+			if (other.bound != null)
+				return false;
+		} else if (!equals(other.bound))
+			return false;
+		if (wildcardType.upperBound != other.upperBound)
+			return false;
+		return true;
+	}
+
 	public static LeafType extractTypeObject(String qualifiedName) {
 		int arrayDimension = 0;
 		List<UMLType> typeArgumentDecomposition = new ArrayList<UMLType>();
