@@ -18,6 +18,7 @@ import org.eclipse.jdt.core.dom.WildcardType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.ObjectCreation;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -167,6 +168,20 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public String toString(ObjectCreation objectCreation) {
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("new ");
+	    sb.append(this);
+	    sb.append("(");
+	    if(objectCreation.typeArguments > 0) {
+	        for(int i=0; i<objectCreation.typeArguments-1; i++)
+	            sb.append("arg" + i).append(", ");
+	        sb.append("arg" + (objectCreation.typeArguments-1));
+	    }
+	    sb.append(")");
+	    return sb.toString();
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
