@@ -42,7 +42,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
@@ -154,32 +154,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void processAttributes() {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
-    		UMLAttribute attributeWithTheSameName = nextClass.attributeWithTheSameNameIgnoringChangedType(attribute);
-			if(attributeWithTheSameName == null) {
-    			this.removedAttributes.add(attribute);
-    		}
-			else if(!attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
-				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, operationBodyMapperList);
-				if(!attributeDiff.isEmpty()) {
-					refactorings.addAll(attributeDiff.getRefactorings());
-					this.attributeDiffList.add(attributeDiff);
-				}
-			}
-    	}
-    	for(UMLAttribute attribute : nextClass.getAttributes()) {
-    		UMLAttribute attributeWithTheSameName = originalClass.attributeWithTheSameNameIgnoringChangedType(attribute);
-			if(attributeWithTheSameName == null) {
-    			this.addedAttributes.add(attribute);
-    		}
-			else if(!attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
-				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, operationBodyMapperList);
-				if(!attributeDiff.isEmpty()) {
-					refactorings.addAll(attributeDiff.getRefactorings());
-					this.attributeDiffList.add(attributeDiff);
-				}
-			}
-    	}
+		modelDiff.processAttributes(this);
 	}
 
 	protected void processOperations() throws RefactoringMinerTimedOutException {
@@ -205,7 +180,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     	}
 	}
 
-	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
+	boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
 			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
 				return true;

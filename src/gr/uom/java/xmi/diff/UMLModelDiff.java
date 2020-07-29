@@ -2525,6 +2525,35 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	protected void processAttributes(UMLClassBaseDiff umlClassBaseDiff) {
+	for(UMLAttribute attribute : umlClassBaseDiff.originalClass.getAttributes()) {
+		UMLAttribute attributeWithTheSameName = umlClassBaseDiff.nextClass.attributeWithTheSameNameIgnoringChangedType(attribute);
+		if(attributeWithTheSameName == null) {
+			umlClassBaseDiff.removedAttributes.add(attribute);
+		}
+		else if(!umlClassBaseDiff.attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
+			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, umlClassBaseDiff.operationBodyMapperList);
+			if(!attributeDiff.isEmpty()) {
+				umlClassBaseDiff.refactorings.addAll(attributeDiff.getRefactorings());
+				umlClassBaseDiff.attributeDiffList.add(attributeDiff);
+			}
+		}
+	}
+	for(UMLAttribute attribute : umlClassBaseDiff.nextClass.getAttributes()) {
+		UMLAttribute attributeWithTheSameName = umlClassBaseDiff.originalClass.attributeWithTheSameNameIgnoringChangedType(attribute);
+		if(attributeWithTheSameName == null) {
+			umlClassBaseDiff.addedAttributes.add(attribute);
+		}
+		else if(!umlClassBaseDiff.attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
+			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, umlClassBaseDiff.operationBodyMapperList);
+			if(!attributeDiff.isEmpty()) {
+				umlClassBaseDiff.refactorings.addAll(attributeDiff.getRefactorings());
+				umlClassBaseDiff.attributeDiffList.add(attributeDiff);
+			}
+		}
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
