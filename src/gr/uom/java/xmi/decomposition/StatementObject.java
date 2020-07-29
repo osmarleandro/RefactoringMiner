@@ -24,7 +24,7 @@ public class StatementObject extends AbstractStatement {
 	private String statement;
 	private LocationInfo locationInfo;
 	private List<String> variables;
-	private List<String> types;
+	public List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
@@ -155,7 +155,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getTypes() {
-		return types;
+		return locationInfo.getTypes(this);
 	}
 
 	@Override
