@@ -397,4 +397,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public UMLClass getChild() {
+	    return this;
+	}
 }

@@ -15,7 +15,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		this.childChanged = false;
 		if(!removedGeneralization.getParent().equals(addedGeneralization.getParent()))
 			parentChanged = true;
-		if(!removedGeneralization.getChild().equals(addedGeneralization.getChild()))
+		if(!removedGeneralization.getChild().getChild().equals(addedGeneralization.getChild().getChild()))
 			childChanged = true;
 	}
 
@@ -32,7 +32,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		if(parentChanged || childChanged)
 			sb.append("generalization ").append(removedGeneralization).append(":").append("\n");
 		if(childChanged)
-			sb.append("\t").append("child changed from " + removedGeneralization.getChild() + " to " + addedGeneralization.getChild()).append("\n");
+			sb.append("\t").append("child changed from " + removedGeneralization.getChild().getChild() + " to " + addedGeneralization.getChild().getChild()).append("\n");
 		if(parentChanged)
 			sb.append("\t").append("parent changed from " + removedGeneralization.getParent() + " to " + addedGeneralization.getParent()).append("\n");
 		return sb.toString();

@@ -63,7 +63,7 @@ public class UMLModel {
     	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
     	while(generalizationIt.hasNext()) {
     		UMLGeneralization generalization = generalizationIt.next();
-    		if(generalization.getChild().equals(otherGeneralization.getChild())) {
+    		if(generalization.getChild().getChild().equals(otherGeneralization.getChild().getChild())) {
     			String thisParent = generalization.getParent();
     			String otherParent = otherGeneralization.getParent();
     			String thisParentComparedString = null;
