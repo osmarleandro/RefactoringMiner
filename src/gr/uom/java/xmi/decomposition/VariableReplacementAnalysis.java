@@ -59,7 +59,7 @@ public class VariableReplacementAnalysis {
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 
 	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
-		this.mappings = mapper.getMappings();
+		this.mappings = mapper.getCallSiteOperation().getMappings(this);
 		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
 		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
 		this.nonMappedInnerNodesT1 = mapper.getNonMappedInnerNodesT1();
@@ -1043,7 +1043,7 @@ public class VariableReplacementAnalysis {
 	private boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
-				for(AbstractCodeMapping mapping : mapper.getMappings()) {
+				for(AbstractCodeMapping mapping : mapper.getCallSiteOperation().getMappings(this)) {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {
 							UMLOperation extractedMethod = mapper.getOperation2();
@@ -1080,7 +1080,7 @@ public class VariableReplacementAnalysis {
 				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
 					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
-						for(AbstractCodeMapping mapping : mapper.getMappings()) {
+						for(AbstractCodeMapping mapping : mapper.getCallSiteOperation().getMappings(this)) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
 									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();

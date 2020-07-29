@@ -95,7 +95,7 @@ public class ExtractOperationDetection {
 							operationBodyMapper.addChildMapper(nestedMapper);
 						}
 						//add back to mapper non-exact matches
-						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
+						for(AbstractCodeMapping mapping : nestedMapper.getCallSiteOperation().getMappings(this)) {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
@@ -260,7 +260,7 @@ public class ExtractOperationDetection {
 	}
 
 	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
-		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
+		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getCallSiteOperation().getMappings(this));
 		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
 		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
 		while(iterator.hasNext()) {
