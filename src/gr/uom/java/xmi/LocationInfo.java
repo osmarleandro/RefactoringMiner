@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
@@ -133,6 +135,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<UMLAnnotation> getAnnotations(UMLType umlType) {
+		return umlType.annotations;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
