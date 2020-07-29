@@ -27,9 +27,9 @@ public class SplitVariableReplacement extends Replacement {
 		return this.getBefore().equals(other.getBefore()) && interestion.size() == 0;
 	}
 
-	public boolean subsumes(SplitVariableReplacement other) {
-		return this.getBefore().equals(other.getBefore()) &&
-				this.splitVariables.containsAll(other.splitVariables) &&
-				this.splitVariables.size() > other.splitVariables.size();
+	public boolean subsumes(SplitVariableReplacement splitVariableReplacement) {
+		return splitVariableReplacement.getBefore().equals(getBefore()) &&
+				splitVariableReplacement.splitVariables.containsAll(splitVariables) &&
+				splitVariableReplacement.splitVariables.size() > splitVariables.size();
 	}
 }
