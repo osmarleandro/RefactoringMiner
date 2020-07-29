@@ -11,7 +11,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private UMLType type;
 	private String kind;
 	private boolean varargs;
-	private VariableDeclaration variableDeclaration;
+	VariableDeclaration variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
 		this.name = name;
@@ -28,7 +28,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	}
 
 	public VariableDeclaration getVariableDeclaration() {
-		return variableDeclaration;
+		return type.getVariableDeclaration(this);
 	}
 
 	public void setVariableDeclaration(VariableDeclaration variableDeclaration) {
