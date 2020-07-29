@@ -30,7 +30,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.CHANGE_RETURN_TYPE;
+		return changedType.getRefactoringType();
 	}
 
 	public String getName() {

@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.dom.QualifiedType;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.UnionType;
 import org.eclipse.jdt.core.dom.WildcardType;
+import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
@@ -167,6 +168,10 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.CHANGE_RETURN_TYPE;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
