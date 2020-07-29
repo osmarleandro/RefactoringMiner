@@ -85,9 +85,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeAfter().getLocationInfo().getFilePath(), getAttributeAfter().getClassName()));
-		return pairs;
+		return annotationAfter.getInvolvedClassesAfterRefactoring(this);
 	}
 
 	public String toString() {
