@@ -179,15 +179,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		}
 	}
 
-	private boolean containsMapperForOperation(UMLOperation operation) {
-		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
-			if(mapper.getOperation1().equalsQualified(operation)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean matches(String className) {
 		return this.className.equals(className);
 	}
