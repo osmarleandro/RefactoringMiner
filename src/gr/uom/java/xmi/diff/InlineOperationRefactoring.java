@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
+	public UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
@@ -74,17 +74,13 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
+		if (!getTargetOperationBeforeInline().getClassName().equals(bodyMapper.getInlinedOperation(this).getClassName()))
 			return RefactoringType.MOVE_AND_INLINE_OPERATION;
 		return RefactoringType.INLINE_OPERATION;
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {
 		return bodyMapper;
-	}
-
-	public UMLOperation getInlinedOperation() {
-		return inlinedOperation;
 	}
 
 	public UMLOperation getTargetOperationAfterInline() {
@@ -155,7 +151,7 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getInlinedOperation().getLocationInfo().getFilePath(), getInlinedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(bodyMapper.getInlinedOperation(this).getLocationInfo().getFilePath(), bodyMapper.getInlinedOperation(this).getClassName()));
 		pairs.add(new ImmutablePair<String, String>(getTargetOperationBeforeInline().getLocationInfo().getFilePath(), getTargetOperationBeforeInline().getClassName()));
 		return pairs;
 	}
