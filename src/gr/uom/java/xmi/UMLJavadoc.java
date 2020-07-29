@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<UMLType> getImplementedInterfaces(UMLClass umlClass) {
+		return umlClass.implementedInterfaces;
+	}
 }
