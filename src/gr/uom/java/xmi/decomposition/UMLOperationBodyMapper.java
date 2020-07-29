@@ -1971,7 +1971,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(typeReplacements.size() > 0 && invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null) {
 				for(Replacement typeReplacement : typeReplacements) {
 					if(invocationCoveringTheEntireStatement1.getMethodName().contains(typeReplacement.getBefore()) && invocationCoveringTheEntireStatement2.getMethodName().contains(typeReplacement.getAfter())) {
-						if(invocationCoveringTheEntireStatement1.identicalExpression(invocationCoveringTheEntireStatement2) && invocationCoveringTheEntireStatement1.equalArguments(invocationCoveringTheEntireStatement2)) {
+						if(invocationCoveringTheEntireStatement1.identicalExpression(invocationCoveringTheEntireStatement2) && invocationCoveringTheEntireStatement2.equalArguments(invocationCoveringTheEntireStatement1)) {
 							Replacement replacement = new MethodInvocationReplacement(invocationCoveringTheEntireStatement1.getName(),
 									invocationCoveringTheEntireStatement2.getName(), invocationCoveringTheEntireStatement1, invocationCoveringTheEntireStatement2, ReplacementType.METHOD_INVOCATION_NAME);
 							replacementInfo.addReplacement(replacement);
@@ -2105,7 +2105,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							return replacementInfo.getReplacements();
 						}
 					}
-					else if(invocation1.identicalName(invocationCoveringTheEntireStatement2) && invocation1.equalArguments(invocationCoveringTheEntireStatement2) &&
+					else if(invocation1.identicalName(invocationCoveringTheEntireStatement2) && invocationCoveringTheEntireStatement2.equalArguments(invocation1) &&
 							!assignmentInvocationCoveringTheEntireStatement1.getArguments().contains(key1) && invocationCoveringTheEntireStatement2.getExpression() != null) {
 						boolean expressionMatched = false;
 						Set<AbstractCodeFragment> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment>();
@@ -2119,7 +2119,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								expressionMatched = true;
 							}
 							if(invocationCoveringEntireCodeFragment != null && assignmentInvocationCoveringTheEntireStatement1.identicalName(invocationCoveringEntireCodeFragment) &&
-									assignmentInvocationCoveringTheEntireStatement1.equalArguments(invocationCoveringEntireCodeFragment)) {
+									invocationCoveringEntireCodeFragment.equalArguments(assignmentInvocationCoveringTheEntireStatement1)) {
 								additionallyMatchedStatements2.add(codeFragment);
 							}
 						}
@@ -2525,7 +2525,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c2 : creationMap2.get(creation2)) {
 						for(String creation1 : creations1) {
 							for(AbstractCall c1 : creationMap1.get(creation1)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c2.equalArguments(c1)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2562,7 +2562,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c1 : creationMap1.get(creation1)) {
 						for(String creation2 : creations2) {
 							for(AbstractCall c2 : creationMap2.get(creation2)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c2.equalArguments(c1)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2596,7 +2596,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						if(invocationMap.containsKey(argument)) {
 							List<? extends AbstractCall> argumentInvocations = invocationMap.get(argument);
 							for(AbstractCall argumentCall : argumentInvocations) {
-								if(argumentCall.identicalName(invocation) && argumentCall.equalArguments(invocation)) {
+								if(argumentCall.identicalName(invocation) && invocation.equalArguments(argumentCall)) {
 									return true;
 								}
 							}
