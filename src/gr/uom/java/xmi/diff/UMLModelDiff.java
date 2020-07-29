@@ -2525,6 +2525,29 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	protected void processOperations(UMLClassBaseDiff umlClassBaseDiff) throws RefactoringMinerTimedOutException {
+	for(UMLOperation operation : umlClassBaseDiff.originalClass.getOperations()) {
+		UMLOperation operationWithTheSameSignature = umlClassBaseDiff.nextClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+		if(operationWithTheSameSignature == null) {
+			umlClassBaseDiff.removedOperations.add(operation);
+		}
+		else if(!umlClassBaseDiff.mapperListContainsOperation(operation, operationWithTheSameSignature)) {
+			UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation, operationWithTheSameSignature, umlClassBaseDiff);
+			umlClassBaseDiff.operationBodyMapperList.add(mapper);
+		}
+	}
+	for(UMLOperation operation : umlClassBaseDiff.nextClass.getOperations()) {
+		UMLOperation operationWithTheSameSignature = umlClassBaseDiff.originalClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+		if(operationWithTheSameSignature == null) {
+			umlClassBaseDiff.addedOperations.add(operation);
+		}
+		else if(!umlClassBaseDiff.mapperListContainsOperation(operationWithTheSameSignature, operation)) {
+			UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operationWithTheSameSignature, operation, umlClassBaseDiff);
+			umlClassBaseDiff.operationBodyMapperList.add(mapper);
+		}
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
