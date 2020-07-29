@@ -4161,4 +4161,21 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean inlineMatchCondition() {
+		int delegateStatements = 0;
+		for(StatementObject statement : getNonMappedLeavesT1()) {
+			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			if(invocation != null && invocation.matchesOperation(getOperation1())) {
+				delegateStatements++;
+			}
+		}
+		int mappings = mappingsWithoutBlocks();
+		int nonMappedElementsT1 = nonMappedElementsT1()-delegateStatements;
+		List<AbstractCodeMapping> exactMatchList = getExactMatches();
+		int exactMatches = exactMatchList.size();
+		return mappings > 0 && (mappings > nonMappedElementsT1 ||
+				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
+				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
+	}
 }
