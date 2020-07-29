@@ -11,6 +11,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
@@ -138,5 +139,9 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	public ObjectCreation getCreatedObjectBefore(ObjectCreationReplacement objectCreationReplacement) {
+		return objectCreationReplacement.createdObjectBefore;
 	}
 }
