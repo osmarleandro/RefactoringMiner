@@ -761,10 +761,10 @@ public class UMLModelDiff {
 				   count++;
 			   }
 		   }
-		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
+		   List<UMLAttribute> originalAttributes = sourceClassDiff.getModelDiff().originalClassAttributesOfType(this, candidate.getTargetClassName());
 		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
 		   if(targetSuperclass != null) {
-			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
+			   originalAttributes.addAll(sourceClassDiff.getModelDiff().originalClassAttributesOfType(this, targetSuperclass.getClassType()));
 			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
 		   }
 		   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
@@ -1829,7 +1829,7 @@ public class UMLModelDiff {
             	  if(className.contains(".") && isNumeric(className.substring(className.lastIndexOf(".")+1, className.length()))) {
             		  //add enclosing class fields + anonymous class fields
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
-            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
+            		  attributes.addAll(umlClassDiff.getModelDiff().originalClassAttributesOfType(this, addedOperation.getClassName()));
             		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
             			  if(anonymous.getName().equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
@@ -1853,7 +1853,7 @@ public class UMLModelDiff {
             				  }
             			  }
             		  }
-            		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
+            		  attributes.addAll(umlClassDiff.getModelDiff().originalClassAttributesOfType(this, addedOperation.getClassName()));
             	  }
             	  Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
             	  for(UMLAttribute attribute : attributes) {
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAttribute> originalClassAttributesOfType(UMLClassBaseDiff umlClassBaseDiff, String targetClass) {
+	return umlClassBaseDiff.originalClass.attributesOfType(targetClass);
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
