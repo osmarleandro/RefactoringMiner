@@ -129,7 +129,7 @@ public class UMLModel {
     	}
     	for(UMLGeneralization umlGeneralization : umlModel.generalizationList) {
     		if(!this.generalizationList.contains(umlGeneralization))
-    			modelDiff.reportAddedGeneralization(umlGeneralization);
+    			umlGeneralization.reportAddedGeneralization(modelDiff);
     	}
     	modelDiff.checkForGeneralizationChanges();
     	for(UMLRealization umlRealization : realizationList) {
