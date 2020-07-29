@@ -43,7 +43,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
-   private List<UMLClass> addedClasses;
+   public List<UMLClass> addedClasses;
    private List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
@@ -75,11 +75,6 @@ public class UMLModelDiff {
       this.classRenameDiffList = new ArrayList<UMLClassRenameDiff>();
       this.refactorings = new ArrayList<Refactoring>();
       this.deletedFolderPaths = new LinkedHashSet<String>();
-   }
-
-   public void reportAddedClass(UMLClass umlClass) {
-	   if(!addedClasses.contains(umlClass))
-		   this.addedClasses.add(umlClass);
    }
 
    public void reportRemovedClass(UMLClass umlClass) {
