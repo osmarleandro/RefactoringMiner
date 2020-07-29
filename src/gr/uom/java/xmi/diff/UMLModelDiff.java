@@ -1126,8 +1126,8 @@ public class UMLModelDiff {
    private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
 	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
 	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
-	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
-	   List<OperationInvocation> addedInvocations = addedOperation.getAllOperationInvocations();
+	   List<OperationInvocation> removedInvocations = removedOperation.getJavadoc().getAllOperationInvocations(this);
+	   List<OperationInvocation> addedInvocations = addedOperation.getJavadoc().getAllOperationInvocations(this);
 	   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
 	   intersection.retainAll(addedInvocations);
 	   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
@@ -1727,14 +1727,14 @@ public class UMLModelDiff {
 		   UMLOperation removedOperation = removedOperationIterator.next();
 		   for(UMLOperationBodyMapper mapper : mappers) {
 			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
+				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getJavadoc().getAllOperationInvocations(this);
 				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 				   for(OperationInvocation invocation : operationInvocations) {
 					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().variableTypeMap(), this)) {
 						   removedOperationInvocations.add(invocation);
 					   }
 				   }
-				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
+				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getJavadoc().getAllOperationInvocations(this))) {
 						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 						List<String> arguments = removedOperationInvocation.getArguments();
 						List<String> parameters = removedOperation.getParameterNameList();

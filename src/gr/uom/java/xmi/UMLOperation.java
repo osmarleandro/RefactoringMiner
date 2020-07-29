@@ -32,7 +32,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -138,12 +138,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public void setJavadoc(UMLJavadoc javadoc) {
 		this.javadoc = javadoc;
-	}
-
-	public List<OperationInvocation> getAllOperationInvocations() {
-		if(operationBody != null)
-			return operationBody.getAllOperationInvocations();
-		return new ArrayList<OperationInvocation>();
 	}
 
 	public List<LambdaExpressionObject> getAllLambdas() {
