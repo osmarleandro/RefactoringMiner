@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 
 public class SplitVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> splitVariables;
@@ -157,5 +158,17 @@ public class SplitVariableRefactoring implements Refactoring {
 					.setCodeElement(splitVariable.toString()));
 		}
 		return ranges;
+	}
+
+	public boolean existsConflictingExtractVariableRefactoring(VariableReplacementAnalysis variableReplacementAnalysis) {
+		for(Refactoring refactoring : variableReplacementAnalysis.refactorings) {
+			if(refactoring instanceof ExtractVariableRefactoring) {
+				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
+				if(getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

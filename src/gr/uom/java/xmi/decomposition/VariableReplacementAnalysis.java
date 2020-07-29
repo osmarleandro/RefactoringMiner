@@ -47,7 +47,7 @@ public class VariableReplacementAnalysis {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
-	private Set<Refactoring> refactorings;
+	public Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
@@ -242,7 +242,7 @@ public class VariableReplacementAnalysis {
 			if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && oldVariable != null) {
 				UMLOperation operationAfter = splitVariableOperations.iterator().next();
 				SplitVariableRefactoring refactoring = new SplitVariableRefactoring(oldVariable.getKey(), splitVariables, oldVariable.getValue(), operationAfter, splitMap.get(split));
-				if(!existsConflictingExtractVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
+				if(!refactoring.existsConflictingExtractVariableRefactoring(this) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
 					variableSplits.add(refactoring);
 				}
 			}
@@ -1133,18 +1133,6 @@ public class VariableReplacementAnalysis {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
 						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
-				if(ref.getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
 					return true;
 				}
 			}
