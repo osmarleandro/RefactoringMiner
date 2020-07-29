@@ -267,14 +267,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public boolean hasSameNameAndKind(UMLClass umlClass) {
-    	if(!this.name.equals(umlClass.name))
-    		return false;
-    	if(!hasSameKind(umlClass))
-    		return false;
-    	return true;
-    }
-
     public boolean hasSameKind(UMLClass umlClass) {
     	if(this.isAbstract != umlClass.isAbstract)
     		return false;
@@ -396,5 +388,13 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public boolean hasSameNameAndKind(UMLClass umlClass2) {
+		if(!umlClass2.name.equals(name))
+			return false;
+		if(!umlClass2.hasSameKind(this))
+			return false;
+		return true;
 	}
 }
