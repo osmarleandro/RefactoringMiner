@@ -78,8 +78,8 @@ public class AbstractExpression extends AbstractCodeFragment {
     }
 
 	public String getString() {
-    	return toString();
-    }
+		return locationInfo.getString(this);
+	}
   
 	public String toString() {
 		return getExpression().toString();
