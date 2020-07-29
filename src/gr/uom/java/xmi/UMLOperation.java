@@ -190,7 +190,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public int statementCount() {
 		if(operationBody != null)
-			return operationBody.statementCount();
+			return operationBody.getCompositeStatement().statementCount();
 		return 0;
 	}
 
