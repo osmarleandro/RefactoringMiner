@@ -363,21 +363,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return params;
 	}
 
-	public List<UMLType> commonParameterTypes(UMLOperation operation) {
-		List<UMLType> commonParameterTypes = new ArrayList<UMLType>();
-		List<UMLType> thisParameterTypeList = getParameterTypeList();
-		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
-		int min = Math.min(thisParameterTypeList.size(), otherParameterTypeList.size());
-		for(int i=0; i<min; i++) {
-			UMLType thisParameterType = thisParameterTypeList.get(i);
-			UMLType otherParameterType = otherParameterTypeList.get(i);
-			if(thisParameterType.equals(otherParameterType)) {
-				commonParameterTypes.add(thisParameterType);
-			}
-		}
-		return commonParameterTypes;
-	}
-
 	public List<UMLType> getParameterTypeList() {
 		List<UMLType> parameterTypeList = new ArrayList<UMLType>();
 		for(UMLParameter parameter : parameters) {
@@ -832,5 +817,20 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public List<UMLType> commonParameterTypes(UMLOperation umlOperation) {
+		List<UMLType> commonParameterTypes = new ArrayList<UMLType>();
+		List<UMLType> thisParameterTypeList = umlOperation.getParameterTypeList();
+		List<UMLType> otherParameterTypeList = getParameterTypeList();
+		int min = Math.min(thisParameterTypeList.size(), otherParameterTypeList.size());
+		for(int i=0; i<min; i++) {
+			UMLType thisParameterType = thisParameterTypeList.get(i);
+			UMLType otherParameterType = otherParameterTypeList.get(i);
+			if(thisParameterType.equals(otherParameterType)) {
+				commonParameterTypes.add(thisParameterType);
+			}
+		}
+		return commonParameterTypes;
 	}
 }
