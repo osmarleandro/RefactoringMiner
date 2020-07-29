@@ -70,7 +70,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	@Override
 	public CompositeStatementObject getParent() {
-		return getOwner();
+		return locationInfo.getParent(this);
 	}
 
     public String getExpression() {
