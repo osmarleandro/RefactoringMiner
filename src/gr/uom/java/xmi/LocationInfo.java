@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractCall;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +134,12 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean argumentIsReturned(AbstractCall abstractCall, String statement) {
+		return statement.startsWith("return ") && abstractCall.getArguments().size() == 1 &&
+				//length()-2 to remove ";\n" from the end of the return statement, 7 to remove the prefix "return "
+				AbstractCall.equalsIgnoringExtraParenthesis(abstractCall.getArguments().get(0), statement.substring(7, statement.length()-2));
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
