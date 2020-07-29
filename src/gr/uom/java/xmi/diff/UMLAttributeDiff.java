@@ -98,7 +98,7 @@ public class UMLAttributeDiff {
 			sb.append("\t").append("annotation " + annotation + " added").append("\n");
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
+			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation().getAddedAnnotation()).append("\n");
 		}
 		return sb.toString();
 	}
@@ -114,7 +114,7 @@ public class UMLAttributeDiff {
 			refactorings.add(refactoring);
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			ModifyAttributeAnnotationRefactoring refactoring = new ModifyAttributeAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), removedAttribute, addedAttribute);
+			ModifyAttributeAnnotationRefactoring refactoring = new ModifyAttributeAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation().getAddedAnnotation(), removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
 		return refactorings;
