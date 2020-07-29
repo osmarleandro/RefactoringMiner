@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +305,18 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	boolean containsIdenticalOrCompositeReplacement(AbstractCodeMapping abstractCodeMapping) {
+		for(Replacement r : abstractCodeMapping.replacements) {
+			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
+					r.getBefore().equals(r.getAfter())) {
+				return true;
+			}
+			else if(r.getType().equals(ReplacementType.COMPOSITE)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
