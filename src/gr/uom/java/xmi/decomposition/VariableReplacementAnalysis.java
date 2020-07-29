@@ -39,16 +39,16 @@ import gr.uom.java.xmi.diff.UMLOperationDiff;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 public class VariableReplacementAnalysis {
-	private Set<AbstractCodeMapping> mappings;
+	public Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
-	private UMLOperation callSiteOperation;
+	public UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
@@ -112,7 +112,7 @@ public class VariableReplacementAnalysis {
 						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
 						for(ObjectCreation creation : creations) {
 							for(String argument : creation.arguments) {
-								SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
+								SimpleEntry<VariableDeclaration, UMLOperation> v2 = new Replacement("", argument, ReplacementType.VARIABLE_NAME).getVariableDeclaration2(this);
 								SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(new Replacement(declaration.getVariableName(), "", ReplacementType.VARIABLE_NAME));
 								if(v2 != null && v1 != null) {
 									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), mappings);
@@ -450,7 +450,7 @@ public class VariableReplacementAnalysis {
 		Map<Replacement, Set<AbstractCodeMapping>> finalConsistentRenames = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(Replacement replacement : allConsistentRenames) {
 			SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement);
-			SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement);
+			SimpleEntry<VariableDeclaration, UMLOperation> v2 = replacement.getVariableDeclaration2(this);
 			Set<AbstractCodeMapping> set = replacementOccurrenceMap.get(replacement);
 			if((set.size() > 1 && v1 != null && v2 != null && consistencyCheck(v1.getKey(), v2.getKey(), set)) ||
 					potentialParameterRename(replacement, set) ||
@@ -465,7 +465,7 @@ public class VariableReplacementAnalysis {
 		}
 		for(Replacement replacement : finalConsistentRenames.keySet()) {
 			SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement);
-			SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement);
+			SimpleEntry<VariableDeclaration, UMLOperation> v2 = replacement.getVariableDeclaration2(this);
 			if(v1 != null && v2 != null) {
 				Set<AbstractCodeMapping> variableReferences = finalConsistentRenames.get(replacement);
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
@@ -941,32 +941,6 @@ public class VariableReplacementAnalysis {
 			for(UMLParameter parameter : callSiteOperation.getParameters()) {
 				VariableDeclaration vd = parameter.getVariableDeclaration();
 				if(vd != null && vd.getVariableName().equals(variableName)) {
-					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, callSiteOperation);
-				}
-			}
-		}
-		return null;
-	}
-
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement) {
-		for(AbstractCodeMapping mapping : mappings) {
-			if(mapping.getReplacements().contains(replacement)) {
-				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
-				if(vd != null) {
-					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
-				}
-			}
-		}
-		for(UMLParameter parameter : operation2.getParameters()) {
-			VariableDeclaration vd = parameter.getVariableDeclaration();
-			if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
-				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, operation2);
-			}
-		}
-		if(callSiteOperation != null) {
-			for(UMLParameter parameter : callSiteOperation.getParameters()) {
-				VariableDeclaration vd = parameter.getVariableDeclaration();
-				if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
 					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, callSiteOperation);
 				}
 			}
