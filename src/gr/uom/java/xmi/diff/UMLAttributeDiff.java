@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
 	private UMLAttribute removedAttribute;
-	private UMLAttribute addedAttribute;
+	public UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
@@ -49,10 +49,6 @@ public class UMLAttributeDiff {
 
 	public UMLAttribute getRemovedAttribute() {
 		return removedAttribute;
-	}
-
-	public UMLAttribute getAddedAttribute() {
-		return addedAttribute;
 	}
 
 	public boolean isRenamed() {
