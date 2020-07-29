@@ -2525,6 +2525,10 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.candidateAttributeSplits;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
