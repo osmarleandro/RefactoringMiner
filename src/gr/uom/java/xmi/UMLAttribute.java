@@ -2,6 +2,7 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -170,5 +171,21 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equals(ExtractAttributeRefactoring extractAttributeRefactoring, Object obj) {
+		if (extractAttributeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (extractAttributeRefactoring.getClass() != obj.getClass())
+			return false;
+		ExtractAttributeRefactoring other = (ExtractAttributeRefactoring) obj;
+		if (this == null) {
+			if (other.attributeDeclaration != null)
+				return false;
+		} else if (!equals(other.attributeDeclaration))
+			return false;
+		return true;
 	}
 }

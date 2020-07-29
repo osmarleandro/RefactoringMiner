@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
-	private UMLAttribute attributeDeclaration;
+	public UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
@@ -80,19 +80,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ExtractAttributeRefactoring other = (ExtractAttributeRefactoring) obj;
-		if (attributeDeclaration == null) {
-			if (other.attributeDeclaration != null)
-				return false;
-		} else if (!attributeDeclaration.equals(other.attributeDeclaration))
-			return false;
-		return true;
+		return attributeDeclaration.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
