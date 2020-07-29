@@ -6,6 +6,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
@@ -527,4 +528,22 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(UMLModelDiff umlModelDiff, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
+		   String expression = getExpression();
+		   if(expression != null) {
+			   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
+			   for(UMLOperation operation : addedOperations) {
+				   UMLClassBaseDiff classDiff = umlModelDiff.getUMLClassDiff(operation.getClassName());
+				   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
+				   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
+					   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
+					   if(newDistance < originalDistance) {
+						   return true;
+					   }
+				   }
+			   }
+		   }
+		   return false;
+	   }
 }

@@ -123,7 +123,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private UMLClassBaseDiff getUMLClassDiff(String className) {
+   public UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
@@ -1865,7 +1865,7 @@ public class UMLModelDiff {
             		  parameterToArgumentMap2.put("this.", "");
             	  }
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
-                  if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
+                  if(!addedOperationInvocation.anotherAddedMethodExistsWithBetterMatchingInvocationExpression(this, addedOperation, addedOperations) &&
                 		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
                 		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
@@ -1931,24 +1931,6 @@ public class UMLModelDiff {
 		   }
 		   if(!addedOperation.getNonQualifiedClassName().equals(type.getClassType()) && !superclassRelationship) {
 			   return true;
-		   }
-	   }
-	   return false;
-   }
-
-   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
-	   String expression = invocation.getExpression();
-	   if(expression != null) {
-		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
-		   for(UMLOperation operation : addedOperations) {
-			   UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
-			   boolean isInterface = classDiff != null ? classDiff.nextClass.isInterface() : false;
-			   if(!operation.equals(addedOperation) && addedOperation.equalSignature(operation) && !operation.isAbstract() && !isInterface) {
-				   int newDistance = StringDistance.editDistance(expression, operation.getNonQualifiedClassName());
-				   if(newDistance < originalDistance) {
-					   return true;
-				   }
-			   }
 		   }
 	   }
 	   return false;
