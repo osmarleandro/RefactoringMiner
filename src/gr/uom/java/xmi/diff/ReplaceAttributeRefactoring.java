@@ -30,7 +30,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		sb.append(" with ");
 		sb.append(movedAttribute.toQualifiedString());
 		sb.append(" from class ");
-		sb.append(getTargetClassName());
+		sb.append(movedAttribute.getTargetClassName());
 		return sb.toString();
 	}
 

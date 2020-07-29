@@ -746,7 +746,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   UMLClassBaseDiff sourceClassDiff = getUMLClassDiff(candidate.getSourceClassName());
-	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(candidate.getTargetClassName());
+	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(candidate.getMovedAttribute().getTargetClassName());
 	   if(sourceClassDiff != null) {
 		   UMLType targetSuperclass = null;
 		   if(targetClassDiff != null) {
@@ -754,15 +754,15 @@ public class UMLModelDiff {
 		   }
 		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
 		   for(UMLAttribute addedAttribute : addedAttributes) {
-			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
+			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getMovedAttribute().getTargetClassName())) {
 				   count++;
 			   }
 			   if(targetSuperclass != null && looksLikeSameType(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
 				   count++;
 			   }
 		   }
-		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
-		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
+		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getMovedAttribute().getTargetClassName());
+		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getMovedAttribute().getTargetClassName());
 		   if(targetSuperclass != null) {
 			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
 			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
