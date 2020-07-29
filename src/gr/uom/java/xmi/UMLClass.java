@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassMoveDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -396,5 +397,17 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public boolean equals(UMLClassMoveDiff umlClassMoveDiff, Object o) {
+		if(umlClassMoveDiff == o) {
+			return true;
+		}
+		
+		if(o instanceof UMLClassMoveDiff) {
+			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
+			return equals(classMoveDiff.originalClass) && umlClassMoveDiff.nextClass.equals(classMoveDiff.nextClass);
+		}
+		return false;
 	}
 }
