@@ -2525,6 +2525,25 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void checkForInlinedOperations(UMLClassBaseDiff umlClassBaseDiff) throws RefactoringMinerTimedOutException {
+	List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
+	for(Iterator<UMLOperation> removedOperationIterator = umlClassBaseDiff.removedOperations.iterator(); removedOperationIterator.hasNext();) {
+		UMLOperation removedOperation = removedOperationIterator.next();
+		for(UMLOperationBodyMapper mapper : umlClassBaseDiff.getOperationBodyMapperList()) {
+			InlineOperationDetection detection = new InlineOperationDetection(mapper, umlClassBaseDiff.removedOperations, umlClassBaseDiff, this);
+			List<InlineOperationRefactoring> refs = detection.check(removedOperation);
+			for(InlineOperationRefactoring refactoring : refs) {
+				umlClassBaseDiff.refactorings.add(refactoring);
+				UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
+				umlClassBaseDiff.processMapperRefactorings(operationBodyMapper, umlClassBaseDiff.refactorings);
+				mapper.addChildMapper(operationBodyMapper);
+				operationsToBeRemoved.add(removedOperation);
+			}
+		}
+	}
+	umlClassBaseDiff.removedOperations.removeAll(operationsToBeRemoved);
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
