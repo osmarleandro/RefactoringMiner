@@ -4161,4 +4161,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings) {
+		int nonMappedElementsT1 = nonMappedElementsT1();
+		int nonMappedElementsT2 = nonMappedElementsT2();
+		return (mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) ||
+				(nonMappedElementsT1 == 0 && mappings > Math.floor(nonMappedElementsT2/2.0)) ||
+				(mappings == 1 && nonMappedElementsT1 + nonMappedElementsT2 == 1 && getOperation1().getName().equals(getOperation2().getName()));
+	}
 }
