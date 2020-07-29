@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,279 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean equalAfterNewArgumentAdditions(String s1, String s2, UMLOperationBodyMapper umlOperationBodyMapper) {
+			UMLOperationDiff operationDiff = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff.getOperationDiff(umlOperationBodyMapper.operation1, umlOperationBodyMapper.operation2) : null;
+			if(operationDiff == null) {
+				operationDiff = new UMLOperationDiff(umlOperationBodyMapper.operation1, umlOperationBodyMapper.operation2);
+			}
+			String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
+			String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
+			if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty() && !commonPrefix.equals("return ")) {
+				int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();
+				int endIndexS1 = s1.lastIndexOf(commonSuffix);
+				String diff1 = beginIndexS1 > endIndexS1 ? "" :	s1.substring(beginIndexS1, endIndexS1);
+				int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
+				int endIndexS2 = s2.lastIndexOf(commonSuffix);
+				String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
+				if(beginIndexS1 > endIndexS1) {
+					diff2 = diff2 + commonSuffix.substring(0, beginIndexS1 - endIndexS1);
+					if(diff2.charAt(diff2.length()-1) == ',') {
+						diff2 = diff2.substring(0, diff2.length()-1);
+					}
+				}
+				String characterAfterCommonPrefix = s1.equals(commonPrefix) ? "" : Character.toString(s1.charAt(commonPrefix.length())); 
+				if(commonPrefix.contains(",") && commonPrefix.lastIndexOf(",") < commonPrefix.length()-1 &&
+						!characterAfterCommonPrefix.equals(",") && !characterAfterCommonPrefix.equals(")")) {
+					String prepend = commonPrefix.substring(commonPrefix.lastIndexOf(",")+1, commonPrefix.length());
+					diff1 = prepend + diff1;
+					diff2 = prepend + diff2;
+				}
+				//if there is a variable replacement diff1 should be empty, otherwise diff1 should include a single variable
+				if(diff1.isEmpty() ||
+						(umlOperationBodyMapper.operation1.getParameterNameList().contains(diff1) && !umlOperationBodyMapper.operation2.getParameterNameList().contains(diff1) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(diff2)) ||
+						(umlOperationBodyMapper.classDiff != null && umlOperationBodyMapper.classDiff.getOriginalClass().containsAttributeWithName(diff1) && !umlOperationBodyMapper.classDiff.getNextClass().containsAttributeWithName(diff1) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(diff2))) {
+					List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
+					for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
+						if(diff2.contains(addedParameter.getName())) {
+							matchingAddedParameters.add(addedParameter);
+						}
+					}
+					if(matchingAddedParameters.size() > 0) {
+						Replacement matchingReplacement = null;
+						for(Replacement replacement : getReplacements()) {
+							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+								for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+									if(parameterDiff.isNameChanged() &&
+											replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
+											replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {
+										matchingReplacement = replacement;
+										break;
+									}
+								}
+							}
+							if(matchingReplacement != null) {
+								break;
+							}
+						}
+						if(matchingReplacement != null) {
+							Set<String> splitVariables = new LinkedHashSet<String>();
+							splitVariables.add(matchingReplacement.getAfter());
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(UMLParameter addedParameter : matchingAddedParameters) {
+								splitVariables.add(addedParameter.getName());
+								concat.append(addedParameter.getName());
+								if(counter < matchingAddedParameters.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+								getReplacements().remove(matchingReplacement);
+								getReplacements().add(split);
+								return true;
+							}
+						}
+						else if(diff1.isEmpty() && getReplacements().isEmpty()) {
+							Set<String> addedVariables = new LinkedHashSet<String>();
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(UMLParameter addedParameter : matchingAddedParameters) {
+								addedVariables.add(addedParameter.getName());
+								concat.append(addedParameter.getName());
+								if(counter < matchingAddedParameters.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							if(concat.toString().equals(diff2)) {
+								AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+								getReplacements().add(r);
+								return true;
+							}
+						}
+						if(umlOperationBodyMapper.operation1.getParameterNameList().contains(diff1)) {
+							Set<String> splitVariables = new LinkedHashSet<String>();
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(UMLParameter addedParameter : matchingAddedParameters) {
+								splitVariables.add(addedParameter.getName());
+								concat.append(addedParameter.getName());
+								if(counter < matchingAddedParameters.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+								getReplacements().add(split);
+								return true;
+							}
+						}
+					}
+					if(umlOperationBodyMapper.classDiff != null) {
+						List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
+						for(UMLAttribute attribute : umlOperationBodyMapper.classDiff.getNextClass().getAttributes()) {
+							if(diff2.contains(attribute.getName())) {
+								matchingAttributes.add(attribute);
+							}
+						}
+						if(matchingAttributes.size() > 0) {
+							Replacement matchingReplacement = null;
+							for(Replacement replacement : getReplacements()) {
+								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+									if(umlOperationBodyMapper.classDiff.getOriginalClass().containsAttributeWithName(replacement.getBefore()) &&
+											umlOperationBodyMapper.classDiff.getNextClass().containsAttributeWithName(replacement.getAfter())) {
+										matchingReplacement = replacement;
+										break;
+									}
+								}
+							}
+							if(matchingReplacement != null) {
+								Set<String> splitVariables = new LinkedHashSet<String>();
+								splitVariables.add(matchingReplacement.getAfter());
+								StringBuilder concat = new StringBuilder();
+								int counter = 0;
+								for(UMLAttribute attribute : matchingAttributes) {
+									splitVariables.add(attribute.getName());
+									concat.append(attribute.getName());
+									if(counter < matchingAttributes.size()-1) {
+										concat.append(",");
+									}
+									counter++;
+								}
+								SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+								if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+									getReplacements().remove(matchingReplacement);
+									getReplacements().add(split);
+									return true;
+								}
+							}
+							else if(diff1.isEmpty() && getReplacements().isEmpty()) {
+								Set<String> addedVariables = new LinkedHashSet<String>();
+								StringBuilder concat = new StringBuilder();
+								int counter = 0;
+								for(UMLAttribute attribute : matchingAttributes) {
+									addedVariables.add(attribute.getName());
+									concat.append(attribute.getName());
+									if(counter < matchingAttributes.size()-1) {
+										concat.append(",");
+									}
+									counter++;
+								}
+								if(concat.toString().equals(diff2)) {
+									AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+									getReplacements().add(r);
+									return true;
+								}
+							}
+							if(umlOperationBodyMapper.classDiff.getOriginalClass().containsAttributeWithName(diff1)) {
+								Set<String> splitVariables = new LinkedHashSet<String>();
+								StringBuilder concat = new StringBuilder();
+								int counter = 0;
+								for(UMLAttribute attribute : matchingAttributes) {
+									splitVariables.add(attribute.getName());
+									concat.append(attribute.getName());
+									if(counter < matchingAttributes.size()-1) {
+										concat.append(",");
+									}
+									counter++;
+								}
+								SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+								if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+									getReplacements().add(split);
+									return true;
+								}
+							}
+						}
+					}
+					List<VariableDeclaration> matchingVariableDeclarations = new ArrayList<VariableDeclaration>();
+					for(VariableDeclaration declaration : umlOperationBodyMapper.operation2.getAllVariableDeclarations()) {
+						if(diff2.contains(declaration.getVariableName())) {
+							matchingVariableDeclarations.add(declaration);
+						}
+					}
+					if(matchingVariableDeclarations.size() > 0) {
+						Replacement matchingReplacement = null;
+						for(Replacement replacement : getReplacements()) {
+							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+								int indexOf1 = s1.indexOf(replacement.getAfter());
+								int indexOf2 = s2.indexOf(replacement.getAfter());
+								int characterIndex1 = indexOf1 + replacement.getAfter().length();
+								int characterIndex2 = indexOf2 + replacement.getAfter().length();
+								boolean isVariableDeclarationReplacement =
+										characterIndex1 < s1.length() && s1.charAt(characterIndex1) == '=' &&
+										characterIndex2 < s2.length() && s2.charAt(characterIndex2) == '=';
+								if(!isVariableDeclarationReplacement &&
+										umlOperationBodyMapper.operation1.getVariableDeclaration(replacement.getBefore()) != null &&
+										umlOperationBodyMapper.operation2.getVariableDeclaration(replacement.getAfter()) != null) {
+									matchingReplacement = replacement;
+									break;
+								}
+							}
+						}
+						if(matchingReplacement != null) {
+							Set<String> splitVariables = new LinkedHashSet<String>();
+							splitVariables.add(matchingReplacement.getAfter());
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(VariableDeclaration declaration : matchingVariableDeclarations) {
+								splitVariables.add(declaration.getVariableName());
+								concat.append(declaration.getVariableName());
+								if(counter < matchingVariableDeclarations.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+								getReplacements().remove(matchingReplacement);
+								getReplacements().add(split);
+								return true;
+							}
+						}
+						else if(diff1.isEmpty() && getReplacements().isEmpty()) {
+							Set<String> addedVariables = new LinkedHashSet<String>();
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(VariableDeclaration declaration : matchingVariableDeclarations) {
+								addedVariables.add(declaration.getVariableName());
+								concat.append(declaration.getVariableName());
+								if(counter < matchingVariableDeclarations.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							if(concat.toString().equals(diff2)) {
+								AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+								getReplacements().add(r);
+								return true;
+							}
+						}
+						if(umlOperationBodyMapper.operation1.getVariableDeclaration(diff1) != null) {
+							Set<String> splitVariables = new LinkedHashSet<String>();
+							StringBuilder concat = new StringBuilder();
+							int counter = 0;
+							for(VariableDeclaration declaration : matchingVariableDeclarations) {
+								splitVariables.add(declaration.getVariableName());
+								concat.append(declaration.getVariableName());
+								if(counter < matchingVariableDeclarations.size()-1) {
+									concat.append(",");
+								}
+								counter++;
+							}
+							SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+								getReplacements().add(split);
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
 		}
 	}
 
@@ -1962,7 +2235,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
-				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
+				replacementInfo.equalAfterNewArgumentAdditions(s1, s2, this) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
@@ -2017,7 +2290,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				for(Replacement replacement : replacementsInsideAnonymous) {
-					equalAfterNewArgumentAdditions(replacement.getBefore(), replacement.getAfter(), replacementInfo);
+					replacementInfo.equalAfterNewArgumentAdditions(replacement.getBefore(), replacement.getAfter(), this);
 				}
 			}
 			return replacementInfo.getReplacements();
@@ -3058,280 +3331,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
-	}
-
-	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
-		UMLOperationDiff operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
-		if(operationDiff == null) {
-			operationDiff = new UMLOperationDiff(operation1, operation2);
-		}
-		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
-		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
-		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty() && !commonPrefix.equals("return ")) {
-			int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS1 = s1.lastIndexOf(commonSuffix);
-			String diff1 = beginIndexS1 > endIndexS1 ? "" :	s1.substring(beginIndexS1, endIndexS1);
-			int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS2 = s2.lastIndexOf(commonSuffix);
-			String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
-			if(beginIndexS1 > endIndexS1) {
-				diff2 = diff2 + commonSuffix.substring(0, beginIndexS1 - endIndexS1);
-				if(diff2.charAt(diff2.length()-1) == ',') {
-					diff2 = diff2.substring(0, diff2.length()-1);
-				}
-			}
-			String characterAfterCommonPrefix = s1.equals(commonPrefix) ? "" : Character.toString(s1.charAt(commonPrefix.length())); 
-			if(commonPrefix.contains(",") && commonPrefix.lastIndexOf(",") < commonPrefix.length()-1 &&
-					!characterAfterCommonPrefix.equals(",") && !characterAfterCommonPrefix.equals(")")) {
-				String prepend = commonPrefix.substring(commonPrefix.lastIndexOf(",")+1, commonPrefix.length());
-				diff1 = prepend + diff1;
-				diff2 = prepend + diff2;
-			}
-			//if there is a variable replacement diff1 should be empty, otherwise diff1 should include a single variable
-			if(diff1.isEmpty() ||
-					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
-					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
-				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
-				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
-					if(diff2.contains(addedParameter.getName())) {
-						matchingAddedParameters.add(addedParameter);
-					}
-				}
-				if(matchingAddedParameters.size() > 0) {
-					Replacement matchingReplacement = null;
-					for(Replacement replacement : replacementInfo.getReplacements()) {
-						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
-								if(parameterDiff.isNameChanged() &&
-										replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
-										replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {
-									matchingReplacement = replacement;
-									break;
-								}
-							}
-						}
-						if(matchingReplacement != null) {
-							break;
-						}
-					}
-					if(matchingReplacement != null) {
-						Set<String> splitVariables = new LinkedHashSet<String>();
-						splitVariables.add(matchingReplacement.getAfter());
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
-							splitVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
-							if(counter < matchingAddedParameters.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-							replacementInfo.getReplacements().remove(matchingReplacement);
-							replacementInfo.getReplacements().add(split);
-							return true;
-						}
-					}
-					else if(diff1.isEmpty() && replacementInfo.getReplacements().isEmpty()) {
-						Set<String> addedVariables = new LinkedHashSet<String>();
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
-							addedVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
-							if(counter < matchingAddedParameters.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						if(concat.toString().equals(diff2)) {
-							AddVariableReplacement r = new AddVariableReplacement(addedVariables);
-							replacementInfo.getReplacements().add(r);
-							return true;
-						}
-					}
-					if(operation1.getParameterNameList().contains(diff1)) {
-						Set<String> splitVariables = new LinkedHashSet<String>();
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
-							splitVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
-							if(counter < matchingAddedParameters.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-							replacementInfo.getReplacements().add(split);
-							return true;
-						}
-					}
-				}
-				if(classDiff != null) {
-					List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
-					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes()) {
-						if(diff2.contains(attribute.getName())) {
-							matchingAttributes.add(attribute);
-						}
-					}
-					if(matchingAttributes.size() > 0) {
-						Replacement matchingReplacement = null;
-						for(Replacement replacement : replacementInfo.getReplacements()) {
-							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-								if(classDiff.getOriginalClass().containsAttributeWithName(replacement.getBefore()) &&
-										classDiff.getNextClass().containsAttributeWithName(replacement.getAfter())) {
-									matchingReplacement = replacement;
-									break;
-								}
-							}
-						}
-						if(matchingReplacement != null) {
-							Set<String> splitVariables = new LinkedHashSet<String>();
-							splitVariables.add(matchingReplacement.getAfter());
-							StringBuilder concat = new StringBuilder();
-							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
-								splitVariables.add(attribute.getName());
-								concat.append(attribute.getName());
-								if(counter < matchingAttributes.size()-1) {
-									concat.append(",");
-								}
-								counter++;
-							}
-							SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-								replacementInfo.getReplacements().remove(matchingReplacement);
-								replacementInfo.getReplacements().add(split);
-								return true;
-							}
-						}
-						else if(diff1.isEmpty() && replacementInfo.getReplacements().isEmpty()) {
-							Set<String> addedVariables = new LinkedHashSet<String>();
-							StringBuilder concat = new StringBuilder();
-							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
-								addedVariables.add(attribute.getName());
-								concat.append(attribute.getName());
-								if(counter < matchingAttributes.size()-1) {
-									concat.append(",");
-								}
-								counter++;
-							}
-							if(concat.toString().equals(diff2)) {
-								AddVariableReplacement r = new AddVariableReplacement(addedVariables);
-								replacementInfo.getReplacements().add(r);
-								return true;
-							}
-						}
-						if(classDiff.getOriginalClass().containsAttributeWithName(diff1)) {
-							Set<String> splitVariables = new LinkedHashSet<String>();
-							StringBuilder concat = new StringBuilder();
-							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
-								splitVariables.add(attribute.getName());
-								concat.append(attribute.getName());
-								if(counter < matchingAttributes.size()-1) {
-									concat.append(",");
-								}
-								counter++;
-							}
-							SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-								replacementInfo.getReplacements().add(split);
-								return true;
-							}
-						}
-					}
-				}
-				List<VariableDeclaration> matchingVariableDeclarations = new ArrayList<VariableDeclaration>();
-				for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
-					if(diff2.contains(declaration.getVariableName())) {
-						matchingVariableDeclarations.add(declaration);
-					}
-				}
-				if(matchingVariableDeclarations.size() > 0) {
-					Replacement matchingReplacement = null;
-					for(Replacement replacement : replacementInfo.getReplacements()) {
-						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-							int indexOf1 = s1.indexOf(replacement.getAfter());
-							int indexOf2 = s2.indexOf(replacement.getAfter());
-							int characterIndex1 = indexOf1 + replacement.getAfter().length();
-							int characterIndex2 = indexOf2 + replacement.getAfter().length();
-							boolean isVariableDeclarationReplacement =
-									characterIndex1 < s1.length() && s1.charAt(characterIndex1) == '=' &&
-									characterIndex2 < s2.length() && s2.charAt(characterIndex2) == '=';
-							if(!isVariableDeclarationReplacement &&
-									operation1.getVariableDeclaration(replacement.getBefore()) != null &&
-									operation2.getVariableDeclaration(replacement.getAfter()) != null) {
-								matchingReplacement = replacement;
-								break;
-							}
-						}
-					}
-					if(matchingReplacement != null) {
-						Set<String> splitVariables = new LinkedHashSet<String>();
-						splitVariables.add(matchingReplacement.getAfter());
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							splitVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
-							if(counter < matchingVariableDeclarations.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-							replacementInfo.getReplacements().remove(matchingReplacement);
-							replacementInfo.getReplacements().add(split);
-							return true;
-						}
-					}
-					else if(diff1.isEmpty() && replacementInfo.getReplacements().isEmpty()) {
-						Set<String> addedVariables = new LinkedHashSet<String>();
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							addedVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
-							if(counter < matchingVariableDeclarations.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						if(concat.toString().equals(diff2)) {
-							AddVariableReplacement r = new AddVariableReplacement(addedVariables);
-							replacementInfo.getReplacements().add(r);
-							return true;
-						}
-					}
-					if(operation1.getVariableDeclaration(diff1) != null) {
-						Set<String> splitVariables = new LinkedHashSet<String>();
-						StringBuilder concat = new StringBuilder();
-						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
-							splitVariables.add(declaration.getVariableName());
-							concat.append(declaration.getVariableName());
-							if(counter < matchingVariableDeclarations.size()-1) {
-								concat.append(",");
-							}
-							counter++;
-						}
-						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
-							replacementInfo.getReplacements().add(split);
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	private boolean equalAfterArgumentMerge(String s1, String s2, ReplacementInfo replacementInfo) {
