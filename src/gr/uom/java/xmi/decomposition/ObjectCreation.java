@@ -14,10 +14,10 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
-	private UMLType type;
+	public UMLType type;
 	private String anonymousClassDeclaration;
-	private boolean isArray = false;
-	private volatile int hashCode = 0;
+	public boolean isArray = false;
+	public volatile int hashCode = 0;
 	
 	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.CLASS_INSTANCE_CREATION);
@@ -106,15 +106,8 @@ public class ObjectCreation extends AbstractCall {
     }
 
     public int hashCode() {
-    	if(hashCode == 0) {
-    		int result = 17;
-    		result = 37*result + type.hashCode();
-    		result = 37*result + (isArray ? 1 : 0);
-    		result = 37*result + typeArguments;
-    		hashCode = result;
-    	}
-    	return hashCode;
-    }
+		return type.hashCode(this);
+	}
 
     public boolean identicalArrayInitializer(ObjectCreation other) {
     	if(this.isArray && other.isArray) {
