@@ -423,12 +423,6 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
-		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
-		intersection.retainAll(other.replacements);
-		return intersection;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -470,5 +464,11 @@ public abstract class AbstractCodeMapping {
 		} else if (!operation2.equals(other.operation2))
 			return false;
 		return true;
+	}
+
+	public Set<Replacement> commonReplacements(AbstractCodeMapping abstractCodeMapping) {
+		Set<Replacement> intersection = new LinkedHashSet<Replacement>(abstractCodeMapping.replacements);
+		intersection.retainAll(replacements);
+		return intersection;
 	}
 }
