@@ -1,6 +1,10 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassDiff;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +13,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
@@ -396,5 +402,78 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public void createBodyMappers(UMLClassDiff umlClassDiff) throws RefactoringMinerTimedOutException {
+		for(UMLOperation originalOperation : getOperations()) {
+			for(UMLOperation nextOperation : umlClassDiff.nextClass.getOperations()) {
+				if(originalOperation.equalsQualified(nextOperation)) {
+					if(umlClassDiff.getModelDiff() != null) {
+						List<UMLOperationBodyMapper> mappers = umlClassDiff.getModelDiff().findMappersWithMatchingSignature2(nextOperation);
+						if(mappers.size() > 0) {
+							UMLOperation operation1 = mappers.get(0).getOperation1();
+							if(!operation1.equalSignature(originalOperation) &&
+									umlClassDiff.getModelDiff().commonlyImplementedOperations(operation1, nextOperation, umlClassDiff)) {
+								if(!umlClassDiff.removedOperations.contains(originalOperation)) {
+									umlClassDiff.removedOperations.add(originalOperation);
+								}
+								break;
+							}
+						}
+					}
+	    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(originalOperation, nextOperation, umlClassDiff);
+	    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(originalOperation, nextOperation, operationBodyMapper.getMappings());
+					umlClassDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+	    			umlClassDiff.addOperationBodyMapper(operationBodyMapper);
+				}
+			}
+		}
+		for(UMLOperation operation : getOperations()) {
+			if(!umlClassDiff.containsMapperForOperation(operation) && umlClassDiff.nextClass.getOperations().contains(operation) && !umlClassDiff.removedOperations.contains(operation)) {
+				int index = umlClassDiff.nextClass.getOperations().indexOf(operation);
+				int lastIndex = umlClassDiff.nextClass.getOperations().lastIndexOf(operation);
+				int finalIndex = index;
+				if(index != lastIndex) {
+					double d1 = operation.getReturnParameter().getType().normalizedNameDistance(umlClassDiff.nextClass.getOperations().get(index).getReturnParameter().getType());
+					double d2 = operation.getReturnParameter().getType().normalizedNameDistance(umlClassDiff.nextClass.getOperations().get(lastIndex).getReturnParameter().getType());
+					if(d2 < d1) {
+						finalIndex = lastIndex;
+					}
+				}
+				UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(operation, umlClassDiff.nextClass.getOperations().get(finalIndex), umlClassDiff);
+				UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(operation, umlClassDiff.nextClass.getOperations().get(finalIndex), operationBodyMapper.getMappings());
+				umlClassDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+				umlClassDiff.addOperationBodyMapper(operationBodyMapper);
+			}
+		}
+		List<UMLOperation> removedOperationsToBeRemoved = new ArrayList<UMLOperation>();
+		List<UMLOperation> addedOperationsToBeRemoved = new ArrayList<UMLOperation>();
+		for(UMLOperation removedOperation : umlClassDiff.removedOperations) {
+			for(UMLOperation addedOperation : umlClassDiff.addedOperations) {
+				if(removedOperation.equalsIgnoringVisibility(addedOperation)) {
+					UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, umlClassDiff);
+					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, operationBodyMapper.getMappings());
+					umlClassDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+					umlClassDiff.addOperationBodyMapper(operationBodyMapper);
+					removedOperationsToBeRemoved.add(removedOperation);
+					addedOperationsToBeRemoved.add(addedOperation);
+				}
+				else if(removedOperation.equalsIgnoringNameCase(addedOperation)) {
+					UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, umlClassDiff);
+					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, operationBodyMapper.getMappings());
+					umlClassDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+					if(!removedOperation.getName().equals(addedOperation.getName()) &&
+							!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
+						RenameOperationRefactoring rename = new RenameOperationRefactoring(operationBodyMapper);
+						umlClassDiff.refactorings.add(rename);
+					}
+					umlClassDiff.addOperationBodyMapper(operationBodyMapper);
+					removedOperationsToBeRemoved.add(removedOperation);
+					addedOperationsToBeRemoved.add(addedOperation);
+				}
+			}
+		}
+		umlClassDiff.removedOperations.removeAll(removedOperationsToBeRemoved);
+		umlClassDiff.addedOperations.removeAll(addedOperationsToBeRemoved);
 	}
 }
