@@ -15,7 +15,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	private VariableDeclaration oldAttribute;
 	private Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
-	private String classNameBefore;
+	public String classNameBefore;
 	private String classNameAfter;
 
 	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
@@ -37,10 +37,6 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	public Set<CandidateSplitVariableRefactoring> getAttributeSplits() {
 		return attributeSplits;
-	}
-
-	public String getClassNameBefore() {
-		return classNameBefore;
 	}
 
 	public String getClassNameAfter() {
@@ -113,7 +109,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOldAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(getOldAttribute().getLocationInfo().getFilePath(), oldAttribute.getClassNameBefore(this)));
 		return pairs;
 	}
 
