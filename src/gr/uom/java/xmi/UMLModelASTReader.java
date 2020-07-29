@@ -52,7 +52,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLModelASTReader {
-	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
+	static final String FREE_MARKER_GENERATED = "generated using freemarker";
 	private static final String systemFileSeparator = Matcher.quoteReplacement(File.separator);
 	
 	private UMLModel umlModel;
@@ -167,12 +167,12 @@ public class UMLModelASTReader {
         	}
         	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
         		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
-        		processEnumDeclaration(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
+        		umlModel.processEnumDeclaration(this, compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
         	}
         }
 	}
 
-	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
+	UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
 		UMLJavadoc doc = null;
 		Javadoc javaDoc = bodyDeclaration.getJavadoc();
 		if(javaDoc != null) {
@@ -190,28 +190,7 @@ public class UMLModelASTReader {
 		return doc;
 	}
 
-	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
-			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
-		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
-			return;
-		}
-		String className = enumDeclaration.getName().getFullyQualifiedName();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
-		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
-		umlClass.setJavadoc(javadoc);
-		
-		umlClass.setEnum(true);
-		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
-		
-		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
-		
-		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
-		
-		this.getUmlModel().addClass(umlClass);
-	}
-
-	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
+	void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
 			String sourceFile, List<String> importedTypes, UMLClass umlClass) {
 		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
@@ -235,7 +214,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				umlModel.processEnumDeclaration(this, cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
 	}
@@ -319,12 +298,12 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				umlModel.processEnumDeclaration(this, cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
 	}
 
-	private void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
+	void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
 			String packageName, String sourceFile, String className, UMLClass umlClass) {
 		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
     	typeDeclaration.accept(visitor);
@@ -362,7 +341,7 @@ public class UMLModelASTReader {
     	}
 	}
 
-	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
+	void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
 		int modifiers = typeDeclaration.getModifiers();
     	if((modifiers & Modifier.ABSTRACT) != 0)
     		umlClass.setAbstract(true);
@@ -627,7 +606,7 @@ public class UMLModelASTReader {
 		return false;
 	}
 
-	private LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
+	LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
 		return new LocationInfo(cu, sourceFile, node, codeElementType);
 	}
 }

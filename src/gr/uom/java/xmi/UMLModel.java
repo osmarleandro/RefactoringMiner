@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.UMLClassDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -10,6 +11,8 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +156,24 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	void processEnumDeclaration(UMLModelASTReader umlModelASTReader, CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile, List<String> importedTypes) {
+		UMLJavadoc javadoc = umlModelASTReader.generateJavadoc(enumDeclaration);
+		if(javadoc != null && javadoc.containsIgnoreCase(UMLModelASTReader.FREE_MARKER_GENERATED)) {
+			return;
+		}
+		String className = enumDeclaration.getName().getFullyQualifiedName();
+		LocationInfo locationInfo = umlModelASTReader.generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
+		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
+		umlClass.setJavadoc(javadoc);
+		
+		umlClass.setEnum(true);
+		umlModelASTReader.processModifiers(cu, sourceFile, enumDeclaration, umlClass);
+		
+		umlModelASTReader.processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
+		
+		umlModelASTReader.processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
+		
+		umlModelASTReader.getUmlModel().addClass(umlClass);
+	}
 }
