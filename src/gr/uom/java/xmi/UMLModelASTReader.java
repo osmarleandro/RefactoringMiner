@@ -390,7 +390,7 @@ public class UMLModelASTReader {
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
 		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
-		umlOperation.setJavadoc(javadoc);
+		javadoc.setJavadoc(umlOperation);
 		
 		if(methodDeclaration.isConstructor())
 			umlOperation.setConstructor(true);

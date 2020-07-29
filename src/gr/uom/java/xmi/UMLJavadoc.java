@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setJavadoc(UMLOperation umlOperation) {
+		umlOperation.javadoc = this;
+	}
 }
