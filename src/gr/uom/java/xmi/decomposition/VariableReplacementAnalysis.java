@@ -506,10 +506,10 @@ public class VariableReplacementAnalysis {
 				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
 				String attribute1 = PrefixSuffixUtils.normalize(fragment1.substring(0, fragment1.indexOf("=")));
 				String attribute2 = PrefixSuffixUtils.normalize(fragment2.substring(0, fragment2.indexOf("=")));
-				if(value1.equals(attribute1) && classDiff.getOriginalClass().containsAttributeWithName(attribute1) && classDiff.getNextClass().containsAttributeWithName(attribute1)) {
+				if(value1.equals(attribute1) && classDiff.getOriginalClass().getLocationInfo().containsAttributeWithName(this, attribute1) && classDiff.getNextClass().getLocationInfo().containsAttributeWithName(this, attribute1)) {
 					return true;
 				}
-				if(value2.equals(attribute2) && classDiff.getOriginalClass().containsAttributeWithName(attribute2) && classDiff.getNextClass().containsAttributeWithName(attribute2)) {
+				if(value2.equals(attribute2) && classDiff.getOriginalClass().getLocationInfo().containsAttributeWithName(this, attribute2) && classDiff.getNextClass().getLocationInfo().containsAttributeWithName(this, attribute2)) {
 					return true;
 				}
 			}
