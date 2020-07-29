@@ -25,7 +25,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
-    private List<UMLAnnotation> annotations;
+    List<UMLAnnotation> annotations;
     
     public UMLClass(String packageName, String name, LocationInfo locationInfo, boolean topLevel, List<String> importedTypes) {
     	super();
@@ -97,11 +97,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return annotations;
 	}
 
-    public void addAnnotation(UMLAnnotation annotation) {
-    	annotations.add(annotation);
-    }
-
-	public void addAnonymousClass(UMLAnonymousClass anonymousClass) {
+    public void addAnonymousClass(UMLAnonymousClass anonymousClass) {
     	anonymousClassList.add(anonymousClass);
     }
 
