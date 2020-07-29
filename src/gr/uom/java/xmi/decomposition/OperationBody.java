@@ -33,12 +33,11 @@ import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
-import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	public CompositeStatementObject compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
@@ -79,10 +78,6 @@ public class OperationBody {
 
 	public List<VariableDeclaration> getAllVariableDeclarations() {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getAllVariableDeclarations());
-	}
-
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
-		return new ArrayList<VariableDeclaration>(compositeStatement.getVariableDeclarationsInScope(location));
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
