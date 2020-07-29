@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 
 public class ExtractClassRefactoring implements Refactoring {
-	private UMLClass extractedClass;
+	public UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
 	private Set<UMLAttribute> extractedAttributes;
@@ -48,10 +48,6 @@ public class ExtractClassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public UMLClass getExtractedClass() {
-		return extractedClass;
-	}
-
 	public UMLClass getOriginalClass() {
 		return classDiff.getOriginalClass();
 	}
@@ -76,7 +72,7 @@ public class ExtractClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getExtractedClass().getLocationInfo().getFilePath(), getExtractedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(attributeOfExtractedClassTypeInOriginalClass.getExtractedClass(this).getLocationInfo().getFilePath(), attributeOfExtractedClassTypeInOriginalClass.getExtractedClass(this).getName()));
 		return pairs;
 	}
 
