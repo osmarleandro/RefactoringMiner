@@ -41,7 +41,7 @@ public class MoveClassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return movedClass.getName(this);
 	}
 
 	public RefactoringType getRefactoringType() {
