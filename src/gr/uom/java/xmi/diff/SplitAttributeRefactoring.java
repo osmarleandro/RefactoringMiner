@@ -49,7 +49,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	@Override
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.SPLIT_ATTRIBUTE;
+		return oldAttribute.getRefactoringType();
 	}
 
 	@Override
