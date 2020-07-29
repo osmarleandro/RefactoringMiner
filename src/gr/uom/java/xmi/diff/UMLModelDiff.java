@@ -450,7 +450,7 @@ public class UMLModelDiff {
 		   }
 		   if(!diffSet.isEmpty()) {
 			   UMLClassMoveDiff minClassMoveDiff = diffSet.first();
-			   minClassMoveDiff.process();
+			   minClassMoveDiff.getModelDiff().process(this);
 			   classMoveDiffList.add(minClassMoveDiff);
 			   addedClasses.remove(minClassMoveDiff.getMovedClass());
 			   removedClassIterator.remove();
@@ -503,7 +503,7 @@ public class UMLModelDiff {
          }
          if(!diffSet.isEmpty()) {
             UMLClassRenameDiff minClassRenameDiff = diffSet.first();
-            minClassRenameDiff.process();
+            minClassRenameDiff.getModelDiff().process(this);
             classRenameDiffList.add(minClassRenameDiff);
             addedClasses.remove(minClassRenameDiff.getRenamedClass());
             removedClassIterator.remove();
@@ -1312,7 +1312,7 @@ public class UMLModelDiff {
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
-    			  renameDiff.process();
+    			  renameDiff.getModelDiff().process(this);
     			  refactorings.addAll(renameDiff.getRefactorings());
     			  extractMergePatterns(renameDiff, mergeMap);
     			  extractRenamePatterns(renameDiff, renameMap);
@@ -2524,6 +2524,18 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public void process(UMLClassBaseDiff umlClassBaseDiff) throws RefactoringMinerTimedOutException {
+	umlClassBaseDiff.processInheritance();
+	umlClassBaseDiff.processOperations();
+	umlClassBaseDiff.createBodyMappers();
+	umlClassBaseDiff.processAttributes();
+	umlClassBaseDiff.checkForAttributeChanges();
+	umlClassBaseDiff.processAnonymousClasses();
+	umlClassBaseDiff.checkForOperationSignatureChanges();
+	umlClassBaseDiff.checkForInlinedOperations();
+	umlClassBaseDiff.checkForExtractedOperations();
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
