@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
-	private UMLAttribute attributeDeclaration;
+	public UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
@@ -53,13 +53,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		sb.append(" in class ");
 		sb.append(attributeDeclaration.getClassName());
 		return sb.toString();
-	}
-
-	/**
-	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
-	 */
-	public CodeRange getExtractedVariableDeclarationCodeRange() {
-		return attributeDeclaration.codeRange();
 	}
 
 	public UMLClass getOriginalClass() {

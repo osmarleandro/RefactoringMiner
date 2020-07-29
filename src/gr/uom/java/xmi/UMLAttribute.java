@@ -171,4 +171,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	/**
+	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
+	 */
+	public CodeRange getExtractedVariableDeclarationCodeRange() {
+		return codeRange();
+	}
 }
