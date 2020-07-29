@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +135,13 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isLoop(CompositeStatementObject compositeStatementObject) {
+		return getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+				getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+				getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
+				getCodeElementType().equals(CodeElementType.DO_STATEMENT);
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

@@ -19,7 +19,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	public LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -477,13 +477,6 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
-	}
-
-	public boolean isLoop() {
-		return this.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
-				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
