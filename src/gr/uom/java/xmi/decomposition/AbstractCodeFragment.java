@@ -304,4 +304,14 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	public int hashCode(AbstractCodeMapping abstractCodeMapping) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this == null) ? 0 : hashCode());
+		result = prime * result + ((abstractCodeMapping.fragment2 == null) ? 0 : abstractCodeMapping.fragment2.hashCode());
+		result = prime * result + ((abstractCodeMapping.operation1 == null) ? 0 : abstractCodeMapping.operation1.hashCode());
+		result = prime * result + ((abstractCodeMapping.operation2 == null) ? 0 : abstractCodeMapping.operation2.hashCode());
+		return result;
+	}
 }
