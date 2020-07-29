@@ -93,4 +93,8 @@ public class MoveClassRefactoring implements Refactoring {
 				.setCodeElement(movedClass.getName()));
 		return ranges;
 	}
+
+	public void addMoveClassRefactoring(RenamePackageRefactoring renamePackageRefactoring) {
+		renamePackageRefactoring.moveClassRefactorings.add(this);
+	}
 }
