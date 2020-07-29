@@ -2,7 +2,6 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -32,7 +31,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -825,12 +824,5 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return map;
 		}
 		return new LinkedHashMap<String, Set<String>>();
-	}
-
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		if(operationBody != null) {
-			return operationBody.loopWithVariables(currentElementName, collectionName);
-		}
-		return null;
 	}
 }

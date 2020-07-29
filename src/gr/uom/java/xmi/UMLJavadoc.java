@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+
 public class UMLJavadoc {
 	private List<UMLTagElement> tags;
 
@@ -34,5 +36,12 @@ public class UMLJavadoc {
 			}
 		}
 		return false;
+	}
+
+	public CompositeStatementObject loopWithVariables(UMLOperation umlOperation, String currentElementName, String collectionName) {
+		if(umlOperation.operationBody != null) {
+			return umlOperation.operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
 	}
 }
