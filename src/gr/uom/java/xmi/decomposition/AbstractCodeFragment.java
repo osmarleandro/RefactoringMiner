@@ -135,25 +135,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean equalFragment(AbstractCodeFragment other) {
-		if(this.getString().equals(other.getString())) {
-			return true;
-		}
-		else if(this.getString().contains(other.getString())) {
-			return true;
-		}
-		else if(other.getString().contains(this.getString())) {
-			return true;
-		}
-		else if(this.codeFragmentAfterReplacingParametersWithArguments != null) {
-			return this.codeFragmentAfterReplacingParametersWithArguments.equals(other.getString());
-		}
-		else if(other.codeFragmentAfterReplacingParametersWithArguments != null) {
-			return other.codeFragmentAfterReplacingParametersWithArguments.equals(this.getString());
-		}
-		return false;
-	}
-
 	public void resetArgumentization() {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
@@ -303,5 +284,24 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	public boolean equalFragment(AbstractCodeFragment abstractCodeFragment) {
+		if(abstractCodeFragment.getString().equals(getString())) {
+			return true;
+		}
+		else if(abstractCodeFragment.getString().contains(getString())) {
+			return true;
+		}
+		else if(getString().contains(abstractCodeFragment.getString())) {
+			return true;
+		}
+		else if(abstractCodeFragment.codeFragmentAfterReplacingParametersWithArguments != null) {
+			return abstractCodeFragment.codeFragmentAfterReplacingParametersWithArguments.equals(getString());
+		}
+		else if(codeFragmentAfterReplacingParametersWithArguments != null) {
+			return codeFragmentAfterReplacingParametersWithArguments.equals(abstractCodeFragment.getString());
+		}
+		return false;
 	}
 }
