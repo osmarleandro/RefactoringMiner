@@ -97,14 +97,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
-			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
-			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		return false;
-	}
-
 	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
 		if(!this.isParameterized() && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
@@ -167,6 +159,14 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	protected boolean equalTypeArgumentsAndArrayDimension(UMLType umlType) {
+		if(!umlType.isParameterized() && !isParameterized())
+			return umlType.arrayDimension == arrayDimension;
+		else if(umlType.isParameterized() && isParameterized())
+			return umlType.equalTypeArguments(this) && umlType.arrayDimension == arrayDimension;
+		return false;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
