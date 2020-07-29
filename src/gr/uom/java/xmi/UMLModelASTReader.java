@@ -268,7 +268,7 @@ public class UMLModelASTReader {
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
 				if(extendedModifier.isAnnotation()) {
 					Annotation annotation = (Annotation)extendedModifier;
-					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+					new UMLAnnotation(cu, sourceFile, annotation).addAnnotation(umlTypeParameter);
 				}
 			}
     		umlClass.addTypeParameter(umlTypeParameter);
@@ -435,7 +435,7 @@ public class UMLModelASTReader {
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
 				if(extendedModifier.isAnnotation()) {
 					Annotation annotation = (Annotation)extendedModifier;
-					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+					new UMLAnnotation(cu, sourceFile, annotation).addAnnotation(umlTypeParameter);
 				}
 			}
 			umlOperation.addTypeParameter(umlTypeParameter);
