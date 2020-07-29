@@ -17,7 +17,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	protected UMLOperation originalOperation;
 	protected UMLOperation movedOperation;
 	private Set<Replacement> replacements;
-	private UMLOperationBodyMapper bodyMapper;
+	public UMLOperationBodyMapper bodyMapper;
 
 	public MoveOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
 		this.bodyMapper = bodyMapper;
@@ -54,10 +54,6 @@ public class MoveOperationRefactoring implements Refactoring {
 			return RefactoringType.MOVE_AND_RENAME_OPERATION;
 		}
 		return RefactoringType.MOVE_OPERATION;
-	}
-
-	public UMLOperationBodyMapper getBodyMapper() {
-		return bodyMapper;
 	}
 
 	public UMLOperation getOriginalOperation() {
