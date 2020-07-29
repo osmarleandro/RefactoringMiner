@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -170,5 +171,36 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equals(CandidateSplitVariableRefactoring candidateSplitVariableRefactoring, Object obj) {
+		if (candidateSplitVariableRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (candidateSplitVariableRefactoring.getClass() != obj.getClass())
+			return false;
+		CandidateSplitVariableRefactoring other = (CandidateSplitVariableRefactoring) obj;
+		if (candidateSplitVariableRefactoring.oldVariable == null) {
+			if (other.oldVariable != null)
+				return false;
+		} else if (!candidateSplitVariableRefactoring.oldVariable.equals(other.oldVariable))
+			return false;
+		if (candidateSplitVariableRefactoring.operationAfter == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!candidateSplitVariableRefactoring.operationAfter.equals(other.operationAfter))
+			return false;
+		if (candidateSplitVariableRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!candidateSplitVariableRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		if (candidateSplitVariableRefactoring.splitVariables == null) {
+			if (other.splitVariables != null)
+				return false;
+		} else if (!candidateSplitVariableRefactoring.splitVariables.equals(other.splitVariables))
+			return false;
+		return true;
 	}
 }

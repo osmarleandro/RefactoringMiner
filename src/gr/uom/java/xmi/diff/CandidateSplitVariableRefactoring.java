@@ -7,10 +7,10 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateSplitVariableRefactoring {
-	private String oldVariable;
-	private Set<String> splitVariables;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public String oldVariable;
+	public Set<String> splitVariables;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
@@ -85,34 +85,7 @@ public class CandidateSplitVariableRefactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CandidateSplitVariableRefactoring other = (CandidateSplitVariableRefactoring) obj;
-		if (oldVariable == null) {
-			if (other.oldVariable != null)
-				return false;
-		} else if (!oldVariable.equals(other.oldVariable))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (splitVariables == null) {
-			if (other.splitVariables != null)
-				return false;
-		} else if (!splitVariables.equals(other.splitVariables))
-			return false;
-		return true;
+		return oldAttribute.equals(this, obj);
 	}
 
 }
