@@ -21,16 +21,16 @@ import org.refactoringminer.api.Refactoring;
 public class UMLOperationDiff {
 	private UMLOperation removedOperation;
 	private UMLOperation addedOperation;
-	private List<UMLParameter> addedParameters;
-	private List<UMLParameter> removedParameters;
-	private List<UMLParameterDiff> parameterDiffList;
-	private boolean visibilityChanged;
-	private boolean abstractionChanged;
-	private boolean returnTypeChanged;
+	public List<UMLParameter> addedParameters;
+	public List<UMLParameter> removedParameters;
+	public List<UMLParameterDiff> parameterDiffList;
+	public boolean visibilityChanged;
+	public boolean abstractionChanged;
+	public boolean returnTypeChanged;
 	private boolean qualifiedReturnTypeChanged;
-	private boolean operationRenamed;
+	public boolean operationRenamed;
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-	private UMLAnnotationListDiff annotationListDiff;
+	public UMLAnnotationListDiff annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
 		this.removedOperation = removedOperation;
@@ -190,14 +190,9 @@ public class UMLOperationDiff {
 		return operationRenamed;
 	}
 
-	public boolean isEmpty() {
-		return addedParameters.isEmpty() && removedParameters.isEmpty() && parameterDiffList.isEmpty() &&
-		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty();
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
+		if(!addedOperation.isEmpty(this))
 			sb.append("\t").append(removedOperation).append("\n");
 		if(operationRenamed)
 			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
