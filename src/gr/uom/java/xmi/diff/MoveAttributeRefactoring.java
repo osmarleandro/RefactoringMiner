@@ -39,7 +39,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.MOVE_ATTRIBUTE;
+		return movedAttribute.getRefactoringType();
 	}
 
 	public UMLAttribute getOriginalAttribute() {
