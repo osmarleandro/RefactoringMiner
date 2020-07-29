@@ -12,6 +12,7 @@ import java.util.TreeSet;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
@@ -1671,4 +1672,45 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	void detectSubRefactorings(UMLModelDiff umlModelDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
+		   for(UMLOperation addedOperation : addedClass.getOperations()) {
+			   UMLOperation removedOperation = containsRemovedOperationWithTheSameSignature(addedOperation);
+			   if(removedOperation != null) {
+				   getRemovedOperations().remove(removedOperation);
+				   Refactoring ref = null;
+				   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
+					   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
+				   }
+				   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
+					   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
+				   }
+				   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
+					   ref = new PushDownOperationRefactoring(removedOperation, addedOperation);
+				   }
+				   umlModelDiff.refactorings.add(ref);
+				   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
+				   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getMappings());
+				   umlModelDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+				   umlModelDiff.checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
+			   }
+		   }
+		   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
+			   UMLAttribute removedAttribute = containsRemovedAttributeWithTheSameSignature(addedAttribute);
+			   if(removedAttribute != null) {
+				   getRemovedAttributes().remove(removedAttribute);
+				   Refactoring ref = null;
+				   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
+					   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
+				   }
+				   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
+					   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
+				   }
+				   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
+					   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
+				   }
+				   umlModelDiff.refactorings.add(ref);
+			   }
+		   }
+	   }
 }

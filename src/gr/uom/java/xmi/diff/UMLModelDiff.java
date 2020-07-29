@@ -57,7 +57,7 @@ public class UMLModelDiff {
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
-   private List<Refactoring> refactorings;
+   List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
@@ -975,7 +975,7 @@ public class UMLModelDiff {
 			   for(CandidateExtractClassRefactoring candidate : candidates) {
 				   if(candidate.innerClassExtract()) {
 					   innerClassExtract = true;
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   candidate.getClassDiff().detectSubRefactorings(this,
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
@@ -984,7 +984,7 @@ public class UMLModelDiff {
 			   }
 			   if(!innerClassExtract) {
 				   for(CandidateExtractClassRefactoring candidate : candidates) {
-					   detectSubRefactorings(candidate.getClassDiff(),
+					   candidate.getClassDiff().detectSubRefactorings(this,
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
 					   refactorings.add(candidate.getRefactoring());
@@ -1076,54 +1076,13 @@ public class UMLModelDiff {
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
-			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
+			   subclassDiff.detectSubRefactorings(this, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
 		   }
 		   subclassSet.add(subclass);
 	   }
    }
 
-   private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
-	   for(UMLOperation addedOperation : addedClass.getOperations()) {
-		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
-		   if(removedOperation != null) {
-			   classDiff.getRemovedOperations().remove(removedOperation);
-			   Refactoring ref = null;
-			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
-				   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
-				   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
-				   ref = new PushDownOperationRefactoring(removedOperation, addedOperation);
-			   }
-			   this.refactorings.add(ref);
-			   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, classDiff);
-			   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getMappings());
-			   refactorings.addAll(operationSignatureDiff.getRefactorings());
-			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
-		   }
-	   }
-	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
-		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
-		   if(removedAttribute != null) {
-			   classDiff.getRemovedAttributes().remove(removedAttribute);
-			   Refactoring ref = null;
-			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
-				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
-				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
-				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   this.refactorings.add(ref);
-		   }
-	   }
-   }
-
-   private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
+   void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
 	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
 	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
 	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
