@@ -6,9 +6,15 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +309,26 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	public void temporaryVariableAssignment(AbstractCodeMapping abstractCodeMapping, Set<Refactoring> refactorings) {
+		if(abstractCodeMapping instanceof LeafMapping && abstractCodeMapping.getFragment1() instanceof AbstractExpression
+				&& abstractCodeMapping.getFragment2() instanceof StatementObject) {
+			StatementObject statement = (StatementObject) abstractCodeMapping.getFragment2();
+			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
+			boolean validReplacements = true;
+			for(Replacement replacement : abstractCodeMapping.getReplacements()) {
+				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
+					validReplacements = false;
+					break;
+				}
+			}
+			if(variableDeclarations.size() == 1 && validReplacements) {
+				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
+				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+				abstractCodeMapping.processExtractVariableRefactoring(ref, refactorings);
+				abstractCodeMapping.identicalWithExtractedVariable = true;
+			}
+		}
 	}
 }
