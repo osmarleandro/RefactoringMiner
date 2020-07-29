@@ -134,12 +134,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     	return false;
 	}
 
-	public boolean equalsQualified(UMLAttribute umlAttribute) {
-		return this.name.equals(umlAttribute.name) &&
-				this.visibility.equals(umlAttribute.visibility) &&
-				this.type.equalsQualified(umlAttribute.type);
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
@@ -170,5 +164,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equalsQualified(UMLAttribute umlAttribute2) {
+		return umlAttribute2.name.equals(name) &&
+				umlAttribute2.visibility.equals(visibility) &&
+				umlAttribute2.type.equalsQualified(type);
 	}
 }
