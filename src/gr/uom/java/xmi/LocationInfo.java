@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public String getTypeName(UMLAnnotation umlAnnotation) {
+		return umlAnnotation.typeName;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
