@@ -1398,7 +1398,7 @@ public class UMLModelDiff {
 					 }
 					 UMLAttribute a2 = diff1.findAttributeInNextClass(pattern.getAfter());
 					 if(a2 != null) {
-						 if(candidate.getOriginalVariableDeclaration().isAttribute()) {
+						 if(candidate.getOriginalVariableDeclaration().getInitializer().isAttribute(this)) {
 							 if(originalClassDiff != null && originalClassDiff.removedAttributes.contains(candidate.getOriginalAttribute())) {
 								 ReplaceAttributeRefactoring ref = new ReplaceAttributeRefactoring(candidate.getOriginalAttribute(), a2, set);
 								 if(!refactorings.contains(ref)) {
@@ -1435,7 +1435,7 @@ public class UMLModelDiff {
 					 }
 					 UMLAttribute a2 = diff2.findAttributeInNextClass(pattern.getAfter());
 					 if(a2 != null) {
-						 if(candidate.getOriginalVariableDeclaration().isAttribute()) {
+						 if(candidate.getOriginalVariableDeclaration().getInitializer().isAttribute(this)) {
 							 if(originalClassDiff != null && originalClassDiff.removedAttributes.contains(candidate.getOriginalAttribute())) {
 								 MoveAndRenameAttributeRefactoring ref = new MoveAndRenameAttributeRefactoring(candidate.getOriginalAttribute(), a2, set);
 								 if(!refactorings.contains(ref)) {
