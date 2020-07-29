@@ -154,7 +154,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public List<String> getAllVariables() {
 		if(operationBody != null)
-			return operationBody.getAllVariables();
+			return operationBody.getCompositeStatement().getAllVariables();
 		return new ArrayList<String>();
 	}
 
