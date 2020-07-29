@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -8,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -832,5 +834,25 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean fieldAssignmentWithPreviouslyExistingParameter(VariableReplacementAnalysis variableReplacementAnalysis, Set<AbstractCodeMapping> mappings) {
+		if(mappings.size() == 1) {
+			AbstractCodeMapping mapping = mappings.iterator().next();
+			String fragment1 = mapping.getFragment1().getString();
+			String fragment2 = mapping.getFragment2().getString();
+			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
+				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
+				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
+				if(variableReplacementAnalysis.operation1.getParameterNameList().contains(value1) && variableReplacementAnalysis.operation2.getParameterNameList().contains(value1) && variableReplacementAnalysis.operationDiff != null) {
+					for(UMLParameter addedParameter : variableReplacementAnalysis.operationDiff.getAddedParameters()) {
+						if(addedParameter.getName().equals(value2)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

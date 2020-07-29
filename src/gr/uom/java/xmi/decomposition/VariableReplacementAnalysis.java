@@ -44,12 +44,12 @@ public class VariableReplacementAnalysis {
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation1;
+	public UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
-	private UMLOperationDiff operationDiff;
+	public UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
@@ -482,7 +482,7 @@ public class VariableReplacementAnalysis {
 			else if(!PrefixSuffixUtils.normalize(replacement.getBefore()).equals(PrefixSuffixUtils.normalize(replacement.getAfter())) &&
 					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
-					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
+					!callSiteOperation.fieldAssignmentWithPreviouslyExistingParameter(this, replacementOccurrenceMap.get(replacement)) &&
 					!fieldAssignmentToPreviouslyExistingAttribute(replacementOccurrenceMap.get(replacement))) {
 				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
@@ -511,26 +511,6 @@ public class VariableReplacementAnalysis {
 				}
 				if(value2.equals(attribute2) && classDiff.getOriginalClass().containsAttributeWithName(attribute2) && classDiff.getNextClass().containsAttributeWithName(attribute2)) {
 					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean fieldAssignmentWithPreviouslyExistingParameter(Set<AbstractCodeMapping> mappings) {
-		if(mappings.size() == 1) {
-			AbstractCodeMapping mapping = mappings.iterator().next();
-			String fragment1 = mapping.getFragment1().getString();
-			String fragment2 = mapping.getFragment2().getString();
-			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
-				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
-				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
-				if(operation1.getParameterNameList().contains(value1) && operation2.getParameterNameList().contains(value1) && operationDiff != null) {
-					for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
-						if(addedParameter.getName().equals(value2)) {
-							return true;
-						}
-					}
 				}
 			}
 		}
@@ -1200,7 +1180,7 @@ public class VariableReplacementAnalysis {
 		if(fieldAssignmentToPreviouslyExistingAttribute(set)) {
 			return false;
 		}
-		if(fieldAssignmentWithPreviouslyExistingParameter(set)) {
+		if(callSiteOperation.fieldAssignmentWithPreviouslyExistingParameter(this, set)) {
 			return false;
 		}
 		return index1 >= 0 && index1 == index2;
