@@ -1105,7 +1105,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
-		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
+		   UMLAttribute removedAttribute = addedAttribute.containsRemovedAttributeWithTheSameSignature(classDiff);
 		   if(removedAttribute != null) {
 			   classDiff.getRemovedAttributes().remove(removedAttribute);
 			   Refactoring ref = null;

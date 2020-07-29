@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -170,5 +171,13 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public UMLAttribute containsRemovedAttributeWithTheSameSignature(UMLClassBaseDiff umlClassBaseDiff) {
+		for(UMLAttribute removedAttribute : umlClassBaseDiff.removedAttributes) {
+			if(removedAttribute.equalsIgnoringChangedVisibility(this))
+				return removedAttribute;
+		}
+		return null;
 	}
 }

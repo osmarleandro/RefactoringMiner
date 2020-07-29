@@ -41,7 +41,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
-	protected List<UMLAttribute> removedAttributes;
+	public List<UMLAttribute> removedAttributes;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
@@ -404,14 +404,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperation removedOperation : removedOperations) {
 			if(removedOperation.equalSignature(operation))
 				return removedOperation;
-		}
-		return null;
-	}
-
-	public UMLAttribute containsRemovedAttributeWithTheSameSignature(UMLAttribute attribute) {
-		for(UMLAttribute removedAttribute : removedAttributes) {
-			if(removedAttribute.equalsIgnoringChangedVisibility(attribute))
-				return removedAttribute;
 		}
 		return null;
 	}
