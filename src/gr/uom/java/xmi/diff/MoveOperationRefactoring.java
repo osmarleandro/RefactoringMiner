@@ -104,9 +104,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedOperation().getLocationInfo().getFilePath(), getMovedOperation().getClassName()));
-		return pairs;
+		return bodyMapper.getInvolvedClassesAfterRefactoring(this);
 	}
 
 	@Override
