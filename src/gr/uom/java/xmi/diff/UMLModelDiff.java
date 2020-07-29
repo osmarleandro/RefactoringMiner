@@ -57,7 +57,7 @@ public class UMLModelDiff {
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
-   private List<Refactoring> refactorings;
+   List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
@@ -123,7 +123,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private UMLClassBaseDiff getUMLClassDiff(String className) {
+   UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
@@ -679,7 +679,7 @@ public class UMLModelDiff {
 	   if(candidates.size() > 1) {
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring candidate : candidates) {
-			   int compatibility = computeCompatibility(candidate);
+			   int compatibility = candidate.computeCompatibility(this);
 			   if(map.containsKey(compatibility)) {
 				   map.get(compatibility).add(candidate);
 			   }
@@ -733,47 +733,6 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return false;
-   }
-
-   private int computeCompatibility(MoveAttributeRefactoring candidate) {
-	   int count = 0;
-	   for(Refactoring ref : refactorings) {
-		   if(ref instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
-			   if(moveRef.compatibleWith(candidate)) {
-				   count++;
-			   }
-		   }
-	   }
-	   UMLClassBaseDiff sourceClassDiff = getUMLClassDiff(candidate.getSourceClassName());
-	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(candidate.getTargetClassName());
-	   if(sourceClassDiff != null) {
-		   UMLType targetSuperclass = null;
-		   if(targetClassDiff != null) {
-			   targetSuperclass = targetClassDiff.getSuperclass();
-		   }
-		   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
-		   for(UMLAttribute addedAttribute : addedAttributes) {
-			   if(looksLikeSameType(addedAttribute.getType().getClassType(), candidate.getTargetClassName())) {
-				   count++;
-			   }
-			   if(targetSuperclass != null && looksLikeSameType(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
-				   count++;
-			   }
-		   }
-		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
-		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
-		   if(targetSuperclass != null) {
-			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
-			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
-		   }
-		   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
-		   intersection.retainAll(nextAttributes);
-		   if(!intersection.isEmpty()) {
-			   count++;
-		   }
-	   }
-	   return count;
    }
 
    private boolean sourceClassImportsSuperclassOfTargetClass(String sourceClassName, String targetClassName) {

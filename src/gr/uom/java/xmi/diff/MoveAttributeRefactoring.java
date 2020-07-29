@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLType;
 
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
@@ -128,4 +129,45 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	int computeCompatibility(UMLModelDiff umlModelDiff) {
+		   int count = 0;
+		   for(Refactoring ref : umlModelDiff.refactorings) {
+			   if(ref instanceof MoveOperationRefactoring) {
+				   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
+				   if(moveRef.compatibleWith(this)) {
+					   count++;
+				   }
+			   }
+		   }
+		   UMLClassBaseDiff sourceClassDiff = umlModelDiff.getUMLClassDiff(getSourceClassName());
+		   UMLClassBaseDiff targetClassDiff = umlModelDiff.getUMLClassDiff(getTargetClassName());
+		   if(sourceClassDiff != null) {
+			   UMLType targetSuperclass = null;
+			   if(targetClassDiff != null) {
+				   targetSuperclass = targetClassDiff.getSuperclass();
+			   }
+			   List<UMLAttribute> addedAttributes = sourceClassDiff.getAddedAttributes();
+			   for(UMLAttribute addedAttribute : addedAttributes) {
+				   if(UMLModelDiff.looksLikeSameType(addedAttribute.getType().getClassType(), getTargetClassName())) {
+					   count++;
+				   }
+				   if(targetSuperclass != null && UMLModelDiff.looksLikeSameType(addedAttribute.getType().getClassType(), targetSuperclass.getClassType())) {
+					   count++;
+				   }
+			   }
+			   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(getTargetClassName());
+			   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(getTargetClassName());
+			   if(targetSuperclass != null) {
+				   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
+				   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
+			   }
+			   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
+			   intersection.retainAll(nextAttributes);
+			   if(!intersection.isEmpty()) {
+				   count++;
+			   }
+		   }
+		   return count;
+	   }
 }
