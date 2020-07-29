@@ -139,9 +139,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<StatementObject> getLeaves() {
-		List<StatementObject> leaves = new ArrayList<StatementObject>();
-		leaves.add(this);
-		return leaves;
+		return locationInfo.getLeaves(this);
 	}
 
 	public String toString() {
