@@ -203,4 +203,25 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public boolean equals(VariableDeclaration variableDeclaration, Object obj) {
+		if (variableDeclaration == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (variableDeclaration.getClass() != obj.getClass())
+			return false;
+		VariableDeclaration other = (VariableDeclaration) obj;
+		if (variableDeclaration.scope == null) {
+			if (other.scope != null)
+				return false;
+		} else if (!variableDeclaration.scope.equals(other.scope))
+			return false;
+		if (variableDeclaration.variableName == null) {
+			if (other.variableName != null)
+				return false;
+		} else if (!variableDeclaration.variableName.equals(other.variableName))
+			return false;
+		return true;
+	}
 }

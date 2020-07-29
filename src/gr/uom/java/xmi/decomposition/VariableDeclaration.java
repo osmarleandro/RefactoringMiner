@@ -23,14 +23,14 @@ import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
-	private String variableName;
+	String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
-	private VariableScope scope;
+	VariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
@@ -150,24 +150,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VariableDeclaration other = (VariableDeclaration) obj;
-		if (scope == null) {
-			if (other.scope != null)
-				return false;
-		} else if (!scope.equals(other.scope))
-			return false;
-		if (variableName == null) {
-			if (other.variableName != null)
-				return false;
-		} else if (!variableName.equals(other.variableName))
-			return false;
-		return true;
+		return initializer.equals(this, obj);
 	}
 
 	public String toString() {
