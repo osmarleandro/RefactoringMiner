@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +833,9 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.EXTRACT_VARIABLE;
 	}
 }
