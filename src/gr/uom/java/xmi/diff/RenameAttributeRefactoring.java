@@ -48,7 +48,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.RENAME_ATTRIBUTE;
+		return originalAttribute.getRefactoringType();
 	}
 
 	public String getName() {
