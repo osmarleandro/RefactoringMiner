@@ -45,7 +45,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return attributeOfExtractedClassTypeInOriginalClass.getName(this);
 	}
 
 	public UMLClass getExtractedClass() {
