@@ -3968,59 +3968,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return operation1.toString() + " -> " + operation2.toString();
 	}
 
-	@Override
-	public int compareTo(UMLOperationBodyMapper operationBodyMapper) {
-		int thisCallChainIntersectionSum = 0;
-		for(AbstractCodeMapping mapping : this.mappings) {
-			if(mapping instanceof LeafMapping) {
-				thisCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
-			}
-		}
-		int otherCallChainIntersectionSum = 0;
-		for(AbstractCodeMapping mapping : operationBodyMapper.mappings) {
-			if(mapping instanceof LeafMapping) {
-				otherCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
-			}
-		}
-		if(thisCallChainIntersectionSum != otherCallChainIntersectionSum) {
-			return -Integer.compare(thisCallChainIntersectionSum, otherCallChainIntersectionSum);
-		}
-		int thisMappings = this.mappingsWithoutBlocks();
-		for(AbstractCodeMapping mapping : this.getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				thisMappings++;
-			}
-		}
-		int otherMappings = operationBodyMapper.mappingsWithoutBlocks();
-		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				otherMappings++;
-			}
-		}
-		if(thisMappings != otherMappings) {
-			return -Integer.compare(thisMappings, otherMappings);
-		}
-		else {
-			int thisExactMatches = this.exactMatches();
-			int otherExactMatches = operationBodyMapper.exactMatches();
-			if(thisExactMatches != otherExactMatches) {
-				return -Integer.compare(thisExactMatches, otherExactMatches);
-			}
-			else {
-				int thisEditDistance = this.editDistance();
-				int otherEditDistance = operationBodyMapper.editDistance();
-				if(thisEditDistance != otherEditDistance) {
-					return Integer.compare(thisEditDistance, otherEditDistance);
-				}
-				else {
-					int thisOperationNameEditDistance = this.operationNameEditDistance();
-					int otherOperationNameEditDistance = operationBodyMapper.operationNameEditDistance();
-					return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
-				}
-			}
-		}
-	}
-
 	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
 		int count = 0;
 		if(v1 != null && v2 != null) {
@@ -4160,5 +4107,57 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public int compareTo(UMLOperationBodyMapper umlOperationBodyMapper) {
+		int thisCallChainIntersectionSum = 0;
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.mappings) {
+			if(mapping instanceof LeafMapping) {
+				thisCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
+			}
+		}
+		int otherCallChainIntersectionSum = 0;
+		for(AbstractCodeMapping mapping : mappings) {
+			if(mapping instanceof LeafMapping) {
+				otherCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
+			}
+		}
+		if(thisCallChainIntersectionSum != otherCallChainIntersectionSum) {
+			return -Integer.compare(thisCallChainIntersectionSum, otherCallChainIntersectionSum);
+		}
+		int thisMappings = umlOperationBodyMapper.mappingsWithoutBlocks();
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.getMappings()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+				thisMappings++;
+			}
+		}
+		int otherMappings = mappingsWithoutBlocks();
+		for(AbstractCodeMapping mapping : getMappings()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+				otherMappings++;
+			}
+		}
+		if(thisMappings != otherMappings) {
+			return -Integer.compare(thisMappings, otherMappings);
+		}
+		else {
+			int thisExactMatches = umlOperationBodyMapper.exactMatches();
+			int otherExactMatches = exactMatches();
+			if(thisExactMatches != otherExactMatches) {
+				return -Integer.compare(thisExactMatches, otherExactMatches);
+			}
+			else {
+				int thisEditDistance = umlOperationBodyMapper.editDistance();
+				int otherEditDistance = editDistance();
+				if(thisEditDistance != otherEditDistance) {
+					return Integer.compare(thisEditDistance, otherEditDistance);
+				}
+				else {
+					int thisOperationNameEditDistance = umlOperationBodyMapper.operationNameEditDistance();
+					int otherOperationNameEditDistance = operationNameEditDistance();
+					return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
+				}
+			}
+		}
 	}
 }
