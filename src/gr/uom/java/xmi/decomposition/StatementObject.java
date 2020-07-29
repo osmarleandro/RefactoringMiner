@@ -40,7 +40,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
-	private List<LambdaExpressionObject> lambdas;
+	public List<LambdaExpressionObject> lambdas;
 	
 	public StatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -235,7 +235,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<LambdaExpressionObject> getLambdas() {
-		return lambdas;
+		return locationInfo.getLambdas(this);
 	}
 
 	@Override
