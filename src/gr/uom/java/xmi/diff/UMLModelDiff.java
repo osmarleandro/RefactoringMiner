@@ -110,7 +110,7 @@ public class UMLModelDiff {
    public boolean commonlyImplementedOperations(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
 	   UMLClassBaseDiff classDiff1 = getUMLClassDiff(operation1.getClassName());
 	   if(classDiff1 != null) {
-		   Set<UMLType> commonInterfaces = classDiff1.nextClassCommonInterfaces(classDiff2);
+		   Set<UMLType> commonInterfaces = classDiff2.nextClassCommonInterfaces(classDiff1);
 		   for(UMLType commonInterface : commonInterfaces) {
 			   UMLClassBaseDiff interfaceDiff = getUMLClassDiff(commonInterface);
 			   if(interfaceDiff != null &&

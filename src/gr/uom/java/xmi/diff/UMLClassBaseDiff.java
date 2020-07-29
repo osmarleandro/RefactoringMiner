@@ -128,12 +128,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
-		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
-		common.retainAll(other.nextClass.getImplementedInterfaces());
-		return common;
-	}
-
 	protected void checkForAttributeChanges() {
 		//optional step
 	}
@@ -1670,5 +1664,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
+	}
+
+	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff umlClassBaseDiff) {
+		Set<UMLType> common = new LinkedHashSet<UMLType>(umlClassBaseDiff.nextClass.getImplementedInterfaces());
+		common.retainAll(nextClass.getImplementedInterfaces());
+		return common;
 	}
 }
