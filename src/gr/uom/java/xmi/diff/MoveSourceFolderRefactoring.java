@@ -10,7 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
-	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
+	List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
 	private RenamePattern pattern;
 	
 	public MoveSourceFolderRefactoring(RenamePattern pattern) {
@@ -73,13 +73,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
-			ranges.add(ref.getOriginalClass().codeRange()
-					.setDescription("original type declaration")
-					.setCodeElement(ref.getOriginalClass().getName()));
-		}
-		return ranges;
+		return pattern.leftSide(this);
 	}
 
 	@Override

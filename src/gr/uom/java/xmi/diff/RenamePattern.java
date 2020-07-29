@@ -1,5 +1,8 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RenamePattern {
 	private String before;
 	private String after;
@@ -41,5 +44,15 @@ public class RenamePattern {
 	
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
+	}
+
+	public List<CodeRange> leftSide(MoveSourceFolderRefactoring moveSourceFolderRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		for(MovedClassToAnotherSourceFolder ref : moveSourceFolderRefactoring.movedClassesToAnotherSourceFolder) {
+			ranges.add(ref.getOriginalClass().codeRange()
+					.setDescription("original type declaration")
+					.setCodeElement(ref.getOriginalClass().getName()));
+		}
+		return ranges;
 	}
 }
