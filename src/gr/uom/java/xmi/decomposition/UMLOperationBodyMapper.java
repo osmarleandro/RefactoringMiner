@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,30 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean oneIsVariableDeclarationTheOtherIsVariableAssignment(String s1, String s2) {
+			String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
+			if(s1.contains("=") && s2.contains("=") && (s1.equals(commonSuffix) || s2.equals(commonSuffix))) {
+				if(getReplacements().size() == 2) {
+					StringBuilder sb = new StringBuilder();
+					int counter = 0;
+					for(Replacement r : getReplacements()) {
+						sb.append(r.getAfter());
+						if(counter == 0) {
+							sb.append("=");
+						}
+						else if(counter == 1) {
+							sb.append(";\n");
+						}
+						counter++;
+					}
+					if(commonSuffix.equals(sb.toString())) {
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 
@@ -1958,7 +1982,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		replacementInfo.removeReplacements(replacementsToBeRemoved);
 		replacementInfo.addReplacements(replacementsToBeAdded);
-		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
+		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || replacementInfo.oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2) ||
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
@@ -3369,31 +3393,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
 					replacementInfo.getReplacements().add(merge);
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	private boolean oneIsVariableDeclarationTheOtherIsVariableAssignment(String s1, String s2, ReplacementInfo replacementInfo) {
-		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
-		if(s1.contains("=") && s2.contains("=") && (s1.equals(commonSuffix) || s2.equals(commonSuffix))) {
-			if(replacementInfo.getReplacements().size() == 2) {
-				StringBuilder sb = new StringBuilder();
-				int counter = 0;
-				for(Replacement r : replacementInfo.getReplacements()) {
-					sb.append(r.getAfter());
-					if(counter == 0) {
-						sb.append("=");
-					}
-					else if(counter == 1) {
-						sb.append(";\n");
-					}
-					counter++;
-				}
-				if(commonSuffix.equals(sb.toString())) {
-					return false;
 				}
 			}
 			return true;
