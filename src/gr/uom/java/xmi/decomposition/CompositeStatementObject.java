@@ -12,6 +12,9 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
@@ -530,5 +533,18 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	CompositeStatementObjectMapping createCompositeMapping(UMLOperationBodyMapper umlOperationBodyMapper, CompositeStatementObject statement2, Map<String, String> parameterToArgumentMap, double score) {
+		UMLOperation operation1 = umlOperationBodyMapper.codeFragmentOperationMap1.containsKey(this) ? umlOperationBodyMapper.codeFragmentOperationMap1.get(this) : umlOperationBodyMapper.operation1;
+		UMLOperation operation2 = umlOperationBodyMapper.codeFragmentOperationMap2.containsKey(statement2) ? umlOperationBodyMapper.codeFragmentOperationMap2.get(statement2) : umlOperationBodyMapper.operation2;
+		CompositeStatementObjectMapping mapping = new CompositeStatementObjectMapping(this, statement2, operation1, operation2, score);
+		for(String key : parameterToArgumentMap.keySet()) {
+			String value = parameterToArgumentMap.get(key);
+			if(!key.equals(value) && ReplacementUtil.contains(statement2.getString(), key) && ReplacementUtil.contains(getString(), value)) {
+				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
+			}
+		}
+		return mapping;
 	}
 }
