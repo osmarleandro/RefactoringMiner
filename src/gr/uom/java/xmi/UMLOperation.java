@@ -833,4 +833,22 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public String prepareConditional(String s) {
+		String conditional = s;
+		if(s.startsWith("if(") && s.endsWith(")")) {
+			conditional = s.substring(3, s.length()-1);
+		}
+		if(s.startsWith("while(") && s.endsWith(")")) {
+			conditional = s.substring(6, s.length()-1);
+		}
+		if(s.startsWith("return ") && s.endsWith(";\n")) {
+			conditional = s.substring(7, s.length()-2);
+		}
+		int indexOfEquals = s.indexOf("=");
+		if(indexOfEquals > -1 && s.charAt(indexOfEquals+1) != '=' && s.charAt(indexOfEquals-1) != '!' && s.endsWith(";\n")) {
+			conditional = s.substring(indexOfEquals+1, s.length()-2);
+		}
+		return conditional;
+	}
 }
