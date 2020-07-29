@@ -2525,6 +2525,46 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void processInheritance(UMLClassBaseDiff umlClassBaseDiff) {
+	if(!umlClassBaseDiff.originalClass.getVisibility().equals(umlClassBaseDiff.nextClass.getVisibility())) {
+		umlClassBaseDiff.setVisibilityChanged(true);
+		umlClassBaseDiff.setOldVisibility(umlClassBaseDiff.originalClass.getVisibility());
+		umlClassBaseDiff.setNewVisibility(umlClassBaseDiff.nextClass.getVisibility());
+	}
+	if(!umlClassBaseDiff.originalClass.isInterface() && !umlClassBaseDiff.nextClass.isInterface()) {
+		if(umlClassBaseDiff.originalClass.isAbstract() != umlClassBaseDiff.nextClass.isAbstract()) {
+			umlClassBaseDiff.setAbstractionChanged(true);
+			umlClassBaseDiff.setOldAbstraction(umlClassBaseDiff.originalClass.isAbstract());
+			umlClassBaseDiff.setNewAbstraction(umlClassBaseDiff.nextClass.isAbstract());
+		}
+	}
+	if(umlClassBaseDiff.originalClass.getSuperclass() != null && umlClassBaseDiff.nextClass.getSuperclass() != null) {
+		if(!umlClassBaseDiff.originalClass.getSuperclass().equals(umlClassBaseDiff.nextClass.getSuperclass())) {
+			umlClassBaseDiff.setSuperclassChanged(true);
+		}
+		umlClassBaseDiff.setOldSuperclass(umlClassBaseDiff.originalClass.getSuperclass());
+		umlClassBaseDiff.setNewSuperclass(umlClassBaseDiff.nextClass.getSuperclass());
+	}
+	else if(umlClassBaseDiff.originalClass.getSuperclass() != null && umlClassBaseDiff.nextClass.getSuperclass() == null) {
+		umlClassBaseDiff.setSuperclassChanged(true);
+		umlClassBaseDiff.setOldSuperclass(umlClassBaseDiff.originalClass.getSuperclass());
+		umlClassBaseDiff.setNewSuperclass(umlClassBaseDiff.nextClass.getSuperclass());
+	}
+	else if(umlClassBaseDiff.originalClass.getSuperclass() == null && umlClassBaseDiff.nextClass.getSuperclass() != null) {
+		umlClassBaseDiff.setSuperclassChanged(true);
+		umlClassBaseDiff.setOldSuperclass(umlClassBaseDiff.originalClass.getSuperclass());
+		umlClassBaseDiff.setNewSuperclass(umlClassBaseDiff.nextClass.getSuperclass());
+	}
+	for(UMLType implementedInterface : umlClassBaseDiff.originalClass.getImplementedInterfaces()) {
+		if(!umlClassBaseDiff.nextClass.getImplementedInterfaces().contains(implementedInterface))
+			umlClassBaseDiff.reportRemovedImplementedInterface(implementedInterface);
+	}
+	for(UMLType implementedInterface : umlClassBaseDiff.nextClass.getImplementedInterfaces()) {
+		if(!umlClassBaseDiff.originalClass.getImplementedInterfaces().contains(implementedInterface))
+			umlClassBaseDiff.reportAddedImplementedInterface(implementedInterface);
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
