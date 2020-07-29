@@ -1699,7 +1699,7 @@ public class UMLModelDiff {
    }
 
    private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
-	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
+	  for(CandidateAttributeRefactoring candidate : classDiff.getModelDiff().getCandidateAttributeRenames(this)) {
 		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
 		 if(before.contains(".") && after.contains(".")) {
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.candidateAttributeRenames;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
