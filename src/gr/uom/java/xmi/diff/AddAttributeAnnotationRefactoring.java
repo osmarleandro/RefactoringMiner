@@ -64,7 +64,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return annotation.getName(this);
 	}
 
 	@Override
