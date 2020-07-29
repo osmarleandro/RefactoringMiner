@@ -171,4 +171,12 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAbstractClass umlAbstractClass) {
+		for(UMLAttribute originalAttribute : umlAbstractClass.attributes) {
+			if(originalAttribute.equalsIgnoringChangedType(this))
+				return true;
+		}
+		return false;
+	}
 }
