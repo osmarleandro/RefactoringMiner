@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -4161,4 +4162,61 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLModelDiff umlModelDiff) {
+	        int nonMappedElementsT1 = nonMappedElementsT1();
+			int nonMappedElementsT2 = nonMappedElementsT2();
+			UMLClass addedClass = umlModelDiff.getAddedClass(getOperation2().getClassName());
+			int nonMappedStatementsDeclaringSameVariable = 0;
+			for(ListIterator<StatementObject> leafIterator1 = getNonMappedLeavesT1().listIterator(); leafIterator1.hasNext();) {
+				StatementObject s1 = leafIterator1.next();
+				for(StatementObject s2 : getNonMappedLeavesT2()) {
+					if(s1.getVariableDeclarations().size() == 1 && s2.getVariableDeclarations().size() == 1) {
+						VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
+						VariableDeclaration v2 = s2.getVariableDeclarations().get(0);
+						if(v1.getVariableName().equals(v2.getVariableName()) && v1.getType().equals(v2.getType())) {
+							nonMappedStatementsDeclaringSameVariable++;
+						}
+					}
+				}
+				if(addedClass != null && s1.getVariableDeclarations().size() == 1) {
+					VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
+					for(UMLAttribute attribute : addedClass.getAttributes()) {
+						VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
+						if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
+							String attributeInitializer = attributeDeclaration.getInitializer().getString();
+							String variableInitializer = v1.getInitializer().getString();
+							if(attributeInitializer.equals(variableInitializer) && attribute.getType().equals(v1.getType()) &&
+									(attribute.getName().equals(v1.getVariableName()) ||
+									attribute.getName().toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
+									v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {
+								nonMappedStatementsDeclaringSameVariable++;
+								leafIterator1.remove();
+								LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), getOperation1(), getOperation2());
+								getMappings().add(mapping);
+								break;
+							}
+						}
+					}
+				}
+			}
+			int nonMappedLoopsIteratingOverSameVariable = 0;
+			for(CompositeStatementObject c1 : getNonMappedInnerNodesT1()) {
+				if(c1.isLoop()) {
+					for(CompositeStatementObject c2 : getNonMappedInnerNodesT2()) {
+						if(c2.isLoop()) {
+							Set<String> intersection = new LinkedHashSet<String>(c1.getVariables());
+							intersection.retainAll(c2.getVariables());
+							if(!intersection.isEmpty()) {
+								nonMappedLoopsIteratingOverSameVariable++;
+							}
+						}
+					}
+				}
+			}
+			return (mappings > nonMappedElementsT1-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable &&
+					mappings > nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable) ||
+					(nonMappedElementsT1-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT2/2.0)) ||
+					(nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT1/2.0));
+	   }
 }
