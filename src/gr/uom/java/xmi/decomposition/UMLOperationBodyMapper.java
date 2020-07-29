@@ -22,6 +22,8 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4160,5 +4162,33 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public List<CodeRange> rightSide(ExtractOperationRefactoring extractOperationRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(extractOperationRefactoring.getExtractedOperationCodeRange()
+				.setDescription("extracted method declaration")
+				.setCodeElement(extractOperationRefactoring.extractedOperation.toString()));
+		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
+		for(AbstractCodeFragment extractedCodeFragment : extractOperationRefactoring.extractedCodeFragmentsToExtractedOperation) {
+			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
+		}
+		ranges.add(extractOperationRefactoring.getSourceOperationCodeRangeAfterExtraction()
+				.setDescription("source method declaration after extraction")
+				.setCodeElement(extractOperationRefactoring.sourceOperationAfterExtraction.toString()));
+		for(OperationInvocation invocation : extractOperationRefactoring.extractedOperationInvocations) {
+			ranges.add(invocation.codeRange()
+					.setDescription("extracted method invocation")
+					.setCodeElement(invocation.actualString()));
+		}
+		for(StatementObject statement : getNonMappedLeavesT2()) {
+			ranges.add(statement.codeRange().
+					setDescription("added statement in extracted method declaration"));
+		}
+		for(CompositeStatementObject statement : getNonMappedInnerNodesT2()) {
+			ranges.add(statement.codeRange().
+					setDescription("added statement in extracted method declaration"));
+		}
+		return ranges;
 	}
 }

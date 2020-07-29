@@ -12,21 +12,19 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
-	private UMLOperation extractedOperation;
+	public UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
-	private UMLOperation sourceOperationAfterExtraction;
-	private List<OperationInvocation> extractedOperationInvocations;
+	public UMLOperation sourceOperationAfterExtraction;
+	public List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
+	public UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
@@ -215,30 +213,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getExtractedOperationCodeRange()
-				.setDescription("extracted method declaration")
-				.setCodeElement(extractedOperation.toString()));
-		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
-		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
-			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
-		}
-		ranges.add(getSourceOperationCodeRangeAfterExtraction()
-				.setDescription("source method declaration after extraction")
-				.setCodeElement(sourceOperationAfterExtraction.toString()));
-		for(OperationInvocation invocation : extractedOperationInvocations) {
-			ranges.add(invocation.codeRange()
-					.setDescription("extracted method invocation")
-					.setCodeElement(invocation.actualString()));
-		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
-			ranges.add(statement.codeRange().
-					setDescription("added statement in extracted method declaration"));
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
-			ranges.add(statement.codeRange().
-					setDescription("added statement in extracted method declaration"));
-		}
-		return ranges;
+		return bodyMapper.rightSide(this);
 	}
 }
