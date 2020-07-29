@@ -18,7 +18,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean isAbstract;
 	private boolean isInterface;
 	private boolean isEnum;
-	private boolean topLevel;
+	boolean topLevel;
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
@@ -120,11 +120,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return false;
     }
 
-    public boolean isTopLevel() {
-		return topLevel;
-	}
-
-	public void setTopLevel(boolean topLevel) {
+    public void setTopLevel(boolean topLevel) {
 		this.topLevel = topLevel;
 	}
 
