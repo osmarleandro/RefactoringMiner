@@ -43,8 +43,8 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
-   private List<UMLClass> addedClasses;
-   private List<UMLClass> removedClasses;
+   public List<UMLClass> addedClasses;
+   public List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
@@ -54,11 +54,11 @@ public class UMLModelDiff {
    private List<UMLRealizationDiff> realizationDiffList;
    
    private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
-   private Set<String> deletedFolderPaths;
+   public Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
       this.addedClasses = new ArrayList<UMLClass>();
@@ -418,61 +418,7 @@ public class UMLModelDiff {
       }
    }
 
-   public void checkForMovedClasses(Map<String, String> renamedFileHints, Set<String> repositoryDirectories, UMLClassMatcher matcher) throws RefactoringMinerTimedOutException {
-	   for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();) {
-		   UMLClass removedClass = removedClassIterator.next();
-		   TreeSet<UMLClassMoveDiff> diffSet = new TreeSet<UMLClassMoveDiff>(new ClassMoveComparator());
-		   for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
-			   UMLClass addedClass = addedClassIterator.next();
-			   String removedClassSourceFile = removedClass.getSourceFile();
-			   String renamedFile =  renamedFileHints.get(removedClassSourceFile);
-			   String removedClassSourceFolder = "";
-			   if(removedClassSourceFile.contains("/")) {
-				   removedClassSourceFolder = removedClassSourceFile.substring(0, removedClassSourceFile.lastIndexOf("/"));
-			   }
-			   if(!repositoryDirectories.contains(removedClassSourceFolder)) {
-				   deletedFolderPaths.add(removedClassSourceFolder);
-				   //add deleted sub-directories
-				   String subDirectory = new String(removedClassSourceFolder);
-				   while(subDirectory.contains("/")) {
-					   subDirectory = subDirectory.substring(0, subDirectory.lastIndexOf("/"));
-					   if(!repositoryDirectories.contains(subDirectory)) {
-						   deletedFolderPaths.add(subDirectory);
-					   }
-				   }
-			   }
-			   if(matcher.match(removedClass, addedClass, renamedFile)) {
-				   if(!conflictingMoveOfTopLevelClass(removedClass, addedClass)) {
-					   UMLClassMoveDiff classMoveDiff = new UMLClassMoveDiff(removedClass, addedClass, this);
-					   diffSet.add(classMoveDiff);
-				   }
-			   }
-		   }
-		   if(!diffSet.isEmpty()) {
-			   UMLClassMoveDiff minClassMoveDiff = diffSet.first();
-			   minClassMoveDiff.process();
-			   classMoveDiffList.add(minClassMoveDiff);
-			   addedClasses.remove(minClassMoveDiff.getMovedClass());
-			   removedClassIterator.remove();
-		   }
-	   }
-
-	   List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(this.classMoveDiffList);
-	   Collections.sort(allClassMoves);
-
-	   for(int i=0; i<allClassMoves.size(); i++) {
-		   UMLClassMoveDiff classMoveI = allClassMoves.get(i);
-		   for(int j=i+1; j<allClassMoves.size(); j++) {
-			   UMLClassMoveDiff classMoveJ = allClassMoves.get(j);
-			   if(classMoveI.isInnerClassMove(classMoveJ)) {
-				   innerClassMoveDiffList.add(classMoveJ);
-			   }
-		   }
-	   }
-	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
-   }
-
-   private boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
+   public boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   //check if classMoveDiffList contains already a move for the outer class to a different target
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
