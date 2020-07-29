@@ -260,4 +260,10 @@ public class StatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	void inlinedVariableAssignment(UMLOperationBodyMapper umlOperationBodyMapper, List<StatementObject> nonMappedLeavesT2) {
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.getMappings()) {
+			mapping.inlinedVariableAssignment(this, nonMappedLeavesT2, umlOperationBodyMapper.refactorings);
+		}
+	}
 }
