@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -8,10 +9,16 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.VariableDeclarationReplacement;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 import java.io.Serializable;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -832,5 +839,67 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public Map<Replacement, Set<AbstractCodeMapping>> getVariableDeclarationReplacementOccurrenceMap(VariableReplacementAnalysis variableReplacementAnalysis) {
+		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
+		for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+			for(Replacement replacement : mapping.getReplacements()) {
+				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !VariableReplacementAnalysis.returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+						!variableReplacementAnalysis.containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+						variableReplacementAnalysis.replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+					SimpleEntry<VariableDeclaration, UMLOperation> v1 = variableReplacementAnalysis.getVariableDeclaration1(replacement, mapping);
+					SimpleEntry<VariableDeclaration, UMLOperation> v2 = variableReplacementAnalysis.getVariableDeclaration2(replacement, mapping);
+					if(v1 != null && v2 != null) {
+						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
+						if(map.containsKey(r)) {
+							map.get(r).add(mapping);
+						}
+						else {
+							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+							list.add(mapping);
+							map.put(r, list);
+						}
+					}
+				}
+			}
+		}
+		if(variableReplacementAnalysis.operationDiff != null) {
+			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
+			for(UMLParameterDiff parameterDiff : variableReplacementAnalysis.operationDiff.getParameterDiffList()) {
+				if(parameterDiff.isNameChanged()) {
+					allParameterDiffs.add(parameterDiff);
+				}
+			}
+			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
+			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
+				for(Replacement replacement : map.keySet()) {
+					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						matchedParameterDiffs.add(parameterDiff);
+						break;
+					}
+				}
+			}
+			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
+			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
+				for(Replacement replacement : map.keySet()) {
+					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						keysToBeRemoved.add(vdR);
+					}
+					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						keysToBeRemoved.add(vdR);
+					}
+				}
+			}
+			for(VariableDeclarationReplacement key : keysToBeRemoved) {
+				map.remove(key);
+			}
+		}
+		return map;
 	}
 }
