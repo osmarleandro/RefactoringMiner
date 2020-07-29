@@ -527,4 +527,9 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	boolean complexInvocation() {
+		return (numberOfSubExpressions() > 3 && containsVeryLongSubExpression()) ||
+				numberOfSubExpressions() > 15;
+	}
 }
