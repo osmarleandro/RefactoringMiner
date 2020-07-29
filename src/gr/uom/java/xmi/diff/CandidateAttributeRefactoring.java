@@ -10,7 +10,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class CandidateAttributeRefactoring {
 	private String originalVariableName;
 	private String renamedVariableName;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
@@ -37,10 +37,6 @@ public class CandidateAttributeRefactoring {
 
 	public String getRenamedVariableName() {
 		return renamedVariableName;
-	}
-
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
 	}
 
 	public UMLOperation getOperationAfter() {
