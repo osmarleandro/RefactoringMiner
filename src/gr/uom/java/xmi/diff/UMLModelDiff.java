@@ -259,14 +259,14 @@ public class UMLModelDiff {
 				   return true;
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
-				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
+		   else if(subclassDiff.getModelDiff().getOldSuperclass(this) != null && subclassDiff.getNewSuperclass() != null &&
+				   !subclassDiff.getModelDiff().getOldSuperclass(this).equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
 			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   if(addedClass.getSuperclass() != null) {
 				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
+		   else if(subclassDiff.getModelDiff().getOldSuperclass(this) == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
 			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public UMLType getOldSuperclass(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.oldSuperclass;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
