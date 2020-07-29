@@ -6,8 +6,6 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -19,8 +17,8 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 
 public class UMLOperationDiff {
-	private UMLOperation removedOperation;
-	private UMLOperation addedOperation;
+	public UMLOperation removedOperation;
+	public UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
@@ -29,7 +27,7 @@ public class UMLOperationDiff {
 	private boolean returnTypeChanged;
 	private boolean qualifiedReturnTypeChanged;
 	private boolean operationRenamed;
-	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
+	public Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 	private UMLAnnotationListDiff annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
@@ -271,23 +269,5 @@ public class UMLOperationDiff {
 			refactorings.add(refactoring);
 		}
 		return refactorings;
-	}
-	
-	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
-		if(removedOperation.isStatic() || addedOperation.isStatic()) {
-			for(AbstractCodeMapping mapping : mappings) {
-				for(Replacement replacement : mapping.getReplacements()) {
-					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {
-							return true;
-						}
-						else if(!replacement.getBefore().equals(originalVariable.getVariableName()) && replacement.getAfter().equals(newVariable.getVariableName())) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 }

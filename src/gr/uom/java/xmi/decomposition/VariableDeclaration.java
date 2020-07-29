@@ -20,7 +20,10 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +258,23 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean inconsistentReplacement(UMLOperationDiff umlOperationDiff, VariableDeclaration newVariable) {
+		if(umlOperationDiff.removedOperation.isStatic() || umlOperationDiff.addedOperation.isStatic()) {
+			for(AbstractCodeMapping mapping : umlOperationDiff.mappings) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+						if(replacement.getBefore().equals(getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {
+							return true;
+						}
+						else if(!replacement.getBefore().equals(getVariableName()) && replacement.getAfter().equals(newVariable.getVariableName())) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
