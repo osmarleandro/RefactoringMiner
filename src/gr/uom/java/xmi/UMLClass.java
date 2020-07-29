@@ -10,6 +10,14 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
+
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
     private String sourceFile;
@@ -396,5 +404,33 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName, String sourceFile, List<String> importedTypes, UMLModelASTReader umlModelASTReader) {
+		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
+		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
+			if(bodyDeclaration instanceof FieldDeclaration) {
+				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
+				List<UMLAttribute> attributes = umlModelASTReader.processFieldDeclaration(cu, fieldDeclaration, isInterface(), sourceFile);
+	    		for(UMLAttribute attribute : attributes) {
+	    			attribute.setClassName(getName());
+	    			addAttribute(attribute);
+	    		}
+			}
+			else if(bodyDeclaration instanceof MethodDeclaration) {
+				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
+				UMLOperation operation = umlModelASTReader.processMethodDeclaration(cu, methodDeclaration, packageName, isInterface(), sourceFile);
+	    		operation.setClassName(getName());
+	    		addOperation(operation);
+			}
+			else if(bodyDeclaration instanceof TypeDeclaration) {
+				TypeDeclaration typeDeclaration = (TypeDeclaration)bodyDeclaration;
+				umlModelASTReader.processTypeDeclaration(cu, typeDeclaration, getName(), sourceFile, importedTypes);
+			}
+			else if(bodyDeclaration instanceof EnumDeclaration) {
+				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
+				umlModelASTReader.processEnumDeclaration(cu, enumDeclaration, getName(), sourceFile, importedTypes);
+			}
+		}
 	}
 }
