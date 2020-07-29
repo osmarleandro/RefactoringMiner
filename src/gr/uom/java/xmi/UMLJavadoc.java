@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean isStatic(UMLAttribute umlAttribute) {
+		return umlAttribute.isStatic;
+	}
 }
