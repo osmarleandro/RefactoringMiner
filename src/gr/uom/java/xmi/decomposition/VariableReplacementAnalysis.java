@@ -15,7 +15,6 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -422,7 +421,7 @@ public class VariableReplacementAnalysis {
 
 	private void findConsistentVariableRenames() {
 		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
-		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
+		Set<Replacement> allConsistentVariableDeclarationRenames = callSiteOperation.allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
@@ -446,7 +445,7 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = getReplacementOccurrenceMap(ReplacementType.VARIABLE_NAME);
-		Set<Replacement> allConsistentRenames = allConsistentRenames(replacementOccurrenceMap);
+		Set<Replacement> allConsistentRenames = callSiteOperation.allConsistentRenames(replacementOccurrenceMap);
 		Map<Replacement, Set<AbstractCodeMapping>> finalConsistentRenames = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(Replacement replacement : allConsistentRenames) {
 			SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement);
@@ -736,15 +735,6 @@ public class VariableReplacementAnalysis {
 				return true;
 		}
 		return false;
-	}
-
-	private Set<Replacement> allConsistentRenames(Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap) {
-		Set<Replacement> renames = replacementOccurrenceMap.keySet();
-		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
-		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
-		allConsistentRenames.removeAll(allInconsistentRenames);
-		return allConsistentRenames;
 	}
 
 	private boolean replacementInLocalVariableDeclaration(Replacement replacement, Set<AbstractCodeMapping> set) {
