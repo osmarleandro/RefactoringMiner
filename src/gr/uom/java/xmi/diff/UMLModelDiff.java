@@ -54,9 +54,9 @@ public class UMLModelDiff {
    private List<UMLRealizationDiff> realizationDiffList;
    
    private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -2034,37 +2034,19 @@ public class UMLModelDiff {
 	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
 	   List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass addedClass : addedClasses) {
-		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
+		   if(!addedClass.implementsInterface(interfaceIntersection) && !addedClass.outerClassMovedOrRenamed(this)) {
 			   addedOperations.addAll(addedClass.getOperations());
 		   }
 	   }
 	   List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass removedClass : removedClasses) {
-		   if(!removedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(removedClass)) {
+		   if(!removedClass.implementsInterface(interfaceIntersection) && !removedClass.outerClassMovedOrRenamed(this)) {
 			   removedOperations.addAll(removedClass.getOperations());
 		   }
 	   }
 	   if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
 		   checkForOperationMoves(addedOperations, removedOperations);
 	   }
-   }
-
-   private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
-	   if(!umlClass.isTopLevel()) {
-		   for(UMLClassMoveDiff diff : classMoveDiffList) {
-			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
-					   diff.getMovedClass().getName().equals(umlClass.getPackageName())) {
-				   return true;
-			   }
-		   }
-		   for(UMLClassRenameDiff diff : classRenameDiffList) {
-			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
-					   diff.getRenamedClass().getName().equals(umlClass.getPackageName())) {
-				   return true;
-			   }
-		   }
-	   }
-	   return false;
    }
 
    private void checkForOperationMoves(List<UMLOperation> addedOperations, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
