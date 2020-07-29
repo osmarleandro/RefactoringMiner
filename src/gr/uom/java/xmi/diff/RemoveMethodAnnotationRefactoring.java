@@ -13,9 +13,9 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class RemoveMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLAnnotation annotation;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	
 	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
 			UMLOperation operationAfter) {
@@ -94,12 +94,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		return result;
+		return annotation.hashCode(this);
 	}
 
 	@Override
