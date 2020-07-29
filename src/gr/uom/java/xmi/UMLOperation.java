@@ -833,4 +833,53 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean typeInferenceMatch(OperationInvocation operationInvocation, Map<String, UMLType> typeInferenceMapFromContext) {
+		List<UMLParameter> parameters = getParametersWithoutReturnType();
+		if(hasVarargsParameter()) {
+			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
+			if(operationInvocation.getArguments().size() < parameters.size()) {
+				int i = 0;
+				for(String argument : operationInvocation.getArguments()) {
+					if(typeInferenceMapFromContext.containsKey(argument)) {
+						UMLType argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType paremeterType = parameters.get(i).getType();
+						if(!argumentType.equals(paremeterType))
+							return false;
+					}
+					i++;
+				}
+			}
+			else {
+				int i = 0;
+				for(UMLParameter parameter : parameters) {
+					String argument = operationInvocation.getArguments().get(i);
+					if(typeInferenceMapFromContext.containsKey(argument)) {
+						UMLType argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType paremeterType = parameter.isVarargs() ?
+								UMLType.extractTypeObject(parameter.getType().getClassType()) :
+								parameter.getType();
+						if(!argumentType.equals(paremeterType))
+							return false;
+					}
+					i++;
+				}
+			}
+			
+		}
+		else {
+			//we expect an equal number of parameters and arguments
+			int i = 0;
+			for(String argument : operationInvocation.getArguments()) {
+				if(typeInferenceMapFromContext.containsKey(argument)) {
+					UMLType argumentType = typeInferenceMapFromContext.get(argument);
+					UMLType paremeterType = parameters.get(i).getType();
+					if(!argumentType.equals(paremeterType))
+						return false;
+				}
+				i++;
+			}
+		}
+		return true;
+	}
 }
