@@ -341,20 +341,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean isSubTypeOf(UMLClass umlClass) {
-		if(superclass != null) {
-			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
-				return true;
-			}
-		}
-		for(UMLType implementedInterface : implementedInterfaces) {
-			if(umlClass.getName().endsWith("." + implementedInterface.getClassType())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean importsType(String targetClass) {
 		if(targetClass.startsWith(getPackageName()))
 			return true;
@@ -396,5 +382,19 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public boolean isSubTypeOf(UMLClass umlClass2) {
+		if(umlClass2.superclass != null) {
+			if(getName().endsWith("." + umlClass2.superclass.getClassType())) {
+				return true;
+			}
+		}
+		for(UMLType implementedInterface : umlClass2.implementedInterfaces) {
+			if(getName().endsWith("." + implementedInterface.getClassType())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
