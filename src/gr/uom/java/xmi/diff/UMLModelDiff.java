@@ -2525,6 +2525,125 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	Set<Refactoring> inferAttributeMergesAndSplits(UMLClassBaseDiff umlClassBaseDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
+	Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
+	for(Replacement replacement : map.keySet()) {
+		Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
+		for(CandidateAttributeRefactoring candidate : candidates) {
+			String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
+			String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+			UMLOperationBodyMapper candidateMapper = null;
+			for(UMLOperationBodyMapper mapper : umlClassBaseDiff.operationBodyMapperList) {
+				if(mapper.getMappings().containsAll(candidate.getAttributeReferences())) {
+					candidateMapper = mapper;
+					break;
+				}
+				for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
+					if(nestedMapper.getMappings().containsAll(candidate.getAttributeReferences())) {
+						candidateMapper = nestedMapper;
+						break;
+					}
+				}
+			}
+			for(Refactoring refactoring : refactorings) {
+				if(refactoring instanceof MergeVariableRefactoring) {
+					MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
+					Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
+					String matchingVariableName = null;
+					for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
+						if(originalAttributeName.equals(variableDeclaration.getVariableName())) {
+							matchingVariableName = variableDeclaration.getVariableName();
+						}
+						else {
+							for(StatementObject statement : candidateMapper.getNonMappedLeavesT1()) {
+								if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
+										statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
+									nonMatchingVariableNames.add(variableDeclaration.getVariableName());
+									break;
+								}
+							}
+						}
+					}
+					if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
+						Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
+						Set<String> allMatchingVariables = new LinkedHashSet<String>();
+						if(merge.getMergedVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							allMatchingVariables.add(matchingVariableName);
+							allMatchingVariables.addAll(nonMatchingVariableNames);
+						}
+						else {
+							allMatchingVariables.addAll(nonMatchingVariableNames);
+							allMatchingVariables.add(matchingVariableName);
+						}
+						for(String mergedVariable : allMatchingVariables) {
+							UMLAttribute a1 = umlClassBaseDiff.findAttributeInOriginalClass(mergedVariable);
+							if(a1 != null) {
+								mergedAttributes.add(a1);
+								mergedVariables.add(a1.getVariableDeclaration());
+							}
+						}
+						UMLAttribute a2 = umlClassBaseDiff.findAttributeInNextClass(renamedAttributeName);
+						if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
+							MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), umlClassBaseDiff.getOriginalClassName(), umlClassBaseDiff.getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring>());
+							if(!refactorings.contains(ref)) {
+								newRefactorings.add(ref);
+							}
+						}
+					}
+				}
+				else if(refactoring instanceof SplitVariableRefactoring) {
+					SplitVariableRefactoring split = (SplitVariableRefactoring)refactoring;
+					Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
+					String matchingVariableName = null;
+					for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {
+						if(renamedAttributeName.equals(variableDeclaration.getVariableName())) {
+							matchingVariableName = variableDeclaration.getVariableName();
+						}
+						else {
+							for(StatementObject statement : candidateMapper.getNonMappedLeavesT2()) {
+								if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
+										statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
+									nonMatchingVariableNames.add(variableDeclaration.getVariableName());
+									break;
+								}
+							}
+						}
+					}
+					if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
+						Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
+						Set<String> allMatchingVariables = new LinkedHashSet<String>();
+						if(split.getSplitVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							allMatchingVariables.add(matchingVariableName);
+							allMatchingVariables.addAll(nonMatchingVariableNames);
+						}
+						else {
+							allMatchingVariables.addAll(nonMatchingVariableNames);
+							allMatchingVariables.add(matchingVariableName);
+						}
+						for(String splitVariable : allMatchingVariables) {
+							UMLAttribute a2 = umlClassBaseDiff.findAttributeInNextClass(splitVariable);
+							if(a2 != null) {
+								splitAttributes.add(a2);
+								splitVariables.add(a2.getVariableDeclaration());
+							}
+						}
+						UMLAttribute a1 = umlClassBaseDiff.findAttributeInOriginalClass(originalAttributeName);
+						if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
+							SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, umlClassBaseDiff.getOriginalClassName(), umlClassBaseDiff.getNextClassName(), new LinkedHashSet<CandidateSplitVariableRefactoring>());
+							if(!refactorings.contains(ref)) {
+								newRefactorings.add(ref);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return newRefactorings;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
