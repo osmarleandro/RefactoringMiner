@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.diff.CodeRange;
+
 public class UMLJavadoc {
 	private List<UMLTagElement> tags;
 
@@ -34,5 +36,9 @@ public class UMLJavadoc {
 			}
 		}
 		return false;
+	}
+
+	public CodeRange codeRange(UMLOperation umlOperation) {
+		return umlOperation.locationInfo.codeRange();
 	}
 }
