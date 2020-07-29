@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
-	protected int typeArguments;
+	public int typeArguments;
 	protected String expression;
 	protected List<String> arguments;
 	protected LocationInfo locationInfo;

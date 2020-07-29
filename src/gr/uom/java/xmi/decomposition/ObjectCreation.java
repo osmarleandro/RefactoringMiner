@@ -14,9 +14,9 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
-	private UMLType type;
+	public UMLType type;
 	private String anonymousClassDeclaration;
-	private boolean isArray = false;
+	public boolean isArray = false;
 	private volatile int hashCode = 0;
 	
 	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
@@ -80,16 +80,8 @@ public class ObjectCreation extends AbstractCall {
 	}
 
 	public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if (o instanceof ObjectCreation) {
-        	ObjectCreation creation = (ObjectCreation)o;
-            return type.equals(creation.type) && isArray == creation.isArray &&
-                typeArguments == creation.typeArguments;
-        }
-        return false;
-    }
+		return type.equals(this, o);
+	}
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
