@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public Map<String, Set<String>> aliasedAttributes() {
+		return aliasedAttributes();
+	}
 }
