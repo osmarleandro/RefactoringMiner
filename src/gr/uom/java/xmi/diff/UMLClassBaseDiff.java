@@ -58,7 +58,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
-	protected List<Refactoring> refactorings;
+	public List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
@@ -1653,19 +1653,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public int compareTo(UMLClassBaseDiff other) {
 		return this.originalClass.getName().compareTo(other.originalClass.getName());
-	}
-
-	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
-		for(Refactoring ref : refactorings) {
-			if(ref instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
-				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
-						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	public UMLModelDiff getModelDiff() {
