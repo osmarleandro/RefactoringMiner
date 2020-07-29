@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -72,6 +73,10 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public void addReplacement(AbstractCodeMapping abstractCodeMapping) {
+		abstractCodeMapping.replacements.add(this);
 	}
 
 	public enum ReplacementType {
