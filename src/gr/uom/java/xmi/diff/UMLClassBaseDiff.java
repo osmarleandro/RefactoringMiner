@@ -1276,7 +1276,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		UMLOperationBodyMapper bestMapper = mapperSet.first();
 		UMLOperation bestMapperOperation1 = bestMapper.getOperation1();
 		UMLOperation bestMapperOperation2 = bestMapper.getOperation2();
-		if(bestMapperOperation1.equalReturnParameter(bestMapperOperation2) &&
+		if(bestMapperOperation2.equalReturnParameter(bestMapperOperation1) &&
 				bestMapperOperation1.getName().equals(bestMapperOperation2.getName()) &&
 				bestMapperOperation1.commonParameterTypes(bestMapperOperation2).size() > 0) {
 			return bestMapper;
@@ -1479,7 +1479,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
 			UMLType type1 = removedOperation.getReturnParameter().getType();
 			UMLType type2 = addedOperation.getReturnParameter().getType();
-			if(!removedOperation.equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
+			if(!addedOperation.equalReturnParameter(removedOperation) && !type1.compatibleTypes(type2)) {
 				return true;
 			}
 		}
