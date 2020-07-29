@@ -35,4 +35,14 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public int getNumberOfNonVarargsParameters(UMLOperation umlOperation) {
+		int counter = 0;
+		for(UMLParameter parameter : umlOperation.parameters) {
+			if(!parameter.getKind().equals("return") && !parameter.isVarargs()) {
+				counter++;
+			}
+		}
+		return counter;
+	}
 }

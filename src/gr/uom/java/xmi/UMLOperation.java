@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -394,16 +394,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				parameterNameList.add(parameter.getName());
 		}
 		return parameterNameList;
-	}
-
-	public int getNumberOfNonVarargsParameters() {
-		int counter = 0;
-		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return") && !parameter.isVarargs()) {
-				counter++;
-			}
-		}
-		return counter;
 	}
 
 	public boolean hasVarargsParameter() {
