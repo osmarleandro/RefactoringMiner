@@ -833,4 +833,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public UMLOperation getOperation1() {
+		return this;
+	}
 }
