@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration changedTypeAttribute;
-	private String classNameBefore;
+	public String classNameBefore;
 	private String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private Set<Refactoring> relatedRefactorings;
@@ -44,10 +44,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 
 	public VariableDeclaration getChangedTypeAttribute() {
 		return changedTypeAttribute;
-	}
-
-	public String getClassNameBefore() {
-		return classNameBefore;
 	}
 
 	public String getClassNameAfter() {
@@ -125,7 +121,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), changedTypeAttribute.getClassNameBefore(this)));
 		return pairs;
 	}
 
