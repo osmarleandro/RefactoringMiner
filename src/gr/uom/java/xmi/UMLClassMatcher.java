@@ -13,7 +13,7 @@ public interface UMLClassMatcher {
 	public static class RelaxedMove implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
 			return removedClass.hasSameNameAndKind(addedClass) 
-					&& (removedClass.hasCommonAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
+					&& (addedClass.hasCommonAttributesAndOperations(removedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
@@ -34,7 +34,7 @@ public interface UMLClassMatcher {
 	public static class RelaxedRename implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
 			return removedClass.hasSameKind(addedClass) 
-					&& (removedClass.hasCommonAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
+					&& (addedClass.hasCommonAttributesAndOperations(removedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
