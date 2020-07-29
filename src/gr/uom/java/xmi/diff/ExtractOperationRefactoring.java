@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
-	private UMLOperation extractedOperation;
+	public UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
@@ -85,10 +85,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public UMLOperationBodyMapper getBodyMapper() {
 		return bodyMapper;
-	}
-
-	public UMLOperation getExtractedOperation() {
-		return extractedOperation;
 	}
 
 	public UMLOperation getSourceOperationBeforeExtraction() {
@@ -166,7 +162,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
+		if(!getSourceOperationAfterExtraction().getClassName().equals(bodyMapper.getExtractedOperation(this).getClassName()))
 			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
 		return RefactoringType.EXTRACT_OPERATION;
 	}
@@ -180,7 +176,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getClassName()));
-		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(bodyMapper.getExtractedOperation(this).getLocationInfo().getFilePath(), bodyMapper.getExtractedOperation(this).getClassName()));
 		return pairs;
 	}
 
