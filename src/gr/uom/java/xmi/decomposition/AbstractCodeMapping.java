@@ -20,10 +20,10 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	AbstractCodeFragment fragment1;
+	AbstractCodeFragment fragment2;
+	UMLOperation operation1;
+	UMLOperation operation2;
 	private Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
@@ -442,33 +442,6 @@ public abstract class AbstractCodeMapping {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AbstractCodeMapping other = (AbstractCodeMapping) obj;
-		if (fragment1 == null) {
-			if (other.fragment1 != null)
-				return false;
-		} else if (!fragment1.equals(other.fragment1))
-			return false;
-		if (fragment2 == null) {
-			if (other.fragment2 != null)
-				return false;
-		} else if (!fragment2.equals(other.fragment2))
-			return false;
-		if (operation1 == null) {
-			if (other.operation1 != null)
-				return false;
-		} else if (!operation1.equals(other.operation1))
-			return false;
-		if (operation2 == null) {
-			if (other.operation2 != null)
-				return false;
-		} else if (!operation2.equals(other.operation2))
-			return false;
-		return true;
+		return fragment1.equals(this, obj);
 	}
 }
