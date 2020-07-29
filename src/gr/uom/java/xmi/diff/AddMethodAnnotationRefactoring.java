@@ -15,7 +15,7 @@ import gr.uom.java.xmi.UMLOperation;
 public class AddMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	
 	public AddMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
 			UMLOperation operationAfter) {
@@ -30,10 +30,6 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
-	}
-
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
 	}
 
 	@Override
@@ -77,7 +73,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(annotation.getOperationAfter(this).getLocationInfo().getFilePath(), annotation.getOperationAfter(this).getClassName()));
 		return pairs;
 	}
 
