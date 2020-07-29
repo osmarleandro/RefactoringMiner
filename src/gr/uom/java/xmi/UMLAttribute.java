@@ -109,12 +109,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
-		if(this.name.equals(attribute.name) && this.type.equals(attribute.type))
-			return true;
-		return false;
-	}
-
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
@@ -170,5 +164,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equalsIgnoringChangedVisibility(UMLAttribute umlAttribute) {
+		if(umlAttribute.name.equals(name) && umlAttribute.type.equals(type))
+			return true;
+		return false;
 	}
 }

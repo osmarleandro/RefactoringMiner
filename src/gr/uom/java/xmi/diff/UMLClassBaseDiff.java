@@ -410,7 +410,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLAttribute containsRemovedAttributeWithTheSameSignature(UMLAttribute attribute) {
 		for(UMLAttribute removedAttribute : removedAttributes) {
-			if(removedAttribute.equalsIgnoringChangedVisibility(attribute))
+			if(attribute.equalsIgnoringChangedVisibility(removedAttribute))
 				return removedAttribute;
 		}
 		return null;
