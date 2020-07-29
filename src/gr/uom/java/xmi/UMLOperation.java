@@ -7,9 +7,11 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -830,6 +832,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public UMLOperationBodyMapper findMapperWithMatchingSignature2(UMLClassBaseDiff umlClassBaseDiff) {
+		for(UMLOperationBodyMapper mapper : umlClassBaseDiff.operationBodyMapperList) {
+			if(mapper.getOperation2().equalSignature(this)) {
+				return mapper;
+			}
 		}
 		return null;
 	}
