@@ -399,7 +399,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public int getNumberOfNonVarargsParameters() {
 		int counter = 0;
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return") && !parameter.isVarargs()) {
+			if(!parameter.getKind().equals("return") && !parameter.getType().isVarargs(this)) {
 				counter++;
 			}
 		}
@@ -408,7 +408,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean hasVarargsParameter() {
 		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return") && parameter.isVarargs()) {
+			if(!parameter.getKind().equals("return") && parameter.getType().isVarargs(this)) {
 				return true;
 			}
 		}
