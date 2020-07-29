@@ -42,4 +42,15 @@ public class RenamePattern {
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
 	}
+
+	public String toString(MoveSourceFolderRefactoring moveSourceFolderRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(moveSourceFolderRefactoring.getName()).append("\t");
+		String originalPath = getBefore().endsWith("/") ? getBefore().substring(0, getBefore().length()-1) : getBefore();
+		sb.append(originalPath);
+		sb.append(" to ");
+		String movedPath = getAfter().endsWith("/") ? getAfter().substring(0, getAfter().length()-1) : getAfter();
+		sb.append(movedPath);
+		return sb.toString();
+	}
 }

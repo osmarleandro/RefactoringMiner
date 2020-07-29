@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
 	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
-	private RenamePattern pattern;
+	RenamePattern pattern;
 	
 	public MoveSourceFolderRefactoring(RenamePattern pattern) {
 		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
@@ -37,14 +37,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		String originalPath = pattern.getBefore().endsWith("/") ? pattern.getBefore().substring(0, pattern.getBefore().length()-1) : pattern.getBefore();
-		sb.append(originalPath);
-		sb.append(" to ");
-		String movedPath = pattern.getAfter().endsWith("/") ? pattern.getAfter().substring(0, pattern.getAfter().length()-1) : pattern.getAfter();
-		sb.append(movedPath);
-		return sb.toString();
+		return pattern.toString(this);
 	}
 
 	public String getName() {
