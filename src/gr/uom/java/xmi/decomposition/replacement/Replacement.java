@@ -1,5 +1,12 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.AbstractMap.SimpleEntry;
+
+import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -72,6 +79,30 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(VariableReplacementAnalysis variableReplacementAnalysis, AbstractCodeMapping mapping) {
+		if(mapping.getReplacements().contains(this)) {
+			VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(getAfter());
+			if(vd != null) {
+				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
+			}
+		}
+		for(UMLParameter parameter : variableReplacementAnalysis.operation2.getParameters()) {
+			VariableDeclaration vd = parameter.getVariableDeclaration();
+			if(vd != null && vd.getVariableName().equals(getAfter())) {
+				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, variableReplacementAnalysis.operation2);
+			}
+		}
+		if(variableReplacementAnalysis.callSiteOperation != null) {
+			for(UMLParameter parameter : variableReplacementAnalysis.callSiteOperation.getParameters()) {
+				VariableDeclaration vd = parameter.getVariableDeclaration();
+				if(vd != null && vd.getVariableName().equals(getAfter())) {
+					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, variableReplacementAnalysis.callSiteOperation);
+				}
+			}
+		}
+		return null;
 	}
 
 	public enum ReplacementType {
