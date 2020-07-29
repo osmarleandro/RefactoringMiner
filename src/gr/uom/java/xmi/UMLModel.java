@@ -125,7 +125,7 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
     	for(UMLGeneralization umlGeneralization : generalizationList) {
     		if(!umlModel.generalizationList.contains(umlGeneralization))
-    			modelDiff.reportRemovedGeneralization(umlGeneralization);
+    			umlGeneralization.reportRemovedGeneralization(modelDiff);
     	}
     	for(UMLGeneralization umlGeneralization : umlModel.generalizationList) {
     		if(!this.generalizationList.contains(umlGeneralization))

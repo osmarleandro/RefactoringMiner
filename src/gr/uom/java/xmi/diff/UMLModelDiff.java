@@ -47,7 +47,7 @@ public class UMLModelDiff {
    private List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
-   private List<UMLGeneralization> removedGeneralizations;
+   public List<UMLGeneralization> removedGeneralizations;
    private List<UMLGeneralizationDiff> generalizationDiffList;
    private List<UMLRealization> addedRealizations;
    private List<UMLRealization> removedRealizations;
@@ -89,10 +89,6 @@ public class UMLModelDiff {
 
    public void reportAddedGeneralization(UMLGeneralization umlGeneralization) {
       this.addedGeneralizations.add(umlGeneralization);
-   }
-
-   public void reportRemovedGeneralization(UMLGeneralization umlGeneralization) {
-      this.removedGeneralizations.add(umlGeneralization);
    }
 
    public void reportAddedRealization(UMLRealization umlRealization) {
