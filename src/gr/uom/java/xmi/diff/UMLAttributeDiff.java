@@ -16,7 +16,7 @@ public class UMLAttributeDiff {
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
-	private boolean qualifiedTypeChanged;
+	public boolean qualifiedTypeChanged;
 	private boolean renamed;
 	private boolean staticChanged;
 	private boolean finalChanged;
@@ -65,10 +65,6 @@ public class UMLAttributeDiff {
 
 	public boolean isTypeChanged() {
 		return typeChanged;
-	}
-
-	public boolean isQualifiedTypeChanged() {
-		return qualifiedTypeChanged;
 	}
 
 	public boolean isEmpty() {
@@ -122,7 +118,7 @@ public class UMLAttributeDiff {
 
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(isTypeChanged() || addedAttribute.isQualifiedTypeChanged(this)) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
@@ -138,7 +134,7 @@ public class UMLAttributeDiff {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(isTypeChanged() || addedAttribute.isQualifiedTypeChanged(this)) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
