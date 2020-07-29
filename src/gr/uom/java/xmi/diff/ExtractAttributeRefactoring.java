@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
-	private UMLAttribute attributeDeclaration;
+	public UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
@@ -47,12 +47,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(attributeDeclaration);
-		sb.append(" in class ");
-		sb.append(attributeDeclaration.getClassName());
-		return sb.toString();
+		return attributeDeclaration.toString(this);
 	}
 
 	/**
