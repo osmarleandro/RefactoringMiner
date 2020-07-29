@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private String name;
@@ -115,5 +116,18 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				return name + " " + type.toQualifiedString();
 			}
 		}
+	}
+
+	public boolean existsAnotherAddedParameterWithTheSameType(UMLOperationDiff umlOperationDiff) {
+		if(umlOperationDiff.removedOperation.hasTwoParametersWithTheSameType() && umlOperationDiff.addedOperation.hasTwoParametersWithTheSameType()) {
+			return false;
+		}
+		for(UMLParameter addedParameter : umlOperationDiff.addedParameters) {
+			if(!addedParameter.getName().equals(getName()) &&
+					addedParameter.getType().equalsQualified(getType())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

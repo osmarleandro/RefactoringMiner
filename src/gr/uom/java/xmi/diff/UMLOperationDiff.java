@@ -19,9 +19,9 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 
 public class UMLOperationDiff {
-	private UMLOperation removedOperation;
-	private UMLOperation addedOperation;
-	private List<UMLParameter> addedParameters;
+	public UMLOperation removedOperation;
+	public UMLOperation addedOperation;
+	public List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
 	private boolean visibilityChanged;
@@ -83,7 +83,7 @@ public class UMLOperationDiff {
 			for(Iterator<UMLParameter> addedParameterIterator = addedParameters.iterator(); addedParameterIterator.hasNext();) {
 				UMLParameter addedParameter = addedParameterIterator.next();
 				if(removedParameter.getType().equalsQualified(addedParameter.getType()) &&
-						!existsAnotherAddedParameterWithTheSameType(addedParameter)) {
+						!addedParameter.existsAnotherAddedParameterWithTheSameType(this)) {
 					UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
 					parameterDiffList.add(parameterDiff);
 					addedParameterIterator.remove();
@@ -116,19 +116,6 @@ public class UMLOperationDiff {
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping> mappings) {
 		this(removedOperation, addedOperation);
 		this.mappings = mappings;
-	}
-
-	private boolean existsAnotherAddedParameterWithTheSameType(UMLParameter parameter) {
-		if(removedOperation.hasTwoParametersWithTheSameType() && addedOperation.hasTwoParametersWithTheSameType()) {
-			return false;
-		}
-		for(UMLParameter addedParameter : addedParameters) {
-			if(!addedParameter.getName().equals(parameter.getName()) &&
-					addedParameter.getType().equalsQualified(parameter.getType())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation removedOperation, UMLOperation addedOperation) {
