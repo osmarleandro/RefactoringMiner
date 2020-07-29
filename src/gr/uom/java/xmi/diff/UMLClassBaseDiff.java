@@ -1111,7 +1111,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		else {
 			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
 				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
-						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
+						replacement.getInvokedOperationAfter().getInvokedOperationAfter().matchesOperation(addedOperation)) {
 					mapperSet.add(operationBodyMapper);
 					break;
 				}

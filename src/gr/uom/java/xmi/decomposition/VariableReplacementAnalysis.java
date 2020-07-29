@@ -573,7 +573,7 @@ public class VariableReplacementAnalysis {
 				else if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION)) {
 					MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
 					OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
-					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
+					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter().getInvokedOperationAfter();
 					if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments().size() == invocation2.getArguments().size()) {
 						for(int i=0; i<invocation1.getArguments().size(); i++) {
 							String argument1 = invocation1.getArguments().get(i);
