@@ -1453,7 +1453,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
 				tryMappings++;
 			}
-			if(mapping.containsReplacement(ReplacementType.TYPE)) {
+			if(ReplacementType.TYPE.containsReplacement(mapping)) {
 				mappingsWithTypeReplacement++;
 			}
 		}

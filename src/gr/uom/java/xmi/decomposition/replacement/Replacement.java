@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -113,5 +115,14 @@ public class Replacement {
 		EXPRESSION_REPLACED_WITH_TERNARY_THEN,
 		COMPOSITE,
 		CONCATENATION, CONDITIONAL;
+
+		public boolean containsReplacement(AbstractCodeMapping abstractCodeMapping) {
+			for(Replacement replacement : abstractCodeMapping.replacements) {
+				if(replacement.getType().equals(this)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

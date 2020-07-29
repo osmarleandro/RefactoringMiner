@@ -269,7 +269,7 @@ public class ExtractOperationDetection {
 			}
 		}
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
-		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
+		return totalMappings.size() == 1 && ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION.containsReplacement(totalMappings.get(0)) &&
 				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
 	}
