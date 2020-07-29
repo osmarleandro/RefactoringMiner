@@ -52,7 +52,7 @@ public class UMLOperationDiff {
 			returnTypeChanged = true;
 		else if(!removedOperation.equalQualifiedReturnParameter(addedOperation))
 			qualifiedReturnTypeChanged = true;
-		this.annotationListDiff = new UMLAnnotationListDiff(removedOperation.getAnnotations(), addedOperation.getAnnotations());
+		this.annotationListDiff = new UMLAnnotationListDiff(removedOperation.getJavadoc().getAnnotations(this), addedOperation.getJavadoc().getAnnotations(this));
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = updateAddedRemovedParameters(removedOperation, addedOperation);
 		for(SimpleEntry<UMLParameter, UMLParameter> matchedParameter : matchedParameters) {
 			UMLParameter parameter1 = matchedParameter.getKey();
