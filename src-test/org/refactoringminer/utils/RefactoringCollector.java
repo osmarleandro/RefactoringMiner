@@ -36,7 +36,7 @@ public class RefactoringCollector extends RefactoringHandler {
         }
       } else if (r instanceof MoveOperationRefactoring) {
         MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getBodyMapper().getOriginalOperation(this).getKey(), ref.getMovedOperation().getKey()));
       } else if (r instanceof RenameOperationRefactoring) {
         RenameOperationRefactoring ref = (RenameOperationRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey()));

@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4161,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public UMLOperation getOriginalOperation(MoveOperationRefactoring moveOperationRefactoring) {
+		return moveOperationRefactoring.originalOperation;
 	}
 }
