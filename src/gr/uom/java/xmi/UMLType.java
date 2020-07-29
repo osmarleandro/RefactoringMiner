@@ -24,7 +24,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
-	private List<UMLType> typeArguments = new ArrayList<UMLType>();
+	List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
 	public LocationInfo getLocationInfo() {
@@ -66,7 +66,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	protected String typeArgumentsAndArrayDimensionToString() {
 		StringBuilder sb = new StringBuilder();
-		if(isParameterized())
+		if(locationInfo.isParameterized(this))
 			sb.append(typeArgumentsToString());
 		for(int i=0; i<getArrayDimension(); i++)
 			sb.append("[]");
@@ -98,21 +98,21 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
+		if(!this.getLocationInfo().isParameterized(this) && !typeObject.getLocationInfo().isParameterized(this))
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
+		else if(this.getLocationInfo().isParameterized(this) && typeObject.getLocationInfo().isParameterized(this))
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
 
 	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
+		if(!this.getLocationInfo().isParameterized(this) && !typeObject.getLocationInfo().isParameterized(this))
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
+		else if(this.getLocationInfo().isParameterized(this) && typeObject.getLocationInfo().isParameterized(this))
 			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized())
+		else if(this.getLocationInfo().isParameterized(this) && this.typeArgumentsToString().equals("<?>") && !typeObject.getLocationInfo().isParameterized(this))
 			return this.arrayDimension == typeObject.arrayDimension;
-		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString().equals("<?>"))
+		else if(!this.getLocationInfo().isParameterized(this) && typeObject.getLocationInfo().isParameterized(this) && typeObject.typeArgumentsToString().equals("<?>"))
 			return this.arrayDimension == typeObject.arrayDimension;
 		return false;
 	}
@@ -124,10 +124,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			}
 		}
 		return false;
-	}
-
-	public boolean isParameterized() {
-		return typeArguments.size() > 0;
 	}
 
 	public abstract boolean equals(Object o);

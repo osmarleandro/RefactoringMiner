@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isParameterized(UMLType umlType) {
+		return umlType.typeArguments.size() > 0;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
