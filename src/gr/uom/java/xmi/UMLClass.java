@@ -305,10 +305,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return getName();
     }
 
-	public int compareTo(UMLClass umlClass) {
-		return this.toString().compareTo(umlClass.toString());
-	}
-
 	public double normalizedNameDistance(UMLClass c) {
 		String s1 = name.toLowerCase();
 		String s2 = c.name.toLowerCase();
@@ -396,5 +392,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public int compareTo(UMLClass umlClass2) {
+		return umlClass2.toString().compareTo(toString());
 	}
 }
