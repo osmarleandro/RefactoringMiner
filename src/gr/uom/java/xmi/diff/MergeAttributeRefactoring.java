@@ -15,7 +15,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	private Set<VariableDeclaration> mergedAttributes;
 	private VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
-	private String classNameBefore;
+	public String classNameBefore;
 	private String classNameAfter;
 	
 	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
@@ -37,10 +37,6 @@ public class MergeAttributeRefactoring implements Refactoring {
 
 	public Set<CandidateMergeVariableRefactoring> getAttributeMerges() {
 		return attributeMerges;
-	}
-
-	public String getClassNameBefore() {
-		return classNameBefore;
 	}
 
 	public String getClassNameAfter() {
@@ -111,7 +107,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration mergedAttribute : this.mergedAttributes) {
-			pairs.add(new ImmutablePair<String, String>(mergedAttribute.getLocationInfo().getFilePath(), getClassNameBefore()));
+			pairs.add(new ImmutablePair<String, String>(mergedAttribute.getLocationInfo().getFilePath(), newAttribute.getClassNameBefore(this)));
 		}
 		return pairs;
 	}
