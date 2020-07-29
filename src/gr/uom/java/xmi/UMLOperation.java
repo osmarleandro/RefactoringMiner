@@ -23,10 +23,10 @@ import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private String visibility;
-	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	String name;
+	String visibility;
+	boolean isAbstract;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -596,35 +596,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		if(returnParameter != null) {
 			sb.append(" : ");
 			sb.append(returnParameter.toString());
-		}
-		return sb.toString();
-	}
-
-	public String toQualifiedString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(visibility);
-		sb.append(" ");
-		if(isAbstract) {
-			sb.append("abstract");
-			sb.append(" ");
-		}
-		sb.append(name);
-		UMLParameter returnParameter = getReturnParameter();
-		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
-		parameters.remove(returnParameter);
-		sb.append("(");
-		for(int i=0; i<parameters.size(); i++) {
-			UMLParameter parameter = parameters.get(i);
-			if(parameter.getKind().equals("in")) {
-				sb.append(parameter.toQualifiedString());
-				if(i < parameters.size()-1)
-					sb.append(", ");
-			}
-		}
-		sb.append(")");
-		if(returnParameter != null) {
-			sb.append(" : ");
-			sb.append(returnParameter.toQualifiedString());
 		}
 		return sb.toString();
 	}

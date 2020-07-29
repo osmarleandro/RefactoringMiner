@@ -65,7 +65,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		sb.append(" to ");
 		sb.append(qualified ? changedType.toQualifiedString() : changedType.toString());
 		sb.append(" in method ");
-		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString());
+		sb.append(qualified ? operationAfter.getJavadoc().toQualifiedString(this) : operationAfter.toString());
 		sb.append(" in class ").append(operationAfter.getClassName());
 		return sb.toString();
 	}
