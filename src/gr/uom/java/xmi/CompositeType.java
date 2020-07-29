@@ -1,8 +1,8 @@
 package gr.uom.java.xmi;
 
 public class CompositeType extends UMLType {
-	private UMLType leftType;
-	private LeafType rightType;
+	UMLType leftType;
+	LeafType rightType;
 
 	public CompositeType(UMLType leftType, LeafType rightType) {
 		this.leftType = leftType;
@@ -19,11 +19,7 @@ public class CompositeType extends UMLType {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((leftType == null) ? 0 : leftType.hashCode());
-		result = prime * result + ((rightType == null) ? 0 : rightType.hashCode());
-		return result;
+		return leftType.hashCode(this);
 	}
 
 	@Override
