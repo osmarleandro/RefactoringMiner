@@ -833,4 +833,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public void removeCommonElements(Set<String> strings1, Set<String> strings2) {
+		Set<String> intersection = new LinkedHashSet<String>(strings1);
+		intersection.retainAll(strings2);
+		strings1.removeAll(intersection);
+		strings2.removeAll(intersection);
+	}
 }
