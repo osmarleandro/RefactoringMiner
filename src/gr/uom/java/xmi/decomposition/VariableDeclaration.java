@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -18,6 +19,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -255,5 +257,66 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	boolean variableAppearsInExtractedMethod(VariableReplacementAnalysis variableReplacementAnalysis, VariableDeclaration v2) {
+		if(this != null) {
+			for(UMLOperationBodyMapper mapper : variableReplacementAnalysis.childMappers) {
+				for(AbstractCodeMapping mapping : mapper.getMappings()) {
+					if(mapping.getFragment1().getVariableDeclarations().contains(this)) {
+						if(v2 != null && v2.getInitializer() != null) {
+							UMLOperation extractedMethod = mapper.getOperation2();
+							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
+							for(String key : methodInvocationMap.keySet()) {
+								for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+									if(invocation.matchesOperation(extractedMethod, variableReplacementAnalysis.operation2.variableTypeMap(), null)) {
+										return false;
+									}
+									else {
+										//check if the extracted method is called in the initializer of a variable used in the initializer of v2
+										List<String> initializerVariables = v2.getInitializer().getVariables();
+										for(String variable : initializerVariables) {
+											for(VariableDeclaration declaration : variableReplacementAnalysis.operation2.getAllVariableDeclarations()) {
+												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
+													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
+													for(String key2 : methodInvocationMap2.keySet()) {
+														for(OperationInvocation invocation2 : methodInvocationMap2.get(key2)) {
+															if(invocation2.matchesOperation(extractedMethod, variableReplacementAnalysis.operation2.variableTypeMap(), null)) {
+																return false;
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						return true;
+					}
+				}
+				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
+					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(getVariableName());
+					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(getType())) {
+						for(AbstractCodeMapping mapping : mapper.getMappings()) {
+							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
+								if(mapping.getFragment1() instanceof CompositeStatementObject) {
+									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();
+									List<StatementObject> leaves1 = composite1.getLeaves();
+									for(StatementObject leaf1 : leaves1) {
+										VariableDeclaration variableDeclaration1 = leaf1.getVariableDeclaration(variableDeclaration2.getVariableName());
+										if(variableDeclaration1 != null) {
+											return true;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
