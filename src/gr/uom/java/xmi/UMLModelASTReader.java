@@ -197,7 +197,7 @@ public class UMLModelASTReader {
 			return;
 		}
 		String className = enumDeclaration.getName().getFullyQualifiedName();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
+		LocationInfo locationInfo = CodeElementType.TYPE_DECLARATION.generateLocationInfo(cu, sourceFile, enumDeclaration);
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
 		umlClass.setJavadoc(javadoc);
 		
@@ -247,7 +247,7 @@ public class UMLModelASTReader {
 			return;
 		}
 		String className = typeDeclaration.getName().getFullyQualifiedName();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, typeDeclaration, CodeElementType.TYPE_DECLARATION);
+		LocationInfo locationInfo = CodeElementType.TYPE_DECLARATION.generateLocationInfo(cu, sourceFile, typeDeclaration);
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, typeDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
 		umlClass.setJavadoc(javadoc);
 		
@@ -388,7 +388,7 @@ public class UMLModelASTReader {
 	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
 		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
+		LocationInfo locationInfo = CodeElementType.METHOD_DECLARATION.generateLocationInfo(cu, sourceFile, methodDeclaration);
 		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
 		umlOperation.setJavadoc(javadoc);
 		
@@ -482,7 +482,7 @@ public class UMLModelASTReader {
 		for(VariableDeclarationFragment fragment : fragments) {
 			UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
 			String fieldName = fragment.getName().getFullyQualifiedName();
-			LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
+			LocationInfo locationInfo = CodeElementType.FIELD_DECLARATION.generateLocationInfo(cu, sourceFile, fragment);
 			UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
 			variableDeclaration.setAttribute(true);
@@ -514,7 +514,7 @@ public class UMLModelASTReader {
 	
 	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
 		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
+		LocationInfo locationInfo = CodeElementType.ANONYMOUS_CLASS_DECLARATION.generateLocationInfo(cu, sourceFile, anonymous);
 		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
 		
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
@@ -625,9 +625,5 @@ public class UMLModelASTReader {
 			current = current.getParent();
 		}
 		return false;
-	}
-
-	private LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
-		return new LocationInfo(cu, sourceFile, node, codeElementType);
 	}
 }

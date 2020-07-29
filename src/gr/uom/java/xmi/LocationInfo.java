@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -208,6 +209,10 @@ public class LocationInfo {
 		public CodeElementType setName(String name) {
 			this.name = name;
 			return this;
+		}
+
+		LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node) {
+			return new LocationInfo(cu, sourceFile, node, this);
 		}
 	}
 }
