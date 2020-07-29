@@ -280,16 +280,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     		return false;
     	if(this.isInterface != umlClass.isInterface)
     		return false;
-    	if(!equalTypeParameters(umlClass))
+    	if(!umlClass.equalTypeParameters(this))
     		return false;
     	return true;
     }
 
-	private boolean equalTypeParameters(UMLClass umlClass) {
-		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
-	}
-
-    public boolean equals(Object o) {
+	public boolean equals(Object o) {
     	if(this == o) {
     		return true;
     	}
@@ -396,5 +392,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	boolean equalTypeParameters(UMLClass umlClass2) {
+		return umlClass2.typeParameters.equals(typeParameters) || umlClass2.getTypeParameterNames().equals(getTypeParameterNames());
 	}
 }
