@@ -14,14 +14,14 @@ import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 public class UMLAttributeDiff {
 	private UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
-	private boolean visibilityChanged;
-	private boolean typeChanged;
-	private boolean qualifiedTypeChanged;
-	private boolean renamed;
+	public boolean visibilityChanged;
+	public boolean typeChanged;
+	public boolean qualifiedTypeChanged;
+	public boolean renamed;
 	private boolean staticChanged;
 	private boolean finalChanged;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private UMLAnnotationListDiff annotationListDiff;
+	public UMLAnnotationListDiff annotationListDiff;
 
 	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
@@ -71,13 +71,9 @@ public class UMLAttributeDiff {
 		return qualifiedTypeChanged;
 	}
 
-	public boolean isEmpty() {
-		return !visibilityChanged && !typeChanged && !renamed && !qualifiedTypeChanged && annotationListDiff.isEmpty();
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
+		if(!addedAttribute.isEmpty(this))
 			sb.append("\t").append(removedAttribute).append("\n");
 		if(renamed)
 			sb.append("\t").append("renamed from " + removedAttribute.getName() + " to " + addedAttribute.getName()).append("\n");
