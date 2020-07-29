@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<UMLAnonymousClass> getAnonymousClassList(UMLClass umlClass) {
+		return umlClass.anonymousClassList;
+	}
 }

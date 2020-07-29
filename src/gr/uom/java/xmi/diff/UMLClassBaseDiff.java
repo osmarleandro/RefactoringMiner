@@ -143,11 +143,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void processAnonymousClasses() {
-		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
+		for(UMLAnonymousClass umlAnonymousClass : originalClass.getJavadoc().getAnonymousClassList(this)) {
     		if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
     			this.removedAnonymousClasses.add(umlAnonymousClass);
     	}
-    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
+    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getJavadoc().getAnonymousClassList(this)) {
     		if(!originalClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
     			this.addedAnonymousClasses.add(umlAnonymousClass);
     	}
