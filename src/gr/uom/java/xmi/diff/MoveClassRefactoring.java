@@ -79,7 +79,7 @@ public class MoveClassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(originalClass.codeRange()
+		ranges.add(originalClass.getLocationInfo().codeRange()
 				.setDescription("original type declaration")
 				.setCodeElement(originalClass.getName()));
 		return ranges;
@@ -88,7 +88,7 @@ public class MoveClassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedClass.codeRange()
+		ranges.add(movedClass.getLocationInfo().codeRange()
 				.setDescription("moved type declaration")
 				.setCodeElement(movedClass.getName()));
 		return ranges;
