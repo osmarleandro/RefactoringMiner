@@ -1491,7 +1491,7 @@ public class UMLModelDiff {
 	  for(Refactoring ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
     		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
+    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getChangedTypeVariable().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
@@ -1605,8 +1605,8 @@ public class UMLModelDiff {
 				   }
 				   UMLParameter matchingAddedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
-					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
-							   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
+					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getChangedTypeVariable().getVariableName()) &&
+							   parameter.getType().equals(changeType.getChangedTypeVariable().getChangedTypeVariable().getType())) {
 						   matchingAddedParameter = parameter;
 						   break;
 					   }
