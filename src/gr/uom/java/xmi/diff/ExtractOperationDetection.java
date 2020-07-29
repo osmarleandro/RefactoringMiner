@@ -38,7 +38,7 @@ public class ExtractOperationDetection {
 
 	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
 		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
-		if(!mapper.getNonMappedLeavesT1().isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
+		if(!mapper.getCallSiteOperation().getNonMappedLeavesT1(this).isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
 			List<OperationInvocation> addedOperationInvocations = matchingInvocations(addedOperation, operationInvocations, mapper.getOperation2().variableTypeMap());
 			if(addedOperationInvocations.size() > 0) {
@@ -99,8 +99,8 @@ public class ExtractOperationDetection {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
-									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {
-										mapper.getNonMappedLeavesT1().add((StatementObject)fragment1);
+									if(!mapper.getCallSiteOperation().getNonMappedLeavesT1(this).contains(fragment1)) {
+										mapper.getCallSiteOperation().getNonMappedLeavesT1(this).add((StatementObject)fragment1);
 									}
 								}
 								else if(fragment1 instanceof CompositeStatementObject) {

@@ -709,7 +709,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
 							else {
-								for(StatementObject statement : candidateMapper.getNonMappedLeavesT1()) {
+								for(StatementObject statement : candidateMapper.getCallSiteOperation().getNonMappedLeavesT1(this)) {
 									if(statement.getString().startsWith(variableDeclaration.getVariableName() + "=") ||
 											statement.getString().startsWith("this." + variableDeclaration.getVariableName() + "=")) {
 										nonMatchingVariableNames.add(variableDeclaration.getVariableName());
@@ -1162,7 +1162,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
 				List<String> nonMappedLeavesT1 = new ArrayList<String>();
-				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+				for(StatementObject statement : operationBodyMapper.getCallSiteOperation().getNonMappedLeavesT1(this)) {
 					if(statement.countableStatement()) {
 						nonMappedLeavesT1.add(statement.getString());
 						for(String parameterName : addedOperation.getParameterNameList()) {
@@ -1207,7 +1207,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
 				StatementObject statementUsingParameterAsInvoker1 = null;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
-				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+				for(StatementObject statement : operationBodyMapper.getCallSiteOperation().getNonMappedLeavesT1(this)) {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
@@ -1359,7 +1359,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean singleUnmatchedStatementCallsAddedOperation(UMLOperationBodyMapper operationBodyMapper) {
-		List<StatementObject> nonMappedLeavesT1 = operationBodyMapper.getNonMappedLeavesT1();
+		List<StatementObject> nonMappedLeavesT1 = operationBodyMapper.getCallSiteOperation().getNonMappedLeavesT1(this);
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
