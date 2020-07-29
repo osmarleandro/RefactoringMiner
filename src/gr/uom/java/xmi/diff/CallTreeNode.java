@@ -10,7 +10,7 @@ public class CallTreeNode {
 	private UMLOperation originalOperation;
 	private UMLOperation invokedOperation;
 	private OperationInvocation invocation;
-	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
+	public List<CallTreeNode> children = new ArrayList<CallTreeNode>();
 	
 	public CallTreeNode(UMLOperation originalOperation, UMLOperation invokedOperation,
 			OperationInvocation invocation) {
@@ -33,10 +33,6 @@ public class CallTreeNode {
 
 	public void addChild(CallTreeNode node) {
 		children.add(node);
-	}
-
-	public List<CallTreeNode> getChildren() {
-		return children;
 	}
 
 	@Override

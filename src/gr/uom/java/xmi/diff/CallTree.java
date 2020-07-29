@@ -20,8 +20,8 @@ public class CallTree {
 		queue.add(root);
 		while(!queue.isEmpty()) {
 			CallTreeNode node = queue.remove(0);
-			nodes.addAll(node.getChildren());
-			queue.addAll(node.getChildren());
+			nodes.addAll(node.getInvocation().getChildren(this));
+			queue.addAll(node.getInvocation().getChildren(this));
 		}
 		return nodes;
 	}
