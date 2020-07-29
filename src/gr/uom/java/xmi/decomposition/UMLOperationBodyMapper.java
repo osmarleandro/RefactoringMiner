@@ -49,8 +49,8 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation1;
+	public UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
@@ -66,7 +66,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	public UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
@@ -808,32 +808,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
-	}
-
-	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
-		boolean removedOperationCalled = false;
-		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
-			for(UMLOperation operation : removedOperations) {
-				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-					removedOperationCalled = true;
-					break;
-				}
-			}
-			if(removedOperationCalled)
-				break;
-		}
-		boolean addedOperationCalled = false;
-		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
-			for(UMLOperation operation : addedOperations) {
-				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
-					addedOperationCalled = true;
-					break;
-				}
-			}
-			if(addedOperationCalled)
-				break;
-		}
-		return removedOperationCalled && addedOperationCalled;
 	}
 
 	public int exactMatches() {

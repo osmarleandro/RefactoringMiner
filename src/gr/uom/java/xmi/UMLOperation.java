@@ -7,6 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +833,31 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean callsRemovedAndAddedOperation(UMLOperationBodyMapper umlOperationBodyMapper, List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
+		boolean removedOperationCalled = false;
+		for(OperationInvocation invocation : umlOperationBodyMapper.operation1.getAllOperationInvocations()) {
+			for(UMLOperation operation : removedOperations) {
+				if(invocation.matchesOperation(operation, umlOperationBodyMapper.operation1.variableTypeMap(), umlOperationBodyMapper.modelDiff)) {
+					removedOperationCalled = true;
+					break;
+				}
+			}
+			if(removedOperationCalled)
+				break;
+		}
+		boolean addedOperationCalled = false;
+		for(OperationInvocation invocation : umlOperationBodyMapper.operation2.getAllOperationInvocations()) {
+			for(UMLOperation operation : addedOperations) {
+				if(invocation.matchesOperation(operation, umlOperationBodyMapper.operation2.variableTypeMap(), umlOperationBodyMapper.modelDiff)) {
+					addedOperationCalled = true;
+					break;
+				}
+			}
+			if(addedOperationCalled)
+				break;
+		}
+		return removedOperationCalled && addedOperationCalled;
 	}
 }
