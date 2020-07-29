@@ -2525,6 +2525,23 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void generateNewInheritanceHierarchies(InheritanceDetection inheritanceDetection) {
+	List<UMLGeneralization> addedGeneralizations = getAddedGeneralizations();
+	for(UMLGeneralization generalization : addedGeneralizations) {
+		String superclass = generalization.getParent();
+		String subclass = generalization.getChild().getName();
+		if(getAddedClass(superclass) != null && getAddedClass(subclass) != null)
+			inheritanceDetection.addSubclassToSuperclass(superclass, subclass);
+	}
+	List<UMLRealization> addedRealizations = getAddedRealizations();
+	for(UMLRealization realization : addedRealizations) {
+		String supplier = realization.getSupplier();
+		String client = realization.getClient().getName();
+		if(getAddedClass(supplier) != null && getAddedClass(client) != null)
+			inheritanceDetection.addSubclassToSuperclass(supplier, client);
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
