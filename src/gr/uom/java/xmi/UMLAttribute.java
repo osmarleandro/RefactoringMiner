@@ -2,11 +2,14 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.SplitAttributeRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.refactoringminer.api.Refactoring;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +173,17 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean attributeSplit(UMLAttribute a2, List<Refactoring> refactorings) {
+		for(Refactoring refactoring : refactorings) {
+			if(refactoring instanceof SplitAttributeRefactoring) {
+				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
+				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(getVariableDeclaration())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
