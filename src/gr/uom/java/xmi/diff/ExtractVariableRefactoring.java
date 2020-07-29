@@ -135,4 +135,19 @@ public class ExtractVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	public void processExtractVariableRefactoring(AbstractCodeMapping abstractCodeMapping, Set<Refactoring> refactorings) {
+		if(!refactorings.contains(this)) {
+			addReference(abstractCodeMapping);
+			refactorings.add(this);
+		}
+		else {
+			for(Refactoring refactoring : refactorings) {
+				if(refactoring.equals(this)) {
+					((ExtractVariableRefactoring)refactoring).addReference(abstractCodeMapping);
+					break;
+				}
+			}
+		}
+	}
 }

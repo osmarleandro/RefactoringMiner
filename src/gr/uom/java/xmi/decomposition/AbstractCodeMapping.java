@@ -147,7 +147,7 @@ public abstract class AbstractCodeMapping {
 			if(variableDeclarations.size() == 1 && validReplacements) {
 				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
 				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
-				processExtractVariableRefactoring(ref, refactorings);
+				ref.processExtractVariableRefactoring(this, refactorings);
 				identicalWithExtractedVariable = true;
 			}
 		}
@@ -167,7 +167,7 @@ public abstract class AbstractCodeMapping {
 							if(initializer.toString().equals(prefixBefore) ||
 									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
 								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-								processExtractVariableRefactoring(ref, refactorings);
+								ref.processExtractVariableRefactoring(this, refactorings);
 								if(getReplacements().size() == 1) {
 									identicalWithExtractedVariable = true;
 								}
@@ -182,7 +182,7 @@ public abstract class AbstractCodeMapping {
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-						processExtractVariableRefactoring(ref, refactorings);
+						ref.processExtractVariableRefactoring(this, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithExtractedVariable = true;
 						}
@@ -199,7 +199,7 @@ public abstract class AbstractCodeMapping {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
 								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-									processExtractVariableRefactoring(ref, refactorings);
+									ref.processExtractVariableRefactoring(this, refactorings);
 								}
 							}
 						}
@@ -225,7 +225,7 @@ public abstract class AbstractCodeMapping {
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
 							ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-							processExtractVariableRefactoring(ref, refactorings);
+							ref.processExtractVariableRefactoring(this, refactorings);
 							if(getReplacements().size() == 1) {
 								identicalWithExtractedVariable = true;
 							}
@@ -352,21 +352,6 @@ public abstract class AbstractCodeMapping {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
 					((InlineVariableRefactoring)refactoring).addReference(this);
-					break;
-				}
-			}
-		}
-	}
-
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
-		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
-			refactorings.add(ref);
-		}
-		else {
-			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
-					((ExtractVariableRefactoring)refactoring).addReference(this);
 					break;
 				}
 			}
