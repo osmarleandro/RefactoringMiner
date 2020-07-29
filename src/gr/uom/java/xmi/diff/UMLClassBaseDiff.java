@@ -539,7 +539,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
 			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 			for(CandidateAttributeRefactoring candidate : set) {
-				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
+				if(candidate.getOriginalVariableDeclaration() == null && candidate.getOperationAfter().getRenamedVariableDeclaration(this) == null) {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
@@ -584,7 +584,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						candidateAttributeRenames.add(candidate);
 					}
 				}
-				else if(candidate.getRenamedVariableDeclaration() != null) {
+				else if(candidate.getOperationAfter().getRenamedVariableDeclaration(this) != null) {
 					//inline field
 				}
 			}
