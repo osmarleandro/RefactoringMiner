@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
@@ -4160,5 +4161,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.RENAME_METHOD;
 	}
 }
