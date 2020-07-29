@@ -135,7 +135,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void checkForAttributeChanges() {
-		//optional step
+		modelDiff.checkForAttributeChanges();
 	}
 
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
