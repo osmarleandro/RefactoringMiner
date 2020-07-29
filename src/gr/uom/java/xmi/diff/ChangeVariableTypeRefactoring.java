@@ -17,7 +17,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
@@ -59,10 +59,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
-	}
-
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
 	}
 
 	public Set<AbstractCodeMapping> getVariableReferences() {
@@ -133,7 +129,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(changedTypeVariable.getOperationAfter(this).getLocationInfo().getFilePath(), changedTypeVariable.getOperationAfter(this).getClassName()));
 		return pairs;
 	}
 
