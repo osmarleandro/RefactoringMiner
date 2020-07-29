@@ -436,6 +436,27 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	boolean isExpressionOfAnotherMethodInvocation(Map<String, List<? extends AbstractCall>> invocationMap) {
+		for(String key : invocationMap.keySet()) {
+			List<? extends AbstractCall> invocations = invocationMap.get(key);
+			for(AbstractCall call : invocations) {
+				if(!call.equals(this) && call.getExpression() != null && call.getExpression().equals(actualString())) {
+					for(String argument : call.getArguments()) {
+						if(invocationMap.containsKey(argument)) {
+							List<? extends AbstractCall> argumentInvocations = invocationMap.get(argument);
+							for(AbstractCall argumentCall : argumentInvocations) {
+								if(argumentCall.identicalName(this) && argumentCall.equalArguments(this)) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}

@@ -2234,7 +2234,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(String methodInvocation1 : methodInvocations1) {
 				for(AbstractCall operationInvocation1 : methodInvocationMap1.get(methodInvocation1)) {
 					if(operationInvocation1.renamedWithIdenticalExpressionAndDifferentNumberOfArguments(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements(), UMLClassBaseDiff.MAX_OPERATION_NAME_DISTANCE, lambdaMappers) &&
-							!isExpressionOfAnotherMethodInvocation(operationInvocation1, methodInvocationMap1)) {
+							!operationInvocation1.isExpressionOfAnotherMethodInvocation(methodInvocationMap1)) {
 						ReplacementType type = operationInvocation1.getName().equals(invocationCoveringTheEntireStatement2.getName()) ? ReplacementType.METHOD_INVOCATION_ARGUMENT : ReplacementType.METHOD_INVOCATION_NAME_AND_ARGUMENT;
 						Replacement replacement = new MethodInvocationReplacement(operationInvocation1.actualString(),
 								invocationCoveringTheEntireStatement2.actualString(), (OperationInvocation)operationInvocation1, invocationCoveringTheEntireStatement2, type);
@@ -2585,27 +2585,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return null;
-	}
-
-	private boolean isExpressionOfAnotherMethodInvocation(AbstractCall invocation, Map<String, List<? extends AbstractCall>> invocationMap) {
-		for(String key : invocationMap.keySet()) {
-			List<? extends AbstractCall> invocations = invocationMap.get(key);
-			for(AbstractCall call : invocations) {
-				if(!call.equals(invocation) && call.getExpression() != null && call.getExpression().equals(invocation.actualString())) {
-					for(String argument : call.getArguments()) {
-						if(invocationMap.containsKey(argument)) {
-							List<? extends AbstractCall> argumentInvocations = invocationMap.get(argument);
-							for(AbstractCall argumentCall : argumentInvocations) {
-								if(argumentCall.identicalName(invocation) && argumentCall.equalArguments(invocation)) {
-									return true;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
