@@ -1,8 +1,12 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +137,12 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<String> stringRepresentation(StatementObject statementObject) {
+		List<String> stringRepresentation = new ArrayList<String>();
+		stringRepresentation.add(statementObject.toString());
+		return stringRepresentation;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
