@@ -527,4 +527,12 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	boolean matchesOperation(UMLOperationBodyMapper umlOperationBodyMapper, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
+		for(UMLOperation operation : operations) {
+			if(matchesOperation(operation, variableTypeMap, umlOperationBodyMapper.modelDiff))
+				return true;
+		}
+		return false;
+	}
 }

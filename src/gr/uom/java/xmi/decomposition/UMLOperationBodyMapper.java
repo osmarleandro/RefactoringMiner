@@ -66,7 +66,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
@@ -4101,7 +4101,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(leaveSize2 <= 2) {
 					for(StatementObject leaf2 : leaves2) {
 						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
+						if(invocation != null && invocation.matchesOperation(this, addedOperations, operation2.variableTypeMap())) {
 							mappedLeavesSize++;
 						}
 					}
@@ -4109,7 +4109,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				else if(leaveSize1 <= 2) {
 					for(StatementObject leaf1 : leaves1) {
 						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
-						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
+						if(invocation != null && invocation.matchesOperation(this, removedOperations, operation1.variableTypeMap())) {
 							mappedLeavesSize++;
 						}
 					}
@@ -4152,13 +4152,5 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return score;
-	}
-
-	private boolean matchesOperation(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
-		for(UMLOperation operation : operations) {
-			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff))
-				return true;
-		}
-		return false;
 	}
 }
