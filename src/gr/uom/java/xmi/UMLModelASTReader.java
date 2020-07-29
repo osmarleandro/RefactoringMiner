@@ -201,7 +201,7 @@ public class UMLModelASTReader {
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
 		umlClass.setJavadoc(javadoc);
 		
-		umlClass.setEnum(true);
+		umlClass.getJavadoc().setEnum(this, true);
 		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
 		
 		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
