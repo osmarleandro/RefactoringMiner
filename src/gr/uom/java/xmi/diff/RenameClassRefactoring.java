@@ -13,7 +13,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenameClassRefactoring implements Refactoring {
 
-	private UMLClass originalClass;
+	public UMLClass originalClass;
 	private UMLClass renamedClass;
 	
 	public RenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
@@ -46,17 +46,13 @@ public class RenameClassRefactoring implements Refactoring {
 		return renamedClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
-		return originalClass;
-	}
-
 	public UMLClass getRenamedClass() {
 		return renamedClass;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(originalClass.getOriginalClass().getLocationInfo().getFilePath(), originalClass.getOriginalClass().getName()));
 		return pairs;
 	}
 
