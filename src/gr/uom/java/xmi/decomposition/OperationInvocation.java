@@ -519,12 +519,12 @@ public class OperationInvocation extends AbstractCall {
 		return differentExpression && differentName && differentArguments;
 	}
 
-	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
-		Set<String> subExpressionIntersection = subExpressionIntersection(other);
-		return identicalName(other) &&
-				equalArguments(other) &&
+	public boolean identicalWithExpressionCallChainDifference(OperationInvocation operationInvocation) {
+		Set<String> subExpressionIntersection = operationInvocation.subExpressionIntersection(this);
+		return operationInvocation.identicalName(this) &&
+				operationInvocation.equalArguments(this) &&
 				subExpressionIntersection.size() > 0 &&
-				(subExpressionIntersection.size() == this.subExpressions().size() ||
-				subExpressionIntersection.size() == other.subExpressions().size());
+				(subExpressionIntersection.size() == operationInvocation.subExpressions().size() ||
+				subExpressionIntersection.size() == subExpressions().size());
 	}
 }
