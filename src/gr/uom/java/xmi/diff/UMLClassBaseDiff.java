@@ -263,10 +263,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return addedAttributes;
 	}
 
-	public List<UMLAttribute> getRemovedAttributes() {
-		return removedAttributes;
-	}
-
 	//return true if "classMoveDiff" represents the move of a class that is inner to this.originalClass
 	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
 		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
