@@ -545,7 +545,7 @@ public class UMLModelASTReader {
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclaration currentAnonymous = (AnonymousClassDeclaration)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous)) {
+			if(currentAnonymous != null && umlModel.isParent(childAnonymous, currentAnonymous)) {
 				parentNode = currentNode;
 				break;
 			}
@@ -617,16 +617,6 @@ public class UMLModelASTReader {
 		return name.toString();
 	}
 	
-	private boolean isParent(ASTNode child, ASTNode parent) {
-		ASTNode current = child;
-		while(current.getParent() != null) {
-			if(current.getParent().equals(parent))
-				return true;
-			current = current.getParent();
-		}
-		return false;
-	}
-
 	private LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
 		return new LocationInfo(cu, sourceFile, node, codeElementType);
 	}

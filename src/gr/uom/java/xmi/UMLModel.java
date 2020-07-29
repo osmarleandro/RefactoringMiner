@@ -10,6 +10,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +154,14 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	boolean isParent(ASTNode child, ASTNode parent) {
+		ASTNode current = child;
+		while(current.getParent() != null) {
+			if(current.getParent().equals(parent))
+				return true;
+			current = current.getParent();
+		}
+		return false;
+	}
 }
