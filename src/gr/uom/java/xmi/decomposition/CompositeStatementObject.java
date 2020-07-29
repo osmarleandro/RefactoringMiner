@@ -531,4 +531,13 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public List<OperationInvocation> getAllOperationInvocations() {
+		List<OperationInvocation> invocations = new ArrayList<OperationInvocation>();
+		Map<String, List<OperationInvocation>> invocationMap = getAllMethodInvocations();
+		for(String key : invocationMap.keySet()) {
+			invocations.addAll(invocationMap.get(key));
+		}
+		return invocations;
+	}
 }
