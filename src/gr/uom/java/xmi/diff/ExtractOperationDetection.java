@@ -255,7 +255,7 @@ public class ExtractOperationDetection {
 				(exactMatches >= mappings && nonMappedElementsT1 == 0) ||
 				(exactMatches == 1 && !throwsNewExceptionExactMatch && nonMappedElementsT2-exactMatches <= 10) ||
 				(!exceptionHandlingExactMatch && exactMatches > 1 && additionalExactMatches.size() < exactMatches && nonMappedElementsT2-exactMatches < 20) ||
-				(mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2())) ||
+				(mappings == 1 && mappings > operationBodyMapper.getCallSiteOperation().nonMappedLeafElementsT2(this))) ||
 				argumentExtractedWithDefaultReturnAdded(operationBodyMapper);
 	}
 
