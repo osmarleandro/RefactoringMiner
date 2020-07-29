@@ -250,7 +250,7 @@ public abstract class AbstractCodeMapping {
 							if(initializer.toString().equals(prefixAfter) ||
 									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
 								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-								processInlineVariableRefactoring(ref, refactorings);
+								ref.processInlineVariableRefactoring(this, refactorings);
 								if(getReplacements().size() == 1) {
 									identicalWithInlinedVariable = true;
 								}
@@ -265,7 +265,7 @@ public abstract class AbstractCodeMapping {
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-						processInlineVariableRefactoring(ref, refactorings);
+						ref.processInlineVariableRefactoring(this, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithInlinedVariable = true;
 						}
@@ -291,7 +291,7 @@ public abstract class AbstractCodeMapping {
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
 							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-							processInlineVariableRefactoring(ref, refactorings);
+							ref.processInlineVariableRefactoring(this, refactorings);
 							if(getReplacements().size() == 1) {
 								identicalWithInlinedVariable = true;
 							}
@@ -341,21 +341,6 @@ public abstract class AbstractCodeMapping {
 		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
 		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
-	}
-
-	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
-		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
-			refactorings.add(ref);
-		}
-		else {
-			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
-					((InlineVariableRefactoring)refactoring).addReference(this);
-					break;
-				}
-			}
-		}
 	}
 
 	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
