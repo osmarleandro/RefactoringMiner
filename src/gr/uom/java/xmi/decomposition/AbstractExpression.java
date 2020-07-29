@@ -29,7 +29,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
-	private List<String> postfixExpressions;
+	public List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
@@ -157,7 +157,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	@Override
 	public List<String> getPostfixExpressions() {
-		return postfixExpressions;
+		return locationInfo.getPostfixExpressions(this);
 	}
 
 	@Override
