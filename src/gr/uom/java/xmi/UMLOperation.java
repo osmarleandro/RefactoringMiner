@@ -29,7 +29,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
-	private boolean isFinal;
+	boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
@@ -97,10 +97,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean isFinal() {
 		return isFinal;
-	}
-
-	public void setFinal(boolean isFinal) {
-		this.isFinal = isFinal;
 	}
 
 	public boolean isStatic() {
