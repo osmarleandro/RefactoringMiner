@@ -14,10 +14,10 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
-	private UMLType originalType;
-	private UMLType changedType;
+	public UMLType originalType;
+	public UMLType changedType;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
@@ -58,16 +58,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		boolean qualified = originalType.equals(changedType) && !originalType.equalsQualified(changedType);
-		sb.append(getName()).append("\t");
-		sb.append(qualified ? originalType.toQualifiedString() : originalType.toString());
-		sb.append(" to ");
-		sb.append(qualified ? changedType.toQualifiedString() : changedType.toString());
-		sb.append(" in method ");
-		sb.append(qualified ? operationAfter.toQualifiedString() : operationAfter.toString());
-		sb.append(" in class ").append(operationAfter.getClassName());
-		return sb.toString();
+		return changedType.toString(this);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import org.eclipse.jdt.core.dom.WildcardType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.ChangeReturnTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -167,6 +168,19 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public String toString(ChangeReturnTypeRefactoring changeReturnTypeRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		boolean qualified = changeReturnTypeRefactoring.originalType.equals(this) && !changeReturnTypeRefactoring.originalType.equalsQualified(this);
+		sb.append(changeReturnTypeRefactoring.getName()).append("\t");
+		sb.append(qualified ? changeReturnTypeRefactoring.originalType.toQualifiedString() : changeReturnTypeRefactoring.originalType.toString());
+		sb.append(" to ");
+		sb.append(qualified ? toQualifiedString() : toString());
+		sb.append(" in method ");
+		sb.append(qualified ? changeReturnTypeRefactoring.operationAfter.toQualifiedString() : changeReturnTypeRefactoring.operationAfter.toString());
+		sb.append(" in class ").append(changeReturnTypeRefactoring.operationAfter.getClassName());
+		return sb.toString();
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
