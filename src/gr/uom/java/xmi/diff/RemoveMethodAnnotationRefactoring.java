@@ -13,8 +13,8 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class RemoveMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
-	private UMLOperation operationBefore;
+	public UMLAnnotation annotation;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	
 	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
@@ -82,14 +82,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotation);
-		sb.append(" in method ");
-		sb.append(operationBefore);
-		sb.append(" from class ");
-		sb.append(operationBefore.getClassName());
-		return sb.toString();
+		return annotation.toString(this);
 	}
 
 	@Override
