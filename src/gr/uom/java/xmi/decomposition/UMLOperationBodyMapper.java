@@ -1945,12 +1945,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.addAll(set);
 			}
-			Replacement r = variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), variables1, variables2);
+			Replacement r = callSiteOperation.variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), variables1, variables2);
 			if(r != null) {
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.add(r);
 			}
-			Replacement r2 = variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), stringLiterals1, variables2);
+			Replacement r2 = callSiteOperation.variableReplacementWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), stringLiterals1, variables2);
 			if(r2 != null) {
 				replacementsToBeRemoved.add(replacement);
 				replacementsToBeAdded.add(r2);
@@ -3855,30 +3855,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-	}
-
-	private Replacement variableReplacementWithinMethodInvocations(String s1, String s2, Set<String> variables1, Set<String> variables2) {
-		for(String variable1 : variables1) {
-			if(s1.contains(variable1) && !s1.equals(variable1) && !s1.equals("this." + variable1) && !s1.equals("_" + variable1)) {
-				int startIndex1 = s1.indexOf(variable1);
-				String substringBeforeIndex1 = s1.substring(0, startIndex1);
-				String substringAfterIndex1 = s1.substring(startIndex1 + variable1.length(), s1.length());
-				for(String variable2 : variables2) {
-					if(variable2.endsWith(substringAfterIndex1) && substringAfterIndex1.length() > 1) {
-						variable2 = variable2.substring(0, variable2.indexOf(substringAfterIndex1));
-					}
-					if(s2.contains(variable2) && !s2.equals(variable2)) {
-						int startIndex2 = s2.indexOf(variable2);
-						String substringBeforeIndex2 = s2.substring(0, startIndex2);
-						String substringAfterIndex2 = s2.substring(startIndex2 + variable2.length(), s2.length());
-						if(substringBeforeIndex1.equals(substringBeforeIndex2) && substringAfterIndex1.equals(substringAfterIndex2)) {
-							return new Replacement(variable1, variable2, ReplacementType.VARIABLE_NAME);
-						}
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	private Set<Replacement> replacementsWithinMethodInvocations(String s1, String s2, Set<String> set1, Set<String> set2, Map<String, List<? extends AbstractCall>> methodInvocationMap, Direction direction) {
