@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeVariableRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedVariables;
-	private VariableDeclaration newVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public Set<VariableDeclaration> mergedVariables;
+	public VariableDeclaration newVariable;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
 	public MergeVariableRefactoring(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
@@ -105,34 +105,7 @@ public class MergeVariableRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MergeVariableRefactoring other = (MergeVariableRefactoring) obj;
-		if (mergedVariables == null) {
-			if (other.mergedVariables != null)
-				return false;
-		} else if (!mergedVariables.equals(other.mergedVariables))
-			return false;
-		if (newVariable == null) {
-			if (other.newVariable != null)
-				return false;
-		} else if (!newVariable.equals(other.newVariable))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		return true;
+		return newVariable.equals(this, obj);
 	}
 
 	@Override
