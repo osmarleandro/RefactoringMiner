@@ -44,4 +44,8 @@ public class MovedClassToAnotherSourceFolder {
 		String moved = movedPath.substring(0, movedPath.length() - separatorPos);
 		return new RenamePattern(original, moved);
 	}
+
+	public void addMovedClassToAnotherSourceFolder(MoveSourceFolderRefactoring moveSourceFolderRefactoring) {
+		moveSourceFolderRefactoring.movedClassesToAnotherSourceFolder.add(this);
+	}
 }
