@@ -16,7 +16,7 @@ import gr.uom.java.xmi.UMLOperation;
 public class ExtractClassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
-	private Set<UMLOperation> extractedOperations;
+	public Set<UMLOperation> extractedOperations;
 	private Set<UMLAttribute> extractedAttributes;
 	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
 
@@ -54,10 +54,6 @@ public class ExtractClassRefactoring implements Refactoring {
 
 	public UMLClass getOriginalClass() {
 		return classDiff.getOriginalClass();
-	}
-
-	public Set<UMLOperation> getExtractedOperations() {
-		return extractedOperations;
 	}
 
 	public Set<UMLAttribute> getExtractedAttributes() {
