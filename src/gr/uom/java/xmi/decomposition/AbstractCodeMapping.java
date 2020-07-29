@@ -471,4 +471,18 @@ public abstract class AbstractCodeMapping {
 			return false;
 		return true;
 	}
+
+	boolean returnWithVariableReplacement() {
+		if(getReplacements().size() == 1) {
+			Replacement r = getReplacements().iterator().next();
+			if(r.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				String fragment1 = getFragment1().getString();
+				String fragment2 = getFragment2().getString();
+				if(fragment1.equals("return " + r.getBefore() + ";\n") && fragment2.equals("return " + r.getAfter() + ";\n")) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
