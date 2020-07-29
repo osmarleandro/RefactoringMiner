@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public List<LambdaExpressionObject> getAllLambdas() {
+		return new ArrayList<LambdaExpressionObject>(getAllLambdas());
+	}
 }
