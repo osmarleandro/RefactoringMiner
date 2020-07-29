@@ -616,7 +616,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		for(int i=0; i<parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
-				sb.append(parameter.toQualifiedString());
+				sb.append(parameter.getType().toQualifiedString(this));
 				if(i < parameters.size()-1)
 					sb.append(", ");
 			}
@@ -624,7 +624,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		sb.append(")");
 		if(returnParameter != null) {
 			sb.append(" : ");
-			sb.append(returnParameter.toQualifiedString());
+			sb.append(returnParameter.getType().toQualifiedString(this));
 		}
 		return sb.toString();
 	}
