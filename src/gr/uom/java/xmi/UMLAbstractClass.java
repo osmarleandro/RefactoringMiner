@@ -140,14 +140,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameName(UMLAttribute attribute) {
-		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.getName().equals(attribute.getName()))
-				return true;
-		}
-		return false;
-	}
-
 	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
@@ -193,13 +185,13 @@ public abstract class UMLAbstractClass {
 		int totalAttributes = 0;
 		for(UMLAttribute attribute : attributes) {
 			totalAttributes++;
-			if(umlClass.containsAttributeWithTheSameName(attribute)) {
+			if(attribute.containsAttributeWithTheSameName(umlClass)) {
 				commonAttributes.add(attribute);
 			}
 		}
 		for(UMLAttribute attribute : umlClass.attributes) {
 			totalAttributes++;
-			if(this.containsAttributeWithTheSameName(attribute)) {
+			if(attribute.containsAttributeWithTheSameName(this)) {
 				commonAttributes.add(attribute);
 			}
 		}
