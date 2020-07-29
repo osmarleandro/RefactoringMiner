@@ -49,8 +49,8 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	UMLOperation operation1;
+	UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
@@ -68,8 +68,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
-	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
-	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
+	Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
+	Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	
 	public UMLOperationBodyMapper(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.classDiff = classDiff;
@@ -1119,7 +1119,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1140,7 +1140,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1162,7 +1162,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mapping.addReplacements(replacements);
 						for(AbstractCodeFragment leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
@@ -1217,7 +1217,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1238,7 +1238,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
 					}
 				}
@@ -1260,7 +1260,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						LeafMapping mapping = leaf1.createLeafMapping(this, leaf2, parameterToArgumentMap);
 						mapping.addReplacements(replacements);
 						for(AbstractCodeFragment leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
@@ -1474,19 +1474,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return new AbstractMap.SimpleEntry<>(switchParent1, switchParent2);
 		}
 		return null;
-	}
-
-	private LeafMapping createLeafMapping(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2, Map<String, String> parameterToArgumentMap) {
-		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(leaf1) ? codeFragmentOperationMap1.get(leaf1) : this.operation1;
-		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(leaf2) ? codeFragmentOperationMap2.get(leaf2) : this.operation2;
-		LeafMapping mapping = new LeafMapping(leaf1, leaf2, operation1, operation2);
-		for(String key : parameterToArgumentMap.keySet()) {
-			String value = parameterToArgumentMap.get(key);
-			if(!key.equals(value) && ReplacementUtil.contains(leaf2.getString(), key) && ReplacementUtil.contains(leaf1.getString(), value)) {
-				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
-			}
-		}
-		return mapping;
 	}
 
 	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {

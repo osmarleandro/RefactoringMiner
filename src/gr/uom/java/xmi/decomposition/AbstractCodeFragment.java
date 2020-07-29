@@ -8,7 +8,10 @@ import java.util.regex.Pattern;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +306,18 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	LeafMapping createLeafMapping(UMLOperationBodyMapper umlOperationBodyMapper, AbstractCodeFragment leaf2, Map<String, String> parameterToArgumentMap) {
+		UMLOperation operation1 = umlOperationBodyMapper.codeFragmentOperationMap1.containsKey(this) ? umlOperationBodyMapper.codeFragmentOperationMap1.get(this) : umlOperationBodyMapper.operation1;
+		UMLOperation operation2 = umlOperationBodyMapper.codeFragmentOperationMap2.containsKey(leaf2) ? umlOperationBodyMapper.codeFragmentOperationMap2.get(leaf2) : umlOperationBodyMapper.operation2;
+		LeafMapping mapping = new LeafMapping(this, leaf2, operation1, operation2);
+		for(String key : parameterToArgumentMap.keySet()) {
+			String value = parameterToArgumentMap.get(key);
+			if(!key.equals(value) && ReplacementUtil.contains(leaf2.getString(), key) && ReplacementUtil.contains(getString(), value)) {
+				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
+			}
+		}
+		return mapping;
 	}
 }
