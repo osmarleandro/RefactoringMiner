@@ -50,7 +50,7 @@ public class VariableReplacementAnalysis {
 	private Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
-	private UMLClassBaseDiff classDiff;
+	public UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
 	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
@@ -483,7 +483,7 @@ public class VariableReplacementAnalysis {
 					(!operation1.getAllVariables().contains(replacement.getAfter()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
-					!fieldAssignmentToPreviouslyExistingAttribute(replacementOccurrenceMap.get(replacement))) {
+					!callSiteOperation.fieldAssignmentToPreviouslyExistingAttribute(this, replacementOccurrenceMap.get(replacement))) {
 				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
 						replacementOccurrenceMap.get(replacement));
@@ -494,27 +494,6 @@ public class VariableReplacementAnalysis {
 				this.candidateAttributeRenames.add(candidate);
 			}
 		}
-	}
-
-	private boolean fieldAssignmentToPreviouslyExistingAttribute(Set<AbstractCodeMapping> mappings) {
-		if(mappings.size() == 1) {
-			AbstractCodeMapping mapping = mappings.iterator().next();
-			String fragment1 = mapping.getFragment1().getString();
-			String fragment2 = mapping.getFragment2().getString();
-			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
-				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
-				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
-				String attribute1 = PrefixSuffixUtils.normalize(fragment1.substring(0, fragment1.indexOf("=")));
-				String attribute2 = PrefixSuffixUtils.normalize(fragment2.substring(0, fragment2.indexOf("=")));
-				if(value1.equals(attribute1) && classDiff.getOriginalClass().containsAttributeWithName(attribute1) && classDiff.getNextClass().containsAttributeWithName(attribute1)) {
-					return true;
-				}
-				if(value2.equals(attribute2) && classDiff.getOriginalClass().containsAttributeWithName(attribute2) && classDiff.getNextClass().containsAttributeWithName(attribute2)) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private boolean fieldAssignmentWithPreviouslyExistingParameter(Set<AbstractCodeMapping> mappings) {
@@ -1197,7 +1176,7 @@ public class VariableReplacementAnalysis {
 		if(index2 == -1 && callSiteOperation != null) {
 			index2 = callSiteOperation.getParameterNameList().indexOf(replacement.getAfter());
 		}
-		if(fieldAssignmentToPreviouslyExistingAttribute(set)) {
+		if(callSiteOperation.fieldAssignmentToPreviouslyExistingAttribute(this, set)) {
 			return false;
 		}
 		if(fieldAssignmentWithPreviouslyExistingParameter(set)) {

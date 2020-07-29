@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -8,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -20,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.refactoringminer.util.AstUtils;
+import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -832,5 +835,26 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean fieldAssignmentToPreviouslyExistingAttribute(VariableReplacementAnalysis variableReplacementAnalysis, Set<AbstractCodeMapping> mappings) {
+		if(mappings.size() == 1) {
+			AbstractCodeMapping mapping = mappings.iterator().next();
+			String fragment1 = mapping.getFragment1().getString();
+			String fragment2 = mapping.getFragment2().getString();
+			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
+				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
+				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
+				String attribute1 = PrefixSuffixUtils.normalize(fragment1.substring(0, fragment1.indexOf("=")));
+				String attribute2 = PrefixSuffixUtils.normalize(fragment2.substring(0, fragment2.indexOf("=")));
+				if(value1.equals(attribute1) && variableReplacementAnalysis.classDiff.getOriginalClass().containsAttributeWithName(attribute1) && variableReplacementAnalysis.classDiff.getNextClass().containsAttributeWithName(attribute1)) {
+					return true;
+				}
+				if(value2.equals(attribute2) && variableReplacementAnalysis.classDiff.getOriginalClass().containsAttributeWithName(attribute2) && variableReplacementAnalysis.classDiff.getNextClass().containsAttributeWithName(attribute2)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
