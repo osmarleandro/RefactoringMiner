@@ -17,7 +17,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
@@ -48,10 +48,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
-	}
-
-	public Set<AbstractCodeMapping> getReferences() {
-		return references;
 	}
 
 	public String toString() {
