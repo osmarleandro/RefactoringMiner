@@ -20,7 +20,9 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapperComparator;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
@@ -2524,6 +2526,18 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames(UMLClassBaseDiff umlClassBaseDiff) {
+	Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+	Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+	for(UMLOperationBodyMapper bodyMapper : umlClassBaseDiff.operationBodyMapperList) {
+		Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
+		ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
+				methodInvocationRenames);
+	}
+	allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
+	return allConsistentMethodInvocationRenames;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {

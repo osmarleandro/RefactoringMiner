@@ -42,7 +42,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
@@ -1069,18 +1069,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-	}
-
-	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
-		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
-			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
-			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
-					methodInvocationRenames);
-		}
-		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
-		return allConsistentMethodInvocationRenames;
 	}
 
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
