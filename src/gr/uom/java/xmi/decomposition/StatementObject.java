@@ -26,7 +26,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
-	private Map<String, List<OperationInvocation>> methodInvocationMap;
+	public Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
 	private List<String> numberLiterals;
@@ -165,7 +165,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
-		return methodInvocationMap;
+		return locationInfo.getMethodInvocationMap(this);
 	}
 
 	@Override
