@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RemoveMethodAnnotationRefactoring;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -157,5 +158,31 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
+	}
+
+	public boolean equals(RemoveMethodAnnotationRefactoring removeMethodAnnotationRefactoring, Object obj) {
+		if (removeMethodAnnotationRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (removeMethodAnnotationRefactoring.getClass() != obj.getClass())
+			return false;
+		RemoveMethodAnnotationRefactoring other = (RemoveMethodAnnotationRefactoring) obj;
+		if (this == null) {
+			if (other.annotation != null)
+				return false;
+		} else if (!equals(other.annotation))
+			return false;
+		if (removeMethodAnnotationRefactoring.operationAfter == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!removeMethodAnnotationRefactoring.operationAfter.equals(other.operationAfter))
+			return false;
+		if (removeMethodAnnotationRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!removeMethodAnnotationRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		return true;
 	}
 }
