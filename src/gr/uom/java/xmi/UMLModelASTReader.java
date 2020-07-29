@@ -487,7 +487,7 @@ public class UMLModelASTReader {
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
 			variableDeclaration.setAttribute(true);
 			umlAttribute.setVariableDeclaration(variableDeclaration);
-			umlAttribute.setJavadoc(javadoc);
+			javadoc.setJavadoc(umlAttribute);
 			
 			int fieldModifiers = fieldDeclaration.getModifiers();
 			if((fieldModifiers & Modifier.PUBLIC) != 0)
