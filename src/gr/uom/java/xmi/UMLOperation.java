@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -9,6 +10,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -832,5 +834,16 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public List<CodeRange> rightSide(ExtractVariableRefactoring extractVariableRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(extractVariableRefactoring.variableDeclaration.codeRange()
+				.setDescription("extracted variable declaration")
+				.setCodeElement(extractVariableRefactoring.variableDeclaration.toString()));
+		for(AbstractCodeMapping mapping : extractVariableRefactoring.references) {
+			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
+		}
+		return ranges;
 	}
 }

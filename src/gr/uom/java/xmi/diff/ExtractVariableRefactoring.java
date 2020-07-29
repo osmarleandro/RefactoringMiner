@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	public VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
@@ -126,13 +126,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(variableDeclaration.codeRange()
-				.setDescription("extracted variable declaration")
-				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
-		}
-		return ranges;
+		return operationAfter.rightSide(this);
 	}
 }
