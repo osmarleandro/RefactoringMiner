@@ -61,7 +61,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return bodyMapper.getName(this);
 	}
 
 	public RefactoringType getRefactoringType() {
