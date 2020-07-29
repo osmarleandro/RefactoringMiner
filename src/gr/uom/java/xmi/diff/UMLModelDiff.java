@@ -2034,13 +2034,13 @@ public class UMLModelDiff {
 	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
 	   List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass addedClass : addedClasses) {
-		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
+		   if(!addedClass.getJavadoc().implementsInterface(this, interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
 			   addedOperations.addAll(addedClass.getOperations());
 		   }
 	   }
 	   List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass removedClass : removedClasses) {
-		   if(!removedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(removedClass)) {
+		   if(!removedClass.getJavadoc().implementsInterface(this, interfaceIntersection) && !outerClassMovedOrRenamed(removedClass)) {
 			   removedOperations.addAll(removedClass.getOperations());
 		   }
 	   }

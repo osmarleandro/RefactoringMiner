@@ -2,6 +2,7 @@ package gr.uom.java.xmi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class UMLJavadoc {
 	private List<UMLTagElement> tags;
@@ -32,6 +33,14 @@ public class UMLJavadoc {
 			if(tag.containsIgnoreCase(s)) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public boolean implementsInterface(UMLClass umlClass, Set<UMLType> interfaces) {
+		for(UMLType type : interfaces) {
+			if(umlClass.implementedInterfaces.contains(type))
+				return true;
 		}
 		return false;
 	}

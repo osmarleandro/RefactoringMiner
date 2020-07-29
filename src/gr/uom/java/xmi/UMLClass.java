@@ -20,7 +20,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean isEnum;
 	private boolean topLevel;
     private UMLType superclass;
-    private List<UMLType> implementedInterfaces;
+    List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
@@ -331,14 +331,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
-	}
-
-	public boolean implementsInterface(Set<UMLType> interfaces) {
-		for(UMLType type : interfaces) {
-			if(implementedInterfaces.contains(type))
-				return true;
-		}
-		return false;
 	}
 
 	public boolean isSubTypeOf(UMLClass umlClass) {
