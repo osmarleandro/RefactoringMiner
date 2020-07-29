@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 public class RenamePackageRefactoring implements Refactoring {
 
 	private List<MoveClassRefactoring> moveClassRefactorings;
-	private RenamePattern pattern;
+	RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
@@ -46,14 +46,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		String originalPath = pattern.getBefore().endsWith(".") ? pattern.getBefore().substring(0, pattern.getBefore().length()-1) : pattern.getBefore();
-		sb.append(originalPath);
-		sb.append(" to ");
-		String movedPath = pattern.getAfter().endsWith(".") ? pattern.getAfter().substring(0, pattern.getAfter().length()-1) : pattern.getAfter();
-		sb.append(movedPath);
-		return sb.toString();
+		return pattern.toString(this);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
