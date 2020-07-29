@@ -63,7 +63,7 @@ public abstract class UMLAbstractClass {
 		List<UMLOperation> matchingOperations = new ArrayList<UMLOperation>();
 		for(UMLOperation originalOperation : operations) {
 			boolean matchesOperation = isInterface() ?
-				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
+				operation.equalSignatureIgnoringChangedTypes(originalOperation) :
 				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
 			if(matchesOperation) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
@@ -92,7 +92,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
+			if(operation.equalSignatureIgnoringChangedTypes(originalOperation)) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
 				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 				if(originalOperationEmptyBody == operationEmptyBody)
