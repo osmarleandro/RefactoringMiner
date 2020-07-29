@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedAttributes;
+	public Set<VariableDeclaration> mergedAttributes;
 	private VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
 	private String classNameBefore;
@@ -124,13 +124,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(VariableDeclaration mergedAttribute : mergedAttributes) {
-			ranges.add(mergedAttribute.codeRange()
-					.setDescription("merged attribute declaration")
-					.setCodeElement(mergedAttribute.toString()));
-		}
-		return ranges;
+		return newAttribute.leftSide(this);
 	}
 
 	@Override
