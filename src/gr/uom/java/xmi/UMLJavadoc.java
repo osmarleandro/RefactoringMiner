@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<UMLTypeParameter> getTypeParameters(UMLClass umlClass) {
+		return umlClass.typeParameters;
+	}
 }
