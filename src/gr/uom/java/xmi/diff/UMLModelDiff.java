@@ -2525,6 +2525,11 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	public boolean matches(UMLClassBaseDiff umlClassBaseDiff, String className) {
+	return umlClassBaseDiff.originalClass.getName().equals(className) ||
+			umlClassBaseDiff.nextClass.getName().equals(className);
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
