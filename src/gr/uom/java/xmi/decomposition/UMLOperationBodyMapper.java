@@ -727,7 +727,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
-			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+			statement.inlinedVariableAssignment(mapping, nonMappedLeavesT2, refactorings);
 		}
 	}
 
@@ -1178,7 +1178,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							if(leaf.equals(leaf1)) {
 								break;
 							}
-							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
+							leaf.inlinedVariableAssignment(mapping, leaves2, refactorings);
 							if(mapping.isIdenticalWithInlinedVariable()) {
 								break;
 							}
@@ -1276,7 +1276,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							if(leaf.equals(leaf1)) {
 								break;
 							}
-							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
+							leaf.inlinedVariableAssignment(mapping, leaves2, refactorings);
 							if(mapping.isIdenticalWithInlinedVariable()) {
 								break;
 							}

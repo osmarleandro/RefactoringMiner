@@ -6,9 +6,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +307,70 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	public void inlinedVariableAssignment(AbstractCodeMapping abstractCodeMapping, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+		for(VariableDeclaration declaration : getVariableDeclarations()) {
+			for(Replacement replacement : abstractCodeMapping.getReplacements()) {
+				String variableName = declaration.getVariableName();
+				AbstractExpression initializer = declaration.getInitializer();
+				if(replacement.getBefore().startsWith(variableName + ".")) {
+					String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
+					if(replacement.getAfter().endsWith(suffixBefore)) {
+						String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
+						if(initializer != null) {
+							if(initializer.toString().equals(prefixAfter) ||
+									abstractCodeMapping.overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
+								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+								abstractCodeMapping.processInlineVariableRefactoring(ref, refactorings);
+								if(abstractCodeMapping.getReplacements().size() == 1) {
+									abstractCodeMapping.identicalWithInlinedVariable = true;
+								}
+							}
+						}
+					}
+				}
+				if(variableName.equals(replacement.getBefore()) && initializer != null) {
+					if(initializer.toString().equals(replacement.getAfter()) ||
+							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !abstractCodeMapping.containsVariableNameReplacement(variableName)) ||
+							abstractCodeMapping.ternaryMatch(initializer, replacement.getAfter()) ||
+							abstractCodeMapping.reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+							abstractCodeMapping.overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
+						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+						abstractCodeMapping.processInlineVariableRefactoring(ref, refactorings);
+						if(abstractCodeMapping.getReplacements().size() == 1) {
+							abstractCodeMapping.identicalWithInlinedVariable = true;
+						}
+					}
+				}
+			}
+		}
+		String argumentizedString = getArgumentizedString();
+		if(argumentizedString.contains("=")) {
+			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+			String[] tokens = beforeAssignment.split("\\s");
+			String variable = tokens[tokens.length-1];
+			String initializer = null;
+			if(argumentizedString.endsWith(";\n")) {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+			}
+			else {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+			}
+			for(Replacement replacement : abstractCodeMapping.getReplacements()) {
+				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+					List<VariableDeclaration> variableDeclarations = abstractCodeMapping.operation1.getVariableDeclarationsInScope(abstractCodeMapping.fragment1.getLocationInfo());
+					for(VariableDeclaration declaration : variableDeclarations) {
+						if(declaration.getVariableName().equals(variable)) {
+							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+							abstractCodeMapping.processInlineVariableRefactoring(ref, refactorings);
+							if(abstractCodeMapping.getReplacements().size() == 1) {
+								abstractCodeMapping.identicalWithInlinedVariable = true;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
