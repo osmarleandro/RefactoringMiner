@@ -2375,7 +2375,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(creationCoveringTheEntireStatement1 != null && creationCoveringTheEntireStatement2 != null &&
 				creationCoveringTheEntireStatement1.identical(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
 			boolean identicalArrayInitializer = true;
-			if(creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray()) {
+			if(creationCoveringTheEntireStatement1.getType().isArray(this) && creationCoveringTheEntireStatement2.getType().isArray(this)) {
 				identicalArrayInitializer = creationCoveringTheEntireStatement1.identicalArrayInitializer(creationCoveringTheEntireStatement2);
 			}
 			if(identicalArrayInitializer) {
@@ -2398,12 +2398,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(creationCoveringTheEntireStatement1 != null && creationCoveringTheEntireStatement2 != null &&
 				creationCoveringTheEntireStatement1.identicalName(creationCoveringTheEntireStatement2) &&
 				creationCoveringTheEntireStatement1.identicalExpression(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
-			if(creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray() &&
+			if(creationCoveringTheEntireStatement1.getType().isArray(this) && creationCoveringTheEntireStatement2.getType().isArray(this) &&
 					s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).equals(s2.substring(s2.indexOf("[")+1, s2.lastIndexOf("]"))) &&
 					s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).length() > 0) {
 				return replacementInfo.getReplacements();
 			}
-			if(!creationCoveringTheEntireStatement1.isArray() && !creationCoveringTheEntireStatement2.isArray() &&
+			if(!creationCoveringTheEntireStatement1.getType().isArray(this) && !creationCoveringTheEntireStatement2.getType().isArray(this) &&
 					s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).equals(s2.substring(s2.indexOf("(")+1, s2.lastIndexOf(")"))) &&
 					s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).length() > 0) {
 				return replacementInfo.getReplacements();
@@ -2417,7 +2417,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String initializer1 = v1.getInitializer() != null ? v1.getInitializer().getString() : null;
 			String initializer2 = v2.getInitializer() != null ? v2.getInitializer().getString() : null;
 			if(v1.getType().getArrayDimension() == 1 && v2.getType().containsTypeArgument(v1.getType().getClassType()) &&
-					creationCoveringTheEntireStatement1.isArray() && !creationCoveringTheEntireStatement2.isArray() &&
+					creationCoveringTheEntireStatement1.getType().isArray(this) && !creationCoveringTheEntireStatement2.getType().isArray(this) &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("[")+1, initializer1.lastIndexOf("]")).equals(initializer2.substring(initializer2.indexOf("(")+1, initializer2.lastIndexOf(")")))) {
 				r = new ObjectCreationReplacement(initializer1, initializer2,
@@ -2426,7 +2426,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return replacementInfo.getReplacements();
 			}
 			if(v2.getType().getArrayDimension() == 1 && v1.getType().containsTypeArgument(v2.getType().getClassType()) &&
-					!creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray() &&
+					!creationCoveringTheEntireStatement1.getType().isArray(this) && creationCoveringTheEntireStatement2.getType().isArray(this) &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("(")+1, initializer1.lastIndexOf(")")).equals(initializer2.substring(initializer2.indexOf("[")+1, initializer2.lastIndexOf("]")))) {
 				r = new ObjectCreationReplacement(initializer1, initializer2,
@@ -2450,12 +2450,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					//check if the argument lists are identical after replacements
 					if(objectCreation1.identicalName(creationCoveringTheEntireStatement2) &&
 							objectCreation1.identicalExpression(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
-						if(((ObjectCreation)objectCreation1).isArray() && creationCoveringTheEntireStatement2.isArray() &&
+						if(((ObjectCreation) objectCreation1).getType().isArray(this) && creationCoveringTheEntireStatement2.getType().isArray(this) &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).equals(s2.substring(s2.indexOf("[")+1, s2.lastIndexOf("]"))) &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).length() > 0) {
 							return replacementInfo.getReplacements();
 						}
-						if(!((ObjectCreation)objectCreation1).isArray() && !creationCoveringTheEntireStatement2.isArray() &&
+						if(!((ObjectCreation) objectCreation1).getType().isArray(this) && !creationCoveringTheEntireStatement2.getType().isArray(this) &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).equals(s2.substring(s2.indexOf("(")+1, s2.lastIndexOf(")"))) &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).length() > 0) {
 							return replacementInfo.getReplacements();
