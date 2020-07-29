@@ -150,7 +150,7 @@ public class InlineOperationDetection {
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+			for(UMLOperation addedOperation : classDiff.getModelDiff().getAddedOperations(this)) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {
 					return true;
 				}
