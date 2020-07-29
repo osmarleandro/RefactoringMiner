@@ -400,7 +400,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
-						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
+						variableDeclarations.addAll(lambda.getBody().getCompositeStatement().getAllVariableDeclarations());
 					}
 				}
 			}
@@ -530,5 +530,9 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	public List<VariableDeclaration> getAllVariableDeclarations() {
+		return new ArrayList<VariableDeclaration>(getAllVariableDeclarations());
 	}
 }
