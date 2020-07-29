@@ -199,7 +199,7 @@ public class UMLModelASTReader {
 		String className = enumDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
-		umlClass.setJavadoc(javadoc);
+		javadoc.setJavadoc(umlClass);
 		
 		umlClass.setEnum(true);
 		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
@@ -249,7 +249,7 @@ public class UMLModelASTReader {
 		String className = typeDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, typeDeclaration, CodeElementType.TYPE_DECLARATION);
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, typeDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
-		umlClass.setJavadoc(javadoc);
+		javadoc.setJavadoc(umlClass);
 		
 		if(typeDeclaration.isInterface()) {
 			umlClass.setInterface(true);
