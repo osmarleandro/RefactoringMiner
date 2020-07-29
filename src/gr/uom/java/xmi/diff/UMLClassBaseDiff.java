@@ -36,8 +36,8 @@ import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
-	protected UMLClass originalClass;
-	protected UMLClass nextClass;
+	public UMLClass originalClass;
+	public UMLClass nextClass;
 	protected List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
@@ -57,8 +57,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
-	protected List<UMLAttributeDiff> attributeDiffList;
-	protected List<Refactoring> refactorings;
+	public List<UMLAttributeDiff> attributeDiffList;
+	public List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();

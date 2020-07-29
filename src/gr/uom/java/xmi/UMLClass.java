@@ -1,6 +1,8 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLAttributeDiff;
+import gr.uom.java.xmi.diff.UMLClassDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -396,5 +398,34 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public void processAttributes(UMLClassDiff umlClassDiff) {
+		for(UMLAttribute attribute : getAttributes()) {
+			UMLAttribute matchingAttribute = umlClassDiff.nextClass.containsAttribute(attribute);
+			if(matchingAttribute == null) {
+				umlClassDiff.reportRemovedAttribute(attribute);
+			}
+			else {
+				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, umlClassDiff.getOperationBodyMapperList());
+				if(!attributeDiff.isEmpty()) {
+	    			umlClassDiff.refactorings.addAll(attributeDiff.getRefactorings());
+	    			umlClassDiff.attributeDiffList.add(attributeDiff);
+				}
+			}
+		}
+		for(UMLAttribute attribute : umlClassDiff.nextClass.getAttributes()) {
+			UMLAttribute matchingAttribute = containsAttribute(attribute);
+			if(matchingAttribute == null) {
+				umlClassDiff.reportAddedAttribute(attribute);
+			}
+			else {
+				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, umlClassDiff.getOperationBodyMapperList());
+				if(!attributeDiff.isEmpty()) {
+	    			umlClassDiff.refactorings.addAll(attributeDiff.getRefactorings());
+					umlClassDiff.attributeDiffList.add(attributeDiff);
+				}
+			}
+		}
 	}
 }
