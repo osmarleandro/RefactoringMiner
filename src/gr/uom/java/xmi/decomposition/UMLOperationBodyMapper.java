@@ -4161,4 +4161,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean argumentExtractedWithDefaultReturnAdded() {
+		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(getMappings());
+		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(getNonMappedInnerNodesT2());
+		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
+		while(iterator.hasNext()) {
+			if(iterator.next().toString().equals("{")) {
+				iterator.remove();
+			}
+		}
+		List<StatementObject> nonMappedLeavesT2 = getNonMappedLeavesT2();
+		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
+				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
+				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
+	}
 }
