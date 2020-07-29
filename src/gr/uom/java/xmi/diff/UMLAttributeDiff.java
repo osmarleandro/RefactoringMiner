@@ -143,7 +143,7 @@ public class UMLAttributeDiff {
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
 			if(rename != null) {
-				ref.addRelatedRefactoring(rename);
+				rename.addRelatedRefactoring(ref);
 			}
 		}
 		refactorings.addAll(getAnnotationRefactorings());

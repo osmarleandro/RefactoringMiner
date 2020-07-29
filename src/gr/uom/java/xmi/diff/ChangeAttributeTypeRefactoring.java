@@ -18,7 +18,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private String classNameBefore;
 	private String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
-	private Set<Refactoring> relatedRefactorings;
+	public Set<Refactoring> relatedRefactorings;
 	
 	public ChangeAttributeTypeRefactoring(VariableDeclaration originalAttribute,
 			VariableDeclaration changedTypeAttribute, String classNameBefore, String classNameAfter, Set<AbstractCodeMapping> attributeReferences) {
@@ -28,10 +28,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		this.classNameAfter = classNameAfter;
 		this.attributeReferences = attributeReferences;
 		this.relatedRefactorings = new LinkedHashSet<Refactoring>();
-	}
-
-	public void addRelatedRefactoring(Refactoring refactoring) {
-		this.relatedRefactorings.add(refactoring);
 	}
 
 	public Set<Refactoring> getRelatedRefactorings() {
