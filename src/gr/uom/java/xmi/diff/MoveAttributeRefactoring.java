@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
+	public UMLAttribute originalAttribute;
 	protected UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
@@ -56,13 +56,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public String getTargetClassName() {
 		return movedAttribute.getClassName();
-	}
-
-	/**
-	 * @return the code range of the source attribute in the <b>parent</b> commit
-	 */
-	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
-		return originalAttribute.codeRange();
 	}
 
 	/**
