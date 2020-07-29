@@ -2358,7 +2358,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key1 : methodInvocationMap1.keySet()) {
 					if(invocationCoveringTheEntireStatement1.actualString().startsWith(key1)) {
 						for(AbstractCall invocation1 : methodInvocationMap1.get(key1)) {
-							Set<String> argumentIntersection = invocation1.argumentIntersection(creationCoveringTheEntireStatement2);
+							Set<String> argumentIntersection = creationCoveringTheEntireStatement2.argumentIntersection(invocation1);
 							commonArguments += argumentIntersection.size();
 						}
 					}
