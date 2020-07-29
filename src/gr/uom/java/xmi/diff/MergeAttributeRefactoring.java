@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedAttributes;
-	private VariableDeclaration newAttribute;
+	public Set<VariableDeclaration> mergedAttributes;
+	public VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
-	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameBefore;
+	public String classNameAfter;
 	
 	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateMergeVariableRefactoring> attributeMerges) {
@@ -78,34 +78,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MergeAttributeRefactoring other = (MergeAttributeRefactoring) obj;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (mergedAttributes == null) {
-			if (other.mergedAttributes != null)
-				return false;
-		} else if (!mergedAttributes.equals(other.mergedAttributes))
-			return false;
-		if (newAttribute == null) {
-			if (other.newAttribute != null)
-				return false;
-		} else if (!newAttribute.equals(other.newAttribute))
-			return false;
-		return true;
+		return newAttribute.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

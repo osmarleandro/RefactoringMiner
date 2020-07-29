@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.MergeAttributeRefactoring;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +256,36 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean equals(MergeAttributeRefactoring mergeAttributeRefactoring, Object obj) {
+		if (mergeAttributeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (mergeAttributeRefactoring.getClass() != obj.getClass())
+			return false;
+		MergeAttributeRefactoring other = (MergeAttributeRefactoring) obj;
+		if (mergeAttributeRefactoring.classNameAfter == null) {
+			if (other.classNameAfter != null)
+				return false;
+		} else if (!mergeAttributeRefactoring.classNameAfter.equals(other.classNameAfter))
+			return false;
+		if (mergeAttributeRefactoring.classNameBefore == null) {
+			if (other.classNameBefore != null)
+				return false;
+		} else if (!mergeAttributeRefactoring.classNameBefore.equals(other.classNameBefore))
+			return false;
+		if (mergeAttributeRefactoring.mergedAttributes == null) {
+			if (other.mergedAttributes != null)
+				return false;
+		} else if (!mergeAttributeRefactoring.mergedAttributes.equals(other.mergedAttributes))
+			return false;
+		if (this == null) {
+			if (other.newAttribute != null)
+				return false;
+		} else if (!equals(other.newAttribute))
+			return false;
+		return true;
 	}
 }
