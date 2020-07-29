@@ -1471,7 +1471,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		(
 		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
 		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
-		(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
+		(addedOperation.getJavadoc().getParameterTypeList(this).equals(removedOperation.getJavadoc().getParameterTypeList(this)) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
 		);
 	}
 
