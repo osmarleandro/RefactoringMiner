@@ -171,4 +171,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this == null) ? 0 : hashCode());
+		return result;
+	}
 }

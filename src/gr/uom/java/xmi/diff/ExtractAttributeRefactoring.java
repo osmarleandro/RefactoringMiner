@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
-	private UMLAttribute attributeDeclaration;
+	public UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
@@ -72,10 +72,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((attributeDeclaration == null) ? 0 : attributeDeclaration.hashCode());
-		return result;
+		return attributeDeclaration.hashCode();
 	}
 
 	@Override
