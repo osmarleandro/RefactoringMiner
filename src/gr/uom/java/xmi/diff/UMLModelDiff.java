@@ -2381,7 +2381,7 @@ public class UMLModelDiff {
 			   exactLeafMappings++;
 		   }
 	   }
-	   double normalizedEditDistance = mapper.normalizedEditDistance();
+	   double normalizedEditDistance = mapper.getCallSiteOperation().normalizedEditDistance(this);
 	   if(exactLeafMappings == 0 && normalizedEditDistance > 0.24) {
 		   return false;
 	   }
