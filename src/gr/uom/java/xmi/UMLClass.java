@@ -10,6 +10,12 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.Annotation;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.IExtendedModifier;
+import org.eclipse.jdt.core.dom.Modifier;
+
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
     private String sourceFile;
@@ -396,5 +402,28 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration) {
+		int modifiers = typeDeclaration.getModifiers();
+		if((modifiers & Modifier.ABSTRACT) != 0)
+			setAbstract(true);
+		
+		if((modifiers & Modifier.PUBLIC) != 0)
+			setVisibility("public");
+		else if((modifiers & Modifier.PROTECTED) != 0)
+			setVisibility("protected");
+		else if((modifiers & Modifier.PRIVATE) != 0)
+			setVisibility("private");
+		else
+			setVisibility("package");
+		
+		List<IExtendedModifier> extendedModifiers = typeDeclaration.modifiers();
+		for(IExtendedModifier extendedModifier : extendedModifiers) {
+			if(extendedModifier.isAnnotation()) {
+				Annotation annotation = (Annotation)extendedModifier;
+				addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+			}
+		}
 	}
 }
