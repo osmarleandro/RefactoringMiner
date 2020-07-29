@@ -5,7 +5,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class MethodInvocationWithClassInstanceCreationReplacement extends Replacement {
 	private OperationInvocation invokedOperationBefore;
-	private ObjectCreation objectCreationAfter;
+	public ObjectCreation objectCreationAfter;
 	
 	public MethodInvocationWithClassInstanceCreationReplacement(String before, String after, ReplacementType type,
 			OperationInvocation invokedOperationBefore, ObjectCreation objectCreationAfter) {
@@ -16,10 +16,6 @@ public class MethodInvocationWithClassInstanceCreationReplacement extends Replac
 
 	public OperationInvocation getInvokedOperationBefore() {
 		return invokedOperationBefore;
-	}
-
-	public ObjectCreation getObjectCreationAfter() {
-		return objectCreationAfter;
 	}
 
 }
