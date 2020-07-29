@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public LocationInfo getLocationInfo(UMLOperation umlOperation) {
+		return umlOperation.locationInfo;
+	}
 }

@@ -22,7 +22,7 @@ import java.util.Set;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
@@ -64,7 +64,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public LocationInfo getLocationInfo() {
-		return locationInfo;
+		return javadoc.getLocationInfo(this);
 	}
 
 	public String getName() {
