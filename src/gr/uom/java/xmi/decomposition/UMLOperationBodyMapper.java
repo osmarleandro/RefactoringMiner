@@ -22,6 +22,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4160,5 +4161,32 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public UMLOperationBodyMapper createMapperForExtractedMethod(ExtractOperationDetection extractOperationDetection, UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
+		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
+		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
+		List<String> arguments = addedOperationInvocation.getArguments();
+		List<UMLParameter> parameters = addedOperation.getParametersWithoutReturnType();
+		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
+		int size = Math.min(arguments.size(), parameters.size());
+		for(int i=0; i<size; i++) {
+			String argumentName = arguments.get(i);
+			String parameterName = parameters.get(i).getName();
+			parameterToArgumentMap.put(parameterName, argumentName);
+			for(UMLParameter originalMethodParameter : originalMethodParameters) {
+				if(originalMethodParameter.getName().equals(argumentName)) {
+					originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.put(originalMethodParameter, parameters.get(i));
+				}
+			}
+		}
+		if(extractOperationDetection.parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
+			UMLOperation delegateMethod = extractOperationDetection.findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
+			return new UMLOperationBodyMapper(this,
+					delegateMethod != null ? delegateMethod : addedOperation,
+					new LinkedHashMap<String, String>(), parameterToArgumentMap, extractOperationDetection.classDiff);
+		}
+		return null;
 	}
 }

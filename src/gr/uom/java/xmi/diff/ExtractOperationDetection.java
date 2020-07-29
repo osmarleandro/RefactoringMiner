@@ -23,7 +23,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 public class ExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> addedOperations;
-	private UMLClassBaseDiff classDiff;
+	public UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
@@ -78,14 +78,14 @@ public class ExtractOperationDetection {
 			generateCallTree(addedOperation, root, callTree);
 			callTreeMap.put(root, callTree);
 		}
-		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
+		UMLOperationBodyMapper operationBodyMapper = mapper.createMapperForExtractedMethod(this, mapper.getOperation1(), addedOperation, addedOperationInvocation);
 		if(operationBodyMapper != null) {
 			List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
 			List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 			for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 				CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 				if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation2().variableTypeMap()).size() == 0) {
-					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
+					UMLOperationBodyMapper nestedMapper = mapper.createMapperForExtractedMethod(this, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
@@ -200,34 +200,6 @@ public class ExtractOperationDetection {
 		}
 	}
 
-	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
-		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
-		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
-		List<String> arguments = addedOperationInvocation.getArguments();
-		List<UMLParameter> parameters = addedOperation.getParametersWithoutReturnType();
-		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
-		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
-		int size = Math.min(arguments.size(), parameters.size());
-		for(int i=0; i<size; i++) {
-			String argumentName = arguments.get(i);
-			String parameterName = parameters.get(i).getName();
-			parameterToArgumentMap.put(parameterName, argumentName);
-			for(UMLParameter originalMethodParameter : originalMethodParameters) {
-				if(originalMethodParameter.getName().equals(argumentName)) {
-					originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.put(originalMethodParameter, parameters.get(i));
-				}
-			}
-		}
-		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
-			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
-			return new UMLOperationBodyMapper(mapper,
-					delegateMethod != null ? delegateMethod : addedOperation,
-					new LinkedHashMap<String, String>(), parameterToArgumentMap, classDiff);
-		}
-		return null;
-	}
-
 	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
@@ -274,7 +246,7 @@ public class ExtractOperationDetection {
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
 	}
 
-	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
+	public UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
 		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
 		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
 			for(UMLOperation operation : addedOperations) {
@@ -286,7 +258,7 @@ public class ExtractOperationDetection {
 		return null;
 	}
 
-	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
+	public boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
 		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
 			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
 			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
