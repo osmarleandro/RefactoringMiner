@@ -1,6 +1,11 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
+import gr.uom.java.xmi.diff.UMLClassDiff;
+import gr.uom.java.xmi.diff.UMLClassMoveDiff;
+import gr.uom.java.xmi.diff.UMLClassRenameDiff;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 public class Replacement {
 	private String before;
@@ -73,6 +78,30 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 	}
+
+	public UMLClassBaseDiff getUMLClassDiffWithAttribute(UMLModelDiff umlModelDiff) {
+	      for(UMLClassDiff classDiff : umlModelDiff.commonClassDiffList) {
+	         if(classDiff.findAttributeInOriginalClass(getBefore()) != null &&
+	        		 classDiff.findAttributeInNextClass(getAfter()) != null)
+	            return classDiff;
+	      }
+	      for(UMLClassMoveDiff classDiff : umlModelDiff.classMoveDiffList) {
+	         if(classDiff.findAttributeInOriginalClass(getBefore()) != null &&
+	        		 classDiff.findAttributeInNextClass(getAfter()) != null)
+	            return classDiff;
+	      }
+	      for(UMLClassMoveDiff classDiff : umlModelDiff.innerClassMoveDiffList) {
+	         if(classDiff.findAttributeInOriginalClass(getBefore()) != null &&
+	        		 classDiff.findAttributeInNextClass(getAfter()) != null)
+	            return classDiff;
+	      }
+	      for(UMLClassRenameDiff classDiff : umlModelDiff.classRenameDiffList) {
+	         if(classDiff.findAttributeInOriginalClass(getBefore()) != null &&
+	        		 classDiff.findAttributeInNextClass(getAfter()) != null)
+	            return classDiff;
+	      }
+	      return null;
+	   }
 
 	public enum ReplacementType {
 		TYPE, STRING_LITERAL, NUMBER_LITERAL, ANONYMOUS_CLASS_DECLARATION, INFIX_OPERATOR, VARIABLE_NAME, VARIABLE_DECLARATION,

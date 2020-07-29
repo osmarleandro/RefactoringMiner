@@ -53,10 +53,10 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassDiff> commonClassDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -158,30 +158,6 @@ public class UMLModelDiff {
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
          if(classDiff.matches(type))
-            return classDiff;
-      }
-      return null;
-   }
-
-   private UMLClassBaseDiff getUMLClassDiffWithAttribute(Replacement pattern) {
-      for(UMLClassDiff classDiff : commonClassDiffList) {
-         if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
-        		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-            return classDiff;
-      }
-      for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-         if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
-        		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-            return classDiff;
-      }
-      for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-         if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
-        		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-            return classDiff;
-      }
-      for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-         if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
-        		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
             return classDiff;
       }
       return null;
@@ -1330,7 +1306,7 @@ public class UMLModelDiff {
     	  UMLClassBaseDiff diff = null;
     	  for(String mergedVariable : merge.getMergedVariables()) {
     		  Replacement replacement = new Replacement(mergedVariable, merge.getAfter(), ReplacementType.VARIABLE_NAME);
-    		  diff = getUMLClassDiffWithAttribute(replacement);
+    		  diff = replacement.getUMLClassDiffWithAttribute(this);
     	  }
     	  if(diff != null) {
     		  Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
@@ -1357,7 +1333,7 @@ public class UMLModelDiff {
     	  }
       }
 	  for(Replacement pattern : renameMap.keySet()) {
-		 UMLClassBaseDiff diff = getUMLClassDiffWithAttribute(pattern);
+		 UMLClassBaseDiff diff = pattern.getUMLClassDiffWithAttribute(this);
 		 Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
 		 for(CandidateAttributeRefactoring candidate : set) {
 			 if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
