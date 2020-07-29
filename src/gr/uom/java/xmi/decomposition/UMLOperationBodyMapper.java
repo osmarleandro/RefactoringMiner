@@ -2273,14 +2273,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		//check if the argument of the method call in the first statement is returned in the second statement
 		Replacement r;
-		if(invocationCoveringTheEntireStatement1 != null && (r = invocationCoveringTheEntireStatement1.makeReplacementForReturnedArgument(replacementInfo.getArgumentizedString2())) != null) {
+		if(invocationCoveringTheEntireStatement1 != null && (r = invocationCoveringTheEntireStatement1.getLocationInfo().makeReplacementForReturnedArgument(this, replacementInfo.getArgumentizedString2())) != null) {
 			replacementInfo.addReplacement(r);
 			return replacementInfo.getReplacements();
 		}
 		for(String methodInvocation1 : methodInvocations1) {
 			for(AbstractCall operationInvocation1 : methodInvocationMap1.get(methodInvocation1)) {
-				if(statement1.getString().endsWith(methodInvocation1 + ";\n") && (r = operationInvocation1.makeReplacementForReturnedArgument(replacementInfo.getArgumentizedString2())) != null) {
-					if(operationInvocation1.makeReplacementForReturnedArgument(statement2.getString()) != null) {
+				if(statement1.getString().endsWith(methodInvocation1 + ";\n") && (r = operationInvocation1.getLocationInfo().makeReplacementForReturnedArgument(this, replacementInfo.getArgumentizedString2())) != null) {
+					if(operationInvocation1.getLocationInfo().makeReplacementForReturnedArgument(this, statement2.getString()) != null) {
 						replacementInfo.addReplacement(r);
 						return replacementInfo.getReplacements();
 					}
@@ -2464,13 +2464,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		if(creationCoveringTheEntireStatement1 != null && (r = creationCoveringTheEntireStatement1.makeReplacementForReturnedArgument(replacementInfo.getArgumentizedString2())) != null) {
+		if(creationCoveringTheEntireStatement1 != null && (r = creationCoveringTheEntireStatement1.getLocationInfo().makeReplacementForReturnedArgument(this, replacementInfo.getArgumentizedString2())) != null) {
 			replacementInfo.addReplacement(r);
 			return replacementInfo.getReplacements();
 		}
 		for(String creation1 : creations1) {
 			for(AbstractCall objectCreation1 : creationMap1.get(creation1)) {
-				if(statement1.getString().endsWith(creation1 + ";\n") && (r = objectCreation1.makeReplacementForReturnedArgument(replacementInfo.getArgumentizedString2())) != null) {
+				if(statement1.getString().endsWith(creation1 + ";\n") && (r = objectCreation1.getLocationInfo().makeReplacementForReturnedArgument(this, replacementInfo.getArgumentizedString2())) != null) {
 					replacementInfo.addReplacement(r);
 					return replacementInfo.getReplacements();
 				}
