@@ -20,6 +20,7 @@ import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -168,6 +169,15 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public UMLClass looksLikeAddedClass(UMLModelDiff umlModelDiff) {
+		   for(UMLClass umlClass : umlModelDiff.addedClasses) {
+		         if(umlClass.getName().endsWith("." + getClassType())) {
+		        	 return umlClass;
+		         }
+		   }
+		   return null;
+	   }
 
 	public static LeafType extractTypeObject(String qualifiedName) {
 		int arrayDimension = 0;

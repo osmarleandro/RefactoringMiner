@@ -43,7 +43,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
-   private List<UMLClass> addedClasses;
+   public List<UMLClass> addedClasses;
    private List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
@@ -260,14 +260,14 @@ public class UMLModelDiff {
 			   }
 		   }
 		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
-				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && subclassDiff.getNewSuperclass().looksLikeAddedClass(this) != null) {
+			   UMLClass addedClass = subclassDiff.getNewSuperclass().looksLikeAddedClass(this);
 			   if(addedClass.getSuperclass() != null) {
 				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && subclassDiff.getNewSuperclass().looksLikeAddedClass(this) != null) {
+			   UMLClass addedClass = subclassDiff.getNewSuperclass().looksLikeAddedClass(this);
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
 		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
@@ -283,7 +283,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass addedClass = getAddedClass(subclass);
 	   if(addedClass == null) {
-		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
+		   addedClass = UMLType.extractTypeObject(subclass).looksLikeAddedClass(this);
 	   }
 	   if(addedClass != null) {
 		   UMLType superclass = addedClass.getSuperclass();
@@ -319,15 +319,6 @@ public class UMLModelDiff {
 		   return true;
 	   else
 		   return isSubclassOf(superclass.getClassType(), finalSuperclass, visitedClasses);
-   }
-
-   private UMLClass looksLikeAddedClass(UMLType type) {
-	   for(UMLClass umlClass : addedClasses) {
-	         if(umlClass.getName().endsWith("." + type.getClassType())) {
-	        	 return umlClass;
-	         }
-	   }
-	   return null;
    }
 
    private UMLClass looksLikeRemovedClass(UMLType type) {
@@ -815,7 +806,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClass addedClass = getAddedClass(targetClassName);
 	   if(addedClass == null) {
-		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
+		   addedClass = UMLType.extractTypeObject(targetClassName).looksLikeAddedClass(this);
 	   }
 	   if(addedClass != null) {
 		   return addedClass.importsType(sourceClassName);
@@ -1309,7 +1300,7 @@ public class UMLModelDiff {
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
-    		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
+    		  UMLClass addedClass = UMLType.extractTypeObject(pattern.getAfter()).looksLikeAddedClass(this);
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
     			  renameDiff.process();
