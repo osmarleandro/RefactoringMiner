@@ -43,7 +43,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.CONVERT_ANONYMOUS_CLASS_TO_TYPE;
+		return addedClass.getRefactoringType();
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
