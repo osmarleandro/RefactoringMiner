@@ -61,9 +61,7 @@ public class RenameClassRefactoring implements Refactoring {
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedClass().getLocationInfo().getFilePath(), getRenamedClass().getName()));
-		return pairs;
+		return originalClass.getInvolvedClassesAfterRefactoring(this);
 	}
 
 	@Override
