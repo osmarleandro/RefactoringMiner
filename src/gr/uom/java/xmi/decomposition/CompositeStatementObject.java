@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public String getString(AbstractStatement abstractStatement) {
+		return abstractStatement.toString();
+	}
 }

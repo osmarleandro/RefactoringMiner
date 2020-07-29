@@ -14,8 +14,8 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     }
 
 	public String getString() {
-    	return toString();
-    }
+		return parent.getString(this);
+	}
 
     public VariableDeclaration searchVariableDeclaration(String variableName) {
     	VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
