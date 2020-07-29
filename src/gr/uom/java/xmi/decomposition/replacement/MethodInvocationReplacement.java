@@ -23,6 +23,6 @@ public class MethodInvocationReplacement extends Replacement {
 	}
 
 	public boolean differentExpressionNameAndArguments() {
-		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
+		return invokedOperationAfter.differentExpressionNameAndArguments(invokedOperationBefore);
 	}
 }
