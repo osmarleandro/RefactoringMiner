@@ -1632,8 +1632,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		variables2.removeAll(variableIntersection);
 		
 		// replace variables with the corresponding arguments
-		replaceVariablesWithArguments(variables1, parameterToArgumentMap);
-		replaceVariablesWithArguments(variables2, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(variables1, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(variables2, parameterToArgumentMap);
 		
 		Map<String, List<? extends AbstractCall>> methodInvocationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getMethodInvocationMap());
 		Map<String, List<? extends AbstractCall>> methodInvocationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getMethodInvocationMap());
@@ -3650,32 +3650,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return conditional;
 	}
 
-	private void replaceVariablesWithArguments(Set<String> variables, Map<String, String> parameterToArgumentMap) {
-		for(String parameter : parameterToArgumentMap.keySet()) {
-			String argument = parameterToArgumentMap.get(parameter);
-			if(variables.contains(parameter)) {
-				variables.add(argument);
-				if(argument.contains("(") && argument.contains(")")) {
-					int indexOfOpeningParenthesis = argument.indexOf("(");
-					int indexOfClosingParenthesis = argument.lastIndexOf(")");
-					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
-					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
-					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
-							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
-							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
-						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
-						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
-							variables.add(arguments);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
+	public static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
 		if(indexOfChar > 0 && indexOfChar < argument.length()-1) {
 			return argument.charAt(indexOfChar-1) == '\'' &&
 					argument.charAt(indexOfChar+1) == '\'';
@@ -3683,7 +3658,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private static boolean isInsideDoubleQuotes(String argument, int indexOfChar) {
+	public static boolean isInsideDoubleQuotes(String argument, int indexOfChar) {
 		Matcher m = DOUBLE_QUOTES.matcher(argument);
 		while (m.find()) {
 			if (m.group(1) != null) {

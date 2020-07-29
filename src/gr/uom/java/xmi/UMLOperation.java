@@ -7,6 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +833,30 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void replaceVariablesWithArguments(Set<String> variables, Map<String, String> parameterToArgumentMap) {
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(variables.contains(parameter)) {
+				variables.add(argument);
+				if(argument.contains("(") && argument.contains(")")) {
+					int indexOfOpeningParenthesis = argument.indexOf("(");
+					int indexOfClosingParenthesis = argument.lastIndexOf(")");
+					boolean openingParenthesisInsideSingleQuotes = UMLOperationBodyMapper.isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisInsideSingleQuotes = UMLOperationBodyMapper.isInsideSingleQuotes(argument, indexOfClosingParenthesis);
+					boolean openingParenthesisInsideDoubleQuotes = UMLOperationBodyMapper.isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisIndideDoubleQuotes = UMLOperationBodyMapper.isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
+					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
+							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
+							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
+						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
+						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
+							variables.add(arguments);
+						}
+					}
+				}
+			}
+		}
 	}
 }
