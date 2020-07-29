@@ -15,7 +15,7 @@ public class VariableReferenceExtractor {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
-			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
+			if(fragment1.getLocationInfo().subsumes(scope1) && fragment2.getLocationInfo().subsumes(scope2) &&
 					usesVariable(fragment1, declaration1) && usesVariable(fragment2, declaration2)) {
 				references.add(mapping);
 			}
