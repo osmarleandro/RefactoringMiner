@@ -51,7 +51,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		sb.append(getName()).append("\t");
 		sb.append(attributeDeclaration);
 		sb.append(" in class ");
-		sb.append(attributeDeclaration.getClassName());
+		sb.append(attributeDeclaration.getJavadoc().getClassName(this));
 		return sb.toString();
 	}
 

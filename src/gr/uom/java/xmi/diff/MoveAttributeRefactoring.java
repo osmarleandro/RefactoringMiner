@@ -51,11 +51,11 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	public String getSourceClassName() {
-		return originalAttribute.getClassName();
+		return originalAttribute.getJavadoc().getClassName(this);
 	}
 
 	public String getTargetClassName() {
-		return movedAttribute.getClassName();
+		return movedAttribute.getJavadoc().getClassName(this);
 	}
 
 	/**
@@ -101,13 +101,13 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getOriginalAttribute().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getOriginalAttribute().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getMovedAttribute().getLocationInfo().getFilePath(), getMovedAttribute().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getMovedAttribute().getLocationInfo().getFilePath(), getMovedAttribute().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
