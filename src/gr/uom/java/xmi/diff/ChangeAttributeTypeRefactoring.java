@@ -13,10 +13,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
-	private VariableDeclaration originalAttribute;
-	private VariableDeclaration changedTypeAttribute;
-	private String classNameBefore;
-	private String classNameAfter;
+	public VariableDeclaration originalAttribute;
+	public VariableDeclaration changedTypeAttribute;
+	public String classNameBefore;
+	public String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private Set<Refactoring> relatedRefactorings;
 	
@@ -92,34 +92,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChangeAttributeTypeRefactoring other = (ChangeAttributeTypeRefactoring) obj;
-		if (changedTypeAttribute == null) {
-			if (other.changedTypeAttribute != null)
-				return false;
-		} else if (!changedTypeAttribute.equals(other.changedTypeAttribute))
-			return false;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (originalAttribute == null) {
-			if (other.originalAttribute != null)
-				return false;
-		} else if (!originalAttribute.equals(other.originalAttribute))
-			return false;
-		return true;
+		return changedTypeAttribute.equals(this, obj);
 	}
 
 	@Override
