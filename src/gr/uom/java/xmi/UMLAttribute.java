@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLAnnotationDiff;
+import gr.uom.java.xmi.diff.UMLAttributeDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -170,5 +172,33 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public String toString(UMLAttributeDiff umlAttributeDiff) {
+		StringBuilder sb = new StringBuilder();
+		if(!umlAttributeDiff.isEmpty())
+			sb.append("\t").append(umlAttributeDiff.removedAttribute).append("\n");
+		if(umlAttributeDiff.renamed)
+			sb.append("\t").append("renamed from " + umlAttributeDiff.removedAttribute.getName() + " to " + getName()).append("\n");
+		if(umlAttributeDiff.visibilityChanged)
+			sb.append("\t").append("visibility changed from " + umlAttributeDiff.removedAttribute.getVisibility() + " to " + getVisibility()).append("\n");
+		if(umlAttributeDiff.typeChanged || umlAttributeDiff.qualifiedTypeChanged)
+			sb.append("\t").append("type changed from " + umlAttributeDiff.removedAttribute.getType() + " to " + getType()).append("\n");
+		if(umlAttributeDiff.staticChanged)
+			sb.append("\t").append("modifier changed from " + (umlAttributeDiff.removedAttribute.isStatic() ? "static" : "non-static") + " to " +
+					(isStatic() ? "static" : "non-static")).append("\n");
+		if(umlAttributeDiff.finalChanged)
+			sb.append("\t").append("modifier changed from " + (umlAttributeDiff.removedAttribute.isFinal() ? "final" : "non-final") + " to " +
+					(isFinal() ? "final" : "non-final")).append("\n");
+		for(UMLAnnotation annotation : umlAttributeDiff.annotationListDiff.getRemovedAnnotations()) {
+			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
+		}
+		for(UMLAnnotation annotation : umlAttributeDiff.annotationListDiff.getAddedAnnotations()) {
+			sb.append("\t").append("annotation " + annotation + " added").append("\n");
+		}
+		for(UMLAnnotationDiff annotationDiff : umlAttributeDiff.annotationListDiff.getAnnotationDiffList()) {
+			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
+		}
+		return sb.toString();
 	}
 }
