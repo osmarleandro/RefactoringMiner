@@ -124,14 +124,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
-		for(UMLAttribute originalAttribute : attributes) {
-			if(originalAttribute.equalsIgnoringChangedType(attribute))
-				return originalAttribute;
-		}
-		return null;
-	}
-
 	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))

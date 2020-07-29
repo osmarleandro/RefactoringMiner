@@ -155,7 +155,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	protected void processAttributes() {
 		for(UMLAttribute attribute : originalClass.getAttributes()) {
-    		UMLAttribute attributeWithTheSameName = nextClass.attributeWithTheSameNameIgnoringChangedType(attribute);
+    		UMLAttribute attributeWithTheSameName = attribute.attributeWithTheSameNameIgnoringChangedType(nextClass);
 			if(attributeWithTheSameName == null) {
     			this.removedAttributes.add(attribute);
     		}
@@ -168,7 +168,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
     	}
     	for(UMLAttribute attribute : nextClass.getAttributes()) {
-    		UMLAttribute attributeWithTheSameName = originalClass.attributeWithTheSameNameIgnoringChangedType(attribute);
+    		UMLAttribute attributeWithTheSameName = attribute.attributeWithTheSameNameIgnoringChangedType(originalClass);
 			if(attributeWithTheSameName == null) {
     			this.addedAttributes.add(attribute);
     		}
