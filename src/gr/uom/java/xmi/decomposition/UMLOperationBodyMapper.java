@@ -305,7 +305,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(StatementObject statement : leaves2) {
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
+					List<UMLAnonymousClass> anonymousList = operation2.getJavadoc().getAnonymousClassList(this);
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -444,7 +444,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				addedLeaves1.add(statement);
 			}
 			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getJavadoc().getAnonymousClassList(this);
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -2655,7 +2655,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
-		for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+		for(UMLAnonymousClass anonymousClass : operation.getJavadoc().getAnonymousClassList(this)) {
 			if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration1.getLocationInfo())) {
 				return anonymousClass;
 			}
@@ -2697,7 +2697,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			List<UMLOperation> anonymousOperations = new ArrayList<UMLOperation>();
 			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations()) {
-				for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+				for(UMLAnonymousClass anonymousClass : operation.getJavadoc().getAnonymousClassList(this)) {
 					if(anonymousClass.getLocationInfo().equals(anonymousObject.getLocationInfo())) {
 						anonymousOperations.addAll(anonymousClass.getOperations());
 					}
