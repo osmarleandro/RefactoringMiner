@@ -2,11 +2,16 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +175,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring(ExtractAttributeRefactoring extractAttributeRefactoring) {
+		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
+		pairs.add(new ImmutablePair<String, String>(extractAttributeRefactoring.getOriginalClass().getLocationInfo().getFilePath(), extractAttributeRefactoring.getOriginalClass().getName()));
+		return pairs;
 	}
 }
