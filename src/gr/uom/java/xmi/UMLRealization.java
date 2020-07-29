@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.UMLModelDiff;
+
 public class UMLRealization implements Comparable<UMLRealization> {
     private UMLClass client;
     private String supplier;
@@ -37,4 +39,8 @@ public class UMLRealization implements Comparable<UMLRealization> {
 	public int compareTo(UMLRealization realization) {
 		return this.toString().compareTo(realization.toString());
 	}
+
+	public void reportAddedRealization(UMLModelDiff umlModelDiff) {
+	      umlModelDiff.addedRealizations.add(this);
+	   }
 }
