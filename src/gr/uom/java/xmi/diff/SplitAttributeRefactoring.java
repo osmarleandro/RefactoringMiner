@@ -54,7 +54,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return oldAttribute.getName(this);
 	}
 
 	public String toString() {
