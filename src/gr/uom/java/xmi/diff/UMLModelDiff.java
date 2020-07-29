@@ -1680,7 +1680,7 @@ public class UMLModelDiff {
    }
 
    private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
-	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
+	   for(CandidateMergeVariableRefactoring candidate : classDiff.getModelDiff().getCandidateAttributeMerges(this)) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.candidateAttributeMerges;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
