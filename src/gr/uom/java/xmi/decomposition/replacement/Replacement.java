@@ -1,5 +1,14 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -72,6 +81,46 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public boolean replacementInLocalVariableDeclaration(VariableReplacementAnalysis variableReplacementAnalysis, Set<AbstractCodeMapping> set) {
+		VariableDeclaration v1 = null;
+		for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+			if(mapping.getReplacements().contains(this)) {
+				v1 = mapping.getFragment1().searchVariableDeclaration(getBefore());
+				break;
+			}
+		}
+		VariableDeclaration v2 = null;
+		for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+			if(mapping.getReplacements().contains(this)) {
+				v2 = mapping.getFragment2().searchVariableDeclaration(getAfter());
+				break;
+			}
+		}
+		Set<VariableDeclaration> allVariableDeclarations1 = new LinkedHashSet<VariableDeclaration>();
+		Set<VariableDeclaration> allVariableDeclarations2 = new LinkedHashSet<VariableDeclaration>();
+		for(AbstractCodeMapping referenceMapping : set) {
+			AbstractCodeFragment statement1 = referenceMapping.getFragment1();
+			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
+			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
+					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
+				CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations());
+				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations());
+			}
+			else {
+				allVariableDeclarations1.addAll(variableReplacementAnalysis.operation1.getAllVariableDeclarations());
+				allVariableDeclarations2.addAll(variableReplacementAnalysis.operation2.getAllVariableDeclarations());
+				break;
+			}
+		}
+		return v1 != null && v2 != null &&
+				v1.equalVariableDeclarationType(v2) &&
+				!VariableReplacementAnalysis.containsVariableDeclarationWithName(allVariableDeclarations1, v2.getVariableName()) &&
+				(!VariableReplacementAnalysis.containsVariableDeclarationWithName(allVariableDeclarations2, v1.getVariableName()) || variableReplacementAnalysis.operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
+				variableReplacementAnalysis.consistencyCheck(v1, v2, set);
 	}
 
 	public enum ReplacementType {
