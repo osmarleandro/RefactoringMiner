@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1990,7 +1990,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					!statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				return null;
 			}
-			if(variableAssignmentWithEverythingReplaced(statement1, statement2, replacementInfo)) {
+			if(statement1.variableAssignmentWithEverythingReplaced(statement2, replacementInfo)) {
 				return null;
 			}
 			if(classInstanceCreationWithEverythingReplaced(statement1, statement2, replacementInfo, parameterToArgumentMap)) {
@@ -2845,100 +2845,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					classInstanceCreationReplacement = true;
 			}
 			if(typeReplacement && !compatibleTypes && replacedArguments == minArguments && classInstanceCreationReplacement) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean variableAssignmentWithEverythingReplaced(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
-			ReplacementInfo replacementInfo) {
-		String string1 = statement1.getString();
-		String string2 = statement2.getString();
-		if(containsMethodSignatureOfAnonymousClass(string1)) {
-			string1 = string1.substring(0, string1.indexOf("\n"));
-		}
-		if(containsMethodSignatureOfAnonymousClass(string2)) {
-			string2 = string2.substring(0, string2.indexOf("\n"));
-		}
-		if(string1.contains("=") && string1.endsWith(";\n") && string2.contains("=") && string2.endsWith(";\n")) {
-			boolean typeReplacement = false, compatibleTypes = false, variableRename = false, classInstanceCreationReplacement = false;
-			String variableName1 = string1.substring(0, string1.indexOf("="));
-			String variableName2 = string2.substring(0, string2.indexOf("="));
-			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
-			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
-			for(String creation1 : creationMap1.keySet()) {
-				if(creation1.equals(assignment1)) {
-					type1 = creationMap1.get(creation1).get(0).getType();
-				}
-			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
-			for(String creation2 : creationMap2.keySet()) {
-				if(creation2.equals(assignment2)) {
-					type2 = creationMap2.get(creation2).get(0).getType();
-				}
-			}
-			if(type1 != null && type2 != null) {
-				compatibleTypes = type1.compatibleTypes(type2);
-			}
-			OperationInvocation inv1 = null, inv2 = null;
-			Map<String, List<OperationInvocation>> methodInvocationMap1 = statement1.getMethodInvocationMap();
-			for(String invocation1 : methodInvocationMap1.keySet()) {
-				if(invocation1.equals(assignment1)) {
-					inv1 = methodInvocationMap1.get(invocation1).get(0);
-				}
-			}
-			Map<String, List<OperationInvocation>> methodInvocationMap2 = statement2.getMethodInvocationMap();
-			for(String invocation2 : methodInvocationMap2.keySet()) {
-				if(invocation2.equals(assignment2)) {
-					inv2 = methodInvocationMap2.get(invocation2).get(0);
-				}
-			}
-			for(Replacement replacement : replacementInfo.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					typeReplacement = true;
-					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
-						classInstanceCreationReplacement = true;
-				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
-						(variableName1.equals(replacement.getBefore()) || variableName1.endsWith(" " + replacement.getBefore())) &&
-						(variableName2.equals(replacement.getAfter()) || variableName2.endsWith(" " + replacement.getAfter())))
-					variableRename = true;
-				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION) &&
-						assignment1.equals(replacement.getBefore()) &&
-						assignment2.equals(replacement.getAfter()))
-					classInstanceCreationReplacement = true;
-			}
-			if(typeReplacement && !compatibleTypes && variableRename && classInstanceCreationReplacement) {
-				return true;
-			}
-			if(variableRename && inv1 != null && inv2 != null && inv1.differentExpressionNameAndArguments(inv2)) {
-				if(inv1.getArguments().size() > inv2.getArguments().size()) {
-					for(String argument : inv1.getArguments()) {
-						List<OperationInvocation> argumentInvocations = methodInvocationMap1.get(argument);
-						if(argumentInvocations != null) {
-							for(OperationInvocation argumentInvocation : argumentInvocations) {
-								if(!argumentInvocation.differentExpressionNameAndArguments(inv2)) {
-									return false;
-								}
-							}
-						}
-					}
-				}
-				else if(inv1.getArguments().size() < inv2.getArguments().size()) {
-					for(String argument : inv2.getArguments()) {
-						List<OperationInvocation> argumentInvocations = methodInvocationMap2.get(argument);
-						if(argumentInvocations != null) {
-							for(OperationInvocation argumentInvocation : argumentInvocations) {
-								if(!inv1.differentExpressionNameAndArguments(argumentInvocation)) {
-									return false;
-								}
-							}
-						}
-					}
-				}
 				return true;
 			}
 		}

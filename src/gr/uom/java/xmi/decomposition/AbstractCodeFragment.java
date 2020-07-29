@@ -8,7 +8,11 @@ import java.util.regex.Pattern;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper.ReplacementInfo;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +307,98 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	boolean variableAssignmentWithEverythingReplaced(AbstractCodeFragment statement2, ReplacementInfo replacementInfo) {
+		String string1 = getString();
+		String string2 = statement2.getString();
+		if(UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(string1)) {
+			string1 = string1.substring(0, string1.indexOf("\n"));
+		}
+		if(UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(string2)) {
+			string2 = string2.substring(0, string2.indexOf("\n"));
+		}
+		if(string1.contains("=") && string1.endsWith(";\n") && string2.contains("=") && string2.endsWith(";\n")) {
+			boolean typeReplacement = false, compatibleTypes = false, variableRename = false, classInstanceCreationReplacement = false;
+			String variableName1 = string1.substring(0, string1.indexOf("="));
+			String variableName2 = string2.substring(0, string2.indexOf("="));
+			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
+			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
+			UMLType type1 = null, type2 = null;
+			Map<String, List<ObjectCreation>> creationMap1 = getCreationMap();
+			for(String creation1 : creationMap1.keySet()) {
+				if(creation1.equals(assignment1)) {
+					type1 = creationMap1.get(creation1).get(0).getType();
+				}
+			}
+			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			for(String creation2 : creationMap2.keySet()) {
+				if(creation2.equals(assignment2)) {
+					type2 = creationMap2.get(creation2).get(0).getType();
+				}
+			}
+			if(type1 != null && type2 != null) {
+				compatibleTypes = type1.compatibleTypes(type2);
+			}
+			OperationInvocation inv1 = null, inv2 = null;
+			Map<String, List<OperationInvocation>> methodInvocationMap1 = getMethodInvocationMap();
+			for(String invocation1 : methodInvocationMap1.keySet()) {
+				if(invocation1.equals(assignment1)) {
+					inv1 = methodInvocationMap1.get(invocation1).get(0);
+				}
+			}
+			Map<String, List<OperationInvocation>> methodInvocationMap2 = statement2.getMethodInvocationMap();
+			for(String invocation2 : methodInvocationMap2.keySet()) {
+				if(invocation2.equals(assignment2)) {
+					inv2 = methodInvocationMap2.get(invocation2).get(0);
+				}
+			}
+			for(Replacement replacement : replacementInfo.getReplacements()) {
+				if(replacement.getType().equals(ReplacementType.TYPE)) {
+					typeReplacement = true;
+					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
+						classInstanceCreationReplacement = true;
+				}
+				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
+						(variableName1.equals(replacement.getBefore()) || variableName1.endsWith(" " + replacement.getBefore())) &&
+						(variableName2.equals(replacement.getAfter()) || variableName2.endsWith(" " + replacement.getAfter())))
+					variableRename = true;
+				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION) &&
+						assignment1.equals(replacement.getBefore()) &&
+						assignment2.equals(replacement.getAfter()))
+					classInstanceCreationReplacement = true;
+			}
+			if(typeReplacement && !compatibleTypes && variableRename && classInstanceCreationReplacement) {
+				return true;
+			}
+			if(variableRename && inv1 != null && inv2 != null && inv1.differentExpressionNameAndArguments(inv2)) {
+				if(inv1.getArguments().size() > inv2.getArguments().size()) {
+					for(String argument : inv1.getArguments()) {
+						List<OperationInvocation> argumentInvocations = methodInvocationMap1.get(argument);
+						if(argumentInvocations != null) {
+							for(OperationInvocation argumentInvocation : argumentInvocations) {
+								if(!argumentInvocation.differentExpressionNameAndArguments(inv2)) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+				else if(inv1.getArguments().size() < inv2.getArguments().size()) {
+					for(String argument : inv2.getArguments()) {
+						List<OperationInvocation> argumentInvocations = methodInvocationMap2.get(argument);
+						if(argumentInvocations != null) {
+							for(OperationInvocation argumentInvocation : argumentInvocations) {
+								if(!inv1.differentExpressionNameAndArguments(argumentInvocation)) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 }
