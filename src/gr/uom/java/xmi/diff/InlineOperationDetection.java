@@ -104,7 +104,7 @@ public class InlineOperationDetection {
 				if(invocation.matchesOperation(removedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(removedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
-						parent.addChild(node);
+						node.addChild(parent);
 						generateCallTree(removedOperation, node, callTree);
 					}
 				}
