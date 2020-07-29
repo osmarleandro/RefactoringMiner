@@ -5,6 +5,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.diff.InlineOperationDetection;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -526,5 +527,16 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	public boolean invocationMatchesWithAddedOperation(InlineOperationDetection inlineOperationDetection, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
+		if(operationInvocationsInNewMethod.contains(this)) {
+			for(UMLOperation addedOperation : inlineOperationDetection.classDiff.getAddedOperations()) {
+				if(matchesOperation(addedOperation, variableTypeMap, inlineOperationDetection.modelDiff)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

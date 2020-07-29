@@ -18,8 +18,8 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 public class InlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> removedOperations;
-	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	public UMLClassBaseDiff classDiff;
+	public UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 	
@@ -36,7 +36,7 @@ public class InlineOperationDetection {
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
 			List<OperationInvocation> removedOperationInvocations = matchingInvocations(removedOperation, operationInvocations, mapper.getOperation1().variableTypeMap());
-			if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
+			if(removedOperationInvocations.size() > 0 && !removedOperationInvocations.get(0).invocationMatchesWithAddedOperation(this, mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
 				OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 				CallTreeNode root = new CallTreeNode(mapper.getOperation1(), removedOperation, removedOperationInvocation);
 				CallTree callTree = null;
@@ -146,16 +146,5 @@ public class InlineOperationDetection {
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
 				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
-	}
-
-	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
-		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 }
