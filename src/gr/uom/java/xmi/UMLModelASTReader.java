@@ -55,7 +55,7 @@ public class UMLModelASTReader {
 	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
 	private static final String systemFileSeparator = Matcher.quoteReplacement(File.separator);
 	
-	private UMLModel umlModel;
+	UMLModel umlModel;
 	private String projectRoot;
 	private ASTParser parser;
 
@@ -142,10 +142,6 @@ public class UMLModelASTReader {
 		return parser;
 	}
 
-	public UMLModel getUmlModel() {
-		return this.umlModel;
-	}
-
 	protected void processCompilationUnit(String sourceFilePath, CompilationUnit compilationUnit) {
 		PackageDeclaration packageDeclaration = compilationUnit.getPackage();
 		String packageName = null;
@@ -208,7 +204,7 @@ public class UMLModelASTReader {
 		
 		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
 		
-		this.getUmlModel().addClass(umlClass);
+		this.getUmlModel().getUmlModel(this).addClass(umlClass);
 	}
 
 	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
@@ -279,7 +275,7 @@ public class UMLModelASTReader {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, superclassType, 0);
     		UMLGeneralization umlGeneralization = new UMLGeneralization(umlClass, umlType.getClassType());
     		umlClass.setSuperclass(umlType);
-    		getUmlModel().addGeneralization(umlGeneralization);
+    		umlModel.getUmlModel(this).addGeneralization(umlGeneralization);
     	}
     	
     	List<Type> superInterfaceTypes = typeDeclaration.superInterfaceTypes();
@@ -287,7 +283,7 @@ public class UMLModelASTReader {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, interfaceType, 0);
     		UMLRealization umlRealization = new UMLRealization(umlClass, umlType.getClassType());
     		umlClass.addImplementedInterface(umlType);
-    		getUmlModel().addRealization(umlRealization);
+    		umlModel.getUmlModel(this).addRealization(umlRealization);
     	}
     	
     	FieldDeclaration[] fieldDeclarations = typeDeclaration.getFields();
@@ -308,7 +304,7 @@ public class UMLModelASTReader {
     	
     	processAnonymousClassDeclarations(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
     	
-    	this.getUmlModel().addClass(umlClass);
+    	this.getUmlModel().getUmlModel(this).addClass(umlClass);
 		
 		TypeDeclaration[] types = typeDeclaration.getTypes();
 		for(TypeDeclaration type : types) {

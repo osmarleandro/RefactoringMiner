@@ -153,4 +153,8 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	public UMLModel getUmlModel(UMLModelASTReader umlModelASTReader) {
+		return this;
+	}
 }
