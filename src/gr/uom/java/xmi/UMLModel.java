@@ -15,7 +15,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 public class UMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
-    private List<UMLGeneralization> generalizationList;
+    List<UMLGeneralization> generalizationList;
     private List<UMLRealization> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
@@ -59,31 +59,7 @@ public class UMLModel {
 		return realizationList;
 	}
 
-	public UMLGeneralization matchGeneralization(UMLGeneralization otherGeneralization) {
-    	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
-    	while(generalizationIt.hasNext()) {
-    		UMLGeneralization generalization = generalizationIt.next();
-    		if(generalization.getChild().equals(otherGeneralization.getChild())) {
-    			String thisParent = generalization.getParent();
-    			String otherParent = otherGeneralization.getParent();
-    			String thisParentComparedString = null;
-    			if(thisParent.contains("."))
-    				thisParentComparedString = thisParent.substring(thisParent.lastIndexOf(".")+1);
-    			else
-    				thisParentComparedString = thisParent;
-    			String otherParentComparedString = null;
-    			if(otherParent.contains("."))
-    				otherParentComparedString = otherParent.substring(otherParent.lastIndexOf(".")+1);
-    			else
-    				otherParentComparedString = otherParent;
-    			if(thisParentComparedString.equals(otherParentComparedString))
-    				return generalization;
-    		}
-    	}
-    	return null;
-    }
-
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
+	public UMLRealization matchRealization(UMLRealization otherRealization) {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
     		UMLRealization realization = realizationIt.next();
