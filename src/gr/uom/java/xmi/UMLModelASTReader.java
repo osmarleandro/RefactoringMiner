@@ -25,7 +25,6 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
@@ -38,7 +37,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.Type;
@@ -48,7 +46,6 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLModelASTReader {
@@ -172,7 +169,7 @@ public class UMLModelASTReader {
         }
 	}
 
-	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
+	UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
 		UMLJavadoc doc = null;
 		Javadoc javaDoc = bodyDeclaration.getJavadoc();
 		if(javaDoc != null) {
@@ -225,7 +222,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
-				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
+				UMLOperation operation = umlModel.processMethodDeclaration(this, cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
 	    		operation.setClassName(umlClass.getName());
 	    		umlClass.addOperation(operation);
 			}
@@ -301,7 +298,7 @@ public class UMLModelASTReader {
     	
     	MethodDeclaration[] methodDeclarations = typeDeclaration.getMethods();
     	for(MethodDeclaration methodDeclaration : methodDeclarations) {
-    		UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
+    		UMLOperation operation = umlModel.processMethodDeclaration(this, cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
     		operation.setClassName(umlClass.getName());
     		umlClass.addOperation(operation);
     	}
@@ -385,95 +382,6 @@ public class UMLModelASTReader {
 		}
 	}
 
-	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
-		String methodName = methodDeclaration.getName().getFullyQualifiedName();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
-		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
-		umlOperation.setJavadoc(javadoc);
-		
-		if(methodDeclaration.isConstructor())
-			umlOperation.setConstructor(true);
-		
-		int methodModifiers = methodDeclaration.getModifiers();
-		if((methodModifiers & Modifier.PUBLIC) != 0)
-			umlOperation.setVisibility("public");
-		else if((methodModifiers & Modifier.PROTECTED) != 0)
-			umlOperation.setVisibility("protected");
-		else if((methodModifiers & Modifier.PRIVATE) != 0)
-			umlOperation.setVisibility("private");
-		else if(isInterfaceMethod)
-			umlOperation.setVisibility("public");
-		else
-			umlOperation.setVisibility("package");
-		
-		if((methodModifiers & Modifier.ABSTRACT) != 0)
-			umlOperation.setAbstract(true);
-		
-		if((methodModifiers & Modifier.FINAL) != 0)
-			umlOperation.setFinal(true);
-		
-		if((methodModifiers & Modifier.STATIC) != 0)
-			umlOperation.setStatic(true);
-		
-		List<IExtendedModifier> extendedModifiers = methodDeclaration.modifiers();
-		for(IExtendedModifier extendedModifier : extendedModifiers) {
-			if(extendedModifier.isAnnotation()) {
-				Annotation annotation = (Annotation)extendedModifier;
-				umlOperation.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
-			}
-		}
-		
-		List<TypeParameter> typeParameters = methodDeclaration.typeParameters();
-		for(TypeParameter typeParameter : typeParameters) {
-			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
-			List<Type> typeBounds = typeParameter.typeBounds();
-			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
-			}
-			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
-			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
-				if(extendedModifier.isAnnotation()) {
-					Annotation annotation = (Annotation)extendedModifier;
-					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
-				}
-			}
-			umlOperation.addTypeParameter(umlTypeParameter);
-		}
-		
-		Block block = methodDeclaration.getBody();
-		if(block != null) {
-			OperationBody body = new OperationBody(cu, sourceFile, block);
-			umlOperation.setBody(body);
-			if(block.statements().size() == 0) {
-				umlOperation.setEmptyBody(true);
-			}
-		}
-		else {
-			umlOperation.setBody(null);
-		}
-		
-		Type returnType = methodDeclaration.getReturnType2();
-		if(returnType != null) {
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, returnType, methodDeclaration.getExtraDimensions());
-			UMLParameter returnParameter = new UMLParameter("return", type, "return", false);
-			umlOperation.addParameter(returnParameter);
-		}
-		List<SingleVariableDeclaration> parameters = methodDeclaration.parameters();
-		for(SingleVariableDeclaration parameter : parameters) {
-			Type parameterType = parameter.getType();
-			String parameterName = parameter.getName().getFullyQualifiedName();
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, parameterType, parameter.getExtraDimensions());
-			UMLParameter umlParameter = new UMLParameter(parameterName, type, "in", parameter.isVarargs());
-			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, parameter, parameter.isVarargs());
-			variableDeclaration.setParameter(true);
-			umlParameter.setVariableDeclaration(variableDeclaration);
-			umlOperation.addParameter(umlParameter);
-		}
-		return umlOperation;
-	}
-
-
 	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
 		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
@@ -528,7 +436,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
-				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
+				UMLOperation operation = umlModel.processMethodDeclaration(this, cu, methodDeclaration, packageName, false, sourceFile);
 				operation.setClassName(anonymousClass.getCodePath());
 				anonymousClass.addOperation(operation);
 			}
@@ -627,7 +535,7 @@ public class UMLModelASTReader {
 		return false;
 	}
 
-	private LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
+	LocationInfo generateLocationInfo(CompilationUnit cu, String sourceFile, ASTNode node, CodeElementType codeElementType) {
 		return new LocationInfo(cu, sourceFile, node, codeElementType);
 	}
 }
