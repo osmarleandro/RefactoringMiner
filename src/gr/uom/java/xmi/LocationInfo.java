@@ -133,6 +133,15 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public int hashCode(UMLAnnotation umlAnnotation) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((umlAnnotation.memberValuePairs == null) ? 0 : umlAnnotation.memberValuePairsHashCode());
+		result = prime * result + ((umlAnnotation.typeName == null) ? 0 : umlAnnotation.typeName.hashCode());
+		result = prime * result + ((umlAnnotation.value == null) ? 0 : umlAnnotation.value.getExpression().hashCode());
+		return result;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
