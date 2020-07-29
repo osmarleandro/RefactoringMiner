@@ -1168,7 +1168,7 @@ public class VariableReplacementAnalysis {
 		for(MergeVariableRefactoring merge : variableMerges) {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
 					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
-					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
+					merge.getMergedVariables().contains(ref.getOperationAfter().getOriginalVariable(this)) &&
 					merge.getNewVariable().equals(ref.getRenamedVariable())) {
 				return true;
 			}
@@ -1181,7 +1181,7 @@ public class VariableReplacementAnalysis {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
 					split.getOperationAfter().equals(ref.getOperationAfter()) &&
 					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
-					split.getOldVariable().equals(ref.getOriginalVariable())) {
+					split.getOldVariable().equals(ref.getOperationAfter().getOriginalVariable(this))) {
 				return true;
 			}
 		}

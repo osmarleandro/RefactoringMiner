@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
+	public VariableDeclaration originalVariable;
 	private VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
@@ -45,10 +45,6 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
-	}
-
-	public VariableDeclaration getOriginalVariable() {
-		return originalVariable;
 	}
 
 	public VariableDeclaration getRenamedVariable() {
