@@ -52,7 +52,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return originalAttribute.getName(this);
 	}
 
 	public String toString() {
