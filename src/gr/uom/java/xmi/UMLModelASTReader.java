@@ -271,7 +271,7 @@ public class UMLModelASTReader {
 					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
 				}
 			}
-    		umlClass.addTypeParameter(umlTypeParameter);
+    		umlTypeParameter.addTypeParameter(umlClass);
     	}
     	
     	Type superclassType = typeDeclaration.getSuperclassType();

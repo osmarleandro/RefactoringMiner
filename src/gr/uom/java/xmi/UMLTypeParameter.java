@@ -64,4 +64,8 @@ public class UMLTypeParameter {
 			return false;
 		return true;
 	}
+
+	public void addTypeParameter(UMLClass umlClass) {
+		umlClass.typeParameters.add(this);
+	}
 }
