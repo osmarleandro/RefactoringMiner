@@ -22,7 +22,9 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4162,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @param inlineOperationRefactoring TODO
+	 * @return the code range of the inlined code fragment from the inlined method in the <b>parent</b> commit
+	 */
+	public CodeRange getInlinedCodeRangeFromInlinedOperation(InlineOperationRefactoring inlineOperationRefactoring) {
+		return CodeRange.computeRange(inlineOperationRefactoring.inlinedCodeFragmentsFromInlinedOperation);
 	}
 }
