@@ -19,18 +19,18 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 
 public class UMLOperationDiff {
-	private UMLOperation removedOperation;
-	private UMLOperation addedOperation;
-	private List<UMLParameter> addedParameters;
-	private List<UMLParameter> removedParameters;
-	private List<UMLParameterDiff> parameterDiffList;
-	private boolean visibilityChanged;
-	private boolean abstractionChanged;
-	private boolean returnTypeChanged;
-	private boolean qualifiedReturnTypeChanged;
-	private boolean operationRenamed;
+	public UMLOperation removedOperation;
+	public UMLOperation addedOperation;
+	public List<UMLParameter> addedParameters;
+	public List<UMLParameter> removedParameters;
+	public List<UMLParameterDiff> parameterDiffList;
+	public boolean visibilityChanged;
+	public boolean abstractionChanged;
+	public boolean returnTypeChanged;
+	public boolean qualifiedReturnTypeChanged;
+	public boolean operationRenamed;
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-	private UMLAnnotationListDiff annotationListDiff;
+	public UMLAnnotationListDiff annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
 		this.removedOperation = removedOperation;
@@ -196,37 +196,7 @@ public class UMLOperationDiff {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append("\t").append(removedOperation).append("\n");
-		if(operationRenamed)
-			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
-		if(visibilityChanged)
-			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility() + " to " + addedOperation.getVisibility()).append("\n");
-		if(abstractionChanged)
-			sb.append("\t").append("abstraction changed from " + (removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
-					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
-		if(returnTypeChanged || qualifiedReturnTypeChanged)
-			sb.append("\t").append("return type changed from " + removedOperation.getReturnParameter() + " to " + addedOperation.getReturnParameter()).append("\n");
-		for(UMLParameter umlParameter : removedParameters) {
-			sb.append("\t").append("parameter " + umlParameter + " removed").append("\n");
-		}
-		for(UMLParameter umlParameter : addedParameters) {
-			sb.append("\t").append("parameter " + umlParameter + " added").append("\n");
-		}
-		for(UMLParameterDiff parameterDiff : parameterDiffList) {
-			sb.append(parameterDiff);
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " added").append("\n");
-		}
-		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
-		}
-		return sb.toString();
+		return addedOperation.toString(this);
 	}
 
 	public Set<Refactoring> getRefactorings() {

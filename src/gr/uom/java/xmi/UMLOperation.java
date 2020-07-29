@@ -10,6 +10,9 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLAnnotationDiff;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
+import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -832,5 +835,39 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public String toString(UMLOperationDiff umlOperationDiff) {
+		StringBuilder sb = new StringBuilder();
+		if(!umlOperationDiff.isEmpty())
+			sb.append("\t").append(umlOperationDiff.removedOperation).append("\n");
+		if(umlOperationDiff.operationRenamed)
+			sb.append("\t").append("renamed from " + umlOperationDiff.removedOperation.getName() + " to " + getName()).append("\n");
+		if(umlOperationDiff.visibilityChanged)
+			sb.append("\t").append("visibility changed from " + umlOperationDiff.removedOperation.getVisibility() + " to " + getVisibility()).append("\n");
+		if(umlOperationDiff.abstractionChanged)
+			sb.append("\t").append("abstraction changed from " + (umlOperationDiff.removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
+					(isAbstract() ? "abstract" : "concrete")).append("\n");
+		if(umlOperationDiff.returnTypeChanged || umlOperationDiff.qualifiedReturnTypeChanged)
+			sb.append("\t").append("return type changed from " + umlOperationDiff.removedOperation.getReturnParameter() + " to " + getReturnParameter()).append("\n");
+		for(UMLParameter umlParameter : umlOperationDiff.removedParameters) {
+			sb.append("\t").append("parameter " + umlParameter + " removed").append("\n");
+		}
+		for(UMLParameter umlParameter : umlOperationDiff.addedParameters) {
+			sb.append("\t").append("parameter " + umlParameter + " added").append("\n");
+		}
+		for(UMLParameterDiff parameterDiff : umlOperationDiff.parameterDiffList) {
+			sb.append(parameterDiff);
+		}
+		for(UMLAnnotation annotation : umlOperationDiff.annotationListDiff.getRemovedAnnotations()) {
+			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
+		}
+		for(UMLAnnotation annotation : umlOperationDiff.annotationListDiff.getAddedAnnotations()) {
+			sb.append("\t").append("annotation " + annotation + " added").append("\n");
+		}
+		for(UMLAnnotationDiff annotationDiff : umlOperationDiff.annotationListDiff.getAnnotationDiffList()) {
+			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
+		}
+		return sb.toString();
 	}
 }
