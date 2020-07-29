@@ -35,4 +35,24 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean equals(UMLOperation umlOperation, Object o) {
+		if(umlOperation == o) {
+	        return true;
+	    }
+		
+		if(o instanceof UMLOperation) {
+			UMLOperation operation = (UMLOperation)o;
+			boolean thisEmptyBody = umlOperation.getBody() == null || umlOperation.hasEmptyBody();
+			boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+			return umlOperation.className.equals(operation.className) &&
+				umlOperation.name.equals(operation.name) &&
+				umlOperation.visibility.equals(operation.visibility) &&
+				umlOperation.isAbstract == operation.isAbstract &&
+				thisEmptyBody == otherEmptyBody &&
+				umlOperation.getParameterTypeList().equals(operation.getParameterTypeList()) &&
+				umlOperation.equalTypeParameters(operation);
+		}
+		return false;
+	}
 }
