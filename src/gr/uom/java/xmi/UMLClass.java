@@ -325,14 +325,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 	
-	public double normalizedSourceFolderDistance(UMLClass c) {
-		String s1 = sourceFolder.toLowerCase();
-		String s2 = c.sourceFolder.toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
-		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
-		return normalized;
-	}
-
 	public boolean implementsInterface(Set<UMLType> interfaces) {
 		for(UMLType type : interfaces) {
 			if(implementedInterfaces.contains(type))
@@ -396,5 +388,13 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public double normalizedSourceFolderDistance(UMLClass umlClass) {
+		String s1 = umlClass.sourceFolder.toLowerCase();
+		String s2 = sourceFolder.toLowerCase();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }
