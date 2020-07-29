@@ -75,7 +75,7 @@ public class ObjectCreation extends AbstractCall {
 		ObjectCreation newObjectCreation = new ObjectCreation();
 		newObjectCreation.type = this.type;
 		newObjectCreation.locationInfo = this.locationInfo;
-		update(newObjectCreation, oldExpression, newExpression);
+		newObjectCreation.update(this, oldExpression, newExpression);
 		return newObjectCreation;
 	}
 
