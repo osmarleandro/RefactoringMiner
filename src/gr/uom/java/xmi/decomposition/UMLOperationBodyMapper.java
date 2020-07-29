@@ -1490,22 +1490,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
-		return preprocessInput(leaf1, leaf2);
+		return leaf1.preprocessInput(leaf2);
 	}
 
 	private String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
-		return preprocessInput(leaf2, leaf1);
-	}
-
-	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
-		String argumentizedString = new String(leaf1.getArgumentizedString());
-		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression) {
-			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
-				argumentizedString = argumentizedString.substring("return ".length(),
-						argumentizedString.lastIndexOf(";\n"));
-			}
-		}
-		return argumentizedString;
+		return leaf2.preprocessInput(leaf1);
 	}
 
 	private static class ReplacementInfo {

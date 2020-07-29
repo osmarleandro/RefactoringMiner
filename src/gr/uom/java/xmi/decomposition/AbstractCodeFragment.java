@@ -304,4 +304,15 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	String preprocessInput(AbstractCodeFragment leaf2) {
+		String argumentizedString = new String(getArgumentizedString());
+		if (this instanceof StatementObject && leaf2 instanceof AbstractExpression) {
+			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
+				argumentizedString = argumentizedString.substring("return ".length(),
+						argumentizedString.lastIndexOf(";\n"));
+			}
+		}
+		return argumentizedString;
+	}
 }
