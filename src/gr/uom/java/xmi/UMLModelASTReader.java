@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
@@ -341,7 +340,7 @@ public class UMLModelASTReader {
     		DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumeration.nextElement();
     		if(node.getUserObject() != null) {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
-    			String anonymousBinaryName = getAnonymousBinaryName(node);
+    			String anonymousBinaryName = umlModel.getAnonymousBinaryName(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
@@ -601,22 +600,6 @@ public class UMLModelASTReader {
 		return name.toString();
 	}
 
-	private String getAnonymousBinaryName(DefaultMutableTreeNode node) {
-		StringBuilder name = new StringBuilder();
-		TreeNode[] path = node.getPath();
-		for(int i=0; i<path.length; i++) {
-			DefaultMutableTreeNode tmp = (DefaultMutableTreeNode)path[i];
-			if(tmp.getUserObject() != null) {
-				DefaultMutableTreeNode parent = (DefaultMutableTreeNode)tmp.getParent();
-				int index = parent.getIndex(tmp);
-				name.append(index+1);
-				if(i < path.length-1)
-					name.append(".");
-			}
-		}
-		return name.toString();
-	}
-	
 	private boolean isParent(ASTNode child, ASTNode parent) {
 		ASTNode current = child;
 		while(current.getParent() != null) {

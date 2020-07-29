@@ -10,6 +10,9 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +156,20 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	String getAnonymousBinaryName(DefaultMutableTreeNode node) {
+		StringBuilder name = new StringBuilder();
+		TreeNode[] path = node.getPath();
+		for(int i=0; i<path.length; i++) {
+			DefaultMutableTreeNode tmp = (DefaultMutableTreeNode)path[i];
+			if(tmp.getUserObject() != null) {
+				DefaultMutableTreeNode parent = (DefaultMutableTreeNode)tmp.getParent();
+				int index = parent.getIndex(tmp);
+				name.append(index+1);
+				if(i < path.length-1)
+					name.append(".");
+			}
+		}
+		return name.toString();
+	}
 }
