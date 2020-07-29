@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.UMLClassDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -10,6 +11,11 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +159,29 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	UMLAnonymousClass processAnonymousClassDeclaration(UMLModelASTReader umlModelASTReader, CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
+		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
+		LocationInfo locationInfo = umlModelASTReader.generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
+		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
+		
+		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
+			if(bodyDeclaration instanceof FieldDeclaration) {
+				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
+				List<UMLAttribute> attributes = umlModelASTReader.processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
+	    		for(UMLAttribute attribute : attributes) {
+	    			attribute.setClassName(anonymousClass.getCodePath());
+	    			anonymousClass.addAttribute(attribute);
+	    		}
+			}
+			else if(bodyDeclaration instanceof MethodDeclaration) {
+				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
+				UMLOperation operation = umlModelASTReader.processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
+				operation.setClassName(anonymousClass.getCodePath());
+				anonymousClass.addOperation(operation);
+			}
+		}
+		
+		return anonymousClass;
+	}
 }
