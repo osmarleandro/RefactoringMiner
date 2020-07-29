@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.UMLRealizationDiff;
+
 public class UMLRealization implements Comparable<UMLRealization> {
     private UMLClass client;
     private String supplier;
@@ -36,5 +38,16 @@ public class UMLRealization implements Comparable<UMLRealization> {
 
 	public int compareTo(UMLRealization realization) {
 		return this.toString().compareTo(realization.toString());
+	}
+
+	public String toString(UMLRealizationDiff umlRealizationDiff) {
+		StringBuilder sb = new StringBuilder();
+		if(umlRealizationDiff.parentChanged || umlRealizationDiff.childChanged)
+			sb.append("realization ").append(umlRealizationDiff.removedRealization).append(":").append("\n");
+		if(umlRealizationDiff.childChanged)
+			sb.append("\t").append("child changed from " + umlRealizationDiff.removedRealization.getClient() + " to " + getClient()).append("\n");
+		if(umlRealizationDiff.parentChanged)
+			sb.append("\t").append("parent changed from " + umlRealizationDiff.removedRealization.getSupplier() + " to " + getSupplier()).append("\n");
+		return sb.toString();
 	}
 }
