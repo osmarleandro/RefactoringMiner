@@ -4135,8 +4135,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private double compositeChildMatchingScore(TryStatementObject try1, TryStatementObject try2, Set<AbstractCodeMapping> mappings,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		double score = compositeChildMatchingScore((CompositeStatementObject)try1, (CompositeStatementObject)try2, mappings, removedOperations, addedOperations);
-		List<CompositeStatementObject> catchClauses1 = try1.getCatchClauses();
-		List<CompositeStatementObject> catchClauses2 = try2.getCatchClauses();
+		List<CompositeStatementObject> catchClauses1 = try1.getFinallyClause().getCatchClauses(this);
+		List<CompositeStatementObject> catchClauses2 = try2.getFinallyClause().getCatchClauses(this);
 		if(catchClauses1.size() == catchClauses2.size()) {
 			for(int i=0; i<catchClauses1.size(); i++) {
 				double tmpScore = compositeChildMatchingScore(catchClauses1.get(i), catchClauses2.get(i), mappings, removedOperations, addedOperations);
