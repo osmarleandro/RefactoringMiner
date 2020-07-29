@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean isFinal(UMLOperation umlOperation) {
+		return umlOperation.isFinal;
+	}
 }
