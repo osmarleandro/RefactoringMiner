@@ -35,4 +35,9 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	boolean isClone(UMLOperation umlOperation) {
+		List<UMLType> parameterTypeList = umlOperation.getParameterTypeList();
+		return umlOperation.getName().equals("clone") && umlOperation.getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
+	}
 }
