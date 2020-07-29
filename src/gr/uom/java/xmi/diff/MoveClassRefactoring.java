@@ -13,8 +13,8 @@ import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
-	private UMLClass originalClass;
-	private UMLClass movedClass;
+	public UMLClass originalClass;
+	public UMLClass movedClass;
 	
 	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
 		this.originalClass = originalClass;
@@ -22,12 +22,7 @@ public class MoveClassRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
-		sb.append(" moved to ");
-		sb.append(movedClass.getName());
-		return sb.toString();
+		return movedClass.toString(this);
 	}
 
 	public RenamePattern getRenamePattern() {
