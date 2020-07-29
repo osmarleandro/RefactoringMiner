@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationDetection;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4161,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public UMLOperationBodyMapper createMapperForInlinedMethod(InlineOperationDetection inlineOperationDetection, UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
+		List<String> arguments = removedOperationInvocation.getArguments();
+		List<String> parameters = removedOperation.getParameterNameList();
+		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
+		int size = Math.min(arguments.size(), parameters.size());
+		for(int i=0; i<size; i++) {
+			parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
+		}
+		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, this, parameterToArgumentMap, inlineOperationDetection.classDiff);
+		return operationBodyMapper;
 	}
 }
