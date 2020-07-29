@@ -102,14 +102,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameName(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.getName().equals(operation.getName()))
-				return true;
-		}
-		return false;
-	}
-
 	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
@@ -176,7 +168,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation operation : operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
-	    		if(umlClass.containsOperationWithTheSameName(operation)) {
+	    		if(operation.containsOperationWithTheSameName(umlClass)) {
 	    			commonOperations.add(operation);
 	    		}
 			}
@@ -184,7 +176,7 @@ public abstract class UMLAbstractClass {
 		for(UMLOperation operation : umlClass.operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
-	    		if(this.containsOperationWithTheSameName(operation)) {
+	    		if(operation.containsOperationWithTheSameName(this)) {
 	    			commonOperations.add(operation);
 	    		}
 			}

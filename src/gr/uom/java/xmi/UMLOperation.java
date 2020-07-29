@@ -833,4 +833,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean containsOperationWithTheSameName(UMLAbstractClass umlAbstractClass) {
+		for(UMLOperation originalOperation : umlAbstractClass.operations) {
+			if(originalOperation.getName().equals(getName()))
+				return true;
+		}
+		return false;
+	}
 }
