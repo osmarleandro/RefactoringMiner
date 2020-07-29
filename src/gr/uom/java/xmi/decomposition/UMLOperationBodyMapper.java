@@ -2304,7 +2304,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		//check if the argument of the method call in the second statement is the right hand side of an assignment in the first statement
 		if(invocationCoveringTheEntireStatement2 != null &&
-				(r = invocationCoveringTheEntireStatement2.makeReplacementForAssignedArgument(replacementInfo.getArgumentizedString1())) != null &&
+				(r = invocationCoveringTheEntireStatement2.getLocationInfo().makeReplacementForAssignedArgument(this, replacementInfo.getArgumentizedString1())) != null &&
 				methodInvocationMap1.containsKey(invocationCoveringTheEntireStatement2.getArguments().get(0))) {
 			replacementInfo.addReplacement(r);
 			return replacementInfo.getReplacements();
