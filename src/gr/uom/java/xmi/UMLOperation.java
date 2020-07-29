@@ -9,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -832,5 +833,13 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	/**
+	 * @param extractVariableRefactoring TODO
+	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
+	 */
+	public CodeRange getExtractedVariableDeclarationCodeRange(ExtractVariableRefactoring extractVariableRefactoring) {
+		return extractVariableRefactoring.variableDeclaration.codeRange();
 	}
 }
