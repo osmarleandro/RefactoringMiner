@@ -72,16 +72,10 @@ public class CodeRange {
 		return this;
 	}
 
-	public boolean subsumes(CodeRange other) {
-		return this.filePath.equals(other.filePath) &&
-				this.startLine <= other.startLine &&
-				this.endLine >= other.endLine;
-	}
-
 	public boolean subsumes(List<? extends AbstractCodeFragment> statements) {
 		int subsumedStatements = 0;
 		for(AbstractCodeFragment statement : statements) {
-			if(subsumes(statement.codeRange())) {
+			if(statement.codeRange().subsumes(this)) {
 				subsumedStatements++;
 			}
 		}
@@ -131,6 +125,12 @@ public class CodeRange {
 			sb.append("\n");
 		else
 			sb.append(",").append("\n");
+	}
+
+	public boolean subsumes(CodeRange codeRange) {
+		return codeRange.filePath.equals(filePath) &&
+				codeRange.startLine <= startLine &&
+				codeRange.endLine >= endLine;
 	}
 
 	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
