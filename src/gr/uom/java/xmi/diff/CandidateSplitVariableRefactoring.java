@@ -10,7 +10,7 @@ public class CandidateSplitVariableRefactoring {
 	private String oldVariable;
 	private Set<String> splitVariables;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
@@ -34,10 +34,6 @@ public class CandidateSplitVariableRefactoring {
 
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
-	}
-
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
 	}
 
 	public Set<AbstractCodeMapping> getVariableReferences() {
