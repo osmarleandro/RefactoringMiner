@@ -35,4 +35,14 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public String toQualifiedString(UMLAttribute umlAttribute) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(umlAttribute.visibility);
+		sb.append(" ");
+		sb.append(umlAttribute.name);
+		sb.append(" : ");
+		sb.append(umlAttribute.type.toQualifiedString());
+		return sb.toString();
+	}
 }

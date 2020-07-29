@@ -10,9 +10,9 @@ import java.util.List;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private UMLType type;
-	private String visibility;
+	String name;
+	UMLType type;
+	String visibility;
 	private String className;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -147,16 +147,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		sb.append(name);
 		sb.append(" : ");
 		sb.append(type);
-		return sb.toString();
-	}
-
-	public String toQualifiedString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(visibility);
-		sb.append(" ");
-		sb.append(name);
-		sb.append(" : ");
-		sb.append(type.toQualifiedString());
 		return sb.toString();
 	}
 
