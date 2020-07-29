@@ -1671,4 +1671,47 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	void inferMethodSignatureRelatedRefactorings(UMLModelDiff umlModelDiff, Set<Refactoring> refactorings) {
+		  if(getOriginalClass().isInterface() && getNextClass().isInterface()) {
+			  for(UMLOperation removedOperation : getRemovedOperations()) {
+				  for(UMLOperation addedOperation : getAddedOperations()) {
+					  List<UMLOperationBodyMapper> mappers = umlModelDiff.findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  if(!mappers.isEmpty()) {
+						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+						  if(operationSignatureDiff.isOperationRenamed()) {
+							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  refactorings.add(refactoring);
+						  }
+						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  refactorings.addAll(signatureRefactorings);
+						  if(signatureRefactorings.isEmpty()) {
+							  umlModelDiff.inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  }
+					  }
+				  }
+			  }
+		  }
+		  else if(getOriginalClass().isAbstract() && getNextClass().isAbstract()) {
+			  for(UMLOperation removedOperation : getRemovedOperations()) {
+				  for(UMLOperation addedOperation : getAddedOperations()) {
+					  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+						  List<UMLOperationBodyMapper> mappers = umlModelDiff.findMappersWithMatchingSignatures(removedOperation, addedOperation);
+						  if(!mappers.isEmpty()) {
+							  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+							  if(operationSignatureDiff.isOperationRenamed()) {
+								  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+								  refactorings.add(refactoring);
+							  }
+							  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+							  refactorings.addAll(signatureRefactorings);
+							  if(signatureRefactorings.isEmpty()) {
+								  umlModelDiff.inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
+	   }
 }
