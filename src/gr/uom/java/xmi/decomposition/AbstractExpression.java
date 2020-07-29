@@ -203,4 +203,12 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public void addExpression(CompositeStatementObject compositeStatementObject) {
+		//an expression has the same index and depth as the composite statement it belong to
+		setDepth(compositeStatementObject.getDepth());
+		setIndex(compositeStatementObject.getIndex());
+		compositeStatementObject.expressionList.add(this);
+		setOwner(compositeStatementObject);
+	}
 }
