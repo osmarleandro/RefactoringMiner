@@ -1,17 +1,27 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.ObjectCreation;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -832,5 +842,36 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void findParametersWrappedInLocalVariables(VariableReplacementAnalysis variableReplacementAnalysis) {
+		for(StatementObject statement : variableReplacementAnalysis.nonMappedLeavesT2) {
+			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+				AbstractExpression initializer = declaration.getInitializer();
+				if(initializer != null) {
+					for(String key : initializer.getCreationMap().keySet()) {
+						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
+						for(ObjectCreation creation : creations) {
+							for(String argument : creation.arguments) {
+								SimpleEntry<VariableDeclaration, UMLOperation> v2 = variableReplacementAnalysis.getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
+								SimpleEntry<VariableDeclaration, UMLOperation> v1 = variableReplacementAnalysis.getVariableDeclaration1(new Replacement(declaration.getVariableName(), "", ReplacementType.VARIABLE_NAME));
+								if(v2 != null && v1 != null) {
+									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), variableReplacementAnalysis.mappings);
+									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
+									if(!variableReplacementAnalysis.existsConflictingExtractVariableRefactoring(ref) && !variableReplacementAnalysis.existsConflictingMergeVariableRefactoring(ref) && !variableReplacementAnalysis.existsConflictingSplitVariableRefactoring(ref)) {
+										variableReplacementAnalysis.variableRenames.add(ref);
+										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
+											refactoring.addRelatedRefactoring(ref);
+											variableReplacementAnalysis.refactorings.add(refactoring);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
