@@ -172,9 +172,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName()));
-		return pairs;
+		return bodyMapper.getInvolvedClassesBeforeRefactoring(this);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
