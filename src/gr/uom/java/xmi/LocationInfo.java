@@ -1,5 +1,8 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
@@ -133,6 +136,19 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<String> preprocessArguments(List<String> arguments) {
+		List<String> args = new ArrayList<String>();
+		for(String arg : arguments) {
+			if(arg.contains("\n")) {
+				args.add(arg.substring(0, arg.indexOf("\n")));
+			}
+			else {
+				args.add(arg);
+			}
+		}
+		return args;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
