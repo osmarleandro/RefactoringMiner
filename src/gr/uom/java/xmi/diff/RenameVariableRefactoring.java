@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 
 public class RenameVariableRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
@@ -150,5 +151,17 @@ public class RenameVariableRefactoring implements Refactoring {
 				.setDescription("renamed variable declaration")
 				.setCodeElement(renamedVariable.toString()));
 		return ranges;
+	}
+
+	public boolean existsConflictingMergeVariableRefactoring(VariableReplacementAnalysis variableReplacementAnalysis) {
+		for(MergeVariableRefactoring merge : variableReplacementAnalysis.variableMerges) {
+			if(merge.getOperationBefore().equals(getOperationBefore()) &&
+					merge.getOperationAfter().equals(getOperationAfter()) &&
+					merge.getMergedVariables().contains(getOriginalVariable()) &&
+					merge.getNewVariable().equals(getRenamedVariable())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
