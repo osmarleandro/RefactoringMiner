@@ -203,4 +203,14 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	boolean ternaryMatch(String replacedExpression) {
+		List<TernaryOperatorExpression> ternaryList = getTernaryOperatorExpressions();
+		for(TernaryOperatorExpression ternary : ternaryList) {
+			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
