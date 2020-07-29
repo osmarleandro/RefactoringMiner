@@ -35,4 +35,9 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	boolean isToString(UMLOperation umlOperation) {
+		List<UMLType> parameterTypeList = umlOperation.getParameterTypeList();
+		return umlOperation.getName().equals("toString") && umlOperation.getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
+	}
 }
