@@ -51,7 +51,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean newAbstraction;
 	private boolean superclassChanged;
 	private UMLType oldSuperclass;
-	private UMLType newSuperclass;
+	UMLType newSuperclass;
 	private List<UMLType> addedImplementedInterfaces;
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
@@ -350,10 +350,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLType getOldSuperclass() {
 		return oldSuperclass;
-	}
-
-	public UMLType getNewSuperclass() {
-		return newSuperclass;
 	}
 
 	public List<UMLType> getAddedImplementedInterfaces() {
