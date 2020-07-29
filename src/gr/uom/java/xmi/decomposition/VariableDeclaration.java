@@ -256,4 +256,42 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v2) {
+		if(getInitializer() != null) {
+			if(getInitializer().getString().equals(v2.getVariableName())) {
+				return true;
+			}
+			if(getInitializer().getTernaryOperatorExpressions().size() == 1) {
+				TernaryOperatorExpression ternary = getInitializer().getTernaryOperatorExpressions().get(0);
+				if(ternary.getThenExpression().getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
+					boolean v2InitializerContainsThisReference = false;
+					if(v2.getInitializer() != null && v2.getInitializer().getVariables().contains("this." + v2.getVariableName())) {
+						v2InitializerContainsThisReference = true;
+					}
+					if(!v2InitializerContainsThisReference) {
+						return true;
+					}
+				}
+			}
+		}
+		if(v2.getInitializer() != null) {
+			if(v2.getInitializer().getString().equals(getVariableName())) {
+				return true;
+			}
+			if(v2.getInitializer().getTernaryOperatorExpressions().size() == 1) {
+				TernaryOperatorExpression ternary = v2.getInitializer().getTernaryOperatorExpressions().get(0);
+				if(ternary.getThenExpression().getVariables().contains(getVariableName()) || ternary.getElseExpression().getVariables().contains(getVariableName())) {
+					boolean v1InitializerContainsThisReference = false;
+					if(getInitializer() != null && getInitializer().getVariables().contains("this." + getVariableName())) {
+						v1InitializerContainsThisReference = true;
+					}
+					if(!v1InitializerContainsThisReference) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 }

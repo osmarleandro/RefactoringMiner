@@ -793,44 +793,6 @@ public class VariableReplacementAnalysis {
 				!inconsistentVariableMapping(v1, v2, set);
 	}
 
-	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
-		if(v1.getInitializer() != null) {
-			if(v1.getInitializer().getString().equals(v2.getVariableName())) {
-				return true;
-			}
-			if(v1.getInitializer().getTernaryOperatorExpressions().size() == 1) {
-				TernaryOperatorExpression ternary = v1.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v2.getVariableName()) || ternary.getElseExpression().getVariables().contains(v2.getVariableName())) {
-					boolean v2InitializerContainsThisReference = false;
-					if(v2.getInitializer() != null && v2.getInitializer().getVariables().contains("this." + v2.getVariableName())) {
-						v2InitializerContainsThisReference = true;
-					}
-					if(!v2InitializerContainsThisReference) {
-						return true;
-					}
-				}
-			}
-		}
-		if(v2.getInitializer() != null) {
-			if(v2.getInitializer().getString().equals(v1.getVariableName())) {
-				return true;
-			}
-			if(v2.getInitializer().getTernaryOperatorExpressions().size() == 1) {
-				TernaryOperatorExpression ternary = v2.getInitializer().getTernaryOperatorExpressions().get(0);
-				if(ternary.getThenExpression().getVariables().contains(v1.getVariableName()) || ternary.getElseExpression().getVariables().contains(v1.getVariableName())) {
-					boolean v1InitializerContainsThisReference = false;
-					if(v1.getInitializer() != null && v1.getInitializer().getVariables().contains("this." + v1.getVariableName())) {
-						v1InitializerContainsThisReference = true;
-					}
-					if(!v1InitializerContainsThisReference) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
