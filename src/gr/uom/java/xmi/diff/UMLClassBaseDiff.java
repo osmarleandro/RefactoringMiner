@@ -42,7 +42,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	public List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
@@ -454,10 +454,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(!originalClass.getImplementedInterfaces().contains(implementedInterface))
 				reportAddedImplementedInterface(implementedInterface);
 		}
-	}
-
-	public void addOperationBodyMapper(UMLOperationBodyMapper operationBodyMapper) {
-		this.operationBodyMapperList.add(operationBodyMapper);
 	}
 
 	public List<Refactoring> getRefactoringsBeforePostProcessing() {
@@ -1024,7 +1020,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}
-						this.addOperationBodyMapper(bestMapper);
+						bestMapper.addOperationBodyMapper(this);
 					}
 				}
 			}
@@ -1064,7 +1060,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}
-						this.addOperationBodyMapper(bestMapper);
+						bestMapper.addOperationBodyMapper(this);
 					}
 				}
 			}

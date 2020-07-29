@@ -4161,4 +4161,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public void addOperationBodyMapper(UMLClassBaseDiff umlClassBaseDiff) {
+		umlClassBaseDiff.operationBodyMapperList.add(this);
+	}
 }
