@@ -137,6 +137,6 @@ public class ObjectCreation extends AbstractCall {
 	}
 
 	public boolean identicalName(AbstractCall call) {
-		return getType().equals(((ObjectCreation)call).getType());
+		return call.identicalName(this);
 	}
 }
