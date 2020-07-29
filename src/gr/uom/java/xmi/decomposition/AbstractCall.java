@@ -259,51 +259,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
-		if(onlyArgumentsChanged(call, replacements)) {
-			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
-			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
-			for(Replacement replacement : replacements) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-					String key = replacement.getAfter();
-					if(commonVariableReplacementMap.containsKey(key)) {
-						commonVariableReplacementMap.get(key).add(replacement);
-						int index = updatedArguments1.indexOf(replacement.getBefore());
-						if(index != -1) {
-							updatedArguments1.remove(index);
-						}
-					}
-					else {
-						Set<Replacement> r = new LinkedHashSet<Replacement>();
-						r.add(replacement);
-						commonVariableReplacementMap.put(key, r);
-						int index = updatedArguments1.indexOf(replacement.getBefore());
-						if(index != -1) {
-							updatedArguments1.remove(index);
-							updatedArguments1.add(index, key);
-						}
-					}
-				}
-			}
-			if(updatedArguments1.equals(call.arguments)) {
-				for(String key : commonVariableReplacementMap.keySet()) {
-					Set<Replacement> r = commonVariableReplacementMap.get(key);
-					if(r.size() > 1) {
-						replacements.removeAll(r);
-						Set<String> mergedVariables = new LinkedHashSet<String>();
-						for(Replacement replacement : r) {
-							mergedVariables.add(replacement.getBefore());
-						}
-						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
-						replacements.add(merge);
-					}
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
@@ -434,6 +389,51 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean identicalWithMergedArguments(AbstractCall abstractCall, Set<Replacement> replacements) {
+		if(abstractCall.onlyArgumentsChanged(this, replacements)) {
+			List<String> updatedArguments1 = new ArrayList<String>(abstractCall.arguments);
+			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
+			for(Replacement replacement : replacements) {
+				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+					String key = replacement.getAfter();
+					if(commonVariableReplacementMap.containsKey(key)) {
+						commonVariableReplacementMap.get(key).add(replacement);
+						int index = updatedArguments1.indexOf(replacement.getBefore());
+						if(index != -1) {
+							updatedArguments1.remove(index);
+						}
+					}
+					else {
+						Set<Replacement> r = new LinkedHashSet<Replacement>();
+						r.add(replacement);
+						commonVariableReplacementMap.put(key, r);
+						int index = updatedArguments1.indexOf(replacement.getBefore());
+						if(index != -1) {
+							updatedArguments1.remove(index);
+							updatedArguments1.add(index, key);
+						}
+					}
+				}
+			}
+			if(updatedArguments1.equals(arguments)) {
+				for(String key : commonVariableReplacementMap.keySet()) {
+					Set<Replacement> r = commonVariableReplacementMap.get(key);
+					if(r.size() > 1) {
+						replacements.removeAll(r);
+						Set<String> mergedVariables = new LinkedHashSet<String>();
+						for(Replacement replacement : r) {
+							mergedVariables.add(replacement.getBefore());
+						}
+						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+						replacements.add(merge);
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public enum StatementCoverageType {
