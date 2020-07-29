@@ -543,7 +543,7 @@ public class VariableReplacementAnalysis {
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+						mapping.replacementNotInsideMethodSignatureOfAnonymousClass(replacement)) {
 					if(map.containsKey(replacement)) {
 						map.get(replacement).add(mapping);
 					}
@@ -559,7 +559,7 @@ public class VariableReplacementAnalysis {
 					Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
 					if(!returnVariableMapping(mapping, replacement) &&
 							!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-							replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+							mapping.replacementNotInsideMethodSignatureOfAnonymousClass(replacement)) {
 						if(map.containsKey(variableReplacement)) {
 							map.get(variableReplacement).add(mapping);
 						}
@@ -584,7 +584,7 @@ public class VariableReplacementAnalysis {
 								Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
 								if(!returnVariableMapping(mapping, replacement) &&
 										!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-										replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+										mapping.replacementNotInsideMethodSignatureOfAnonymousClass(replacement)) {
 									if(map.containsKey(variableReplacement)) {
 										map.get(variableReplacement).add(mapping);
 									}
@@ -609,7 +609,7 @@ public class VariableReplacementAnalysis {
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+						mapping.replacementNotInsideMethodSignatureOfAnonymousClass(replacement)) {
 					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
 					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
 					if(v1 != null && v2 != null) {
@@ -679,37 +679,6 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return false;
-	}
-
-	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
-		AbstractCodeFragment fragment1 = mapping.getFragment1();
-		AbstractCodeFragment fragment2 = mapping.getFragment2();
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations();
-		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0) {
-			boolean replacementBeforeNotFoundInMethodSignature = false;
-			String[] lines1 = fragment1.getString().split("\\n");
-			for(String line : lines1) {
-				line = prepareLine(line);
-				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
-						ReplacementUtil.contains(line, replacement.getBefore())) {
-					replacementBeforeNotFoundInMethodSignature = true;
-					break;
-				}
-			}
-			boolean replacementAfterNotFoundInMethodSignature = false;
-			String[] lines2 = fragment2.getString().split("\\n");
-			for(String line : lines2) {
-				line = prepareLine(line);
-				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
-						ReplacementUtil.contains(line, replacement.getAfter())) {
-					replacementAfterNotFoundInMethodSignature = true;
-					break;
-				}
-			}
-			return replacementBeforeNotFoundInMethodSignature && replacementAfterNotFoundInMethodSignature;
-		}
-		return true;
 	}
 
 	public static String prepareLine(String line) {

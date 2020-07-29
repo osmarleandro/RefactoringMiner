@@ -471,4 +471,35 @@ public abstract class AbstractCodeMapping {
 			return false;
 		return true;
 	}
+
+	boolean replacementNotInsideMethodSignatureOfAnonymousClass(Replacement replacement) {
+		AbstractCodeFragment fragment1 = getFragment1();
+		AbstractCodeFragment fragment2 = getFragment2();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations();
+		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0) {
+			boolean replacementBeforeNotFoundInMethodSignature = false;
+			String[] lines1 = fragment1.getString().split("\\n");
+			for(String line : lines1) {
+				line = VariableReplacementAnalysis.prepareLine(line);
+				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
+						ReplacementUtil.contains(line, replacement.getBefore())) {
+					replacementBeforeNotFoundInMethodSignature = true;
+					break;
+				}
+			}
+			boolean replacementAfterNotFoundInMethodSignature = false;
+			String[] lines2 = fragment2.getString().split("\\n");
+			for(String line : lines2) {
+				line = VariableReplacementAnalysis.prepareLine(line);
+				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
+						ReplacementUtil.contains(line, replacement.getAfter())) {
+					replacementAfterNotFoundInMethodSignature = true;
+					break;
+				}
+			}
+			return replacementBeforeNotFoundInMethodSignature && replacementAfterNotFoundInMethodSignature;
+		}
+		return true;
+	}
 }
