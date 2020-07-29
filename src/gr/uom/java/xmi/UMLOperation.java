@@ -10,6 +10,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -833,4 +834,43 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean movedMethodSignature(UMLOperation addedOperation) {
+		   if(addedOperation.getName().equals(getName()) &&
+				   addedOperation.equalReturnParameter(this) &&
+				   addedOperation.isAbstract() == isAbstract() &&
+				   addedOperation.getTypeParameters().equals(getTypeParameters())) {
+			   if(addedOperation.getParameters().equals(getParameters())) {
+				   return true;
+			   }
+			   else {
+				   // ignore parameters of types sourceClass and targetClass
+				   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
+				   Set<String> oldParameterNames = new LinkedHashSet<String>();
+				   for (UMLParameter oldParameter : getParameters()) {
+					   if (!oldParameter.getKind().equals("return")
+							   && !UMLModelDiff.looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
+							   && !UMLModelDiff.looksLikeSameType(oldParameter.getType().getClassType(), getClassName())) {
+						   oldParameters.add(oldParameter);
+						   oldParameterNames.add(oldParameter.getName());
+					   }
+				   }
+				   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
+				   Set<String> newParameterNames = new LinkedHashSet<String>();
+				   for (UMLParameter newParameter : addedOperation.getParameters()) {
+					   if (!newParameter.getKind().equals("return") &&
+							   !UMLModelDiff.looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
+							   !UMLModelDiff.looksLikeSameType(newParameter.getType().getClassType(), getClassName())) {
+						   newParameters.add(newParameter);
+						   newParameterNames.add(newParameter.getName());
+					   }
+				   }
+				   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
+				   intersection.retainAll(newParameterNames);
+				   return oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
+						   isStatic() || addedOperation.isStatic();
+			   }
+		   }
+		   return false;
+	   }
 }

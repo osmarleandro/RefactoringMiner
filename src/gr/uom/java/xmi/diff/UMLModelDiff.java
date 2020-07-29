@@ -2131,7 +2131,7 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   removedOperation.movedMethodSignature(addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
@@ -2216,7 +2216,7 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   removedOperation.movedMethodSignature(addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
@@ -2433,45 +2433,6 @@ public class UMLModelDiff {
 					   removedOperation.isStatic() || addedOperation.isStatic();
 			   return (parameterMatch && oldParameters.size() > 0 && newParameters.size() > 0) ||
 					   (parameterMatch && addedOperation.equalReturnParameter(removedOperation) && (oldParameters.size() == 0 || newParameters.size() == 0));
-		   }
-	   }
-	   return false;
-   }
-
-   private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
-	   if(addedOperation.getName().equals(removedOperation.getName()) &&
-			   addedOperation.equalReturnParameter(removedOperation) &&
-			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
-			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
-		   if(addedOperation.getParameters().equals(removedOperation.getParameters())) {
-			   return true;
-		   }
-		   else {
-			   // ignore parameters of types sourceClass and targetClass
-			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
-			   Set<String> oldParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
-				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   oldParameters.add(oldParameter);
-					   oldParameterNames.add(oldParameter.getName());
-				   }
-			   }
-			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
-			   Set<String> newParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter newParameter : addedOperation.getParameters()) {
-				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   newParameters.add(newParameter);
-					   newParameterNames.add(newParameter.getName());
-				   }
-			   }
-			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
-			   intersection.retainAll(newParameterNames);
-			   return oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
-					   removedOperation.isStatic() || addedOperation.isStatic();
 		   }
 	   }
 	   return false;
