@@ -4161,4 +4161,25 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean singleUnmatchedStatementCallsAddedOperation(UMLClassBaseDiff umlClassBaseDiff) {
+		List<StatementObject> nonMappedLeavesT1 = getNonMappedLeavesT1();
+		List<StatementObject> nonMappedLeavesT2 = getNonMappedLeavesT2();
+		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
+			StatementObject statementT2 = nonMappedLeavesT2.get(0);
+			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
+			if(invocationT2 != null) {
+				for(UMLOperation addedOperation : umlClassBaseDiff.addedOperations) {
+					if(invocationT2.matchesOperation(addedOperation, getOperation2().variableTypeMap(), umlClassBaseDiff.modelDiff)) {
+						StatementObject statementT1 = nonMappedLeavesT1.get(0);
+						OperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment();
+						if(invocationT1 != null && addedOperation.getAllOperationInvocations().contains(invocationT1)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
