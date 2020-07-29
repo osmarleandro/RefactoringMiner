@@ -154,7 +154,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void processAttributes() {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
+		for(UMLAttribute attribute : originalClass.getLocationInfo().getAttributes(this)) {
     		UMLAttribute attributeWithTheSameName = nextClass.attributeWithTheSameNameIgnoringChangedType(attribute);
 			if(attributeWithTheSameName == null) {
     			this.removedAttributes.add(attribute);
@@ -167,7 +167,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
     	}
-    	for(UMLAttribute attribute : nextClass.getAttributes()) {
+    	for(UMLAttribute attribute : nextClass.getLocationInfo().getAttributes(this)) {
     		UMLAttribute attributeWithTheSameName = originalClass.attributeWithTheSameNameIgnoringChangedType(attribute);
 			if(attributeWithTheSameName == null) {
     			this.addedAttributes.add(attribute);
@@ -658,7 +658,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
 						for(OperationInvocation extractedInvocation : extractedInvocations) {
 							for(String argument : extractedInvocation.getArguments()) {
-								for(UMLAttribute attribute : originalClass.getAttributes()) {
+								for(UMLAttribute attribute : originalClass.getLocationInfo().getAttributes(this)) {
 									if(attribute.getName().equals(argument)) {
 										attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
 										attributeNamesMatchedWithArguments.add(attribute.getName());
@@ -903,7 +903,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public UMLAttribute findAttributeInOriginalClass(String attributeName) {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
+		for(UMLAttribute attribute : originalClass.getLocationInfo().getAttributes(this)) {
 			if(attribute.getName().equals(attributeName)) {
 				return attribute;
 			}
@@ -912,7 +912,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public UMLAttribute findAttributeInNextClass(String attributeName) {
-		for(UMLAttribute attribute : nextClass.getAttributes()) {
+		for(UMLAttribute attribute : nextClass.getLocationInfo().getAttributes(this)) {
 			if(attribute.getName().equals(attributeName)) {
 				return attribute;
 			}

@@ -551,7 +551,7 @@ public class UMLModelDiff {
       }*/
       List<UMLAttribute> removedAttributes = getRemovedAttributesInCommonClasses();
       for(UMLClass removedClass : removedClasses) {
-    	  removedAttributes.addAll(removedClass.getAttributes());
+    	  removedAttributes.addAll(removedClass.getLocationInfo().getAttributes(this));
       }
       return checkForAttributeMoves(addedAttributes, removedAttributes);
    }
@@ -559,7 +559,7 @@ public class UMLModelDiff {
    private List<MoveAttributeRefactoring> checkForAttributeMovesIncludingAddedClasses() {
       List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
       for(UMLClass addedClass : addedClasses) {
-    	  addedAttributes.addAll(addedClass.getAttributes());
+    	  addedAttributes.addAll(addedClass.getLocationInfo().getAttributes(this));
       }
       List<UMLAttribute> removedAttributes = getRemovedAttributesInCommonClasses();
       /*for(UMLClass removedClass : removedClasses) {
@@ -577,11 +577,11 @@ public class UMLModelDiff {
    private List<MoveAttributeRefactoring> checkForAttributeMovesBetweenRemovedAndAddedClasses() {
 	   List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
 	   for(UMLClass addedClass : addedClasses) {
-		   addedAttributes.addAll(addedClass.getAttributes());
+		   addedAttributes.addAll(addedClass.getLocationInfo().getAttributes(this));
 	   }
 	   List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
 	   for(UMLClass removedClass : removedClasses) {
-		   removedAttributes.addAll(removedClass.getAttributes());
+		   removedAttributes.addAll(removedClass.getLocationInfo().getAttributes(this));
 	   }
 	   return checkForAttributeMoves(addedAttributes, removedAttributes);
    }
@@ -1104,7 +1104,7 @@ public class UMLModelDiff {
 			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
 		   }
 	   }
-	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
+	   for(UMLAttribute addedAttribute : addedClass.getLocationInfo().getAttributes(this)) {
 		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
 		   if(removedAttribute != null) {
 			   classDiff.getRemovedAttributes().remove(removedAttribute);
@@ -1169,7 +1169,7 @@ public class UMLModelDiff {
       for(UMLClassDiff classDiff : commonClassDiffList) {
 	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 	         for(UMLClass addedClass : addedClasses) {
-	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
+	            if(addedClass.getLocationInfo().getAttributes(this).containsAll(anonymousClass.getLocationInfo().getAttributes(this)) &&
 	                  addedClass.getOperations().containsAll(anonymousClass.getOperations())) {
 	               ConvertAnonymousClassToTypeRefactoring refactoring = new ConvertAnonymousClassToTypeRefactoring(anonymousClass, addedClass);
 	               refactorings.add(refactoring);
@@ -2320,7 +2320,7 @@ public class UMLModelDiff {
 			}
 			if(addedClass != null && s1.getVariableDeclarations().size() == 1) {
 				VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
-				for(UMLAttribute attribute : addedClass.getAttributes()) {
+				for(UMLAttribute attribute : addedClass.getLocationInfo().getAttributes(this)) {
 					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
 					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
