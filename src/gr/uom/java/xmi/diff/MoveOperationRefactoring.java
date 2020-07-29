@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
 	protected UMLOperation originalOperation;
-	protected UMLOperation movedOperation;
+	public UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
@@ -120,10 +120,6 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedOperation.codeRange()
-				.setDescription("moved method declaration")
-				.setCodeElement(movedOperation.toString()));
-		return ranges;
+		return bodyMapper.rightSide(this);
 	}
 }
