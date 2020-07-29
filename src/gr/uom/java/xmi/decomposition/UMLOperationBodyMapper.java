@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4161,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public String getClassName(RenameOperationRefactoring renameOperationRefactoring) {
+		String sourceClassName = renameOperationRefactoring.originalOperation.getClassName();
+		String targetClassName = renameOperationRefactoring.renamedOperation.getClassName();
+		boolean targetIsAnonymousInsideSource = false;
+		if(targetClassName.startsWith(sourceClassName + ".")) {
+			String targetClassNameSuffix = targetClassName.substring(sourceClassName.length() + 1, targetClassName.length());
+			targetIsAnonymousInsideSource = RenameOperationRefactoring.isNumeric(targetClassNameSuffix);
+		}
+		return sourceClassName.equals(targetClassName) || targetIsAnonymousInsideSource ? sourceClassName : targetClassName;
 	}
 }

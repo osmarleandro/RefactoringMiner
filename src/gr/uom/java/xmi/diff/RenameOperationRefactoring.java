@@ -14,8 +14,8 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class RenameOperationRefactoring implements Refactoring {
-	private UMLOperation originalOperation;
-	private UMLOperation renamedOperation;
+	public UMLOperation originalOperation;
+	public UMLOperation renamedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 	
@@ -38,22 +38,11 @@ public class RenameOperationRefactoring implements Refactoring {
 		sb.append(originalOperation);
 		sb.append(" renamed to ");
 		sb.append(renamedOperation);
-		sb.append(" in class ").append(getClassName());
+		sb.append(" in class ").append(bodyMapper.getClassName(this));
 		return sb.toString();
 	}
 
-	private String getClassName() {
-		String sourceClassName = originalOperation.getClassName();
-		String targetClassName = renamedOperation.getClassName();
-		boolean targetIsAnonymousInsideSource = false;
-		if(targetClassName.startsWith(sourceClassName + ".")) {
-			String targetClassNameSuffix = targetClassName.substring(sourceClassName.length() + 1, targetClassName.length());
-			targetIsAnonymousInsideSource = isNumeric(targetClassNameSuffix);
-		}
-		return sourceClassName.equals(targetClassName) || targetIsAnonymousInsideSource ? sourceClassName : targetClassName;
-	}
-
-	private static boolean isNumeric(String str) {
+	public static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
 		}
