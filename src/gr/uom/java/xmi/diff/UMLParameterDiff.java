@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLParameter;
 
 public class UMLParameterDiff {
 	private UMLParameter removedParameter;
-	private UMLParameter addedParameter;
+	public UMLParameter addedParameter;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
 	private boolean nameChanged;
@@ -24,10 +24,6 @@ public class UMLParameterDiff {
 
 	public UMLParameter getRemovedParameter() {
 		return removedParameter;
-	}
-
-	public UMLParameter getAddedParameter() {
-		return addedParameter;
 	}
 
 	public boolean isTypeChanged() {
