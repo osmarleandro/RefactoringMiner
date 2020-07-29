@@ -134,7 +134,7 @@ public class UMLOperationDiff {
 	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation removedOperation, UMLOperation addedOperation) {
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
 		for(UMLParameter parameter1 : removedOperation.getParameters()) {
-			if(!parameter1.getKind().equals("return")) {
+			if(!parameter1.getType().getKind(this).equals("return")) {
 				boolean found = false;
 				for(UMLParameter parameter2 : addedOperation.getParameters()) {
 					if(parameter1.equalsIncludingName(parameter2)) {
@@ -149,7 +149,7 @@ public class UMLOperationDiff {
 			}
 		}
 		for(UMLParameter parameter1 : addedOperation.getParameters()) {
-			if(!parameter1.getKind().equals("return")) {
+			if(!parameter1.getType().getKind(this).equals("return")) {
 				boolean found = false;
 				for(UMLParameter parameter2 : removedOperation.getParameters()) {
 					if(parameter1.equalsIncludingName(parameter2)) {
