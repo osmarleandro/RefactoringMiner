@@ -123,7 +123,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private UMLClassBaseDiff getUMLClassDiff(String className) {
+   public UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
@@ -2135,7 +2135,7 @@ public class UMLModelDiff {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   removedOperation.movedAndRenamedMethodSignature(this, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
@@ -2220,7 +2220,7 @@ public class UMLModelDiff {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   removedOperation.movedAndRenamedMethodSignature(this, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
@@ -2357,85 +2357,6 @@ public class UMLModelDiff {
 				mappings > nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable) ||
 				(nonMappedElementsT1-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT2/2.0)) ||
 				(nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT1/2.0));
-   }
-
-   private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation, UMLOperationBodyMapper mapper) {
-	   UMLClassBaseDiff removedOperationClassDiff = getUMLClassDiff(removedOperation.getClassName());
-	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
-		   return false;
-	   }
-	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
-			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
-		   if(!mapper.getMappings().iterator().next().isExact()) {
-			   return false;
-		   }
-	   }
-	   if((removedOperation.isConstructor() || addedOperation.isConstructor()) && mapper.mappingsWithoutBlocks() > 0) {
-		   if(!(UMLClassBaseDiff.allMappingsAreExactMatches(mapper) && mapper.nonMappedElementsT1() == 0 && mapper.nonMappedElementsT2() == 0)) {
-			   return false;
-		   }
-	   }
-	   int exactLeafMappings = 0;
-	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
-			   exactLeafMappings++;
-		   }
-	   }
-	   double normalizedEditDistance = mapper.normalizedEditDistance();
-	   if(exactLeafMappings == 0 && normalizedEditDistance > 0.24) {
-		   return false;
-	   }
-	   if(exactLeafMappings == 1 && normalizedEditDistance > 0.5 && (mapper.nonMappedElementsT1() > 0 || mapper.nonMappedElementsT2() > 0)) {
-		   return false;
-	   }
-	   if(mapper.mappingsWithoutBlocks() == 1) {
-		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-			   String fragment1 = mapping.getFragment1().getString();
-			   String fragment2 = mapping.getFragment2().getString();
-			   if(fragment1.startsWith("return true;") || fragment1.startsWith("return false;") || fragment1.startsWith("return this;") || fragment1.startsWith("return null;") || fragment1.startsWith("return;") ||
-					   fragment2.startsWith("return true;") || fragment2.startsWith("return false;") || fragment2.startsWith("return this;") || fragment2.startsWith("return null;") || fragment2.startsWith("return;")) {
-				   return false;
-			   }
-		   }
-	   }
-	   if(addedOperation.isAbstract() == removedOperation.isAbstract() &&
-			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
-		   List<UMLType> addedOperationParameterTypeList = addedOperation.getParameterTypeList();
-		   List<UMLType> removedOperationParameterTypeList = removedOperation.getParameterTypeList();
-		   if(addedOperationParameterTypeList.equals(removedOperationParameterTypeList) && addedOperationParameterTypeList.size() > 0) {
-			   return true;
-		   }
-		   else {
-			   // ignore parameters of types sourceClass and targetClass
-			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
-			   Set<String> oldParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
-				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   oldParameters.add(oldParameter);
-					   oldParameterNames.add(oldParameter.getName());
-				   }
-			   }
-			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
-			   Set<String> newParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter newParameter : addedOperation.getParameters()) {
-				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   newParameters.add(newParameter);
-					   newParameterNames.add(newParameter.getName());
-				   }
-			   }
-			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
-			   intersection.retainAll(newParameterNames);
-			   boolean parameterMatch = oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
-					   removedOperation.isStatic() || addedOperation.isStatic();
-			   return (parameterMatch && oldParameters.size() > 0 && newParameters.size() > 0) ||
-					   (parameterMatch && addedOperation.equalReturnParameter(removedOperation) && (oldParameters.size() == 0 || newParameters.size() == 0));
-		   }
-	   }
-	   return false;
    }
 
    private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
