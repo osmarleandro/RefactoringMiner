@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLGeneralization;
 
 public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> {
 	private UMLGeneralization removedGeneralization;
-	private UMLGeneralization addedGeneralization;
+	public UMLGeneralization addedGeneralization;
 	private boolean parentChanged;
 	private boolean childChanged;
 	
@@ -21,10 +21,6 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 
 	public UMLGeneralization getRemovedGeneralization() {
 		return removedGeneralization;
-	}
-
-	public UMLGeneralization getAddedGeneralization() {
-		return addedGeneralization;
 	}
 
 	public String toString() {
