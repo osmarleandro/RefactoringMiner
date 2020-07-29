@@ -34,7 +34,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return getRefactoringType().getDisplayName();
+		return changedType.getName(this);
 	}
 
 	public UMLType getOriginalType() {
