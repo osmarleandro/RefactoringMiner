@@ -44,7 +44,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
    private List<UMLClass> addedClasses;
-   private List<UMLClass> removedClasses;
+   public List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
@@ -80,11 +80,6 @@ public class UMLModelDiff {
    public void reportAddedClass(UMLClass umlClass) {
 	   if(!addedClasses.contains(umlClass))
 		   this.addedClasses.add(umlClass);
-   }
-
-   public void reportRemovedClass(UMLClass umlClass) {
-	   if(!removedClasses.contains(umlClass))
-		   this.removedClasses.add(umlClass);
    }
 
    public void reportAddedGeneralization(UMLGeneralization umlGeneralization) {
