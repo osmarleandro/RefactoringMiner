@@ -13,8 +13,8 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenameClassRefactoring implements Refactoring {
 
-	private UMLClass originalClass;
-	private UMLClass renamedClass;
+	public UMLClass originalClass;
+	public UMLClass renamedClass;
 	
 	public RenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
 		this.originalClass = originalClass;
@@ -22,12 +22,7 @@ public class RenameClassRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
-		sb.append(" renamed to ");
-		sb.append(renamedClass.getName());
-		return sb.toString();
+		return originalClass.toString(this);
 	}
 
 	public String getName() {
