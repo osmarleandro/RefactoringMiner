@@ -39,7 +39,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		this.inlinedCodeFragmentsFromInlinedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.inlinedCodeFragmentsInTargetOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
-			this.inlinedCodeFragmentsFromInlinedOperation.add(mapping.getFragment1());
+			this.inlinedCodeFragmentsFromInlinedOperation.add(mapping.getFragment1().getFragment1());
 			this.inlinedCodeFragmentsInTargetOperation.add(mapping.getFragment2());
 		}
 	}
