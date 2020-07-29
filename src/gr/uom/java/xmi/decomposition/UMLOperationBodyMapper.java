@@ -22,7 +22,9 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4162,33 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public List<CodeRange> rightSide(InlineOperationRefactoring inlineOperationRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(inlineOperationRefactoring.getTargetOperationCodeRangeAfterInline()
+				.setDescription("target method declaration after inline")
+				.setCodeElement(inlineOperationRefactoring.targetOperationAfterInline.toString()));
+		for(AbstractCodeFragment inlinedCodeFragment : inlineOperationRefactoring.inlinedCodeFragmentsInTargetOperation) {
+			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
+		}
+		/*
+		CodeRange inlinedCodeRangeInTargetOperation = getInlinedCodeRangeInTargetOperation();
+		ranges.add(inlinedCodeRangeInTargetOperation.setDescription("inlined code in target method declaration"));
+		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
+			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange())) {
+				ranges.add(statement.codeRange().
+						setDescription("added statement in target method declaration"));
+			}
+		}
+		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
+			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange()) ||
+					inlinedCodeRangeInTargetOperation.subsumes(statement.getLeaves())) {
+				ranges.add(statement.codeRange().
+						setDescription("added statement in target method declaration"));
+			}
+		}
+		*/
+		return ranges;
 	}
 }

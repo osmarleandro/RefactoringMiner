@@ -20,12 +20,12 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
-	private UMLOperation targetOperationAfterInline;
+	public UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
-	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
+	public Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
@@ -197,30 +197,6 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getTargetOperationCodeRangeAfterInline()
-				.setDescription("target method declaration after inline")
-				.setCodeElement(targetOperationAfterInline.toString()));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
-		}
-		/*
-		CodeRange inlinedCodeRangeInTargetOperation = getInlinedCodeRangeInTargetOperation();
-		ranges.add(inlinedCodeRangeInTargetOperation.setDescription("inlined code in target method declaration"));
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
-			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange())) {
-				ranges.add(statement.codeRange().
-						setDescription("added statement in target method declaration"));
-			}
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
-			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange()) ||
-					inlinedCodeRangeInTargetOperation.subsumes(statement.getLeaves())) {
-				ranges.add(statement.codeRange().
-						setDescription("added statement in target method declaration"));
-			}
-		}
-		*/
-		return ranges;
+		return bodyMapper.rightSide(this);
 	}
 }
