@@ -346,13 +346,13 @@ public class UMLModelASTReader {
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
-    				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+    				if(anonymousClass.getLocationInfo().subsumes(operation.getLocationInfo())) {
     					operation.addAnonymousClass(anonymousClass);
     				}
     			}
     			for(UMLAnonymousClass createdAnonymousClass : createdAnonymousClasses) {
     				for(UMLOperation operation : createdAnonymousClass.getOperations()) {
-        				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+        				if(anonymousClass.getLocationInfo().subsumes(operation.getLocationInfo())) {
         					operation.addAnonymousClass(anonymousClass);
         				}
         			}
