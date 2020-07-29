@@ -30,7 +30,7 @@ public class StatementObject extends AbstractStatement {
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
 	private List<String> numberLiterals;
-	private List<String> nullLiterals;
+	public List<String> nullLiterals;
 	private List<String> booleanLiterals;
 	private List<String> typeLiterals;
 	private Map<String, List<ObjectCreation>> creationMap;
@@ -185,7 +185,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getNullLiterals() {
-		return nullLiterals;
+		return locationInfo.getNullLiterals(this);
 	}
 
 	@Override
