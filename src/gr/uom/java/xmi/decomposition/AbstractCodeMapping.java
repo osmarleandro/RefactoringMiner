@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
@@ -165,7 +164,7 @@ public abstract class AbstractCodeMapping {
 						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixBefore) ||
-									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
+									initializer.overlappingExtractVariable(prefixBefore, nonMappedLeavesT2, refactorings)) {
 								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 								processExtractVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
@@ -180,7 +179,7 @@ public abstract class AbstractCodeMapping {
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
-							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
+							initializer.overlappingExtractVariable(replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
@@ -248,7 +247,7 @@ public abstract class AbstractCodeMapping {
 						String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixAfter) ||
-									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
+									initializer.overlappingExtractVariable(prefixAfter, nonMappedLeavesT2, refactorings)) {
 								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 								processInlineVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
@@ -263,7 +262,7 @@ public abstract class AbstractCodeMapping {
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
-							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
+							initializer.overlappingExtractVariable(replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 						processInlineVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
@@ -371,56 +370,6 @@ public abstract class AbstractCodeMapping {
 				}
 			}
 		}
-	}
-
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
-		String output = input;
-		for(Refactoring ref : refactorings) {
-			if(ref instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
-				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
-				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
-					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
-				}
-			}
-		}
-		if(initializer.toString().equals(output)) {
-			return true;
-		}
-		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString(), input);
-		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
-			String prefix1 = initializer.toString().substring(0, initializer.toString().indexOf(longestCommonSuffix));
-			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
-			//skip static variable prefixes
-			if(prefix1.equals(prefix2) || (!prefix1.toUpperCase().equals(prefix1) && !prefix2.toUpperCase().equals(prefix2))) {
-				return true;
-			}
-		}
-		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString(), input);
-		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
-				!longestCommonPrefix.equals(initializer.toString()) && !longestCommonPrefix.equals(input) &&
-				!longestCommonSuffix.equals(initializer.toString()) && !longestCommonSuffix.equals(input) &&
-				longestCommonPrefix.length() + longestCommonSuffix.length() < input.length() &&
-				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString().length()) {
-			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
-			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
-			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
-				VariableDeclaration variable = statement.getVariableDeclaration(s2);
-				if(variable != null) {
-					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
-						return true;
-					}
-					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();
-					for(TernaryOperatorExpression ternaryOperator : ternaryOperators) {
-						if(ternaryOperator.getThenExpression().toString().equals(s1) ||
-								ternaryOperator.getElseExpression().toString().equals(s1)) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {

@@ -2,13 +2,17 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
+import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 
 public class AbstractExpression extends AbstractCodeFragment {
 	
@@ -202,5 +206,55 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	boolean overlappingExtractVariable(String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+		String output = input;
+		for(Refactoring ref : refactorings) {
+			if(ref instanceof ExtractVariableRefactoring) {
+				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
+				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
+				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
+					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+				}
+			}
+		}
+		if(toString().equals(output)) {
+			return true;
+		}
+		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(toString(), input);
+		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
+			String prefix1 = toString().substring(0, toString().indexOf(longestCommonSuffix));
+			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
+			//skip static variable prefixes
+			if(prefix1.equals(prefix2) || (!prefix1.toUpperCase().equals(prefix1) && !prefix2.toUpperCase().equals(prefix2))) {
+				return true;
+			}
+		}
+		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(toString(), input);
+		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
+				!longestCommonPrefix.equals(toString()) && !longestCommonPrefix.equals(input) &&
+				!longestCommonSuffix.equals(toString()) && !longestCommonSuffix.equals(input) &&
+				longestCommonPrefix.length() + longestCommonSuffix.length() < input.length() &&
+				longestCommonPrefix.length() + longestCommonSuffix.length() < toString().length()) {
+			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
+			String s2 = toString().substring(longestCommonPrefix.length(), toString().lastIndexOf(longestCommonSuffix));
+			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
+				VariableDeclaration variable = statement.getVariableDeclaration(s2);
+				if(variable != null) {
+					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
+						return true;
+					}
+					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();
+					for(TernaryOperatorExpression ternaryOperator : ternaryOperators) {
+						if(ternaryOperator.getThenExpression().toString().equals(s1) ||
+								ternaryOperator.getElseExpression().toString().equals(s1)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
