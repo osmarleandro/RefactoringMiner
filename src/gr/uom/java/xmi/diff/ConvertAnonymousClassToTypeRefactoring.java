@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 
 public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 	private UMLAnonymousClass anonymousClass;
-	private UMLClass addedClass;
+	public UMLClass addedClass;
 	
 	public ConvertAnonymousClassToTypeRefactoring(UMLAnonymousClass anonymousClass, UMLClass addedClass) {
 		this.anonymousClass = anonymousClass;
@@ -23,10 +23,6 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	public UMLAnonymousClass getAnonymousClass() {
 		return anonymousClass;
-	}
-
-	public UMLClass getAddedClass() {
-		return addedClass;
 	}
 
 	public String toString() {
@@ -54,7 +50,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAddedClass().getLocationInfo().getFilePath(), getAddedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(addedClass.getAddedClass().getLocationInfo().getFilePath(), addedClass.getAddedClass().getName()));
 		return pairs;
 	}
 
