@@ -415,25 +415,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public OperationInvocation isDelegate() {
-		if(getBody() != null) {
-			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
-			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
-				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
-				for(String key : operationInvocationMap.keySet()) {
-					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
-					for(OperationInvocation operationInvocation : operationInvocations) {
-						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName())) {
-							return operationInvocation;
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
-
 	public boolean isGetter() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
