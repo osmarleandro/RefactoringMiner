@@ -143,7 +143,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 					removedOperationsToBeRemoved.add(removedOperation);
 					addedOperationsToBeRemoved.add(addedOperation);
 				}
-				else if(removedOperation.equalsIgnoringNameCase(addedOperation)) {
+				else if(addedOperation.equalsIgnoringNameCase(removedOperation)) {
 					UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
 					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, operationBodyMapper.getMappings());
 					refactorings.addAll(operationSignatureDiff.getRefactorings());
