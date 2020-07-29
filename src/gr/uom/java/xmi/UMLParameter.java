@@ -56,12 +56,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				this.kind.equals(parameter.kind);
 	}
 
-	public boolean equalsIncludingName(UMLParameter parameter) {
-		return this.name.equals(parameter.name) &&
-				this.type.equals(parameter.type) &&
-				this.kind.equals(parameter.kind);
-	}
-
 	public boolean equals(Object o) {
 		if(this == o) {
             return true;
@@ -115,5 +109,11 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				return name + " " + type.toQualifiedString();
 			}
 		}
+	}
+
+	public boolean equalsIncludingName(UMLParameter umlParameter) {
+		return umlParameter.name.equals(name) &&
+				umlParameter.type.equals(type) &&
+				umlParameter.kind.equals(kind);
 	}
 }
