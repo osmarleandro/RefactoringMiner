@@ -4161,4 +4161,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public int compare(UMLOperationBodyMapper o2) {
+		int thisOperationNameEditDistance = operationNameEditDistance();
+		int otherOperationNameEditDistance = o2.operationNameEditDistance();
+		if(thisOperationNameEditDistance != otherOperationNameEditDistance)
+			return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
+		else
+			return compareTo(o2);
+	}
 }
