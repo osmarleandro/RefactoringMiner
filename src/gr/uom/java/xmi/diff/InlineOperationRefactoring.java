@@ -22,7 +22,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
-	private List<OperationInvocation> inlinedOperationInvocations;
+	public List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
@@ -93,10 +93,6 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	public UMLOperation getTargetOperationBeforeInline() {
 		return targetOperationBeforeInline;
-	}
-
-	public List<OperationInvocation> getInlinedOperationInvocations() {
-		return inlinedOperationInvocations;
 	}
 
 	public Set<Replacement> getReplacements() {
