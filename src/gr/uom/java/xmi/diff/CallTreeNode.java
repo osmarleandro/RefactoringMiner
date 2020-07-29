@@ -7,9 +7,9 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class CallTreeNode {
-	private UMLOperation originalOperation;
-	private UMLOperation invokedOperation;
-	private OperationInvocation invocation;
+	public UMLOperation originalOperation;
+	public UMLOperation invokedOperation;
+	public OperationInvocation invocation;
 	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
 	
 	public CallTreeNode(UMLOperation originalOperation, UMLOperation invokedOperation,
@@ -51,29 +51,7 @@ public class CallTreeNode {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CallTreeNode other = (CallTreeNode) obj;
-		if (invocation == null) {
-			if (other.invocation != null)
-				return false;
-		} else if (!invocation.equals(other.invocation))
-			return false;
-		if (invokedOperation == null) {
-			if (other.invokedOperation != null)
-				return false;
-		} else if (!invokedOperation.equals(other.invokedOperation))
-			return false;
-		if (originalOperation == null) {
-			if (other.originalOperation != null)
-				return false;
-		} else if (!originalOperation.equals(other.originalOperation))
-			return false;
-		return true;
+		return invocation.equals(this, obj);
 	}
 	
 	public String toString() {

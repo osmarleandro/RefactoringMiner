@@ -5,6 +5,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.diff.CallTreeNode;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -526,5 +527,31 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	public boolean equals(CallTreeNode callTreeNode, Object obj) {
+		if (callTreeNode == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (callTreeNode.getClass() != obj.getClass())
+			return false;
+		CallTreeNode other = (CallTreeNode) obj;
+		if (this == null) {
+			if (other.invocation != null)
+				return false;
+		} else if (!equals(other.invocation))
+			return false;
+		if (callTreeNode.invokedOperation == null) {
+			if (other.invokedOperation != null)
+				return false;
+		} else if (!callTreeNode.invokedOperation.equals(other.invokedOperation))
+			return false;
+		if (callTreeNode.originalOperation == null) {
+			if (other.originalOperation != null)
+				return false;
+		} else if (!callTreeNode.originalOperation.equals(other.originalOperation))
+			return false;
+		return true;
 	}
 }
