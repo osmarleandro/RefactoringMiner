@@ -12,21 +12,19 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
+	public UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
-	private UMLOperation targetOperationBeforeInline;
-	private List<OperationInvocation> inlinedOperationInvocations;
+	public UMLOperation targetOperationBeforeInline;
+	public List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
-	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
+	public Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
 			List<OperationInvocation> operationInvocations) {
@@ -168,31 +166,7 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getInlinedOperationCodeRange()
-				.setDescription("inlined method declaration")
-				.setCodeElement(inlinedOperation.toString()));
-		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
-		}
-		ranges.add(getTargetOperationCodeRangeBeforeInline()
-				.setDescription("target method declaration before inline")
-				.setCodeElement(targetOperationBeforeInline.toString()));
-		for(OperationInvocation invocation : inlinedOperationInvocations) {
-			ranges.add(invocation.codeRange()
-					.setDescription("inlined method invocation")
-					.setCodeElement(invocation.actualString()));
-		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
-			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
-			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
-		}
-		return ranges;
+		return bodyMapper.leftSide(this);
 	}
 
 	@Override

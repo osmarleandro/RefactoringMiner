@@ -22,7 +22,9 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4162,33 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public List<CodeRange> leftSide(InlineOperationRefactoring inlineOperationRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(inlineOperationRefactoring.getInlinedOperationCodeRange()
+				.setDescription("inlined method declaration")
+				.setCodeElement(inlineOperationRefactoring.inlinedOperation.toString()));
+		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
+		for(AbstractCodeFragment inlinedCodeFragment : inlineOperationRefactoring.inlinedCodeFragmentsFromInlinedOperation) {
+			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
+		}
+		ranges.add(inlineOperationRefactoring.getTargetOperationCodeRangeBeforeInline()
+				.setDescription("target method declaration before inline")
+				.setCodeElement(inlineOperationRefactoring.targetOperationBeforeInline.toString()));
+		for(OperationInvocation invocation : inlineOperationRefactoring.inlinedOperationInvocations) {
+			ranges.add(invocation.codeRange()
+					.setDescription("inlined method invocation")
+					.setCodeElement(invocation.actualString()));
+		}
+		for(StatementObject statement : getNonMappedLeavesT1()) {
+			ranges.add(statement.codeRange().
+					setDescription("deleted statement in inlined method declaration"));
+		}
+		for(CompositeStatementObject statement : getNonMappedInnerNodesT1()) {
+			ranges.add(statement.codeRange().
+					setDescription("deleted statement in inlined method declaration"));
+		}
+		return ranges;
 	}
 }
