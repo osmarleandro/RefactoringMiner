@@ -51,7 +51,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<AbstractCodeMapping> mappings;
+	public Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
@@ -1193,7 +1193,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						postponedMappingSets.add(mappingSet);
 					}
 					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
-						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						LeafMapping bestMapping = callSiteOperation.findBestMappingBasedOnMappedSwitchCases(this, switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves2.remove(bestMapping.getFragment1());
 						leafIterator1.remove();
@@ -1291,7 +1291,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						postponedMappingSets.add(mappingSet);
 					}
 					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
-						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						LeafMapping bestMapping = callSiteOperation.findBestMappingBasedOnMappedSwitchCases(this, switchParentEntry, mappingSet);
 						mappings.add(bestMapping);
 						leaves1.remove(bestMapping.getFragment1());
 						leafIterator2.remove();
@@ -1390,56 +1390,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
-		CompositeStatementObject switchParent1 = switchParentEntry.getKey();
-		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
-		AbstractCodeMapping currentSwitchCase = null;
-		for(AbstractCodeMapping mapping : this.mappings) {
-			AbstractCodeFragment fragment1 = mapping.getFragment1();
-			AbstractCodeFragment fragment2 = mapping.getFragment2();
-			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
-				AbstractStatement statement1 = (AbstractStatement)fragment1;
-				AbstractStatement statement2 = (AbstractStatement)fragment2;
-				CompositeStatementObject parent1 = statement1.getParent();
-				CompositeStatementObject parent2 = statement2.getParent();
-				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
-					currentSwitchCase = mapping;
-				}
-				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT)) {
-					if(currentSwitchCase != null) {
-						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
-								return leafMapping;
-							}
-						}
-					}
-				}
-				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
-						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
-						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
-					if(currentSwitchCase != null) {
-						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
-								return leafMapping;
-							}
-						}
-					}
-				}
-			}
-		}
-		return mappingSet.first();
 	}
 
 	private AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> multipleMappingsUnderTheSameSwitch(Set<LeafMapping> mappingSet) {

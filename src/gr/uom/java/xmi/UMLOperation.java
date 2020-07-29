@@ -1,23 +1,31 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.refactoringminer.util.AstUtils;
 
@@ -832,5 +840,55 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public LeafMapping findBestMappingBasedOnMappedSwitchCases(UMLOperationBodyMapper umlOperationBodyMapper, SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
+		CompositeStatementObject switchParent1 = switchParentEntry.getKey();
+		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
+		AbstractCodeMapping currentSwitchCase = null;
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.mappings) {
+			AbstractCodeFragment fragment1 = mapping.getFragment1();
+			AbstractCodeFragment fragment2 = mapping.getFragment2();
+			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
+				AbstractStatement statement1 = (AbstractStatement)fragment1;
+				AbstractStatement statement2 = (AbstractStatement)fragment2;
+				CompositeStatementObject parent1 = statement1.getParent();
+				CompositeStatementObject parent2 = statement2.getParent();
+				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
+						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
+						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
+					currentSwitchCase = mapping;
+				}
+				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
+						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT) &&
+						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT)) {
+					if(currentSwitchCase != null) {
+						for(LeafMapping leafMapping : mappingSet) {
+							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
+									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
+									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
+									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+								return leafMapping;
+							}
+						}
+					}
+				}
+				else if(parent1 == switchParent1 && parent2 == switchParent2 &&
+						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
+						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
+					if(currentSwitchCase != null) {
+						for(LeafMapping leafMapping : mappingSet) {
+							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
+									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
+									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
+									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+								return leafMapping;
+							}
+						}
+					}
+				}
+			}
+		}
+		return mappingSet.first();
 	}
 }
