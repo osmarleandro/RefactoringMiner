@@ -38,7 +38,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.RENAME_PACKAGE;
+		return pattern.getRefactoringType();
 	}
 
 	public String getName() {
