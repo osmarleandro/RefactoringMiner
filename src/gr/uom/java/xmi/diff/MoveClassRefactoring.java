@@ -14,7 +14,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
 	private UMLClass originalClass;
-	private UMLClass movedClass;
+	public UMLClass movedClass;
 	
 	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
 		this.originalClass = originalClass;
@@ -87,10 +87,6 @@ public class MoveClassRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedClass.codeRange()
-				.setDescription("moved type declaration")
-				.setCodeElement(movedClass.getName()));
-		return ranges;
+		return movedClass.rightSide();
 	}
 }
