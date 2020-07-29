@@ -8,6 +8,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -832,5 +833,17 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public String toString(CandidateAttributeRefactoring candidateAttributeRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Rename Attribute").append("\t");
+		sb.append(candidateAttributeRefactoring.originalVariableName);
+		sb.append(" to ");
+		sb.append(candidateAttributeRefactoring.renamedVariableName);
+		sb.append(" in method ");
+		sb.append(this);
+		sb.append(" in class ").append(getClassName());
+		return sb.toString();
 	}
 }
