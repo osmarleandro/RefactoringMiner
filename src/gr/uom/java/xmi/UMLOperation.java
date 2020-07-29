@@ -10,8 +10,10 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
 
 import java.io.Serializable;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -832,5 +834,40 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperationDiff umlOperationDiff, UMLOperation addedOperation) {
+		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
+		for(UMLParameter parameter1 : getParameters()) {
+			if(!parameter1.getKind().equals("return")) {
+				boolean found = false;
+				for(UMLParameter parameter2 : addedOperation.getParameters()) {
+					if(parameter1.equalsIncludingName(parameter2)) {
+						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter1, parameter2));
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					umlOperationDiff.removedParameters.add(parameter1);
+				}
+			}
+		}
+		for(UMLParameter parameter1 : addedOperation.getParameters()) {
+			if(!parameter1.getKind().equals("return")) {
+				boolean found = false;
+				for(UMLParameter parameter2 : getParameters()) {
+					if(parameter1.equalsIncludingName(parameter2)) {
+						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter2, parameter1));
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					umlOperationDiff.addedParameters.add(parameter1);
+				}
+			}
+		}
+		return matchedParameters;
 	}
 }
