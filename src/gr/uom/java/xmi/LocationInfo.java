@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public CodeRange codeRange() {
+		return codeRange();
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
