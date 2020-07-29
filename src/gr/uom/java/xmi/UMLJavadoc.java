@@ -35,4 +35,9 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	boolean isCompareTo(UMLOperation umlOperation) {
+		List<UMLType> parameterTypeList = umlOperation.getParameterTypeList();
+		return umlOperation.getName().equals("compareTo") && umlOperation.getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
+	}
 }
