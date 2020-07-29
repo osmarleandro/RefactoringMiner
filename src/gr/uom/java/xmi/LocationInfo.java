@@ -1,8 +1,13 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +138,14 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<String> getNullLiterals(CompositeStatementObject compositeStatementObject) {
+		List<String> nullLiterals = new ArrayList<String>();
+		for(AbstractExpression expression : compositeStatementObject.expressionList) {
+			nullLiterals.addAll(expression.getNullLiterals());
+		}
+		return nullLiterals;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

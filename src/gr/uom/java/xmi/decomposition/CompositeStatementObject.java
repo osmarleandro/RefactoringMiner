@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	public List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -181,11 +181,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getNullLiterals() {
-		List<String> nullLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			nullLiterals.addAll(expression.getNullLiterals());
-		}
-		return nullLiterals;
+		return locationInfo.getNullLiterals(this);
 	}
 
 	@Override
