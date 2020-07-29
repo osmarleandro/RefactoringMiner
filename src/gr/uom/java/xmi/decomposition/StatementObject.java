@@ -14,10 +14,12 @@ import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+import org.refactoringminer.api.Refactoring;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 
 public class StatementObject extends AbstractStatement {
 	
@@ -259,5 +261,17 @@ public class StatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	boolean isTemporaryVariableAssignment(UMLOperationBodyMapper umlOperationBodyMapper) {
+		for(Refactoring refactoring : umlOperationBodyMapper.refactorings) {
+			if(refactoring instanceof ExtractVariableRefactoring) {
+				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
+				if(getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

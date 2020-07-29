@@ -22,7 +22,6 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
-import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -56,7 +55,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
@@ -698,7 +697,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement() && !statement.isTemporaryVariableAssignment(this))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
@@ -707,22 +706,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
+			if(statement.countableStatement() && !statement.isTemporaryVariableAssignment(this))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount;
-	}
-
-	private boolean isTemporaryVariableAssignment(StatementObject statement) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
-				if(statement.getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
