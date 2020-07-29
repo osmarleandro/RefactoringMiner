@@ -31,9 +31,9 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 	}
 
 	public int compareTo(UMLRealizationDiff generalizationDiff) {
-		int compare = this.removedRealization.compareTo(generalizationDiff.removedRealization);
+		int compare = generalizationDiff.removedRealization.compareTo(this.removedRealization);
 		if(compare == 0)
-			return this.addedRealization.compareTo(generalizationDiff.addedRealization);
+			return generalizationDiff.addedRealization.compareTo(this.addedRealization);
 		else
 			return compare;
 	}
