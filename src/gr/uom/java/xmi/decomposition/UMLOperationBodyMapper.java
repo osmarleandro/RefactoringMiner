@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,47 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean equalAfterArgumentMerge(String s1, String s2) {
+			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
+			for(Replacement replacement : getReplacements()) {
+				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+					String key = replacement.getAfter();
+					if(commonVariableReplacementMap.containsKey(key)) {
+						commonVariableReplacementMap.get(key).add(replacement);
+						int index = s1.indexOf(key);
+						if(index != -1) {
+							if(s1.charAt(index+key.length()) == ',') {
+								s1 = s1.substring(0, index) + s1.substring(index+key.length()+1, s1.length());
+							}
+							else if(index > 0 && s1.charAt(index-1) == ',') {
+								s1 = s1.substring(0, index-1) + s1.substring(index+key.length(), s1.length());
+							}
+						}
+					}
+					else {
+						Set<Replacement> replacements = new LinkedHashSet<Replacement>();
+						replacements.add(replacement);
+						commonVariableReplacementMap.put(key, replacements);
+					}
+				}
+			}
+			if(s1.equals(s2)) {
+				for(String key : commonVariableReplacementMap.keySet()) {
+					Set<Replacement> replacements = commonVariableReplacementMap.get(key);
+					if(replacements.size() > 1) {
+						getReplacements().removeAll(replacements);
+						Set<String> mergedVariables = new LinkedHashSet<String>();
+						for(Replacement replacement : replacements) {
+							mergedVariables.add(replacement.getBefore());
+						}
+						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+						getReplacements().add(merge);
+					}
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 
@@ -1961,7 +2002,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
-				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
+				replacementInfo.equalAfterArgumentMerge(s1, s2) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
@@ -3330,48 +3371,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-		}
-		return false;
-	}
-
-	private boolean equalAfterArgumentMerge(String s1, String s2, ReplacementInfo replacementInfo) {
-		Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
-		for(Replacement replacement : replacementInfo.getReplacements()) {
-			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-				String key = replacement.getAfter();
-				if(commonVariableReplacementMap.containsKey(key)) {
-					commonVariableReplacementMap.get(key).add(replacement);
-					int index = s1.indexOf(key);
-					if(index != -1) {
-						if(s1.charAt(index+key.length()) == ',') {
-							s1 = s1.substring(0, index) + s1.substring(index+key.length()+1, s1.length());
-						}
-						else if(index > 0 && s1.charAt(index-1) == ',') {
-							s1 = s1.substring(0, index-1) + s1.substring(index+key.length(), s1.length());
-						}
-					}
-				}
-				else {
-					Set<Replacement> replacements = new LinkedHashSet<Replacement>();
-					replacements.add(replacement);
-					commonVariableReplacementMap.put(key, replacements);
-				}
-			}
-		}
-		if(s1.equals(s2)) {
-			for(String key : commonVariableReplacementMap.keySet()) {
-				Set<Replacement> replacements = commonVariableReplacementMap.get(key);
-				if(replacements.size() > 1) {
-					replacementInfo.getReplacements().removeAll(replacements);
-					Set<String> mergedVariables = new LinkedHashSet<String>();
-					for(Replacement replacement : replacements) {
-						mergedVariables.add(replacement.getBefore());
-					}
-					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
-					replacementInfo.getReplacements().add(merge);
-				}
-			}
-			return true;
 		}
 		return false;
 	}
