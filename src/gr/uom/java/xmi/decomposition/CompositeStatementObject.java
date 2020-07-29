@@ -12,6 +12,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
@@ -530,5 +531,12 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	double computeScore(UMLOperationBodyMapper umlOperationBodyMapper, CompositeStatementObject statement2, List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
+		if(this instanceof TryStatementObject && statement2 instanceof TryStatementObject) {
+			return umlOperationBodyMapper.compositeChildMatchingScore((TryStatementObject)this, (TryStatementObject)statement2, umlOperationBodyMapper.mappings, removedOperations, addedOperations);
+		}
+		return umlOperationBodyMapper.compositeChildMatchingScore(this, statement2, umlOperationBodyMapper.mappings, removedOperations, addedOperations);
 	}
 }
