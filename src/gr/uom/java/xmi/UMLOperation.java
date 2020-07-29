@@ -285,15 +285,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
 	}
 
-	public boolean equalSignatureIgnoringOperationName(UMLOperation operation) {
-		return this.visibility.equals(operation.visibility) &&
-				this.isAbstract == operation.isAbstract &&
-				this.isFinal == operation.isFinal &&
-				this.isStatic == operation.isStatic &&
-				this.parameters.equals(operation.parameters) &&
-				equalTypeParameters(operation);
-	}
-
 	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
 		if(!(this.isConstructor && operation.isConstructor || equivalentName(operation)))
 			return false;
@@ -832,5 +823,14 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean equalSignatureIgnoringOperationName(UMLOperation umlOperation) {
+		return umlOperation.visibility.equals(visibility) &&
+				umlOperation.isAbstract == isAbstract &&
+				umlOperation.isFinal == isFinal &&
+				umlOperation.isStatic == isStatic &&
+				umlOperation.parameters.equals(parameters) &&
+				umlOperation.equalTypeParameters(this);
 	}
 }
