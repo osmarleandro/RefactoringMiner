@@ -256,4 +256,8 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	public void addVariableDeclaration(CompositeStatementObject compositeStatementObject) {
+		compositeStatementObject.variableDeclarations.add(this);
+	}
 }

@@ -18,7 +18,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
-	private List<VariableDeclaration> variableDeclarations;
+	List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
@@ -50,10 +50,6 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<AbstractExpression> getExpressions() {
 		return expressionList;
-	}
-
-	public void addVariableDeclaration(VariableDeclaration declaration) {
-		this.variableDeclarations.add(declaration);
 	}
 
 	@Override
