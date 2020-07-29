@@ -915,19 +915,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return replacements;
 	}
 
-	public Set<MethodInvocationReplacement> getMethodInvocationRenameReplacements() {
-		Set<MethodInvocationReplacement> replacements = new LinkedHashSet<MethodInvocationReplacement>();
-		for(AbstractCodeMapping mapping : getMappings()) {
-			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME) ||
-						replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME_AND_ARGUMENT)) {
-					replacements.add((MethodInvocationReplacement) replacement);
-				}
-			}
-		}
-		return replacements;
-	}
-
 	public void processInnerNodes(List<CompositeStatementObject> innerNodes1, List<CompositeStatementObject> innerNodes2,
 			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
 		List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
