@@ -7,6 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean isEmpty(UMLOperationBodyMapper umlOperationBodyMapper) {
+		return umlOperationBodyMapper.getNonMappedLeavesT1().isEmpty() && umlOperationBodyMapper.getNonMappedInnerNodesT1().isEmpty() &&
+				umlOperationBodyMapper.getNonMappedLeavesT2().isEmpty() && umlOperationBodyMapper.getNonMappedInnerNodesT2().isEmpty();
 	}
 }
