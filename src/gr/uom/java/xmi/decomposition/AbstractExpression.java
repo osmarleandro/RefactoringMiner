@@ -203,4 +203,13 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public String toQualifiedString(VariableDeclaration variableDeclaration) {
+		StringBuilder sb = new StringBuilder();
+	    sb.append(variableDeclaration.variableName).append(" : ").append(variableDeclaration.type.toQualifiedString());
+	    if(variableDeclaration.varargsParameter) {
+	    	sb.append("...");
+	    }
+	    return sb.toString();
+	}
 }
