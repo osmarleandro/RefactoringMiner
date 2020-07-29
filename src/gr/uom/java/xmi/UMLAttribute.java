@@ -7,6 +7,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +171,31 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public UMLAttribute matchAttribute(UMLClass umlClass) {
+		ListIterator<UMLAttribute> attributeIt = umlClass.attributes.listIterator();
+		while(attributeIt.hasNext()) {
+			UMLAttribute attribute = attributeIt.next();
+			if(attribute.getName().equals(getName())) {
+				String thisAttributeType = attribute.getType().getClassType();
+				String otherAttributeType = getType().getClassType();
+				int thisArrayDimension = attribute.getType().getArrayDimension();
+				int otherArrayDimension = getType().getArrayDimension();
+				String thisAttributeTypeComparedString = null;
+				if(thisAttributeType.contains("."))
+					thisAttributeTypeComparedString = thisAttributeType.substring(thisAttributeType.lastIndexOf(".")+1);
+				else
+					thisAttributeTypeComparedString = thisAttributeType;
+				String otherAttributeTypeComparedString = null;
+				if(otherAttributeType.contains("."))
+					otherAttributeTypeComparedString = otherAttributeType.substring(otherAttributeType.lastIndexOf(".")+1);
+				else
+					otherAttributeTypeComparedString = otherAttributeType;
+				if(thisAttributeTypeComparedString.equals(otherAttributeTypeComparedString) && thisArrayDimension == otherArrayDimension)
+					return attribute;
+			}
+		}
+		return null;
 	}
 }
