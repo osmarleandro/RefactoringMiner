@@ -3,10 +3,10 @@ package gr.uom.java.xmi.diff;
 import gr.uom.java.xmi.UMLGeneralization;
 
 public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> {
-	private UMLGeneralization removedGeneralization;
-	private UMLGeneralization addedGeneralization;
-	private boolean parentChanged;
-	private boolean childChanged;
+	public UMLGeneralization removedGeneralization;
+	public UMLGeneralization addedGeneralization;
+	public boolean parentChanged;
+	public boolean childChanged;
 	
 	public UMLGeneralizationDiff(UMLGeneralization removedGeneralization, UMLGeneralization addedGeneralization) {
 		this.removedGeneralization = removedGeneralization;
@@ -28,14 +28,7 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(parentChanged || childChanged)
-			sb.append("generalization ").append(removedGeneralization).append(":").append("\n");
-		if(childChanged)
-			sb.append("\t").append("child changed from " + removedGeneralization.getChild() + " to " + addedGeneralization.getChild()).append("\n");
-		if(parentChanged)
-			sb.append("\t").append("parent changed from " + removedGeneralization.getParent() + " to " + addedGeneralization.getParent()).append("\n");
-		return sb.toString();
+		return addedGeneralization.toString(this);
 	}
 
 	public int compareTo(UMLGeneralizationDiff generalizationDiff) {
