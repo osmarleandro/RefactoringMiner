@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -46,6 +47,7 @@ import java.util.regex.Pattern;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
@@ -4160,5 +4162,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public String toString(InlineOperationRefactoring inlineOperationRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(inlineOperationRefactoring.getName()).append("\t");
+		sb.append(inlineOperationRefactoring.inlinedOperation);
+		if(inlineOperationRefactoring.getRefactoringType().equals(RefactoringType.INLINE_OPERATION)) {
+			sb.append(" inlined to ");
+			sb.append(inlineOperationRefactoring.targetOperationAfterInline);
+			sb.append(" in class ");
+			sb.append(inlineOperationRefactoring.getClassName());
+		}
+		else if(inlineOperationRefactoring.getRefactoringType().equals(RefactoringType.MOVE_AND_INLINE_OPERATION)) {
+			sb.append(" moved from class ");
+			sb.append(inlineOperationRefactoring.inlinedOperation.getClassName());
+			sb.append(" to class ");
+			sb.append(inlineOperationRefactoring.getTargetOperationAfterInline().getClassName());
+			sb.append(" & inlined to ");
+			sb.append(inlineOperationRefactoring.getTargetOperationAfterInline());
+		}
+		return sb.toString();
 	}
 }
