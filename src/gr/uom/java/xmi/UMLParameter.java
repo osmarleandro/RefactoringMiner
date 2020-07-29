@@ -2,7 +2,6 @@ package gr.uom.java.xmi;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
@@ -11,7 +10,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private UMLType type;
 	private String kind;
 	private boolean varargs;
-	private VariableDeclaration variableDeclaration;
+	VariableDeclaration variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
 		this.name = name;
@@ -45,10 +44,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 
 	public boolean isVarargs() {
 		return varargs;
-	}
-
-	public List<UMLAnnotation> getAnnotations() {
-		return variableDeclaration.getAnnotations();
 	}
 
 	public boolean equalsExcludingType(UMLParameter parameter) {
