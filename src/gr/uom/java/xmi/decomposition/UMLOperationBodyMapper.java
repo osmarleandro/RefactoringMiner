@@ -746,7 +746,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
-							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+							if(operation.matchesOperation(invocation, operation2.variableTypeMap(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
 							}
@@ -762,7 +762,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : addedOperations) {
-							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+							if(operation.matchesOperation(invocation, operation2.variableTypeMap(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
 							}
@@ -782,7 +782,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+							if(operation.matchesOperation(invocation, operation1.variableTypeMap(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
 							}
@@ -798,7 +798,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
 						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+							if(operation.matchesOperation(invocation, operation1.variableTypeMap(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
 							}
@@ -814,7 +814,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		boolean removedOperationCalled = false;
 		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
 			for(UMLOperation operation : removedOperations) {
-				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+				if(operation.matchesOperation(invocation, operation1.variableTypeMap(), modelDiff)) {
 					removedOperationCalled = true;
 					break;
 				}
@@ -825,7 +825,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		boolean addedOperationCalled = false;
 		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
 			for(UMLOperation operation : addedOperations) {
-				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+				if(operation.matchesOperation(invocation, operation2.variableTypeMap(), modelDiff)) {
 					addedOperationCalled = true;
 					break;
 				}
@@ -4156,7 +4156,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean matchesOperation(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
 		for(UMLOperation operation : operations) {
-			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff))
+			if(operation.matchesOperation(invocation, variableTypeMap, modelDiff))
 				return true;
 		}
 		return false;
