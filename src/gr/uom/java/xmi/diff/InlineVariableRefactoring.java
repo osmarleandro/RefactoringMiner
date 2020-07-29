@@ -17,7 +17,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public InlineVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
@@ -48,10 +48,6 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
-	}
-
-	public Set<AbstractCodeMapping> getReferences() {
-		return references;
 	}
 
 	public String toString() {
