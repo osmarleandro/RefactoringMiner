@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,36 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean commonConcat(String s1, String s2, UMLOperationBodyMapper umlOperationBodyMapper) {
+			if(s1.contains("+") && s2.contains("+") && !s1.contains("++") && !s2.contains("++") &&
+					!UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(s1) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(s2)) {
+				Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(s1.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
+				Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(s2.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
+				Set<String> intersection = new LinkedHashSet<String>(tokens1);
+				intersection.retainAll(tokens2);
+				Set<String> filteredIntersection = new LinkedHashSet<String>();
+				for(String common : intersection) {
+					boolean foundInReplacements = false;
+					for(Replacement r : replacements) {
+						if(r.getBefore().contains(common) || r.getAfter().contains(common)) {
+							foundInReplacements = true;
+							break;
+						}
+					}
+					if(!foundInReplacements) {
+						filteredIntersection.add(common);
+					}
+				}
+				int size = filteredIntersection.size();
+				int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
+				if((size > 0 && size > threshold) || (size > 1 && size >= threshold)) {
+					IntersectionReplacement r = new IntersectionReplacement(s1, s2, intersection, ReplacementType.CONCATENATION);
+					getReplacements().add(r);
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 
@@ -1963,7 +1993,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
-				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
+				(validStatementForConcatComparison(statement1, statement2) && replacementInfo.commonConcat(s1, s2, this));
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = statement1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = statement2.getAnonymousClassDeclarations();
 		if(isEqualWithReplacement) {
@@ -3463,37 +3493,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return false;
 		}
 		return true;
-	}
-
-	private boolean commonConcat(String s1, String s2, ReplacementInfo info) {
-		if(s1.contains("+") && s2.contains("+") && !s1.contains("++") && !s2.contains("++") &&
-				!containsMethodSignatureOfAnonymousClass(s1) && !containsMethodSignatureOfAnonymousClass(s2)) {
-			Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(s1.split(SPLIT_CONCAT_STRING_PATTERN)));
-			Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(s2.split(SPLIT_CONCAT_STRING_PATTERN)));
-			Set<String> intersection = new LinkedHashSet<String>(tokens1);
-			intersection.retainAll(tokens2);
-			Set<String> filteredIntersection = new LinkedHashSet<String>();
-			for(String common : intersection) {
-				boolean foundInReplacements = false;
-				for(Replacement r : info.replacements) {
-					if(r.getBefore().contains(common) || r.getAfter().contains(common)) {
-						foundInReplacements = true;
-						break;
-					}
-				}
-				if(!foundInReplacements) {
-					filteredIntersection.add(common);
-				}
-			}
-			int size = filteredIntersection.size();
-			int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
-			if((size > 0 && size > threshold) || (size > 1 && size >= threshold)) {
-				IntersectionReplacement r = new IntersectionReplacement(s1, s2, intersection, ReplacementType.CONCATENATION);
-				info.getReplacements().add(r);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private boolean commonConditional(String s1, String s2, ReplacementInfo info) {
