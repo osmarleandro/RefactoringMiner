@@ -10,6 +10,16 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.SuperMethodInvocation;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +163,52 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	String getAnonymousCodePath(DefaultMutableTreeNode node) {
+		AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
+		String name = "";
+		ASTNode parent = anonymous.getParent();
+		while(parent != null) {
+			if(parent instanceof MethodDeclaration) {
+				String methodName = ((MethodDeclaration)parent).getName().getIdentifier();
+				if(name.isEmpty()) {
+					name = methodName;
+				}
+				else {
+					name = methodName + "." + name;
+				}
+			}
+			else if(parent instanceof VariableDeclarationFragment &&
+					(parent.getParent() instanceof FieldDeclaration ||
+					parent.getParent() instanceof VariableDeclarationStatement)) {
+				String fieldName = ((VariableDeclarationFragment)parent).getName().getIdentifier();
+				if(name.isEmpty()) {
+					name = fieldName;
+				}
+				else {
+					name = fieldName + "." + name;
+				}
+			}
+			else if(parent instanceof MethodInvocation) {
+				String invocationName = ((MethodInvocation)parent).getName().getIdentifier();
+				if(name.isEmpty()) {
+					name = invocationName;
+				}
+				else {
+					name = invocationName + "." + name;
+				}
+			}
+			else if(parent instanceof SuperMethodInvocation) {
+				String invocationName = ((SuperMethodInvocation)parent).getName().getIdentifier();
+				if(name.isEmpty()) {
+					name = invocationName;
+				}
+				else {
+					name = invocationName + "." + name;
+				}
+			}
+			parent = parent.getParent();
+		}
+		return name.toString();
+	}
 }
