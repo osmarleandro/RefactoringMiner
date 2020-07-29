@@ -1046,7 +1046,7 @@ public class UMLModelDiff {
          }
          for(UMLRealization addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
-			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
+			if(looksLikeSameType(supplier, addedClassName) && addedClass.topLevelOrSameOuterClass(addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
                int implementedInterfaceOperations = 0;
                boolean clientImplementsSupplier = false;
@@ -1073,7 +1073,7 @@ public class UMLModelDiff {
    private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
-	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
+	   if(looksLikeSameType(parent, addedClass.getName()) && addedClass.topLevelOrSameOuterClass(subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
 			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
@@ -1142,13 +1142,6 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-   }
-
-   private boolean topLevelOrSameOuterClass(UMLClass class1, UMLClass class2) {
-	   if(!class1.isTopLevel() && !class2.isTopLevel()) {
-		   return class1.getPackageName().equals(class2.getPackageName());
-	   }
-	   return true;
    }
 
    public static boolean looksLikeSameType(String parent, String addedClassName) {

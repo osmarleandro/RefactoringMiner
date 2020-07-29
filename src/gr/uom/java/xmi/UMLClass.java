@@ -397,4 +397,11 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public boolean topLevelOrSameOuterClass(UMLClass class2) {
+		   if(!isTopLevel() && !class2.isTopLevel()) {
+			   return getPackageName().equals(class2.getPackageName());
+		   }
+		   return true;
+	   }
 }
