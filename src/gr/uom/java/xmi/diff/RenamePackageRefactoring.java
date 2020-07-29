@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenamePackageRefactoring implements Refactoring {
 
-	private List<MoveClassRefactoring> moveClassRefactorings;
+	List<MoveClassRefactoring> moveClassRefactorings;
 	private RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
@@ -85,12 +85,6 @@ public class RenamePackageRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MoveClassRefactoring ref : moveClassRefactorings) {
-			ranges.add(ref.getMovedClass().codeRange()
-					.setDescription("moved type declaration")
-					.setCodeElement(ref.getMovedClass().getName()));
-		}
-		return ranges;
+		return pattern.rightSide(this);
 	}
 }
