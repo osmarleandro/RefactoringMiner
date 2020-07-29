@@ -959,7 +959,7 @@ public class UMLModelDiff {
 				   }
 				   boolean extendsAddedClass = classDiff.getNewSuperclass() != null &&
 						   addedClass.getName().endsWith("." + classDiff.getNewSuperclass().getClassType());
-				   UMLAttribute attributeOfExtractedClassType = attributeOfExtractedClassType(addedClass, classDiff);
+				   UMLAttribute attributeOfExtractedClassType = addedClass.attributeOfExtractedClassType(classDiff);
 				   boolean isTestClass =  addedClass.isTestClass() && classDiff.getOriginalClass().isTestClass();
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
 					   ExtractClassRefactoring refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
@@ -993,16 +993,6 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return refactorings;
-   }
-
-   private UMLAttribute attributeOfExtractedClassType(UMLClass umlClass, UMLClassBaseDiff classDiff) {
-	   List<UMLAttribute> addedAttributes = classDiff.getAddedAttributes();
-	   for(UMLAttribute addedAttribute : addedAttributes) {
-		   if(umlClass.getName().endsWith("." + addedAttribute.getType().getClassType())) {
-			   return addedAttribute;
-		   }
-	   }
-	   return null;
    }
 
    private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
