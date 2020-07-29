@@ -426,20 +426,20 @@ public class VariableReplacementAnalysis {
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
-			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
+			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getOperation1().getVariableDeclaration2(this), set)) ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
-				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
+				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getOperation1().getVariableDeclaration2(this), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
-					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
-						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
+					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getOperation1().getVariableDeclaration2(this).getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getOperation1().getVariableDeclaration2(this).getType())) {
+						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getOperation1().getVariableDeclaration2(this), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
 					}
 				}
 			}
 			else {
-				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
+				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getOperation1().getVariableDeclaration2(this), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(refactorings.contains(ref)) {
 					refactorings.remove(ref);
 				}
@@ -638,7 +638,7 @@ public class VariableReplacementAnalysis {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getOperation1().getVariableDeclaration2(this))) {
 						matchedParameterDiffs.add(parameterDiff);
 						break;
 					}
@@ -649,11 +649,11 @@ public class VariableReplacementAnalysis {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getOperation1().getVariableDeclaration2(this))) {
 						keysToBeRemoved.add(vdR);
 					}
 					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getOperation1().getVariableDeclaration2(this))) {
 						keysToBeRemoved.add(vdR);
 					}
 				}
