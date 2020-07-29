@@ -13,8 +13,8 @@ public class ClassRenameComparator implements Comparator<UMLClassRenameDiff> {
 			return Double.compare(nameDistance1, nameDistance2);
 		}
 		else {
-			double packageDistance1 = o1.getRenamedClass().normalizedPackageNameDistance(o1.getOriginalClass());
-			double packageDistance2 = o2.getRenamedClass().normalizedPackageNameDistance(o2.getOriginalClass());
+			double packageDistance1 = o1.getOriginalClass().normalizedPackageNameDistance(o1.getRenamedClass());
+			double packageDistance2 = o2.getOriginalClass().normalizedPackageNameDistance(o2.getRenamedClass());
 			return Double.compare(packageDistance1, packageDistance2);
 		}
 	}
