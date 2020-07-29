@@ -30,10 +30,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.removedOperations.add(umlOperation);
 	}
 
-	private void reportAddedAttribute(UMLAttribute umlAttribute) {
-		this.addedAttributes.add(umlAttribute);
-	}
-
 	private void reportRemovedAttribute(UMLAttribute umlAttribute) {
 		this.removedAttributes.add(umlAttribute);
 	}
@@ -55,7 +51,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     	for(UMLAttribute attribute : nextClass.getAttributes()) {
     		UMLAttribute matchingAttribute = originalClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
-    			this.reportAddedAttribute(attribute);
+    			attribute.reportAddedAttribute(this);
     		}
     		else {
     			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, getOperationBodyMapperList());
