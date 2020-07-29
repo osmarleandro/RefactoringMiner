@@ -4161,4 +4161,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean mappedElementsMoreThanNonMappedT1(int mappings, UMLClassBaseDiff umlClassBaseDiff) {
+		int nonMappedElementsT1 = nonMappedElementsT1();
+		int nonMappedElementsT1CallingRemovedOperation = nonMappedElementsT1CallingRemovedOperation(umlClassBaseDiff.removedOperations);
+		int nonMappedElementsT1WithoutThoseCallingRemovedOperation = nonMappedElementsT1 - nonMappedElementsT1CallingRemovedOperation;
+		return mappings > nonMappedElementsT1 || (mappings >= nonMappedElementsT1WithoutThoseCallingRemovedOperation &&
+				nonMappedElementsT1CallingRemovedOperation >= nonMappedElementsT1WithoutThoseCallingRemovedOperation);
+	}
 }
