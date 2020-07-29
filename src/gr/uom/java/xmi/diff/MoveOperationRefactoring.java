@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
-	protected UMLOperation originalOperation;
+	public UMLOperation originalOperation;
 	protected UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
@@ -70,13 +70,6 @@ public class MoveOperationRefactoring implements Refactoring {
 
 	public Set<Replacement> getReplacements() {
 		return replacements;
-	}
-
-	/**
-	 * @return the code range of the source method in the <b>parent</b> commit
-	 */
-	public CodeRange getSourceOperationCodeRangeBeforeMove() {
-		return originalOperation.codeRange();
 	}
 
 	/**
