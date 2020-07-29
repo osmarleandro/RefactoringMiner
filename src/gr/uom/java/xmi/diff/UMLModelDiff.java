@@ -270,7 +270,7 @@ public class UMLModelDiff {
 			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
-		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
+		   for(UMLType implementedInterface : subclassDiff.getModelDiff().getAddedImplementedInterfaces(this)) {
 			   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
 				   return true;
 			   }
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLType> getAddedImplementedInterfaces(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.addedImplementedInterfaces;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
