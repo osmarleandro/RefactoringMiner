@@ -36,7 +36,7 @@ import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
-	protected UMLClass originalClass;
+	public UMLClass originalClass;
 	protected UMLClass nextClass;
 	protected List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
@@ -382,14 +382,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits() {
 		return candidateAttributeSplits;
-	}
-
-	public boolean containsOperationWithTheSameSignatureInOriginalClass(UMLOperation operation) {
-		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			if(originalOperation.equalSignature(operation))
-				return true;
-		}
-		return false;
 	}
 
 	public boolean containsOperationWithTheSameSignatureInNextClass(UMLOperation operation) {

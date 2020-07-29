@@ -114,7 +114,7 @@ public class UMLModelDiff {
 		   for(UMLType commonInterface : commonInterfaces) {
 			   UMLClassBaseDiff interfaceDiff = getUMLClassDiff(commonInterface);
 			   if(interfaceDiff != null &&
-					   interfaceDiff.containsOperationWithTheSameSignatureInOriginalClass(operation1) &&
+					   operation1.containsOperationWithTheSameSignatureInOriginalClass(interfaceDiff) &&
 					   interfaceDiff.containsOperationWithTheSameSignatureInNextClass(operation2)) {
 				   return true;
 			   }
@@ -1052,7 +1052,7 @@ public class UMLModelDiff {
                boolean clientImplementsSupplier = false;
                if(clientClassDiff != null) {
                   for(UMLOperation interfaceOperation : addedClass.getOperations()) {
-                     if(clientClassDiff.containsOperationWithTheSameSignatureInOriginalClass(interfaceOperation)) {
+                     if(interfaceOperation.containsOperationWithTheSameSignatureInOriginalClass(clientClassDiff)) {
                         implementedInterfaceOperations++;
                      }
                   }
