@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
+	public UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
@@ -122,13 +122,6 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	/**
-	 * @return the code range of the inlined method in the <b>parent</b> commit
-	 */
-	public CodeRange getInlinedOperationCodeRange() {
-		return inlinedOperation.codeRange();
-	}
-
-	/**
 	 * @return the code range of the inlined code fragment from the inlined method in the <b>parent</b> commit
 	 */
 	public CodeRange getInlinedCodeRangeFromInlinedOperation() {
@@ -169,7 +162,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getInlinedOperationCodeRange()
+		ranges.add(bodyMapper.getInlinedOperationCodeRange(this)
 				.setDescription("inlined method declaration")
 				.setCodeElement(inlinedOperation.toString()));
 		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
