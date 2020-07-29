@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import gr.uom.java.xmi.UMLOperation;
-
 public class CallTree {
 	private CallTreeNode root;
 	
@@ -24,14 +22,5 @@ public class CallTree {
 			queue.addAll(node.getChildren());
 		}
 		return nodes;
-	}
-	
-	public boolean contains(UMLOperation invokedOperation) {
-		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
-			if(node.getInvokedOperation().equals(invokedOperation)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
