@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -396,5 +398,13 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public List<CodeRange> rightSide(RenameClassRefactoring renameClassRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(renameClassRefactoring.renamedClass.codeRange()
+				.setDescription("renamed type declaration")
+				.setCodeElement(renameClassRefactoring.renamedClass.getName()));
+		return ranges;
 	}
 }

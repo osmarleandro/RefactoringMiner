@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringType;
 public class RenameClassRefactoring implements Refactoring {
 
 	private UMLClass originalClass;
-	private UMLClass renamedClass;
+	public UMLClass renamedClass;
 	
 	public RenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
 		this.originalClass = originalClass;
@@ -77,10 +77,6 @@ public class RenameClassRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(renamedClass.codeRange()
-				.setDescription("renamed type declaration")
-				.setCodeElement(renamedClass.getName()));
-		return ranges;
+		return originalClass.rightSide(this);
 	}
 }
