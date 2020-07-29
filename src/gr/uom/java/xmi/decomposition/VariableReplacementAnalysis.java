@@ -65,7 +65,7 @@ public class VariableReplacementAnalysis {
 		this.nonMappedInnerNodesT1 = mapper.getNonMappedInnerNodesT1();
 		this.nonMappedInnerNodesT2 = mapper.getNonMappedInnerNodesT2();
 		this.operation1 = mapper.getOperation1();
-		this.operation2 = mapper.getOperation2();
+		this.operation2 = mapper.getCallSiteOperation().getOperation2(this);
 		this.childMappers = new ArrayList<UMLOperationBodyMapper>();
 		this.childMappers.addAll(mapper.getChildMappers());
 		UMLOperationBodyMapper parentMapper = mapper.getParentMapper();
@@ -1046,7 +1046,7 @@ public class VariableReplacementAnalysis {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {
-							UMLOperation extractedMethod = mapper.getOperation2();
+							UMLOperation extractedMethod = mapper.getCallSiteOperation().getOperation2(this);
 							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
 							for(String key : methodInvocationMap.keySet()) {
 								for(OperationInvocation invocation : methodInvocationMap.get(key)) {
