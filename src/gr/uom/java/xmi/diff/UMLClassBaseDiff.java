@@ -1575,7 +1575,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			for(Refactoring r : refactorings) {
 				if(r instanceof RenameVariableRefactoring) {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
-					Set<AbstractCodeMapping> references = rename.getVariableReferences();
+					Set<AbstractCodeMapping> references = rename.getOperationAfter().getVariableReferences(this);
 					for(AbstractCodeMapping reference : references) {
 						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
 							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
