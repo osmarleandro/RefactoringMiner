@@ -830,7 +830,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				mergeMap.get(merge).add(candidate);
 				return;
 			}
-			else if(merge.equal(newMerge)) {
+			else if(newMerge.equal(merge)) {
 				mergeMap.get(merge).add(candidate);
 				return;
 			}

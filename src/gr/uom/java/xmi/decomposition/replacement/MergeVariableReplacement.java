@@ -15,12 +15,6 @@ public class MergeVariableReplacement extends Replacement {
 		return mergedVariables;
 	}
 
-	public boolean equal(MergeVariableReplacement other) {
-		return this.getAfter().equals(other.getAfter()) &&
-				this.mergedVariables.containsAll(other.mergedVariables) &&
-				other.mergedVariables.containsAll(this.mergedVariables);
-	}
-
 	public boolean commonAfter(MergeVariableReplacement other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.mergedVariables);
 		interestion.retainAll(other.mergedVariables);
@@ -31,5 +25,11 @@ public class MergeVariableReplacement extends Replacement {
 		return this.getAfter().equals(other.getAfter()) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
+	}
+
+	public boolean equal(MergeVariableReplacement mergeVariableReplacement) {
+		return mergeVariableReplacement.getAfter().equals(getAfter()) &&
+				mergeVariableReplacement.mergedVariables.containsAll(mergedVariables) &&
+				mergedVariables.containsAll(mergeVariableReplacement.mergedVariables);
 	}
 }
