@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public VariableDeclaration getVariableDeclaration(String variableName) {
+		return getVariableDeclaration(variableName);
+	}
 }
