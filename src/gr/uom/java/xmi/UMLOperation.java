@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -830,6 +831,16 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
+		for(VariableDeclaration declaration : declarations) {
+			AbstractExpression initializer = declaration.getInitializer();
+			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
+				return declaration;
+			}
 		}
 		return null;
 	}

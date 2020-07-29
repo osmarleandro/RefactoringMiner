@@ -1581,8 +1581,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Map<String, String> parameterToArgumentMap, ReplacementInfo replacementInfo) throws RefactoringMinerTimedOutException {
 		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations());
 		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations());
-		VariableDeclaration variableDeclarationWithArrayInitializer1 = declarationWithArrayInitializer(variableDeclarations1);
-		VariableDeclaration variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
+		VariableDeclaration variableDeclarationWithArrayInitializer1 = callSiteOperation.declarationWithArrayInitializer(variableDeclarations1);
+		VariableDeclaration variableDeclarationWithArrayInitializer2 = callSiteOperation.declarationWithArrayInitializer(variableDeclarations2);
 		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment();
 		OperationInvocation invocationCoveringTheEntireStatement2 = statement2.invocationCoveringEntireFragment();
 		Set<String> variables1 = new LinkedHashSet<String>(statement1.getVariables());
@@ -3006,16 +3006,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
-		for(VariableDeclaration declaration : declarations) {
-			AbstractExpression initializer = declaration.getInitializer();
-			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
-				return declaration;
-			}
-		}
-		return null;
 	}
 
 	private boolean argumentsWithIdenticalMethodCalls(Set<String> arguments1, Set<String> arguments2,
