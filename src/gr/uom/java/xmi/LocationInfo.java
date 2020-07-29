@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isNormalAnnotation(UMLAnnotation umlAnnotation) {
+		return umlAnnotation.memberValuePairs.size() > 0;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
