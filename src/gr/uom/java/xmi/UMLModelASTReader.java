@@ -467,7 +467,7 @@ public class UMLModelASTReader {
 			UMLParameter umlParameter = new UMLParameter(parameterName, type, "in", parameter.isVarargs());
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, parameter, parameter.isVarargs());
 			variableDeclaration.setParameter(true);
-			umlParameter.setVariableDeclaration(variableDeclaration);
+			variableDeclaration.setVariableDeclaration(umlParameter);
 			umlOperation.addParameter(umlParameter);
 		}
 		return umlOperation;
