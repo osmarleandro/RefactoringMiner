@@ -1745,7 +1745,7 @@ public class UMLModelDiff {
 							parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
 						}
 						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, getUMLClassDiff(removedOperation.getClassName()));
-						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
+						if(operationBodyMapper.moveAndInlineMatchCondition(mapper)) {
 							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 							refactorings.add(inlineOperationRefactoring);
 							deleteRemovedOperation(removedOperation);
@@ -1755,41 +1755,6 @@ public class UMLModelDiff {
 		   }
 	   }
    }
-
-	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
-		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
-			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
-			for(AbstractCodeMapping mapping : parentMappingList) {
-				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
-					return false;
-				}
-				if(mapping instanceof CompositeStatementObjectMapping) {
-					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
-					for(AbstractExpression expression : fragment2.getExpressions()) {
-						if(expression.equals(mappingList.get(0).getFragment2())) {
-							return false;
-						}
-					}
-				}
-			}
-		}
-		int delegateStatements = 0;
-		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
-				delegateStatements++;
-			}
-		}
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
-		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
-		int exactMatches = exactMatchList.size();
-		return mappings > 0 && (mappings > nonMappedElementsT1 ||
-				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
-				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
-	}
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {

@@ -4161,4 +4161,39 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean moveAndInlineMatchCondition(UMLOperationBodyMapper parentMapper) {
+		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(getMappings());
+		if((getOperation1().isGetter() || getOperation1().isDelegate() != null) && mappingList.size() == 1) {
+			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
+			for(AbstractCodeMapping mapping : parentMappingList) {
+				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
+					return false;
+				}
+				if(mapping instanceof CompositeStatementObjectMapping) {
+					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
+					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
+					for(AbstractExpression expression : fragment2.getExpressions()) {
+						if(expression.equals(mappingList.get(0).getFragment2())) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		int delegateStatements = 0;
+		for(StatementObject statement : getNonMappedLeavesT1()) {
+			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			if(invocation != null && invocation.matchesOperation(getOperation1())) {
+				delegateStatements++;
+			}
+		}
+		int mappings = mappingsWithoutBlocks();
+		int nonMappedElementsT1 = nonMappedElementsT1()-delegateStatements;
+		List<AbstractCodeMapping> exactMatchList = getExactMatches();
+		int exactMatches = exactMatchList.size();
+		return mappings > 0 && (mappings > nonMappedElementsT1 ||
+				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
+				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
+	}
 }
