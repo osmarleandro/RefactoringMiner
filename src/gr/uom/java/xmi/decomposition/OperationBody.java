@@ -38,7 +38,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	CompositeStatementObject compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
@@ -292,9 +292,5 @@ public class OperationBody {
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		return compositeStatement.aliasedAttributes();
-	}
-
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		return compositeStatement.loopWithVariables(currentElementName, collectionName);
 	}
 }
