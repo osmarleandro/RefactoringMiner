@@ -688,9 +688,97 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				(this.getParameterTypeList().containsAll(operation.getParameterTypeList()) || operation.getParameterTypeList().containsAll(this.getParameterTypeList()));
 	}
 	
-	public boolean replacedParameterTypes(UMLOperation operation) {
-		List<UMLType> thisParameterTypes = this.getParameterTypeList();
-		List<UMLType> otherParameterTypes = operation.getParameterTypeList();
+	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
+		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
+		if(this.operationBody != null) {
+			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
+			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
+				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
+					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
+					}
+				}
+			}
+		}
+		return operationsInsideAnonymousClass;
+	}
+
+	public CodeRange codeRange() {
+		return locationInfo.codeRange();
+	}
+
+	public boolean overridesObject() {
+		return isEquals() || isHashCode() || isToString() || isClone() || isCompareTo();
+	}
+
+	private boolean isEquals() {
+		List<UMLType> parameterTypeList = getParameterTypeList();
+		return getName().equals("equals") && getReturnParameter().getType().getClassType().equals("boolean") &&
+				parameterTypeList.size() == 1 && parameterTypeList.get(0).getClassType().equals("Object");
+	}
+
+	private boolean isHashCode() {
+		List<UMLType> parameterTypeList = getParameterTypeList();
+		return getName().equals("hashCode") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
+	}
+
+	private boolean isToString() {
+		List<UMLType> parameterTypeList = getParameterTypeList();
+		return getName().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
+	}
+
+	private boolean isClone() {
+		List<UMLType> parameterTypeList = getParameterTypeList();
+		return getName().equals("clone") && getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
+	}
+
+	private boolean isCompareTo() {
+		List<UMLType> parameterTypeList = getParameterTypeList();
+		return getName().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
+	}
+
+	public boolean compatibleSignature(UMLOperation removedOperation) {
+		return equalParameterTypes(removedOperation) || overloadedParameterTypes(removedOperation) || removedOperation.replacedParameterTypes(this) || equalParameterNames(removedOperation);
+	}
+
+	public boolean hasTwoParametersWithTheSameType() {
+		List<UMLType> parameterTypes = getParameterTypeList();
+		if(parameterTypes.size() == 2) {
+			if(parameterTypes.get(0).equals(parameterTypes.get(1))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Map<String, Set<String>> aliasedAttributes() {
+		if(operationBody != null && isConstructor) {
+			List<String> parameterNames = getParameterNameList();
+			Map<String, Set<String>> map = operationBody.aliasedAttributes();
+			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
+			for(String key : map.keySet()) {
+				if(!parameterNames.contains(key)) {
+					keysToBeRemoved.add(key);
+				}
+			}
+			for(String key : keysToBeRemoved) {
+				map.remove(key);
+			}
+			return map;
+		}
+		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+		if(operationBody != null) {
+			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public boolean replacedParameterTypes(UMLOperation umlOperation) {
+		List<UMLType> thisParameterTypes = umlOperation.getParameterTypeList();
+		List<UMLType> otherParameterTypes = getParameterTypeList();
 		
 		if(thisParameterTypes.size() == otherParameterTypes.size() && thisParameterTypes.size() > 0) {
 			int commonParameterTypes = 0;
@@ -744,93 +832,5 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return commonParameterTypes >= differentParameterTypes && commonParameterTypes > 0;
 		}
 		return false;
-	}
-
-	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
-		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
-		if(this.operationBody != null) {
-			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
-			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
-				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
-					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
-						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
-					}
-				}
-			}
-		}
-		return operationsInsideAnonymousClass;
-	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
-	}
-
-	public boolean overridesObject() {
-		return isEquals() || isHashCode() || isToString() || isClone() || isCompareTo();
-	}
-
-	private boolean isEquals() {
-		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("equals") && getReturnParameter().getType().getClassType().equals("boolean") &&
-				parameterTypeList.size() == 1 && parameterTypeList.get(0).getClassType().equals("Object");
-	}
-
-	private boolean isHashCode() {
-		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("hashCode") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
-	}
-
-	private boolean isToString() {
-		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
-	}
-
-	private boolean isClone() {
-		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("clone") && getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
-	}
-
-	private boolean isCompareTo() {
-		List<UMLType> parameterTypeList = getParameterTypeList();
-		return getName().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
-	}
-
-	public boolean compatibleSignature(UMLOperation removedOperation) {
-		return equalParameterTypes(removedOperation) || overloadedParameterTypes(removedOperation) || replacedParameterTypes(removedOperation) || equalParameterNames(removedOperation);
-	}
-
-	public boolean hasTwoParametersWithTheSameType() {
-		List<UMLType> parameterTypes = getParameterTypeList();
-		if(parameterTypes.size() == 2) {
-			if(parameterTypes.get(0).equals(parameterTypes.get(1))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public Map<String, Set<String>> aliasedAttributes() {
-		if(operationBody != null && isConstructor) {
-			List<String> parameterNames = getParameterNameList();
-			Map<String, Set<String>> map = operationBody.aliasedAttributes();
-			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
-			for(String key : map.keySet()) {
-				if(!parameterNames.contains(key)) {
-					keysToBeRemoved.add(key);
-				}
-			}
-			for(String key : keysToBeRemoved) {
-				map.remove(key);
-			}
-			return map;
-		}
-		return new LinkedHashMap<String, Set<String>>();
-	}
-
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		if(operationBody != null) {
-			return operationBody.loopWithVariables(currentElementName, collectionName);
-		}
-		return null;
 	}
 }
