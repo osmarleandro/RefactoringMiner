@@ -14,7 +14,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	
 	private String expression;
 	private LocationInfo locationInfo;
-	private CompositeStatementObject owner;
+	public CompositeStatementObject owner;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -180,14 +180,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	public VariableDeclaration searchVariableDeclaration(String variableName) {
-		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
-		if(variableDeclaration != null) {
-			return variableDeclaration;
-		}
-		else if(owner != null) {
-			return owner.searchVariableDeclaration(variableName);
-		}
-		return null;
+		return locationInfo.searchVariableDeclaration(this, variableName);
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {

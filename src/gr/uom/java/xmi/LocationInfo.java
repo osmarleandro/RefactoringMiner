@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +135,17 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public VariableDeclaration searchVariableDeclaration(AbstractExpression abstractExpression, String variableName) {
+		VariableDeclaration variableDeclaration = abstractExpression.getVariableDeclaration(variableName);
+		if(variableDeclaration != null) {
+			return variableDeclaration;
+		}
+		else if(abstractExpression.owner != null) {
+			return abstractExpression.owner.searchVariableDeclaration(variableName);
+		}
+		return null;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
