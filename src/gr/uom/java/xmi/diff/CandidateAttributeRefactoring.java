@@ -8,10 +8,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class CandidateAttributeRefactoring {
-	private String originalVariableName;
-	private String renamedVariableName;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public String originalVariableName;
+	public String renamedVariableName;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
@@ -101,13 +101,7 @@ public class CandidateAttributeRefactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((originalVariableName == null) ? 0 : originalVariableName.hashCode());
-		result = prime * result + ((renamedVariableName == null) ? 0 : renamedVariableName.hashCode());
-		return result;
+		return operationAfter.hashCode(this);
 	}
 
 	@Override
