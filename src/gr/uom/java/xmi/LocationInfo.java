@@ -1,8 +1,14 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.TernaryOperatorExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +139,14 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<TernaryOperatorExpression> getTernaryOperatorExpressions(CompositeStatementObject compositeStatementObject) {
+		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
+		for(AbstractExpression expression : compositeStatementObject.expressionList) {
+			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
+		}
+		return ternaryOperatorExpressions;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
