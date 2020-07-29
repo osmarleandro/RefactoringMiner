@@ -592,7 +592,7 @@ public class UMLModelDiff {
 		   for(UMLAttribute addedAttribute : addedAttributes) {
 			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
 			   for(UMLAttribute removedAttribute : removedAttributes) {
-				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
+				   MoveAttributeRefactoring candidate = addedAttribute.processPairOfAttributes(this, removedAttribute);
 				   if(candidate != null) {
 					   candidates.add(candidate);
 				   }
@@ -604,7 +604,7 @@ public class UMLModelDiff {
 		   for(UMLAttribute removedAttribute : removedAttributes) {
 			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
 			   for(UMLAttribute addedAttribute : addedAttributes) {
-				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
+				   MoveAttributeRefactoring candidate = addedAttribute.processPairOfAttributes(this, removedAttribute);
 				   if(candidate != null) {
 					   candidates.add(candidate);
 				   }
@@ -697,29 +697,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
-	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
-			   addedAttribute.getType().equals(removedAttribute.getType())) {
-		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
-			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
-			   return pullUpAttribute;
-		   }
-		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
-			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
-			   return pushDownAttribute;
-		   }
-		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
-				   targetClassImportsSourceClass(removedAttribute.getClassName(), addedAttribute.getClassName())) {
-			   if(!initializerContainsTypeLiteral(addedAttribute, removedAttribute)) {
-				   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
-				   return moveAttribute;
-			   }
-		   }
-	   }
-	   return null;
-   }
-
-   private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
+   public boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
 	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
 	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
@@ -787,7 +765,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean sourceClassImportsTargetClass(String sourceClassName, String targetClassName) {
+   public boolean sourceClassImportsTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(sourceClassName);
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
@@ -805,7 +783,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean targetClassImportsSourceClass(String sourceClassName, String targetClassName) {
+   public boolean targetClassImportsSourceClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(targetClassName);
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));

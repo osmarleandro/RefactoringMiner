@@ -2,7 +2,11 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.MoveAttributeRefactoring;
+import gr.uom.java.xmi.diff.PullUpAttributeRefactoring;
+import gr.uom.java.xmi.diff.PushDownAttributeRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -171,4 +175,26 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public MoveAttributeRefactoring processPairOfAttributes(UMLModelDiff umlModelDiff, UMLAttribute removedAttribute) {
+		   if(getName().equals(removedAttribute.getName()) &&
+				   getType().equals(removedAttribute.getType())) {
+			   if(umlModelDiff.isSubclassOf(removedAttribute.getClassName(), getClassName())) {
+				   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, this);
+				   return pullUpAttribute;
+			   }
+			   else if(umlModelDiff.isSubclassOf(getClassName(), removedAttribute.getClassName())) {
+				   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, this);
+				   return pushDownAttribute;
+			   }
+			   else if(umlModelDiff.sourceClassImportsTargetClass(removedAttribute.getClassName(), getClassName()) ||
+					   umlModelDiff.targetClassImportsSourceClass(removedAttribute.getClassName(), getClassName())) {
+				   if(!umlModelDiff.initializerContainsTypeLiteral(this, removedAttribute)) {
+					   MoveAttributeRefactoring moveAttribute = new MoveAttributeRefactoring(removedAttribute, this);
+					   return moveAttribute;
+				   }
+			   }
+		   }
+		   return null;
+	   }
 }
