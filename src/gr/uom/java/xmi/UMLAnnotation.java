@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ModifyAttributeAnnotationRefactoring;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -157,5 +158,15 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
+	}
+
+	public int hashCode(ModifyAttributeAnnotationRefactoring modifyAttributeAnnotationRefactoring) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this == null) ? 0 : hashCode());
+		result = prime * result + ((modifyAttributeAnnotationRefactoring.annotationBefore == null) ? 0 : modifyAttributeAnnotationRefactoring.annotationBefore.hashCode());
+		result = prime * result + ((modifyAttributeAnnotationRefactoring.attributeAfter == null) ? 0 : modifyAttributeAnnotationRefactoring.attributeAfter.hashCode());
+		result = prime * result + ((modifyAttributeAnnotationRefactoring.attributeBefore == null) ? 0 : modifyAttributeAnnotationRefactoring.attributeBefore.hashCode());
+		return result;
 	}
 }
