@@ -1020,7 +1020,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						operationDiffList.add(operationSignatureDiff);
 						refactorings.addAll(operationSignatureDiff.getRefactorings());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
-								!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
+								!(removedOperation.getJavadoc().isConstructor(this) && addedOperation.getJavadoc().isConstructor(this))) {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}
@@ -1060,7 +1060,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						operationDiffList.add(operationSignatureDiff);
 						refactorings.addAll(operationSignatureDiff.getRefactorings());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
-								!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
+								!(removedOperation.getJavadoc().isConstructor(this) && addedOperation.getJavadoc().isConstructor(this))) {
 							RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
 							refactorings.add(rename);
 						}

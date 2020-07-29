@@ -28,7 +28,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isAbstract;
 	private List<UMLParameter> parameters;
 	private String className;
-	private boolean isConstructor;
+	boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
@@ -85,10 +85,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
-	}
-
-	public boolean isConstructor() {
-		return isConstructor;
 	}
 
 	public void setConstructor(boolean isConstructor) {
