@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 public class RenamePackageRefactoring implements Refactoring {
 
 	private List<MoveClassRefactoring> moveClassRefactorings;
-	private RenamePattern pattern;
+	RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
@@ -27,10 +27,6 @@ public class RenamePackageRefactoring implements Refactoring {
 
 	public void addMoveClassRefactoring(MoveClassRefactoring moveClassRefactoring) {
 		moveClassRefactorings.add(moveClassRefactoring);
-	}
-
-	public RenamePattern getPattern() {
-		return pattern;
 	}
 
 	public List<MoveClassRefactoring> getMoveClassRefactorings() {
