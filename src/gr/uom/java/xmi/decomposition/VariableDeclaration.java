@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.SplitAttributeRefactoring;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +256,15 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public List<CodeRange> rightSide(SplitAttributeRefactoring splitAttributeRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		for(VariableDeclaration splitAttribute : splitAttributeRefactoring.splitAttributes) {
+			ranges.add(splitAttribute.codeRange()
+					.setDescription("split attribute declaration")
+					.setCodeElement(splitAttribute.toString()));
+		}
+		return ranges;
 	}
 }
