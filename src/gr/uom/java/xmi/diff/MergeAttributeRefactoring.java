@@ -48,7 +48,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.MERGE_ATTRIBUTE;
+		return newAttribute.getRefactoringType();
 	}
 
 	public String getName() {
