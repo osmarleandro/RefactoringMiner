@@ -68,7 +68,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.MODIFY_ATTRIBUTE_ANNOTATION;
+		return annotationAfter.getRefactoringType();
 	}
 
 	@Override
