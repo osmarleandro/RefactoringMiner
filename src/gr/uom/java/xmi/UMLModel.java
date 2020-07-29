@@ -16,7 +16,7 @@ public class UMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
-    private List<UMLRealization> realizationList;
+    List<UMLRealization> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
@@ -78,30 +78,6 @@ public class UMLModel {
     				otherParentComparedString = otherParent;
     			if(thisParentComparedString.equals(otherParentComparedString))
     				return generalization;
-    		}
-    	}
-    	return null;
-    }
-
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
-    	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
-    	while(realizationIt.hasNext()) {
-    		UMLRealization realization = realizationIt.next();
-    		if(realization.getClient().equals(otherRealization.getClient())) {
-    			String thisSupplier = realization.getSupplier();
-    			String otherSupplier = otherRealization.getSupplier();
-    			String thisSupplierComparedString = null;
-    			if(thisSupplier.contains("."))
-    				thisSupplierComparedString = thisSupplier.substring(thisSupplier.lastIndexOf(".")+1);
-    			else
-    				thisSupplierComparedString = thisSupplier;
-    			String otherSupplierComparedString = null;
-    			if(otherSupplier.contains("."))
-    				otherSupplierComparedString = otherSupplier.substring(otherSupplier.lastIndexOf(".")+1);
-    			else
-    				otherSupplierComparedString = otherSupplier;
-    			if(thisSupplierComparedString.equals(otherSupplierComparedString))
-    				return realization;
     		}
     	}
     	return null;
