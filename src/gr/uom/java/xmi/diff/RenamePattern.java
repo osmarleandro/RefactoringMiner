@@ -1,5 +1,10 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 public class RenamePattern {
 	private String before;
 	private String after;
@@ -41,5 +46,13 @@ public class RenamePattern {
 	
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
+	}
+
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring(MoveSourceFolderRefactoring moveSourceFolderRefactoring) {
+		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
+		for(MovedClassToAnotherSourceFolder ref : moveSourceFolderRefactoring.movedClassesToAnotherSourceFolder) {
+			pairs.add(new ImmutablePair<String, String>(ref.getOriginalClass().getLocationInfo().getFilePath(), ref.getOriginalClassName()));
+		}
+		return pairs;
 	}
 }
