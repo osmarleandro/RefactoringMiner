@@ -7,9 +7,9 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class CallTreeNode {
-	private UMLOperation originalOperation;
-	private UMLOperation invokedOperation;
-	private OperationInvocation invocation;
+	public UMLOperation originalOperation;
+	public UMLOperation invokedOperation;
+	public OperationInvocation invocation;
 	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
 	
 	public CallTreeNode(UMLOperation originalOperation, UMLOperation invokedOperation,
@@ -41,12 +41,7 @@ public class CallTreeNode {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((invocation == null) ? 0 : invocation.hashCode());
-		result = prime * result + ((invokedOperation == null) ? 0 : invokedOperation.hashCode());
-		result = prime * result + ((originalOperation == null) ? 0 : originalOperation.hashCode());
-		return result;
+		return invocation.hashCode(this);
 	}
 
 	@Override
