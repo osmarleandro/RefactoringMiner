@@ -833,4 +833,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public List<CodeRange> rightSide() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(codeRange()
+				.setDescription("pulled up method declaration")
+				.setCodeElement(toString()));
+		return ranges;
+	}
 }
