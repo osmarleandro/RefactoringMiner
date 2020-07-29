@@ -13,10 +13,10 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
+	public UMLAnnotation annotationBefore;
+	public UMLAnnotation annotationAfter;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	
 	public ModifyMethodAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -91,16 +91,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotationBefore);
-		sb.append(" to ");
-		sb.append(annotationAfter);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" from class ");
-		sb.append(operationAfter.getClassName());
-		return sb.toString();
+		return annotationAfter.toString(this);
 	}
 	@Override
 	public int hashCode() {
