@@ -1,6 +1,5 @@
 package gr.uom.java.xmi.diff;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -44,10 +43,6 @@ public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring 
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedAttribute.codeRange()
-				.setDescription("moved and renamed attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
-		return ranges;
+		return movedAttribute.rightSide();
 	}
 }
