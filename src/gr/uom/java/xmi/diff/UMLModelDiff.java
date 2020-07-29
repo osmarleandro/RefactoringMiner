@@ -2525,6 +2525,10 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void setSuperclassChanged(UMLClassBaseDiff umlClassBaseDiff, boolean superclassChanged) {
+	umlClassBaseDiff.superclassChanged = superclassChanged;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
