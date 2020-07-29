@@ -434,13 +434,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
-			if(declaration.getVariableName().equals(variableName)) {
-				return declaration;
-			}
-		}
-		return null;
+		return locationInfo.getVariableDeclaration(this, variableName);
 	}
 
 	public Map<String, Set<String>> aliasedAttributes() {
