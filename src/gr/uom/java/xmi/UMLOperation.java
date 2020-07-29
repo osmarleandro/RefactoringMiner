@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -387,15 +387,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return parameterTypeList;
 	}
 
-	public List<String> getParameterNameList() {
-		List<String> parameterNameList = new ArrayList<String>();
-		for(UMLParameter parameter : parameters) {
-			if(!parameter.getKind().equals("return"))
-				parameterNameList.add(parameter.getName());
-		}
-		return parameterNameList;
-	}
-
 	public int getNumberOfNonVarargsParameters() {
 		int counter = 0;
 		for(UMLParameter parameter : parameters) {
@@ -467,7 +458,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean isSetter() {
-		List<String> parameterNames = getParameterNameList();
+		List<String> parameterNames = javadoc.getParameterNameList(this);
 		if(getBody() != null && parameterNames.size() == 1) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
@@ -675,7 +666,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalParameterNames(UMLOperation operation) {
-		return this.equalReturnParameter(operation) && this.getParameterNameList().equals(operation.getParameterNameList());
+		return this.equalReturnParameter(operation) && this.getJavadoc().getParameterNameList(this).equals(operation.getJavadoc().getParameterNameList(this));
 	}
 
 	public boolean overloadedParameters(UMLOperation operation) {
@@ -811,7 +802,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		if(operationBody != null && isConstructor) {
-			List<String> parameterNames = getParameterNameList();
+			List<String> parameterNames = javadoc.getParameterNameList(this);
 			Map<String, Set<String>> map = operationBody.aliasedAttributes();
 			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
 			for(String key : map.keySet()) {

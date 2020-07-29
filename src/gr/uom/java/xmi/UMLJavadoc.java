@@ -35,4 +35,13 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<String> getParameterNameList(UMLOperation umlOperation) {
+		List<String> parameterNameList = new ArrayList<String>();
+		for(UMLParameter parameter : umlOperation.parameters) {
+			if(!parameter.getKind().equals("return"))
+				parameterNameList.add(parameter.getName());
+		}
+		return parameterNameList;
+	}
 }

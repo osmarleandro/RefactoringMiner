@@ -1737,7 +1737,7 @@ public class UMLModelDiff {
 				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
 						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 						List<String> arguments = removedOperationInvocation.getArguments();
-						List<String> parameters = removedOperation.getParameterNameList();
+						List<String> parameters = removedOperation.getJavadoc().getParameterNameList(this);
 						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 						//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
 						int size = Math.min(arguments.size(), parameters.size());
@@ -1817,7 +1817,7 @@ public class UMLModelDiff {
                if(addedOperationInvocations.size() > 0) {
             	  OperationInvocation addedOperationInvocation = addedOperationInvocations.get(0);
             	  List<String> arguments = addedOperationInvocation.getArguments();
-            	  List<String> parameters = addedOperation.getParameterNameList();
+            	  List<String> parameters = addedOperation.getJavadoc().getParameterNameList(this);
             	  Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
             	  //special handling for methods with varargs parameter for which no argument is passed in the matching invocation
 				  int size = Math.min(arguments.size(), parameters.size());
@@ -2249,8 +2249,8 @@ public class UMLModelDiff {
 						Set<Replacement> replacements = mappings.get(0).getReplacements();
 						if(replacements.size() == 1) {
 							Replacement replacement = replacements.iterator().next();
-							List<String> parameterNames1 = operation1.getParameterNameList();
-							List<String> parameterNames2 = operation2.getParameterNameList();
+							List<String> parameterNames1 = operation1.getJavadoc().getParameterNameList(this);
+							List<String> parameterNames2 = operation2.getJavadoc().getParameterNameList(this);
 							for(int i=0; i<parameterNames1.size(); i++) {
 								String parameterName1 = parameterNames1.get(i);
 								String parameterName2 = parameterNames2.get(i);
