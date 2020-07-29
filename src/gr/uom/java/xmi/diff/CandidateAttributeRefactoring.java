@@ -15,7 +15,7 @@ public class CandidateAttributeRefactoring {
 	private Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
-	private UMLAttribute originalAttribute;
+	public UMLAttribute originalAttribute;
 	private UMLAttribute renamedAttribute;
 
 	public CandidateAttributeRefactoring(
@@ -73,10 +73,6 @@ public class CandidateAttributeRefactoring {
 
 	public UMLAttribute getOriginalAttribute() {
 		return originalAttribute;
-	}
-
-	public void setOriginalAttribute(UMLAttribute originalAttribute) {
-		this.originalAttribute = originalAttribute;
 	}
 
 	public UMLAttribute getRenamedAttribute() {
