@@ -53,10 +53,10 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassDiff> commonClassDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -112,7 +112,7 @@ public class UMLModelDiff {
 	   if(classDiff1 != null) {
 		   Set<UMLType> commonInterfaces = classDiff1.nextClassCommonInterfaces(classDiff2);
 		   for(UMLType commonInterface : commonInterfaces) {
-			   UMLClassBaseDiff interfaceDiff = getUMLClassDiff(commonInterface);
+			   UMLClassBaseDiff interfaceDiff = commonInterface.getUMLClassDiff(this);
 			   if(interfaceDiff != null &&
 					   interfaceDiff.containsOperationWithTheSameSignatureInOriginalClass(operation1) &&
 					   interfaceDiff.containsOperationWithTheSameSignatureInNextClass(operation2)) {
@@ -138,26 +138,6 @@ public class UMLModelDiff {
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
          if(classDiff.matches(className))
-            return classDiff;
-      }
-      return null;
-   }
-
-   private UMLClassBaseDiff getUMLClassDiff(UMLType type) {
-      for(UMLClassDiff classDiff : commonClassDiffList) {
-         if(classDiff.matches(type))
-            return classDiff;
-      }
-      for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-         if(classDiff.matches(type))
-            return classDiff;
-      }
-      for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-         if(classDiff.matches(type))
-            return classDiff;
-      }
-      for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-         if(classDiff.matches(type))
             return classDiff;
       }
       return null;
@@ -250,7 +230,7 @@ public class UMLModelDiff {
 	   }
 	   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass);
 	   if(subclassDiff == null) {
-		   subclassDiff = getUMLClassDiff(UMLType.extractTypeObject(subclass));
+		   subclassDiff = UMLType.extractTypeObject(subclass).getUMLClassDiff(this);
 	   }
 	   if(subclassDiff != null) {
 		   UMLType superclass = subclassDiff.getSuperclass();
@@ -779,7 +759,7 @@ public class UMLModelDiff {
    private boolean sourceClassImportsSuperclassOfTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(targetClassName);
 	   if(targetClassDiff != null && targetClassDiff.getSuperclass() != null) {
-		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass());
+		   UMLClassBaseDiff superclassOfTargetClassDiff = targetClassDiff.getSuperclass().getUMLClassDiff(this);
 		   if(superclassOfTargetClassDiff != null) {
 			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
 		   }
@@ -790,7 +770,7 @@ public class UMLModelDiff {
    private boolean sourceClassImportsTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(sourceClassName);
 	   if(classDiff == null) {
-		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
+		   classDiff = UMLType.extractTypeObject(sourceClassName).getUMLClassDiff(this);
 	   }
 	   if(classDiff != null) {
 		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
@@ -808,7 +788,7 @@ public class UMLModelDiff {
    private boolean targetClassImportsSourceClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(targetClassName);
 	   if(classDiff == null) {
-		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));
+		   classDiff = UMLType.extractTypeObject(targetClassName).getUMLClassDiff(this);
 	   }
 	   if(classDiff != null) {
 		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
