@@ -27,7 +27,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
@@ -193,7 +193,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return initializer.codeRange(this);
 	}
 
 	private static ASTNode getScopeNode(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
