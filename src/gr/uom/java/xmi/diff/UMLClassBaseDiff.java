@@ -59,7 +59,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
-	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
+	Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
@@ -1009,7 +1009,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 				}
 				if(!mapperSet.isEmpty()) {
-					UMLOperationBodyMapper bestMapper = findBestMapper(mapperSet);
+					UMLOperationBodyMapper bestMapper = modelDiff.findBestMapper(this, mapperSet);
 					if(bestMapper != null) {
 						removedOperation = bestMapper.getOperation1();
 						UMLOperation addedOperation = bestMapper.getOperation2();
@@ -1049,7 +1049,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 				}
 				if(!mapperSet.isEmpty()) {
-					UMLOperationBodyMapper bestMapper = findBestMapper(mapperSet);
+					UMLOperationBodyMapper bestMapper = modelDiff.findBestMapper(this, mapperSet);
 					if(bestMapper != null) {
 						UMLOperation removedOperation = bestMapper.getOperation1();
 						addedOperation = bestMapper.getOperation2();
@@ -1271,56 +1271,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				nonMappedElementsT1CallingRemovedOperation >= nonMappedElementsT1WithoutThoseCallingRemovedOperation);
 	}
 
-	private UMLOperationBodyMapper findBestMapper(TreeSet<UMLOperationBodyMapper> mapperSet) {
-		List<UMLOperationBodyMapper> mapperList = new ArrayList<UMLOperationBodyMapper>(mapperSet);
-		UMLOperationBodyMapper bestMapper = mapperSet.first();
-		UMLOperation bestMapperOperation1 = bestMapper.getOperation1();
-		UMLOperation bestMapperOperation2 = bestMapper.getOperation2();
-		if(bestMapperOperation1.equalReturnParameter(bestMapperOperation2) &&
-				bestMapperOperation1.getName().equals(bestMapperOperation2.getName()) &&
-				bestMapperOperation1.commonParameterTypes(bestMapperOperation2).size() > 0) {
-			return bestMapper;
-		}
-		for(int i=1; i<mapperList.size(); i++) {
-			UMLOperationBodyMapper mapper = mapperList.get(i);
-			UMLOperation operation2 = mapper.getOperation2();
-			List<OperationInvocation> operationInvocations2 = operation2.getAllOperationInvocations();
-			boolean anotherMapperCallsOperation2OfTheBestMapper = false;
-			for(OperationInvocation invocation : operationInvocations2) {
-				if(invocation.matchesOperation(bestMapper.getOperation2(), operation2.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation1(), operation2.variableTypeMap(), modelDiff) &&
-						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, removedOperations)) {
-					anotherMapperCallsOperation2OfTheBestMapper = true;
-					break;
-				}
-			}
-			UMLOperation operation1 = mapper.getOperation1();
-			List<OperationInvocation> operationInvocations1 = operation1.getAllOperationInvocations();
-			boolean anotherMapperCallsOperation1OfTheBestMapper = false;
-			for(OperationInvocation invocation : operationInvocations1) {
-				if(invocation.matchesOperation(bestMapper.getOperation1(), operation1.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation2(), operation1.variableTypeMap(), modelDiff) &&
-						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, addedOperations)) {
-					anotherMapperCallsOperation1OfTheBestMapper = true;
-					break;
-				}
-			}
-			boolean nextMapperMatchesConsistentRename = matchesConsistentMethodInvocationRename(mapper, consistentMethodInvocationRenames);
-			boolean bestMapperMismatchesConsistentRename = mismatchesConsistentMethodInvocationRename(bestMapper, consistentMethodInvocationRenames);
-			if(bestMapperMismatchesConsistentRename && nextMapperMatchesConsistentRename) {
-				bestMapper = mapper;
-				break;
-			}
-			if(anotherMapperCallsOperation2OfTheBestMapper || anotherMapperCallsOperation1OfTheBestMapper) {
-				bestMapper = mapper;
-				break;
-			}
-		}
-		if(mismatchesConsistentMethodInvocationRename(bestMapper, consistentMethodInvocationRenames)) {
-			return null;
-		}
-		return bestMapper;
-	}
-
-	private boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
+	boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
 		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
 			if(mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
@@ -1329,7 +1280,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
+	boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
 		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
 			if(mapper.getOperation1().getName().equals(rename.getBefore()) && !mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
@@ -1341,7 +1292,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(OperationInvocation invocation, List<UMLOperation> operations) {
+	boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(OperationInvocation invocation, List<UMLOperation> operations) {
 		for(UMLOperation operation : operations) {
 			List<OperationInvocation> operationInvocations = operation.getAllOperationInvocations();
 			for(OperationInvocation operationInvocation : operationInvocations) {

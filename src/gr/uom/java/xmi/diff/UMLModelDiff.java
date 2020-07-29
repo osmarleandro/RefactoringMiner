@@ -2525,6 +2525,55 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	UMLOperationBodyMapper findBestMapper(UMLClassBaseDiff umlClassBaseDiff, TreeSet<UMLOperationBodyMapper> mapperSet) {
+	List<UMLOperationBodyMapper> mapperList = new ArrayList<UMLOperationBodyMapper>(mapperSet);
+	UMLOperationBodyMapper bestMapper = mapperSet.first();
+	UMLOperation bestMapperOperation1 = bestMapper.getOperation1();
+	UMLOperation bestMapperOperation2 = bestMapper.getOperation2();
+	if(bestMapperOperation1.equalReturnParameter(bestMapperOperation2) &&
+			bestMapperOperation1.getName().equals(bestMapperOperation2.getName()) &&
+			bestMapperOperation1.commonParameterTypes(bestMapperOperation2).size() > 0) {
+		return bestMapper;
+	}
+	for(int i=1; i<mapperList.size(); i++) {
+		UMLOperationBodyMapper mapper = mapperList.get(i);
+		UMLOperation operation2 = mapper.getOperation2();
+		List<OperationInvocation> operationInvocations2 = operation2.getAllOperationInvocations();
+		boolean anotherMapperCallsOperation2OfTheBestMapper = false;
+		for(OperationInvocation invocation : operationInvocations2) {
+			if(invocation.matchesOperation(bestMapper.getOperation2(), operation2.variableTypeMap(), this) && !invocation.matchesOperation(bestMapper.getOperation1(), operation2.variableTypeMap(), this) &&
+					!umlClassBaseDiff.operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, umlClassBaseDiff.removedOperations)) {
+				anotherMapperCallsOperation2OfTheBestMapper = true;
+				break;
+			}
+		}
+		UMLOperation operation1 = mapper.getOperation1();
+		List<OperationInvocation> operationInvocations1 = operation1.getAllOperationInvocations();
+		boolean anotherMapperCallsOperation1OfTheBestMapper = false;
+		for(OperationInvocation invocation : operationInvocations1) {
+			if(invocation.matchesOperation(bestMapper.getOperation1(), operation1.variableTypeMap(), this) && !invocation.matchesOperation(bestMapper.getOperation2(), operation1.variableTypeMap(), this) &&
+					!umlClassBaseDiff.operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, umlClassBaseDiff.addedOperations)) {
+				anotherMapperCallsOperation1OfTheBestMapper = true;
+				break;
+			}
+		}
+		boolean nextMapperMatchesConsistentRename = umlClassBaseDiff.matchesConsistentMethodInvocationRename(mapper, umlClassBaseDiff.consistentMethodInvocationRenames);
+		boolean bestMapperMismatchesConsistentRename = umlClassBaseDiff.mismatchesConsistentMethodInvocationRename(bestMapper, umlClassBaseDiff.consistentMethodInvocationRenames);
+		if(bestMapperMismatchesConsistentRename && nextMapperMatchesConsistentRename) {
+			bestMapper = mapper;
+			break;
+		}
+		if(anotherMapperCallsOperation2OfTheBestMapper || anotherMapperCallsOperation1OfTheBestMapper) {
+			bestMapper = mapper;
+			break;
+		}
+	}
+	if(umlClassBaseDiff.mismatchesConsistentMethodInvocationRename(bestMapper, umlClassBaseDiff.consistentMethodInvocationRenames)) {
+		return null;
+	}
+	return bestMapper;
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
