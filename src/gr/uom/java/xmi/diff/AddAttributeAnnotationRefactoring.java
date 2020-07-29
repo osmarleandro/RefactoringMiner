@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLAttribute;
 
 public class AddAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
-	private UMLAttribute attributeBefore;
+	public UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
 
 	public AddAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
@@ -38,11 +38,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(attributeBefore.codeRange()
-				.setDescription("original attribute declaration")
-				.setCodeElement(attributeBefore.toString()));
-		return ranges;
+		return annotation.leftSide(this);
 	}
 
 	@Override
