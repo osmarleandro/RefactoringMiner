@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public UMLJavadoc getJavadoc() {
+		return this;
+	}
 }

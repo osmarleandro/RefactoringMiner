@@ -35,7 +35,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
-	private UMLJavadoc javadoc;
+	UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
 	public UMLOperation(String name, LocationInfo locationInfo) {
@@ -130,10 +130,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			}
 		}
 		return false;
-	}
-
-	public UMLJavadoc getJavadoc() {
-		return javadoc;
 	}
 
 	public void setJavadoc(UMLJavadoc javadoc) {
