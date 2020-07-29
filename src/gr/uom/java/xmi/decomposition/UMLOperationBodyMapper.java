@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,35 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean differOnlyInCastExpressionOrPrefixOperator(String s1, String s2, UMLOperationBodyMapper umlOperationBodyMapper) {
+			String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
+			String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
+			if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
+				int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();
+				int endIndexS1 = s1.lastIndexOf(commonSuffix);
+				String diff1 = beginIndexS1 > endIndexS1 ? "" :	s1.substring(beginIndexS1, endIndexS1);
+				int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
+				int endIndexS2 = s2.lastIndexOf(commonSuffix);
+				String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
+				if(umlOperationBodyMapper.cast(diff1, diff2)) {
+					return true;
+				}
+				if(umlOperationBodyMapper.cast(diff2, diff1)) {
+					return true;
+				}
+				if(diff1.isEmpty() && (diff2.equals("!") || diff2.equals("~"))) {
+					Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
+					addReplacement(r);
+					return true;
+				}
+				if(diff2.isEmpty() && (diff1.equals("!") || diff1.equals("~"))) {
+					Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
+					addReplacement(r);
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 
@@ -1958,7 +1987,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		replacementInfo.removeReplacements(replacementsToBeRemoved);
 		replacementInfo.addReplacements(replacementsToBeAdded);
-		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
+		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || replacementInfo.differOnlyInCastExpressionOrPrefixOperator(s1, s2, this) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
 				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
@@ -3410,36 +3439,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			if(s2.startsWith("return ") && s2.substring(7, s2.length()).equals(commonSuffix) &&
 					s1.contains("=") && s1.substring(s1.indexOf("=")+1, s1.length()).equals(commonSuffix)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean differOnlyInCastExpressionOrPrefixOperator(String s1, String s2, ReplacementInfo info) {
-		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
-		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
-		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
-			int beginIndexS1 = s1.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS1 = s1.lastIndexOf(commonSuffix);
-			String diff1 = beginIndexS1 > endIndexS1 ? "" :	s1.substring(beginIndexS1, endIndexS1);
-			int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS2 = s2.lastIndexOf(commonSuffix);
-			String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
-			if(cast(diff1, diff2)) {
-				return true;
-			}
-			if(cast(diff2, diff1)) {
-				return true;
-			}
-			if(diff1.isEmpty() && (diff2.equals("!") || diff2.equals("~"))) {
-				Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
-				info.addReplacement(r);
-				return true;
-			}
-			if(diff2.isEmpty() && (diff1.equals("!") || diff1.equals("~"))) {
-				Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
-				info.addReplacement(r);
 				return true;
 			}
 		}
