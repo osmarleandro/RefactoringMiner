@@ -42,7 +42,7 @@ public class UMLAttributeDiff {
 			qualifiedTypeChanged = true;
 		if(removedAttribute.isStatic() != addedAttribute.isStatic())
 			staticChanged = true;
-		if(removedAttribute.isFinal() != addedAttribute.isFinal())
+		if(removedAttribute.getJavadoc().isFinal(this) != addedAttribute.getJavadoc().isFinal(this))
 			finalChanged = true;
 		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
 	}
@@ -89,8 +89,8 @@ public class UMLAttributeDiff {
 			sb.append("\t").append("modifier changed from " + (removedAttribute.isStatic() ? "static" : "non-static") + " to " +
 					(addedAttribute.isStatic() ? "static" : "non-static")).append("\n");
 		if(finalChanged)
-			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
-					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
+			sb.append("\t").append("modifier changed from " + (removedAttribute.getJavadoc().isFinal(this) ? "final" : "non-final") + " to " +
+					(addedAttribute.getJavadoc().isFinal(this) ? "final" : "non-final")).append("\n");
 		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
