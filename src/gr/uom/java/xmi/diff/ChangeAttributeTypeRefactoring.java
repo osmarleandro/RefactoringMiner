@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
-	private VariableDeclaration changedTypeAttribute;
+	public VariableDeclaration changedTypeAttribute;
 	private String classNameBefore;
 	private String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
@@ -147,10 +147,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(changedTypeAttribute.codeRange()
-				.setDescription("changed-type attribute declaration")
-				.setCodeElement(changedTypeAttribute.toString()));
-		return ranges;
+		return changedTypeAttribute.rightSide();
 	}
 }
