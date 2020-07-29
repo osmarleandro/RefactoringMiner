@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public void addCatchClause(TryStatementObject tryStatementObject) {
+		tryStatementObject.catchClauses.add(this);
+	}
 }
