@@ -1167,7 +1167,7 @@ public class UMLModelDiff {
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
+	      for(UMLAnonymousClass anonymousClass : classDiff.getModelDiff().getRemovedAnonymousClasses(this)) {
 	         for(UMLClass addedClass : addedClasses) {
 	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
 	                  addedClass.getOperations().containsAll(anonymousClass.getOperations())) {
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAnonymousClass> getRemovedAnonymousClasses(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.removedAnonymousClasses;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
