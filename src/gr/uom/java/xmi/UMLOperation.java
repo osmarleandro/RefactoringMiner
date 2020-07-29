@@ -833,4 +833,35 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public UMLOperation operationWithTheSameSignatureIgnoringChangedTypes(UMLAbstractClass umlAbstractClass) {
+		List<UMLOperation> matchingOperations = new ArrayList<UMLOperation>();
+		for(UMLOperation originalOperation : umlAbstractClass.operations) {
+			boolean matchesOperation = umlAbstractClass.isInterface() ?
+				originalOperation.equalSignatureIgnoringChangedTypes(this) :
+				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(this);
+			if(matchesOperation) {
+				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = getBody() == null || hasEmptyBody();
+				if(originalOperationEmptyBody == operationEmptyBody)
+					matchingOperations.add(originalOperation);
+			}
+		}
+		if(matchingOperations.size() == 1) {
+			return matchingOperations.get(0);
+		}
+		else if(matchingOperations.size() > 1) {
+			int minDistance = StringDistance.editDistance(matchingOperations.get(0).toString(), toString());
+			UMLOperation matchingOperation = matchingOperations.get(0);
+			for(int i=1; i<matchingOperations.size(); i++) {
+				int distance = StringDistance.editDistance(matchingOperations.get(i).toString(), toString());
+				if(distance < minDistance) {
+					minDistance = distance;
+					matchingOperation = matchingOperations.get(i);
+				}
+			}
+			return matchingOperation;
+		}
+		return null;
+	}
 }
