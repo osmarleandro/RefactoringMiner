@@ -14,9 +14,9 @@ import gr.uom.java.xmi.UMLOperation;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
+	public UMLAnnotation annotationAfter;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	
 	public ModifyMethodAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -56,14 +56,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(annotationAfter.codeRange()
-				.setDescription("modified annotation")
-				.setCodeElement(annotationAfter.toString()));
-		ranges.add(operationAfter.codeRange()
-				.setDescription("method declaration with modified annotation")
-				.setCodeElement(operationAfter.toString()));
-		return ranges;
+		return annotationAfter.rightSide(this);
 	}
 
 	@Override
