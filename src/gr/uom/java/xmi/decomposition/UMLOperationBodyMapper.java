@@ -49,8 +49,8 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation1;
+	public UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
@@ -3953,15 +3953,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public boolean equals(Object o) {
-		if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLOperationBodyMapper) {
-    		UMLOperationBodyMapper other = (UMLOperationBodyMapper)o;
-    		return this.operation1.equals(other.operation1) && this.operation2.equals(other.operation2);
-    	}
-    	return false;
+		return callSiteOperation.equals(this, o);
 	}
 
 	public String toString() {
