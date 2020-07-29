@@ -5,11 +5,15 @@ import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +157,20 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	void insertNode(UMLModelASTReader umlModelASTReader, AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
+		Enumeration enumeration = root.postorderEnumeration();
+		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(childAnonymous);
+		
+		DefaultMutableTreeNode parentNode = root;
+		while(enumeration.hasMoreElements()) {
+			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
+			AnonymousClassDeclaration currentAnonymous = (AnonymousClassDeclaration)currentNode.getUserObject();
+			if(currentAnonymous != null && umlModelASTReader.isParent(childAnonymous, currentAnonymous)) {
+				parentNode = currentNode;
+				break;
+			}
+		}
+		parentNode.add(childNode);
+	}
 }
