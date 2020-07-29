@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLClass;
 
 public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 	private UMLAnonymousClass anonymousClass;
-	private UMLClass addedClass;
+	public UMLClass addedClass;
 	
 	public ConvertAnonymousClassToTypeRefactoring(UMLAnonymousClass anonymousClass, UMLClass addedClass) {
 		this.anonymousClass = anonymousClass;
@@ -69,10 +69,6 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(addedClass.codeRange()
-				.setDescription("added type declaration")
-				.setCodeElement(addedClass.getName()));
-		return ranges;
+		return addedClass.rightSide();
 	}
 }
