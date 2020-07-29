@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
+	public UMLAttribute originalAttribute;
 	protected UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
@@ -113,11 +113,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(originalAttribute.codeRange()
-				.setDescription("original attribute declaration")
-				.setCodeElement(originalAttribute.toString()));
-		return ranges;
+		return movedAttribute.leftSide(this);
 	}
 
 	@Override
