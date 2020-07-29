@@ -43,8 +43,8 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
-   private List<UMLClass> addedClasses;
-   private List<UMLClass> removedClasses;
+   public List<UMLClass> addedClasses;
+   public List<UMLClass> removedClasses;
    
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
@@ -54,9 +54,9 @@ public class UMLModelDiff {
    private List<UMLRealizationDiff> realizationDiffList;
    
    private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -472,7 +472,7 @@ public class UMLModelDiff {
 	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
    }
 
-   private boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
+   public boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   //check if classMoveDiffList contains already a move for the outer class to a different target
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
@@ -487,43 +487,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   public void checkForRenamedClasses(Map<String, String> renamedFileHints, UMLClassMatcher matcher) throws RefactoringMinerTimedOutException {
-      for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();) {
-         UMLClass removedClass = removedClassIterator.next();
-         TreeSet<UMLClassRenameDiff> diffSet = new TreeSet<UMLClassRenameDiff>(new ClassRenameComparator());
-         for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
-            UMLClass addedClass = addedClassIterator.next();
-            String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
-            if(matcher.match(removedClass, addedClass, renamedFile)) {
-               if(!conflictingMoveOfTopLevelClass(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
-            	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
-            	   diffSet.add(classRenameDiff);
-               }
-            }
-         }
-         if(!diffSet.isEmpty()) {
-            UMLClassRenameDiff minClassRenameDiff = diffSet.first();
-            minClassRenameDiff.process();
-            classRenameDiffList.add(minClassRenameDiff);
-            addedClasses.remove(minClassRenameDiff.getRenamedClass());
-            removedClassIterator.remove();
-         }
-      }
-      
-      List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(this.classMoveDiffList);
-      Collections.sort(allClassMoves);
-      
-      for(UMLClassRenameDiff classRename : classRenameDiffList) {
-         for(UMLClassMoveDiff classMove : allClassMoves) {
-            if(classRename.isInnerClassMove(classMove)) {
-               innerClassMoveDiffList.add(classMove);
-            }
-         }
-      }
-      this.classMoveDiffList.removeAll(innerClassMoveDiffList);
-   }
-
-   private boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
+   public boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   String removedClassName = removedClass.getName();
 		   String removedName = removedClassName.substring(removedClassName.lastIndexOf(".")+1, removedClassName.length());
