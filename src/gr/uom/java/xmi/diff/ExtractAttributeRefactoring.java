@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
-	private UMLClass originalClass;
+	public UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
 
@@ -62,10 +62,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return attributeDeclaration.codeRange();
 	}
 
-	public UMLClass getOriginalClass() {
-		return originalClass;
-	}
-
 	public UMLClass getNextClass() {
 		return nextClass;
 	}
@@ -97,7 +93,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(attributeDeclaration.getOriginalClass(this).getLocationInfo().getFilePath(), attributeDeclaration.getOriginalClass(this).getName()));
 		return pairs;
 	}
 
