@@ -15,7 +15,7 @@ public class UMLAttributeDiff {
 	private UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
-	private boolean typeChanged;
+	public boolean typeChanged;
 	private boolean qualifiedTypeChanged;
 	private boolean renamed;
 	private boolean staticChanged;
@@ -61,10 +61,6 @@ public class UMLAttributeDiff {
 
 	public boolean isVisibilityChanged() {
 		return visibilityChanged;
-	}
-
-	public boolean isTypeChanged() {
-		return typeChanged;
 	}
 
 	public boolean isQualifiedTypeChanged() {
@@ -122,7 +118,7 @@ public class UMLAttributeDiff {
 
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(addedAttribute.isTypeChanged(this) || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
@@ -138,7 +134,7 @@ public class UMLAttributeDiff {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
-		if(isTypeChanged() || isQualifiedTypeChanged()) {
+		if(addedAttribute.isTypeChanged(this) || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
 			refactorings.add(ref);
