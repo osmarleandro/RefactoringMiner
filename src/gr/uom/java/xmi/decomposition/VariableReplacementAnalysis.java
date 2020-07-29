@@ -863,7 +863,7 @@ public class VariableReplacementAnalysis {
 								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
 							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
+							containsMapping = mapping.getFragment1().contains(comp1) && mapping.getFragment2().contains(comp2);
 						}
 						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
 								operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
