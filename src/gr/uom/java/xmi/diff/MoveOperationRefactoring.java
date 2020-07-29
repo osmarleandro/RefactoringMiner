@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
 	protected UMLOperation originalOperation;
-	protected UMLOperation movedOperation;
+	public UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
@@ -77,13 +77,6 @@ public class MoveOperationRefactoring implements Refactoring {
 	 */
 	public CodeRange getSourceOperationCodeRangeBeforeMove() {
 		return originalOperation.codeRange();
-	}
-
-	/**
-	 * @return the code range of the target method in the <b>child</b> commit
-	 */
-	public CodeRange getTargetOperationCodeRangeAfterMove() {
-		return movedOperation.codeRange();
 	}
 
 	public boolean compatibleWith(MoveAttributeRefactoring ref) {
