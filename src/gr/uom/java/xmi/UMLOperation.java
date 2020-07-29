@@ -10,6 +10,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLOperationDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -832,5 +833,9 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public UMLOperation getRemovedOperation(UMLOperationDiff umlOperationDiff) {
+		return umlOperationDiff.removedOperation;
 	}
 }

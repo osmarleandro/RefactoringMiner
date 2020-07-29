@@ -1589,7 +1589,7 @@ public class UMLModelDiff {
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
 					   RenameVariableRefactoring newRename = new RenameVariableRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
-							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
+							   operationSignatureDiff.getAddedOperation().getRemovedOperation(this), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newRename);
 				   }
 			   }
@@ -1613,7 +1613,7 @@ public class UMLModelDiff {
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
 					   ChangeVariableTypeRefactoring newChangeType = new ChangeVariableTypeRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
-							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
+							   operationSignatureDiff.getAddedOperation().getRemovedOperation(this), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newChangeType);
 				   }
 			   }
