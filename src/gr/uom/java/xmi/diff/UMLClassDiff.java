@@ -92,7 +92,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
 		for(UMLOperation originalOperation : originalClass.getOperations()) {
 			for(UMLOperation nextOperation : nextClass.getOperations()) {
-				if(originalOperation.equalsQualified(nextOperation)) {
+				if(nextOperation.equalsQualified(originalOperation)) {
 					if(getModelDiff() != null) {
 						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
 						if(mappers.size() > 0) {
@@ -181,7 +181,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	private boolean containsMapperForOperation(UMLOperation operation) {
 		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
-			if(mapper.getOperation1().equalsQualified(operation)) {
+			if(operation.equalsQualified(mapper.getOperation1())) {
 				return true;
 			}
 		}

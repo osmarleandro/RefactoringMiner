@@ -527,36 +527,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsQualified(UMLOperation operation) {
-		if(this.className.equals(operation.className) &&
-				this.name.equals(operation.name) &&
-				this.visibility.equals(operation.visibility) &&
-				this.isAbstract == operation.isAbstract &&
-				equalTypeParameters(operation)) {
-			UMLParameter thisReturnParameter = this.getReturnParameter();
-			UMLParameter otherReturnParameter = operation.getReturnParameter();
-			if(thisReturnParameter != null && otherReturnParameter != null) {
-				if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
-					return false;
-				}
-			}
-			List<UMLType> thisParameterTypeList = this.getParameterTypeList();
-			List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
-			if(thisParameterTypeList.size() != otherParameterTypeList.size()) {
-				return false;
-			}
-			for(int i=0; i<thisParameterTypeList.size(); i++) {
-				UMLType thisParameterType = thisParameterTypeList.get(i);
-				UMLType otherParameterType = otherParameterTypeList.get(i);
-				if(!thisParameterType.equalsQualified(otherParameterType)) {
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -832,5 +802,35 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean equalsQualified(UMLOperation umlOperation) {
+		if(umlOperation.className.equals(className) &&
+				umlOperation.name.equals(name) &&
+				umlOperation.visibility.equals(visibility) &&
+				umlOperation.isAbstract == isAbstract &&
+				umlOperation.equalTypeParameters(this)) {
+			UMLParameter thisReturnParameter = umlOperation.getReturnParameter();
+			UMLParameter otherReturnParameter = getReturnParameter();
+			if(thisReturnParameter != null && otherReturnParameter != null) {
+				if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
+					return false;
+				}
+			}
+			List<UMLType> thisParameterTypeList = umlOperation.getParameterTypeList();
+			List<UMLType> otherParameterTypeList = getParameterTypeList();
+			if(thisParameterTypeList.size() != otherParameterTypeList.size()) {
+				return false;
+			}
+			for(int i=0; i<thisParameterTypeList.size(); i++) {
+				UMLType thisParameterType = thisParameterTypeList.get(i);
+				UMLType otherParameterType = otherParameterTypeList.get(i);
+				if(!thisParameterType.equalsQualified(otherParameterType)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 }
