@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ModifyAttributeAnnotationRefactoring;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -157,5 +159,16 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
+	}
+
+	public List<CodeRange> rightSide(ModifyAttributeAnnotationRefactoring modifyAttributeAnnotationRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(codeRange()
+				.setDescription("modified annotation")
+				.setCodeElement(toString()));
+		ranges.add(modifyAttributeAnnotationRefactoring.attributeAfter.codeRange()
+				.setDescription("attribute declaration with modified annotation")
+				.setCodeElement(modifyAttributeAnnotationRefactoring.attributeAfter.toString()));
+		return ranges;
 	}
 }

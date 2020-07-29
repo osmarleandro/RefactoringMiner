@@ -14,9 +14,9 @@ import gr.uom.java.xmi.UMLAttribute;
 
 public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
+	public UMLAnnotation annotationAfter;
 	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAttribute attributeAfter;
 
 	public ModifyAttributeAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLAttribute attributeBefore, UMLAttribute attributeAfter) {
@@ -56,14 +56,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(annotationAfter.codeRange()
-				.setDescription("modified annotation")
-				.setCodeElement(annotationAfter.toString()));
-		ranges.add(attributeAfter.codeRange()
-				.setDescription("attribute declaration with modified annotation")
-				.setCodeElement(attributeAfter.toString()));
-		return ranges;
+		return annotationAfter.rightSide(this);
 	}
 
 	@Override
