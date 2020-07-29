@@ -297,4 +297,8 @@ public class OperationBody {
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		return compositeStatement.loopWithVariables(currentElementName, collectionName);
 	}
+
+	public AbstractExpression getExpression(LambdaExpressionObject lambdaExpressionObject) {
+		return lambdaExpressionObject.expression;
+	}
 }
