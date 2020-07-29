@@ -3,11 +3,16 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper.ReplacementInfo;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -16,9 +21,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +840,160 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void processInnerNodes(UMLOperationBodyMapper umlOperationBodyMapper, List<CompositeStatementObject> innerNodes1, List<CompositeStatementObject> innerNodes2, Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
+		List<UMLOperation> removedOperations = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
+		List<UMLOperation> addedOperations = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
+		if(innerNodes1.size() <= innerNodes2.size()) {
+			//exact string+depth matching - inner nodes
+			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+				CompositeStatementObject statement1 = innerNodeIterator1.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+							statement1.getDepth() == statement2.getDepth() &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes2.remove(minStatementMapping.getFragment2());
+					innerNodeIterator1.remove();
+				}
+			}
+			
+			//exact string matching - inner nodes - finds moves to another level
+			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+				CompositeStatementObject statement1 = innerNodeIterator1.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes2.remove(minStatementMapping.getFragment2());
+					innerNodeIterator1.remove();
+				}
+			}
+			
+			// exact matching - inner nodes - with variable renames
+			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+				CompositeStatementObject statement1 = innerNodeIterator1.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					
+					ReplacementInfo replacementInfo = umlOperationBodyMapper.initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+					Set<Replacement> replacements = umlOperationBodyMapper.findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+					
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if(score == 0 && replacements != null && replacements.size() == 1 &&
+							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+						score = 1;
+					}
+					if(replacements != null &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mapping.addReplacements(replacements);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes2.remove(minStatementMapping.getFragment2());
+					innerNodeIterator1.remove();
+				}
+			}
+		}
+		else {
+			//exact string+depth matching - inner nodes
+			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+				CompositeStatementObject statement2 = innerNodeIterator2.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+							statement1.getDepth() == statement2.getDepth() &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes1.remove(minStatementMapping.getFragment1());
+					innerNodeIterator2.remove();
+				}
+			}
+			
+			//exact string matching - inner nodes - finds moves to another level
+			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+				CompositeStatementObject statement2 = innerNodeIterator2.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes1.remove(minStatementMapping.getFragment1());
+					innerNodeIterator2.remove();
+				}
+			}
+			
+			// exact matching - inner nodes - with variable renames
+			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+				CompositeStatementObject statement2 = innerNodeIterator2.next();
+				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					
+					ReplacementInfo replacementInfo = umlOperationBodyMapper.initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+					Set<Replacement> replacements = umlOperationBodyMapper.findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+					
+					double score = umlOperationBodyMapper.computeScore(statement1, statement2, removedOperations, addedOperations);
+					if(score == 0 && replacements != null && replacements.size() == 1 &&
+							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+						score = 1;
+					}
+					if(replacements != null &&
+							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+						CompositeStatementObjectMapping mapping = umlOperationBodyMapper.createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						mapping.addReplacements(replacements);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					umlOperationBodyMapper.mappings.add(minStatementMapping);
+					innerNodes1.remove(minStatementMapping.getFragment1());
+					innerNodeIterator2.remove();
+				}
+			}
+		}
 	}
 }
