@@ -23,18 +23,18 @@ import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private String visibility;
-	private boolean isAbstract;
+	String name;
+	String visibility;
+	boolean isAbstract;
 	private List<UMLParameter> parameters;
-	private String className;
+	String className;
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
-	private List<UMLTypeParameter> typeParameters;
+	List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
@@ -558,17 +558,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
-		result = prime * result + ((className == null) ? 0 : className.hashCode());
-		result = prime * result + (isAbstract ? 1231 : 1237);
-		result = prime * result + (thisEmptyBody ? 1231 : 1237);
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((getParameterTypeList() == null) ? 0 : getParameterTypeList().hashCode());
-		result = prime * result + ((visibility == null) ? 0 : visibility.hashCode());
-		result = prime * result + ((typeParameters == null) ? 0 : typeParameters.hashCode());
-		return result;
+		return javadoc.hashCode(this);
 	}
 
 	public String toString() {
