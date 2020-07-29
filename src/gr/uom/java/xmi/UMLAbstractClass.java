@@ -45,7 +45,7 @@ public abstract class UMLAbstractClass {
 
 	public UMLOperation operationWithTheSameSignature(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.equalSignature(operation))
+			if(operation.equalSignature(originalOperation))
 				return originalOperation;
 		}
 		return null;
@@ -53,7 +53,7 @@ public abstract class UMLAbstractClass {
 
 	public boolean containsOperationWithTheSameSignature(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.equalSignature(operation))
+			if(operation.equalSignature(originalOperation))
 				return true;
 		}
 		return false;

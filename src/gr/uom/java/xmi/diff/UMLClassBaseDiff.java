@@ -112,7 +112,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLOperationBodyMapper findMapperWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
-			if(mapper.getOperation1().equalSignature(operation1) && mapper.getOperation2().equalSignature(operation2)) {
+			if(operation1.equalSignature(mapper.getOperation1()) && operation2.equalSignature(mapper.getOperation2())) {
 				return mapper;
 			}
 		}
@@ -121,7 +121,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLOperationBodyMapper findMapperWithMatchingSignature2(UMLOperation operation2) {
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
-			if(mapper.getOperation2().equalSignature(operation2)) {
+			if(operation2.equalSignature(mapper.getOperation2())) {
 				return mapper;
 			}
 		}
@@ -386,7 +386,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public boolean containsOperationWithTheSameSignatureInOriginalClass(UMLOperation operation) {
 		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			if(originalOperation.equalSignature(operation))
+			if(operation.equalSignature(originalOperation))
 				return true;
 		}
 		return false;
@@ -394,7 +394,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public boolean containsOperationWithTheSameSignatureInNextClass(UMLOperation operation) {
 		for(UMLOperation originalOperation : nextClass.getOperations()) {
-			if(originalOperation.equalSignature(operation))
+			if(operation.equalSignature(originalOperation))
 				return true;
 		}
 		return false;
@@ -402,7 +402,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLOperation containsRemovedOperationWithTheSameSignature(UMLOperation operation) {
 		for(UMLOperation removedOperation : removedOperations) {
-			if(removedOperation.equalSignature(operation))
+			if(operation.equalSignature(removedOperation))
 				return removedOperation;
 		}
 		return null;
@@ -1660,7 +1660,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(ref instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
 				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
-						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
+						extractedOperation.equalSignature(extractRef.getExtractedOperation())) {
 					return true;
 				}
 			}
