@@ -555,7 +555,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 					else {
 						candidate.setOriginalAttribute(a1);
-						candidate.setRenamedAttribute(a2);
+						a2.setRenamedAttribute(candidate);
 						if(a1 != null)
 							candidate.setOriginalVariableDeclaration(a1.getVariableDeclaration());
 						if(a2 != null)

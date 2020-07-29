@@ -16,7 +16,7 @@ public class CandidateAttributeRefactoring {
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
 	private UMLAttribute originalAttribute;
-	private UMLAttribute renamedAttribute;
+	public UMLAttribute renamedAttribute;
 
 	public CandidateAttributeRefactoring(
 			String originalVariableName,
@@ -81,10 +81,6 @@ public class CandidateAttributeRefactoring {
 
 	public UMLAttribute getRenamedAttribute() {
 		return renamedAttribute;
-	}
-
-	public void setRenamedAttribute(UMLAttribute renamedAttribute) {
-		this.renamedAttribute = renamedAttribute;
 	}
 
 	public String toString() {
