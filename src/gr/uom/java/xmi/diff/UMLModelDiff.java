@@ -2340,7 +2340,7 @@ public class UMLModelDiff {
 			}
 		}
 		int nonMappedLoopsIteratingOverSameVariable = 0;
-		for(CompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
+		for(CompositeStatementObject c1 : operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT1(this)) {
 			if(c1.isLoop()) {
 				for(CompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
 					if(c2.isLoop()) {

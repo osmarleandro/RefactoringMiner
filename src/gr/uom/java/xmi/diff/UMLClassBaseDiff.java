@@ -1157,7 +1157,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(allMappingsAreExactMatches(operationBodyMapper)) {
 			if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
 				return true;
-			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
+			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT1(this).size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
 				int countableStatements = 0;
 				int parameterizedVariableDeclarationStatements = 0;
 				UMLOperation addedOperation = operationBodyMapper.getOperation2();
@@ -1204,7 +1204,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				return countableStatements == parameterizedVariableDeclarationStatements && countableStatements > 0;
 			}
 			else if((operationBodyMapper.nonMappedElementsT1() == 1 || operationBodyMapper.nonMappedElementsT2() == 1) &&
-					operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
+					operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT1(this).size() == 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
 				StatementObject statementUsingParameterAsInvoker1 = null;
 				UMLOperation removedOperation = operationBodyMapper.getOperation1();
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
