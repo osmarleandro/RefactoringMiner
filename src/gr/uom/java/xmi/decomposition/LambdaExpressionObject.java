@@ -11,7 +11,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
 public class LambdaExpressionObject implements LocationInfoProvider {
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;
 	
@@ -35,7 +35,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 
 	@Override
 	public LocationInfo getLocationInfo() {
-		return locationInfo;
+		return body.getLocationInfo(this);
 	}
 
 	public CodeRange codeRange() {
