@@ -69,17 +69,17 @@ public class ExtractOperationRefactoring implements Refactoring {
 		sb.append(getClassName());
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
 			sb.append(" & moved to class ");
-			sb.append(extractedOperation.getClassName());
+			sb.append(extractedOperation.getJavadoc().getClassName(this));
 		}
 		return sb.toString();
 	}
 
 	private String getClassName() {
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
-			return getSourceOperationBeforeExtraction().getClassName();
+			return getSourceOperationBeforeExtraction().getJavadoc().getClassName(this);
 		}
-		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
-		String targetClassName = getSourceOperationAfterExtraction().getClassName();
+		String sourceClassName = getSourceOperationBeforeExtraction().getJavadoc().getClassName(this);
+		String targetClassName = getSourceOperationAfterExtraction().getJavadoc().getClassName(this);
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 
@@ -166,21 +166,21 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
+		if(!getSourceOperationAfterExtraction().getJavadoc().getClassName(this).equals(getExtractedOperation().getJavadoc().getClassName(this)))
 			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
 		return RefactoringType.EXTRACT_OPERATION;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getSourceOperationBeforeExtraction().getLocationInfo().getFilePath(), getSourceOperationBeforeExtraction().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getClassName()));
-		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getJavadoc().getClassName(this)));
+		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getJavadoc().getClassName(this)));
 		return pairs;
 	}
 
