@@ -833,4 +833,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean varArgsMatch(OperationInvocation operationInvocation) {
+		//0 varargs arguments passed
+		return operationInvocation.typeArguments == getNumberOfNonVarargsParameters() ||
+				//>=1 varargs arguments passed
+				(hasVarargsParameter() && operationInvocation.typeArguments > getNumberOfNonVarargsParameters());
+	}
 }
