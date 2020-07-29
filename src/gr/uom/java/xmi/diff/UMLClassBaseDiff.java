@@ -1176,8 +1176,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
 				for(UMLOperation operation : addedOperations) {
-					if(!operation.equals(addedOperation) && operation.getBody() != null) {
-						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
+					if(!operation.equals(addedOperation) && operation.getJavadoc().getBody(this) != null) {
+						for(StatementObject statement : operation.getJavadoc().getBody(this).getCompositeStatement().getLeaves()) {
 							if(nonMappedLeavesT1.contains(statement.getString())) {
 								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
 							}
@@ -1390,7 +1390,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
 			if(!intersection.contains(addedOperationInvocation)) {
 				for(UMLOperation operation : addedOperations) {
-					if(!operation.equals(addedOperation) && operation.getBody() != null) {
+					if(!operation.equals(addedOperation) && operation.getJavadoc().getBody(this) != null) {
 						if(addedOperationInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), modelDiff)) {
 							//addedOperation calls another added method
 							operationInvocationsInMethodsCalledByAddedOperation.addAll(operation.getAllOperationInvocations());
@@ -1428,7 +1428,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(OperationInvocation removedOperationInvocation : removedOperationInvocations) {
 			if(!intersection.contains(removedOperationInvocation)) {
 				for(UMLOperation operation : removedOperations) {
-					if(!operation.equals(removedOperation) && operation.getBody() != null) {
+					if(!operation.equals(removedOperation) && operation.getJavadoc().getBody(this) != null) {
 						if(removedOperationInvocation.matchesOperation(operation, removedOperation.variableTypeMap(), modelDiff)) {
 							//removedOperation calls another removed method
 							operationInvocationsInMethodsCalledByRemovedOperation.addAll(operation.getAllOperationInvocations());
