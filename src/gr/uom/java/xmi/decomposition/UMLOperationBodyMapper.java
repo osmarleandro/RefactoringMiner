@@ -3174,7 +3174,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(classDiff != null) {
 					List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
 					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes()) {
-						if(diff2.contains(attribute.getName())) {
+						if(diff2.contains(attribute.getJavadoc().getName(this))) {
 							matchingAttributes.add(attribute);
 						}
 					}
@@ -3195,8 +3195,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
 							for(UMLAttribute attribute : matchingAttributes) {
-								splitVariables.add(attribute.getName());
-								concat.append(attribute.getName());
+								splitVariables.add(attribute.getJavadoc().getName(this));
+								concat.append(attribute.getJavadoc().getName(this));
 								if(counter < matchingAttributes.size()-1) {
 									concat.append(",");
 								}
@@ -3214,8 +3214,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
 							for(UMLAttribute attribute : matchingAttributes) {
-								addedVariables.add(attribute.getName());
-								concat.append(attribute.getName());
+								addedVariables.add(attribute.getJavadoc().getName(this));
+								concat.append(attribute.getJavadoc().getName(this));
 								if(counter < matchingAttributes.size()-1) {
 									concat.append(",");
 								}
@@ -3232,8 +3232,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
 							for(UMLAttribute attribute : matchingAttributes) {
-								splitVariables.add(attribute.getName());
-								concat.append(attribute.getName());
+								splitVariables.add(attribute.getJavadoc().getName(this));
+								concat.append(attribute.getJavadoc().getName(this));
 								if(counter < matchingAttributes.size()-1) {
 									concat.append(",");
 								}
