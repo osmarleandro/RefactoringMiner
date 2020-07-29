@@ -314,12 +314,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call, replacements) &&
-				identicalName(call) &&
-				equalArguments(call);
-	}
-
 	public Set<String> argumentIntersection(AbstractCall call) {
 		List<String> args1 = preprocessArguments(getArguments());
 		List<String> args2 = preprocessArguments(call.getArguments());
@@ -434,6 +428,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean identical(AbstractCall abstractCall, Set<Replacement> replacements) {
+		return abstractCall.identicalExpression(this, replacements) &&
+				abstractCall.identicalName(this) &&
+				abstractCall.equalArguments(this);
 	}
 
 	public enum StatementCoverageType {
