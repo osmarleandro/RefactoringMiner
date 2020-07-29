@@ -56,16 +56,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
-	private UMLOperationBodyMapper parentMapper;
+	UMLOperationBodyMapper parentMapper;
 	private static final Pattern SPLIT_CONDITIONAL_PATTERN = Pattern.compile("(\\|\\|)|(&&)|(\\?)|(:)");
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
-	private UMLClassBaseDiff classDiff;
+	UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
@@ -152,7 +152,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				statement.temporaryVariableAssignment(this, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -196,7 +196,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				statement.temporaryVariableAssignment(this, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -426,7 +426,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				statement.temporaryVariableAssignment(this, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -593,7 +593,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				statement.temporaryVariableAssignment(this, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -728,13 +728,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
-		}
-	}
-
-	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
-		for(AbstractCodeMapping mapping : getMappings()) {
-			UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-			mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff);
 		}
 	}
 

@@ -18,6 +18,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public class StatementObject extends AbstractStatement {
 	
@@ -259,5 +260,12 @@ public class StatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	void temporaryVariableAssignment(UMLOperationBodyMapper umlOperationBodyMapper, List<StatementObject> nonMappedLeavesT2) {
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.getMappings()) {
+			UMLClassBaseDiff classDiff = umlOperationBodyMapper.classDiff != null ? umlOperationBodyMapper.classDiff : umlOperationBodyMapper.parentMapper != null ? umlOperationBodyMapper.parentMapper.classDiff : null;
+			mapping.temporaryVariableAssignment(this, nonMappedLeavesT2, umlOperationBodyMapper.refactorings, classDiff);
+		}
 	}
 }
