@@ -402,12 +402,12 @@ public class UMLModelDiff {
          UMLRealization removedRealization = removedRealizationIterator.next();
          for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
             UMLRealization addedRealization = addedRealizationIterator.next();
-            String renamedChild = isRenamedClass(removedRealization.getClient());
-            String movedChild = isMovedClass(removedRealization.getClient());
+            String renamedChild = isRenamedClass(removedRealization.getClient().getClient());
+            String movedChild = isMovedClass(removedRealization.getClient().getClient());
             //String renamedParent = isRenamedClass(removedRealization.getSupplier());
             //String movedParent = isMovedClass(removedRealization.getSupplier());
-            if( (renamedChild != null && renamedChild.equals(addedRealization.getClient().getName())) ||
-                  (movedChild != null && movedChild.equals(addedRealization.getClient().getName()))) {
+            if( (renamedChild != null && renamedChild.equals(addedRealization.getClient().getClient().getName())) ||
+                  (movedChild != null && movedChild.equals(addedRealization.getClient().getClient().getName()))) {
                UMLRealizationDiff realizationDiff = new UMLRealizationDiff(removedRealization, addedRealization);
                addedRealizationIterator.remove();
                removedRealizationIterator.remove();
@@ -1046,8 +1046,8 @@ public class UMLModelDiff {
          }
          for(UMLRealization addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
-			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
-               UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
+			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient().getClient()) && getAddedClass(addedRealization.getClient().getClient().getName()) == null) {
+               UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getClient().getName());
                int implementedInterfaceOperations = 0;
                boolean clientImplementsSupplier = false;
                if(clientClassDiff != null) {
@@ -1059,7 +1059,7 @@ public class UMLModelDiff {
                   clientImplementsSupplier = clientClassDiff.getOriginalClass().getImplementedInterfaces().contains(UMLType.extractTypeObject(supplier));
                }
                if((implementedInterfaceOperations > 0 || addedClass.getOperations().size() == 0) && !clientImplementsSupplier)
-                  subclassSet.add(addedRealization.getClient());
+                  subclassSet.add(addedRealization.getClient().getClient());
             }
          }
          if(subclassSet.size() > 0) {

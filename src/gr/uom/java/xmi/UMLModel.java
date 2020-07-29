@@ -87,7 +87,7 @@ public class UMLModel {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
     		UMLRealization realization = realizationIt.next();
-    		if(realization.getClient().equals(otherRealization.getClient())) {
+    		if(realization.getClient().getClient().equals(otherRealization.getClient().getClient())) {
     			String thisSupplier = realization.getSupplier();
     			String otherSupplier = otherRealization.getSupplier();
     			String thisSupplierComparedString = null;
