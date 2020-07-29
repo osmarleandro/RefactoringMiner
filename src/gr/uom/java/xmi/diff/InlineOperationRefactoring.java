@@ -74,9 +74,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
-			return RefactoringType.MOVE_AND_INLINE_OPERATION;
-		return RefactoringType.INLINE_OPERATION;
+		return bodyMapper.getRefactoringType(this);
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {
