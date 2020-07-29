@@ -237,21 +237,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
-	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
-		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
-			if(!allMappingsAreExactMatches(lambdaMapper)) {
-				allExactLambdaMappers = false;
-				break;
-			}
-		}
-		return getExpression() != null && call.getExpression() != null &&
-				identicalExpression(call, replacements) &&
-				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
-				!equalArguments(call) &&
-				getArguments().size() != call.getArguments().size();
-	}
-
 	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
@@ -434,6 +419,21 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall abstractCall, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
+		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+			if(!allMappingsAreExactMatches(lambdaMapper)) {
+				allExactLambdaMappers = false;
+				break;
+			}
+		}
+		return abstractCall.getExpression() != null && getExpression() != null &&
+				abstractCall.identicalExpression(this, replacements) &&
+				(abstractCall.normalizedNameDistance(this) <= distance || allExactLambdaMappers) &&
+				!abstractCall.equalArguments(this) &&
+				abstractCall.getArguments().size() != getArguments().size();
 	}
 
 	public enum StatementCoverageType {
