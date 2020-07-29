@@ -1,7 +1,6 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.AbstractStatement;
-import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
@@ -32,7 +31,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -744,21 +743,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return commonParameterTypes >= differentParameterTypes && commonParameterTypes > 0;
 		}
 		return false;
-	}
-
-	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
-		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
-		if(this.operationBody != null) {
-			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
-			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
-				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
-					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
-						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
-					}
-				}
-			}
-		}
-		return operationsInsideAnonymousClass;
 	}
 
 	public CodeRange codeRange() {
