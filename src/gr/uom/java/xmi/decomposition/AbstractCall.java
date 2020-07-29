@@ -19,16 +19,12 @@ import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
 	protected String expression;
-	protected List<String> arguments;
+	public List<String> arguments;
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
 	public String getExpression() {
 		return expression;
-	}
-
-	public List<String> getArguments() {
-		return arguments;
 	}
 
 	public LocationInfo getLocationInfo() {
@@ -100,12 +96,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean equalArguments(AbstractCall call) {
-		return getArguments().equals(call.getArguments());
+		return locationInfo.getArguments(this).equals(call.getLocationInfo().getArguments(this));
 	}
 
 	public boolean identicalOrReplacedArguments(AbstractCall call, Set<Replacement> replacements) {
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
+		List<String> arguments1 = locationInfo.getArguments(this);
+		List<String> arguments2 = call.getLocationInfo().getArguments(this);
 		if(arguments1.size() != arguments2.size())
 			return false;
 		for(int i=0; i<arguments1.size(); i++) {
@@ -125,8 +121,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identicalOrConcatenatedArguments(AbstractCall call) {
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
+		List<String> arguments1 = locationInfo.getArguments(this);
+		List<String> arguments2 = call.getLocationInfo().getArguments(this);
 		if(arguments1.size() != arguments2.size())
 			return false;
 		for(int i=0; i<arguments1.size(); i++) {
@@ -151,8 +147,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identicalOrWrappedArguments(AbstractCall call) {
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
+		List<String> arguments1 = locationInfo.getArguments(this);
+		List<String> arguments2 = call.getLocationInfo().getArguments(this);
 		if(arguments1.size() != arguments2.size())
 			return false;
 		for(int i=0; i<arguments1.size(); i++) {
@@ -171,8 +167,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
 		int replacedArguments = 0;
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
+		List<String> arguments1 = locationInfo.getArguments(this);
+		List<String> arguments2 = call.getLocationInfo().getArguments(this);
 		if(arguments1.size() == arguments2.size()) {
 			for(int i=0; i<arguments1.size(); i++) {
 				String argument1 = arguments1.get(i);
@@ -190,8 +186,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		int replacedArguments = 0;
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
+		List<String> arguments1 = locationInfo.getArguments(this);
+		List<String> arguments2 = call.getLocationInfo().getArguments(this);
 		if(arguments1.size() == arguments2.size()) {
 			for(int i=0; i<arguments1.size(); i++) {
 				String argument1 = arguments1.get(i);
@@ -249,14 +245,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				identicalExpression(call, replacements) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				!equalArguments(call) &&
-				getArguments().size() != call.getArguments().size();
+				locationInfo.getArguments(this).size() != call.getLocationInfo().getArguments(this).size();
 	}
 
 	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				!equalArguments(call) &&
-				getArguments().size() != call.getArguments().size();
+				locationInfo.getArguments(this).size() != call.getLocationInfo().getArguments(this).size();
 	}
 
 	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
@@ -307,7 +303,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
-			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
+			if(argumentIntersectionSize > 0 || locationInfo.getArguments(this).size() == 0 || call.getLocationInfo().getArguments(this).size() == 0) {
 				return true;
 			}
 		}
@@ -321,8 +317,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public Set<String> argumentIntersection(AbstractCall call) {
-		List<String> args1 = preprocessArguments(getArguments());
-		List<String> args2 = preprocessArguments(call.getArguments());
+		List<String> args1 = preprocessArguments(locationInfo.getArguments(this));
+		List<String> args2 = preprocessArguments(call.getLocationInfo().getArguments(this));
 		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
 		argumentIntersection.retainAll(args2);
 		return argumentIntersection;
@@ -346,8 +342,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		int argumentIntersectionSize = argumentIntersection.size();
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);
-			if(getArguments().contains(argument) &&
-					call.getArguments().contains(parameter)) {
+			if(locationInfo.getArguments(this).contains(argument) &&
+					call.getLocationInfo().getArguments(this).contains(parameter)) {
 				argumentIntersectionSize++;
 			}
 		}
@@ -355,24 +351,24 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	private boolean argumentIsEqual(String statement) {
-		return statement.endsWith(";\n") && getArguments().size() == 1 &&
+		return statement.endsWith(";\n") && locationInfo.getArguments(this).size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the statement
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(0, statement.length()-2));
+				equalsIgnoringExtraParenthesis(locationInfo.getArguments(this).get(0), statement.substring(0, statement.length()-2));
 	}
 
 	private boolean argumentIsReturned(String statement) {
-		return statement.startsWith("return ") && getArguments().size() == 1 &&
+		return statement.startsWith("return ") && locationInfo.getArguments(this).size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the return statement, 7 to remove the prefix "return "
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(7, statement.length()-2));
+				equalsIgnoringExtraParenthesis(locationInfo.getArguments(this).get(0), statement.substring(7, statement.length()-2));
 	}
 
 	public Replacement makeReplacementForReturnedArgument(String statement) {
 		if(argumentIsReturned(statement)) {
-			return new Replacement(getArguments().get(0), statement.substring(7, statement.length()-2),
+			return new Replacement(locationInfo.getArguments(this).get(0), statement.substring(7, statement.length()-2),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
 		else if(argumentIsEqual(statement)) {
-			return new Replacement(getArguments().get(0), statement.substring(0, statement.length()-2),
+			return new Replacement(locationInfo.getArguments(this).get(0), statement.substring(0, statement.length()-2),
 					ReplacementType.ARGUMENT_REPLACED_WITH_STATEMENT);
 		}
 		return null;
@@ -380,26 +376,26 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public Replacement makeReplacementForWrappedCall(String statement) {
 		if(argumentIsReturned(statement)) {
-			return new Replacement(statement.substring(7, statement.length()-2), getArguments().get(0),
+			return new Replacement(statement.substring(7, statement.length()-2), locationInfo.getArguments(this).get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION);
 		}
 		else if(argumentIsEqual(statement)) {
-			return new Replacement(statement.substring(0, statement.length()-2), getArguments().get(0),
+			return new Replacement(statement.substring(0, statement.length()-2), locationInfo.getArguments(this).get(0),
 					ReplacementType.ARGUMENT_REPLACED_WITH_STATEMENT);
 		}
 		return null;
 	}
 
 	private boolean argumentIsAssigned(String statement) {
-		return getArguments().size() == 1 && statement.contains("=") && statement.endsWith(";\n") &&
+		return locationInfo.getArguments(this).size() == 1 && statement.contains("=") && statement.endsWith(";\n") &&
 				//length()-2 to remove ";\n" from the end of the assignment statement, indexOf("=")+1 to remove the left hand side of the assignment
-				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
+				equalsIgnoringExtraParenthesis(locationInfo.getArguments(this).get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
 	}
 
 	public Replacement makeReplacementForAssignedArgument(String statement) {
 		if(argumentIsAssigned(statement)) {
 			return new Replacement(statement.substring(statement.indexOf("=")+1, statement.length()-2),
-					getArguments().get(0), ReplacementType.ARGUMENT_REPLACED_WITH_RIGHT_HAND_SIDE_OF_ASSIGNMENT_EXPRESSION);
+					locationInfo.getArguments(this).get(0), ReplacementType.ARGUMENT_REPLACED_WITH_RIGHT_HAND_SIDE_OF_ASSIGNMENT_EXPRESSION);
 		}
 		return null;
 	}

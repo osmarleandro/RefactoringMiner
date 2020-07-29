@@ -204,7 +204,7 @@ public class ExtractOperationDetection {
 			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
 		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
-		List<String> arguments = addedOperationInvocation.getArguments();
+		List<String> arguments = addedOperationInvocation.getLocationInfo().getArguments(this);
 		List<UMLParameter> parameters = addedOperation.getParametersWithoutReturnType();
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
