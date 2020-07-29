@@ -2525,6 +2525,46 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	public String toString(UMLClassBaseDiff umlClassBaseDiff) {
+	StringBuilder sb = new StringBuilder();
+	if(!umlClassBaseDiff.isEmpty())
+		sb.append(umlClassBaseDiff.originalClass.getName()).append(":").append("\n");
+	if(umlClassBaseDiff.visibilityChanged) {
+		sb.append("\t").append("visibility changed from " + umlClassBaseDiff.oldVisibility + " to " + umlClassBaseDiff.newVisibility).append("\n");
+	}
+	if(umlClassBaseDiff.abstractionChanged) {
+		sb.append("\t").append("abstraction changed from " + (umlClassBaseDiff.oldAbstraction ? "abstract" : "concrete") + " to " +
+				(umlClassBaseDiff.newAbstraction ? "abstract" : "concrete")).append("\n");
+	}
+	Collections.sort(umlClassBaseDiff.removedOperations);
+	for(UMLOperation umlOperation : umlClassBaseDiff.removedOperations) {
+		sb.append("operation " + umlOperation + " removed").append("\n");
+	}
+	Collections.sort(umlClassBaseDiff.addedOperations);
+	for(UMLOperation umlOperation : umlClassBaseDiff.addedOperations) {
+		sb.append("operation " + umlOperation + " added").append("\n");
+	}
+	Collections.sort(umlClassBaseDiff.removedAttributes);
+	for(UMLAttribute umlAttribute : umlClassBaseDiff.removedAttributes) {
+		sb.append("attribute " + umlAttribute + " removed").append("\n");
+	}
+	Collections.sort(umlClassBaseDiff.addedAttributes);
+	for(UMLAttribute umlAttribute : umlClassBaseDiff.addedAttributes) {
+		sb.append("attribute " + umlAttribute + " added").append("\n");
+	}
+	for(UMLOperationDiff operationDiff : umlClassBaseDiff.operationDiffList) {
+		sb.append(operationDiff);
+	}
+	for(UMLAttributeDiff attributeDiff : umlClassBaseDiff.attributeDiffList) {
+		sb.append(attributeDiff);
+	}
+	Collections.sort(umlClassBaseDiff.operationBodyMapperList);
+	for(UMLOperationBodyMapper operationBodyMapper : umlClassBaseDiff.operationBodyMapperList) {
+		sb.append(operationBodyMapper);
+	}
+	return sb.toString();
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
