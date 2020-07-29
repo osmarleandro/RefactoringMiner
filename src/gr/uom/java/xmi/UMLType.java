@@ -169,6 +169,27 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return normalized;
 	}
 
+	public boolean equals(CompositeType compositeType, Object obj) {
+		if (compositeType == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (compositeType.getClass() != obj.getClass())
+			return false;
+		CompositeType other = (CompositeType) obj;
+		if (this == null) {
+			if (other.leftType != null)
+				return false;
+		} else if (!equals(other.leftType))
+			return false;
+		if (compositeType.rightType == null) {
+			if (other.rightType != null)
+				return false;
+		} else if (!compositeType.rightType.equals(other.rightType))
+			return false;
+		return true;
+	}
+
 	public static LeafType extractTypeObject(String qualifiedName) {
 		int arrayDimension = 0;
 		List<UMLType> typeArgumentDecomposition = new ArrayList<UMLType>();
