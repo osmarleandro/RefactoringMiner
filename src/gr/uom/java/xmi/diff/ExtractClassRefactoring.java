@@ -18,7 +18,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
 	private Set<UMLAttribute> extractedAttributes;
-	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
+	public UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
 
 	public ExtractClassRefactoring(UMLClass extractedClass, UMLClassBaseDiff classDiff,
 			Set<UMLOperation> extractedOperations, Set<UMLAttribute> extractedAttributes, UMLAttribute attributeOfExtractedClassType) {
@@ -62,10 +62,6 @@ public class ExtractClassRefactoring implements Refactoring {
 
 	public Set<UMLAttribute> getExtractedAttributes() {
 		return extractedAttributes;
-	}
-
-	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
-		return attributeOfExtractedClassTypeInOriginalClass;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
