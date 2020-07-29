@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
-	private VariableDeclaration changedTypeVariable;
+	public VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
@@ -148,10 +148,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(changedTypeVariable.codeRange()
-				.setDescription("changed-type variable declaration")
-				.setCodeElement(changedTypeVariable.toString()));
-		return ranges;
+		return changedTypeVariable.rightSide();
 	}
 }
