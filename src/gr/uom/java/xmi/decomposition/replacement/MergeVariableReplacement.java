@@ -21,15 +21,15 @@ public class MergeVariableReplacement extends Replacement {
 				other.mergedVariables.containsAll(this.mergedVariables);
 	}
 
-	public boolean commonAfter(MergeVariableReplacement other) {
-		Set<String> interestion = new LinkedHashSet<String>(this.mergedVariables);
-		interestion.retainAll(other.mergedVariables);
-		return this.getAfter().equals(other.getAfter()) && interestion.size() == 0;
-	}
-
 	public boolean subsumes(MergeVariableReplacement other) {
 		return this.getAfter().equals(other.getAfter()) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
+	}
+
+	public boolean commonAfter(MergeVariableReplacement mergeVariableReplacement) {
+		Set<String> interestion = new LinkedHashSet<String>(mergeVariableReplacement.mergedVariables);
+		interestion.retainAll(mergedVariables);
+		return mergeVariableReplacement.getAfter().equals(getAfter()) && interestion.size() == 0;
 	}
 }
