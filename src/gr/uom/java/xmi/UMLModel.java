@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.UMLClassDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -10,6 +12,11 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
@@ -153,4 +160,42 @@ public class UMLModel {
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
     	return modelDiff;
     }
+
+	List<UMLAttribute> processFieldDeclaration(UMLModelASTReader umlModelASTReader, CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
+		UMLJavadoc javadoc = umlModelASTReader.generateJavadoc(fieldDeclaration);
+		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
+		Type fieldType = fieldDeclaration.getType();
+		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
+		for(VariableDeclarationFragment fragment : fragments) {
+			UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
+			String fieldName = fragment.getName().getFullyQualifiedName();
+			LocationInfo locationInfo = umlModelASTReader.generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
+			UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
+			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
+			variableDeclaration.setAttribute(true);
+			umlAttribute.setVariableDeclaration(variableDeclaration);
+			umlAttribute.setJavadoc(javadoc);
+			
+			int fieldModifiers = fieldDeclaration.getModifiers();
+			if((fieldModifiers & Modifier.PUBLIC) != 0)
+				umlAttribute.setVisibility("public");
+			else if((fieldModifiers & Modifier.PROTECTED) != 0)
+				umlAttribute.setVisibility("protected");
+			else if((fieldModifiers & Modifier.PRIVATE) != 0)
+				umlAttribute.setVisibility("private");
+			else if(isInterfaceField)
+				umlAttribute.setVisibility("public");
+			else
+				umlAttribute.setVisibility("package");
+			
+			if((fieldModifiers & Modifier.FINAL) != 0)
+				umlAttribute.setFinal(true);
+			
+			if((fieldModifiers & Modifier.STATIC) != 0)
+				umlAttribute.setStatic(true);
+			
+			attributes.add(umlAttribute);
+		}
+		return attributes;
+	}
 }
