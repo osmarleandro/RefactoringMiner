@@ -4161,4 +4161,98 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean exactMappings(UMLClassBaseDiff umlClassBaseDiff) {
+		if(UMLClassBaseDiff.allMappingsAreExactMatches(this)) {
+			if(nonMappedElementsT1() == 0 && nonMappedElementsT2() == 0)
+				return true;
+			else if(nonMappedElementsT1() > 0 && getNonMappedInnerNodesT1().size() == 0 && nonMappedElementsT2() == 0) {
+				int countableStatements = 0;
+				int parameterizedVariableDeclarationStatements = 0;
+				UMLOperation addedOperation = getOperation2();
+				List<String> nonMappedLeavesT1 = new ArrayList<String>();
+				for(StatementObject statement : getNonMappedLeavesT1()) {
+					if(statement.countableStatement()) {
+						nonMappedLeavesT1.add(statement.getString());
+						for(String parameterName : addedOperation.getParameterNameList()) {
+							if(statement.getVariableDeclaration(parameterName) != null) {
+								parameterizedVariableDeclarationStatements++;
+								break;
+							}
+						}
+						countableStatements++;
+					}
+				}
+				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
+				for(UMLOperation operation : umlClassBaseDiff.addedOperations) {
+					if(!operation.equals(addedOperation) && operation.getBody() != null) {
+						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
+							if(nonMappedLeavesT1.contains(statement.getString())) {
+								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
+							}
+						}
+					}
+				}
+				return (countableStatements == parameterizedVariableDeclarationStatements || countableStatements == nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation + parameterizedVariableDeclarationStatements) && countableStatements > 0;
+			}
+			else if(nonMappedElementsT1() == 0 && nonMappedElementsT2() > 0 && getNonMappedInnerNodesT2().size() == 0) {
+				int countableStatements = 0;
+				int parameterizedVariableDeclarationStatements = 0;
+				UMLOperation removedOperation = getOperation1();
+				for(StatementObject statement : getNonMappedLeavesT2()) {
+					if(statement.countableStatement()) {
+						for(String parameterName : removedOperation.getParameterNameList()) {
+							if(statement.getVariableDeclaration(parameterName) != null) {
+								parameterizedVariableDeclarationStatements++;
+								break;
+							}
+						}
+						countableStatements++;
+					}
+				}
+				return countableStatements == parameterizedVariableDeclarationStatements && countableStatements > 0;
+			}
+			else if((nonMappedElementsT1() == 1 || nonMappedElementsT2() == 1) &&
+					getNonMappedInnerNodesT1().size() == 0 && getNonMappedInnerNodesT2().size() == 0) {
+				StatementObject statementUsingParameterAsInvoker1 = null;
+				UMLOperation removedOperation = getOperation1();
+				for(StatementObject statement : getNonMappedLeavesT1()) {
+					if(statement.countableStatement()) {
+						for(String parameterName : removedOperation.getParameterNameList()) {
+							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
+								statementUsingParameterAsInvoker1 = statement;
+								break;
+							}
+						}
+					}
+				}
+				StatementObject statementUsingParameterAsInvoker2 = null;
+				UMLOperation addedOperation = getOperation2();
+				for(StatementObject statement : getNonMappedLeavesT2()) {
+					if(statement.countableStatement()) {
+						for(String parameterName : addedOperation.getParameterNameList()) {
+							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
+								statementUsingParameterAsInvoker2 = statement;
+								break;
+							}
+						}
+					}
+				}
+				if(statementUsingParameterAsInvoker1 != null && statementUsingParameterAsInvoker2 != null) {
+					for(AbstractCodeMapping mapping : getMappings()) {
+						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
+							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
+							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
+							if(parent1.getLeaves().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves().contains(statementUsingParameterAsInvoker2)) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
