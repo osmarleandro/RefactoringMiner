@@ -19,7 +19,7 @@ public class InlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> removedOperations;
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	public UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 	
@@ -71,16 +71,6 @@ public class InlineOperationDetection {
 			}
 		}
 		return refactorings;
-	}
-
-	private List<OperationInvocation> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
-		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
-		for(OperationInvocation invocation : operationInvocations) {
-			if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
-				removedOperationInvocations.add(invocation);
-			}
-		}
-		return removedOperationInvocations;
 	}
 
 	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,

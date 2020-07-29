@@ -9,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.InlineOperationDetection;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -832,5 +833,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public List<OperationInvocation> matchingInvocations(InlineOperationDetection inlineOperationDetection, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
+		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
+		for(OperationInvocation invocation : operationInvocations) {
+			if(invocation.matchesOperation(this, variableTypeMap, inlineOperationDetection.modelDiff)) {
+				removedOperationInvocations.add(invocation);
+			}
+		}
+		return removedOperationInvocations;
 	}
 }
