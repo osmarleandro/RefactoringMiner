@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<String> getImportedTypes(UMLClass umlClass) {
+		return umlClass.importedTypes;
+	}
 }

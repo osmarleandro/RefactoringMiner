@@ -22,7 +22,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
-    private List<String> importedTypes;
+    List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
     private List<UMLAnnotation> annotations;
@@ -174,10 +174,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
 	public List<UMLType> getImplementedInterfaces() {
 		return implementedInterfaces;
-	}
-
-	public List<String> getImportedTypes() {
-		return importedTypes;
 	}
 
 	public List<UMLAnonymousClass> getAnonymousClassList() {
@@ -358,7 +354,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	public boolean importsType(String targetClass) {
 		if(targetClass.startsWith(getPackageName()))
 			return true;
-		for(String importedType : getImportedTypes()) {
+		for(String importedType : javadoc.getImportedTypes(this)) {
 			//importedType.startsWith(targetClass) -> special handling for import static
 			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
 			if(importedType.equals(targetClass) || importedType.startsWith(targetClass)) {
