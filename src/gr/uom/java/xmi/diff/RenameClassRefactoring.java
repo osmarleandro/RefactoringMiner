@@ -31,7 +31,7 @@ public class RenameClassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return originalClass.getName(this);
 	}
 
 	public RefactoringType getRefactoringType() {
