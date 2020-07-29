@@ -63,7 +63,7 @@ public class VariableReplacementAnalysis {
 		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
 		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
 		this.nonMappedInnerNodesT1 = mapper.getNonMappedInnerNodesT1();
-		this.nonMappedInnerNodesT2 = mapper.getNonMappedInnerNodesT2();
+		this.nonMappedInnerNodesT2 = mapper.getCallSiteOperation().getNonMappedInnerNodesT2(this);
 		this.operation1 = mapper.getOperation1();
 		this.operation2 = mapper.getOperation2();
 		this.childMappers = new ArrayList<UMLOperationBodyMapper>();

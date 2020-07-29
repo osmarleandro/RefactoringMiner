@@ -1726,7 +1726,7 @@ public class UMLModelDiff {
 	   for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
 		   UMLOperation removedOperation = removedOperationIterator.next();
 		   for(UMLOperationBodyMapper mapper : mappers) {
-			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getCallSiteOperation().getNonMappedInnerNodesT2(this).isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
 				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 				   for(OperationInvocation invocation : operationInvocations) {
@@ -2342,7 +2342,7 @@ public class UMLModelDiff {
 		int nonMappedLoopsIteratingOverSameVariable = 0;
 		for(CompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
 			if(c1.isLoop()) {
-				for(CompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
+				for(CompositeStatementObject c2 : operationBodyMapper.getCallSiteOperation().getNonMappedInnerNodesT2(this)) {
 					if(c2.isLoop()) {
 						Set<String> intersection = new LinkedHashSet<String>(c1.getVariables());
 						intersection.retainAll(c2.getVariables());
