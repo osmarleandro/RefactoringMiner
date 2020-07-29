@@ -284,7 +284,7 @@ public class Visitor extends ASTVisitor {
 		}
 		parentNode.remove(childNode);
 		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
-		childAnonymousObject.setAstNode(null);
+		childAnonymousObject.getLocationInfo().setAstNode(this, null);
 		return parentNode;
 	}
 

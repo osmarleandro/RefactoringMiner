@@ -1,8 +1,10 @@
 package gr.uom.java.xmi;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +135,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public void setAstNode(AnonymousClassDeclarationObject anonymousClassDeclarationObject, AnonymousClassDeclaration node) {
+		anonymousClassDeclarationObject.astNode = node;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
