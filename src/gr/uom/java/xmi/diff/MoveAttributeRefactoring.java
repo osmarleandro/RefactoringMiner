@@ -12,8 +12,8 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	public UMLAttribute originalAttribute;
+	public UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
@@ -73,18 +73,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	public boolean equals(Object o) {
-		if(this == o) {
-			return true;
-		}
-		
-		if(o instanceof MoveAttributeRefactoring) {
-			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
-			return this.originalAttribute.equals(other.originalAttribute) &&
-				this.movedAttribute.equals(other.movedAttribute) &&
-				this.getSourceClassName().equals(other.getSourceClassName()) &&
-				this.getTargetClassName().equals(other.getTargetClassName());
-		}
-		return false;
+		return movedAttribute.equals(this, o);
 	}
 
 	public int hashCode() {
