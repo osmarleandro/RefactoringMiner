@@ -531,4 +531,15 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public VariableDeclaration searchVariableDeclaration(AbstractStatement abstractStatement, String variableName) {
+		VariableDeclaration variableDeclaration = abstractStatement.getVariableDeclaration(variableName);
+		if(variableDeclaration != null) {
+			return variableDeclaration;
+		}
+		else if(this != null) {
+			return searchVariableDeclaration(variableName);
+		}
+		return null;
+	}
 }
