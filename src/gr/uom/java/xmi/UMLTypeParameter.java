@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UMLTypeParameter {
 	private String name;
-	private List<UMLType> typeBounds;
+	List<UMLType> typeBounds;
 	private List<UMLAnnotation> annotations;
 
 	public UMLTypeParameter(String name) {
@@ -20,10 +20,6 @@ public class UMLTypeParameter {
 
 	public List<UMLType> getTypeBounds() {
 		return typeBounds;
-	}
-
-	public void addTypeBound(UMLType type) {
-		typeBounds.add(type);
 	}
 
 	public List<UMLAnnotation> getAnnotations() {
