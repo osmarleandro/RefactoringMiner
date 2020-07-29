@@ -31,7 +31,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private List<String> infixOperators = new ArrayList<String>();
 	private List<String> arrayAccesses = new ArrayList<String>();
 	private List<String> prefixExpressions = new ArrayList<String>();
-	private List<String> postfixExpressions = new ArrayList<String>();
+	public List<String> postfixExpressions = new ArrayList<String>();
 	private List<String> arguments = new ArrayList<String>();
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
 	private List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
@@ -108,10 +108,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public List<String> getPrefixExpressions() {
 		return prefixExpressions;
-	}
-
-	public List<String> getPostfixExpressions() {
-		return postfixExpressions;
 	}
 
 	public List<String> getArguments() {
