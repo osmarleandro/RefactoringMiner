@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -7,9 +8,12 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +22,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +838,49 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLClassBaseDiff umlClassBaseDiff, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
+		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(this, addedOperation, umlClassBaseDiff);
+		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
+		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		if(mappings > 0) {
+			int absoluteDifferenceInPosition = umlClassBaseDiff.computeAbsoluteDifferenceInPositionWithinClass(this, addedOperation);
+			if(umlClassBaseDiff.exactMappings(operationBodyMapper)) {
+				mapperSet.add(operationBodyMapper);
+			}
+			else if(umlClassBaseDiff.mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
+					absoluteDifferenceInPosition <= differenceInPosition &&
+					umlClassBaseDiff.compatibleSignatures(this, addedOperation, absoluteDifferenceInPosition)) {
+				mapperSet.add(operationBodyMapper);
+			}
+			else if(umlClassBaseDiff.mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
+					absoluteDifferenceInPosition <= differenceInPosition &&
+					umlClassBaseDiff.isPartOfMethodExtracted(this, addedOperation)) {
+				mapperSet.add(operationBodyMapper);
+			}
+			else if(umlClassBaseDiff.mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
+					absoluteDifferenceInPosition <= differenceInPosition &&
+					umlClassBaseDiff.isPartOfMethodInlined(this, addedOperation)) {
+				mapperSet.add(operationBodyMapper);
+			}
+		}
+		else {
+			for(MethodInvocationReplacement replacement : umlClassBaseDiff.consistentMethodInvocationRenames) {
+				if(replacement.getInvokedOperationBefore().matchesOperation(this) &&
+						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
+					mapperSet.add(operationBodyMapper);
+					break;
+				}
+			}
+		}
+		if(totalMappings.size() > 0) {
+			int absoluteDifferenceInPosition = umlClassBaseDiff.computeAbsoluteDifferenceInPositionWithinClass(this, addedOperation);
+			if(umlClassBaseDiff.singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
+					absoluteDifferenceInPosition <= differenceInPosition &&
+					umlClassBaseDiff.compatibleSignatures(this, addedOperation, absoluteDifferenceInPosition)) {
+				mapperSet.add(operationBodyMapper);
+			}
+		}
 	}
 }
