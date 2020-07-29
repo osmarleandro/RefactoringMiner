@@ -34,12 +34,12 @@ public class ExtractClassRefactoring implements Refactoring {
 		sb.append(getName()).append("\t");
 		sb.append(extractedClass);
 		sb.append(" from class ");
-		sb.append(classDiff.getOriginalClass());
+		sb.append(classDiff.getModelDiff().getOriginalClass(this));
 		return sb.toString();
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(extractedClass.isSubTypeOf(classDiff.getOriginalClass()) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
+		if(extractedClass.isSubTypeOf(classDiff.getModelDiff().getOriginalClass(this)) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
 			return RefactoringType.EXTRACT_SUBCLASS;
 		return RefactoringType.EXTRACT_CLASS;
 	}
@@ -53,7 +53,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	}
 
 	public UMLClass getOriginalClass() {
-		return classDiff.getOriginalClass();
+		return classDiff.getModelDiff().getOriginalClass(this);
 	}
 
 	public Set<UMLOperation> getExtractedOperations() {
@@ -83,9 +83,9 @@ public class ExtractClassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(classDiff.getOriginalClass().codeRange()
+		ranges.add(classDiff.getModelDiff().getOriginalClass(this).codeRange()
 				.setDescription("original type declaration")
-				.setCodeElement(classDiff.getOriginalClass().getName()));
+				.setCodeElement(classDiff.getModelDiff().getOriginalClass(this).getName()));
 		return ranges;
 	}
 
