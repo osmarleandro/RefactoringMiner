@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration changedTypeVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public VariableDeclaration originalVariable;
+	public VariableDeclaration changedTypeVariable;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
@@ -84,13 +84,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((changedTypeVariable == null) ? 0 : changedTypeVariable.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((originalVariable == null) ? 0 : originalVariable.hashCode());
-		return result;
+		return changedTypeVariable.hashCode(this);
 	}
 
 	@Override
