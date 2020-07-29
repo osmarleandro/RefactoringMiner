@@ -1288,22 +1288,22 @@ public class UMLModelDiff {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 classDiff.extractRenamePatterns(renameMap);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 classDiff.extractRenamePatterns(renameMap);
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 classDiff.extractRenamePatterns(renameMap);
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
+		 classDiff.extractRenamePatterns(renameMap);
       }
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
       for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
@@ -1315,7 +1315,7 @@ public class UMLModelDiff {
     			  renameDiff.process();
     			  refactorings.addAll(renameDiff.getRefactorings());
     			  extractMergePatterns(renameDiff, mergeMap);
-    			  extractRenamePatterns(renameDiff, renameMap);
+    			  renameDiff.extractRenamePatterns(renameMap);
     			  classRenameDiffList.add(renameDiff);
     			  Refactoring refactoring = null;
     			  if(renameDiff.samePackage())
@@ -1696,30 +1696,6 @@ public class UMLModelDiff {
 				mergeMap.put(merge, set);
 			}
 		}
-   }
-
-   private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
-	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
-		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
-		 if(before.contains(".") && after.contains(".")) {
-				String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
-				String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
-				if(prefix1.equals(prefix2)) {
-					before = before.substring(prefix1.length(), before.length());
-					after = after.substring(prefix2.length(), after.length());
-				}
-			}
-		 Replacement renamePattern = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
-		 if(map.containsKey(renamePattern)) {
-			 map.get(renamePattern).add(candidate);
-		 }
-		 else {
-			 Set<CandidateAttributeRefactoring> set = new LinkedHashSet<CandidateAttributeRefactoring>();
-			 set.add(candidate);
-			 map.put(renamePattern, set);
-		 }
-	  }
    }
 
    private void checkForMovedAndInlinedOperations(List<UMLOperationBodyMapper> mappers, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
