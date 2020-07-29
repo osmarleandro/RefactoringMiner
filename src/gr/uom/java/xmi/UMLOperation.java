@@ -482,18 +482,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringVisibility(UMLOperation operation) {
-		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
-		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
-		return this.className.equals(operation.className) &&
-				this.name.equals(operation.name) &&
-				this.isAbstract == operation.isAbstract &&
-				thisEmptyBody == otherEmptyBody &&
-				equalReturnParameter(operation) &&
-				this.getParameterTypeList().equals(operation.getParameterTypeList()) &&
-				equalTypeParameters(operation);
-	}
-
 	public boolean equalsIgnoringNameCase(UMLOperation operation) {
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
@@ -832,5 +820,17 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean equalsIgnoringVisibility(UMLOperation umlOperation) {
+		boolean thisEmptyBody = umlOperation.getBody() == null || umlOperation.hasEmptyBody();
+		boolean otherEmptyBody = getBody() == null || hasEmptyBody();
+		return umlOperation.className.equals(className) &&
+				umlOperation.name.equals(name) &&
+				umlOperation.isAbstract == isAbstract &&
+				thisEmptyBody == otherEmptyBody &&
+				umlOperation.equalReturnParameter(this) &&
+				umlOperation.getParameterTypeList().equals(getParameterTypeList()) &&
+				umlOperation.equalTypeParameters(this);
 	}
 }
