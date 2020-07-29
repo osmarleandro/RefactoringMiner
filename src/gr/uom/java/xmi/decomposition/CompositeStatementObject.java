@@ -45,7 +45,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		expression.setDepth(this.getDepth());
 		expression.setIndex(this.getIndex());
 		expressionList.add(expression);
-		expression.setOwner(this);
+		setOwner(expression);
 	}
 
 	public List<AbstractExpression> getExpressions() {
@@ -530,5 +530,9 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	public void setOwner(AbstractExpression abstractExpression) {
+		abstractExpression.owner = this;
 	}
 }
