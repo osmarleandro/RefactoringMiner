@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractStatement;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +135,16 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public int statementCount(CompositeStatementObject compositeStatementObject) {
+		int count = 0;
+		if(!compositeStatementObject.getString().equals("{"))
+			count++;
+		for(AbstractStatement statement : compositeStatementObject.statementList) {
+			count += statement.statementCount();
+		}
+		return count;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
