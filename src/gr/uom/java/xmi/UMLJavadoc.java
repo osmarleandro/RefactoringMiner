@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setTopLevel(UMLClass umlClass, boolean topLevel) {
+		umlClass.topLevel = topLevel;
+	}
 }
