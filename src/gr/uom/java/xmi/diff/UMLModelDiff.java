@@ -56,7 +56,7 @@ public class UMLModelDiff {
    private List<UMLClassDiff> commonClassDiffList;
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -355,14 +355,6 @@ public class UMLModelDiff {
       return null;
    }
 
-   private String isRenamedClass(UMLClass umlClass) {
-      for(UMLClassRenameDiff renameDiff : classRenameDiffList) {
-         if(renameDiff.getOriginalClass().equals(umlClass))
-            return renameDiff.getRenamedClass().getName();
-      }
-      return null;
-   }
-
    private String isMovedClass(UMLClass umlClass) {
       for(UMLClassMoveDiff moveDiff : classMoveDiffList) {
          if(moveDiff.getOriginalClass().equals(umlClass))
@@ -376,7 +368,7 @@ public class UMLModelDiff {
          UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
          for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
             UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
-            String renamedChild = isRenamedClass(removedGeneralization.getChild());
+            String renamedChild = removedGeneralization.getChild().isRenamedClass(this);
             String movedChild = isMovedClass(removedGeneralization.getChild());
             if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
                UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
@@ -402,7 +394,7 @@ public class UMLModelDiff {
          UMLRealization removedRealization = removedRealizationIterator.next();
          for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
             UMLRealization addedRealization = addedRealizationIterator.next();
-            String renamedChild = isRenamedClass(removedRealization.getClient());
+            String renamedChild = removedRealization.getClient().isRenamedClass(this);
             String movedChild = isMovedClass(removedRealization.getClient());
             //String renamedParent = isRenamedClass(removedRealization.getSupplier());
             //String movedParent = isMovedClass(removedRealization.getSupplier());
