@@ -47,7 +47,7 @@ public class VariableReplacementAnalysis {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
-	private Set<Refactoring> refactorings;
+	public Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
@@ -117,7 +117,7 @@ public class VariableReplacementAnalysis {
 								if(v2 != null && v1 != null) {
 									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), mappings);
 									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
-									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
+									if(!ref.existsConflictingExtractVariableRefactoring(this) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 										variableRenames.add(ref);
 										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
 											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
@@ -429,7 +429,7 @@ public class VariableReplacementAnalysis {
 			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
-				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
+				if(!ref.existsConflictingExtractVariableRefactoring(this) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
 					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
@@ -469,7 +469,7 @@ public class VariableReplacementAnalysis {
 			if(v1 != null && v2 != null) {
 				Set<AbstractCodeMapping> variableReferences = finalConsistentRenames.get(replacement);
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
-				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref) &&
+				if(!ref.existsConflictingExtractVariableRefactoring(this) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref) &&
 						v1.getKey().isVarargsParameter() == v2.getKey().isVarargsParameter()) {
 					variableRenames.add(ref);
 					if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
@@ -1121,19 +1121,6 @@ public class VariableReplacementAnalysis {
 						ref.getOldVariable().equals(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
 					return true;
 					
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean existsConflictingExtractVariableRefactoring(RenameVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
-				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
-						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
-					return true;
 				}
 			}
 		}
