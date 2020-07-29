@@ -42,7 +42,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	public List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
@@ -188,7 +188,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(operationWithTheSameSignature == null) {
 				this.removedOperations.add(operation);
     		}
-			else if(!mapperListContainsOperation(operation, operationWithTheSameSignature)) {
+			else if(!operation.mapperListContainsOperation(this, operationWithTheSameSignature)) {
 				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation, operationWithTheSameSignature, this);
 				this.operationBodyMapperList.add(mapper);
 			}
@@ -198,7 +198,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(operationWithTheSameSignature == null) {
 				this.addedOperations.add(operation);
     		}
-			else if(!mapperListContainsOperation(operationWithTheSameSignature, operation)) {
+			else if(!operationWithTheSameSignature.mapperListContainsOperation(this, operation)) {
 				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operationWithTheSameSignature, operation, this);
 				this.operationBodyMapperList.add(mapper);
 			}
@@ -208,14 +208,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
 			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
-				return true;
-		}
-		return false;
-	}
-
-	private boolean mapperListContainsOperation(UMLOperation operation1, UMLOperation operation2) {
-		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
-			if(mapper.getOperation1().equals(operation1) || mapper.getOperation2().equals(operation2))
 				return true;
 		}
 		return false;
