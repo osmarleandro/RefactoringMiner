@@ -35,4 +35,12 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public List<String> getTypeParameterNames(UMLClass umlClass) {
+		List<String> typeParameterNames = new ArrayList<String>();
+		for(UMLTypeParameter typeParameter : umlClass.typeParameters) {
+			typeParameterNames.add(typeParameter.getName());
+		}
+		return typeParameterNames;
+	}
 }
