@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public CompositeStatementObject getFinallyClause() {
+		return this;
+	}
 }
