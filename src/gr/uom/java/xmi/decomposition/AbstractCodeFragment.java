@@ -304,4 +304,37 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	int inconsistentVariableMappingCount(UMLOperationBodyMapper umlOperationBodyMapper, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
+		int count = 0;
+		if(v1 != null && v2 != null) {
+			for(AbstractCodeMapping mapping : umlOperationBodyMapper.mappings) {
+				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
+				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
+				if(variableDeclarations1.contains(v1) &&
+						variableDeclarations2.size() > 0 &&
+						!variableDeclarations2.contains(v2)) {
+					count++;
+				}
+				if(variableDeclarations2.contains(v2) &&
+						variableDeclarations1.size() > 0 &&
+						!variableDeclarations1.contains(v1)) {
+					count++;
+				}
+				if(mapping.isExact()) {
+					boolean containsMapping = true;
+					if(this instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
+							getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+						CompositeStatementObject comp1 = (CompositeStatementObject)this;
+						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
+					}
+					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
+						count++;
+					}
+				}
+			}
+		}
+		return count;
+	}
 }

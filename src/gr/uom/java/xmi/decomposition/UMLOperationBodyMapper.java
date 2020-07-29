@@ -51,7 +51,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<AbstractCodeMapping> mappings;
+	Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
@@ -1839,7 +1839,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							VariableDeclaration v1 = statement1.searchVariableDeclaration(s1);
 							VariableDeclaration v2 = statement2.searchVariableDeclaration(s2);
-							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
+							if(statement1.inconsistentVariableMappingCount(this, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
 								replacement = null;
 							}
 						}
@@ -4019,39 +4019,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-	}
-
-	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
-		int count = 0;
-		if(v1 != null && v2 != null) {
-			for(AbstractCodeMapping mapping : mappings) {
-				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
-				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
-				if(variableDeclarations1.contains(v1) &&
-						variableDeclarations2.size() > 0 &&
-						!variableDeclarations2.contains(v2)) {
-					count++;
-				}
-				if(variableDeclarations2.contains(v2) &&
-						variableDeclarations1.size() > 0 &&
-						!variableDeclarations1.contains(v1)) {
-					count++;
-				}
-				if(mapping.isExact()) {
-					boolean containsMapping = true;
-					if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-							statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-						CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
-					}
-					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
-						count++;
-					}
-				}
-			}
-		}
-		return count;
 	}
 
 	public boolean containsExtractOperationRefactoring(UMLOperation extractedOperation) {
