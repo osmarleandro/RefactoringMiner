@@ -13,9 +13,9 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class RemoveAttributeAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
-	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAnnotation annotation;
+	public UMLAttribute attributeBefore;
+	public UMLAttribute attributeAfter;
 
 	public RemoveAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
 			UMLAttribute attributeAfter) {
@@ -104,28 +104,6 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RemoveAttributeAnnotationRefactoring other = (RemoveAttributeAnnotationRefactoring) obj;
-		if (annotation == null) {
-			if (other.annotation != null)
-				return false;
-		} else if (!annotation.equals(other.annotation))
-			return false;
-		if (attributeAfter == null) {
-			if (other.attributeAfter != null)
-				return false;
-		} else if (!attributeAfter.equals(other.attributeAfter))
-			return false;
-		if (attributeBefore == null) {
-			if (other.attributeBefore != null)
-				return false;
-		} else if (!attributeBefore.equals(other.attributeBefore))
-			return false;
-		return true;
+		return annotation.equals(this, obj);
 	}
 }
