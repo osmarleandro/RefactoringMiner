@@ -82,7 +82,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     }
   
 	public String toString() {
-		return getExpression().toString();
+		return locationInfo.toString(this);
 	}
 
 	@Override
