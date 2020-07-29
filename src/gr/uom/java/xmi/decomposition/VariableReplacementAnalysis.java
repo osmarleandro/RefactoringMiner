@@ -39,13 +39,13 @@ import gr.uom.java.xmi.diff.UMLOperationDiff;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 public class VariableReplacementAnalysis {
-	private Set<AbstractCodeMapping> mappings;
+	Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private UMLOperation operation1;
-	private UMLOperation operation2;
+	UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
@@ -790,7 +790,7 @@ public class VariableReplacementAnalysis {
 	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		return !variableAppearsInExtractedMethod(v1, v2) &&
 				!variableAppearsInTheInitializerOfTheOtherVariable(v1, v2) &&
-				!inconsistentVariableMapping(v1, v2, set);
+				!v1.inconsistentVariableMapping(this, v2, set);
 	}
 
 	private boolean variableAppearsInTheInitializerOfTheOtherVariable(VariableDeclaration v1, VariableDeclaration v2) {
@@ -824,51 +824,6 @@ public class VariableReplacementAnalysis {
 					}
 					if(!v1InitializerContainsThisReference) {
 						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
-		if(v1 != null && v2 != null) {
-			for(AbstractCodeMapping mapping : mappings) {
-				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
-				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
-				if(variableDeclarations1.contains(v1)) {
-					if(variableDeclarations2.size() > 0 && !variableDeclarations2.contains(v2)) {
-						return true;
-					}
-					else if(variableDeclarations2.size() == 0 && v1.getInitializer() != null &&
-							mapping.getFragment2().getString().startsWith(v1.getInitializer().getString())) {
-						return true;
-					}
-				}
-				if(variableDeclarations2.contains(v2)) {
-					if(variableDeclarations1.size() > 0 && !variableDeclarations1.contains(v1)) {
-						return true;
-					}
-					else if(variableDeclarations1.size() == 0 && v2.getInitializer() != null &&
-							mapping.getFragment1().getString().startsWith(v2.getInitializer().getString())) {
-						return true;
-					}
-				}
-				if(mapping.isExact()) {
-					for(AbstractCodeMapping referenceMapping : set) {
-						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
-						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
-						boolean containsMapping = true;
-						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
-						}
-						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
-								operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
-							return true;
-						}
 					}
 				}
 			}

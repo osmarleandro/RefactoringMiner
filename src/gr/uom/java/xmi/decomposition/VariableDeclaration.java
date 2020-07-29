@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -255,5 +256,50 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	boolean inconsistentVariableMapping(VariableReplacementAnalysis variableReplacementAnalysis, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
+		if(this != null && v2 != null) {
+			for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
+				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
+				if(variableDeclarations1.contains(this)) {
+					if(variableDeclarations2.size() > 0 && !variableDeclarations2.contains(v2)) {
+						return true;
+					}
+					else if(variableDeclarations2.size() == 0 && getInitializer() != null &&
+							mapping.getFragment2().getString().startsWith(getInitializer().getString())) {
+						return true;
+					}
+				}
+				if(variableDeclarations2.contains(v2)) {
+					if(variableDeclarations1.size() > 0 && !variableDeclarations1.contains(this)) {
+						return true;
+					}
+					else if(variableDeclarations1.size() == 0 && v2.getInitializer() != null &&
+							mapping.getFragment1().getString().startsWith(v2.getInitializer().getString())) {
+						return true;
+					}
+				}
+				if(mapping.isExact()) {
+					for(AbstractCodeMapping referenceMapping : set) {
+						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
+						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
+						boolean containsMapping = true;
+						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
+								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
+							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
+							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
+						}
+						if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(this, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping)) &&
+								variableReplacementAnalysis.operation2.loopWithVariables(getVariableName(), v2.getVariableName()) == null) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
