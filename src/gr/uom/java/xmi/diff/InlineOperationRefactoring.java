@@ -21,7 +21,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
-	private UMLOperation targetOperationBeforeInline;
+	public UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
@@ -74,7 +74,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
+		if (!bodyMapper.getTargetOperationBeforeInline(this).getClassName().equals(getInlinedOperation().getClassName()))
 			return RefactoringType.MOVE_AND_INLINE_OPERATION;
 		return RefactoringType.INLINE_OPERATION;
 	}
@@ -89,10 +89,6 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	public UMLOperation getTargetOperationAfterInline() {
 		return targetOperationAfterInline;
-	}
-
-	public UMLOperation getTargetOperationBeforeInline() {
-		return targetOperationBeforeInline;
 	}
 
 	public List<OperationInvocation> getInlinedOperationInvocations() {
@@ -156,7 +152,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getInlinedOperation().getLocationInfo().getFilePath(), getInlinedOperation().getClassName()));
-		pairs.add(new ImmutablePair<String, String>(getTargetOperationBeforeInline().getLocationInfo().getFilePath(), getTargetOperationBeforeInline().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(bodyMapper.getTargetOperationBeforeInline(this).getLocationInfo().getFilePath(), bodyMapper.getTargetOperationBeforeInline(this).getClassName()));
 		return pairs;
 	}
 
