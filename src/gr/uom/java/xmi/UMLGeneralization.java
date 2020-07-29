@@ -37,4 +37,8 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
 	public int compareTo(UMLGeneralization generalization) {
 		return this.toString().compareTo(generalization.toString());
 	}
+
+	public void addGeneralization(UMLModel umlModel) {
+	    umlModel.generalizationList.add(this);
+	}
 }
