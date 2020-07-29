@@ -203,4 +203,12 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public int hashCode(VariableDeclaration variableDeclaration) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((variableDeclaration.scope == null) ? 0 : variableDeclaration.scope.hashCode());
+		result = prime * result + ((variableDeclaration.variableName == null) ? 0 : variableDeclaration.variableName.hashCode());
+		return result;
+	}
 }

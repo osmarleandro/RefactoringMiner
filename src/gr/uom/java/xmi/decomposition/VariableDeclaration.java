@@ -23,14 +23,14 @@ import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
-	private String variableName;
+	String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
-	private VariableScope scope;
+	VariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
@@ -141,11 +141,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
-		result = prime * result + ((variableName == null) ? 0 : variableName.hashCode());
-		return result;
+		return initializer.hashCode(this);
 	}
 
 	@Override
