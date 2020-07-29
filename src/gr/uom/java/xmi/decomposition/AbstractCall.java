@@ -20,7 +20,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
 	protected String expression;
 	protected List<String> arguments;
-	protected LocationInfo locationInfo;
+	public LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
 	public String getExpression() {
@@ -32,7 +32,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public LocationInfo getLocationInfo() {
-		return locationInfo;
+		return locationInfo.getLocationInfo();
 	}
 
 	public StatementCoverageType getCoverage() {
