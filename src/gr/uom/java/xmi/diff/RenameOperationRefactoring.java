@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 public class RenameOperationRefactoring implements Refactoring {
 	private UMLOperation originalOperation;
 	private UMLOperation renamedOperation;
-	private Set<Replacement> replacements;
+	public Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public RenameOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
@@ -78,10 +78,6 @@ public class RenameOperationRefactoring implements Refactoring {
 
 	public UMLOperation getRenamedOperation() {
 		return renamedOperation;
-	}
-
-	public Set<Replacement> getReplacements() {
-		return replacements;
 	}
 
 	/**
