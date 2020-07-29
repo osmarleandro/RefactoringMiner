@@ -59,7 +59,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
-	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
+	public Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
 	private UMLOperationBodyMapper parentMapper;
 	private static final Pattern SPLIT_CONDITIONAL_PATTERN = Pattern.compile("(\\|\\|)|(&&)|(\\?)|(:)");
@@ -632,10 +632,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
 		return candidateAttributeMerges;
-	}
-
-	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits() {
-		return candidateAttributeSplits;
 	}
 
 	public Set<AbstractCodeMapping> getMappings() {
