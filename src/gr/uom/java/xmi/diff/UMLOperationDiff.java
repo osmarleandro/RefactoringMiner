@@ -68,7 +68,7 @@ public class UMLOperationDiff {
 			UMLParameter removedParameter = removedParameterIterator.next();
 			for(Iterator<UMLParameter> addedParameterIterator = addedParameters.iterator(); addedParameterIterator.hasNext();) {
 				UMLParameter addedParameter = addedParameterIterator.next();
-				if(removedParameter.getName().equals(addedParameter.getName())) {
+				if(removedParameter.getType().getName(this).equals(addedParameter.getType().getName(this))) {
 					UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
 					parameterDiffList.add(parameterDiff);
 					addedParameterIterator.remove();
@@ -123,7 +123,7 @@ public class UMLOperationDiff {
 			return false;
 		}
 		for(UMLParameter addedParameter : addedParameters) {
-			if(!addedParameter.getName().equals(parameter.getName()) &&
+			if(!addedParameter.getType().getName(this).equals(parameter.getType().getName(this)) &&
 					addedParameter.getType().equalsQualified(parameter.getType())) {
 				return true;
 			}
