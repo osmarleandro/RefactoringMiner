@@ -64,7 +64,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return annotation.getName(this);
 	}
 
 	@Override
