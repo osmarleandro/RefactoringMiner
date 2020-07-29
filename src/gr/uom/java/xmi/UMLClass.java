@@ -302,8 +302,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
     public String toString() {
-    	return getName();
-    }
+		return javadoc.toString(this);
+	}
 
 	public int compareTo(UMLClass umlClass) {
 		return this.toString().compareTo(umlClass.toString());
