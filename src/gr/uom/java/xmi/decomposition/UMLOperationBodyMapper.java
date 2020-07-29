@@ -67,7 +67,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
-	private UMLOperation callSiteOperation;
+	public UMLOperation callSiteOperation;
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	
@@ -216,10 +216,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public UMLOperationBodyMapper getParentMapper() {
 		return parentMapper;
-	}
-
-	public UMLOperation getCallSiteOperation() {
-		return callSiteOperation;
 	}
 
 	private void resetNodes(List<? extends AbstractCodeFragment> nodes) {

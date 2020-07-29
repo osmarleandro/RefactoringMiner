@@ -73,7 +73,7 @@ public class VariableReplacementAnalysis {
 			this.childMappers.addAll(parentMapper.getChildMappers());
 		}
 		this.refactorings = refactorings;
-		this.callSiteOperation = mapper.getCallSiteOperation();
+		this.callSiteOperation = mapper.getCallSiteOperation().getCallSiteOperation();
 		this.operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		this.classDiff = classDiff;
 		findVariableSplits();
