@@ -20,11 +20,11 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
 	private UMLOperation extractedOperation;
-	private UMLOperation sourceOperationBeforeExtraction;
+	public UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
+	public Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
 
@@ -186,31 +186,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
-				.setDescription("source method declaration before extraction")
-				.setCodeElement(sourceOperationBeforeExtraction.toString()));
-		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
-			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code from source method declaration"));
-		}
-		/*
-		CodeRange extractedCodeRangeFromSourceOperation = getExtractedCodeRangeFromSourceOperation();
-		ranges.add(extractedCodeRangeFromSourceOperation.setDescription("extracted code from source method declaration"));
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
-			if(extractedCodeRangeFromSourceOperation.subsumes(statement.codeRange())) {
-				ranges.add(statement.codeRange().
-						setDescription("deleted statement in source method declaration"));
-			}
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
-			if(extractedCodeRangeFromSourceOperation.subsumes(statement.codeRange()) ||
-					extractedCodeRangeFromSourceOperation.subsumes(statement.getLeaves())) {
-				ranges.add(statement.codeRange().
-						setDescription("deleted statement in source method declaration"));
-			}
-		}
-		*/
-		return ranges;
+		return bodyMapper.leftSide(this);
 	}
 
 	@Override

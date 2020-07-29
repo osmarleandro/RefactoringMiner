@@ -22,6 +22,8 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4160,5 +4162,33 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public List<CodeRange> leftSide(ExtractOperationRefactoring extractOperationRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(extractOperationRefactoring.getSourceOperationCodeRangeBeforeExtraction()
+				.setDescription("source method declaration before extraction")
+				.setCodeElement(extractOperationRefactoring.sourceOperationBeforeExtraction.toString()));
+		for(AbstractCodeFragment extractedCodeFragment : extractOperationRefactoring.extractedCodeFragmentsFromSourceOperation) {
+			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code from source method declaration"));
+		}
+		/*
+		CodeRange extractedCodeRangeFromSourceOperation = getExtractedCodeRangeFromSourceOperation();
+		ranges.add(extractedCodeRangeFromSourceOperation.setDescription("extracted code from source method declaration"));
+		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
+			if(extractedCodeRangeFromSourceOperation.subsumes(statement.codeRange())) {
+				ranges.add(statement.codeRange().
+						setDescription("deleted statement in source method declaration"));
+			}
+		}
+		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
+			if(extractedCodeRangeFromSourceOperation.subsumes(statement.codeRange()) ||
+					extractedCodeRangeFromSourceOperation.subsumes(statement.getLeaves())) {
+				ranges.add(statement.codeRange().
+						setDescription("deleted statement in source method declaration"));
+			}
+		}
+		*/
+		return ranges;
 	}
 }
