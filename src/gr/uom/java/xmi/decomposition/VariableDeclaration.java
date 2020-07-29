@@ -20,6 +20,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
@@ -255,5 +256,13 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public List<CodeRange> leftSide(ChangeVariableTypeRefactoring changeVariableTypeRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(changeVariableTypeRefactoring.originalVariable.codeRange()
+				.setDescription("original variable declaration")
+				.setCodeElement(changeVariableTypeRefactoring.originalVariable.toString()));
+		return ranges;
 	}
 }
