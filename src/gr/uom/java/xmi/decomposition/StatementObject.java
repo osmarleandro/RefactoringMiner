@@ -36,7 +36,7 @@ public class StatementObject extends AbstractStatement {
 	private Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
-	private List<String> prefixExpressions;
+	public List<String> prefixExpressions;
 	private List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
@@ -215,7 +215,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getPrefixExpressions() {
-		return prefixExpressions;
+		return locationInfo.getPrefixExpressions(this);
 	}
 
 	@Override
