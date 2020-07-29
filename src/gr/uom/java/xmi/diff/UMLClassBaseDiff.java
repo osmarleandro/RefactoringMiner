@@ -42,11 +42,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private boolean visibilityChanged;
+	List<UMLOperationBodyMapper> operationBodyMapperList;
+	boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
-	private boolean abstractionChanged;
+	boolean abstractionChanged;
 	private boolean oldAbstraction;
 	private boolean newAbstraction;
 	private boolean superclassChanged;
@@ -56,7 +56,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
-	private List<UMLOperationDiff> operationDiffList;
+	List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
@@ -1603,17 +1603,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	public boolean isEmpty() {
-		return addedOperations.isEmpty() && removedOperations.isEmpty() &&
-			addedAttributes.isEmpty() && removedAttributes.isEmpty() &&
-			operationDiffList.isEmpty() && attributeDiffList.isEmpty() &&
-			operationBodyMapperList.isEmpty() &&
-			!visibilityChanged && !abstractionChanged;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
+		if(!modelDiff.isEmpty(this))
 			sb.append(originalClass.getName()).append(":").append("\n");
 		if(visibilityChanged) {
 			sb.append("\t").append("visibility changed from " + oldVisibility + " to " + newVisibility).append("\n");
