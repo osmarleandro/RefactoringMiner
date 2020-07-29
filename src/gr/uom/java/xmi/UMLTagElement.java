@@ -41,4 +41,8 @@ public class UMLTagElement {
 		}
 		return false;
 	}
+
+	public void addTag(UMLJavadoc umlJavadoc) {
+		umlJavadoc.tags.add(this);
+	}
 }

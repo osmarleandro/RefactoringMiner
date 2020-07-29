@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UMLJavadoc {
-	private List<UMLTagElement> tags;
+	List<UMLTagElement> tags;
 
 	public UMLJavadoc() {
 		this.tags = new ArrayList<UMLTagElement>();
 	}
 	
-	public void addTag(UMLTagElement tag) {
-		tags.add(tag);
-	}
-
 	public List<UMLTagElement> getTags() {
 		return tags;
 	}
