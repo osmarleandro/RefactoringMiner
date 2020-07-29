@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -18,7 +17,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 public class InlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> removedOperations;
-	private UMLClassBaseDiff classDiff;
+	public UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
@@ -28,7 +27,7 @@ public class InlineOperationDetection {
 		this.removedOperations = removedOperations;
 		this.classDiff = classDiff;
 		this.modelDiff = modelDiff;
-		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
+		this.operationInvocations = mapper.getInvocationsInTargetOperationBeforeInline(this);
 	}
 
 	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
@@ -110,25 +109,6 @@ public class InlineOperationDetection {
 				}
 			}
 		}
-	}
-
-	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
-		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
-			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
-			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
-				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
-					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
-						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
-							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
-								operationInvocations.add(anonymousInvocation);
-							}
-						}
-					}
-				}
-			}
-		}
-		return operationInvocations;
 	}
 
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {

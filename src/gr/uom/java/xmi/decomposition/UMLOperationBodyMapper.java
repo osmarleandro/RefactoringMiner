@@ -22,7 +22,9 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationDetection;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4162,24 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(InlineOperationDetection inlineOperationDetection) {
+		List<OperationInvocation> operationInvocations = getOperation1().getAllOperationInvocations();
+		for(StatementObject statement : getNonMappedLeavesT1()) {
+			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
+			for(UMLAnonymousClass anonymousClass : inlineOperationDetection.classDiff.getRemovedAnonymousClasses()) {
+				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
+						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
+							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
+								operationInvocations.add(anonymousInvocation);
+							}
+						}
+					}
+				}
+			}
+		}
+		return operationInvocations;
 	}
 }
