@@ -23,7 +23,7 @@ import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
+	String name;
 	private String visibility;
 	private boolean isAbstract;
 	private List<UMLParameter> parameters;
@@ -432,38 +432,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			}
 		}
 		return null;
-	}
-
-	public boolean isGetter() {
-		if(getBody() != null) {
-			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
-			List<UMLParameter> parameters = getParametersWithoutReturnType();
-			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
-				if(statement.getString().startsWith("return ")) {
-					for(String variable : statement.getVariables()) {
-						if(statement.getString().equals("return " + variable + ";\n") && parameters.size() == 0) {
-							return true;
-						}
-						else if(statement.getString().equals("return " + variable + ".keySet()" + ";\n") && parameters.size() == 0) {
-							return true;
-						}
-						else if(statement.getString().equals("return " + variable + ".values()" + ";\n") && parameters.size() == 0) {
-							return true;
-						}
-					}
-					UMLParameter returnParameter = getReturnParameter();
-					if((name.startsWith("is") || name.startsWith("has")) && parameters.size() == 0 &&
-							returnParameter != null && returnParameter.getType().getClassType().equals("boolean")) {
-						return true;
-					}
-					if(statement.getString().equals("return null;\n")) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	public boolean isSetter() {
