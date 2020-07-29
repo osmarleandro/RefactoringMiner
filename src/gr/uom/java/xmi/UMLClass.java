@@ -4,11 +4,18 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
@@ -396,5 +403,42 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration, String packageName, String sourceFile, String className, UMLModelASTReader umlModelASTReader) {
+		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
+		typeDeclaration.accept(visitor);
+		Set<AnonymousClassDeclaration> anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
+		
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+		for(AnonymousClassDeclaration anonymous : anonymousClassDeclarations) {
+			umlModelASTReader.insertNode(anonymous, root);
+		}
+		
+		List<UMLAnonymousClass> createdAnonymousClasses = new ArrayList<UMLAnonymousClass>();
+		Enumeration enumeration = root.preorderEnumeration();
+		while(enumeration.hasMoreElements()) {
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumeration.nextElement();
+			if(node.getUserObject() != null) {
+				AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
+				String anonymousBinaryName = umlModelASTReader.getAnonymousBinaryName(node);
+				String anonymousCodePath = umlModelASTReader.getAnonymousCodePath(node);
+				UMLAnonymousClass anonymousClass = umlModelASTReader.processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
+				addAnonymousClass(anonymousClass);
+				for(UMLOperation operation : getOperations()) {
+					if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+						operation.addAnonymousClass(anonymousClass);
+					}
+				}
+				for(UMLAnonymousClass createdAnonymousClass : createdAnonymousClasses) {
+					for(UMLOperation operation : createdAnonymousClass.getOperations()) {
+	    				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+	    					operation.addAnonymousClass(anonymousClass);
+	    				}
+	    			}
+				}
+				createdAnonymousClasses.add(anonymousClass);
+			}
+		}
 	}
 }
