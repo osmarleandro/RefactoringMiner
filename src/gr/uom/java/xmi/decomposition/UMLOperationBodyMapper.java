@@ -401,7 +401,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//match expressions in inner nodes from T1 with leaves from T2
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
-				for(AbstractExpression expression : composite.getExpressions()) {
+				for(AbstractExpression expression : composite.getLocationInfo().getExpressions(this)) {
 					expression.replaceParametersWithArguments(parameterToArgumentMap1);
 					expressionsT1.add(expression);
 				}
@@ -577,7 +577,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//match expressions in inner nodes from T2 with leaves from T1
 			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
-				for(AbstractExpression expression : composite.getExpressions()) {
+				for(AbstractExpression expression : composite.getLocationInfo().getExpressions(this)) {
 					expressionsT2.add(expression);
 				}
 			}

@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	public List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -46,10 +46,6 @@ public class CompositeStatementObject extends AbstractStatement {
 		expression.setIndex(this.getIndex());
 		expressionList.add(expression);
 		expression.setOwner(this);
-	}
-
-	public List<AbstractExpression> getExpressions() {
-		return expressionList;
 	}
 
 	public void addVariableDeclaration(VariableDeclaration declaration) {
@@ -85,7 +81,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			return getInnerNodes().contains(fragment);
 		}
 		else if(fragment instanceof AbstractExpression) {
-			return getExpressions().contains(fragment);
+			return locationInfo.getExpressions(this).contains(fragment);
 		}
 		return false;
 	}
@@ -497,7 +493,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression expression : innerNode.getLocationInfo().getExpressions(this)) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
@@ -510,7 +506,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
 					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression expression : innerNode.getLocationInfo().getExpressions(this)) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
