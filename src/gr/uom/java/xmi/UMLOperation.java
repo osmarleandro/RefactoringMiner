@@ -654,14 +654,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.toString().compareTo(operation.toString());
 	}
 
-	public double normalizedNameDistance(UMLOperation operation) {
-		String s1 = getName().toLowerCase();
-		String s2 = operation.getName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
-		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
-		return normalized;
-	}
-
 	public boolean equalParameters(UMLOperation operation) {
 		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
 	}
@@ -832,5 +824,13 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public double normalizedNameDistance(UMLOperation umlOperation) {
+		String s1 = umlOperation.getName().toLowerCase();
+		String s2 = getName().toLowerCase();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }
