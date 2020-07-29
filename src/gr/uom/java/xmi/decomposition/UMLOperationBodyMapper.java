@@ -1188,7 +1188,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(!mappingSet.isEmpty()) {
 					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
-					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+					if(callSiteOperation.variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
@@ -1286,7 +1286,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 				if(!mappingSet.isEmpty()) {
 					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
-					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+					if(callSiteOperation.variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
 						//postpone mapping
 						postponedMappingSets.add(mappingSet);
 					}
@@ -1347,49 +1347,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				preprocessInput2(leaf1, leaf2),
 				l1, l2);
 		return replacementInfo;
-	}
-
-	private boolean variableDeclarationMappingsWithSameReplacementTypes(Set<LeafMapping> mappingSet) {
-		if(mappingSet.size() > 1) {
-			Set<LeafMapping> variableDeclarationMappings = new LinkedHashSet<LeafMapping>();
-			for(LeafMapping mapping : mappingSet) {
-				if(mapping.getFragment1().getVariableDeclarations().size() > 0 &&
-						mapping.getFragment2().getVariableDeclarations().size() > 0) {
-					variableDeclarationMappings.add(mapping);
-				}
-			}
-			if(variableDeclarationMappings.size() == mappingSet.size()) {
-				Set<ReplacementType> replacementTypes = null;
-				Set<LeafMapping> mappingsWithSameReplacementTypes = new LinkedHashSet<LeafMapping>();
-				for(LeafMapping mapping : variableDeclarationMappings) {
-					if(replacementTypes == null) {
-						replacementTypes = mapping.getReplacementTypes();
-						mappingsWithSameReplacementTypes.add(mapping);
-					}
-					else if(mapping.getReplacementTypes().equals(replacementTypes)) {
-						mappingsWithSameReplacementTypes.add(mapping);
-					}
-					else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
-						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
-						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
-						if(invocation1 != null && invocation2 != null) {
-							for(Replacement replacement : mapping.getReplacements()) {
-								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-									if(invocation1.getName().equals(replacement.getBefore()) && invocation2.getName().equals(replacement.getAfter())) {
-										mappingsWithSameReplacementTypes.add(mapping);
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-				if(mappingsWithSameReplacementTypes.size() == mappingSet.size()) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {

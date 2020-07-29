@@ -4,10 +4,13 @@ import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -832,5 +835,48 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean variableDeclarationMappingsWithSameReplacementTypes(Set<LeafMapping> mappingSet) {
+		if(mappingSet.size() > 1) {
+			Set<LeafMapping> variableDeclarationMappings = new LinkedHashSet<LeafMapping>();
+			for(LeafMapping mapping : mappingSet) {
+				if(mapping.getFragment1().getVariableDeclarations().size() > 0 &&
+						mapping.getFragment2().getVariableDeclarations().size() > 0) {
+					variableDeclarationMappings.add(mapping);
+				}
+			}
+			if(variableDeclarationMappings.size() == mappingSet.size()) {
+				Set<ReplacementType> replacementTypes = null;
+				Set<LeafMapping> mappingsWithSameReplacementTypes = new LinkedHashSet<LeafMapping>();
+				for(LeafMapping mapping : variableDeclarationMappings) {
+					if(replacementTypes == null) {
+						replacementTypes = mapping.getReplacementTypes();
+						mappingsWithSameReplacementTypes.add(mapping);
+					}
+					else if(mapping.getReplacementTypes().equals(replacementTypes)) {
+						mappingsWithSameReplacementTypes.add(mapping);
+					}
+					else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
+						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
+						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
+						if(invocation1 != null && invocation2 != null) {
+							for(Replacement replacement : mapping.getReplacements()) {
+								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+									if(invocation1.getName().equals(replacement.getBefore()) && invocation2.getName().equals(replacement.getAfter())) {
+										mappingsWithSameReplacementTypes.add(mapping);
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+				if(mappingsWithSameReplacementTypes.size() == mappingSet.size()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
