@@ -9,7 +9,6 @@ import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -140,10 +139,6 @@ public class OperationInvocation extends AbstractCall {
 
     public int numberOfSubExpressions() {
     	return subExpressions.size();
-    }
-
-    public boolean matchesOperation(UMLOperation operation) {
-    	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
     }
 
     public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {

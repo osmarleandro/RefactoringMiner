@@ -1110,8 +1110,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		else {
 			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
-				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
-						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
+				if(removedOperation.matchesOperation(replacement.getInvokedOperationBefore()) &&
+						addedOperation.matchesOperation(replacement.getInvokedOperationAfter())) {
 					mapperSet.add(operationBodyMapper);
 					break;
 				}

@@ -13,6 +13,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -832,5 +833,9 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean matchesOperation(OperationInvocation operationInvocation) {
+		return operationInvocation.matchesOperation(this, new HashMap<String, UMLType>(), null);
 	}
 }
