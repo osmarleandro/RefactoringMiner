@@ -267,27 +267,6 @@ public class OperationInvocation extends AbstractCall {
     			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
-    public boolean compatibleExpression(OperationInvocation other) {
-    	if(this.expression != null && other.expression != null) {
-    		if(this.expression.startsWith("new ") && !other.expression.startsWith("new "))
-    			return false;
-    		if(!this.expression.startsWith("new ") && other.expression.startsWith("new "))
-    			return false;
-    	}
-    	if(this.expression != null && this.expression.startsWith("new ") && other.expression == null)
-    		return false;
-    	if(other.expression != null && other.expression.startsWith("new ") && this.expression == null)
-    		return false;
-    	if(this.subExpressions.size() > 1 || other.subExpressions.size() > 1) {
-    		Set<String> intersection = subExpressionIntersection(other);
-    		int thisUnmatchedSubExpressions = this.subExpressions().size() - intersection.size();
-    		int otherUnmatchedSubExpressions = other.subExpressions().size() - intersection.size();
-    		if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
-    			return false;
-    	}
-    	return true;
-    }
-
     public boolean containsVeryLongSubExpression() {
     	for(String expression : subExpressions) {
     		if(expression.length() > 100 && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(expression)) {
@@ -526,5 +505,26 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	public boolean compatibleExpression(OperationInvocation operationInvocation) {
+		if(operationInvocation.expression != null && expression != null) {
+			if(operationInvocation.expression.startsWith("new ") && !expression.startsWith("new "))
+				return false;
+			if(!operationInvocation.expression.startsWith("new ") && expression.startsWith("new "))
+				return false;
+		}
+		if(operationInvocation.expression != null && operationInvocation.expression.startsWith("new ") && expression == null)
+			return false;
+		if(expression != null && expression.startsWith("new ") && operationInvocation.expression == null)
+			return false;
+		if(operationInvocation.subExpressions.size() > 1 || subExpressions.size() > 1) {
+			Set<String> intersection = operationInvocation.subExpressionIntersection(this);
+			int thisUnmatchedSubExpressions = operationInvocation.subExpressions().size() - intersection.size();
+			int otherUnmatchedSubExpressions = subExpressions().size() - intersection.size();
+			if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
+				return false;
+		}
+		return true;
 	}
 }
