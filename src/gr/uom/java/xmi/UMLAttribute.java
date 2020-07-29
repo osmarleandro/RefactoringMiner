@@ -2,6 +2,7 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -170,5 +171,19 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean containsAttributeWithTheSameRenamePattern(UMLAbstractClass umlAbstractClass, RenamePattern pattern) {
+		if(pattern == null)
+			return false;
+		for(UMLAttribute originalAttribute : umlAbstractClass.attributes) {
+			String originalAttributeName = originalAttribute.getName();
+			if(originalAttributeName.contains(pattern.getBefore())) {
+				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
+				if(originalAttributeNameAfterReplacement.equals(getName()))
+					return true;
+			}
+		}
+		return false;
 	}
 }

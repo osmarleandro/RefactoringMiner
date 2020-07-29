@@ -148,20 +148,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
-		if(pattern == null)
-			return false;
-		for(UMLAttribute originalAttribute : attributes) {
-			String originalAttributeName = originalAttribute.getName();
-			if(originalAttributeName.contains(pattern.getBefore())) {
-				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
-				if(originalAttributeNameAfterReplacement.equals(attribute.getName()))
-					return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean containsAttributeWithName(String attributeName) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.getName().equals(attributeName))
@@ -253,14 +239,14 @@ public abstract class UMLAbstractClass {
 		for(UMLAttribute attribute : attributes) {
 			totalAttributes++;
 			if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
-    				(pattern != null && umlClass.containsAttributeWithTheSameRenamePattern(attribute, pattern.reverse()))) {
+    				(pattern != null && attribute.containsAttributeWithTheSameRenamePattern(umlClass, pattern.reverse()))) {
 				commonAttributes.add(attribute);
 			}
 		}
 		for(UMLAttribute attribute : umlClass.attributes) {
 			totalAttributes++;
 			if(this.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
-    				(pattern != null && this.containsAttributeWithTheSameRenamePattern(attribute, pattern))) {
+    				(pattern != null && attribute.containsAttributeWithTheSameRenamePattern(this, pattern))) {
 				commonAttributes.add(attribute);
 			}
 		}
