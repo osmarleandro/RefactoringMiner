@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isSingleMemberAnnotation(UMLAnnotation umlAnnotation) {
+		return umlAnnotation.value != null;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
