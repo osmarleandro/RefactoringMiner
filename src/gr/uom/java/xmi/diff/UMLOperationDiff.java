@@ -57,7 +57,7 @@ public class UMLOperationDiff {
 		for(SimpleEntry<UMLParameter, UMLParameter> matchedParameter : matchedParameters) {
 			UMLParameter parameter1 = matchedParameter.getKey();
 			UMLParameter parameter2 = matchedParameter.getValue();
-			if(!parameter1.equalsQualified(parameter2)) {
+			if(!parameter2.equalsQualified(parameter1)) {
 				UMLParameterDiff parameterDiff = new UMLParameterDiff(parameter1, parameter2);
 				parameterDiffList.add(parameterDiff);
 			}
