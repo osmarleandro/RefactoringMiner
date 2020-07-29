@@ -133,6 +133,15 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean containsTypeArgument(UMLType umlType, String type) {
+		for(UMLType typeArgument : umlType.typeArguments) {
+			if(typeArgument.toString().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
