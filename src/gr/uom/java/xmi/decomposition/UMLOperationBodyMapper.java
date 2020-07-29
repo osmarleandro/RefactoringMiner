@@ -32,7 +32,6 @@ import gr.uom.java.xmi.diff.UMLParameterDiff;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -1649,7 +1648,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments());
 		removeCommonElements(arguments1, arguments2);
 		
-		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
+		if(!callSiteOperation.argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
 			findReplacements(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
 		}
 		
@@ -3018,48 +3017,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private boolean argumentsWithIdenticalMethodCalls(Set<String> arguments1, Set<String> arguments2,
-			Set<String> variables1, Set<String> variables2) {
-		int identicalMethodCalls = 0;
-		if(arguments1.size() == arguments2.size()) {
-			Iterator<String> it1 = arguments1.iterator();
-			Iterator<String> it2 = arguments2.iterator();
-			while(it1.hasNext() && it2.hasNext()) {
-				String arg1 = it1.next();
-				String arg2 = it2.next();
-				if(arg1.contains("(") && arg2.contains("(") && arg1.contains(")") && arg2.contains(")")) {
-					int indexOfOpeningParenthesis1 = arg1.indexOf("(");
-					int indexOfClosingParenthesis1 = arg1.indexOf(")");
-					boolean openingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes(arg1, indexOfOpeningParenthesis1);
-					boolean openingParenthesisInsideDoubleQuotes1 = isInsideDoubleQuotes(arg1, indexOfOpeningParenthesis1);
-					boolean closingParenthesisInsideSingleQuotes1 = isInsideSingleQuotes(arg1, indexOfClosingParenthesis1);
-					boolean closingParenthesisInsideDoubleQuotes1 = isInsideDoubleQuotes(arg1, indexOfClosingParenthesis1);
-					int indexOfOpeningParenthesis2 = arg2.indexOf("(");
-					int indexOfClosingParenthesis2 = arg2.indexOf(")");
-					boolean openingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes(arg2, indexOfOpeningParenthesis2);
-					boolean openingParenthesisInsideDoubleQuotes2 = isInsideDoubleQuotes(arg2, indexOfOpeningParenthesis2);
-					boolean closingParenthesisInsideSingleQuotes2 = isInsideSingleQuotes(arg2, indexOfClosingParenthesis2);
-					boolean closingParenthesisInsideDoubleQuotes2 = isInsideDoubleQuotes(arg2, indexOfClosingParenthesis2);
-					if(!openingParenthesisInsideSingleQuotes1 && !closingParenthesisInsideSingleQuotes1 &&
-							!openingParenthesisInsideDoubleQuotes1 && !closingParenthesisInsideDoubleQuotes1 &&
-							!openingParenthesisInsideSingleQuotes2 && !closingParenthesisInsideSingleQuotes2 &&
-							!openingParenthesisInsideDoubleQuotes2 && !closingParenthesisInsideDoubleQuotes2) {
-						String s1 = arg1.substring(0, indexOfOpeningParenthesis1);
-						String s2 = arg2.substring(0, indexOfOpeningParenthesis2);
-						if(s1.equals(s2) && s1.length() > 0) {
-							String args1 = arg1.substring(indexOfOpeningParenthesis1+1, indexOfClosingParenthesis1);
-							String args2 = arg2.substring(indexOfOpeningParenthesis2+1, indexOfClosingParenthesis2);
-							if(variables1.contains(args1) && variables2.contains(args2)) {
-								identicalMethodCalls++;
-							}
-						}
-					}
-				}
-			}
-		}
-		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
-	}
-
 	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
 		UMLOperationDiff operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		if(operationDiff == null) {
@@ -3675,7 +3632,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
+	public static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
 		if(indexOfChar > 0 && indexOfChar < argument.length()-1) {
 			return argument.charAt(indexOfChar-1) == '\'' &&
 					argument.charAt(indexOfChar+1) == '\'';
@@ -3683,7 +3640,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private static boolean isInsideDoubleQuotes(String argument, int indexOfChar) {
+	public static boolean isInsideDoubleQuotes(String argument, int indexOfChar) {
 		Matcher m = DOUBLE_QUOTES.matcher(argument);
 		while (m.find()) {
 			if (m.group(1) != null) {

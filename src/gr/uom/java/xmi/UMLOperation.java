@@ -7,12 +7,14 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -832,5 +834,46 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean argumentsWithIdenticalMethodCalls(Set<String> arguments1, Set<String> arguments2, Set<String> variables1, Set<String> variables2) {
+		int identicalMethodCalls = 0;
+		if(arguments1.size() == arguments2.size()) {
+			Iterator<String> it1 = arguments1.iterator();
+			Iterator<String> it2 = arguments2.iterator();
+			while(it1.hasNext() && it2.hasNext()) {
+				String arg1 = it1.next();
+				String arg2 = it2.next();
+				if(arg1.contains("(") && arg2.contains("(") && arg1.contains(")") && arg2.contains(")")) {
+					int indexOfOpeningParenthesis1 = arg1.indexOf("(");
+					int indexOfClosingParenthesis1 = arg1.indexOf(")");
+					boolean openingParenthesisInsideSingleQuotes1 = UMLOperationBodyMapper.isInsideSingleQuotes(arg1, indexOfOpeningParenthesis1);
+					boolean openingParenthesisInsideDoubleQuotes1 = UMLOperationBodyMapper.isInsideDoubleQuotes(arg1, indexOfOpeningParenthesis1);
+					boolean closingParenthesisInsideSingleQuotes1 = UMLOperationBodyMapper.isInsideSingleQuotes(arg1, indexOfClosingParenthesis1);
+					boolean closingParenthesisInsideDoubleQuotes1 = UMLOperationBodyMapper.isInsideDoubleQuotes(arg1, indexOfClosingParenthesis1);
+					int indexOfOpeningParenthesis2 = arg2.indexOf("(");
+					int indexOfClosingParenthesis2 = arg2.indexOf(")");
+					boolean openingParenthesisInsideSingleQuotes2 = UMLOperationBodyMapper.isInsideSingleQuotes(arg2, indexOfOpeningParenthesis2);
+					boolean openingParenthesisInsideDoubleQuotes2 = UMLOperationBodyMapper.isInsideDoubleQuotes(arg2, indexOfOpeningParenthesis2);
+					boolean closingParenthesisInsideSingleQuotes2 = UMLOperationBodyMapper.isInsideSingleQuotes(arg2, indexOfClosingParenthesis2);
+					boolean closingParenthesisInsideDoubleQuotes2 = UMLOperationBodyMapper.isInsideDoubleQuotes(arg2, indexOfClosingParenthesis2);
+					if(!openingParenthesisInsideSingleQuotes1 && !closingParenthesisInsideSingleQuotes1 &&
+							!openingParenthesisInsideDoubleQuotes1 && !closingParenthesisInsideDoubleQuotes1 &&
+							!openingParenthesisInsideSingleQuotes2 && !closingParenthesisInsideSingleQuotes2 &&
+							!openingParenthesisInsideDoubleQuotes2 && !closingParenthesisInsideDoubleQuotes2) {
+						String s1 = arg1.substring(0, indexOfOpeningParenthesis1);
+						String s2 = arg2.substring(0, indexOfOpeningParenthesis2);
+						if(s1.equals(s2) && s1.length() > 0) {
+							String args1 = arg1.substring(indexOfOpeningParenthesis1+1, indexOfClosingParenthesis1);
+							String args2 = arg2.substring(indexOfOpeningParenthesis2+1, indexOfClosingParenthesis2);
+							if(variables1.contains(args1) && variables2.contains(args2)) {
+								identicalMethodCalls++;
+							}
+						}
+					}
+				}
+			}
+		}
+		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
 	}
 }
