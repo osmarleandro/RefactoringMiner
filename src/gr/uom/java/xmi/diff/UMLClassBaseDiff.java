@@ -704,7 +704,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
+						for(VariableDeclaration variableDeclaration : merge.getNewVariable().getMergedVariables(this)) {
 							if(originalAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
@@ -722,7 +722,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
-							if(merge.getMergedVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
+							if(merge.getNewVariable().getMergedVariables(this).iterator().next().getVariableName().equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);
 								allMatchingVariables.addAll(nonMatchingVariableNames);
 							}
@@ -738,7 +738,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								}
 							}
 							UMLAttribute a2 = findAttributeInNextClass(renamedAttributeName);
-							if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
+							if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getNewVariable().getMergedVariables(this).size() && a2 != null) {
 								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);

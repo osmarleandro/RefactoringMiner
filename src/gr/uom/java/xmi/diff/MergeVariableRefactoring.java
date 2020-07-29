@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeVariableRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedVariables;
+	public Set<VariableDeclaration> mergedVariables;
 	private VariableDeclaration newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
@@ -27,10 +27,6 @@ public class MergeVariableRefactoring implements Refactoring {
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
 		this.variableReferences = variableReferences;
-	}
-
-	public Set<VariableDeclaration> getMergedVariables() {
-		return mergedVariables;
 	}
 
 	public VariableDeclaration getNewVariable() {
