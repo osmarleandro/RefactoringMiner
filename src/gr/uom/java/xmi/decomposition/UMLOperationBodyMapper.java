@@ -856,21 +856,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return exactMatches;
 	}
 
-	private int editDistance() {
-		int count = 0;
-		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				continue;
-			}
-			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
-			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
-			if(!s1.equals(s2)) {
-				count += StringDistance.editDistance(s1, s2);
-			}
-		}
-		return count;
-	}
-
 	public double normalizedEditDistance() {
 		double editDistance = 0;
 		double maxLength = 0;
@@ -1489,11 +1474,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mapping;
 	}
 
-	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	public String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		return preprocessInput(leaf1, leaf2);
 	}
 
-	private String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	public String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		return preprocessInput(leaf2, leaf1);
 	}
 
@@ -4007,8 +3992,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return -Integer.compare(thisExactMatches, otherExactMatches);
 			}
 			else {
-				int thisEditDistance = this.editDistance();
-				int otherEditDistance = operationBodyMapper.editDistance();
+				int thisEditDistance = this.getCallSiteOperation().editDistance(this);
+				int otherEditDistance = operationBodyMapper.getCallSiteOperation().editDistance(this);
 				if(thisEditDistance != otherEditDistance) {
 					return Integer.compare(thisEditDistance, otherEditDistance);
 				}

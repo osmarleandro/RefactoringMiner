@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -7,6 +8,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +834,20 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public int editDistance(UMLOperationBodyMapper umlOperationBodyMapper) {
+		int count = 0;
+		for(AbstractCodeMapping mapping : umlOperationBodyMapper.getMappings()) {
+			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
+				continue;
+			}
+			String s1 = umlOperationBodyMapper.preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
+			String s2 = umlOperationBodyMapper.preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
+			if(!s1.equals(s2)) {
+				count += StringDistance.editDistance(s1, s2);
+			}
+		}
+		return count;
 	}
 }
