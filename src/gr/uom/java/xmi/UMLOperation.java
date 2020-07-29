@@ -9,7 +9,9 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -833,4 +836,16 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLModelDiff umlModelDiff, UMLOperation addedOperation) {
+		   for(Refactoring refactoring : umlModelDiff.refactorings) {
+			   if(refactoring instanceof MoveOperationRefactoring) {
+				   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
+				   if(moveRefactoring.getOriginalOperation().equals(this)) {
+					   return true;
+				   }
+			   }
+		   }
+		   return false;
+	   }
 }

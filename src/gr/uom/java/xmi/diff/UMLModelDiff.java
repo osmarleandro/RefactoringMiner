@@ -57,7 +57,7 @@ public class UMLModelDiff {
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
-   private List<Refactoring> refactorings;
+   public List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
@@ -2131,11 +2131,11 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedMethodSignature(removedOperation, addedOperation) && !removedOperation.refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(this, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !removedOperation.refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(this, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
@@ -2216,11 +2216,11 @@ public class UMLModelDiff {
 	                  refactoring = new PushDownOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedMethodSignature(removedOperation, addedOperation) && !removedOperation.refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(this, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
-	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
+	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !removedOperation.refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(this, addedOperation)) {
 	                  refactoring = new MoveOperationRefactoring(firstMapper);
 	               }
 	               if(refactoring != null) {
@@ -2477,19 +2477,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
-	   for(Refactoring refactoring : refactorings) {
-		   if(refactoring instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
-			   if(moveRefactoring.getOriginalOperation().equals(removedOperation)) {
-				   return true;
-			   }
-		   }
-	   }
-	   return false;
-   }
-
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
+   private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
