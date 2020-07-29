@@ -35,4 +35,10 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public int statementCount(UMLOperation umlOperation) {
+		if(umlOperation.operationBody != null)
+			return umlOperation.operationBody.statementCount();
+		return 0;
+	}
 }
