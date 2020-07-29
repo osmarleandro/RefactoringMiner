@@ -1,10 +1,15 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.refactoringminer.api.Refactoring;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class CandidateAttributeRefactoring {
@@ -140,6 +145,38 @@ public class CandidateAttributeRefactoring {
 		} else if (!renamedVariableName.equals(other.renamedVariableName))
 			return false;
 		return true;
+	}
+
+	boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(UMLClassBaseDiff umlClassBaseDiff, List<Refactoring> refactorings) {
+		for(Refactoring refactoring : refactorings) {
+			if(refactoring instanceof ExtractOperationRefactoring) {
+				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
+				if(extractRefactoring.getExtractedOperation().equals(getOperationAfter())) {
+					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
+					if(extractedInvocations.size() > 1) {
+						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
+						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
+						for(OperationInvocation extractedInvocation : extractedInvocations) {
+							for(String argument : extractedInvocation.getArguments()) {
+								for(UMLAttribute attribute : umlClassBaseDiff.originalClass.getAttributes()) {
+									if(attribute.getName().equals(argument)) {
+										attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
+										attributeNamesMatchedWithArguments.add(attribute.getName());
+										break;
+									}
+								}
+							}
+						}
+						if((attributeNamesMatchedWithArguments.contains(getOriginalVariableName()) ||
+								attributeNamesMatchedWithArguments.contains(getRenamedVariableName())) &&
+								attributesMatchedWithArguments.size() > 1) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }
