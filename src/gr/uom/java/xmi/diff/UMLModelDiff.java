@@ -523,19 +523,6 @@ public class UMLModelDiff {
       this.classMoveDiffList.removeAll(innerClassMoveDiffList);
    }
 
-   private boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
-	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
-		   String removedClassName = removedClass.getName();
-		   String removedName = removedClassName.substring(removedClassName.lastIndexOf(".")+1, removedClassName.length());
-		   String addedClassName = addedClass.getName();
-		   String addedName = addedClassName.substring(addedClassName.lastIndexOf(".")+1, addedClassName.length());
-		   if(removedName.equals(addedName)) {
-			   return true;
-		   }
-	   }
-	   return false;
-   }
-
    public List<UMLGeneralization> getAddedGeneralizations() {
       return addedGeneralizations;
    }
