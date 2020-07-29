@@ -52,7 +52,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.MOVE_SOURCE_FOLDER;
+		return pattern.getRefactoringType();
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
