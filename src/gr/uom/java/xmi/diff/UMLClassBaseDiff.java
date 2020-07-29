@@ -1094,7 +1094,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					removedOperation.compatibleSignatures(this, addedOperation, absoluteDifferenceInPosition)) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
@@ -1121,7 +1121,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
 			if(singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					removedOperation.compatibleSignatures(this, addedOperation, absoluteDifferenceInPosition)) {
 				mapperSet.add(operationBodyMapper);
 			}
 		}
@@ -1137,7 +1137,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					removedOperation.compatibleSignatures(this, addedOperation, absoluteDifferenceInPosition)) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
@@ -1466,16 +1466,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean compatibleSignatures(UMLOperation removedOperation, UMLOperation addedOperation, int absoluteDifferenceInPosition) {
-		return addedOperation.compatibleSignature(removedOperation) ||
-		(
-		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
-		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
-		(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
-		);
-	}
-
-	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
+	public boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
 			UMLType type1 = removedOperation.getReturnParameter().getType();
 			UMLType type2 = addedOperation.getReturnParameter().getType();
@@ -1486,7 +1477,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean operationsBeforeAndAfterMatch(UMLOperation removedOperation, UMLOperation addedOperation) {
+	public boolean operationsBeforeAndAfterMatch(UMLOperation removedOperation, UMLOperation addedOperation) {
 		UMLOperation operationBefore1 = null;
 		UMLOperation operationAfter1 = null;
 		List<UMLOperation> originalClassOperations = originalClass.getOperations();

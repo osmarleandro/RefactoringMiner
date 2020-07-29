@@ -10,6 +10,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -832,5 +833,14 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean compatibleSignatures(UMLClassBaseDiff umlClassBaseDiff, UMLOperation addedOperation, int absoluteDifferenceInPosition) {
+		return addedOperation.compatibleSignature(this) ||
+		(
+		(absoluteDifferenceInPosition == 0 || umlClassBaseDiff.operationsBeforeAndAfterMatch(this, addedOperation)) &&
+		!umlClassBaseDiff.gettersWithDifferentReturnType(this, addedOperation) &&
+		(addedOperation.getParameterTypeList().equals(getParameterTypeList()) || addedOperation.normalizedNameDistance(this) <= UMLClassBaseDiff.MAX_OPERATION_NAME_DISTANCE)
+		);
 	}
 }
