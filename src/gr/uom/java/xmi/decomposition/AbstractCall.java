@@ -72,14 +72,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identicalExpression(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call) ||
+		return call.identicalExpression(this) ||
 		identicalExpressionAfterTypeReplacements(call, replacements);
-	}
-
-	public boolean identicalExpression(AbstractCall call) {
-		return (getExpression() != null && call.getExpression() != null &&
-				getExpression().equals(call.getExpression())) ||
-				(getExpression() == null && call.getExpression() == null);
 	}
 
 	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
@@ -434,6 +428,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean identicalExpression(AbstractCall abstractCall) {
+		return (abstractCall.getExpression() != null && getExpression() != null &&
+				abstractCall.getExpression().equals(getExpression())) ||
+				(abstractCall.getExpression() == null && getExpression() == null);
 	}
 
 	public enum StatementCoverageType {
