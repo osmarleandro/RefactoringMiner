@@ -800,7 +800,7 @@ public class UMLModelDiff {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
 	   }
 	   if(removedClass != null) {
-		   return removedClass.importsType(targetClassName);
+		   return removedClass.getJavadoc().importsType(this, targetClassName);
 	   }
 	   return false;
    }
@@ -818,7 +818,7 @@ public class UMLModelDiff {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
 	   }
 	   if(addedClass != null) {
-		   return addedClass.importsType(sourceClassName);
+		   return addedClass.getJavadoc().importsType(this, sourceClassName);
 	   }
 	   return false;
    }
