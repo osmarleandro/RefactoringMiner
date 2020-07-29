@@ -37,7 +37,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
 	protected UMLClass originalClass;
-	protected UMLClass nextClass;
+	public UMLClass nextClass;
 	protected List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
@@ -386,14 +386,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public boolean containsOperationWithTheSameSignatureInOriginalClass(UMLOperation operation) {
 		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			if(originalOperation.equalSignature(operation))
-				return true;
-		}
-		return false;
-	}
-
-	public boolean containsOperationWithTheSameSignatureInNextClass(UMLOperation operation) {
-		for(UMLOperation originalOperation : nextClass.getOperations()) {
 			if(originalOperation.equalSignature(operation))
 				return true;
 		}
