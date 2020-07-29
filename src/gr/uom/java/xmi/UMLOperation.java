@@ -10,6 +10,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -830,6 +831,14 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public UMLOperation containsRemovedOperationWithTheSameSignature(UMLClassBaseDiff umlClassBaseDiff) {
+		for(UMLOperation removedOperation : umlClassBaseDiff.removedOperations) {
+			if(removedOperation.equalSignature(this))
+				return removedOperation;
 		}
 		return null;
 	}

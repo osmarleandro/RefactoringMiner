@@ -39,7 +39,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected UMLClass originalClass;
 	protected UMLClass nextClass;
 	protected List<UMLOperation> addedOperations;
-	protected List<UMLOperation> removedOperations;
+	public List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
@@ -398,14 +398,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				return true;
 		}
 		return false;
-	}
-
-	public UMLOperation containsRemovedOperationWithTheSameSignature(UMLOperation operation) {
-		for(UMLOperation removedOperation : removedOperations) {
-			if(removedOperation.equalSignature(operation))
-				return removedOperation;
-		}
-		return null;
 	}
 
 	public UMLAttribute containsRemovedAttributeWithTheSameSignature(UMLAttribute attribute) {
