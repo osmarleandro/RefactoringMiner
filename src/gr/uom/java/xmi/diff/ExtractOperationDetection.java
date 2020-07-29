@@ -24,7 +24,7 @@ public class ExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> addedOperations;
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 
@@ -219,7 +219,7 @@ public class ExtractOperationDetection {
 				}
 			}
 		}
-		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
+		if(classDiff.parameterTypesMatch(this, originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
 			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
 			return new UMLOperationBodyMapper(mapper,
 					delegateMethod != null ? delegateMethod : addedOperation,
@@ -284,16 +284,5 @@ public class ExtractOperationDetection {
 			}
 		}
 		return null;
-	}
-
-	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
-		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
-			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
-			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
-					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

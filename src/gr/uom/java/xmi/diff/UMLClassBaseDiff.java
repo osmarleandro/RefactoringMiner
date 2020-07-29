@@ -18,6 +18,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -1670,5 +1671,16 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
+	}
+
+	boolean parameterTypesMatch(ExtractOperationDetection extractOperationDetection, Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
+		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
+			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
+			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
+					!extractOperationDetection.modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
