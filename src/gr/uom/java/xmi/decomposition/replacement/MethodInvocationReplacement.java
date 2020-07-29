@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class MethodInvocationReplacement extends Replacement {
-	private OperationInvocation invokedOperationBefore;
+	public OperationInvocation invokedOperationBefore;
 	private OperationInvocation invokedOperationAfter;
 	
 	public MethodInvocationReplacement(String before, String after,
@@ -12,10 +12,6 @@ public class MethodInvocationReplacement extends Replacement {
 		super(before, after, type);
 		this.invokedOperationBefore = invokedOperationBefore;
 		this.invokedOperationAfter = invokedOperationAfter;
-	}
-
-	public OperationInvocation getInvokedOperationBefore() {
-		return invokedOperationBefore;
 	}
 
 	public OperationInvocation getInvokedOperationAfter() {
