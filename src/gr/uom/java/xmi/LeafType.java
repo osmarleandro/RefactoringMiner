@@ -110,19 +110,6 @@ public class LeafType extends UMLType {
 		return false;
 	}
 
-	private boolean commonTokenInClassType(LeafType type) {
-		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(this.nonQualifiedClassType);
-		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(type.nonQualifiedClassType);
-		for(String token1 : tokens1) {
-			for(String token2 : tokens2) {
-				if((token1.equals(token2) && token1.length() > 1) || token1.equals(token2 + "s") || token2.equals(token1 + "s")) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public int hashCode() {
 		if(hashCode == 0) {
@@ -150,5 +137,18 @@ public class LeafType extends UMLType {
 		sb.append(classType);
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
+	}
+
+	boolean commonTokenInClassType(LeafType leafType) {
+		String[] tokens1 = LeafType.CAMEL_CASE_SPLIT_PATTERN.split(leafType.nonQualifiedClassType);
+		String[] tokens2 = LeafType.CAMEL_CASE_SPLIT_PATTERN.split(nonQualifiedClassType);
+		for(String token1 : tokens1) {
+			for(String token2 : tokens2) {
+				if((token1.equals(token2) && token1.length() > 1) || token1.equals(token2 + "s") || token2.equals(token1 + "s")) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
