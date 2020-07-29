@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType originalType;
 	private UMLType changedType;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
@@ -43,10 +43,6 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 	public UMLType getChangedType() {
 		return changedType;
-	}
-
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
 	}
 
 	public UMLOperation getOperationAfter() {
@@ -115,7 +111,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(changedType.getOperationBefore(this).getLocationInfo().getFilePath(), changedType.getOperationBefore(this).getClassName()));
 		return pairs;
 	}
 
