@@ -39,7 +39,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     	if(o instanceof UMLAnonymousClass) {
     		UMLAnonymousClass umlClass = (UMLAnonymousClass)o;
     		return this.packageName.equals(umlClass.packageName) && this.attributes.equals(umlClass.attributes) &&
-    				this.operations.equals(umlClass.operations) && this.getSourceFile().equals(umlClass.getSourceFile());
+    				this.operations.equals(umlClass.operations) && this.getLocationInfo().getSourceFile().equals(umlClass.getLocationInfo().getSourceFile());
     	}
     	return false;
     }

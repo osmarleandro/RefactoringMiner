@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public String getSourceFile() {
+		return getFilePath();
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
