@@ -60,7 +60,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 
 	@Override
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.CHANGE_ATTRIBUTE_TYPE;
+		return changedTypeAttribute.getRefactoringType();
 	}
 
 	@Override
