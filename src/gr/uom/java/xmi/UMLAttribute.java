@@ -15,7 +15,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private String visibility;
 	private String className;
 	private boolean isFinal;
-	private boolean isStatic;
+	boolean isStatic;
 	private VariableDeclaration variableDeclaration;
 	private UMLJavadoc javadoc;
 
@@ -55,10 +55,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 
 	public boolean isStatic() {
 		return isStatic;
-	}
-
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
 	}
 
 	public String getNonQualifiedClassName() {
