@@ -171,4 +171,12 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	public List<CodeRange> rightSide() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(codeRange()
+				.setDescription("pulled up attribute declaration")
+				.setCodeElement(toString()));
+		return ranges;
+	}
 }
