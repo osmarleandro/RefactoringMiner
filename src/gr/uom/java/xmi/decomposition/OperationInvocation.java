@@ -279,7 +279,7 @@ public class OperationInvocation extends AbstractCall {
     	if(other.expression != null && other.expression.startsWith("new ") && this.expression == null)
     		return false;
     	if(this.subExpressions.size() > 1 || other.subExpressions.size() > 1) {
-    		Set<String> intersection = subExpressionIntersection(other);
+    		Set<String> intersection = other.subExpressionIntersection(this);
     		int thisUnmatchedSubExpressions = this.subExpressions().size() - intersection.size();
     		int otherUnmatchedSubExpressions = other.subExpressions().size() - intersection.size();
     		if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
@@ -308,26 +308,7 @@ public class OperationInvocation extends AbstractCall {
     	return intersection;
     }
 
-    private Set<String> subExpressionIntersection(OperationInvocation other) {
-    	Set<String> subExpressions1 = this.subExpressions();
-    	Set<String> subExpressions2 = other.subExpressions();
-    	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
-    	intersection.retainAll(subExpressions2);
-    	if(subExpressions1.size() == subExpressions2.size()) {
-    		Iterator<String> it1 = subExpressions1.iterator();
-    		Iterator<String> it2 = subExpressions2.iterator();
-    		while(it1.hasNext()) {
-    			String subExpression1 = it1.next();
-    			String subExpression2 = it2.next();
-    			if(!intersection.contains(subExpression1) && differInThisDot(subExpression1, subExpression2)) {
-    				intersection.add(subExpression1);
-    			}
-    		}
-    	}
-    	return intersection;
-    }
-
-	private static boolean differInThisDot(String subExpression1, String subExpression2) {
+    private static boolean differInThisDot(String subExpression1, String subExpression2) {
 		if(subExpression1.length() < subExpression2.length()) {
 			String modified = subExpression1;
 			String previousCommonPrefix = "";
@@ -520,11 +501,30 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
-		Set<String> subExpressionIntersection = subExpressionIntersection(other);
+		Set<String> subExpressionIntersection = other.subExpressionIntersection(this);
 		return identicalName(other) &&
 				equalArguments(other) &&
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	Set<String> subExpressionIntersection(OperationInvocation operationInvocation) {
+		Set<String> subExpressions1 = operationInvocation.subExpressions();
+		Set<String> subExpressions2 = subExpressions();
+		Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
+		intersection.retainAll(subExpressions2);
+		if(subExpressions1.size() == subExpressions2.size()) {
+			Iterator<String> it1 = subExpressions1.iterator();
+			Iterator<String> it2 = subExpressions2.iterator();
+			while(it1.hasNext()) {
+				String subExpression1 = it1.next();
+				String subExpression2 = it2.next();
+				if(!intersection.contains(subExpression1) && OperationInvocation.differInThisDot(subExpression1, subExpression2)) {
+					intersection.add(subExpression1);
+				}
+			}
+		}
+		return intersection;
 	}
 }
