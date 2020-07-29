@@ -20,7 +20,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
-	private UMLOperation targetOperationAfterInline;
+	public UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
@@ -52,7 +52,7 @@ public class InlineOperationRefactoring implements Refactoring {
 			sb.append(" inlined to ");
 			sb.append(targetOperationAfterInline);
 			sb.append(" in class ");
-			sb.append(getClassName());
+			sb.append(bodyMapper.getClassName(this));
 		}
 		else if(getRefactoringType().equals(RefactoringType.MOVE_AND_INLINE_OPERATION)) {
 			sb.append(" moved from class ");
@@ -63,10 +63,6 @@ public class InlineOperationRefactoring implements Refactoring {
 			sb.append(getTargetOperationAfterInline());
 		}
 		return sb.toString();
-	}
-
-	private String getClassName() {
-		return targetOperationAfterInline.getClassName();
 	}
 
 	public String getName() {
