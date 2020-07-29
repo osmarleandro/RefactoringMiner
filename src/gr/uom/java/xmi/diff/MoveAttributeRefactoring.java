@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	public UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
@@ -63,13 +63,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 	 */
 	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
 		return originalAttribute.codeRange();
-	}
-
-	/**
-	 * @return the code range of the target attribute in the <b>child</b> commit
-	 */
-	public CodeRange getTargetAttributeCodeRangeAfterMove() {
-		return movedAttribute.codeRange();
 	}
 
 	public boolean equals(Object o) {
