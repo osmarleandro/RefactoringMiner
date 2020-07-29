@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class ChangeVariableTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration changedTypeVariable;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
@@ -55,10 +55,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	public VariableDeclaration getChangedTypeVariable() {
 		return changedTypeVariable;
-	}
-
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
 	}
 
 	public UMLOperation getOperationAfter() {
@@ -127,7 +123,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(changedTypeVariable.getOperationBefore(this).getLocationInfo().getFilePath(), changedTypeVariable.getOperationBefore(this).getClassName()));
 		return pairs;
 	}
 
