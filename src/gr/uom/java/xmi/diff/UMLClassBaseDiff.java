@@ -57,7 +57,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
-	protected List<UMLAttributeDiff> attributeDiffList;
+	public List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
@@ -159,7 +159,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(attributeWithTheSameName == null) {
     			this.removedAttributes.add(attribute);
     		}
-			else if(!attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
+			else if(!attribute.attributeDiffListContainsAttribute(this, attributeWithTheSameName)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
@@ -172,7 +172,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(attributeWithTheSameName == null) {
     			this.addedAttributes.add(attribute);
     		}
-			else if(!attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
+			else if(!attributeWithTheSameName.attributeDiffListContainsAttribute(this, attribute)) {
 				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
@@ -203,14 +203,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				this.operationBodyMapperList.add(mapper);
 			}
     	}
-	}
-
-	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
-		for(UMLAttributeDiff diff : attributeDiffList) {
-			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
-				return true;
-		}
-		return false;
 	}
 
 	private boolean mapperListContainsOperation(UMLOperation operation1, UMLOperation operation2) {
