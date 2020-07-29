@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
 	private Set<String> repositoryDirectories;
-    private List<UMLClass> classList;
+    List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
     private List<UMLRealization> realizationList;
 
@@ -35,16 +35,6 @@ public class UMLModel {
 
     public void addRealization(UMLRealization umlRealization) {
     	realizationList.add(umlRealization);
-    }
-
-    public UMLClass getClass(UMLClass umlClassFromOtherModel) {
-    	ListIterator<UMLClass> it = classList.listIterator();
-        while(it.hasNext()) {
-            UMLClass umlClass = it.next();
-            if(umlClass.equals(umlClassFromOtherModel))
-                return umlClass;
-        }
-        return null;
     }
 
     public List<UMLClass> getClassList() {
@@ -143,7 +133,7 @@ public class UMLModel {
     	modelDiff.checkForRealizationChanges();
     	for(UMLClass umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
-    			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
+    			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlClass.getClass(umlModel), modelDiff);
     			classDiff.process();
     			if(!classDiff.isEmpty())
     				modelDiff.addUMLClassDiff(classDiff);

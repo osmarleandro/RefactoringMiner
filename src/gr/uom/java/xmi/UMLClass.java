@@ -397,4 +397,14 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public UMLClass getClass(UMLModel umlModel) {
+		ListIterator<UMLClass> it = umlModel.classList.listIterator();
+	    while(it.hasNext()) {
+	        UMLClass umlClass = it.next();
+	        if(umlClass.equals(this))
+	            return umlClass;
+	    }
+	    return null;
+	}
 }
