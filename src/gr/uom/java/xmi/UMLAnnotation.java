@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.diff.AddAttributeAnnotationRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
@@ -157,5 +158,31 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
+	}
+
+	public boolean equals(AddAttributeAnnotationRefactoring addAttributeAnnotationRefactoring, Object obj) {
+		if (addAttributeAnnotationRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (addAttributeAnnotationRefactoring.getClass() != obj.getClass())
+			return false;
+		AddAttributeAnnotationRefactoring other = (AddAttributeAnnotationRefactoring) obj;
+		if (this == null) {
+			if (other.annotation != null)
+				return false;
+		} else if (!equals(other.annotation))
+			return false;
+		if (addAttributeAnnotationRefactoring.attributeAfter == null) {
+			if (other.attributeAfter != null)
+				return false;
+		} else if (!addAttributeAnnotationRefactoring.attributeAfter.equals(other.attributeAfter))
+			return false;
+		if (addAttributeAnnotationRefactoring.attributeBefore == null) {
+			if (other.attributeBefore != null)
+				return false;
+		} else if (!addAttributeAnnotationRefactoring.attributeBefore.equals(other.attributeBefore))
+			return false;
+		return true;
 	}
 }
