@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,67 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean variableDeclarationsWithEverythingReplaced(List<VariableDeclaration> variableDeclarations1, List<VariableDeclaration> variableDeclarations2) {
+			if(variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
+				boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
+				UMLType type1 = variableDeclarations1.get(0).getType();
+				UMLType type2 = variableDeclarations2.get(0).getType();
+				AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
+				AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
+				if(initializer1 == null && initializer2 == null) {
+					nullInitializer = true;
+				}
+				else if(initializer1 != null && initializer2 != null) {
+					nullInitializer = initializer1.getExpression().equals("null") && initializer2.getExpression().equals("null");
+					if(initializer1.getCreationMap().size() == 1 && initializer2.getCreationMap().size() == 1) {
+						ObjectCreation creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
+						ObjectCreation creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
+						if(creation1.getArguments().size() == 0 && creation2.getArguments().size() == 0) {
+							zeroArgumentClassInstantiation = true;
+						}
+						else if(creation1.getArguments().size() == 1 && creation2.getArguments().size() == 1) {
+							String argument1 = creation1.getArguments().get(0);
+							String argument2 = creation2.getArguments().get(0);
+							for(Replacement replacement : getReplacements()) {
+								if(replacement.getBefore().equals(argument1) && replacement.getAfter().equals(argument2)) {
+									classInstantiationArgumentReplacement = true;
+									break;
+								}
+							}
+						}
+					}
+				}
+				for(Replacement replacement : getReplacements()) {
+					if(replacement.getType().equals(ReplacementType.TYPE))
+						typeReplacement = true;
+					else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
+							variableDeclarations1.get(0).getVariableName().equals(replacement.getBefore()) &&
+							variableDeclarations2.get(0).getVariableName().equals(replacement.getAfter()))
+						variableRename = true;
+					else if(replacement instanceof MethodInvocationReplacement) {
+						MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
+						if(initializer1 != null && invocationReplacement.getInvokedOperationBefore().actualString().equals(initializer1.getString()) &&
+								initializer2 != null && invocationReplacement.getInvokedOperationAfter().actualString().equals(initializer2.getString())) {
+							methodInvocationReplacement = true;
+						}
+						if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
+								initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
+							methodInvocationReplacement = true;
+						}
+					}
+					else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION)) {
+						if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
+								initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
+							methodInvocationReplacement = true;
+						}
+					}
+				}
+				if(typeReplacement && !type1.compatibleTypes(type2) && variableRename && (methodInvocationReplacement || nullInitializer || zeroArgumentClassInstantiation || classInstantiationArgumentReplacement)) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 
@@ -1985,7 +2046,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			if(variableDeclarationsWithEverythingReplaced(variableDeclarations1, variableDeclarations2, replacementInfo) &&
+			if(replacementInfo.variableDeclarationsWithEverythingReplaced(variableDeclarations1, variableDeclarations2) &&
 					!statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
 					!statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				return null;
@@ -2939,69 +3000,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean variableDeclarationsWithEverythingReplaced(List<VariableDeclaration> variableDeclarations1,
-			List<VariableDeclaration> variableDeclarations2, ReplacementInfo replacementInfo) {
-		if(variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
-			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
-			UMLType type1 = variableDeclarations1.get(0).getType();
-			UMLType type2 = variableDeclarations2.get(0).getType();
-			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
-			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
-			if(initializer1 == null && initializer2 == null) {
-				nullInitializer = true;
-			}
-			else if(initializer1 != null && initializer2 != null) {
-				nullInitializer = initializer1.getExpression().equals("null") && initializer2.getExpression().equals("null");
-				if(initializer1.getCreationMap().size() == 1 && initializer2.getCreationMap().size() == 1) {
-					ObjectCreation creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
-					ObjectCreation creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
-					if(creation1.getArguments().size() == 0 && creation2.getArguments().size() == 0) {
-						zeroArgumentClassInstantiation = true;
-					}
-					else if(creation1.getArguments().size() == 1 && creation2.getArguments().size() == 1) {
-						String argument1 = creation1.getArguments().get(0);
-						String argument2 = creation2.getArguments().get(0);
-						for(Replacement replacement : replacementInfo.getReplacements()) {
-							if(replacement.getBefore().equals(argument1) && replacement.getAfter().equals(argument2)) {
-								classInstantiationArgumentReplacement = true;
-								break;
-							}
-						}
-					}
-				}
-			}
-			for(Replacement replacement : replacementInfo.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.TYPE))
-					typeReplacement = true;
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
-						variableDeclarations1.get(0).getVariableName().equals(replacement.getBefore()) &&
-						variableDeclarations2.get(0).getVariableName().equals(replacement.getAfter()))
-					variableRename = true;
-				else if(replacement instanceof MethodInvocationReplacement) {
-					MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
-					if(initializer1 != null && invocationReplacement.getInvokedOperationBefore().actualString().equals(initializer1.getString()) &&
-							initializer2 != null && invocationReplacement.getInvokedOperationAfter().actualString().equals(initializer2.getString())) {
-						methodInvocationReplacement = true;
-					}
-					if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
-							initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
-						methodInvocationReplacement = true;
-					}
-				}
-				else if(replacement.getType().equals(ReplacementType.CLASS_INSTANCE_CREATION)) {
-					if(initializer1 != null && initializer1.getExpression().equals(replacement.getBefore()) &&
-							initializer2 != null && initializer2.getExpression().equals(replacement.getAfter())) {
-						methodInvocationReplacement = true;
-					}
-				}
-			}
-			if(typeReplacement && !type1.compatibleTypes(type2) && variableRename && (methodInvocationReplacement || nullInitializer || zeroArgumentClassInstantiation || classInstantiationArgumentReplacement)) {
 				return true;
 			}
 		}
