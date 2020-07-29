@@ -8,7 +8,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class CandidateAttributeRefactoring {
-	private String originalVariableName;
+	public String originalVariableName;
 	private String renamedVariableName;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
@@ -29,10 +29,6 @@ public class CandidateAttributeRefactoring {
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
 		this.attributeReferences = attributeReferences;
-	}
-
-	public String getOriginalVariableName() {
-		return originalVariableName;
 	}
 
 	public String getRenamedVariableName() {
