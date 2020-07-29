@@ -26,21 +26,21 @@ public interface UMLClassMatcher {
 
 	public static class Rename implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameKind(addedClass) 
+			return addedClass.hasSameKind(removedClass) 
 					&& (removedClass.hasSameAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
 	public static class RelaxedRename implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameKind(addedClass) 
+			return addedClass.hasSameKind(removedClass) 
 					&& (removedClass.hasCommonAttributesAndOperations(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
 	public static class ExtremelyRelaxedRename implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
-			return removedClass.hasSameKind(addedClass) 
+			return addedClass.hasSameKind(removedClass) 
 					&& (removedClass.hasAttributesAndOperationsWithCommonNames(addedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
