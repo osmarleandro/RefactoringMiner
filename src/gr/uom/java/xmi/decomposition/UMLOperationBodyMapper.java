@@ -49,8 +49,8 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation1;
+	public UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
@@ -886,10 +886,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return editDistance/maxLength;
-	}
-
-	public int operationNameEditDistance() {
-		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
 	}
 
 	public Set<Replacement> getReplacements() {
@@ -4013,8 +4009,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					return Integer.compare(thisEditDistance, otherEditDistance);
 				}
 				else {
-					int thisOperationNameEditDistance = this.operationNameEditDistance();
-					int otherOperationNameEditDistance = operationBodyMapper.operationNameEditDistance();
+					int thisOperationNameEditDistance = this.getCallSiteOperation().operationNameEditDistance(this);
+					int otherOperationNameEditDistance = operationBodyMapper.getCallSiteOperation().operationNameEditDistance(this);
 					return Integer.compare(thisOperationNameEditDistance, otherOperationNameEditDistance);
 				}
 			}
