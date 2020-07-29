@@ -643,7 +643,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
 			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
-			processSplit(splitMap, split, candidate);
+			split.processSplit(splitMap, candidate);
 		}
 	}
 
@@ -860,46 +860,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 		set.add(candidate);
 		mergeMap.put(newMerge, set);
-	}
-
-	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
-			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
-		SplitVariableReplacement splitToBeRemoved = null;
-		for(SplitVariableReplacement split : splitMap.keySet()) {
-			if(split.subsumes(newSplit)) {
-				splitMap.get(split).add(candidate);
-				return;
-			}
-			else if(split.equal(newSplit)) {
-				splitMap.get(split).add(candidate);
-				return;
-			}
-			else if(split.commonBefore(newSplit)) {
-				splitToBeRemoved = split;
-				Set<String> splitVariables = new LinkedHashSet<String>();
-				splitVariables.addAll(split.getSplitVariables());
-				splitVariables.addAll(newSplit.getSplitVariables());
-				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore(), splitVariables);
-				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
-				candidates.add(candidate);
-				splitMap.put(replacement, candidates);
-				break;
-			}
-			else if(newSplit.subsumes(split)) {
-				splitToBeRemoved = split;
-				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
-				candidates.add(candidate);
-				splitMap.put(newSplit, candidates);
-				break;
-			}
-		}
-		if(splitToBeRemoved != null) {
-			splitMap.remove(splitToBeRemoved);
-			return;
-		}
-		Set<CandidateSplitVariableRefactoring> set = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-		set.add(candidate);
-		splitMap.put(newSplit, set);
 	}
 
 	public UMLAttribute findAttributeInOriginalClass(String attributeName) {
