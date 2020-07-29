@@ -208,15 +208,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
-		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
-		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
-		return getExpression() != null && call.getExpression() != null &&
-				identicalExpression(call, replacements) &&
-				!identicalName(call) &&
-				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
-	}
-
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
@@ -434,6 +425,15 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall abstractCall, Set<Replacement> replacements, double distance) {
+		boolean identicalOrReplacedArguments = abstractCall.identicalOrReplacedArguments(this, replacements);
+		boolean allArgumentsReplaced = abstractCall.allArgumentsReplaced(this, replacements);
+		return abstractCall.getExpression() != null && getExpression() != null &&
+				abstractCall.identicalExpression(this, replacements) &&
+				!abstractCall.identicalName(this) &&
+				(abstractCall.equalArguments(this) || (allArgumentsReplaced && abstractCall.normalizedNameDistance(this) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
 	public enum StatementCoverageType {
