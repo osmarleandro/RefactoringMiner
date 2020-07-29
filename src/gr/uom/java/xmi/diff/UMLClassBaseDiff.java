@@ -1457,10 +1457,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				mappingsWithTypeReplacement++;
 			}
 		}
-		if(mappings == operationBodyMapper.exactMatches() + tryMappings) {
+		if(mappings == operationBodyMapper.getCallSiteOperation().exactMatches(this) + tryMappings) {
 			return true;
 		}
-		if(mappings == operationBodyMapper.exactMatches() + tryMappings + mappingsWithTypeReplacement && mappings > mappingsWithTypeReplacement) {
+		if(mappings == operationBodyMapper.getCallSiteOperation().exactMatches(this) + tryMappings + mappingsWithTypeReplacement && mappings > mappingsWithTypeReplacement) {
 			return true;
 		}
 		return false;
