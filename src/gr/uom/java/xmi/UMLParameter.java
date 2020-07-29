@@ -116,4 +116,8 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 			}
 		}
 	}
+
+	public void addParameter(UMLOperation umlOperation) {
+		umlOperation.parameters.add(this);
+	}
 }
