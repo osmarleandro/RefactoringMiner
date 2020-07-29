@@ -20,7 +20,7 @@ public interface UMLClassMatcher {
 	public static class ExtremelyRelaxedMove implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
 			return removedClass.hasSameNameAndKind(addedClass) 
-					&& (removedClass.hasAttributesAndOperationsWithCommonNames(addedClass) || addedClass.getSourceFile().equals(renamedFile));
+					&& (addedClass.hasAttributesAndOperationsWithCommonNames(removedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 
@@ -41,7 +41,7 @@ public interface UMLClassMatcher {
 	public static class ExtremelyRelaxedRename implements UMLClassMatcher {
 		public boolean match(UMLClass removedClass, UMLClass addedClass, String renamedFile) {
 			return removedClass.hasSameKind(addedClass) 
-					&& (removedClass.hasAttributesAndOperationsWithCommonNames(addedClass) || addedClass.getSourceFile().equals(renamedFile));
+					&& (addedClass.hasAttributesAndOperationsWithCommonNames(removedClass) || addedClass.getSourceFile().equals(renamedFile));
 		}
 	}
 }

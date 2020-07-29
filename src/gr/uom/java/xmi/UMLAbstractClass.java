@@ -170,51 +170,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
-		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
-		int totalOperations = 0;
-		for(UMLOperation operation : operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
-				totalOperations++;
-	    		if(umlClass.containsOperationWithTheSameName(operation)) {
-	    			commonOperations.add(operation);
-	    		}
-			}
-		}
-		for(UMLOperation operation : umlClass.operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
-				totalOperations++;
-	    		if(this.containsOperationWithTheSameName(operation)) {
-	    			commonOperations.add(operation);
-	    		}
-			}
-		}
-		Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
-		int totalAttributes = 0;
-		for(UMLAttribute attribute : attributes) {
-			totalAttributes++;
-			if(umlClass.containsAttributeWithTheSameName(attribute)) {
-				commonAttributes.add(attribute);
-			}
-		}
-		for(UMLAttribute attribute : umlClass.attributes) {
-			totalAttributes++;
-			if(this.containsAttributeWithTheSameName(attribute)) {
-				commonAttributes.add(attribute);
-			}
-		}
-		if(this.isTestClass() && umlClass.isTestClass()) {
-			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
-		}
-		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
-			return commonOperations.size() == totalOperations;
-		}
-		return (commonOperations.size() >= Math.floor(totalOperations/2.0) && (commonAttributes.size() > 2 || totalAttributes == 0)) ||
-				(commonAttributes.size() >= Math.floor(totalAttributes/2.0) && (commonOperations.size() > 2 || totalOperations == 0)) ||
-				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && this.attributes.size() == umlClass.attributes.size()) ||
-				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
-	}
-
 	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
@@ -335,5 +290,50 @@ public abstract class UMLAbstractClass {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlAbstractClass) {
+		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
+		int totalOperations = 0;
+		for(UMLOperation operation : umlAbstractClass.operations) {
+			if(!operation.isConstructor() && !operation.overridesObject()) {
+				totalOperations++;
+	    		if(containsOperationWithTheSameName(operation)) {
+	    			commonOperations.add(operation);
+	    		}
+			}
+		}
+		for(UMLOperation operation : operations) {
+			if(!operation.isConstructor() && !operation.overridesObject()) {
+				totalOperations++;
+	    		if(umlAbstractClass.containsOperationWithTheSameName(operation)) {
+	    			commonOperations.add(operation);
+	    		}
+			}
+		}
+		Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+		int totalAttributes = 0;
+		for(UMLAttribute attribute : umlAbstractClass.attributes) {
+			totalAttributes++;
+			if(containsAttributeWithTheSameName(attribute)) {
+				commonAttributes.add(attribute);
+			}
+		}
+		for(UMLAttribute attribute : attributes) {
+			totalAttributes++;
+			if(umlAbstractClass.containsAttributeWithTheSameName(attribute)) {
+				commonAttributes.add(attribute);
+			}
+		}
+		if(umlAbstractClass.isTestClass() && isTestClass()) {
+			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(umlAbstractClass.operations);
+		}
+		if(umlAbstractClass.isSingleAbstractMethodInterface() && isSingleAbstractMethodInterface()) {
+			return commonOperations.size() == totalOperations;
+		}
+		return (commonOperations.size() >= Math.floor(totalOperations/2.0) && (commonAttributes.size() > 2 || totalAttributes == 0)) ||
+				(commonAttributes.size() >= Math.floor(totalAttributes/2.0) && (commonOperations.size() > 2 || totalOperations == 0)) ||
+				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && umlAbstractClass.attributes.size() == attributes.size()) ||
+				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 }
