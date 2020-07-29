@@ -1668,10 +1668,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.getReplacements().addAll(replacementsToBeAdded);
 		
 		// replace variables with the corresponding arguments in method invocations
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(methodInvocationMap2, methodInvocations2, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(methodInvocationMap2, methodInvocations2, parameterToArgumentMap);
 		
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, map);
+		callSiteOperation.replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, map);
 		
 		//remove methodInvocation covering the entire statement
 		if(invocationCoveringTheEntireStatement1 != null) {
@@ -1726,10 +1726,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		removeCommonTypes(types1, types2, statement1.getTypes(), statement2.getTypes());
 		
 		// replace variables with the corresponding arguments in object creations
-		replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(creationMap2, creations2, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);
+		callSiteOperation.replaceVariablesWithArguments(creationMap2, creations2, parameterToArgumentMap);
 		
-		replaceVariablesWithArguments(creationMap1, creations1, map);
+		callSiteOperation.replaceVariablesWithArguments(creationMap1, creations1, map);
 		
 		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
 		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
@@ -3693,30 +3693,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private void replaceVariablesWithArguments(Map<String, List<? extends AbstractCall>> callMap,
-			Set<String> calls, Map<String, String> parameterToArgumentMap) {
-		for(String parameter : parameterToArgumentMap.keySet()) {
-			String argument = parameterToArgumentMap.get(parameter);
-			if(!parameter.equals(argument)) {
-				Set<String> toBeAdded = new LinkedHashSet<String>();
-				for(String call : calls) {
-					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
-					if(!call.equals(afterReplacement)) {
-						toBeAdded.add(afterReplacement);
-						List<? extends AbstractCall> oldCalls = callMap.get(call);
-						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
-						for(AbstractCall oldCall : oldCalls) {
-							AbstractCall newCall = oldCall.update(parameter, argument);
-							newCalls.add(newCall);
-						}
-						callMap.put(afterReplacement, newCalls);
-					}
-				}
-				calls.addAll(toBeAdded);
-			}
-		}
 	}
 
 	private void findReplacements(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo, ReplacementType type) throws RefactoringMinerTimedOutException {

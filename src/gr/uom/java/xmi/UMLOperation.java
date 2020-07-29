@@ -1,11 +1,13 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCall;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.ReplacementUtil;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -832,5 +834,28 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void replaceVariablesWithArguments(Map<String, List<? extends AbstractCall>> callMap, Set<String> calls, Map<String, String> parameterToArgumentMap) {
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call : calls) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+					if(!call.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = callMap.get(call);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						callMap.put(afterReplacement, newCalls);
+					}
+				}
+				calls.addAll(toBeAdded);
+			}
+		}
 	}
 }
