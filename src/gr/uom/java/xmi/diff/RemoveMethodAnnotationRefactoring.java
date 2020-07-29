@@ -15,7 +15,7 @@ import gr.uom.java.xmi.UMLOperation;
 public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	
 	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
 			UMLOperation operationAfter) {
@@ -50,11 +50,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(operationAfter.codeRange()
-				.setDescription("method declaration with removed annotation")
-				.setCodeElement(operationAfter.toString()));
-		return ranges;
+		return annotation.rightSide(this);
 	}
 
 	@Override
