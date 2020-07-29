@@ -33,4 +33,10 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public int compare(UMLClassMoveDiff o2) {
+		double sourceFolderDistance1 = getMovedClass().normalizedSourceFolderDistance(getOriginalClass());
+		double sourceFolderDistance2 = o2.getMovedClass().normalizedSourceFolderDistance(o2.getOriginalClass());
+		return Double.compare(sourceFolderDistance1, sourceFolderDistance2);
+	}
 }
