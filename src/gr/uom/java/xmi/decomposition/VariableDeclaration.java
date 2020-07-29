@@ -249,11 +249,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return returnedVariableType;
 	}
 
-	public boolean equalVariableDeclarationType(VariableDeclaration other) {
-		return this.locationInfo.getCodeElementType().equals(other.locationInfo.getCodeElementType());
-	}
-
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean equalVariableDeclarationType(VariableDeclaration variableDeclaration) {
+		return variableDeclaration.locationInfo.getCodeElementType().equals(locationInfo.getCodeElementType());
 	}
 }

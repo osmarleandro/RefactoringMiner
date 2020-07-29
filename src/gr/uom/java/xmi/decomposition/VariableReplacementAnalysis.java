@@ -781,7 +781,7 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return v1 != null && v2 != null &&
-				v1.equalVariableDeclarationType(v2) &&
+				v2.equalVariableDeclarationType(v1) &&
 				!containsVariableDeclarationWithName(allVariableDeclarations1, v2.getVariableName()) &&
 				(!containsVariableDeclarationWithName(allVariableDeclarations2, v1.getVariableName()) || operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
 				consistencyCheck(v1, v2, set);
