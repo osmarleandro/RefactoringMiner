@@ -116,7 +116,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		if (memberValuePairs == null) {
 			if (other.memberValuePairs != null)
 				return false;
-		} else if (!this.memberValuePairsEquals(other))
+		} else if (!other.memberValuePairsEquals(this))
 			return false;
 		if (typeName == null) {
 			if (other.typeName != null)
@@ -131,14 +131,21 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	private boolean memberValuePairsEquals(UMLAnnotation other) {
-		Map<String, AbstractExpression> m = other.memberValuePairs;
-		int thisSize = this.memberValuePairs.size();
-		int otherSize = other.memberValuePairs.size();
+	private int memberValuePairsHashCode() {
+		int h = 0;
+		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
+			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
+		return h;
+	}
+
+	boolean memberValuePairsEquals(UMLAnnotation umlAnnotation) {
+		Map<String, AbstractExpression> m = memberValuePairs;
+		int thisSize = umlAnnotation.memberValuePairs.size();
+		int otherSize = memberValuePairs.size();
 		if(thisSize != otherSize) {
 			return false;
 		}
-		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet()) {
+		for (Map.Entry<String, AbstractExpression> entry : umlAnnotation.memberValuePairs.entrySet()) {
 			String thisKey = entry.getKey();
 			AbstractExpression thisValue = entry.getValue();
 			if (thisValue == null) {
@@ -150,12 +157,5 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 			}
 		}
 		return true;
-	}
-
-	private int memberValuePairsHashCode() {
-		int h = 0;
-		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
-			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
-		return h;
 	}
 }
