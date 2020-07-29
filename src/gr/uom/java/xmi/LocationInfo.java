@@ -1,8 +1,16 @@
 package gr.uom.java.xmi;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.ObjectCreation;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +141,24 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public Map<String, List<ObjectCreation>> getCreationMap(CompositeStatementObject compositeStatementObject) {
+		Map<String, List<ObjectCreation>> map = new LinkedHashMap<String, List<ObjectCreation>>();
+		for(AbstractExpression expression : compositeStatementObject.expressionList) {
+			Map<String, List<ObjectCreation>> expressionMap = expression.getCreationMap();
+			for(String key : expressionMap.keySet()) {
+				if(map.containsKey(key)) {
+					map.get(key).addAll(expressionMap.get(key));
+				}
+				else {
+					List<ObjectCreation> list = new ArrayList<ObjectCreation>();
+					list.addAll(expressionMap.get(key));
+					map.put(key, list);
+				}
+			}
+		}
+		return map;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

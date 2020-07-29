@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	public List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -271,21 +271,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
-		Map<String, List<ObjectCreation>> map = new LinkedHashMap<String, List<ObjectCreation>>();
-		for(AbstractExpression expression : expressionList) {
-			Map<String, List<ObjectCreation>> expressionMap = expression.getCreationMap();
-			for(String key : expressionMap.keySet()) {
-				if(map.containsKey(key)) {
-					map.get(key).addAll(expressionMap.get(key));
-				}
-				else {
-					List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-					list.addAll(expressionMap.get(key));
-					map.put(key, list);
-				}
-			}
-		}
-		return map;
+		return locationInfo.getCreationMap(this);
 	}
 
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
