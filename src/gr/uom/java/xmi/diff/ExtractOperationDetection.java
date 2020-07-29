@@ -289,8 +289,8 @@ public class ExtractOperationDetection {
 	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
 		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
 			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
-			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
-					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
+			if(!key.getType().getType().equals(value.getType().getType()) && !key.getType().getType().equalsWithSubType(value.getType().getType()) &&
+					!modelDiff.isSubclassOf(key.getType().getType().getClassType(), value.getType().getType().getClassType())) {
 				return false;
 			}
 		}

@@ -14,9 +14,9 @@ public class UMLParameterDiff {
 		this.addedParameter = addedParameter;
 		this.typeChanged = false;
 		this.nameChanged = false;
-		if(!removedParameter.getType().equals(addedParameter.getType()))
+		if(!removedParameter.getType().getType().equals(addedParameter.getType().getType()))
 			typeChanged = true;
-		else if(!removedParameter.getType().equalsQualified(addedParameter.getType()))
+		else if(!removedParameter.getType().getType().equalsQualified(addedParameter.getType().getType()))
 			qualifiedTypeChanged = true;
 		if(!removedParameter.getName().equals(addedParameter.getName()))
 			nameChanged = true;
@@ -47,7 +47,7 @@ public class UMLParameterDiff {
 		if(typeChanged || nameChanged || qualifiedTypeChanged)
 			sb.append("\t\t").append("parameter ").append(removedParameter).append(":").append("\n");
 		if(typeChanged || qualifiedTypeChanged)
-			sb.append("\t\t").append("type changed from " + removedParameter.getType() + " to " + addedParameter.getType()).append("\n");
+			sb.append("\t\t").append("type changed from " + removedParameter.getType().getType() + " to " + addedParameter.getType().getType()).append("\n");
 		if(nameChanged)
 			sb.append("\t\t").append("name changed from " + removedParameter.getName() + " to " + addedParameter.getName()).append("\n");
 		return sb.toString();
