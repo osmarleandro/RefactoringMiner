@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public LocationInfo getLocationInfo() {
+		return this;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
