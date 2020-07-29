@@ -46,7 +46,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return changedTypeVariable.getName(this);
 	}
 
 	public VariableDeclaration getOriginalVariable() {
