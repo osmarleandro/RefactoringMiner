@@ -35,4 +35,9 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	boolean isHashCode(UMLOperation umlOperation) {
+		List<UMLType> parameterTypeList = umlOperation.getParameterTypeList();
+		return umlOperation.getName().equals("hashCode") && umlOperation.getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
+	}
 }
