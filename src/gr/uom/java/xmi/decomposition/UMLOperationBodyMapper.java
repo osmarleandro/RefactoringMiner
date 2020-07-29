@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -4160,5 +4161,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public String toString(MoveOperationRefactoring moveOperationRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(moveOperationRefactoring.getName()).append("\t");
+		sb.append(moveOperationRefactoring.originalOperation);
+		sb.append(" from class ");
+		sb.append(moveOperationRefactoring.originalOperation.getClassName());
+		sb.append(" to ");
+		sb.append(moveOperationRefactoring.movedOperation);
+		sb.append(" from class ");
+		sb.append(moveOperationRefactoring.movedOperation.getClassName());
+		return sb.toString();
 	}
 }

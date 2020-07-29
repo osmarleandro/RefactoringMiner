@@ -14,8 +14,8 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
-	protected UMLOperation originalOperation;
-	protected UMLOperation movedOperation;
+	public UMLOperation originalOperation;
+	public UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
@@ -33,16 +33,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalOperation);
-		sb.append(" from class ");
-		sb.append(originalOperation.getClassName());
-		sb.append(" to ");
-		sb.append(movedOperation);
-		sb.append(" from class ");
-		sb.append(movedOperation.getClassName());
-		return sb.toString();
+		return bodyMapper.toString(this);
 	}
 
 	public String getName() {
