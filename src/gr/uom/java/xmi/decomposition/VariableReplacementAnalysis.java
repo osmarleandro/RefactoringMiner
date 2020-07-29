@@ -176,7 +176,7 @@ public class VariableReplacementAnalysis {
 				}
 				else if(replacement instanceof VariableReplacementWithMethodInvocation) {
 					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
-					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+					variableReplacement.processVariableReplacementWithMethodInvocation(mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
 				}
 				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 					for(StatementObject statement : nonMappedLeavesT1) {
@@ -187,7 +187,7 @@ public class VariableReplacementAnalysis {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
 									VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), replacement.getAfter(), invocation, Direction.INVOCATION_TO_VARIABLE);
-									processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+									variableReplacement.processVariableReplacementWithMethodInvocation(mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
 								}
 							}
 						}
@@ -206,7 +206,7 @@ public class VariableReplacementAnalysis {
 							String expression = invocation.getExpression();
 							if(expression != null) {
 								VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), parameterName, invocation, Direction.INVOCATION_TO_VARIABLE);
-								processVariableReplacementWithMethodInvocation(variableReplacement, null, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+								variableReplacement.processVariableReplacementWithMethodInvocation(null, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
 							}
 						}
 					}
@@ -253,38 +253,6 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private void processVariableReplacementWithMethodInvocation(
-			VariableReplacementWithMethodInvocation variableReplacement, AbstractCodeMapping mapping,
-			Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap, Direction direction) {
-		String expression = variableReplacement.getInvokedOperation().getExpression();
-		if(expression != null && variableReplacement.getDirection().equals(direction)) {
-			if(variableInvocationExpressionMap.containsKey(expression)) {
-				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(expression);
-				if(map.containsKey(variableReplacement)) {
-					if(mapping != null) {
-						map.get(variableReplacement).add(mapping);
-					}
-				}
-				else {
-					Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-					if(mapping != null) {
-						mappings.add(mapping);
-					}
-					map.put(variableReplacement, mappings);
-				}
-			}
-			else {
-				Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-				if(mapping != null) {
-					mappings.add(mapping);
-				}
-				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = new LinkedHashMap<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>();
-				map.put(variableReplacement, mappings);
-				variableInvocationExpressionMap.put(expression, map);
-			}
-		}
-	}
-
 	private void findVariableMerges() {
 		Map<MergeVariableReplacement, Set<AbstractCodeMapping>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<AbstractCodeMapping>>();
 		Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap = new LinkedHashMap<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>>();
@@ -304,7 +272,7 @@ public class VariableReplacementAnalysis {
 				}
 				else if(replacement instanceof VariableReplacementWithMethodInvocation) {
 					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
-					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
+					variableReplacement.processVariableReplacementWithMethodInvocation(mapping, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
 				}
 				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 					for(StatementObject statement : nonMappedLeavesT2) {
@@ -315,7 +283,7 @@ public class VariableReplacementAnalysis {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
 									VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(replacement.getBefore(), initializer.getString(), invocation, Direction.VARIABLE_TO_INVOCATION);
-									processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
+									variableReplacement.processVariableReplacementWithMethodInvocation(mapping, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
 								}
 							}
 						}
@@ -359,7 +327,7 @@ public class VariableReplacementAnalysis {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {
 							VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(parameterName, initializer.getString(), invocation, Direction.VARIABLE_TO_INVOCATION);
-							processVariableReplacementWithMethodInvocation(variableReplacement, null, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
+							variableReplacement.processVariableReplacementWithMethodInvocation(null, variableInvocationExpressionMap, Direction.VARIABLE_TO_INVOCATION);
 						}
 					}
 				}
