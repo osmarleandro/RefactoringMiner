@@ -15,7 +15,7 @@ import gr.uom.java.xmi.UMLAttribute;
 public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
 	private UMLAnnotation annotationAfter;
-	private UMLAttribute attributeBefore;
+	public UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
 
 	public ModifyAttributeAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
@@ -32,10 +32,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	public UMLAnnotation getAnnotationAfter() {
 		return annotationAfter;
-	}
-
-	public UMLAttribute getAttributeBefore() {
-		return attributeBefore;
 	}
 
 	public UMLAttribute getAttributeAfter() {
@@ -79,7 +75,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeBefore().getLocationInfo().getFilePath(), getAttributeBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(annotationAfter.getAttributeBefore(this).getLocationInfo().getFilePath(), annotationAfter.getAttributeBefore(this).getClassName()));
 		return pairs;
 	}
 
