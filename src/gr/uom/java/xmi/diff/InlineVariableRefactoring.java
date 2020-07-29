@@ -14,8 +14,8 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
-	private UMLOperation operationBefore;
+	public VariableDeclaration variableDeclaration;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
@@ -83,24 +83,7 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		InlineVariableRefactoring other = (InlineVariableRefactoring) obj;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (variableDeclaration == null) {
-			if (other.variableDeclaration != null)
-				return false;
-		} else if (!variableDeclaration.equals(other.variableDeclaration))
-			return false;
-		return true;
+		return operationAfter.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
