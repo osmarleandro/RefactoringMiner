@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotationBefore;
+	public UMLAnnotation annotationBefore;
 	private UMLAnnotation annotationAfter;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
@@ -24,10 +24,6 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		this.annotationAfter = annotationAfter;
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
-	}
-
-	public UMLAnnotation getAnnotationBefore() {
-		return annotationBefore;
 	}
 
 	public UMLAnnotation getAnnotationAfter() {
