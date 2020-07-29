@@ -31,7 +31,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
 			List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
-		this.inlinedOperation = bodyMapper.getOperation1();
+		this.inlinedOperation = bodyMapper.getCallSiteOperation().getOperation1(this);
 		this.targetOperationAfterInline = bodyMapper.getOperation2();
 		this.targetOperationBeforeInline = targetOperationBeforeInline;
 		this.inlinedOperationInvocations = operationInvocations;
