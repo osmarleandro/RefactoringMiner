@@ -51,11 +51,11 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	private boolean allVariablesAreParameters() {
 		for(VariableDeclaration declaration : splitVariables) {
-			if(!declaration.isParameter()) {
+			if(!declaration.getInitializer().isParameter(this)) {
 				return false;
 			}
 		}
-		return oldVariable.isParameter();
+		return oldVariable.getInitializer().isParameter(this);
 	}
 
 	@Override

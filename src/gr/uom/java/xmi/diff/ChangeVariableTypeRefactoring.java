@@ -40,7 +40,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(originalVariable.isParameter() && changedTypeVariable.isParameter())
+		if(originalVariable.getInitializer().isParameter(this) && changedTypeVariable.getInitializer().isParameter(this))
 			return RefactoringType.CHANGE_PARAMETER_TYPE;
 		return RefactoringType.CHANGE_VARIABLE_TYPE;
 	}

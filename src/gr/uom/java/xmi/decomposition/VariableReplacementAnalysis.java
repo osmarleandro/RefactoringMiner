@@ -458,7 +458,7 @@ public class VariableReplacementAnalysis {
 					(set.size() == 1 && replacementInLocalVariableDeclaration(replacement, set))) {
 				finalConsistentRenames.put(replacement, set);
 			}
-			if(v1 != null && !v1.getKey().isParameter() && v2 != null && v2.getKey().isParameter() && consistencyCheck(v1.getKey(), v2.getKey(), set) &&
+			if(v1 != null && !v1.getKey().getInitializer().isParameter(this) && v2 != null && v2.getKey().getInitializer().isParameter(this) && consistencyCheck(v1.getKey(), v2.getKey(), set) &&
 					!operation1.getParameterNameList().contains(v2.getKey().getVariableName())) {
 				finalConsistentRenames.put(replacement, set);
 			}
