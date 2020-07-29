@@ -149,10 +149,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 	public boolean equalClassType(UMLType type) {
-		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
-		}
-		return false;
+		return type.equalClassType(this);
 	}
 	public boolean compatibleTypes(UMLType type) {
 		if(this.getClass() == type.getClass()) {
@@ -167,6 +164,13 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equalClassType(UMLType umlType) {
+		if(umlType.getClass() == getClass()) {
+			return umlType.equals(this);
+		}
+		return false;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
