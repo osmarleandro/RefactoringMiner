@@ -22,9 +22,9 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public class ExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;
-	private List<UMLOperation> addedOperations;
+	public List<UMLOperation> addedOperations;
 	private UMLClassBaseDiff classDiff;
-	private UMLModelDiff modelDiff;
+	public UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 
@@ -113,7 +113,7 @@ public class ExtractOperationDetection {
 					}
 				}
 			}
-			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+			UMLOperation delegateMethod = mapper.getOperation1().findDelegateMethod(this, addedOperation, addedOperationInvocation);
 			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
@@ -220,7 +220,7 @@ public class ExtractOperationDetection {
 			}
 		}
 		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
-			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
+			UMLOperation delegateMethod = originalOperation.findDelegateMethod(this, addedOperation, addedOperationInvocation);
 			return new UMLOperationBodyMapper(mapper,
 					delegateMethod != null ? delegateMethod : addedOperation,
 					new LinkedHashMap<String, String>(), parameterToArgumentMap, classDiff);
@@ -272,18 +272,6 @@ public class ExtractOperationDetection {
 		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
 				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
-	}
-
-	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
-		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
-		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
-			for(UMLOperation operation : addedOperations) {
-				if(delegateMethodInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), modelDiff)) {
-					return operation;
-				}
-			}
-		}
-		return null;
 	}
 
 	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {

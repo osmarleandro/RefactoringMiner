@@ -9,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -830,6 +831,18 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public UMLOperation findDelegateMethod(ExtractOperationDetection extractOperationDetection, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
+		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
+		if(isDelegate() == null && delegateMethodInvocation != null && !getAllOperationInvocations().contains(addedOperationInvocation)) {
+			for(UMLOperation operation : extractOperationDetection.addedOperations) {
+				if(delegateMethodInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), extractOperationDetection.modelDiff)) {
+					return operation;
+				}
+			}
 		}
 		return null;
 	}
