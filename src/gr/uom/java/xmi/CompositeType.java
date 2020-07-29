@@ -1,8 +1,8 @@
 package gr.uom.java.xmi;
 
 public class CompositeType extends UMLType {
-	private UMLType leftType;
-	private LeafType rightType;
+	UMLType leftType;
+	LeafType rightType;
 
 	public CompositeType(UMLType leftType, LeafType rightType) {
 		this.leftType = leftType;
@@ -55,7 +55,7 @@ public class CompositeType extends UMLType {
 
 	@Override
 	public String toQualifiedString() {
-		return leftType.toQualifiedString() + "." + rightType.toQualifiedString();
+		return leftType.toQualifiedString(this);
 	}
 
 	@Override
