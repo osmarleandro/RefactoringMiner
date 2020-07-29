@@ -17,9 +17,9 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String typeName;
-	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	String typeName;
+	AbstractExpression value;
+	Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -106,32 +106,10 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UMLAnnotation other = (UMLAnnotation) obj;
-		if (memberValuePairs == null) {
-			if (other.memberValuePairs != null)
-				return false;
-		} else if (!this.memberValuePairsEquals(other))
-			return false;
-		if (typeName == null) {
-			if (other.typeName != null)
-				return false;
-		} else if (!typeName.equals(other.typeName))
-			return false;
-		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.getExpression().equals(other.value.getExpression()))
-			return false;
-		return true;
+		return locationInfo.equals(this, obj);
 	}
 
-	private boolean memberValuePairsEquals(UMLAnnotation other) {
+	boolean memberValuePairsEquals(UMLAnnotation other) {
 		Map<String, AbstractExpression> m = other.memberValuePairs;
 		int thisSize = this.memberValuePairs.size();
 		int otherSize = other.memberValuePairs.size();

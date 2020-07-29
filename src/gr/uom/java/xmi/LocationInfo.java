@@ -133,6 +133,32 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean equals(UMLAnnotation umlAnnotation, Object obj) {
+		if (umlAnnotation == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (umlAnnotation.getClass() != obj.getClass())
+			return false;
+		UMLAnnotation other = (UMLAnnotation) obj;
+		if (umlAnnotation.memberValuePairs == null) {
+			if (other.memberValuePairs != null)
+				return false;
+		} else if (!umlAnnotation.memberValuePairsEquals(other))
+			return false;
+		if (umlAnnotation.typeName == null) {
+			if (other.typeName != null)
+				return false;
+		} else if (!umlAnnotation.typeName.equals(other.typeName))
+			return false;
+		if (umlAnnotation.value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!umlAnnotation.value.getExpression().equals(other.value.getExpression()))
+			return false;
+		return true;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
