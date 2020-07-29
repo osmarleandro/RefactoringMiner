@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public int statementCount() {
+		return 1;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

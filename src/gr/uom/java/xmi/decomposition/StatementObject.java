@@ -240,7 +240,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public int statementCount() {
-		return 1;
+		return locationInfo.statementCount();
 	}
 
 	public LocationInfo getLocationInfo() {
