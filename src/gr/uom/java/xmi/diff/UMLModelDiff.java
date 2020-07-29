@@ -1287,22 +1287,22 @@ public class UMLModelDiff {
       Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
-         extractMergePatterns(classDiff, mergeMap);
+         classDiff.extractMergePatterns(mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
-         extractMergePatterns(classDiff, mergeMap);
+         classDiff.extractMergePatterns(mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
-         extractMergePatterns(classDiff, mergeMap);
+         classDiff.extractMergePatterns(mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
-         extractMergePatterns(classDiff, mergeMap);
+         classDiff.extractMergePatterns(mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
@@ -1314,7 +1314,7 @@ public class UMLModelDiff {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
     			  renameDiff.process();
     			  refactorings.addAll(renameDiff.getRefactorings());
-    			  extractMergePatterns(renameDiff, mergeMap);
+    			  renameDiff.extractMergePatterns(mergeMap);
     			  extractRenamePatterns(renameDiff, renameMap);
     			  classRenameDiffList.add(renameDiff);
     			  Refactoring refactoring = null;
@@ -1677,25 +1677,6 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return mappers;
-   }
-
-   private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
-	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
-			Set<String> before = new LinkedHashSet<String>();
-			for(String mergedVariable : candidate.getMergedVariables()) {
-				before.add(PrefixSuffixUtils.normalize(mergedVariable));
-			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
-			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
-			if(mergeMap.containsKey(merge)) {
-				mergeMap.get(merge).add(candidate);
-			}
-			else {
-				Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
-				set.add(candidate);
-				mergeMap.put(merge, set);
-			}
-		}
    }
 
    private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {

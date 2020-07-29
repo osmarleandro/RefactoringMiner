@@ -1671,4 +1671,23 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	void extractMergePatterns(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
+		   for(CandidateMergeVariableRefactoring candidate : getCandidateAttributeMerges()) {
+				Set<String> before = new LinkedHashSet<String>();
+				for(String mergedVariable : candidate.getMergedVariables()) {
+					before.add(PrefixSuffixUtils.normalize(mergedVariable));
+				}
+				String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+				MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
+				if(mergeMap.containsKey(merge)) {
+					mergeMap.get(merge).add(candidate);
+				}
+				else {
+					Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+					set.add(candidate);
+					mergeMap.put(merge, set);
+				}
+			}
+	   }
 }
