@@ -1,10 +1,13 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.ExtractClassRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -397,4 +400,28 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
+		   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
+		   for(UMLOperation operation : classDiff.getRemovedOperations()) {
+			   if(!operation.isConstructor() && !operation.overridesObject()) {
+				   if(containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+					   commonOperations.add(operation);
+				   }
+			   }
+		   }
+		   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+		   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
+			   if(containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+				   commonAttributes.add(attribute);
+			   }
+		   }
+		   int threshold = 1;
+		   if(attributeOfExtractedClassType != null)
+			   threshold = 0;
+		   if(commonOperations.size() > threshold || commonAttributes.size() > threshold) {
+			   return new ExtractClassRefactoring(this, classDiff, commonOperations, commonAttributes, attributeOfExtractedClassType);
+		   }
+		   return null;
+	   }
 }

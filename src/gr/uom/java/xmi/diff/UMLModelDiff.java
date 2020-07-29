@@ -962,7 +962,7 @@ public class UMLModelDiff {
 				   UMLAttribute attributeOfExtractedClassType = attributeOfExtractedClassType(addedClass, classDiff);
 				   boolean isTestClass =  addedClass.isTestClass() && classDiff.getOriginalClass().isTestClass();
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
-					   ExtractClassRefactoring refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
+					   ExtractClassRefactoring refactoring = addedClass.atLeastOneCommonAttributeOrOperation(classDiff, attributeOfExtractedClassType);
 					   if(refactoring != null) {
 						   CandidateExtractClassRefactoring candidate = new CandidateExtractClassRefactoring(classDiff, refactoring);
 						   candidates.add(candidate);
@@ -1001,30 +1001,6 @@ public class UMLModelDiff {
 		   if(umlClass.getName().endsWith("." + addedAttribute.getType().getClassType())) {
 			   return addedAttribute;
 		   }
-	   }
-	   return null;
-   }
-
-   private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
-	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
-	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
-		   if(!operation.isConstructor() && !operation.overridesObject()) {
-			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
-				   commonOperations.add(operation);
-			   }
-		   }
-	   }
-	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
-	   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
-		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
-			   commonAttributes.add(attribute);
-		   }
-	   }
-	   int threshold = 1;
-	   if(attributeOfExtractedClassType != null)
-		   threshold = 0;
-	   if(commonOperations.size() > threshold || commonAttributes.size() > threshold) {
-		   return new ExtractClassRefactoring(umlClass, classDiff, commonOperations, commonAttributes, attributeOfExtractedClassType);
 	   }
 	   return null;
    }
