@@ -397,4 +397,17 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public boolean equals(UMLRealization umlRealization2, Object o) {
+		if(umlRealization2 == o) {
+			return true;
+		}
+		
+		if(o instanceof UMLRealization) {
+			UMLRealization umlRealization = (UMLRealization)o;
+			return equals(umlRealization.client) &&
+				umlRealization2.supplier.equals(umlRealization.supplier);
+		}
+		return false;
+	}
 }

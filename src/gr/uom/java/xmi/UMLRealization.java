@@ -1,8 +1,8 @@
 package gr.uom.java.xmi;
 
 public class UMLRealization implements Comparable<UMLRealization> {
-    private UMLClass client;
-    private String supplier;
+    UMLClass client;
+    String supplier;
 
     public UMLRealization(UMLClass client, String supplier) {
         this.supplier = supplier;
@@ -18,17 +18,8 @@ public class UMLRealization implements Comparable<UMLRealization> {
     }
 
     public boolean equals(Object o) {
-    	if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLRealization) {
-    		UMLRealization umlRealization = (UMLRealization)o;
-    		return this.client.equals(umlRealization.client) &&
-    			this.supplier.equals(umlRealization.supplier);
-    	}
-    	return false;
-    }
+		return client.equals(this, o);
+	}
 
     public String toString() {
     	return client + "->" + supplier;
