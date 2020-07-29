@@ -139,7 +139,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
-		//optional step
+		modelDiff.createBodyMappers();
 	}
 
 	protected void processAnonymousClasses() {
