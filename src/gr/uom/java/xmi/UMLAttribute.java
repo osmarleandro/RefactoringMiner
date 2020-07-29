@@ -7,6 +7,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +171,16 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public UMLAttribute containsAttribute(UMLClass umlClass) {
+		ListIterator<UMLAttribute> attributeIt = umlClass.attributes.listIterator();
+		while(attributeIt.hasNext()) {
+			UMLAttribute attribute = attributeIt.next();
+			if(attribute.equals(this)) {
+				return attribute;
+			}
+		}
+		return null;
 	}
 }

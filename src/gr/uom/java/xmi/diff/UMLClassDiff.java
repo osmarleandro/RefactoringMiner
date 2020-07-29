@@ -40,7 +40,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	protected void processAttributes() {
 		for(UMLAttribute attribute : originalClass.getAttributes()) {
-			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
+			UMLAttribute matchingAttribute = attribute.containsAttribute(nextClass);
     		if(matchingAttribute == null) {
     			this.reportRemovedAttribute(attribute);
     		}
@@ -53,7 +53,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     		}
     	}
     	for(UMLAttribute attribute : nextClass.getAttributes()) {
-    		UMLAttribute matchingAttribute = originalClass.containsAttribute(attribute);
+    		UMLAttribute matchingAttribute = attribute.containsAttribute(originalClass);
     		if(matchingAttribute == null) {
     			this.reportAddedAttribute(attribute);
     		}
