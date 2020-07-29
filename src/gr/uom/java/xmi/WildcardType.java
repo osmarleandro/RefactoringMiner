@@ -1,8 +1,8 @@
 package gr.uom.java.xmi;
 
 public class WildcardType extends UMLType {
-	private UMLType bound;
-	private boolean upperBound;
+	UMLType bound;
+	boolean upperBound;
 	
 	public WildcardType(UMLType bound, boolean upperBound) {
 		this.bound = bound;
@@ -11,11 +11,7 @@ public class WildcardType extends UMLType {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bound == null) ? 0 : bound.hashCode());
-		result = prime * result + (upperBound ? 1231 : 1237);
-		return result;
+		return bound.hashCode(this);
 	}
 
 	@Override
