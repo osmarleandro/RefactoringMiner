@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setClassName(UMLAttribute umlAttribute, String className) {
+		umlAttribute.className = className;
+	}
 }
