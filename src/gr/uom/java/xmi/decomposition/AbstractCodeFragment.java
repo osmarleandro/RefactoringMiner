@@ -6,9 +6,15 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.RenameOperationRefactoring;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +309,87 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	public void temporaryVariableAssignment(AbstractCodeMapping abstractCodeMapping, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+		for(VariableDeclaration declaration : getVariableDeclarations()) {
+			String variableName = declaration.getVariableName();
+			AbstractExpression initializer = declaration.getInitializer();
+			for(Replacement replacement : abstractCodeMapping.getReplacements()) {
+				if(replacement.getAfter().startsWith(variableName + ".")) {
+					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
+					if(replacement.getBefore().endsWith(suffixAfter)) {
+						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
+						if(initializer != null) {
+							if(initializer.toString().equals(prefixBefore) ||
+									abstractCodeMapping.overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
+								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+								abstractCodeMapping.processExtractVariableRefactoring(ref, refactorings);
+								if(abstractCodeMapping.getReplacements().size() == 1) {
+									abstractCodeMapping.identicalWithExtractedVariable = true;
+								}
+							}
+						}
+					}
+				}
+				if(variableName.equals(replacement.getAfter()) && initializer != null) {
+					if(initializer.toString().equals(replacement.getBefore()) ||
+							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !abstractCodeMapping.containsVariableNameReplacement(variableName)) ||
+							abstractCodeMapping.ternaryMatch(initializer, replacement.getBefore()) ||
+							abstractCodeMapping.reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
+							abstractCodeMapping.overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
+						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+						abstractCodeMapping.processExtractVariableRefactoring(ref, refactorings);
+						if(abstractCodeMapping.getReplacements().size() == 1) {
+							abstractCodeMapping.identicalWithExtractedVariable = true;
+						}
+					}
+				}
+			}
+			if(classDiff != null && initializer != null) {
+				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
+				if(invocation != null) {
+					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
+						if(refactoring instanceof RenameOperationRefactoring) {
+							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
+							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
+								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
+								if(abstractCodeMapping.getFragment1().getString().contains(initializerBeforeRename) && abstractCodeMapping.getFragment2().getString().contains(variableName)) {
+									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+									abstractCodeMapping.processExtractVariableRefactoring(ref, refactorings);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		String argumentizedString = getArgumentizedString();
+		if(argumentizedString.contains("=")) {
+			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+			String[] tokens = beforeAssignment.split("\\s");
+			String variable = tokens[tokens.length-1];
+			String initializer = null;
+			if(argumentizedString.endsWith(";\n")) {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+			}
+			else {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+			}
+			for(Replacement replacement : abstractCodeMapping.getReplacements()) {
+				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.getBefore())) {
+					List<VariableDeclaration> variableDeclarations = abstractCodeMapping.operation2.getVariableDeclarationsInScope(abstractCodeMapping.fragment2.getLocationInfo());
+					for(VariableDeclaration declaration : variableDeclarations) {
+						if(declaration.getVariableName().equals(variable)) {
+							ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, abstractCodeMapping.operation1, abstractCodeMapping.operation2);
+							abstractCodeMapping.processExtractVariableRefactoring(ref, refactorings);
+							if(abstractCodeMapping.getReplacements().size() == 1) {
+								abstractCodeMapping.identicalWithExtractedVariable = true;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
