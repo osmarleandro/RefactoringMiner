@@ -1,8 +1,12 @@
 package gr.uom.java.xmi;
 
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +137,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public List<VariableDeclaration> getVariableDeclarations(AbstractExpression abstractExpression) {
+		return abstractExpression.variableDeclarations;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
