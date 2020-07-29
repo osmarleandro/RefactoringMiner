@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedAttributes;
-	private VariableDeclaration newAttribute;
+	public Set<VariableDeclaration> mergedAttributes;
+	public VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
-	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameBefore;
+	public String classNameAfter;
 	
 	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateMergeVariableRefactoring> attributeMerges) {
@@ -67,13 +67,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
-		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
-		result = prime * result + ((mergedAttributes == null) ? 0 : mergedAttributes.hashCode());
-		result = prime * result + ((newAttribute == null) ? 0 : newAttribute.hashCode());
-		return result;
+		return newAttribute.hashCode(this);
 	}
 
 	@Override
