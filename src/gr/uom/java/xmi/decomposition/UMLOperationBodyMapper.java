@@ -3061,7 +3061,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
-		UMLOperationDiff operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
+		UMLOperationDiff operationDiff = classDiff != null ? operation1.getOperationDiff(classDiff, operation2) : null;
 		if(operationDiff == null) {
 			operationDiff = new UMLOperationDiff(operation1, operation2);
 		}
