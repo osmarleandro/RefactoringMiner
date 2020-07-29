@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.refactoringminer.api.RefactoringType;
+
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
 	private String name;
@@ -170,5 +172,9 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.EXTRACT_ATTRIBUTE;
 	}
 }
