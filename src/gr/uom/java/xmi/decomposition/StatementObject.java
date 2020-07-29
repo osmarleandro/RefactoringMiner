@@ -27,7 +27,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
-	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
+	public List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
 	private List<String> numberLiterals;
 	private List<String> nullLiterals;
@@ -170,7 +170,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
-		return anonymousClassDeclarations;
+		return locationInfo.getAnonymousClassDeclarations(this);
 	}
 
 	@Override
