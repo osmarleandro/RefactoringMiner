@@ -833,4 +833,21 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean variablesStartWithSameCase(String s1, String s2, Map<String, String> parameterToArgumentMap) {
+		if(parameterToArgumentMap.values().contains(s2)) {
+			return true;
+		}
+		if(s1.length() > 0 && s2.length() > 0) {
+			if(Character.isUpperCase(s1.charAt(0)) && Character.isUpperCase(s2.charAt(0)))
+				return true;
+			if(Character.isLowerCase(s1.charAt(0)) && Character.isLowerCase(s2.charAt(0)))
+				return true;
+			if(s1.charAt(0) == '_' && s2.charAt(0) == '_')
+				return true;
+			if(s1.charAt(0) == '(' || s2.charAt(0) == '(')
+				return true;
+		}
+		return false;
+	}
 }
