@@ -17,7 +17,7 @@ public class UMLAttributeDiff {
 	private boolean visibilityChanged;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
-	private boolean renamed;
+	public boolean renamed;
 	private boolean staticChanged;
 	private boolean finalChanged;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
@@ -53,10 +53,6 @@ public class UMLAttributeDiff {
 
 	public UMLAttribute getAddedAttribute() {
 		return addedAttribute;
-	}
-
-	public boolean isRenamed() {
-		return renamed;
 	}
 
 	public boolean isVisibilityChanged() {
@@ -134,7 +130,7 @@ public class UMLAttributeDiff {
 	public Set<Refactoring> getRefactorings(Set<CandidateAttributeRefactoring> set) {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		RenameAttributeRefactoring rename = null;
-		if(isRenamed()) {
+		if(addedAttribute.isRenamed(this)) {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);
 			refactorings.add(rename);
 		}
