@@ -1561,22 +1561,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private boolean nonMatchedStatementUsesVariableInArgument(List<? extends AbstractCodeFragment> statements, String variable, String otherArgument) {
-		for(AbstractCodeFragment statement : statements) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null) {
-				for(String argument : invocation.getArguments()) {
-					String argumentNoWhiteSpace = argument.replaceAll("\\s","");
-					if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
-							!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) && !argument.equals(otherArgument)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private Set<Replacement> findReplacementsWithExactMatching(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
 			Map<String, String> parameterToArgumentMap, ReplacementInfo replacementInfo) throws RefactoringMinerTimedOutException {
 		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations());
@@ -1605,7 +1589,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
 						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
 								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements1, variable, argument)) {
+								!callSiteOperation.nonMatchedStatementUsesVariableInArgument(replacementInfo.statements1, variable, argument)) {
 							variablesToBeRemovedFromTheIntersection.add(variable);
 						}
 					}
@@ -1616,7 +1600,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
 						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
 								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements2, variable, argument)) {
+								!callSiteOperation.nonMatchedStatementUsesVariableInArgument(replacementInfo.statements2, variable, argument)) {
 							variablesToBeRemovedFromTheIntersection.add(variable);
 						}
 					}
