@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration renamedVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public VariableDeclaration originalVariable;
+	public VariableDeclaration renamedVariable;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
@@ -81,13 +81,7 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((originalVariable == null) ? 0 : originalVariable.hashCode());
-		result = prime * result + ((renamedVariable == null) ? 0 : renamedVariable.hashCode());
-		return result;
+		return operationAfter.hashCode(this);
 	}
 
 	@Override
