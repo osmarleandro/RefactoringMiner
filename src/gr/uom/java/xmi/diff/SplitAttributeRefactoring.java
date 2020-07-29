@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitAttributeRefactoring implements Refactoring {
-	private VariableDeclaration oldAttribute;
-	private Set<VariableDeclaration> splitAttributes;
+	public VariableDeclaration oldAttribute;
+	public Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
-	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameBefore;
+	public String classNameAfter;
 
 	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
 			String classNameBefore, String classNameAfter, Set<CandidateSplitVariableRefactoring> attributeSplits) {
@@ -69,13 +69,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
-		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
-		result = prime * result + ((oldAttribute == null) ? 0 : oldAttribute.hashCode());
-		result = prime * result + ((splitAttributes == null) ? 0 : splitAttributes.hashCode());
-		return result;
+		return oldAttribute.hashCode(this);
 	}
 
 	@Override
