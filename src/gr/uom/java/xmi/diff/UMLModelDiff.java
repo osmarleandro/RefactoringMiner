@@ -107,23 +107,7 @@ public class UMLModelDiff {
       this.commonClassDiffList.add(classDiff);
    }
 
-   public boolean commonlyImplementedOperations(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
-	   UMLClassBaseDiff classDiff1 = getUMLClassDiff(operation1.getClassName());
-	   if(classDiff1 != null) {
-		   Set<UMLType> commonInterfaces = classDiff1.nextClassCommonInterfaces(classDiff2);
-		   for(UMLType commonInterface : commonInterfaces) {
-			   UMLClassBaseDiff interfaceDiff = getUMLClassDiff(commonInterface);
-			   if(interfaceDiff != null &&
-					   interfaceDiff.containsOperationWithTheSameSignatureInOriginalClass(operation1) &&
-					   interfaceDiff.containsOperationWithTheSameSignatureInNextClass(operation2)) {
-				   return true;
-			   }
-		   }
-	   }
-	   return false;
-   }
-
-   private UMLClassBaseDiff getUMLClassDiff(String className) {
+   public UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
@@ -143,7 +127,7 @@ public class UMLModelDiff {
       return null;
    }
 
-   private UMLClassBaseDiff getUMLClassDiff(UMLType type) {
+   public UMLClassBaseDiff getUMLClassDiff(UMLType type) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(type))
             return classDiff;

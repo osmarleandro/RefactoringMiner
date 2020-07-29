@@ -10,6 +10,8 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -833,4 +835,20 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean commonlyImplementedOperations(UMLModelDiff umlModelDiff, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
+		   UMLClassBaseDiff classDiff1 = umlModelDiff.getUMLClassDiff(getClassName());
+		   if(classDiff1 != null) {
+			   Set<UMLType> commonInterfaces = classDiff1.nextClassCommonInterfaces(classDiff2);
+			   for(UMLType commonInterface : commonInterfaces) {
+				   UMLClassBaseDiff interfaceDiff = umlModelDiff.getUMLClassDiff(commonInterface);
+				   if(interfaceDiff != null &&
+						   interfaceDiff.containsOperationWithTheSameSignatureInOriginalClass(this) &&
+						   interfaceDiff.containsOperationWithTheSameSignatureInNextClass(operation2)) {
+					   return true;
+				   }
+			   }
+		   }
+		   return false;
+	   }
 }
