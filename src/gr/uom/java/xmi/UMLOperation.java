@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -8,7 +9,10 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -832,5 +836,25 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void findAttributeExtractions(VariableReplacementAnalysis variableReplacementAnalysis) {
+		if(variableReplacementAnalysis.classDiff != null) {
+			for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(replacement.involvesVariable()) {
+						for(UMLAttribute addedAttribute : variableReplacementAnalysis.classDiff.getAddedAttributes()) {
+							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
+							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
+									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
+								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, variableReplacementAnalysis.classDiff.getOriginalClass(), variableReplacementAnalysis.classDiff.getNextClass());
+								refactoring.addReference(mapping);
+								variableReplacementAnalysis.refactorings.add(refactoring);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
