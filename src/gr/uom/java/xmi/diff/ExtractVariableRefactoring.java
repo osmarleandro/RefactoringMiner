@@ -17,7 +17,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
@@ -117,11 +117,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted variable"));
-		}
-		return ranges;
+		return operationAfter.leftSide(this);
 	}
 
 	@Override
