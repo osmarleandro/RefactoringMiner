@@ -35,4 +35,13 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean hasTestAnnotation(UMLOperation umlOperation) {
+		for(UMLAnnotation annotation : umlOperation.annotations) {
+			if(annotation.getTypeName().equals("Test")) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
