@@ -304,16 +304,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
-		if(onlyArgumentsChanged(call, replacements)) {
-			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
-			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
@@ -434,6 +424,16 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean identicalWithDifferentNumberOfArguments(AbstractCall abstractCall, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+		if(abstractCall.onlyArgumentsChanged(this, replacements)) {
+			int argumentIntersectionSize = abstractCall.argumentIntersectionSize(this, parameterToArgumentMap);
+			if(argumentIntersectionSize > 0 || abstractCall.getArguments().size() == 0 || getArguments().size() == 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public enum StatementCoverageType {
