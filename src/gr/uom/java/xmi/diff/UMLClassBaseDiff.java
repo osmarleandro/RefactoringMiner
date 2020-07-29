@@ -42,7 +42,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	public List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
 	private String oldVisibility;
 	private String newVisibility;
@@ -543,7 +543,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
-								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
+								!pattern.inconsistentAttributeRename(this, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
 							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
@@ -918,50 +918,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		return null;
-	}
-
-	private boolean inconsistentAttributeRename(Replacement pattern,
-			Map<String, Set<String>> aliasedAttributesInOriginalClass,
-			Map<String, Set<String>> aliasedAttributesInNextClass) {
-		for(String key : aliasedAttributesInOriginalClass.keySet()) {
-			if(aliasedAttributesInOriginalClass.get(key).contains(pattern.getBefore())) {
-				return false;
-			}
-		}
-		for(String key : aliasedAttributesInNextClass.keySet()) {
-			if(aliasedAttributesInNextClass.get(key).contains(pattern.getAfter())) {
-				return false;
-			}
-		}
-		int counter = 0;
-		int allCases = 0;
-		for(UMLOperationBodyMapper mapper : this.operationBodyMapperList) {
-			List<String> allVariables1 = mapper.getOperation1().getAllVariables();
-			List<String> allVariables2 = mapper.getOperation2().getAllVariables();
-			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
-				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
-				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
-			}
-			boolean variables1contains = (allVariables1.contains(pattern.getBefore()) &&
-					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore())) ||
-					allVariables1.contains("this."+pattern.getBefore());
-			boolean variables2Contains = (allVariables2.contains(pattern.getAfter()) &&
-					!mapper.getOperation2().getParameterNameList().contains(pattern.getAfter())) ||
-					allVariables2.contains("this."+pattern.getAfter());
-			if(variables1contains && !variables2Contains) {	
-				counter++;
-			}
-			if(variables2Contains && !variables1contains) {
-				counter++;
-			}
-			if(variables1contains || variables2Contains) {
-				allCases++;
-			}
-		}
-		double percentage = (double)counter/(double)allCases;
-		if(percentage > 0.5)
-			return true;
-		return false;
 	}
 
 	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {

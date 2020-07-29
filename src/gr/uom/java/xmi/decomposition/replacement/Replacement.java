@@ -1,6 +1,12 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public class Replacement {
 	private String before;
@@ -72,6 +78,48 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public boolean inconsistentAttributeRename(UMLClassBaseDiff umlClassBaseDiff, Map<String, Set<String>> aliasedAttributesInOriginalClass, Map<String, Set<String>> aliasedAttributesInNextClass) {
+		for(String key : aliasedAttributesInOriginalClass.keySet()) {
+			if(aliasedAttributesInOriginalClass.get(key).contains(getBefore())) {
+				return false;
+			}
+		}
+		for(String key : aliasedAttributesInNextClass.keySet()) {
+			if(aliasedAttributesInNextClass.get(key).contains(getAfter())) {
+				return false;
+			}
+		}
+		int counter = 0;
+		int allCases = 0;
+		for(UMLOperationBodyMapper mapper : umlClassBaseDiff.operationBodyMapperList) {
+			List<String> allVariables1 = mapper.getOperation1().getAllVariables();
+			List<String> allVariables2 = mapper.getOperation2().getAllVariables();
+			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
+				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
+				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
+			}
+			boolean variables1contains = (allVariables1.contains(getBefore()) &&
+					!mapper.getOperation1().getParameterNameList().contains(getBefore())) ||
+					allVariables1.contains("this."+getBefore());
+			boolean variables2Contains = (allVariables2.contains(getAfter()) &&
+					!mapper.getOperation2().getParameterNameList().contains(getAfter())) ||
+					allVariables2.contains("this."+getAfter());
+			if(variables1contains && !variables2Contains) {	
+				counter++;
+			}
+			if(variables2Contains && !variables1contains) {
+				counter++;
+			}
+			if(variables1contains || variables2Contains) {
+				allCases++;
+			}
+		}
+		double percentage = (double)counter/(double)allCases;
+		if(percentage > 0.5)
+			return true;
+		return false;
 	}
 
 	public enum ReplacementType {
