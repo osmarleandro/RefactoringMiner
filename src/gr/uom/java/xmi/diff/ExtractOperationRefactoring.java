@@ -166,9 +166,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
-			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
-		return RefactoringType.EXTRACT_OPERATION;
+		return bodyMapper.getRefactoringType(this);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
