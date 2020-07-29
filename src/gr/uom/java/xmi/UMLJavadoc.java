@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
+
 public class UMLJavadoc {
 	private List<UMLTagElement> tags;
 
@@ -34,5 +36,11 @@ public class UMLJavadoc {
 			}
 		}
 		return false;
+	}
+
+	public List<LambdaExpressionObject> getAllLambdas(UMLOperation umlOperation) {
+		if(umlOperation.operationBody != null)
+			return umlOperation.operationBody.getAllLambdas();
+		return new ArrayList<LambdaExpressionObject>();
 	}
 }
