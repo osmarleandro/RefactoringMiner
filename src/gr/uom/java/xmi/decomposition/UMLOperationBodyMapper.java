@@ -2538,27 +2538,27 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(ternaryOperatorExpressions1.size() == 1 && ternaryOperatorExpressions2.isEmpty()) {
 			TernaryOperatorExpression ternary = ternaryOperatorExpressions1.get(0);
 			for(String creation : creationIntersection) {
-				if((r = ternary.makeReplacementWithTernaryOnTheLeft(creation)) != null) {
+				if((r = ternary.getCondition().makeReplacementWithTernaryOnTheLeft(this, creation)) != null) {
 					replacementInfo.addReplacement(r);
 					return replacementInfo.getReplacements();
 				}
 			}
 			for(String methodInvocation : methodInvocationIntersection) {
-				if((r = ternary.makeReplacementWithTernaryOnTheLeft(methodInvocation)) != null) {
+				if((r = ternary.getCondition().makeReplacementWithTernaryOnTheLeft(this, methodInvocation)) != null) {
 					replacementInfo.addReplacement(r);
 					return replacementInfo.getReplacements();
 				}
 			}
-			if(invocationCoveringTheEntireStatement2 != null && (r = ternary.makeReplacementWithTernaryOnTheLeft(invocationCoveringTheEntireStatement2.actualString())) != null) {
+			if(invocationCoveringTheEntireStatement2 != null && (r = ternary.getCondition().makeReplacementWithTernaryOnTheLeft(this, invocationCoveringTheEntireStatement2.actualString())) != null) {
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
 			}
-			if(creationCoveringTheEntireStatement2 != null && (r = ternary.makeReplacementWithTernaryOnTheLeft(creationCoveringTheEntireStatement2.actualString())) != null) {
+			if(creationCoveringTheEntireStatement2 != null && (r = ternary.getCondition().makeReplacementWithTernaryOnTheLeft(this, creationCoveringTheEntireStatement2.actualString())) != null) {
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
 			}
 			for(String creation1 : creations1) {
-				if((r = ternary.makeReplacementWithTernaryOnTheLeft(creation1)) != null) {
+				if((r = ternary.getCondition().makeReplacementWithTernaryOnTheLeft(this, creation1)) != null) {
 					for(AbstractCall c1 : creationMap1.get(creation1)) {
 						for(String creation2 : creations2) {
 							for(AbstractCall c2 : creationMap2.get(creation2)) {
