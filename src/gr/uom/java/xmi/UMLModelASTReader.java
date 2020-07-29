@@ -32,12 +32,10 @@ import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
 import org.eclipse.jdt.core.dom.IExtendedModifier;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TagElement;
@@ -76,7 +74,7 @@ public class UMLModelASTReader {
 				return;
 			}
 			CompilationUnit compilationUnit = (CompilationUnit)parser.createAST(null);
-			processCompilationUnit(filePath, compilationUnit);
+			umlModel.processCompilationUnit(this, filePath, compilationUnit);
 		}
 	}
 
@@ -125,7 +123,7 @@ public class UMLModelASTReader {
 			@Override
 			public void acceptAST(String sourceFilePath, CompilationUnit ast) {
 				String relativePath = sourceFilePath.substring(projectRoot.length() + 1).replaceAll(systemFileSeparator, "/");
-				processCompilationUnit(relativePath, ast);
+				umlModel.processCompilationUnit(this, relativePath, ast);
 			}
 		};
 		this.parser.createASTs((String[]) filesArray, null, emptyArray, fileASTRequestor, null);
@@ -146,32 +144,6 @@ public class UMLModelASTReader {
 		return this.umlModel;
 	}
 
-	protected void processCompilationUnit(String sourceFilePath, CompilationUnit compilationUnit) {
-		PackageDeclaration packageDeclaration = compilationUnit.getPackage();
-		String packageName = null;
-		if(packageDeclaration != null)
-			packageName = packageDeclaration.getName().getFullyQualifiedName();
-		else
-			packageName = "";
-		
-		List<ImportDeclaration> imports = compilationUnit.imports();
-		List<String> importedTypes = new ArrayList<String>();
-		for(ImportDeclaration importDeclaration : imports) {
-			importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
-		}
-		List<AbstractTypeDeclaration> topLevelTypeDeclarations = compilationUnit.types();
-        for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
-        	if(abstractTypeDeclaration instanceof TypeDeclaration) {
-        		TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
-        		processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
-        	}
-        	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
-        		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
-        		processEnumDeclaration(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
-        	}
-        }
-	}
-
 	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
 		UMLJavadoc doc = null;
 		Javadoc javaDoc = bodyDeclaration.getJavadoc();
@@ -190,7 +162,7 @@ public class UMLModelASTReader {
 		return doc;
 	}
 
-	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
+	void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
@@ -240,7 +212,7 @@ public class UMLModelASTReader {
 		}
 	}
 
-	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
+	void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
 		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
