@@ -118,7 +118,7 @@ public class InlineOperationDetection {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
-					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
+					for(UMLOperation anonymousOperation : anonymousClass.getLocationInfo().getOperations(this)) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
 							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
 								operationInvocations.add(anonymousInvocation);
