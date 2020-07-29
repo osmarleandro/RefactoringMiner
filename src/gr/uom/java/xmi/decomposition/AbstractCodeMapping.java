@@ -360,13 +360,13 @@ public abstract class AbstractCodeMapping {
 
 	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
+			addReference(ref);
 			refactorings.add(ref);
 		}
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((ExtractVariableRefactoring)refactoring).addReference(this);
+					addReference(((ExtractVariableRefactoring)refactoring));
 					break;
 				}
 			}
@@ -470,5 +470,9 @@ public abstract class AbstractCodeMapping {
 		} else if (!operation2.equals(other.operation2))
 			return false;
 		return true;
+	}
+
+	public void addReference(ExtractVariableRefactoring extractVariableRefactoring) {
+		extractVariableRefactoring.references.add(this);
 	}
 }
