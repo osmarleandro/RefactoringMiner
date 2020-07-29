@@ -4161,4 +4161,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public boolean mismatchesConsistentMethodInvocationRename(Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
+		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
+			if(getOperation1().getName().equals(rename.getBefore()) && !getOperation2().getName().equals(rename.getAfter())) {
+				return true;
+			}
+			else if(!getOperation1().getName().equals(rename.getBefore()) && getOperation2().getName().equals(rename.getAfter())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
