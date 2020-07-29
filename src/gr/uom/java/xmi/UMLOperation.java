@@ -245,17 +245,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 	}
 
-	public boolean equalQualifiedReturnParameter(UMLOperation operation) {
-		UMLParameter thisReturnParameter = this.getReturnParameter();
-		UMLParameter otherReturnParameter = operation.getReturnParameter();
-		if(thisReturnParameter != null && otherReturnParameter != null)
-			return thisReturnParameter.equalsQualified(otherReturnParameter);
-		else if(thisReturnParameter == null && otherReturnParameter == null)
-			return true;
-		else
-			return false;
-	}
-
 	public boolean equalSignature(UMLOperation operation) {
 		boolean equalParameterTypes = this.getParameterTypeList().equals(operation.getParameterTypeList());
 		boolean compatibleParameterTypes = false;
@@ -832,5 +821,16 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean equalQualifiedReturnParameter(UMLOperation umlOperation) {
+		UMLParameter thisReturnParameter = umlOperation.getReturnParameter();
+		UMLParameter otherReturnParameter = getReturnParameter();
+		if(thisReturnParameter != null && otherReturnParameter != null)
+			return thisReturnParameter.equalsQualified(otherReturnParameter);
+		else if(thisReturnParameter == null && otherReturnParameter == null)
+			return true;
+		else
+			return false;
 	}
 }
