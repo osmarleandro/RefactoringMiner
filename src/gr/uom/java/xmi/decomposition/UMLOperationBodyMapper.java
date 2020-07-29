@@ -204,12 +204,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public void addChildMapper(UMLOperationBodyMapper mapper) {
-		this.childMappers.add(mapper);
-		//TODO add logic to remove the mappings from "this" mapper,
-		//which are less similar than the mappings of the mapper passed as parameter
-	}
-
 	public List<UMLOperationBodyMapper> getChildMappers() {
 		return childMappers;
 	}
@@ -4160,5 +4154,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public void addChildMapper(UMLOperationBodyMapper umlOperationBodyMapper) {
+		umlOperationBodyMapper.childMappers.add(this);
+		//TODO add logic to remove the mappings from "this" mapper,
+		//which are less similar than the mappings of the mapper passed as parameter
 	}
 }
