@@ -38,7 +38,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
-	private List<String> arguments;
+	public List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
 	
@@ -225,7 +225,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public List<String> getArguments() {
-		return arguments;
+		return locationInfo.getArguments(this);
 	}
 
 	@Override
