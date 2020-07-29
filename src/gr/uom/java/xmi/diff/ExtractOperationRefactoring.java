@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
-	private UMLOperation extractedOperation;
+	public UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
@@ -130,13 +130,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	/**
-	 * @return the code range of the extracted method in the <b>child</b> commit
-	 */
-	public CodeRange getExtractedOperationCodeRange() {
-		return extractedOperation.codeRange();
-	}
-
-	/**
 	 * @return the code range of the extracted code fragment from the source method in the <b>parent</b> commit
 	 */
 	public CodeRange getExtractedCodeRangeFromSourceOperation() {
@@ -216,7 +209,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getExtractedOperationCodeRange()
+		ranges.add(bodyMapper.getExtractedOperationCodeRange(this)
 				.setDescription("extracted method declaration")
 				.setCodeElement(extractedOperation.toString()));
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
