@@ -217,12 +217,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
-	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
-		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
-				equalArguments(call) && this.arguments.size() > 0 &&
-				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
-	}
-
 	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
@@ -434,6 +428,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall abstractCall) {
+		return (abstractCall.getName().contains(getName()) || getName().contains(abstractCall.getName())) &&
+				abstractCall.equalArguments(this) && abstractCall.arguments.size() > 0 &&
+				((abstractCall.getExpression() == null && getExpression() != null) || (getExpression() == null && abstractCall.getExpression() != null));
 	}
 
 	public enum StatementCoverageType {
