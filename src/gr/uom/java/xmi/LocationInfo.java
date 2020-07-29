@@ -1,8 +1,15 @@
 package gr.uom.java.xmi;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +140,38 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public Map<String, Set<String>> aliasedAttributes(CompositeStatementObject compositeStatementObject) {
+		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
+		for(StatementObject statement : compositeStatementObject.getLeaves()) {
+			String s = statement.getString();
+			if(s.startsWith("this.") && s.endsWith(";\n")) {
+				String firstLine = s.substring(0, s.indexOf("\n"));
+				if(firstLine.contains("=")) {
+					String attribute = s.substring(5, s.indexOf("="));
+					String value = s.substring(s.indexOf("=")+1, s.indexOf(";\n"));
+					if(map.containsKey(value)) {
+						map.get(value).add(attribute);
+					}
+					else {
+						Set<String> set = new LinkedHashSet<String>();
+						set.add(attribute);
+						map.put(value, set);
+					}
+				}
+			}
+		}
+		Set<String> keysToBeRemoved = new LinkedHashSet<String>();
+		for(String key : map.keySet()) {
+			if(map.get(key).size() <= 1) {
+				keysToBeRemoved.add(key);
+			}
+		}
+		for(String key : keysToBeRemoved) {
+			map.remove(key);
+		}
+		return map;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
