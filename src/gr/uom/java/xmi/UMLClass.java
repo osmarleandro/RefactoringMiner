@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
-    private String sourceFile;
+    String sourceFile;
     private String sourceFolder;
     private String visibility;
 	private boolean isAbstract;
@@ -290,16 +290,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	}
 
     public boolean equals(Object o) {
-    	if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLClass) {
-    		UMLClass umlClass = (UMLClass)o;
-    		return this.packageName.equals(umlClass.packageName) && this.name.equals(umlClass.name) && this.sourceFile.equals(umlClass.sourceFile);
-    	}
-    	return false;
-    }
+		return javadoc.equals(this, o);
+	}
 
     public String toString() {
     	return getName();

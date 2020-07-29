@@ -35,4 +35,16 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean equals(UMLClass umlClass2, Object o) {
+		if(umlClass2 == o) {
+			return true;
+		}
+		
+		if(o instanceof UMLClass) {
+			UMLClass umlClass = (UMLClass)o;
+			return umlClass2.packageName.equals(umlClass.packageName) && umlClass2.name.equals(umlClass.name) && umlClass2.sourceFile.equals(umlClass.sourceFile);
+		}
+		return false;
+	}
 }
