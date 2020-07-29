@@ -9,6 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -832,5 +833,19 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean containsOperationWithTheSameRenamePattern(UMLAbstractClass umlAbstractClass, RenamePattern pattern) {
+		if(pattern == null)
+			return false;
+		for(UMLOperation originalOperation : umlAbstractClass.operations) {
+			String originalOperationName = originalOperation.getName();
+			if(originalOperationName.contains(pattern.getBefore())) {
+				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
+				if(originalOperationNameAfterReplacement.equals(getName()))
+					return true;
+			}
+		}
+		return false;
 	}
 }

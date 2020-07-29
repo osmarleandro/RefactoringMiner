@@ -110,20 +110,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
-		if(pattern == null)
-			return false;
-		for(UMLOperation originalOperation : operations) {
-			String originalOperationName = originalOperation.getName();
-			if(originalOperationName.contains(pattern.getBefore())) {
-				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
-				if(originalOperationNameAfterReplacement.equals(operation.getName()))
-					return true;
-			}
-		}
-		return false;
-	}
-
 	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))
@@ -234,7 +220,7 @@ public abstract class UMLAbstractClass {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
-	    				(pattern != null && umlClass.containsOperationWithTheSameRenamePattern(operation, pattern.reverse()))) {
+	    				(pattern != null && operation.containsOperationWithTheSameRenamePattern(umlClass, pattern.reverse()))) {
 	    			commonOperations.add(operation);
 	    		}
 			}
@@ -243,7 +229,7 @@ public abstract class UMLAbstractClass {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
-	    				(pattern != null && this.containsOperationWithTheSameRenamePattern(operation, pattern))) {
+	    				(pattern != null && operation.containsOperationWithTheSameRenamePattern(this, pattern))) {
 	    			commonOperations.add(operation);
 	    		}
 			}
