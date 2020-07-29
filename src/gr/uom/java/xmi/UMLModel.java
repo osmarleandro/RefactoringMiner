@@ -16,7 +16,7 @@ public class UMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
-    private List<UMLRealization> realizationList;
+    List<UMLRealization> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
@@ -31,10 +31,6 @@ public class UMLModel {
 
     public void addGeneralization(UMLGeneralization umlGeneralization) {
         generalizationList.add(umlGeneralization);
-    }
-
-    public void addRealization(UMLRealization umlRealization) {
-    	realizationList.add(umlRealization);
     }
 
     public UMLClass getClass(UMLClass umlClassFromOtherModel) {
