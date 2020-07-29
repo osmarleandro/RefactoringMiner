@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -22,6 +23,8 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4161,4 +4164,25 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public void checkForExtractedOperationsWithinMovedMethod(UMLModelDiff umlModelDiff, UMLClass addedClass) throws RefactoringMinerTimedOutException {
+		   UMLOperation removedOperation = getOperation1();
+		   UMLOperation addedOperation = getOperation2();
+		   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
+		   List<OperationInvocation> addedInvocations = addedOperation.getAllOperationInvocations();
+		   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
+		   intersection.retainAll(addedInvocations);
+		   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
+		   newInvocations.removeAll(intersection);
+		   for(OperationInvocation newInvocation : newInvocations) {
+			   for(UMLOperation operation : addedClass.getOperations()) {
+				   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
+						   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), umlModelDiff)) {
+					   ExtractOperationDetection detection = new ExtractOperationDetection(this, addedClass.getOperations(), umlModelDiff.getUMLClassDiff(operation.getClassName()), umlModelDiff);
+					   List<ExtractOperationRefactoring> refs = detection.check(operation);
+					   umlModelDiff.refactorings.addAll(refs);
+				   }
+			   }
+		   }
+	   }
 }
