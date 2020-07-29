@@ -833,4 +833,16 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLAbstractClass umlAbstractClass) {
+		for(UMLOperation originalOperation : umlAbstractClass.operations) {
+			if(originalOperation.equalSignatureIgnoringChangedTypes(this)) {
+				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = getBody() == null || hasEmptyBody();
+				if(originalOperationEmptyBody == operationEmptyBody)
+					return true;
+			}
+		}
+		return false;
+	}
 }
