@@ -690,20 +690,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount;
 	}
 
-	public int nonMappedElementsT2() {
-		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
-			if(composite.countableStatement())
-				nonMappedInnerNodeCount++;
-		}
-		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
-			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
-				nonMappedLeafCount++;
-		}
-		return nonMappedLeafCount + nonMappedInnerNodeCount;
-	}
-
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
@@ -713,7 +699,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount;
 	}
 
-	private boolean isTemporaryVariableAssignment(StatementObject statement) {
+	public boolean isTemporaryVariableAssignment(StatementObject statement) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
@@ -2044,7 +2030,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									int mappings = mapper.mappingsWithoutBlocks();
 									if(mappings > 0) {
 										int nonMappedElementsT1 = mapper.nonMappedElementsT1();
-										int nonMappedElementsT2 = mapper.nonMappedElementsT2();
+										int nonMappedElementsT2 = mapper.getCallSiteOperation().nonMappedElementsT2(this);
 										if(mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) {
 											this.mappings.addAll(mapper.mappings);
 											this.nonMappedInnerNodesT1.addAll(mapper.nonMappedInnerNodesT1);
@@ -2079,7 +2065,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					int mappings = mapper.mappingsWithoutBlocks();
 					if(mappings > 0) {
 						int nonMappedElementsT1 = mapper.nonMappedElementsT1();
-						int nonMappedElementsT2 = mapper.nonMappedElementsT2();
+						int nonMappedElementsT2 = mapper.getCallSiteOperation().nonMappedElementsT2(this);
 						if(mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) {
 							this.mappings.addAll(mapper.mappings);
 							this.nonMappedInnerNodesT1.addAll(mapper.nonMappedInnerNodesT1);
