@@ -28,7 +28,7 @@ public class UMLOperationDiff {
 	private boolean abstractionChanged;
 	private boolean returnTypeChanged;
 	private boolean qualifiedReturnTypeChanged;
-	private boolean operationRenamed;
+	public boolean operationRenamed;
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 	private UMLAnnotationListDiff annotationListDiff;
 	
@@ -184,10 +184,6 @@ public class UMLOperationDiff {
 
 	public List<UMLParameter> getRemovedParameters() {
 		return removedParameters;
-	}
-
-	public boolean isOperationRenamed() {
-		return operationRenamed;
 	}
 
 	public boolean isEmpty() {
