@@ -1137,7 +1137,7 @@ public class UMLModelDiff {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
 				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
-				   List<ExtractOperationRefactoring> refs = detection.check(operation);
+				   List<ExtractOperationRefactoring> refs = operation.check(detection);
 				   this.refactorings.addAll(refs);
 			   }
 		   }

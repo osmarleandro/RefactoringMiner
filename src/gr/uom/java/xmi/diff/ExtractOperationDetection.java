@@ -21,11 +21,11 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public class ExtractOperationDetection {
-	private UMLOperationBodyMapper mapper;
-	private List<UMLOperation> addedOperations;
+	public UMLOperationBodyMapper mapper;
+	public List<UMLOperation> addedOperations;
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
-	private List<OperationInvocation> operationInvocations;
+	public List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 
 	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
@@ -36,35 +36,7 @@ public class ExtractOperationDetection {
 		this.operationInvocations = getInvocationsInSourceOperationAfterExtraction(mapper);
 	}
 
-	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
-		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
-		if(!mapper.getNonMappedLeavesT1().isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
-			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-			List<OperationInvocation> addedOperationInvocations = matchingInvocations(addedOperation, operationInvocations, mapper.getOperation2().variableTypeMap());
-			if(addedOperationInvocations.size() > 0) {
-				int otherAddedMethodsCalled = 0;
-				for(UMLOperation addedOperation2 : this.addedOperations) {
-					if(!addedOperation.equals(addedOperation2)) {
-						List<OperationInvocation> addedOperationInvocations2 = matchingInvocations(addedOperation2, operationInvocations, mapper.getOperation2().variableTypeMap());
-						if(addedOperationInvocations2.size() > 0) {
-							otherAddedMethodsCalled++;
-						}
-					}
-				}
-				if(otherAddedMethodsCalled == 0) {
-					for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
-						processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocation);
-					}
-				}
-				else {
-					processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocations.get(0));
-				}
-			}
-		}
-		return refactorings;
-	}
-
-	private void processAddedOperation(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
+	public void processAddedOperation(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
 			List<ExtractOperationRefactoring> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
@@ -174,7 +146,7 @@ public class ExtractOperationDetection {
 		return false;
 	}
 
-	private List<OperationInvocation> matchingInvocations(UMLOperation operation,
+	public List<OperationInvocation> matchingInvocations(UMLOperation operation,
 			List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {

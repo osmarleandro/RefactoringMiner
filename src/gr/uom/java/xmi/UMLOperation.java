@@ -9,6 +9,8 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
@@ -832,5 +835,33 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public List<ExtractOperationRefactoring> check(ExtractOperationDetection extractOperationDetection) throws RefactoringMinerTimedOutException {
+		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
+		if(!extractOperationDetection.mapper.getNonMappedLeavesT1().isEmpty() || !extractOperationDetection.mapper.getNonMappedInnerNodesT1().isEmpty() ||
+			!extractOperationDetection.mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+			List<OperationInvocation> addedOperationInvocations = extractOperationDetection.matchingInvocations(this, extractOperationDetection.operationInvocations, extractOperationDetection.mapper.getOperation2().variableTypeMap());
+			if(addedOperationInvocations.size() > 0) {
+				int otherAddedMethodsCalled = 0;
+				for(UMLOperation addedOperation2 : extractOperationDetection.addedOperations) {
+					if(!equals(addedOperation2)) {
+						List<OperationInvocation> addedOperationInvocations2 = extractOperationDetection.matchingInvocations(addedOperation2, extractOperationDetection.operationInvocations, extractOperationDetection.mapper.getOperation2().variableTypeMap());
+						if(addedOperationInvocations2.size() > 0) {
+							otherAddedMethodsCalled++;
+						}
+					}
+				}
+				if(otherAddedMethodsCalled == 0) {
+					for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
+						extractOperationDetection.processAddedOperation(extractOperationDetection.mapper, this, refactorings, addedOperationInvocations, addedOperationInvocation);
+					}
+				}
+				else {
+					extractOperationDetection.processAddedOperation(extractOperationDetection.mapper, this, refactorings, addedOperationInvocations, addedOperationInvocations.get(0));
+				}
+			}
+		}
+		return refactorings;
 	}
 }
