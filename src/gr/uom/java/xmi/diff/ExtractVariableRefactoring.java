@@ -14,9 +14,9 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	public VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -83,24 +83,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ExtractVariableRefactoring other = (ExtractVariableRefactoring) obj;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (variableDeclaration == null) {
-			if (other.variableDeclaration != null)
-				return false;
-		} else if (!variableDeclaration.equals(other.variableDeclaration))
-			return false;
-		return true;
+		return operationAfter.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
