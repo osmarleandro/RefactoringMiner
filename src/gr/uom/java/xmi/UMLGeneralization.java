@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.UMLGeneralizationDiff;
+
 public class UMLGeneralization implements Comparable<UMLGeneralization> {
     private UMLClass child;
     private String parent;
@@ -36,5 +38,9 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
 
 	public int compareTo(UMLGeneralization generalization) {
 		return this.toString().compareTo(generalization.toString());
+	}
+
+	public UMLGeneralization getRemovedGeneralization(UMLGeneralizationDiff umlGeneralizationDiff) {
+		return umlGeneralizationDiff.removedGeneralization;
 	}
 }
