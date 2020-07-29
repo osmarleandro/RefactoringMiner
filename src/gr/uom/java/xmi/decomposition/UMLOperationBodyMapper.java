@@ -2416,7 +2416,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			VariableDeclaration v2 = variableDeclarations2.get(0);
 			String initializer1 = v1.getInitializer() != null ? v1.getInitializer().getString() : null;
 			String initializer2 = v2.getInitializer() != null ? v2.getInitializer().getString() : null;
-			if(v1.getType().getArrayDimension() == 1 && v2.getType().containsTypeArgument(v1.getType().getClassType()) &&
+			if(v1.getInitializer().getType(this).getArrayDimension() == 1 && v2.getInitializer().getType(this).containsTypeArgument(v1.getInitializer().getType(this).getClassType()) &&
 					creationCoveringTheEntireStatement1.isArray() && !creationCoveringTheEntireStatement2.isArray() &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("[")+1, initializer1.lastIndexOf("]")).equals(initializer2.substring(initializer2.indexOf("(")+1, initializer2.lastIndexOf(")")))) {
@@ -2425,7 +2425,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
 			}
-			if(v2.getType().getArrayDimension() == 1 && v1.getType().containsTypeArgument(v2.getType().getClassType()) &&
+			if(v2.getInitializer().getType(this).getArrayDimension() == 1 && v1.getInitializer().getType(this).containsTypeArgument(v2.getInitializer().getType(this).getClassType()) &&
 					!creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray() &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("(")+1, initializer1.lastIndexOf(")")).equals(initializer2.substring(initializer2.indexOf("[")+1, initializer2.lastIndexOf("]")))) {
@@ -2949,8 +2949,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<VariableDeclaration> variableDeclarations2, ReplacementInfo replacementInfo) {
 		if(variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
-			UMLType type1 = variableDeclarations1.get(0).getType();
-			UMLType type2 = variableDeclarations2.get(0).getType();
+			UMLType type1 = variableDeclarations1.get(0).getInitializer().getType(this);
+			UMLType type2 = variableDeclarations2.get(0).getInitializer().getType(this);
 			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
 			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
 			if(initializer1 == null && initializer2 == null) {

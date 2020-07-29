@@ -119,7 +119,7 @@ public class VariableReplacementAnalysis {
 									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 										variableRenames.add(ref);
-										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+										if(!v1.getKey().getInitializer().getType(this).equals(v2.getKey().getInitializer().getType(this)) || !v1.getKey().getInitializer().getType(this).equalsQualified(v2.getKey().getInitializer().getType(this))) {
 											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 											refactoring.addRelatedRefactoring(ref);
 											refactorings.add(refactoring);
@@ -431,7 +431,7 @@ public class VariableReplacementAnalysis {
 				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
-					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
+					if(!vdReplacement.getVariableDeclaration1().getInitializer().getType(this).equals(vdReplacement.getVariableDeclaration2().getInitializer().getType(this)) || !vdReplacement.getVariableDeclaration1().getInitializer().getType(this).equalsQualified(vdReplacement.getVariableDeclaration2().getInitializer().getType(this))) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
@@ -472,7 +472,7 @@ public class VariableReplacementAnalysis {
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref) &&
 						v1.getKey().isVarargsParameter() == v2.getKey().isVarargsParameter()) {
 					variableRenames.add(ref);
-					if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+					if(!v1.getKey().getInitializer().getType(this).equals(v2.getKey().getInitializer().getType(this)) || !v1.getKey().getInitializer().getType(this).equalsQualified(v2.getKey().getInitializer().getType(this))) {
 						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
@@ -1079,7 +1079,7 @@ public class VariableReplacementAnalysis {
 				}
 				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
-					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
+					if(variableDeclaration2 != null && variableDeclaration2.getInitializer().getType(this).equals(v1.getInitializer().getType(this))) {
 						for(AbstractCodeMapping mapping : mapper.getMappings()) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
