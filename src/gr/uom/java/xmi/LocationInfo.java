@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public int getArrayDimension(UMLType umlType) {
+		return umlType.arrayDimension;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,

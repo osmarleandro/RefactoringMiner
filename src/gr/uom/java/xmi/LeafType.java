@@ -130,7 +130,7 @@ public class LeafType extends UMLType {
 			result = 37*result + classType.hashCode();
 			if(isParameterized())
 				result = 37*result + typeArgumentsToString().hashCode();
-			result = 37*result + getArrayDimension();
+			result = 37*result + locationInfo.getArrayDimension(this);
 			hashCode = result;
 		}
 		return hashCode;
