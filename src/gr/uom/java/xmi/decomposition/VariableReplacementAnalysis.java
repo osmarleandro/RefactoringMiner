@@ -48,11 +48,11 @@ public class VariableReplacementAnalysis {
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
-	private UMLOperation callSiteOperation;
+	UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
-	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
+	public Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
 	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
@@ -136,10 +136,6 @@ public class VariableReplacementAnalysis {
 
 	public Set<RenameVariableRefactoring> getVariableRenames() {
 		return variableRenames;
-	}
-
-	public Set<MergeVariableRefactoring> getVariableMerges() {
-		return variableMerges;
 	}
 
 	public Set<SplitVariableRefactoring> getVariableSplits() {
