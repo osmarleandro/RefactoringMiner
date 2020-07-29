@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public String getNonQualifiedClassName(UMLAttribute umlAttribute) {
+		return umlAttribute.className.contains(".") ? umlAttribute.className.substring(umlAttribute.className.lastIndexOf(".")+1, umlAttribute.className.length()) : umlAttribute.className;
+	}
 }
