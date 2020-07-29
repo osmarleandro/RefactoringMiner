@@ -42,4 +42,8 @@ public class RenamePattern {
 	public RenamePattern reverse() {
 		return new RenamePattern(after, before);
 	}
+
+	public String getName(RenamePackageRefactoring renamePackageRefactoring) {
+		return renamePackageRefactoring.getRefactoringType().getDisplayName();
+	}
 }
