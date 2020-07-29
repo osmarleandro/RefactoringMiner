@@ -30,7 +30,6 @@ import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
-import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.SplitVariableRefactoring;
@@ -47,7 +46,7 @@ public class VariableReplacementAnalysis {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
-	private Set<Refactoring> refactorings;
+	public Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
@@ -409,7 +408,7 @@ public class VariableReplacementAnalysis {
 			if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && newVariable != null) {
 				UMLOperation operationBefore = mergedVariableOperations.iterator().next();
 				MergeVariableRefactoring refactoring = new MergeVariableRefactoring(mergedVariables, newVariable.getKey(), operationBefore, newVariable.getValue(), mergeMap.get(merge));
-				if(!existsConflictingInlineVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
+				if(!refactoring.existsConflictingInlineVariableRefactoring(this) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
 					variableMerges.add(refactoring);
 				}
 			}
@@ -1145,18 +1144,6 @@ public class VariableReplacementAnalysis {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(ref.getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean existsConflictingInlineVariableRefactoring(MergeVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof InlineVariableRefactoring) {
-				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
-				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {
 					return true;
 				}
 			}
