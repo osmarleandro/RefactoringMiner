@@ -8,6 +8,8 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
@@ -202,5 +204,25 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	boolean reservedTokenMatch(Replacement replacement, String replacedExpression) {
+		OperationInvocation initializerInvocation = invocationCoveringEntireFragment();
+		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		boolean methodInvocationMatch = true;
+		if(initializerInvocation != null && replacementInvocation != null) {
+			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
+				methodInvocationMatch = false;
+			}
+		}
+		else if(initializerInvocation != null && replacementInvocation == null) {
+			methodInvocationMatch = false;
+		}
+		else if(initializerInvocation == null && replacementInvocation != null) {
+			methodInvocationMatch = false;
+		}
+		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(toString());
+		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
+		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 }

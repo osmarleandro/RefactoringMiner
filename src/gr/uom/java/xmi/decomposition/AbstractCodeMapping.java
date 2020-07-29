@@ -12,7 +12,6 @@ import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
-import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
@@ -179,7 +178,7 @@ public abstract class AbstractCodeMapping {
 					if(initializer.toString().equals(replacement.getBefore()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getBefore()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
+							initializer.reservedTokenMatch(replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
@@ -262,7 +261,7 @@ public abstract class AbstractCodeMapping {
 					if(initializer.toString().equals(replacement.getAfter()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+							initializer.reservedTokenMatch(replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
 						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
 						processInlineVariableRefactoring(ref, refactorings);
@@ -321,26 +320,6 @@ public abstract class AbstractCodeMapping {
 			}
 		}
 		return false;
-	}
-
-	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
-		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
-		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
-		boolean methodInvocationMatch = true;
-		if(initializerInvocation != null && replacementInvocation != null) {
-			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
-				methodInvocationMatch = false;
-			}
-		}
-		else if(initializerInvocation != null && replacementInvocation == null) {
-			methodInvocationMatch = false;
-		}
-		else if(initializerInvocation == null && replacementInvocation != null) {
-			methodInvocationMatch = false;
-		}
-		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
-		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
-		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
 	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
