@@ -20,8 +20,8 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	AbstractCodeFragment fragment1;
+	AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
@@ -61,18 +61,13 @@ public abstract class AbstractCodeMapping {
 		return identicalWithInlinedVariable;
 	}
 
-	public boolean isExact() {
-		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
-				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
-	}
-
-	private boolean isKeyword() {
+	boolean isKeyword() {
 		return fragment1.getString().startsWith("return;") ||
 				fragment1.getString().startsWith("break;") ||
 				fragment1.getString().startsWith("continue;");
 	}
 
-	private boolean isExactAfterAbstraction() {
+	boolean isExactAfterAbstraction() {
 		OperationInvocation invocation1 = fragment1.invocationCoveringEntireFragment();
 		OperationInvocation invocation2 = fragment2.invocationCoveringEntireFragment();
 		if(invocation1 != null && invocation2 != null) {
@@ -86,7 +81,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean containsIdenticalOrCompositeReplacement() {
+	boolean containsIdenticalOrCompositeReplacement() {
 		for(Replacement r : replacements) {
 			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
 					r.getBefore().equals(r.getAfter())) {
