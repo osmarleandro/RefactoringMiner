@@ -1740,7 +1740,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement1.getLocationInfo().equals(creation1.getLocationInfo())) {
 					creations1.remove(objectCreation1);
 				}
-				if(((ObjectCreation)creation1).getAnonymousClassDeclaration() != null) {
+				if(((ObjectCreation) creation1).getType().getAnonymousClassDeclaration(this) != null) {
 					creations1.remove(objectCreation1);
 				}
 			}
@@ -1751,7 +1751,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement2.getLocationInfo().equals(creation2.getLocationInfo())) {
 					creations2.remove(objectCreation2);
 				}
-				if(((ObjectCreation)creation2).getAnonymousClassDeclaration() != null) {
+				if(((ObjectCreation) creation2).getType().getAnonymousClassDeclaration(this) != null) {
 					creations2.remove(objectCreation2);
 				}
 			}
@@ -2689,7 +2689,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(String key : creationMap.keySet()) {
 				List<ObjectCreation> objectCreations = creationMap.get(key);
 				for(ObjectCreation creation : objectCreations) {
-					if(creation.getAnonymousClassDeclaration() != null && creation.getAnonymousClassDeclaration().equals(anonymousClassDeclaration.toString()) &&
+					if(creation.getType().getAnonymousClassDeclaration(this) != null && creation.getType().getAnonymousClassDeclaration(this).equals(anonymousClassDeclaration.toString()) &&
 							creation.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
 						return creation.actualString();
 					}
