@@ -13,7 +13,7 @@ import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
-	private UMLClass originalClass;
+	public UMLClass originalClass;
 	private UMLClass movedClass;
 	
 	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
@@ -46,10 +46,6 @@ public class MoveClassRefactoring implements Refactoring {
 
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MOVE_CLASS;
-	}
-
-	public String getOriginalClassName() {
-		return originalClass.getName();
 	}
 
 	public String getMovedClassName() {
