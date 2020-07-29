@@ -51,7 +51,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean newAbstraction;
 	private boolean superclassChanged;
 	private UMLType oldSuperclass;
-	private UMLType newSuperclass;
+	public UMLType newSuperclass;
 	private List<UMLType> addedImplementedInterfaces;
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
@@ -338,10 +338,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.oldSuperclass = oldSuperclass;
 	}
 
-	private void setNewSuperclass(UMLType newSuperclass) {
-		this.newSuperclass = newSuperclass;
-	}
-
 	public UMLType getSuperclass() {
 		if(!superclassChanged && oldSuperclass != null && newSuperclass != null)
 			return oldSuperclass;
@@ -434,17 +430,17 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				setSuperclassChanged(true);
 			}
 			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			nextClass.getSuperclass().setNewSuperclass(this);
 		}
 		else if(originalClass.getSuperclass() != null && nextClass.getSuperclass() == null) {
 			setSuperclassChanged(true);
 			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			nextClass.getSuperclass().setNewSuperclass(this);
 		}
 		else if(originalClass.getSuperclass() == null && nextClass.getSuperclass() != null) {
 			setSuperclassChanged(true);
 			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			nextClass.getSuperclass().setNewSuperclass(this);
 		}
 		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
 			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))
