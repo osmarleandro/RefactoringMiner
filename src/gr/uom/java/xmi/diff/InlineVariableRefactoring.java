@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	public VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
@@ -63,13 +63,6 @@ public class InlineVariableRefactoring implements Refactoring {
 		sb.append(" from class ");
 		sb.append(operationBefore.getClassName());
 		return sb.toString();
-	}
-
-	/**
-	 * @return the code range of the inlined variable declaration in the <b>parent</b> commit
-	 */
-	public CodeRange getInlinedVariableDeclarationCodeRange() {
-		return variableDeclaration.codeRange();
 	}
 
 	@Override
