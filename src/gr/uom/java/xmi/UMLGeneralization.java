@@ -1,8 +1,8 @@
 package gr.uom.java.xmi;
 
 public class UMLGeneralization implements Comparable<UMLGeneralization> {
-    private UMLClass child;
-    private String parent;
+    UMLClass child;
+    String parent;
 
     public UMLGeneralization(UMLClass child, String parent) {
         this.child = child;
@@ -31,8 +31,8 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     }
 
     public String toString() {
-    	return child + "->" + parent;
-    }
+		return child.toString(this);
+	}
 
 	public int compareTo(UMLGeneralization generalization) {
 		return this.toString().compareTo(generalization.toString());
