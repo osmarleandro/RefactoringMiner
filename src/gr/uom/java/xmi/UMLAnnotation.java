@@ -19,7 +19,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
 	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -98,7 +98,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode());
+		result = prime * result + ((memberValuePairs == null) ? 0 : locationInfo.memberValuePairsHashCode(this));
 		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.getExpression().hashCode());
 		return result;
@@ -150,12 +150,5 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 			}
 		}
 		return true;
-	}
-
-	private int memberValuePairsHashCode() {
-		int h = 0;
-		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
-			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
-		return h;
 	}
 }

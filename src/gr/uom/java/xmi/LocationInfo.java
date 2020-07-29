@@ -1,8 +1,11 @@
 package gr.uom.java.xmi;
 
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class LocationInfo {
@@ -133,6 +136,13 @@ public class LocationInfo {
 		return true;
 	}
 	
+	int memberValuePairsHashCode(UMLAnnotation umlAnnotation) {
+		int h = 0;
+		for (Map.Entry<String, AbstractExpression> entry : umlAnnotation.memberValuePairs.entrySet())
+			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
+		return h;
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
