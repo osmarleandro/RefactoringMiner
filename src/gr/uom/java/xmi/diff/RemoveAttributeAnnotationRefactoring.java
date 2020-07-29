@@ -13,8 +13,8 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class RemoveAttributeAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
-	private UMLAttribute attributeBefore;
+	public UMLAnnotation annotation;
+	public UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
 
 	public RemoveAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
@@ -82,14 +82,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotation);
-		sb.append(" in attribute ");
-		sb.append(attributeBefore);
-		sb.append(" from class ");
-		sb.append(attributeBefore.getClassName());
-		return sb.toString();
+		return annotation.toString(this);
 	}
 
 	@Override
