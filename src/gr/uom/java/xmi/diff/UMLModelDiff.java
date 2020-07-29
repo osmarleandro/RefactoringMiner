@@ -2525,6 +2525,17 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	protected void processAnonymousClasses(UMLClassBaseDiff umlClassBaseDiff) {
+	for(UMLAnonymousClass umlAnonymousClass : umlClassBaseDiff.originalClass.getAnonymousClassList()) {
+		if(!umlClassBaseDiff.nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
+			umlClassBaseDiff.removedAnonymousClasses.add(umlAnonymousClass);
+	}
+	for(UMLAnonymousClass umlAnonymousClass : umlClassBaseDiff.nextClass.getAnonymousClassList()) {
+		if(!umlClassBaseDiff.originalClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
+			umlClassBaseDiff.addedAnonymousClasses.add(umlAnonymousClass);
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
