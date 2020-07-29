@@ -1,6 +1,8 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff;
+import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringType;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
@@ -397,4 +402,16 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public void processAddedGeneralization(UMLModelDiff umlModelDiff, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
+		   String parent = addedGeneralization.getParent();
+		   UMLClass subclass = addedGeneralization.getChild();
+		   if(UMLModelDiff.looksLikeSameType(parent, getName()) && umlModelDiff.topLevelOrSameOuterClass(this, subclass) && umlModelDiff.getAddedClass(subclass.getName()) == null) {
+			   UMLClassBaseDiff subclassDiff = umlModelDiff.getUMLClassDiff(subclass.getName());
+			   if(subclassDiff != null) {
+				   umlModelDiff.detectSubRefactorings(subclassDiff, this, RefactoringType.EXTRACT_SUPERCLASS);
+			   }
+			   subclassSet.add(subclass);
+		   }
+	   }
 }
