@@ -53,7 +53,7 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
+   List<UMLClassDiff> commonClassDiffList;
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
@@ -101,10 +101,6 @@ public class UMLModelDiff {
 
    public void reportRemovedRealization(UMLRealization umlRealization) {
       this.removedRealizations.add(umlRealization);
-   }
-
-   public void addUMLClassDiff(UMLClassDiff classDiff) {
-      this.commonClassDiffList.add(classDiff);
    }
 
    public boolean commonlyImplementedOperations(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff2) {
