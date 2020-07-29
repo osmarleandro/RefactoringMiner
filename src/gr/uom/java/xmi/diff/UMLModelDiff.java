@@ -1624,25 +1624,25 @@ public class UMLModelDiff {
    private List<UMLOperationBodyMapper> findMappersWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
 	   for(UMLClassDiff classDiff : commonClassDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
+		   UMLOperationBodyMapper mapper = operation1.findMapperWithMatchingSignatures(classDiff, operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
 		   }
 	   }
 	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
+		   UMLOperationBodyMapper mapper = operation1.findMapperWithMatchingSignatures(classDiff, operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
 		   }
 	   }
 	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
+		   UMLOperationBodyMapper mapper = operation1.findMapperWithMatchingSignatures(classDiff, operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
 		   }
 	   }
 	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
+		   UMLOperationBodyMapper mapper = operation1.findMapperWithMatchingSignatures(classDiff, operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
 		   }
