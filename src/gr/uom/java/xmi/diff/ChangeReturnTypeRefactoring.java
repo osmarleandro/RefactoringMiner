@@ -14,10 +14,10 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
-	private UMLType originalType;
-	private UMLType changedType;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLType originalType;
+	public UMLType changedType;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
@@ -72,13 +72,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((changedType == null) ? 0 : changedType.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((originalType == null) ? 0 : originalType.hashCode());
-		return result;
+		return changedType.hashCode(this);
 	}
 
 	@Override
