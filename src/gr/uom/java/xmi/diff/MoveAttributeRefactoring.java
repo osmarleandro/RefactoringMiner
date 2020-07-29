@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
+	public UMLAttribute originalAttribute;
 	protected UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
@@ -26,7 +26,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		sb.append(getName()).append("\t");
 		sb.append(getOriginalAttribute().toQualifiedString());
 		sb.append(" from class ");
-		sb.append(getSourceClassName());
+		sb.append(movedAttribute.getSourceClassName(this));
 		sb.append(" to ");
 		sb.append(getMovedAttribute().toQualifiedString());
 		sb.append(" from class ");
@@ -48,10 +48,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public UMLAttribute getMovedAttribute() {
 		return movedAttribute;
-	}
-
-	public String getSourceClassName() {
-		return originalAttribute.getClassName();
 	}
 
 	public String getTargetClassName() {
@@ -81,7 +77,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
 			return this.originalAttribute.equals(other.originalAttribute) &&
 				this.movedAttribute.equals(other.movedAttribute) &&
-				this.getSourceClassName().equals(other.getSourceClassName()) &&
+				this.getMovedAttribute().getSourceClassName(this).equals(other.getMovedAttribute().getSourceClassName(this)) &&
 				this.getTargetClassName().equals(other.getTargetClassName());
 		}
 		return false;
@@ -92,7 +88,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 			int result = 17;
 			result = 37*result + originalAttribute.hashCode();
 			result = 37*result + movedAttribute.hashCode();
-			result = 37*result + getSourceClassName().hashCode();
+			result = 37*result + movedAttribute.getSourceClassName(this).hashCode();
 			result = 37*result + getTargetClassName().hashCode();
 			hashCode = result;
 		}
