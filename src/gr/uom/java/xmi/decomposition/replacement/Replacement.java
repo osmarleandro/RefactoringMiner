@@ -1,5 +1,9 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.Set;
+
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -72,6 +76,24 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public boolean potentialParameterRename(VariableReplacementAnalysis variableReplacementAnalysis, Set<AbstractCodeMapping> set) {
+		int index1 = variableReplacementAnalysis.operation1.getParameterNameList().indexOf(getBefore());
+		if(index1 == -1 && variableReplacementAnalysis.callSiteOperation != null) {
+			index1 = variableReplacementAnalysis.callSiteOperation.getParameterNameList().indexOf(getBefore());
+		}
+		int index2 = variableReplacementAnalysis.operation2.getParameterNameList().indexOf(getAfter());
+		if(index2 == -1 && variableReplacementAnalysis.callSiteOperation != null) {
+			index2 = variableReplacementAnalysis.callSiteOperation.getParameterNameList().indexOf(getAfter());
+		}
+		if(variableReplacementAnalysis.fieldAssignmentToPreviouslyExistingAttribute(set)) {
+			return false;
+		}
+		if(variableReplacementAnalysis.fieldAssignmentWithPreviouslyExistingParameter(set)) {
+			return false;
+		}
+		return index1 >= 0 && index1 == index2;
 	}
 
 	public enum ReplacementType {

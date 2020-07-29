@@ -44,11 +44,11 @@ public class VariableReplacementAnalysis {
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	public UMLOperation operation1;
+	public UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
-	private UMLOperation callSiteOperation;
+	public UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
@@ -453,7 +453,7 @@ public class VariableReplacementAnalysis {
 			SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement);
 			Set<AbstractCodeMapping> set = replacementOccurrenceMap.get(replacement);
 			if((set.size() > 1 && v1 != null && v2 != null && consistencyCheck(v1.getKey(), v2.getKey(), set)) ||
-					potentialParameterRename(replacement, set) ||
+					replacement.potentialParameterRename(this, set) ||
 					v1 == null || v2 == null ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(replacement, set))) {
 				finalConsistentRenames.put(replacement, set);
@@ -496,7 +496,7 @@ public class VariableReplacementAnalysis {
 		}
 	}
 
-	private boolean fieldAssignmentToPreviouslyExistingAttribute(Set<AbstractCodeMapping> mappings) {
+	public boolean fieldAssignmentToPreviouslyExistingAttribute(Set<AbstractCodeMapping> mappings) {
 		if(mappings.size() == 1) {
 			AbstractCodeMapping mapping = mappings.iterator().next();
 			String fragment1 = mapping.getFragment1().getString();
@@ -517,7 +517,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean fieldAssignmentWithPreviouslyExistingParameter(Set<AbstractCodeMapping> mappings) {
+	public boolean fieldAssignmentWithPreviouslyExistingParameter(Set<AbstractCodeMapping> mappings) {
 		if(mappings.size() == 1) {
 			AbstractCodeMapping mapping = mappings.iterator().next();
 			String fragment1 = mapping.getFragment1().getString();
@@ -1186,24 +1186,6 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return false;
-	}
-
-	private boolean potentialParameterRename(Replacement replacement, Set<AbstractCodeMapping> set) {
-		int index1 = operation1.getParameterNameList().indexOf(replacement.getBefore());
-		if(index1 == -1 && callSiteOperation != null) {
-			index1 = callSiteOperation.getParameterNameList().indexOf(replacement.getBefore());
-		}
-		int index2 = operation2.getParameterNameList().indexOf(replacement.getAfter());
-		if(index2 == -1 && callSiteOperation != null) {
-			index2 = callSiteOperation.getParameterNameList().indexOf(replacement.getAfter());
-		}
-		if(fieldAssignmentToPreviouslyExistingAttribute(set)) {
-			return false;
-		}
-		if(fieldAssignmentWithPreviouslyExistingParameter(set)) {
-			return false;
-		}
-		return index1 >= 0 && index1 == index2;
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement, AbstractCodeMapping mapping) {
