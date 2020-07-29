@@ -66,7 +66,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
 	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
-	private UMLModelDiff modelDiff;
+	UMLModelDiff modelDiff;
 
 	public UMLClassBaseDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
 		this.originalClass = originalClass;
@@ -1666,9 +1666,5 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		return false;
-	}
-
-	public UMLModelDiff getModelDiff() {
-		return modelDiff;
 	}
 }
