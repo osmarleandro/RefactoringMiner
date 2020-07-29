@@ -133,6 +133,15 @@ public class LocationInfo {
 		return true;
 	}
 	
+	protected String typeArgumentsAndArrayDimensionToString(UMLType umlType) {
+		StringBuilder sb = new StringBuilder();
+		if(umlType.isParameterized())
+			sb.append(umlType.typeArgumentsToString());
+		for(int i=0; i<umlType.getArrayDimension(); i++)
+			sb.append("[]");
+		return sb.toString();
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
