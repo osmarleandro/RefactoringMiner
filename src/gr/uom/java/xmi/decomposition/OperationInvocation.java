@@ -435,7 +435,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
 	public boolean identicalName(AbstractCall call) {
-		return getMethodName().equals(((OperationInvocation)call).getMethodName());
+		return call.identicalName(this);
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
