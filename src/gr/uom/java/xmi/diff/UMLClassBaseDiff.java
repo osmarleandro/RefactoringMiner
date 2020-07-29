@@ -1211,7 +1211,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
+							if(invocation != null && invocation.getLocationInfo().getExpression(this) != null && invocation.getLocationInfo().getExpression(this).equals(parameterName)) {
 								statementUsingParameterAsInvoker1 = statement;
 								break;
 							}
@@ -1224,7 +1224,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(statement.countableStatement()) {
 						for(String parameterName : addedOperation.getParameterNameList()) {
 							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
+							if(invocation != null && invocation.getLocationInfo().getExpression(this) != null && invocation.getLocationInfo().getExpression(this).equals(parameterName)) {
 								statementUsingParameterAsInvoker2 = statement;
 								break;
 							}
