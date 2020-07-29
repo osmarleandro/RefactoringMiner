@@ -35,4 +35,18 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean equals(UMLAttribute umlAttribute2, Object o) {
+		if(umlAttribute2 == o) {
+			return true;
+		}
+		
+		if(o instanceof UMLAttribute) {
+			UMLAttribute umlAttribute = (UMLAttribute)o;
+			return umlAttribute2.name.equals(umlAttribute.name) &&
+			umlAttribute2.visibility.equals(umlAttribute.visibility) &&
+			umlAttribute2.type.equals(umlAttribute.type);
+		}
+		return false;
+	}
 }

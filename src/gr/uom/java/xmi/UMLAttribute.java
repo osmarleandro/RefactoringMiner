@@ -10,9 +10,9 @@ import java.util.List;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private UMLType type;
-	private String visibility;
+	String name;
+	UMLType type;
+	String visibility;
 	private String className;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -121,17 +121,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	}
 
 	public boolean equals(Object o) {
-		if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLAttribute) {
-    		UMLAttribute umlAttribute = (UMLAttribute)o;
-    		return this.name.equals(umlAttribute.name) &&
-			this.visibility.equals(umlAttribute.visibility) &&
-			this.type.equals(umlAttribute.type);
-    	}
-    	return false;
+		return javadoc.equals(this, o);
 	}
 
 	public boolean equalsQualified(UMLAttribute umlAttribute) {
