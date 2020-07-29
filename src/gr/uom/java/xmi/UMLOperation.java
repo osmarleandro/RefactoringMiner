@@ -31,7 +31,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
-	private boolean emptyBody;
+	boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
@@ -113,10 +113,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean hasEmptyBody() {
 		return emptyBody;
-	}
-
-	public void setEmptyBody(boolean emptyBody) {
-		this.emptyBody = emptyBody;
 	}
 
 	public OperationBody getBody() {
