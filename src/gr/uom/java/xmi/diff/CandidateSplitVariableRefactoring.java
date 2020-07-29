@@ -7,10 +7,10 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateSplitVariableRefactoring {
-	private String oldVariable;
-	private Set<String> splitVariables;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public String oldVariable;
+	public Set<String> splitVariables;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
@@ -74,13 +74,7 @@ public class CandidateSplitVariableRefactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((oldVariable == null) ? 0 : oldVariable.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		result = prime * result + ((splitVariables == null) ? 0 : splitVariables.hashCode());
-		return result;
+		return oldAttribute.hashCode(this);
 	}
 
 	@Override

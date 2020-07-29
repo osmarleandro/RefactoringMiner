@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -170,5 +171,15 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public int hashCode(CandidateSplitVariableRefactoring candidateSplitVariableRefactoring) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((candidateSplitVariableRefactoring.oldVariable == null) ? 0 : candidateSplitVariableRefactoring.oldVariable.hashCode());
+		result = prime * result + ((candidateSplitVariableRefactoring.operationAfter == null) ? 0 : candidateSplitVariableRefactoring.operationAfter.hashCode());
+		result = prime * result + ((candidateSplitVariableRefactoring.operationBefore == null) ? 0 : candidateSplitVariableRefactoring.operationBefore.hashCode());
+		result = prime * result + ((candidateSplitVariableRefactoring.splitVariables == null) ? 0 : candidateSplitVariableRefactoring.splitVariables.hashCode());
+		return result;
 	}
 }
