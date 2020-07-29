@@ -24,7 +24,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> numberLiterals;
 	private List<String> nullLiterals;
 	private List<String> booleanLiterals;
-	private List<String> typeLiterals;
+	public List<String> typeLiterals;
 	private Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
@@ -132,7 +132,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	@Override
 	public List<String> getTypeLiterals() {
-		return typeLiterals;
+		return locationInfo.getTypeLiterals(this);
 	}
 
 	@Override
