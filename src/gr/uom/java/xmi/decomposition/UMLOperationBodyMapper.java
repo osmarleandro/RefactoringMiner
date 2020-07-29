@@ -22,6 +22,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationDetection;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4160,5 +4161,36 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public boolean extractMatchCondition(ExtractOperationDetection extractOperationDetection, List<AbstractCodeMapping> additionalExactMatches) {
+		int mappings = mappingsWithoutBlocks();
+		int nonMappedElementsT1 = nonMappedElementsT1();
+		int nonMappedElementsT2 = nonMappedElementsT2();
+		List<AbstractCodeMapping> exactMatchList = new ArrayList<AbstractCodeMapping>(getExactMatches());
+		boolean exceptionHandlingExactMatch = false;
+		boolean throwsNewExceptionExactMatch = false;
+		if(exactMatchList.size() == 1) {
+			AbstractCodeMapping mapping = exactMatchList.get(0);
+			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
+				StatementObject statement1 = (StatementObject)mapping.getFragment1();
+				StatementObject statement2 = (StatementObject)mapping.getFragment2();
+				if(statement1.getParent().getString().startsWith("catch(") &&
+						statement2.getParent().getString().startsWith("catch(")) {
+					exceptionHandlingExactMatch = true;
+				}
+			}
+			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
+				throwsNewExceptionExactMatch = true;
+			}
+		}
+		exactMatchList.addAll(additionalExactMatches);
+		int exactMatches = exactMatchList.size();
+		return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
+				(exactMatches >= mappings && nonMappedElementsT1 == 0) ||
+				(exactMatches == 1 && !throwsNewExceptionExactMatch && nonMappedElementsT2-exactMatches <= 10) ||
+				(!exceptionHandlingExactMatch && exactMatches > 1 && additionalExactMatches.size() < exactMatches && nonMappedElementsT2-exactMatches < 20) ||
+				(mappings == 1 && mappings > nonMappedLeafElementsT2())) ||
+				extractOperationDetection.argumentExtractedWithDefaultReturnAdded(this);
 	}
 }

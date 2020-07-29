@@ -88,7 +88,7 @@ public class ExtractOperationDetection {
 					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
-						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
+						if(nestedMapper.extractMatchCondition(this, new ArrayList<AbstractCodeMapping>()) && operationBodyMapper.extractMatchCondition(this, additionalExactMatches)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
@@ -114,7 +114,7 @@ public class ExtractOperationDetection {
 				}
 			}
 			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
-			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
+			if(operationBodyMapper.extractMatchCondition(this, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
 				}
@@ -228,38 +228,7 @@ public class ExtractOperationDetection {
 		return null;
 	}
 
-	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-		List<AbstractCodeMapping> exactMatchList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getExactMatches());
-		boolean exceptionHandlingExactMatch = false;
-		boolean throwsNewExceptionExactMatch = false;
-		if(exactMatchList.size() == 1) {
-			AbstractCodeMapping mapping = exactMatchList.get(0);
-			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
-				StatementObject statement1 = (StatementObject)mapping.getFragment1();
-				StatementObject statement2 = (StatementObject)mapping.getFragment2();
-				if(statement1.getParent().getString().startsWith("catch(") &&
-						statement2.getParent().getString().startsWith("catch(")) {
-					exceptionHandlingExactMatch = true;
-				}
-			}
-			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
-				throwsNewExceptionExactMatch = true;
-			}
-		}
-		exactMatchList.addAll(additionalExactMatches);
-		int exactMatches = exactMatchList.size();
-		return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
-				(exactMatches >= mappings && nonMappedElementsT1 == 0) ||
-				(exactMatches == 1 && !throwsNewExceptionExactMatch && nonMappedElementsT2-exactMatches <= 10) ||
-				(!exceptionHandlingExactMatch && exactMatches > 1 && additionalExactMatches.size() < exactMatches && nonMappedElementsT2-exactMatches < 20) ||
-				(mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2())) ||
-				argumentExtractedWithDefaultReturnAdded(operationBodyMapper);
-	}
-
-	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
+	public boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
 		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
