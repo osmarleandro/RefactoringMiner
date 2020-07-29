@@ -182,7 +182,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
 			ranges.add(invocation.codeRange()
 					.setDescription("inlined method invocation")
-					.setCodeElement(invocation.actualString()));
+					.setCodeElement(invocation.getLocationInfo().actualString(this)));
 		}
 		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
 			ranges.add(statement.codeRange().

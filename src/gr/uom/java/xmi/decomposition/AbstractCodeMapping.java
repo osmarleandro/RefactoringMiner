@@ -76,12 +76,12 @@ public abstract class AbstractCodeMapping {
 		OperationInvocation invocation1 = fragment1.invocationCoveringEntireFragment();
 		OperationInvocation invocation2 = fragment2.invocationCoveringEntireFragment();
 		if(invocation1 != null && invocation2 != null) {
-			return invocation1.actualString().equals(invocation2.actualString());
+			return invocation1.getLocationInfo().actualString(this).equals(invocation2.getLocationInfo().actualString(this));
 		}
 		ObjectCreation creation1 = fragment1.creationCoveringEntireFragment();
 		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment();
 		if(creation1 != null && creation2 != null) {
-			return creation1.actualString().equals(creation2.actualString());
+			return creation1.getLocationInfo().actualString(this).equals(creation2.getLocationInfo().actualString(this));
 		}
 		return false;
 	}

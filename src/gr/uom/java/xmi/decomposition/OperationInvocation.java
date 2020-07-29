@@ -299,9 +299,9 @@ public class OperationInvocation extends AbstractCall {
 
     public Set<String> callChainIntersection(OperationInvocation other) {
     	Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
-    	s1.add(this.actualString());
+    	s1.add(this.getLocationInfo().actualString(this));
     	Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
-    	s2.add(other.actualString());
+    	s2.add(other.getLocationInfo().actualString(this));
 
     	Set<String> intersection = new LinkedHashSet<String>(s1);
     	intersection.retainAll(s2);
