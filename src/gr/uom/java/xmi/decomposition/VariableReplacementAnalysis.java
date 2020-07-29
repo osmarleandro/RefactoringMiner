@@ -1105,7 +1105,7 @@ public class VariableReplacementAnalysis {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
-						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
+						ref.getNewVariable().getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
 					
 				}
@@ -1169,7 +1169,7 @@ public class VariableReplacementAnalysis {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
 					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
 					merge.getMergedVariables().contains(ref.getOriginalVariable()) &&
-					merge.getNewVariable().equals(ref.getRenamedVariable())) {
+					merge.getNewVariable().getNewVariable().equals(ref.getRenamedVariable())) {
 				return true;
 			}
 		}

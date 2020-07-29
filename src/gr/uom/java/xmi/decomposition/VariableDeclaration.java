@@ -256,4 +256,8 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	public VariableDeclaration getNewVariable() {
+		return this;
+	}
 }

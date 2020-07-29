@@ -718,7 +718,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								}
 							}
 						}
-						if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
+						if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getNewVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
 							Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
