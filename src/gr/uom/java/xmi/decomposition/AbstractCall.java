@@ -306,7 +306,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
-			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
+			int argumentIntersectionSize = call.argumentIntersectionSize(this, parameterToArgumentMap);
 			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
 				return true;
 			}
@@ -339,19 +339,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			}
 		}
 		return args;
-	}
-
-	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
-		Set<String> argumentIntersection = argumentIntersection(call);
-		int argumentIntersectionSize = argumentIntersection.size();
-		for(String parameter : parameterToArgumentMap.keySet()) {
-			String argument = parameterToArgumentMap.get(parameter);
-			if(getArguments().contains(argument) &&
-					call.getArguments().contains(parameter)) {
-				argumentIntersectionSize++;
-			}
-		}
-		return argumentIntersectionSize;
 	}
 
 	private boolean argumentIsEqual(String statement) {
@@ -434,6 +421,19 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	int argumentIntersectionSize(AbstractCall abstractCall, Map<String, String> parameterToArgumentMap) {
+		Set<String> argumentIntersection = abstractCall.argumentIntersection(this);
+		int argumentIntersectionSize = argumentIntersection.size();
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(abstractCall.getArguments().contains(argument) &&
+					getArguments().contains(parameter)) {
+				argumentIntersectionSize++;
+			}
+		}
+		return argumentIntersectionSize;
 	}
 
 	public enum StatementCoverageType {
