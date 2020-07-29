@@ -18,8 +18,8 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
-	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	AbstractExpression value;
+	Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -50,10 +50,6 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return memberValuePairs;
 	}
 
-	public boolean isMarkerAnnotation() {
-		return value == null && memberValuePairs.isEmpty();
-	}
-	
 	public boolean isSingleMemberAnnotation() {
 		return value != null;
 	}

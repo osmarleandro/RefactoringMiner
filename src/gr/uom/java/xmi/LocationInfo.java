@@ -133,6 +133,10 @@ public class LocationInfo {
 		return true;
 	}
 	
+	public boolean isMarkerAnnotation(UMLAnnotation umlAnnotation) {
+		return umlAnnotation.value == null && umlAnnotation.memberValuePairs.isEmpty();
+	}
+
 	public enum CodeElementType {
 		TYPE_DECLARATION,
 		METHOD_DECLARATION,
