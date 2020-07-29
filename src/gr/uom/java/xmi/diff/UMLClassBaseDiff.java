@@ -38,7 +38,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
 	protected UMLClass originalClass;
 	protected UMLClass nextClass;
-	protected List<UMLOperation> addedOperations;
+	public List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
@@ -1097,7 +1097,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
 				mapperSet.add(operationBodyMapper);
 			}
-			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
+			else if(operationBodyMapper.mappedElementsMoreThanNonMappedT2(mappings, this) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					isPartOfMethodExtracted(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
@@ -1140,7 +1140,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
 				mapperSet.add(operationBodyMapper);
 			}
-			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
+			else if(operationBodyMapper.mappedElementsMoreThanNonMappedT2(mappings, this) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					isPartOfMethodExtracted(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
@@ -1253,14 +1253,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return (mappings > nonMappedElementsT1 && mappings > nonMappedElementsT2) ||
 				(nonMappedElementsT1 == 0 && mappings > Math.floor(nonMappedElementsT2/2.0)) ||
 				(mappings == 1 && nonMappedElementsT1 + nonMappedElementsT2 == 1 && operationBodyMapper.getOperation1().getName().equals(operationBodyMapper.getOperation2().getName()));
-	}
-
-	private boolean mappedElementsMoreThanNonMappedT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
-		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-		int nonMappedElementsT2CallingAddedOperation = operationBodyMapper.nonMappedElementsT2CallingAddedOperation(addedOperations);
-		int nonMappedElementsT2WithoutThoseCallingAddedOperation = nonMappedElementsT2 - nonMappedElementsT2CallingAddedOperation;
-		return mappings > nonMappedElementsT2 || (mappings >= nonMappedElementsT2WithoutThoseCallingAddedOperation &&
-				nonMappedElementsT2CallingAddedOperation >= nonMappedElementsT2WithoutThoseCallingAddedOperation);
 	}
 
 	private boolean mappedElementsMoreThanNonMappedT1(int mappings, UMLOperationBodyMapper operationBodyMapper) {
