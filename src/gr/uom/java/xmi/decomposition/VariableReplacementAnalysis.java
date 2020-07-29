@@ -39,7 +39,7 @@ import gr.uom.java.xmi.diff.UMLOperationDiff;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 public class VariableReplacementAnalysis {
-	private Set<AbstractCodeMapping> mappings;
+	public Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
@@ -445,7 +445,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
-		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = getReplacementOccurrenceMap(ReplacementType.VARIABLE_NAME);
+		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = ReplacementType.VARIABLE_NAME.getReplacementOccurrenceMap(this);
 		Set<Replacement> allConsistentRenames = allConsistentRenames(replacementOccurrenceMap);
 		Map<Replacement, Set<AbstractCodeMapping>> finalConsistentRenames = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(Replacement replacement : allConsistentRenames) {
@@ -537,72 +537,6 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private Map<Replacement, Set<AbstractCodeMapping>> getReplacementOccurrenceMap(ReplacementType type) {
-		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
-		for(AbstractCodeMapping mapping : mappings) {
-			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
-						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-					if(map.containsKey(replacement)) {
-						map.get(replacement).add(mapping);
-					}
-					else {
-						Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
-						list.add(mapping);
-						map.put(replacement, list);
-					}
-				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS)) {
-					String before = replacement.getBefore().contains("[") ? replacement.getBefore().substring(0, replacement.getBefore().indexOf("[")) : replacement.getBefore();
-					String after = replacement.getAfter().contains("[") ? replacement.getAfter().substring(0, replacement.getAfter().indexOf("[")) : replacement.getAfter();
-					Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
-					if(!returnVariableMapping(mapping, replacement) &&
-							!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-							replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-						if(map.containsKey(variableReplacement)) {
-							map.get(variableReplacement).add(mapping);
-						}
-						else {
-							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
-							list.add(mapping);
-							map.put(variableReplacement, list);
-						}
-					}
-				}
-				else if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION)) {
-					MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
-					OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
-					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
-					if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments().size() == invocation2.getArguments().size()) {
-						for(int i=0; i<invocation1.getArguments().size(); i++) {
-							String argument1 = invocation1.getArguments().get(i);
-							String argument2 = invocation2.getArguments().get(i);
-							if(argument1.contains("[") || argument2.contains("[")) {
-								String before = argument1.contains("[") ? argument1.substring(0, argument1.indexOf("[")) : argument1;
-								String after = argument2.contains("[") ? argument2.substring(0, argument2.indexOf("[")) : argument2;
-								Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
-								if(!returnVariableMapping(mapping, replacement) &&
-										!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-										replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-									if(map.containsKey(variableReplacement)) {
-										map.get(variableReplacement).add(mapping);
-									}
-									else {
-										Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
-										list.add(mapping);
-										map.put(variableReplacement, list);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return map;
-	}
-
 	private Map<Replacement, Set<AbstractCodeMapping>> getVariableDeclarationReplacementOccurrenceMap() {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(AbstractCodeMapping mapping : mappings) {
@@ -665,12 +599,12 @@ public class VariableReplacementAnalysis {
 		return map;
 	}
 
-	private static boolean returnVariableMapping(AbstractCodeMapping mapping, Replacement replacement) {
+	public static boolean returnVariableMapping(AbstractCodeMapping mapping, Replacement replacement) {
 		return mapping.getFragment1().getString().equals("return " + replacement.getBefore() + ";\n") &&
 				mapping.getFragment2().getString().equals("return " + replacement.getAfter() + ";\n");
 	}
 
-	private boolean containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(Set<Replacement> replacements) {
+	public boolean containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(Set<Replacement> replacements) {
 		for(Replacement replacement : replacements) {
 			if(replacement instanceof MethodInvocationReplacement) {
 				MethodInvocationReplacement r = (MethodInvocationReplacement)replacement;
@@ -681,7 +615,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
+	public boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
 		AbstractCodeFragment fragment1 = mapping.getFragment1();
 		AbstractCodeFragment fragment2 = mapping.getFragment2();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();

@@ -1,5 +1,14 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.VariableReplacementAnalysis;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -113,5 +122,71 @@ public class Replacement {
 		EXPRESSION_REPLACED_WITH_TERNARY_THEN,
 		COMPOSITE,
 		CONCATENATION, CONDITIONAL;
+
+		public Map<Replacement, Set<AbstractCodeMapping>> getReplacementOccurrenceMap(VariableReplacementAnalysis variableReplacementAnalysis) {
+			Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
+			for(AbstractCodeMapping mapping : variableReplacementAnalysis.mappings) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(replacement.getType().equals(this) && !VariableReplacementAnalysis.returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+							!variableReplacementAnalysis.containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+							variableReplacementAnalysis.replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+						if(map.containsKey(replacement)) {
+							map.get(replacement).add(mapping);
+						}
+						else {
+							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+							list.add(mapping);
+							map.put(replacement, list);
+						}
+					}
+					else if(replacement.getType().equals(ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS)) {
+						String before = replacement.getBefore().contains("[") ? replacement.getBefore().substring(0, replacement.getBefore().indexOf("[")) : replacement.getBefore();
+						String after = replacement.getAfter().contains("[") ? replacement.getAfter().substring(0, replacement.getAfter().indexOf("[")) : replacement.getAfter();
+						Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
+						if(!VariableReplacementAnalysis.returnVariableMapping(mapping, replacement) &&
+								!variableReplacementAnalysis.containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+								variableReplacementAnalysis.replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+							if(map.containsKey(variableReplacement)) {
+								map.get(variableReplacement).add(mapping);
+							}
+							else {
+								Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+								list.add(mapping);
+								map.put(variableReplacement, list);
+							}
+						}
+					}
+					else if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION)) {
+						MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
+						OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
+						OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
+						if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments().size() == invocation2.getArguments().size()) {
+							for(int i=0; i<invocation1.getArguments().size(); i++) {
+								String argument1 = invocation1.getArguments().get(i);
+								String argument2 = invocation2.getArguments().get(i);
+								if(argument1.contains("[") || argument2.contains("[")) {
+									String before = argument1.contains("[") ? argument1.substring(0, argument1.indexOf("[")) : argument1;
+									String after = argument2.contains("[") ? argument2.substring(0, argument2.indexOf("[")) : argument2;
+									Replacement variableReplacement = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
+									if(!VariableReplacementAnalysis.returnVariableMapping(mapping, replacement) &&
+											!variableReplacementAnalysis.containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+											variableReplacementAnalysis.replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+										if(map.containsKey(variableReplacement)) {
+											map.get(variableReplacement).add(mapping);
+										}
+										else {
+											Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+											list.add(mapping);
+											map.put(variableReplacement, list);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return map;
+		}
 	}
 }
