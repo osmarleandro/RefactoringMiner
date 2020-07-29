@@ -1508,7 +1508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return argumentizedString;
 	}
 
-	private static class ReplacementInfo {
+	static class ReplacementInfo {
 		private String argumentizedString1;
 		private String argumentizedString2;
 		private int rawDistance;
@@ -1558,6 +1558,20 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			return replacements;
+		}
+		boolean containsValidOperatorReplacements() {
+			List<Replacement> operatorReplacements = getReplacements(ReplacementType.INFIX_OPERATOR);
+			for(Replacement replacement : operatorReplacements) {
+				if(replacement.getBefore().equals("==") && !replacement.getAfter().equals("!="))
+					return false;
+				if(replacement.getBefore().equals("!=") && !replacement.getAfter().equals("=="))
+					return false;
+				if(replacement.getBefore().equals("&&") && !replacement.getAfter().equals("||"))
+					return false;
+				if(replacement.getBefore().equals("||") && !replacement.getAfter().equals("&&"))
+					return false;
+			}
+			return true;
 		}
 	}
 
@@ -1960,7 +1974,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.addReplacements(replacementsToBeAdded);
 		boolean isEqualWithReplacement = s1.equals(s2) || replacementInfo.argumentizedString1.equals(replacementInfo.argumentizedString2) || differOnlyInCastExpressionOrPrefixOperator(s1, s2, replacementInfo) || oneIsVariableDeclarationTheOtherIsVariableAssignment(s1, s2, replacementInfo) ||
 				oneIsVariableDeclarationTheOtherIsReturnStatement(s1, s2) || oneIsVariableDeclarationTheOtherIsReturnStatement(statement1.getString(), statement2.getString()) ||
-				(commonConditional(s1, s2, replacementInfo) && containsValidOperatorReplacements(replacementInfo)) ||
+				(commonConditional(s1, s2, replacementInfo) && replacementInfo.containsValidOperatorReplacements()) ||
 				equalAfterArgumentMerge(s1, s2, replacementInfo) ||
 				equalAfterNewArgumentAdditions(s1, s2, replacementInfo) ||
 				(validStatementForConcatComparison(statement1, statement2) && commonConcat(s1, s2, replacementInfo));
@@ -3448,21 +3462,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean cast(String diff1, String diff2) {
 		return (diff1.isEmpty() && diff2.startsWith("(") && diff2.endsWith(")")) || diff2.equals("(" + diff1 + ")");
-	}
-
-	private boolean containsValidOperatorReplacements(ReplacementInfo replacementInfo) {
-		List<Replacement> operatorReplacements = replacementInfo.getReplacements(ReplacementType.INFIX_OPERATOR);
-		for(Replacement replacement : operatorReplacements) {
-			if(replacement.getBefore().equals("==") && !replacement.getAfter().equals("!="))
-				return false;
-			if(replacement.getBefore().equals("!=") && !replacement.getAfter().equals("=="))
-				return false;
-			if(replacement.getBefore().equals("&&") && !replacement.getAfter().equals("||"))
-				return false;
-			if(replacement.getBefore().equals("||") && !replacement.getAfter().equals("&&"))
-				return false;
-		}
-		return true;
 	}
 
 	private boolean commonConcat(String s1, String s2, ReplacementInfo info) {
