@@ -66,21 +66,12 @@ public class ExtractOperationRefactoring implements Refactoring {
 		sb.append(" extracted from ");
 		sb.append(sourceOperationBeforeExtraction);
 		sb.append(" in class ");
-		sb.append(getClassName());
+		sb.append(bodyMapper.getClassName(this));
 		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
 			sb.append(" & moved to class ");
 			sb.append(extractedOperation.getClassName());
 		}
 		return sb.toString();
-	}
-
-	private String getClassName() {
-		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
-			return getSourceOperationBeforeExtraction().getClassName();
-		}
-		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
-		String targetClassName = getSourceOperationAfterExtraction().getClassName();
-		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {

@@ -22,6 +22,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -46,6 +47,7 @@ import java.util.regex.Pattern;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
@@ -4160,5 +4162,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	public String getClassName(ExtractOperationRefactoring extractOperationRefactoring) {
+		if(extractOperationRefactoring.getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
+			return extractOperationRefactoring.getSourceOperationBeforeExtraction().getClassName();
+		}
+		String sourceClassName = extractOperationRefactoring.getSourceOperationBeforeExtraction().getClassName();
+		String targetClassName = extractOperationRefactoring.getSourceOperationAfterExtraction().getClassName();
+		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 }
