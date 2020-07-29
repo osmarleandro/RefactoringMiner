@@ -222,7 +222,7 @@ public class Visitor extends ASTVisitor {
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			currentAnonymous.getAnonymousClassDeclarations().add(childAnonymous);
+			currentAnonymous.getLocationInfo().getAnonymousClassDeclarations(this).add(childAnonymous);
 		}
 		anonymousClassDeclarations.add(childAnonymous);
 		this.current = childNode;
@@ -264,7 +264,7 @@ public class Visitor extends ASTVisitor {
 			this.infixOperators.removeAll(anonymous.getInfixOperators());
 			this.arguments.removeAll(anonymous.getArguments());
 			this.ternaryOperatorExpressions.removeAll(anonymous.getTernaryOperatorExpressions());
-			this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());
+			this.anonymousClassDeclarations.removeAll(anonymous.getLocationInfo().getAnonymousClassDeclarations(this));
 			this.lambdas.removeAll(anonymous.getLambdas());
 		}
 	}
