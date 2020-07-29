@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +256,15 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public int hashCode(MergeVariableRefactoring mergeVariableRefactoring) {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mergeVariableRefactoring.mergedVariables == null) ? 0 : mergeVariableRefactoring.mergedVariables.hashCode());
+		result = prime * result + ((this == null) ? 0 : hashCode());
+		result = prime * result + ((mergeVariableRefactoring.operationAfter == null) ? 0 : mergeVariableRefactoring.operationAfter.hashCode());
+		result = prime * result + ((mergeVariableRefactoring.operationBefore == null) ? 0 : mergeVariableRefactoring.operationBefore.hashCode());
+		return result;
 	}
 }
