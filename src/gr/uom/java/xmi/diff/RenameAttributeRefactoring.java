@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameAttributeRefactoring implements Refactoring {
-	private VariableDeclaration originalAttribute;
-	private VariableDeclaration renamedAttribute;
+	public VariableDeclaration originalAttribute;
+	public VariableDeclaration renamedAttribute;
 	private Set<CandidateAttributeRefactoring> attributeRenames;
-	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameBefore;
+	public String classNameAfter;
 
 	public RenameAttributeRefactoring(VariableDeclaration originalAttribute, VariableDeclaration renamedAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateAttributeRefactoring> attributeRenames) {
@@ -78,34 +78,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RenameAttributeRefactoring other = (RenameAttributeRefactoring) obj;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (originalAttribute == null) {
-			if (other.originalAttribute != null)
-				return false;
-		} else if (!originalAttribute.equals(other.originalAttribute))
-			return false;
-		if (renamedAttribute == null) {
-			if (other.renamedAttribute != null)
-				return false;
-		} else if (!renamedAttribute.equals(other.renamedAttribute))
-			return false;
-		return true;
+		return originalAttribute.equals(this, obj);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
