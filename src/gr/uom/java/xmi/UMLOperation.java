@@ -833,4 +833,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public boolean gettersWithDifferentReturnType(UMLOperation addedOperation) {
+		if(isGetter() && addedOperation.isGetter()) {
+			UMLType type1 = getReturnParameter().getType();
+			UMLType type2 = addedOperation.getReturnParameter().getType();
+			if(!equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
