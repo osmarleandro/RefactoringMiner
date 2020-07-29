@@ -264,7 +264,7 @@ public class OperationInvocation extends AbstractCall {
     	//0 varargs arguments passed
     	return this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
     			//>=1 varargs arguments passed
-    			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
+    			(operation.getJavadoc().hasVarargsParameter(this) && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
     public boolean compatibleExpression(OperationInvocation other) {
@@ -440,7 +440,7 @@ public class OperationInvocation extends AbstractCall {
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
 		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
-		if(operationToBeMatched.hasVarargsParameter()) {
+		if(operationToBeMatched.getJavadoc().hasVarargsParameter(this)) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
 			if(getArguments().size() < parameters.size()) {
 				int i = 0;

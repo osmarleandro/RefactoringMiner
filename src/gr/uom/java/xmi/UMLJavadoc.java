@@ -35,4 +35,13 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public boolean hasVarargsParameter(UMLOperation umlOperation) {
+		for(UMLParameter parameter : umlOperation.parameters) {
+			if(!parameter.getKind().equals("return") && parameter.isVarargs()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
