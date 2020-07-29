@@ -488,7 +488,7 @@ public class VariableReplacementAnalysis {
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
 						replacementOccurrenceMap.get(replacement));
 				if(v1 != null)
-					candidate.setOriginalVariableDeclaration(v1.getKey());
+					v1.getKey().setOriginalVariableDeclaration(candidate);
 				if(v2 != null)
 					candidate.setRenamedVariableDeclaration(v2.getKey());
 				this.candidateAttributeRenames.add(candidate);
