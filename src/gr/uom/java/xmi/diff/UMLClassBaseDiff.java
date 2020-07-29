@@ -1288,7 +1288,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			boolean anotherMapperCallsOperation2OfTheBestMapper = false;
 			for(OperationInvocation invocation : operationInvocations2) {
 				if(invocation.matchesOperation(bestMapper.getOperation2(), operation2.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation1(), operation2.variableTypeMap(), modelDiff) &&
-						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, removedOperations)) {
+						!invocation.operationContainsMethodInvocationWithTheSameNameAndCommonArguments(removedOperations)) {
 					anotherMapperCallsOperation2OfTheBestMapper = true;
 					break;
 				}
@@ -1298,7 +1298,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			boolean anotherMapperCallsOperation1OfTheBestMapper = false;
 			for(OperationInvocation invocation : operationInvocations1) {
 				if(invocation.matchesOperation(bestMapper.getOperation1(), operation1.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation2(), operation1.variableTypeMap(), modelDiff) &&
-						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, addedOperations)) {
+						!invocation.operationContainsMethodInvocationWithTheSameNameAndCommonArguments(addedOperations)) {
 					anotherMapperCallsOperation1OfTheBestMapper = true;
 					break;
 				}
@@ -1336,23 +1336,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(!mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(OperationInvocation invocation, List<UMLOperation> operations) {
-		for(UMLOperation operation : operations) {
-			List<OperationInvocation> operationInvocations = operation.getAllOperationInvocations();
-			for(OperationInvocation operationInvocation : operationInvocations) {
-				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getArguments());
-				argumentIntersection.retainAll(invocation.getArguments());
-				if(operationInvocation.getMethodName().equals(invocation.getMethodName()) && !argumentIntersection.isEmpty()) {
-					return true;
-				}
-				else if(argumentIntersection.size() > 0 && argumentIntersection.size() == invocation.getArguments().size()) {
-					return true;
-				}
 			}
 		}
 		return false;

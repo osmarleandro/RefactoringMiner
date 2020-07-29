@@ -527,4 +527,21 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(List<UMLOperation> operations) {
+		for(UMLOperation operation : operations) {
+			List<OperationInvocation> operationInvocations = operation.getAllOperationInvocations();
+			for(OperationInvocation operationInvocation : operationInvocations) {
+				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getArguments());
+				argumentIntersection.retainAll(getArguments());
+				if(operationInvocation.getMethodName().equals(getMethodName()) && !argumentIntersection.isEmpty()) {
+					return true;
+				}
+				else if(argumentIntersection.size() > 0 && argumentIntersection.size() == getArguments().size()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
