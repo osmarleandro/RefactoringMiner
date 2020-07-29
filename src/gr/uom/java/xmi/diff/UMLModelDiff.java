@@ -53,10 +53,10 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
-   private List<UMLClassMoveDiff> classMoveDiffList;
-   private List<UMLClassMoveDiff> innerClassMoveDiffList;
-   private List<UMLClassRenameDiff> classRenameDiffList;
+   public List<UMLClassDiff> commonClassDiffList;
+   public List<UMLClassMoveDiff> classMoveDiffList;
+   public List<UMLClassMoveDiff> innerClassMoveDiffList;
+   public List<UMLClassRenameDiff> classRenameDiffList;
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
@@ -185,31 +185,6 @@ public class UMLModelDiff {
             return classDiff;
       }
       return null;
-   }
-
-   private List<UMLClassBaseDiff> getUMLClassDiffWithExistingAttributeAfter(Replacement pattern) {
-	   List<UMLClassBaseDiff> classDiffs = new ArrayList<UMLClassBaseDiff>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
-		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) != null &&
-				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-			   classDiffs.add(classDiff);
-	   }
-	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) != null &&
-				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-			   classDiffs.add(classDiff);
-	   }
-	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) != null &&
-				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-			   classDiffs.add(classDiff);
-	   }
-	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) != null &&
-				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
-			   classDiffs.add(classDiff);
-	   }
-	   return classDiffs;
    }
 
    private List<UMLClassBaseDiff> getUMLClassDiffWithNewAttributeAfter(Replacement pattern) {
@@ -1377,7 +1352,7 @@ public class UMLModelDiff {
 				 }
 			 }
 			 else if(candidate.getOriginalVariableDeclaration() != null) {
-				 List<UMLClassBaseDiff> diffs1 = getUMLClassDiffWithExistingAttributeAfter(pattern);
+				 List<UMLClassBaseDiff> diffs1 = pattern.getUMLClassDiffWithExistingAttributeAfter(this);
 				 List<UMLClassBaseDiff> diffs2 = getUMLClassDiffWithNewAttributeAfter(pattern);
 				 if(!diffs1.isEmpty()) {
 					 UMLClassBaseDiff diff1 = diffs1.get(0);
