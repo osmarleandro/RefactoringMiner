@@ -35,7 +35,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return movedAttribute.getName(this);
 	}
 
 	public RefactoringType getRefactoringType() {
