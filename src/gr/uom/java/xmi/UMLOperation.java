@@ -8,6 +8,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -832,5 +833,36 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public boolean equals(CandidateAttributeRefactoring candidateAttributeRefactoring, Object obj) {
+		if (candidateAttributeRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (candidateAttributeRefactoring.getClass() != obj.getClass())
+			return false;
+		CandidateAttributeRefactoring other = (CandidateAttributeRefactoring) obj;
+		if (this == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!equals(other.operationAfter))
+			return false;
+		if (candidateAttributeRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!candidateAttributeRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		if (candidateAttributeRefactoring.originalVariableName == null) {
+			if (other.originalVariableName != null)
+				return false;
+		} else if (!candidateAttributeRefactoring.originalVariableName.equals(other.originalVariableName))
+			return false;
+		if (candidateAttributeRefactoring.renamedVariableName == null) {
+			if (other.renamedVariableName != null)
+				return false;
+		} else if (!candidateAttributeRefactoring.renamedVariableName.equals(other.renamedVariableName))
+			return false;
+		return true;
 	}
 }

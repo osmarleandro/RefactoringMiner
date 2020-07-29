@@ -8,10 +8,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class CandidateAttributeRefactoring {
-	private String originalVariableName;
-	private String renamedVariableName;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public String originalVariableName;
+	public String renamedVariableName;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
@@ -112,34 +112,7 @@ public class CandidateAttributeRefactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CandidateAttributeRefactoring other = (CandidateAttributeRefactoring) obj;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (originalVariableName == null) {
-			if (other.originalVariableName != null)
-				return false;
-		} else if (!originalVariableName.equals(other.originalVariableName))
-			return false;
-		if (renamedVariableName == null) {
-			if (other.renamedVariableName != null)
-				return false;
-		} else if (!renamedVariableName.equals(other.renamedVariableName))
-			return false;
-		return true;
+		return operationAfter.equals(this, obj);
 	}
 
 }
