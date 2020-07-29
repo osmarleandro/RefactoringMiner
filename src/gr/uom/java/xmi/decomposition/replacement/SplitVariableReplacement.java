@@ -21,15 +21,15 @@ public class SplitVariableReplacement extends Replacement {
 				other.splitVariables.containsAll(this.splitVariables);
 	}
 
-	public boolean commonBefore(SplitVariableReplacement other) {
-		Set<String> interestion = new LinkedHashSet<String>(this.splitVariables);
-		interestion.retainAll(other.splitVariables);
-		return this.getBefore().equals(other.getBefore()) && interestion.size() == 0;
-	}
-
 	public boolean subsumes(SplitVariableReplacement other) {
 		return this.getBefore().equals(other.getBefore()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				this.splitVariables.size() > other.splitVariables.size();
+	}
+
+	public boolean commonBefore(SplitVariableReplacement splitVariableReplacement) {
+		Set<String> interestion = new LinkedHashSet<String>(splitVariableReplacement.splitVariables);
+		interestion.retainAll(splitVariables);
+		return splitVariableReplacement.getBefore().equals(getBefore()) && interestion.size() == 0;
 	}
 }
