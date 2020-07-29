@@ -2525,6 +2525,90 @@ public class UMLModelDiff {
     	  classDiff.getAddedOperations().remove(operation);
    }
 
+	void checkForOperationSignatureChanges(UMLClassBaseDiff umlClassBaseDiff) throws RefactoringMinerTimedOutException {
+	umlClassBaseDiff.consistentMethodInvocationRenames = umlClassBaseDiff.findConsistentMethodInvocationRenames();
+	if(umlClassBaseDiff.removedOperations.size() <= umlClassBaseDiff.addedOperations.size()) {
+		for(Iterator<UMLOperation> removedOperationIterator = umlClassBaseDiff.removedOperations.iterator(); removedOperationIterator.hasNext();) {
+			UMLOperation removedOperation = removedOperationIterator.next();
+			TreeSet<UMLOperationBodyMapper> mapperSet = new TreeSet<UMLOperationBodyMapper>();
+			for(Iterator<UMLOperation> addedOperationIterator = umlClassBaseDiff.addedOperations.iterator(); addedOperationIterator.hasNext();) {
+				UMLOperation addedOperation = addedOperationIterator.next();
+				int maxDifferenceInPosition;
+				if(removedOperation.hasTestAnnotation() && addedOperation.hasTestAnnotation()) {
+					maxDifferenceInPosition = Math.abs(umlClassBaseDiff.removedOperations.size() - umlClassBaseDiff.addedOperations.size());
+				}
+				else {
+					maxDifferenceInPosition = Math.max(umlClassBaseDiff.removedOperations.size(), umlClassBaseDiff.addedOperations.size());
+				}
+				umlClassBaseDiff.updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
+				List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(umlClassBaseDiff.addedAnonymousClasses);
+				for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
+					umlClassBaseDiff.updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+				}
+			}
+			if(!mapperSet.isEmpty()) {
+				UMLOperationBodyMapper bestMapper = umlClassBaseDiff.findBestMapper(mapperSet);
+				if(bestMapper != null) {
+					removedOperation = bestMapper.getOperation1();
+					UMLOperation addedOperation = bestMapper.getOperation2();
+					umlClassBaseDiff.addedOperations.remove(addedOperation);
+					removedOperationIterator.remove();
+
+					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
+					umlClassBaseDiff.operationDiffList.add(operationSignatureDiff);
+					umlClassBaseDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+					if(!removedOperation.getName().equals(addedOperation.getName()) &&
+							!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
+						RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
+						umlClassBaseDiff.refactorings.add(rename);
+					}
+					umlClassBaseDiff.addOperationBodyMapper(bestMapper);
+				}
+			}
+		}
+	}
+	else {
+		for(Iterator<UMLOperation> addedOperationIterator = umlClassBaseDiff.addedOperations.iterator(); addedOperationIterator.hasNext();) {
+			UMLOperation addedOperation = addedOperationIterator.next();
+			TreeSet<UMLOperationBodyMapper> mapperSet = new TreeSet<UMLOperationBodyMapper>();
+			for(Iterator<UMLOperation> removedOperationIterator = umlClassBaseDiff.removedOperations.iterator(); removedOperationIterator.hasNext();) {
+				UMLOperation removedOperation = removedOperationIterator.next();
+				int maxDifferenceInPosition;
+				if(removedOperation.hasTestAnnotation() && addedOperation.hasTestAnnotation()) {
+					maxDifferenceInPosition = Math.abs(umlClassBaseDiff.removedOperations.size() - umlClassBaseDiff.addedOperations.size());
+				}
+				else {
+					maxDifferenceInPosition = Math.max(umlClassBaseDiff.removedOperations.size(), umlClassBaseDiff.addedOperations.size());
+				}
+				umlClassBaseDiff.updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
+				List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(umlClassBaseDiff.addedAnonymousClasses);
+				for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
+					umlClassBaseDiff.updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+				}
+			}
+			if(!mapperSet.isEmpty()) {
+				UMLOperationBodyMapper bestMapper = umlClassBaseDiff.findBestMapper(mapperSet);
+				if(bestMapper != null) {
+					UMLOperation removedOperation = bestMapper.getOperation1();
+					addedOperation = bestMapper.getOperation2();
+					umlClassBaseDiff.removedOperations.remove(removedOperation);
+					addedOperationIterator.remove();
+
+					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
+					umlClassBaseDiff.operationDiffList.add(operationSignatureDiff);
+					umlClassBaseDiff.refactorings.addAll(operationSignatureDiff.getRefactorings());
+					if(!removedOperation.getName().equals(addedOperation.getName()) &&
+							!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
+						RenameOperationRefactoring rename = new RenameOperationRefactoring(bestMapper);
+						umlClassBaseDiff.refactorings.add(rename);
+					}
+					umlClassBaseDiff.addOperationBodyMapper(bestMapper);
+				}
+			}
+		}
+	}
+}
+
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
