@@ -25,7 +25,7 @@ public class RefactoringCollector extends RefactoringHandler {
     for (Refactoring r : refactorings) {
       if (r instanceof MoveClassRefactoring) {
         MoveClassRefactoring ref = (MoveClassRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClass().getMovedClassName()));
       } else if (r instanceof RenameClassRefactoring) {
         RenameClassRefactoring ref = (RenameClassRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getRenamedClassName()));
