@@ -32,7 +32,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -158,12 +158,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<String>();
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
-		if(operationBody != null)
-			return operationBody.getAllVariableDeclarations();
-		return new ArrayList<VariableDeclaration>();
-	}
-
 	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclarationsInScope(location);
@@ -182,7 +176,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(!parameter.getKind().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
-		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
+		for(VariableDeclaration declaration : javadoc.getAllVariableDeclarations(this)) {
 			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
 		}
 		return variableTypeMap;
