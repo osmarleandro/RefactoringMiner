@@ -33,7 +33,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> nullLiterals;
 	private List<String> booleanLiterals;
 	private List<String> typeLiterals;
-	private Map<String, List<ObjectCreation>> creationMap;
+	public Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
@@ -200,7 +200,7 @@ public class StatementObject extends AbstractStatement {
 
 	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
-		return creationMap;
+		return locationInfo.getCreationMap(this);
 	}
 
 	@Override
