@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitAttributeRefactoring implements Refactoring {
-	private VariableDeclaration oldAttribute;
+	public VariableDeclaration oldAttribute;
 	private Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
 	private String classNameBefore;
@@ -128,11 +128,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(oldAttribute.codeRange()
-				.setDescription("original attribute declaration")
-				.setCodeElement(oldAttribute.toString()));
-		return ranges;
+		return oldAttribute.leftSide();
 	}
 
 	@Override
