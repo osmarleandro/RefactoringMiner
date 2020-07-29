@@ -3426,10 +3426,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
 			int endIndexS2 = s2.lastIndexOf(commonSuffix);
 			String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
-			if(cast(diff1, diff2)) {
+			if(callSiteOperation.cast(diff1, diff2)) {
 				return true;
 			}
-			if(cast(diff2, diff1)) {
+			if(callSiteOperation.cast(diff2, diff1)) {
 				return true;
 			}
 			if(diff1.isEmpty() && (diff2.equals("!") || diff2.equals("~"))) {
@@ -3444,10 +3444,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private boolean cast(String diff1, String diff2) {
-		return (diff1.isEmpty() && diff2.startsWith("(") && diff2.endsWith(")")) || diff2.equals("(" + diff1 + ")");
 	}
 
 	private boolean containsValidOperatorReplacements(ReplacementInfo replacementInfo) {
