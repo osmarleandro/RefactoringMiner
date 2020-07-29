@@ -13,6 +13,7 @@ import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
+import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
@@ -470,5 +471,9 @@ public abstract class AbstractCodeMapping {
 		} else if (!operation2.equals(other.operation2))
 			return false;
 		return true;
+	}
+
+	public void addReference(ExtractAttributeRefactoring extractAttributeRefactoring) {
+		extractAttributeRefactoring.references.add(this);
 	}
 }

@@ -17,17 +17,13 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
 		this.attributeDeclaration = variableDeclaration;
 		this.originalClass = originalClass;
 		this.nextClass = nextClass;
 		this.references = new LinkedHashSet<AbstractCodeMapping>();
-	}
-
-	public void addReference(AbstractCodeMapping mapping) {
-		references.add(mapping);
 	}
 
 	public RefactoringType getRefactoringType() {
