@@ -781,7 +781,7 @@ public class UMLModelDiff {
 	   if(targetClassDiff != null && targetClassDiff.getSuperclass() != null) {
 		   UMLClassBaseDiff superclassOfTargetClassDiff = getUMLClassDiff(targetClassDiff.getSuperclass());
 		   if(superclassOfTargetClassDiff != null) {
-			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getNextClassName());
+			   return sourceClassImportsTargetClass(sourceClassName, superclassOfTargetClassDiff.getModelDiff().getNextClassName(this));
 		   }
 	   }
 	   return false;
@@ -1345,7 +1345,7 @@ public class UMLModelDiff {
     		  UMLAttribute a2 = diff.findAttributeInNextClass(merge.getAfter());
     		  Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
     		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-    			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
+    			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getModelDiff().getNextClassName(this), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);
     				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public String getNextClassName(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.nextClass.getName();
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
