@@ -169,25 +169,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
-		int replacedArguments = 0;
-		List<String> arguments1 = getArguments();
-		List<String> arguments2 = call.getArguments();
-		if(arguments1.size() == arguments2.size()) {
-			for(int i=0; i<arguments1.size(); i++) {
-				String argument1 = arguments1.get(i);
-				String argument2 = arguments2.get(i);
-				for(Replacement replacement : replacements) {
-					if(replacement.getBefore().equals(argument1) &&	replacement.getAfter().equals(argument2)) {
-						replacedArguments++;
-						break;
-					}
-				}
-			}
-		}
-		return replacedArguments > 0 && replacedArguments == arguments1.size();
-	}
-
 	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
@@ -210,7 +191,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
 		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
-		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
+		boolean allArgumentsReplaced = call.allArgumentsReplaced(this, replacements);
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
 				!identicalName(call) &&
@@ -434,6 +415,25 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean allArgumentsReplaced(AbstractCall abstractCall, Set<Replacement> replacements) {
+		int replacedArguments = 0;
+		List<String> arguments1 = abstractCall.getArguments();
+		List<String> arguments2 = getArguments();
+		if(arguments1.size() == arguments2.size()) {
+			for(int i=0; i<arguments1.size(); i++) {
+				String argument1 = arguments1.get(i);
+				String argument2 = arguments2.get(i);
+				for(Replacement replacement : replacements) {
+					if(replacement.getBefore().equals(argument1) &&	replacement.getAfter().equals(argument2)) {
+						replacedArguments++;
+						break;
+					}
+				}
+			}
+		}
+		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
 	public enum StatementCoverageType {
