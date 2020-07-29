@@ -833,4 +833,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	public void addOperation(UMLAbstractClass umlAbstractClass) {
+		umlAbstractClass.operations.add(this);
+	}
 }
