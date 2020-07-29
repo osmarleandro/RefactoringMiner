@@ -304,4 +304,18 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	boolean isExactAfterAbstraction(AbstractCodeMapping abstractCodeMapping) {
+		OperationInvocation invocation1 = invocationCoveringEntireFragment();
+		OperationInvocation invocation2 = abstractCodeMapping.fragment2.invocationCoveringEntireFragment();
+		if(invocation1 != null && invocation2 != null) {
+			return invocation1.actualString().equals(invocation2.actualString());
+		}
+		ObjectCreation creation1 = creationCoveringEntireFragment();
+		ObjectCreation creation2 = abstractCodeMapping.fragment2.creationCoveringEntireFragment();
+		if(creation1 != null && creation2 != null) {
+			return creation1.actualString().equals(creation2.actualString());
+		}
+		return false;
+	}
 }

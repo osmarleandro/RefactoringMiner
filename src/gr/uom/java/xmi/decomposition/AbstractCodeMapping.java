@@ -21,7 +21,7 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
@@ -63,27 +63,13 @@ public abstract class AbstractCodeMapping {
 
 	public boolean isExact() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
-				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
+				fragment1.getString().equals(fragment2.getString()) || fragment1.isExactAfterAbstraction(this) || containsIdenticalOrCompositeReplacement()) && !isKeyword();
 	}
 
 	private boolean isKeyword() {
 		return fragment1.getString().startsWith("return;") ||
 				fragment1.getString().startsWith("break;") ||
 				fragment1.getString().startsWith("continue;");
-	}
-
-	private boolean isExactAfterAbstraction() {
-		OperationInvocation invocation1 = fragment1.invocationCoveringEntireFragment();
-		OperationInvocation invocation2 = fragment2.invocationCoveringEntireFragment();
-		if(invocation1 != null && invocation2 != null) {
-			return invocation1.actualString().equals(invocation2.actualString());
-		}
-		ObjectCreation creation1 = fragment1.creationCoveringEntireFragment();
-		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment();
-		if(creation1 != null && creation2 != null) {
-			return creation1.actualString().equals(creation2.actualString());
-		}
-		return false;
 	}
 
 	private boolean containsIdenticalOrCompositeReplacement() {
