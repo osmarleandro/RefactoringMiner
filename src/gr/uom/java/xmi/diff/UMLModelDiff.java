@@ -123,7 +123,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private UMLClassBaseDiff getUMLClassDiff(String className) {
+   public UMLClassBaseDiff getUMLClassDiff(String className) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
@@ -1866,7 +1866,7 @@ public class UMLModelDiff {
             	  }
                   UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(mapper, addedOperation, parameterToArgumentMap1, parameterToArgumentMap2, getUMLClassDiff(addedOperation.getClassName()));
                   if(!anotherAddedMethodExistsWithBetterMatchingInvocationExpression(addedOperationInvocation, addedOperation, addedOperations) &&
-                		  !conflictingExpression(addedOperationInvocation, addedOperation, mapper.getOperation2().variableTypeMap()) &&
+                		  !addedOperationInvocation.conflictingExpression(this, addedOperation, mapper.getOperation2().variableTypeMap()) &&
                 		  extractAndMoveMatchCondition(operationBodyMapper, mapper)) {
                 	  if(className.equals(addedOperation.getClassName())) {
                 		  //extract inside moved or renamed class
@@ -1917,23 +1917,6 @@ public class UMLModelDiff {
             }
          }
       }
-   }
-
-   private boolean conflictingExpression(OperationInvocation invocation, UMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
-	   String expression = invocation.getExpression();
-	   if(expression != null && variableTypeMap.containsKey(expression)) {
-		   UMLType type = variableTypeMap.get(expression);
-		   UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
-		   boolean superclassRelationship = false;
-		   if(classDiff != null && classDiff.getNewSuperclass() != null &&
-				   classDiff.getNewSuperclass().equals(type)) {
-			   superclassRelationship = true;
-		   }
-		   if(!addedOperation.getNonQualifiedClassName().equals(type.getClassType()) && !superclassRelationship) {
-			   return true;
-		   }
-	   }
-	   return false;
    }
 
    private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
