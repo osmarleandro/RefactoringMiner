@@ -22,6 +22,8 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4160,5 +4162,17 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @param extractOperationRefactoring TODO
+	 * @return the code range(s) of the invocation(s) to the extracted method inside the source method in the <b>child</b> commit
+	 */
+	public Set<CodeRange> getExtractedOperationInvocationCodeRanges(ExtractOperationRefactoring extractOperationRefactoring) {
+		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
+		for(OperationInvocation invocation : extractOperationRefactoring.extractedOperationInvocations) {
+			codeRanges.add(invocation.codeRange());
+		}
+		return codeRanges;
 	}
 }
