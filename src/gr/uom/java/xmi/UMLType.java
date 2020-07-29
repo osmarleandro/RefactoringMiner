@@ -105,18 +105,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 
-	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
-		if(!this.isParameterized() && !typeObject.isParameterized())
-			return this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && typeObject.isParameterized())
-			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
-		else if(this.isParameterized() && this.typeArgumentsToString().equals("<?>") && !typeObject.isParameterized())
-			return this.arrayDimension == typeObject.arrayDimension;
-		else if(!this.isParameterized() && typeObject.isParameterized() && typeObject.typeArgumentsToString().equals("<?>"))
-			return this.arrayDimension == typeObject.arrayDimension;
-		return false;
-	}
-
 	public boolean containsTypeArgument(String type) {
 		for(UMLType typeArgument : typeArguments) {
 			if(typeArgument.toString().equals(type)) {
@@ -167,6 +155,18 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType umlType) {
+		if(!umlType.isParameterized() && !isParameterized())
+			return umlType.arrayDimension == arrayDimension;
+		else if(umlType.isParameterized() && isParameterized())
+			return umlType.equalTypeArguments(this) && umlType.arrayDimension == arrayDimension;
+		else if(umlType.isParameterized() && umlType.typeArgumentsToString().equals("<?>") && !isParameterized())
+			return umlType.arrayDimension == arrayDimension;
+		else if(!umlType.isParameterized() && isParameterized() && typeArgumentsToString().equals("<?>"))
+			return umlType.arrayDimension == arrayDimension;
+		return false;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
