@@ -7,6 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -832,5 +833,27 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}
 		return null;
+	}
+
+	public void removeCommonTypes(UMLOperationBodyMapper umlOperationBodyMapper, Set<String> strings1, Set<String> strings2, List<String> types1, List<String> types2) {
+		if(types1.size() == types2.size()) {
+			Set<String> removeFromIntersection = new LinkedHashSet<String>();
+			for(int i=0; i<types1.size(); i++) {
+				String type1 = types1.get(i);
+				String type2 = types2.get(i);
+				if(!type1.equals(type2)) {
+					removeFromIntersection.add(type1);
+					removeFromIntersection.add(type2);
+				}
+			}
+			Set<String> intersection = new LinkedHashSet<String>(strings1);
+			intersection.retainAll(strings2);
+			intersection.removeAll(removeFromIntersection);
+			strings1.removeAll(intersection);
+			strings2.removeAll(intersection);
+		}
+		else {
+			umlOperationBodyMapper.removeCommonElements(strings1, strings2);
+		}
 	}
 }
