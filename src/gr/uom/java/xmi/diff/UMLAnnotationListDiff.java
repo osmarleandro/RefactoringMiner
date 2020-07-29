@@ -44,7 +44,7 @@ public class UMLAnnotationListDiff {
 		}
 		for(SimpleEntry<UMLAnnotation, UMLAnnotation> entry : matchedAnnotations) {
 			UMLAnnotationDiff annotationDiff = new UMLAnnotationDiff(entry.getKey(), entry.getValue());
-			if(!annotationDiff.isEmpty()) {
+			if(!annotationDiff.getAddedAnnotation().isEmpty(this)) {
 				annotationDiffList.add(annotationDiff);
 			}
 		}
