@@ -59,7 +59,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.REMOVE_ATTRIBUTE_ANNOTATION;
+		return annotation.getRefactoringType();
 	}
 
 	@Override
