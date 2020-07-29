@@ -1841,7 +1841,7 @@ public class UMLModelDiff {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className);
             		  if(umlClassDiff == null) {
             			  for(UMLClassDiff classDiff : commonClassDiffList) {
-            				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses()) {
+            				  for(UMLAnonymousClass anonymousClass : classDiff.getModelDiff().getAddedAnonymousClasses(this)) {
             					  if(className.equals(anonymousClass.getCodePath())) {
             						  umlClassDiff = classDiff;
             						  attributes.addAll(anonymousClass.attributesOfType(addedOperation.getClassName()));
@@ -2524,6 +2524,10 @@ public class UMLModelDiff {
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);
    }
+
+	public List<UMLAnonymousClass> getAddedAnonymousClasses(UMLClassBaseDiff umlClassBaseDiff) {
+	return umlClassBaseDiff.addedAnonymousClasses;
+}
 
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
