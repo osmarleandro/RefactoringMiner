@@ -59,7 +59,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.REMOVE_METHOD_ANNOTATION;
+		return annotation.getRefactoringType();
 	}
 
 	@Override
