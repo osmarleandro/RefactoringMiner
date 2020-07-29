@@ -20,11 +20,11 @@ public class MovedClassToAnotherSourceFolder {
 	}
 	
 	public String getOriginalClassName() {
-		return originalClass.getName();
+		return originalClass.getJavadoc().getName(this);
 	}
 
 	public String getMovedClassName() {
-		return movedClass.getName();
+		return movedClass.getJavadoc().getName(this);
 	}
 
 	public UMLClass getOriginalClass() {
