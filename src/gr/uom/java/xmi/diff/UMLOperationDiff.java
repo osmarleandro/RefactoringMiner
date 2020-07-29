@@ -207,7 +207,7 @@ public class UMLOperationDiff {
 			sb.append("\t").append("abstraction changed from " + (removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
 					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
 		if(returnTypeChanged || qualifiedReturnTypeChanged)
-			sb.append("\t").append("return type changed from " + removedOperation.getReturnParameter() + " to " + addedOperation.getReturnParameter()).append("\n");
+			sb.append("\t").append("return type changed from " + removedOperation.getJavadoc().getReturnParameter(this) + " to " + addedOperation.getJavadoc().getReturnParameter(this)).append("\n");
 		for(UMLParameter umlParameter : removedParameters) {
 			sb.append("\t").append("parameter " + umlParameter + " removed").append("\n");
 		}
@@ -232,8 +232,8 @@ public class UMLOperationDiff {
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(returnTypeChanged || qualifiedReturnTypeChanged) {
-			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
-			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
+			UMLParameter removedOperationReturnParameter = removedOperation.getJavadoc().getReturnParameter(this);
+			UMLParameter addedOperationReturnParameter = addedOperation.getJavadoc().getReturnParameter(this);
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
 				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
 				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
