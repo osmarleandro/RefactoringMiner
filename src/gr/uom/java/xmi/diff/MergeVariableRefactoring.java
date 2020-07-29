@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> mergedVariables;
-	private VariableDeclaration newVariable;
+	public VariableDeclaration newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
@@ -148,10 +148,6 @@ public class MergeVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(newVariable.codeRange()
-				.setDescription("new variable declaration")
-				.setCodeElement(newVariable.toString()));
-		return ranges;
+		return newVariable.rightSide();
 	}
 }
