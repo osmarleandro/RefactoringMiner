@@ -208,7 +208,7 @@ public class UMLModelASTReader {
 		
 		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
 		
-		this.getUmlModel().addClass(umlClass);
+		umlClass.addClass(this.getUmlModel());
 	}
 
 	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
@@ -308,7 +308,7 @@ public class UMLModelASTReader {
     	
     	processAnonymousClassDeclarations(cu, typeDeclaration, packageName, sourceFile, className, umlClass);
     	
-    	this.getUmlModel().addClass(umlClass);
+    	umlClass.addClass(this.getUmlModel());
 		
 		TypeDeclaration[] types = typeDeclaration.getTypes();
 		for(TypeDeclaration type : types) {

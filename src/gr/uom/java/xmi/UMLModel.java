@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
 	private Set<String> repositoryDirectories;
-    private List<UMLClass> classList;
+    List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
     private List<UMLRealization> realizationList;
 
@@ -25,11 +25,7 @@ public class UMLModel {
         realizationList = new ArrayList<UMLRealization>();
     }
 
-	public void addClass(UMLClass umlClass) {
-        classList.add(umlClass);
-    }
-
-    public void addGeneralization(UMLGeneralization umlGeneralization) {
+	public void addGeneralization(UMLGeneralization umlGeneralization) {
         generalizationList.add(umlGeneralization);
     }
 
