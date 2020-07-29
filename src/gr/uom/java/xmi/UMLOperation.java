@@ -8,6 +8,8 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -830,6 +832,46 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
+		}
+		return null;
+	}
+
+	public Replacement invertConditionalDirection(String s1, String s2, String operator1, String operator2) {
+		int indexS1 = s1.indexOf(operator1);
+		int indexS2 = s2.indexOf(operator2);
+		//s1 goes right, s2 goes left
+		int i = indexS1 + operator1.length();
+		int j = indexS2 - 1;
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		while(i < s1.length() && j >= 0) {
+			sb1.append(s1.charAt(i));
+			sb2.insert(0, s2.charAt(j));
+			if(sb1.toString().equals(sb2.toString())) {
+				String subCondition1 = operator1 + sb1.toString();
+				String subCondition2 = sb2.toString() + operator2;
+				Replacement r = new Replacement(subCondition1, subCondition2, ReplacementType.INVERT_CONDITIONAL);
+				return r;
+			}
+			i++;
+			j--;
+		}
+		//s1 goes left, s2 goes right
+		i = indexS1 - 1;
+		j = indexS2 + operator2.length();
+		sb1 = new StringBuilder();
+		sb2 = new StringBuilder();
+		while(i >= 0 && j < s2.length()) {
+			sb1.insert(0, s1.charAt(i));
+			sb2.append(s2.charAt(j));
+			if(sb1.toString().equals(sb2.toString())) {
+				String subCondition1 = sb1.toString() + operator1;
+				String subCondition2 = operator2 + sb2.toString();
+				Replacement r = new Replacement(subCondition1, subCondition2, ReplacementType.INVERT_CONDITIONAL);
+				return r;
+			}
+			i--;
+			j++;
 		}
 		return null;
 	}
