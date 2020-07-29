@@ -31,7 +31,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		return RefactoringType.INLINE_VARIABLE;
+		return operationAfter.getRefactoringType();
 	}
 
 	public String getName() {
