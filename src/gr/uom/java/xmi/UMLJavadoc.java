@@ -35,4 +35,8 @@ public class UMLJavadoc {
 		}
 		return false;
 	}
+
+	public void setFinal(UMLAttribute umlAttribute, boolean isFinal) {
+		umlAttribute.isFinal = isFinal;
+	}
 }
