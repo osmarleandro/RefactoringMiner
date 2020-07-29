@@ -2170,7 +2170,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				invocationCoveringTheEntireStatement1.identicalName(invocationCoveringTheEntireStatement2) ) {
 			for(String key : methodInvocationMap2.keySet()) {
 				for(AbstractCall invocation2 : methodInvocationMap2.get(key)) {
-					if(invocationCoveringTheEntireStatement1.identicalOrReplacedArguments(invocation2, replacementInfo.getReplacements())) {
+					if(invocation2.identicalOrReplacedArguments(invocationCoveringTheEntireStatement1, replacementInfo.getReplacements())) {
 						return replacementInfo.getReplacements();
 					}
 				}
