@@ -4161,4 +4161,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		return false;
 	}
+
+	public UMLOperationBodyMapper getBodyMapper() {
+		return this;
+	}
 }
