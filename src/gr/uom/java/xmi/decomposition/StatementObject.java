@@ -34,7 +34,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> booleanLiterals;
 	private List<String> typeLiterals;
 	private Map<String, List<ObjectCreation>> creationMap;
-	private List<String> infixOperators;
+	List<String> infixOperators;
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
@@ -201,11 +201,6 @@ public class StatementObject extends AbstractStatement {
 	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
 		return creationMap;
-	}
-
-	@Override
-	public List<String> getInfixOperators() {
-		return infixOperators;
 	}
 
 	@Override
