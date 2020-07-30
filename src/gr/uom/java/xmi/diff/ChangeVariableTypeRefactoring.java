@@ -19,7 +19,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
-	private Set<Refactoring> relatedRefactorings;
+	public Set<Refactoring> relatedRefactorings;
 
 	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
@@ -31,6 +31,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		this.relatedRefactorings = new LinkedHashSet<Refactoring>();
 	}
 
+	@Override
 	public void addRelatedRefactoring(Refactoring refactoring) {
 		this.relatedRefactorings.add(refactoring);
 	}

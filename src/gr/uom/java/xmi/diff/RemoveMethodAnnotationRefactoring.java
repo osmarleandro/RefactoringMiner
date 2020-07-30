@@ -128,4 +128,10 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public void addRelatedRefactoring(Refactoring refactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }
