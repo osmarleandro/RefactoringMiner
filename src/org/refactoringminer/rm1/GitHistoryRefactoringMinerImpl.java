@@ -65,9 +65,9 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
-	private GitHub gitHub;
+	public GitHub gitHub;
 	
 	public GitHistoryRefactoringMinerImpl() {
 		this.setRefactoringTypesToConsider(RefactoringType.ALL);
@@ -274,6 +274,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return parentCommitId;
 	}
 
+	@Override
 	private GitHub connectToGitHub() {
 		if(gitHub == null) {
 			try {

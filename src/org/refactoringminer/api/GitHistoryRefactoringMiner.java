@@ -1,6 +1,7 @@
 package org.refactoringminer.api;
 
 import org.eclipse.jgit.lib.Repository;
+import org.kohsuke.github.GitHub;
 
 /**
  * Detect refactorings in the git history.
@@ -111,4 +112,6 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	GitHub connectToGitHub();
 }
