@@ -62,4 +62,13 @@ public class CompositeType extends UMLType {
 	public String getClassType() {
 		return rightType.getClassType();
 	}
+
+	public boolean containsTypeArgument(String type) {
+		for(UMLType typeArgument : typeArguments) {
+			if(typeArgument.toString().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

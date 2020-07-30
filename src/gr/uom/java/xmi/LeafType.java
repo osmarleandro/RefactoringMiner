@@ -151,4 +151,13 @@ public class LeafType extends UMLType {
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
 	}
+
+	public boolean containsTypeArgument(String type) {
+		for(UMLType typeArgument : typeArguments) {
+			if(typeArgument.toString().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

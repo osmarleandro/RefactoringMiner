@@ -72,4 +72,13 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	public boolean containsTypeArgument(String type) {
+		for(UMLType typeArgument : typeArguments) {
+			if(typeArgument.toString().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
