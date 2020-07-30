@@ -27,7 +27,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -137,10 +137,6 @@ public class OperationInvocation extends AbstractCall {
     public String getMethodName() {
 		return methodName;
 	}
-
-    public int numberOfSubExpressions() {
-    	return subExpressions.size();
-    }
 
     public boolean matchesOperation(UMLOperation operation) {
     	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
