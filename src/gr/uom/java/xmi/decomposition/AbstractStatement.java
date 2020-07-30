@@ -30,4 +30,20 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
+			String initializer = variableDeclarations.get(0).getInitializer().toString();
+			if(initializer.equals(expression))
+				return true;
+			if(initializer.startsWith("(")) {
+				//ignore casting
+				String initializerWithoutCasting = initializer.substring(initializer.indexOf(")")+1,initializer.length());
+				if(initializerWithoutCasting.equals(expression))
+					return true;
+			}
+		}
+		return false;
+	}
 }
