@@ -60,4 +60,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		}
 	}
 
+	public boolean isIdenticalWithExtractedVariable() {
+		return identicalWithExtractedVariable;
+	}
+
 }
