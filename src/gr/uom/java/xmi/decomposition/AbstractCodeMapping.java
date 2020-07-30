@@ -471,4 +471,13 @@ public abstract class AbstractCodeMapping {
 			return false;
 		return true;
 	}
+
+	public Set<String> callChainIntersection() {
+		OperationInvocation invocation1 = this.getFragment1().invocationCoveringEntireFragment();
+		OperationInvocation invocation2 = this.getFragment2().invocationCoveringEntireFragment();
+		if(invocation1 != null && invocation2 != null) {
+			return invocation1.callChainIntersection(invocation2);
+		}
+		return new LinkedHashSet<String>();
+	}
 }
