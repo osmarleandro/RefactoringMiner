@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<String> getPostfixExpressions() {
+		List<String> postfixExpressions = new ArrayList<String>();
+		for(AbstractExpression expression : expressionList) {
+			postfixExpressions.addAll(expression.getPostfixExpressions());
+		}
+		return postfixExpressions;
+	}
 }
