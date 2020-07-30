@@ -137,16 +137,7 @@ public class GitServiceImpl implements GitService {
 
 	@Override
 	public int countCommits(Repository repository, String branch) throws Exception {
-		RevWalk walk = new RevWalk(repository);
-		try {
-			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
-			ObjectId objectId = ref.getObjectId();
-			RevCommit start = walk.parseCommit(objectId);
-			walk.setRevFilter(RevFilter.NO_MERGES);
-			return RevWalkUtils.count(walk, start, null);
-		} finally {
-			walk.dispose();
-		}
+		return commitsFilter.countCommits(repository, branch);
 	}
 
 	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
@@ -282,6 +273,19 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public int countCommits(Repository repository, String branch) throws Exception {
+			RevWalk walk = new RevWalk(repository);
+			try {
+				Ref ref = repository.findRef(GitServiceImpl.REMOTE_REFS_PREFIX + branch);
+				ObjectId objectId = ref.getObjectId();
+				RevCommit start = walk.parseCommit(objectId);
+				walk.setRevFilter(RevFilter.NO_MERGES);
+				return RevWalkUtils.count(walk, start, null);
+			} finally {
+				walk.dispose();
+			}
 		}
 	}
 
