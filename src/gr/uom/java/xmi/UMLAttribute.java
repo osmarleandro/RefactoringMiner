@@ -17,7 +17,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private VariableDeclaration variableDeclaration;
-	private UMLJavadoc javadoc;
+	UMLJavadoc javadoc;
 
 	public UMLAttribute(String name, UMLType type, LocationInfo locationInfo) {
 		this.locationInfo = locationInfo;
@@ -85,6 +85,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.variableDeclaration = variableDeclaration;
 	}
 
+	@Override
 	public UMLJavadoc getJavadoc() {
 		return javadoc;
 	}
