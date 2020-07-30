@@ -127,4 +127,10 @@ public class RenameOperationRefactoring implements Refactoring {
 				.setCodeElement(renamedOperation.toString()));
 		return ranges;
 	}
+
+	@Override
+	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

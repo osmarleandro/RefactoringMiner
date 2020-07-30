@@ -22,7 +22,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
-	private List<OperationInvocation> inlinedOperationInvocations;
+	public List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
@@ -145,6 +145,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range(s) of the invocation(s) to the inlined method inside the target method in the <b>parent</b> commit
 	 */
+	@Override
 	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
 		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
