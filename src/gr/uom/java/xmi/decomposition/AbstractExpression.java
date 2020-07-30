@@ -77,10 +77,6 @@ public class AbstractExpression extends AbstractCodeFragment {
     	return expression;
     }
 
-	public String getString() {
-    	return toString();
-    }
-  
 	public String toString() {
 		return getExpression().toString();
 	}
