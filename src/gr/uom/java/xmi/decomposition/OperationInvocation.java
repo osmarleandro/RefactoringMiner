@@ -130,11 +130,7 @@ public class OperationInvocation extends AbstractCall {
 		return newOperationInvocation;
 	}
 
-	public String getName() {
-		return getMethodName();
-	}
-
-    public String getMethodName() {
+	public String getMethodName() {
 		return methodName;
 	}
 
