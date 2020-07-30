@@ -31,14 +31,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -666,6 +670,62 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+		}
+	}
+
+	@Override
+	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception {
+		Ref refFrom = repository.findRef(startTag);
+		Ref refTo = repository.findRef(endTag);
+		try (Git git = new Git(repository)) {
+			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+					.spliterator(), false)
+			        .filter(r -> r.getParentCount() == 1)
+			        .collect(Collectors.toList());
+			Collections.reverse(revCommits);
+			return revCommits;
+		}
+	}
+
+	@Override
+	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception {
+		Ref refFrom = repository.findRef(startTag);
+		Ref refTo = repository.findRef(endTag);
+		try (Git git = new Git(repository)) {
+			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+					.spliterator(), false)
+			        .filter(r -> r.getParentCount() == 1)
+			        .collect(Collectors.toList());
+			Collections.reverse(revCommits);
+			return revCommits;
+		}
+	}
+
+	@Override
+	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception {
+		Ref refFrom = repository.findRef(startTag);
+		Ref refTo = repository.findRef(endTag);
+		try (Git git = new Git(repository)) {
+			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+					.spliterator(), false)
+			        .filter(r -> r.getParentCount() == 1)
+			        .collect(Collectors.toList());
+			Collections.reverse(revCommits);
+			return revCommits;
+		}
+	}
+
+	@Override
+	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag) throws Exception {
+		Ref refFrom = repository.findRef(startTag);
+		Ref refTo = repository.findRef(endTag);
+		try (Git git = new Git(repository)) {
+			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+					.spliterator(), false)
+			        .filter(r -> r.getParentCount() == 1)
+			        .collect(Collectors.toList());
+			Collections.reverse(revCommits);
+			return revCommits;
 		}
 	}
 

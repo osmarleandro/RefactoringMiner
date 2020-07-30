@@ -222,22 +222,7 @@ public class GitServiceImpl implements GitService {
 		return walk;
 	}
 	
-	@Override
-	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag)
-			throws Exception {
-		Ref refFrom = repository.findRef(startTag);
-		Ref refTo = repository.findRef(endTag);
-		try (Git git = new Git(repository)) {
-			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
-					.spliterator(), false)
-			        .filter(r -> r.getParentCount() == 1)
-			        .collect(Collectors.toList());
-			Collections.reverse(revCommits);
-			return revCommits;
-		}
-	}
-
-	private ObjectId getActualRefObjectId(Ref ref) {
+	protected ObjectId getActualRefObjectId(Ref ref) {
 		if(ref.getPeeledObjectId() != null) {
 			return ref.getPeeledObjectId();
 		}
