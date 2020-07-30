@@ -10,7 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
-	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
+	public List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
 	private RenamePattern pattern;
 	
 	public MoveSourceFolderRefactoring(RenamePattern pattern) {
@@ -63,6 +63,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		return pairs;
 	}
 
+	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
