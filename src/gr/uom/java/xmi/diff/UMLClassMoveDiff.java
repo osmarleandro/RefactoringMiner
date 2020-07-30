@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	private void setAbstractionChanged(boolean abstractionChanged) {
+		this.abstractionChanged = abstractionChanged;
+	}
 }
