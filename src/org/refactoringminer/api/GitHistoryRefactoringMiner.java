@@ -111,4 +111,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	@Override
+	void detectAll(Repository repository, String branch, final RefactoringHandler handler) throws Exception;
 }
