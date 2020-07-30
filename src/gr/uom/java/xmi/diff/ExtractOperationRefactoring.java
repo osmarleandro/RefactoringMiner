@@ -241,4 +241,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
