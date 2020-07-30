@@ -780,6 +780,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return getName().equals("hashCode") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 0;
 	}
 
+	@Override
 	private boolean isToString() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
 		return getName().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
