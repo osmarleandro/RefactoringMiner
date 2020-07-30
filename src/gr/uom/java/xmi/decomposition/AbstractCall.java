@@ -42,8 +42,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public abstract boolean identicalName(AbstractCall call);
 	public abstract String getName();
 	public abstract double normalizedNameDistance(AbstractCall call);
-	public abstract AbstractCall update(String oldExpression, String newExpression);
-
 	public String actualString() {
 		StringBuilder sb = new StringBuilder();
 		if(expression != null) {
