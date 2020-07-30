@@ -110,20 +110,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
-		if(pattern == null)
-			return false;
-		for(UMLOperation originalOperation : operations) {
-			String originalOperationName = originalOperation.getName();
-			if(originalOperationName.contains(pattern.getBefore())) {
-				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
-				if(originalOperationNameAfterReplacement.equals(operation.getName()))
-					return true;
-			}
-		}
-		return false;
-	}
-
 	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
 		for(UMLAttribute originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))

@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -396,5 +397,19 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
+		if(pattern == null)
+			return false;
+		for(UMLOperation originalOperation : operations) {
+			String originalOperationName = originalOperation.getName();
+			if(originalOperationName.contains(pattern.getBefore())) {
+				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
+				if(originalOperationNameAfterReplacement.equals(operation.getName()))
+					return true;
+			}
+		}
+		return false;
 	}
 }
