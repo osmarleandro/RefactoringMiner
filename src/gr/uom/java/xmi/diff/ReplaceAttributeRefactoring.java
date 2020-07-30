@@ -50,4 +50,8 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public String getName() {
+		return this.getRefactoringType().getDisplayName();
+	}
 }
