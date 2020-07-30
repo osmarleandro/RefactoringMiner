@@ -397,4 +397,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public boolean containsOperationWithTheSameName(UMLOperation operation) {
+		for(UMLOperation originalOperation : operations) {
+			if(originalOperation.getName().equals(operation.getName()))
+				return true;
+		}
+		return false;
+	}
 }

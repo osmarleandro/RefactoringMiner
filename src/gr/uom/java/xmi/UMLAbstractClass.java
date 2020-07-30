@@ -102,14 +102,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameName(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.getName().equals(operation.getName()))
-				return true;
-		}
-		return false;
-	}
-
 	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
