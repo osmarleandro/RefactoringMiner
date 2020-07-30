@@ -80,7 +80,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 	
-	private void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
+	public void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
 		int commitsCount = 0;
 		int errorCommitsCount = 0;
 		int refactoringsCount = 0;
@@ -330,18 +330,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void fetchAndDetectNew(Repository repository, final RefactoringHandler handler) throws Exception {
-		GitService gitService = new GitServiceImpl() {
-			@Override
-			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
-			}
-		};
-		RevWalk walk = gitService.fetchAndCreateNewRevsWalk(repository);
-		try {
-			detect(gitService, repository, handler, walk.iterator());
-		} finally {
-			walk.dispose();
-		}
+		handler.fetchAndDetectNew(repository, this);
 	}
 
 	protected UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
