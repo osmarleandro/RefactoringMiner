@@ -39,10 +39,13 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.revwalk.RevWalkUtils;
+import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHPullRequest;
@@ -666,6 +669,62 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+		}
+	}
+
+	@Override
+	public int countCommits(Repository repository, String branch) throws Exception {
+		RevWalk walk = new RevWalk(repository);
+		try {
+			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
+			ObjectId objectId = ref.getObjectId();
+			RevCommit start = walk.parseCommit(objectId);
+			walk.setRevFilter(RevFilter.NO_MERGES);
+			return RevWalkUtils.count(walk, start, null);
+		} finally {
+			walk.dispose();
+		}
+	}
+
+	@Override
+	public int countCommits(Repository repository, String branch) throws Exception {
+		RevWalk walk = new RevWalk(repository);
+		try {
+			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
+			ObjectId objectId = ref.getObjectId();
+			RevCommit start = walk.parseCommit(objectId);
+			walk.setRevFilter(RevFilter.NO_MERGES);
+			return RevWalkUtils.count(walk, start, null);
+		} finally {
+			walk.dispose();
+		}
+	}
+
+	@Override
+	public int countCommits(Repository repository, String branch) throws Exception {
+		RevWalk walk = new RevWalk(repository);
+		try {
+			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
+			ObjectId objectId = ref.getObjectId();
+			RevCommit start = walk.parseCommit(objectId);
+			walk.setRevFilter(RevFilter.NO_MERGES);
+			return RevWalkUtils.count(walk, start, null);
+		} finally {
+			walk.dispose();
+		}
+	}
+
+	@Override
+	public int countCommits(Repository repository, String branch) throws Exception {
+		RevWalk walk = new RevWalk(repository);
+		try {
+			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
+			ObjectId objectId = ref.getObjectId();
+			RevCommit start = walk.parseCommit(objectId);
+			walk.setRevFilter(RevFilter.NO_MERGES);
+			return RevWalkUtils.count(walk, start, null);
+		} finally {
+			walk.dispose();
 		}
 	}
 

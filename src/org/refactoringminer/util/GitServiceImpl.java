@@ -26,7 +26,6 @@ import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.patch.HunkHeader;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.TrackingRefUpdate;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	protected static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
@@ -132,20 +131,6 @@ public class GitServiceImpl implements GitService {
 		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
 		if (output.startsWith("fatal")) {
 		    throw new RuntimeException("git error " + output);
-		}
-	}
-
-	@Override
-	public int countCommits(Repository repository, String branch) throws Exception {
-		RevWalk walk = new RevWalk(repository);
-		try {
-			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
-			ObjectId objectId = ref.getObjectId();
-			RevCommit start = walk.parseCommit(objectId);
-			walk.setRevFilter(RevFilter.NO_MERGES);
-			return RevWalkUtils.count(walk, start, null);
-		} finally {
-			walk.dispose();
 		}
 	}
 
