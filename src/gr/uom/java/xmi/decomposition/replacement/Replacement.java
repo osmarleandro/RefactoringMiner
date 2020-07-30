@@ -74,6 +74,12 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 	}
 
+	public boolean equal(MergeVariableReplacement other) {
+		return this.getAfter().equals(other.getAfter()) &&
+				this.mergedVariables.containsAll(other.mergedVariables) &&
+				other.mergedVariables.containsAll(this.mergedVariables);
+	}
+
 	public enum ReplacementType {
 		TYPE, STRING_LITERAL, NUMBER_LITERAL, ANONYMOUS_CLASS_DECLARATION, INFIX_OPERATOR, VARIABLE_NAME, VARIABLE_DECLARATION,
 		MERGE_VARIABLES, SPLIT_VARIABLE, ADD_VARIABLE,
