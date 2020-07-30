@@ -3,8 +3,11 @@ package gr.uom.java.xmi.decomposition;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
@@ -114,5 +117,20 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+		if(!refactorings.contains(ref)) {
+			ref.addReference(this);
+			refactorings.add(ref);
+		}
+		else {
+			for(Refactoring refactoring : refactorings) {
+				if(refactoring.equals(ref)) {
+					((ExtractVariableRefactoring)refactoring).addReference(this);
+					break;
+				}
+			}
+		}
 	}
 }

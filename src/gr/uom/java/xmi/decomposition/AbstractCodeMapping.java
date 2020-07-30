@@ -358,21 +358,6 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
-		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
-			refactorings.add(ref);
-		}
-		else {
-			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
-					((ExtractVariableRefactoring)refactoring).addReference(this);
-					break;
-				}
-			}
-		}
-	}
-
 	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {

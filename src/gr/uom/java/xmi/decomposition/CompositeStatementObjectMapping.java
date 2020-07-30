@@ -1,6 +1,11 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.Set;
+
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
@@ -55,6 +60,21 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 					int indexDiff1 = Math.abs(this.getFragment1().getIndex() - this.getFragment2().getIndex());
 					int indexDiff2 = Math.abs(o.getFragment1().getIndex() - o.getFragment2().getIndex());
 					return Integer.valueOf(indexDiff1).compareTo(Integer.valueOf(indexDiff2));
+				}
+			}
+		}
+	}
+
+	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+		if(!refactorings.contains(ref)) {
+			ref.addReference(this);
+			refactorings.add(ref);
+		}
+		else {
+			for(Refactoring refactoring : refactorings) {
+				if(refactoring.equals(ref)) {
+					((ExtractVariableRefactoring)refactoring).addReference(this);
+					break;
 				}
 			}
 		}
