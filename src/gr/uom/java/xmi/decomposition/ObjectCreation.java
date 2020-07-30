@@ -139,4 +139,17 @@ public class ObjectCreation extends AbstractCall {
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
+
+	private List<String> preprocessArguments(List<String> arguments) {
+		List<String> args = new ArrayList<String>();
+		for(String arg : arguments) {
+			if(arg.contains("\n")) {
+				args.add(arg.substring(0, arg.indexOf("\n")));
+			}
+			else {
+				args.add(arg);
+			}
+		}
+		return args;
+	}
 }

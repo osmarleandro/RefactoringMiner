@@ -527,4 +527,17 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	private List<String> preprocessArguments(List<String> arguments) {
+		List<String> args = new ArrayList<String>();
+		for(String arg : arguments) {
+			if(arg.contains("\n")) {
+				args.add(arg.substring(0, arg.indexOf("\n")));
+			}
+			else {
+				args.add(arg);
+			}
+		}
+		return args;
+	}
 }
