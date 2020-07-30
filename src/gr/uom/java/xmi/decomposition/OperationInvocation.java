@@ -527,4 +527,14 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean expressionIsNullOrThis() {
+		if(expression == null) {
+			return true;
+		}
+		else if(expression.equals("this")) {
+			return true;
+		}
+		return false;
+	}
 }
