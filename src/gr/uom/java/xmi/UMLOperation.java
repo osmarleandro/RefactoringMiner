@@ -674,6 +674,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
+	@Override
 	public boolean equalParameterNames(UMLOperation operation) {
 		return this.equalReturnParameter(operation) && this.getParameterNameList().equals(operation.getParameterNameList());
 	}
