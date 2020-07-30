@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -9,6 +11,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLType;
 
 public class LambdaExpressionObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -40,5 +43,11 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public Map<String, UMLType> variableTypeMap() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

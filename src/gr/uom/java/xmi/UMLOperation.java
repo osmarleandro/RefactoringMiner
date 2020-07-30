@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -176,6 +176,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return null;
 	}
 
+	@Override
 	public Map<String, UMLType> variableTypeMap() {
 		Map<String, UMLType> variableTypeMap = new LinkedHashMap<String, UMLType>();
 		for(UMLParameter parameter : parameters) {

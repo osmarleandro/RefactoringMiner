@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.AnnotatableType;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -167,6 +168,12 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	@Override
+	public Map<String, UMLType> variableTypeMap() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
