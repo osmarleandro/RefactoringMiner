@@ -312,17 +312,6 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean containsVariableNameReplacement(String variableName) {
-		for(Replacement replacement : getReplacements()) {
-			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-				if(replacement.getBefore().equals(variableName) || replacement.getAfter().equals(variableName)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
