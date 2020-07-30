@@ -2,6 +2,8 @@ package gr.uom.java.xmi;
 
 import java.io.Serializable;
 
+import org.eclipse.jdt.core.dom.Type;
+
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
 	private String codePath;
 	
@@ -58,5 +60,11 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 
 	public boolean isInterface() {
 		return false;
+	}
+
+	@Override
+	public Type extractType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

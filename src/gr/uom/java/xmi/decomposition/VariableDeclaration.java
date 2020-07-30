@@ -225,6 +225,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return null;
 	}
 
+	@Override
 	private static Type extractType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		Type returnedVariableType = null;
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
