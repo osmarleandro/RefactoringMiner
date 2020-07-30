@@ -36,6 +36,8 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.api.CheckoutCommand;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -668,6 +670,46 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
 	}
+
+	public void checkout(Repository repository, String commitId) throws Exception {
+		    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		    try (Git git = new Git(repository)) {
+		        CheckoutCommand checkout = git.checkout().setName(commitId);
+		        checkout.call();
+		    }
+	//		File workingDir = repository.getDirectory().getParentFile();
+	//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		}
+
+	public void checkout(Repository repository, String commitId) throws Exception {
+		    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		    try (Git git = new Git(repository)) {
+		        CheckoutCommand checkout = git.checkout().setName(commitId);
+		        checkout.call();
+		    }
+	//		File workingDir = repository.getDirectory().getParentFile();
+	//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		}
+
+	public void checkout(Repository repository, String commitId) throws Exception {
+		    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		    try (Git git = new Git(repository)) {
+		        CheckoutCommand checkout = git.checkout().setName(commitId);
+		        checkout.call();
+		    }
+	//		File workingDir = repository.getDirectory().getParentFile();
+	//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		}
+
+	public void checkout(Repository repository, String commitId) throws Exception {
+		    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		    try (Git git = new Git(repository)) {
+		        CheckoutCommand checkout = git.checkout().setName(commitId);
+		        checkout.call();
+		    }
+	//		File workingDir = repository.getDirectory().getParentFile();
+	//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		}
 
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";

@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
@@ -40,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class GitServiceImpl implements GitService {
 
 	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
-	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
+	protected Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
@@ -114,16 +113,6 @@ public class GitServiceImpl implements GitService {
 	        throw new FileNotFoundException(repositoryPath);
 	    }
 	    return repository;
-	}
-
-	public void checkout(Repository repository, String commitId) throws Exception {
-	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
-	    try (Git git = new Git(repository)) {
-	        CheckoutCommand checkout = git.checkout().setName(commitId);
-	        checkout.call();
-	    }
-//		File workingDir = repository.getDirectory().getParentFile();
-//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
 	}
 
 	public void checkout2(Repository repository, String commitId) throws Exception {
