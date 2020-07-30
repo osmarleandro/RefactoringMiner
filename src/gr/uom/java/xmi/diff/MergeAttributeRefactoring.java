@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedAttributes;
-	private VariableDeclaration newAttribute;
+	public Set<VariableDeclaration> mergedAttributes;
+	public VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
 	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameAfter;
 	
 	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateMergeVariableRefactoring> attributeMerges) {
@@ -55,6 +55,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
