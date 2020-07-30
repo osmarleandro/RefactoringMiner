@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

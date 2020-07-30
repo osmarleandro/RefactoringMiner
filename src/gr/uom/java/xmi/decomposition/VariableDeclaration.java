@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

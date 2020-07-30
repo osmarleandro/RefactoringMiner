@@ -41,4 +41,10 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
