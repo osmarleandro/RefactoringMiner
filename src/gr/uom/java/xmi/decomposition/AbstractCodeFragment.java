@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
 	private int index;
-	private String codeFragmentAfterReplacingParametersWithArguments;
+	public String codeFragmentAfterReplacingParametersWithArguments;
 
 	public String getArgumentizedString() {
 		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString();
@@ -135,6 +135,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	public boolean equalFragment(AbstractCodeFragment other) {
 		if(this.getString().equals(other.getString())) {
 			return true;
