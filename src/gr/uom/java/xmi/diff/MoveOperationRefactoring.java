@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -125,5 +126,11 @@ public class MoveOperationRefactoring implements Refactoring {
 				.setDescription("moved method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
+	}
+
+	@Override
+	public UMLClass getExtractedClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
