@@ -20,6 +20,10 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 		return direction;
 	}
 
+	public String getBefore() {
+		return before;
+	}
+
 	public enum Direction {
 		VARIABLE_TO_INVOCATION, INVOCATION_TO_VARIABLE;
 	}

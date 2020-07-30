@@ -32,4 +32,8 @@ public class SplitVariableReplacement extends Replacement {
 				this.splitVariables.containsAll(other.splitVariables) &&
 				this.splitVariables.size() > other.splitVariables.size();
 	}
+
+	public String getBefore() {
+		return before;
+	}
 }

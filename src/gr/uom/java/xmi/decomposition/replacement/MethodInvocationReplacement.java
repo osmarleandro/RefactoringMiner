@@ -25,4 +25,8 @@ public class MethodInvocationReplacement extends Replacement {
 	public boolean differentExpressionNameAndArguments() {
 		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
 	}
+
+	public String getBefore() {
+		return before;
+	}
 }

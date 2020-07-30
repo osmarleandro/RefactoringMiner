@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
-	private String before;
+	protected String before;
 	private String after;
 	private ReplacementType type;
 	
@@ -11,10 +11,6 @@ public class Replacement {
 		this.before = before;
 		this.after = after;
 		this.type = type;
-	}
-
-	public String getBefore() {
-		return before;
 	}
 
 	public String getAfter() {
