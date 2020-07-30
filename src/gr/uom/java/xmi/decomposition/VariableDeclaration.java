@@ -2,6 +2,8 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -255,5 +257,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	@Override
+	public Map<String, Set<String>> aliasedAttributes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
