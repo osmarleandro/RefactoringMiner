@@ -203,4 +203,19 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	private boolean isCastExpressionCoveringEntireFragment(String expression) {
+		String statement = getString();
+		int index = statement.indexOf(expression + ";\n");
+		if(index != -1) {
+			String prefix = statement.substring(0, index);
+			if(prefix.contains("(") && prefix.contains(")")) {
+				String casting = prefix.substring(prefix.indexOf("("), prefix.indexOf(")")+1);
+				if(("return " + casting + expression + ";\n").equals(statement)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
