@@ -42,4 +42,10 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public void addStatement(AbstractStatement statement) {
+		statement.setIndex(statementList.size());
+		statementList.add(statement);
+		statement.setParent(this);
+	}
 }
