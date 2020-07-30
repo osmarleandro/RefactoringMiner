@@ -73,6 +73,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
 			return RefactoringType.MOVE_AND_INLINE_OPERATION;
