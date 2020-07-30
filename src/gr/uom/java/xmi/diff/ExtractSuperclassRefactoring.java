@@ -12,8 +12,8 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
-	private UMLClass extractedClass;
-	private Set<UMLClass> subclassSet;
+	public UMLClass extractedClass;
+	public Set<UMLClass> subclassSet;
 	
 	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
 		this.extractedClass = extractedClass;
@@ -21,12 +21,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(extractedClass);
-		sb.append(" from classes ");
-		sb.append(subclassSet);
-		return sb.toString();
+		return extractedClass.toString(this);
 	}
 
 	public String getName() {
