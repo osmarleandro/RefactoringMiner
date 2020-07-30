@@ -7,9 +7,9 @@ import java.util.List;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
-	private String name;
-	private UMLType type;
-	private String kind;
+	String name;
+	UMLType type;
+	String kind;
 	private boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
@@ -56,6 +56,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				this.kind.equals(parameter.kind);
 	}
 
+	@Override
 	public boolean equalsIncludingName(UMLParameter parameter) {
 		return this.name.equals(parameter.name) &&
 				this.type.equals(parameter.type) &&
