@@ -18,7 +18,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	private VariableDeclaration newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	public Set<AbstractCodeMapping> variableReferences;
 	
 	public MergeVariableRefactoring(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
@@ -45,6 +45,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
+	@Override
 	public Set<AbstractCodeMapping> getVariableReferences() {
 		return variableReferences;
 	}
