@@ -74,6 +74,10 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 	}
 
+	public Replacement getVariableNameReplacement() {
+		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
+	}
+
 	public enum ReplacementType {
 		TYPE, STRING_LITERAL, NUMBER_LITERAL, ANONYMOUS_CLASS_DECLARATION, INFIX_OPERATOR, VARIABLE_NAME, VARIABLE_DECLARATION,
 		MERGE_VARIABLES, SPLIT_VARIABLE, ADD_VARIABLE,
