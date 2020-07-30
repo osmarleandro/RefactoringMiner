@@ -128,4 +128,10 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
