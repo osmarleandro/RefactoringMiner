@@ -133,4 +133,10 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public AbstractExpression getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
