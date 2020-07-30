@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
-	private UMLOperation extractedOperation;
+	public UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
@@ -87,6 +87,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return bodyMapper;
 	}
 
+	@Override
 	public UMLOperation getExtractedOperation() {
 		return extractedOperation;
 	}
