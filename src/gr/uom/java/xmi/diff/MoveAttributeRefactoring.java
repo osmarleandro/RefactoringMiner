@@ -72,21 +72,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return movedAttribute.codeRange();
 	}
 
-	public boolean equals(Object o) {
-		if(this == o) {
-			return true;
-		}
-		
-		if(o instanceof MoveAttributeRefactoring) {
-			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
-			return this.originalAttribute.equals(other.originalAttribute) &&
-				this.movedAttribute.equals(other.movedAttribute) &&
-				this.getSourceClassName().equals(other.getSourceClassName()) &&
-				this.getTargetClassName().equals(other.getTargetClassName());
-		}
-		return false;
-	}
-
 	public int hashCode() {
 		if(hashCode == 0) {
 			int result = 17;

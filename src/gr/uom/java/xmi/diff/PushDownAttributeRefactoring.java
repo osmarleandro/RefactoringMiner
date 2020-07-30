@@ -38,4 +38,19 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public boolean equals(Object o) {
+		if(this == o) {
+			return true;
+		}
+		
+		if(o instanceof MoveAttributeRefactoring) {
+			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
+			return this.originalAttribute.equals(other.originalAttribute) &&
+				this.movedAttribute.equals(other.movedAttribute) &&
+				this.getSourceClassName().equals(other.getSourceClassName()) &&
+				this.getTargetClassName().equals(other.getTargetClassName());
+		}
+		return false;
+	}
 }
