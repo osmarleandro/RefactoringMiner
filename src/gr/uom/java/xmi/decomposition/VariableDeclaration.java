@@ -253,6 +253,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return this.locationInfo.getCodeElementType().equals(other.locationInfo.getCodeElementType());
 	}
 
+	@Override
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
