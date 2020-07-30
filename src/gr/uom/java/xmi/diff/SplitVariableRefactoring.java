@@ -158,4 +158,10 @@ public class SplitVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public Set<UMLOperation> getExtractedOperations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

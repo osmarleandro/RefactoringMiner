@@ -128,4 +128,10 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public Set<UMLOperation> getExtractedOperations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
