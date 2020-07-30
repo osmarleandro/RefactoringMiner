@@ -39,10 +39,12 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.transport.TrackingRefUpdate;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHPullRequest;
@@ -667,6 +669,102 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				currentRemoteRefs.add(ref.getObjectId());
+			}
+		}
+		
+		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		
+		RevWalk walk = new RevWalk(repository);
+		for (TrackingRefUpdate newRef : newRemoteRefs) {
+			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
+				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
+			}
+		}
+		for (ObjectId oldRef : currentRemoteRefs) {
+			walk.markUninteresting(walk.parseCommit(oldRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				currentRemoteRefs.add(ref.getObjectId());
+			}
+		}
+		
+		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		
+		RevWalk walk = new RevWalk(repository);
+		for (TrackingRefUpdate newRef : newRemoteRefs) {
+			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
+				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
+			}
+		}
+		for (ObjectId oldRef : currentRemoteRefs) {
+			walk.markUninteresting(walk.parseCommit(oldRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				currentRemoteRefs.add(ref.getObjectId());
+			}
+		}
+		
+		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		
+		RevWalk walk = new RevWalk(repository);
+		for (TrackingRefUpdate newRef : newRemoteRefs) {
+			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
+				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
+			}
+		}
+		for (ObjectId oldRef : currentRemoteRefs) {
+			walk.markUninteresting(walk.parseCommit(oldRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				currentRemoteRefs.add(ref.getObjectId());
+			}
+		}
+		
+		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		
+		RevWalk walk = new RevWalk(repository);
+		for (TrackingRefUpdate newRef : newRemoteRefs) {
+			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
+				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
+			}
+		}
+		for (ObjectId oldRef : currentRemoteRefs) {
+			walk.markUninteresting(walk.parseCommit(oldRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";

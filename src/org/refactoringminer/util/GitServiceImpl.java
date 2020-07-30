@@ -39,10 +39,10 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	protected static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
-	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
+	protected DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
 	@Override
 	public Repository cloneIfNotExists(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
@@ -149,7 +149,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	protected List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
         logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
         try (Git git = new Git(repository)) {
     		FetchResult result = git.fetch().call();
@@ -173,30 +173,6 @@ public class GitServiceImpl implements GitService {
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
 		return this.fetchAndCreateNewRevsWalk(repository, null);
-	}
-
-	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
-		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
-		for (Ref ref : repository.getRefDatabase().getRefs()) {
-			String refName = ref.getName();
-			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-				currentRemoteRefs.add(ref.getObjectId());
-			}
-		}
-		
-		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
-		
-		RevWalk walk = new RevWalk(repository);
-		for (TrackingRefUpdate newRef : newRemoteRefs) {
-			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
-				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
-			}
-		}
-		for (ObjectId oldRef : currentRemoteRefs) {
-			walk.markUninteresting(walk.parseCommit(oldRef));
-		}
-		walk.setRevFilter(commitsFilter);
-		return walk;
 	}
 
 	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
