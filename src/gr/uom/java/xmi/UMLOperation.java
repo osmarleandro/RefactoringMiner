@@ -34,7 +34,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
-	private List<UMLTypeParameter> typeParameters;
+	List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
@@ -670,6 +670,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters(operation);
 	}
 
+	@Override
 	private boolean equalTypeParameters(UMLOperation operation) {
 		return this.typeParameters.equals(operation.typeParameters);
 	}
