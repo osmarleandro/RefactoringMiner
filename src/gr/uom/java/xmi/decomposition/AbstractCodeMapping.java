@@ -20,7 +20,7 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
+	protected AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
@@ -64,12 +64,6 @@ public abstract class AbstractCodeMapping {
 	public boolean isExact() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
 				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
-	}
-
-	private boolean isKeyword() {
-		return fragment1.getString().startsWith("return;") ||
-				fragment1.getString().startsWith("break;") ||
-				fragment1.getString().startsWith("continue;");
 	}
 
 	private boolean isExactAfterAbstraction() {

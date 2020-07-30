@@ -115,4 +115,10 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		return new LinkedHashSet<String>();
 	}
+
+	private boolean isKeyword() {
+		return fragment1.getString().startsWith("return;") ||
+				fragment1.getString().startsWith("break;") ||
+				fragment1.getString().startsWith("continue;");
+	}
 }
