@@ -8,6 +8,7 @@ import java.util.Map;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.LeafType;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -132,5 +133,11 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public LeafType extractTypeObject(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

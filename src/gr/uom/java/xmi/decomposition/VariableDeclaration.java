@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import gr.uom.java.xmi.LeafType;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
@@ -255,5 +256,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	@Override
+	public LeafType extractTypeObject(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

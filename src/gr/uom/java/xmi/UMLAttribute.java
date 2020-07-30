@@ -171,4 +171,10 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
+
+	@Override
+	public LeafType extractTypeObject(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
