@@ -341,6 +341,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return args;
 	}
 
+	@Override
 	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
 		Set<String> argumentIntersection = argumentIntersection(call);
 		int argumentIntersectionSize = argumentIntersection.size();
