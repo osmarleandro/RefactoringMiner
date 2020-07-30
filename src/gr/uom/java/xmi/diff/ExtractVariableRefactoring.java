@@ -135,4 +135,10 @@ public class ExtractVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public Set<VariableDeclaration> getSplitAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
