@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringType;
 public class RenameClassRefactoring implements Refactoring {
 
 	private UMLClass originalClass;
-	private UMLClass renamedClass;
+	public UMLClass renamedClass;
 	
 	public RenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
 		this.originalClass = originalClass;
@@ -50,6 +50,7 @@ public class RenameClassRefactoring implements Refactoring {
 		return originalClass;
 	}
 
+	@Override
 	public UMLClass getRenamedClass() {
 		return renamedClass;
 	}
