@@ -527,4 +527,10 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
+		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
+				equalArguments(call) && this.arguments.size() > 0 &&
+				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
+	}
 }

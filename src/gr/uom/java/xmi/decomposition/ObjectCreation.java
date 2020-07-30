@@ -139,4 +139,10 @@ public class ObjectCreation extends AbstractCall {
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
+
+	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
+		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
+				equalArguments(call) && this.arguments.size() > 0 &&
+				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
+	}
 }
