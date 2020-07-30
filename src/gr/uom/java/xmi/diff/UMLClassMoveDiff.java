@@ -33,4 +33,10 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
+		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
+			return true;
+		return false;
+	}
 }

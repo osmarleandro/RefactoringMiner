@@ -267,13 +267,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return removedAttributes;
 	}
 
-	//return true if "classMoveDiff" represents the move of a class that is inner to this.originalClass
-	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
-		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
-			return true;
-		return false;
-	}
-
 	public boolean nextClassImportsType(String targetClass) {
 		return nextClass.importsType(targetClass);
 	}

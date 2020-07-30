@@ -25,4 +25,10 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append("\n");
 		return sb.toString();
 	}
+
+	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
+		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
+			return true;
+		return false;
+	}
 }

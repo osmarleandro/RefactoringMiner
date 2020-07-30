@@ -195,4 +195,10 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
+		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
+			return true;
+		return false;
+	}
 }
