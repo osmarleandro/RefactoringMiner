@@ -252,7 +252,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
+	public boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				!equalArguments(call) &&
@@ -304,6 +304,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
@@ -341,7 +342,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return args;
 	}
 
-	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
+	public int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
 		Set<String> argumentIntersection = argumentIntersection(call);
 		int argumentIntersectionSize = argumentIntersection.size();
 		for(String parameter : parameterToArgumentMap.keySet()) {
