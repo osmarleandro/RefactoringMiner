@@ -13,10 +13,10 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotationBefore;
-	private UMLAnnotation annotationAfter;
+	public UMLAnnotation annotationBefore;
+	public UMLAnnotation annotationAfter;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	
 	public ModifyMethodAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -90,6 +90,7 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		return pairs;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
