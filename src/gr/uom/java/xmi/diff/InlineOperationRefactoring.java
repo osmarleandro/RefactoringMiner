@@ -223,4 +223,10 @@ public class InlineOperationRefactoring implements Refactoring {
 		*/
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getTargetAttributeCodeRangeAfterMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

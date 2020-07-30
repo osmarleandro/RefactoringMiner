@@ -83,4 +83,10 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getTargetAttributeCodeRangeAfterMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
