@@ -48,6 +48,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     	return getName();
     }
 
+	@Override
 	public int compareTo(UMLAnonymousClass umlClass) {
 		return this.toString().compareTo(umlClass.toString());
 	}

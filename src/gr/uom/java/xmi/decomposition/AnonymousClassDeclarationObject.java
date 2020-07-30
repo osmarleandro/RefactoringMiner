@@ -12,6 +12,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLAnonymousClass;
 
 public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -132,5 +133,11 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public int compareTo(UMLAnonymousClass umlClass) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

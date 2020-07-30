@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public int compareTo(UMLAnonymousClass umlClass) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
