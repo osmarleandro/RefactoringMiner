@@ -128,20 +128,19 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return entityAfter;
   }
   
-  @Override
-  public int compareTo(RefactoringRelationship o) {
-    int rt = getRefactoringType().compareTo(o.getRefactoringType());
-    int cm = getMainEntity().compareTo(o.getMainEntity());
-    int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
-    int ct = refactoringType.compareTo(o.refactoringType);
-    return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
-  }
-
   public GroupKey getGroupKey() {
     return new GroupKey(refactoringType, getMainEntity());
   }
 
-  public static class GroupKey implements Comparable<GroupKey> {
+  public int compareTo(RefactoringRelationship refactoringRelationship) {
+    int rt = refactoringRelationship.getRefactoringType().compareTo(getRefactoringType());
+    int cm = refactoringRelationship.getMainEntity().compareTo(getMainEntity());
+    int cs = refactoringRelationship.getSecondaryEntity().compareTo(getSecondaryEntity());
+    int ct = refactoringRelationship.refactoringType.compareTo(refactoringType);
+    return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
+  }
+
+public static class GroupKey implements Comparable<GroupKey> {
     private final RefactoringType refactoringType;
     private final String mainEntity;
 
