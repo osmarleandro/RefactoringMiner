@@ -24,13 +24,13 @@ import org.refactoringminer.util.AstUtils;
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String name;
-	private String visibility;
-	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	String visibility;
+	boolean isAbstract;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
-	private boolean isFinal;
-	private boolean isStatic;
+	boolean isFinal;
+	boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
@@ -285,6 +285,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
 	}
 
+	@Override
 	public boolean equalSignatureIgnoringOperationName(UMLOperation operation) {
 		return this.visibility.equals(operation.visibility) &&
 				this.isAbstract == operation.isAbstract &&
@@ -670,7 +671,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters(operation);
 	}
 
-	private boolean equalTypeParameters(UMLOperation operation) {
+	boolean equalTypeParameters(UMLOperation operation) {
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
