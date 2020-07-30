@@ -23,7 +23,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
     private List<String> importedTypes;
-    private List<UMLTypeParameter> typeParameters;
+    List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
     private List<UMLAnnotation> annotations;
     
@@ -285,6 +285,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return true;
     }
 
+	@Override
 	private boolean equalTypeParameters(UMLClass umlClass) {
 		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
 	}
