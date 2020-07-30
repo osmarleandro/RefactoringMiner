@@ -128,4 +128,10 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public RenamePattern getPattern() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
