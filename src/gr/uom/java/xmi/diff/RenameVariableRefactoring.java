@@ -43,6 +43,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return RefactoringType.RENAME_VARIABLE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
