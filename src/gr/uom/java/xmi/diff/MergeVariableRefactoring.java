@@ -154,4 +154,10 @@ public class MergeVariableRefactoring implements Refactoring {
 				.setCodeElement(newVariable.toString()));
 		return ranges;
 	}
+
+	@Override
+	public void addRelatedRefactoring(Refactoring refactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }

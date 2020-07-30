@@ -126,4 +126,10 @@ public class MoveOperationRefactoring implements Refactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	@Override
+	public void addRelatedRefactoring(Refactoring refactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }

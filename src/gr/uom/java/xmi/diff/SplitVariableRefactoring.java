@@ -158,4 +158,10 @@ public class SplitVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public void addRelatedRefactoring(Refactoring refactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }

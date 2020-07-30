@@ -143,4 +143,10 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 				.setCodeElement(changedType.toString()));
 		return ranges;
 	}
+
+	@Override
+	public void addRelatedRefactoring(Refactoring refactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }
