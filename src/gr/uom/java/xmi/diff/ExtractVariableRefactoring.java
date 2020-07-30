@@ -30,6 +30,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		references.add(mapping);
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.EXTRACT_VARIABLE;
 	}
