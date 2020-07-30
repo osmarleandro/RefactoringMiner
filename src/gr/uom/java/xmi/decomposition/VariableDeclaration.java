@@ -23,10 +23,10 @@ import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
-	private String variableName;
+	public String variableName;
 	private AbstractExpression initializer;
-	private UMLType type;
-	private boolean varargsParameter;
+	public UMLType type;
+	public boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
@@ -170,6 +170,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return true;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
         sb.append(variableName).append(" : ").append(type);
