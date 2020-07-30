@@ -397,4 +397,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public boolean containsAttributeWithName(String attributeName) {
+		for(UMLAttribute originalAttribute : attributes) {
+			if(originalAttribute.getName().equals(attributeName))
+				return true;
+		}
+		return false;
+	}
 }
