@@ -65,9 +65,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getExtractedClass().getLocationInfo().getFilePath(), getExtractedClass().getName()));
-		return pairs;
+		return extractedClass.getInvolvedClassesAfterRefactoring(this);
 	}
 
 	@Override
