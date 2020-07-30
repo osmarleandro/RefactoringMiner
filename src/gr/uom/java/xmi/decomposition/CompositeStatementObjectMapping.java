@@ -60,4 +60,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		}
 	}
 
+	public UMLOperation getOperation2() {
+		return operation2;
+	}
+
 }

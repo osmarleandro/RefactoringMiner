@@ -115,4 +115,8 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		return new LinkedHashSet<String>();
 	}
+
+	public UMLOperation getOperation2() {
+		return operation2;
+	}
 }
