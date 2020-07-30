@@ -39,8 +39,8 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
-	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
+	public static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	public Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
@@ -149,6 +149,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
+	@Override
 	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
         logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
         try (Git git = new Git(repository)) {

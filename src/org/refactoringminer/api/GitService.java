@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.transport.TrackingRefUpdate;
 
 /**
  * Simple service to make git related tasks easier.  
@@ -44,4 +45,6 @@ public interface GitService {
 	void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws Exception;
 
 	Churn churn(Repository repository, RevCommit currentCommit) throws Exception;
+
+	List<TrackingRefUpdate> fetch(Repository repository) throws Exception;
 }
