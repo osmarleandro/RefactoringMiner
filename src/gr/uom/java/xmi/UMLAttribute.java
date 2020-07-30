@@ -160,6 +160,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return sb.toString();
 	}
 
+	@Override
 	public int compareTo(UMLAttribute attribute) {
 		return this.toString().compareTo(attribute.toString());
 	}
