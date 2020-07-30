@@ -13,7 +13,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class AbstractExpression extends AbstractCodeFragment {
 	
 	private String expression;
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private CompositeStatementObject owner;
 	private List<String> variables;
 	private List<String> types;
@@ -173,10 +173,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<LambdaExpressionObject> getLambdas() {
 		return lambdas;
-	}
-
-	public LocationInfo getLocationInfo() {
-		return locationInfo;
 	}
 
 	public VariableDeclaration searchVariableDeclaration(String variableName) {
