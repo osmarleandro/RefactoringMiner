@@ -10,10 +10,14 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.UMLModelDiff;
+
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
@@ -434,6 +438,34 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+		String type1 = parameter.getType().toString();
+		String type2 = type.toString();
+		if(type1.equals("Throwable") && type2.endsWith("Exception"))
+			return true;
+		if(type1.equals("Exception") && type2.endsWith("Exception"))
+			return true;
+		if(type1.equals("int") && type2.equals("long"))
+			return true;
+		if(type1.equals("long") && type2.equals("int"))
+			return true;
+		if(!parameter.isVarargs() && type1.endsWith("Object") && !type2.endsWith("Object"))
+			return true;
+		if(!parameter.isVarargs() && type1.endsWith("Base") && type2.endsWith("Impl"))
+			return true;
+		if(parameter.isVarargs() && type1.endsWith("Object[]") && (type2.equals("Throwable") || type2.endsWith("Exception")))
+			return true;
+		if(parameter.getType().equalsWithSubType(type))
+			return true;
+		if(parameter.getType().isParameterized() && type.isParameterized() &&
+				parameter.getType().getClassType().equals(type.getClassType()))
+			return true;
+		if(modelDiff != null && modelDiff.isSubclassOf(type.getClassType(), parameter.getType().getClassType())) {
+			return true;
+		}
+		return false;
 	}
 
 	public enum StatementCoverageType {
