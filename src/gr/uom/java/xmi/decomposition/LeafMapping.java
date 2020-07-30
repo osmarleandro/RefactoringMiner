@@ -115,4 +115,18 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		return new LinkedHashSet<String>();
 	}
+
+	private boolean isExactAfterAbstraction() {
+		OperationInvocation invocation1 = fragment1.invocationCoveringEntireFragment();
+		OperationInvocation invocation2 = fragment2.invocationCoveringEntireFragment();
+		if(invocation1 != null && invocation2 != null) {
+			return invocation1.actualString().equals(invocation2.actualString());
+		}
+		ObjectCreation creation1 = fragment1.creationCoveringEntireFragment();
+		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment();
+		if(creation1 != null && creation2 != null) {
+			return creation1.actualString().equals(creation2.actualString());
+		}
+		return false;
+	}
 }
