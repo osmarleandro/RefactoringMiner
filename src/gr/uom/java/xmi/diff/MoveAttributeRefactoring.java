@@ -46,10 +46,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
-	public UMLAttribute getMovedAttribute() {
-		return movedAttribute;
-	}
-
 	public String getSourceClassName() {
 		return originalAttribute.getClassName();
 	}
