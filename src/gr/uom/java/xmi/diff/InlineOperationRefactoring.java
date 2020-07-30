@@ -20,7 +20,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
-	private UMLOperation targetOperationAfterInline;
+	public UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
@@ -117,6 +117,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
+	@Override
 	public CodeRange getTargetOperationCodeRangeAfterInline() {
 		return targetOperationAfterInline.codeRange();
 	}
