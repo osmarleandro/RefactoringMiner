@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
@@ -134,5 +135,11 @@ public class ExtractVariableRefactoring implements Refactoring {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public UMLClass getRenamedClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
