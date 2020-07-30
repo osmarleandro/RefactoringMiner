@@ -27,10 +27,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return expression;
 	}
 
-	public List<String> getArguments() {
-		return arguments;
-	}
-
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
 	}
