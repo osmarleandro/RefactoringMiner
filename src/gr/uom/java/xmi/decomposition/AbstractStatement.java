@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
@@ -30,4 +31,13 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	@Override
+	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
+		for(AbstractExpression expression : expressionList) {
+			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
+		}
+		return ternaryOperatorExpressions;
+	}
 }
