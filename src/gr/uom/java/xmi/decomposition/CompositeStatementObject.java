@@ -16,7 +16,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
 
-	private List<AbstractStatement> statementList;
+	protected List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
@@ -54,15 +54,6 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public void addVariableDeclaration(VariableDeclaration declaration) {
 		this.variableDeclarations.add(declaration);
-	}
-
-	@Override
-	public List<StatementObject> getLeaves() {
-		List<StatementObject> leaves = new ArrayList<StatementObject>();
-		for(AbstractStatement statement : statementList) {
-			leaves.addAll(statement.getLeaves());
-		}
-		return leaves;
 	}
 
 	public List<CompositeStatementObject> getInnerNodes() {

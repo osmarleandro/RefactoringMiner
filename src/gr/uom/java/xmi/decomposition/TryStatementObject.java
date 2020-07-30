@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<StatementObject> getLeaves() {
+		List<StatementObject> leaves = new ArrayList<StatementObject>();
+		for(AbstractStatement statement : statementList) {
+			leaves.addAll(statement.getLeaves());
+		}
+		return leaves;
+	}
 }
