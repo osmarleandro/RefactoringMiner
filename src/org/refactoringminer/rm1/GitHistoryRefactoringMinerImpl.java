@@ -601,6 +601,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		//allRepositoryDirectories(parentCommit.getTree(), "", repositoryDirectoriesBefore);
 	}
 
+	@Override
 	private void repositoryDirectories(GHTree tree, String pathFromRoot, Set<String> repositoryDirectories, Set<String> targetPaths) throws IOException {
 		for(GHTreeEntry entry : tree.getTree()) {
 			String path = null;
@@ -625,7 +626,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	private boolean atLeastOneStartsWith(Set<String> targetPaths, String path) {
+	public boolean atLeastOneStartsWith(Set<String> targetPaths, String path) {
 		for(String targetPath : targetPaths) {
 			if(path.endsWith("/") && targetPath.startsWith(path)) {
 				return true;

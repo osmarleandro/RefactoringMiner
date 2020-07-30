@@ -1,6 +1,10 @@
 package org.refactoringminer.api;
 
+import java.io.IOException;
+import java.util.Set;
+
 import org.eclipse.jgit.lib.Repository;
+import org.kohsuke.github.GHTree;
 
 /**
  * Detect refactorings in the git history.
@@ -111,4 +115,6 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	void repositoryDirectories(GHTree tree, String pathFromRoot, Set<String> repositoryDirectories, Set<String> targetPaths) throws IOException;
 }
