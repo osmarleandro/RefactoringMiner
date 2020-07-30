@@ -141,7 +141,14 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return new GroupKey(refactoringType, getMainEntity());
   }
 
-  public static class GroupKey implements Comparable<GroupKey> {
+  public RefactoringType addRefactoringRelationship(RefactoringRelationshipGroup refactoringRelationshipGroup) {
+    if (getRefactoringType().equals(refactoringRelationshipGroup.getRefactoringType()) && getMainEntity().equals(refactoringRelationshipGroup.getMainEntity())) {
+      refactoringRelationshipGroup.refactoringRelationships.add(this);
+    }
+    throw new IllegalArgumentException(String.format("refactoring relatiships are note from the same group: [] []", this, refactoringRelationshipGroup.refactoringRelationships.get(0)));
+  }
+
+public static class GroupKey implements Comparable<GroupKey> {
     private final RefactoringType refactoringType;
     private final String mainEntity;
 
