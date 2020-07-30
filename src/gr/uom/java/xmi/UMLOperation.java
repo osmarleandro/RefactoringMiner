@@ -23,11 +23,11 @@ import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
+	String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
-	private String className;
+	List<UMLParameter> parameters;
+	String className;
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -629,6 +629,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 
+	@Override
 	public String getKey() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(className);
