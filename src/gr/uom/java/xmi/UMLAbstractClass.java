@@ -314,17 +314,6 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public List<UMLAttribute> attributesOfType(String targetClass) {
-		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
-		for(UMLAttribute attribute : attributes) {
-			if(targetClass.endsWith("." + attribute.getType().getClassType()) ||
-					targetClass.equals(attribute.getType().getClassType())) {
-				attributesOfType.add(attribute);
-			}
-		}
-		return attributesOfType;
-	}
-
 	public abstract boolean isSingleAbstractMethodInterface();
 
 	public abstract boolean isInterface();
