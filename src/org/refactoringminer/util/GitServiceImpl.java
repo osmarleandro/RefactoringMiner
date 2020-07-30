@@ -321,10 +321,6 @@ public class GitServiceImpl implements GitService {
         }
 	}
 
-	private boolean isJavafile(String path) {
-		return path.endsWith(".java");
-	}
-
 	@Override
 	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
 		if (currentCommit.getParentCount() > 0) {

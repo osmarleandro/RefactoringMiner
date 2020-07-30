@@ -669,6 +669,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
+	private boolean isJavafile(String path) {
+		return path.endsWith(".java");
+	}
+
+	private boolean isJavafile(String path) {
+		return path.endsWith(".java");
+	}
+
+	private boolean isJavafile(String path) {
+		return path.endsWith(".java");
+	}
+
+	private boolean isJavafile(String path) {
+		return path.endsWith(".java");
+	}
+
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
