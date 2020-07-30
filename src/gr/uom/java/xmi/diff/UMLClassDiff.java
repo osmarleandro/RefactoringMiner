@@ -2,7 +2,9 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
@@ -11,6 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
@@ -194,5 +197,33 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	private boolean isPartOfMethodInlined(UMLOperation removedOperation, UMLOperation addedOperation) {
+		List<OperationInvocation> removedOperationInvocations = removedOperation.getAllOperationInvocations();
+		List<OperationInvocation> addedOperationInvocations = addedOperation.getAllOperationInvocations();
+		Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
+		intersection.retainAll(addedOperationInvocations);
+		int numberOfInvocationsMissingFromAddedOperation = new LinkedHashSet<OperationInvocation>(addedOperationInvocations).size() - intersection.size();
+		
+		Set<OperationInvocation> operationInvocationsInMethodsCalledByRemovedOperation = new LinkedHashSet<OperationInvocation>();
+		for(OperationInvocation removedOperationInvocation : removedOperationInvocations) {
+			if(!intersection.contains(removedOperationInvocation)) {
+				for(UMLOperation operation : removedOperations) {
+					if(!operation.equals(removedOperation) && operation.getBody() != null) {
+						if(removedOperationInvocation.matchesOperation(operation, removedOperation.variableTypeMap(), modelDiff)) {
+							//removedOperation calls another removed method
+							operationInvocationsInMethodsCalledByRemovedOperation.addAll(operation.getAllOperationInvocations());
+						}
+					}
+				}
+			}
+		}
+		Set<OperationInvocation> newIntersection = new LinkedHashSet<OperationInvocation>(addedOperationInvocations);
+		newIntersection.retainAll(operationInvocationsInMethodsCalledByRemovedOperation);
+		
+		int numberOfInvocationsCalledByAddedOperationFoundInOtherRemovedOperations = newIntersection.size();
+		int numberOfInvocationsMissingFromAddedOperationWithoutThoseFoundInOtherRemovedOperations = numberOfInvocationsMissingFromAddedOperation - numberOfInvocationsCalledByAddedOperationFoundInOtherRemovedOperations;
+		return numberOfInvocationsCalledByAddedOperationFoundInOtherRemovedOperations > numberOfInvocationsMissingFromAddedOperationWithoutThoseFoundInOtherRemovedOperations;
 	}
 }
