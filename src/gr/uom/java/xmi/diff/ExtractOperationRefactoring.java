@@ -241,4 +241,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

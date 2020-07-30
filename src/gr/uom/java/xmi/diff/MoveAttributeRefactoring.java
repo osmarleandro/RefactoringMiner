@@ -12,8 +12,8 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	public UMLAttribute originalAttribute;
+	public UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
@@ -72,6 +72,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return movedAttribute.codeRange();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if(this == o) {
 			return true;
