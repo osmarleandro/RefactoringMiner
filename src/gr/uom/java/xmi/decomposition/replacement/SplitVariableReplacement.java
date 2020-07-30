@@ -32,4 +32,17 @@ public class SplitVariableReplacement extends Replacement {
 				this.splitVariables.containsAll(other.splitVariables) &&
 				this.splitVariables.size() > other.splitVariables.size();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if(obj instanceof Replacement) {
+			Replacement other = (Replacement)obj;
+			return this.before.equals(other.before) && this.after.equals(other.after) && this.type.equals(other.type);
+		}
+		return false;
+	}
 }

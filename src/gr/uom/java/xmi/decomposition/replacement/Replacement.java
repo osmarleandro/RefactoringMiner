@@ -3,9 +3,9 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
-	private String before;
-	private String after;
-	private ReplacementType type;
+	protected String before;
+	protected String after;
+	protected ReplacementType type;
 	
 	public Replacement(String before, String after, ReplacementType type) {
 		this.before = before;
@@ -35,19 +35,6 @@ public class Replacement {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if(obj instanceof Replacement) {
-			Replacement other = (Replacement)obj;
-			return this.before.equals(other.before) && this.after.equals(other.after) && this.type.equals(other.type);
-		}
-		return false;
-	}
-	
 	public String toString() {
 		return before + " -> " + after;
 	}
