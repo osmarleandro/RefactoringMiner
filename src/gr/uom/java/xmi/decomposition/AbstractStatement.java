@@ -1,7 +1,5 @@
 package gr.uom.java.xmi.decomposition;
 
-import java.util.List;
-
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
 	
@@ -28,6 +26,5 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     	return null;
     }
 
-    public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
 }
