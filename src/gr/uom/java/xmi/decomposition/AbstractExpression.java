@@ -18,7 +18,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
-	private Map<String, List<OperationInvocation>> methodInvocationMap;
+	Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
 	private List<String> numberLiterals;
@@ -98,11 +98,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<VariableDeclaration> getVariableDeclarations() {
 		return variableDeclarations;
-	}
-
-	@Override
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
-		return methodInvocationMap;
 	}
 
 	@Override
