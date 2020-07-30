@@ -30,7 +30,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
-	private List<String> arguments;
+	List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
     
@@ -158,11 +158,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<String> getPostfixExpressions() {
 		return postfixExpressions;
-	}
-
-	@Override
-	public List<String> getArguments() {
-		return arguments;
 	}
 
 	@Override
