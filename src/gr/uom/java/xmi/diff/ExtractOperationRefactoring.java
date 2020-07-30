@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -240,5 +241,11 @@ public class ExtractOperationRefactoring implements Refactoring {
 					setDescription("added statement in extracted method declaration"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public Set<UMLClass> getUMLSubclassSet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

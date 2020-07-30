@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 
 public class AddMethodAnnotationRefactoring implements Refactoring {
@@ -127,5 +128,11 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		} else if (!operationBefore.equals(other.operationBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public Set<UMLClass> getUMLSubclassSet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
