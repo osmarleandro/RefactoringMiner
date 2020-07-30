@@ -15,7 +15,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private String visibility;
 	private String className;
 	private boolean isFinal;
-	private boolean isStatic;
+	boolean isStatic;
 	private VariableDeclaration variableDeclaration;
 	private UMLJavadoc javadoc;
 
@@ -53,6 +53,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.isFinal = isFinal;
 	}
 
+	@Override
 	public boolean isStatic() {
 		return isStatic;
 	}
