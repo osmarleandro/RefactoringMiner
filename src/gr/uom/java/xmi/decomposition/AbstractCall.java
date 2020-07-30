@@ -314,6 +314,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
