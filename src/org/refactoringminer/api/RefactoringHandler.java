@@ -2,6 +2,11 @@ package org.refactoringminer.api;
 
 import java.util.List;
 
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+import org.refactoringminer.util.GitServiceImpl;
+
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
  * 
@@ -48,4 +53,17 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public void detectBetweenTags(Repository repository, String startTag, String endTag, GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl)
+			throws Exception {
+		GitService gitService = new GitServiceImpl() {
+			@Override
+			public boolean isCommitAnalyzed(String sha1) {
+				return skipCommit(sha1);
+			}
+		};
+		
+		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenTags(repository, startTag, endTag);
+		gitHistoryRefactoringMinerImpl.detect(gitService, repository, this, walk.iterator());
+	}
 }
