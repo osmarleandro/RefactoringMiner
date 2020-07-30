@@ -144,4 +144,10 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public Set<CodeRange> getExtractedOperationInvocationCodeRanges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
