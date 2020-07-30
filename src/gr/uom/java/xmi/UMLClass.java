@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
-    private String sourceFile;
+    String sourceFile;
     private String sourceFolder;
     private String visibility;
 	private boolean isAbstract;
@@ -289,7 +289,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
 	}
 
-    public boolean equals(Object o) {
+    @Override
+	public boolean equals(Object o) {
     	if(this == o) {
     		return true;
     	}
