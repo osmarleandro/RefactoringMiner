@@ -151,4 +151,10 @@ public class RenameVariableRefactoring implements Refactoring {
 				.setCodeElement(renamedVariable.toString()));
 		return ranges;
 	}
+
+	@Override
+	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
