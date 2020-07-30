@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -11,6 +12,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
@@ -138,5 +140,24 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
+		int replacedArguments = 0;
+		List<String> arguments1 = getArguments();
+		List<String> arguments2 = call.getArguments();
+		if(arguments1.size() == arguments2.size()) {
+			for(int i=0; i<arguments1.size(); i++) {
+				String argument1 = arguments1.get(i);
+				String argument2 = arguments2.get(i);
+				for(Replacement replacement : replacements) {
+					if(replacement.getBefore().equals(argument1) &&	replacement.getAfter().equals(argument2)) {
+						replacedArguments++;
+						break;
+					}
+				}
+			}
+		}
+		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 }
