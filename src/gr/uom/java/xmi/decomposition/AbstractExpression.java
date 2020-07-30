@@ -28,7 +28,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
-	private List<String> prefixExpressions;
+	List<String> prefixExpressions;
 	private List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
@@ -148,11 +148,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<String> getArrayAccesses() {
 		return arrayAccesses;
-	}
-
-	@Override
-	public List<String> getPrefixExpressions() {
-		return prefixExpressions;
 	}
 
 	@Override
