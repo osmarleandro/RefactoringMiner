@@ -128,4 +128,10 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public RenamePattern getRenamePattern() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

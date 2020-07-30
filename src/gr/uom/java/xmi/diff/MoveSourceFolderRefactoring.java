@@ -92,4 +92,10 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public RenamePattern getRenamePattern() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -13,8 +13,8 @@ import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
-	private UMLClass originalClass;
-	private UMLClass movedClass;
+	public UMLClass originalClass;
+	public UMLClass movedClass;
 	
 	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
 		this.originalClass = originalClass;
@@ -30,6 +30,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
+	@Override
 	public RenamePattern getRenamePattern() {
 		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
 		if (separatorPos == -1) {
