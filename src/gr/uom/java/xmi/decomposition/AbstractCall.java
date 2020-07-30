@@ -76,12 +76,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		identicalExpressionAfterTypeReplacements(call, replacements);
 	}
 
-	public boolean identicalExpression(AbstractCall call) {
-		return (getExpression() != null && call.getExpression() != null &&
-				getExpression().equals(call.getExpression())) ||
-				(getExpression() == null && call.getExpression() == null);
-	}
-
 	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
 		if(getExpression() != null && call.getExpression() != null) {
 			String expression1 = getExpression();
