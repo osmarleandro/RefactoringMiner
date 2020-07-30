@@ -64,8 +64,17 @@ public class TestBuilder {
 		return this;
 	}
 
-	private static class Counter {
+	static class Counter {
 		int[] c = new int[5];
+
+		String buildResultMessage(TestBuilder testBuilder) {
+			double precision = ((double) testBuilder.get(TestBuilder.TP, this) / (testBuilder.get(TestBuilder.TP, this) + testBuilder.get(TestBuilder.FP, this)));
+			double recall = ((double) testBuilder.get(TestBuilder.TP, this)) / (testBuilder.get(TestBuilder.TP, this) + testBuilder.get(TestBuilder.FN, this));
+			String mainResultMessage = String.format(
+					"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", testBuilder.get(TestBuilder.TP, this), testBuilder.get(TestBuilder.FP, this),
+					testBuilder.get(TestBuilder.FN, this), testBuilder.get(TestBuilder.TN, this), testBuilder.get(TestBuilder.UNK, this), precision, recall);
+			return mainResultMessage;
+		}
 	}
 
 	private void count(int type, String refactoring) {
@@ -142,15 +151,6 @@ public class TestBuilder {
 			}
 		}
 		Assert.assertTrue(mainResultMessage, success);
-	}
-
-	private String buildResultMessage(Counter c) {
-		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
-		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
-		String mainResultMessage = String.format(
-				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get(TP, c), get(FP, c),
-				get(FN, c), get(TN, c), get(UNK, c), precision, recall);
-		return mainResultMessage;
 	}
 
 	private List<String> normalize(String refactoring) {
