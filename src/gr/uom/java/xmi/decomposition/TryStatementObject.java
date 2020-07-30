@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+		for(AbstractExpression expression : expressionList) {
+			anonymousClassDeclarations.addAll(expression.getAnonymousClassDeclarations());
+		}
+		return anonymousClassDeclarations;
+	}
 }
