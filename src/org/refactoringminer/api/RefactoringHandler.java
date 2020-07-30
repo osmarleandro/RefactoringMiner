@@ -2,6 +2,8 @@ package org.refactoringminer.api;
 
 import java.util.List;
 
+import org.refactoringminer.utils.RefactoringSet;
+
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
  * 
@@ -48,4 +50,11 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public RefactoringSet assertAndGetResult() {
+	    if (ex == null) {
+	      return rs;
+	    }
+	    throw new RuntimeException(ex); 
+	  }
 }
