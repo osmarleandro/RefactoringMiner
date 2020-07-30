@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.ObjectCreation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.diff.StringDistance;
 
 public class MethodInvocationWithClassInstanceCreationReplacement extends Replacement {
 	private OperationInvocation invokedOperationBefore;
@@ -20,6 +21,14 @@ public class MethodInvocationWithClassInstanceCreationReplacement extends Replac
 
 	public ObjectCreation getObjectCreationAfter() {
 		return objectCreationAfter;
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 
 }

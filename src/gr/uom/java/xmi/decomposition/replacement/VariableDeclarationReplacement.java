@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.StringDistance;
 
 public class VariableDeclarationReplacement extends Replacement {
 
@@ -68,5 +69,13 @@ public class VariableDeclarationReplacement extends Replacement {
 		} else if (!v2.equals(other.v2))
 			return false;
 		return true;
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }

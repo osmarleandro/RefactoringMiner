@@ -3,6 +3,8 @@ package gr.uom.java.xmi.decomposition.replacement;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import gr.uom.java.xmi.diff.StringDistance;
+
 public class MergeVariableReplacement extends Replacement {
 	private Set<String> mergedVariables;
 	
@@ -31,5 +33,13 @@ public class MergeVariableReplacement extends Replacement {
 		return this.getAfter().equals(other.getAfter()) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }

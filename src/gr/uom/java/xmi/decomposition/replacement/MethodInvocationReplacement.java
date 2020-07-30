@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.diff.StringDistance;
 
 public class MethodInvocationReplacement extends Replacement {
 	private OperationInvocation invokedOperationBefore;
@@ -24,5 +25,13 @@ public class MethodInvocationReplacement extends Replacement {
 
 	public boolean differentExpressionNameAndArguments() {
 		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }

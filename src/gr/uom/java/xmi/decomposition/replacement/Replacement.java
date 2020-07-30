@@ -1,7 +1,5 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
-import gr.uom.java.xmi.diff.StringDistance;
-
 public class Replacement {
 	private String before;
 	private String after;
@@ -52,14 +50,6 @@ public class Replacement {
 		return before + " -> " + after;
 	}
 
-	public double normalizedEditDistance() {
-		String s1 = getBefore();
-		String s2 = getAfter();
-		int distance = StringDistance.editDistance(s1, s2);
-		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
-		return normalized;
-	}
-	
 	public boolean involvesVariable() {
 		return type.equals(ReplacementType.VARIABLE_NAME) ||
 				type.equals(ReplacementType.BOOLEAN_REPLACED_WITH_VARIABLE) ||

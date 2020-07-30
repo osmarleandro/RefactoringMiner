@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.diff.StringDistance;
 
 public class VariableReplacementWithMethodInvocation extends Replacement {
 	private OperationInvocation invokedOperation;
@@ -18,6 +19,14 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 
 	public Direction getDirection() {
 		return direction;
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 
 	public enum Direction {

@@ -3,6 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import java.util.Set;
 
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.diff.StringDistance;
 
 public class CompositeReplacement extends Replacement {
 	private Set<AbstractCodeFragment> additionallyMatchedStatements1;
@@ -21,5 +22,13 @@ public class CompositeReplacement extends Replacement {
 
 	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements2() {
 		return additionallyMatchedStatements2;
+	}
+
+	public double normalizedEditDistance() {
+		String s1 = getBefore();
+		String s2 = getAfter();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }
