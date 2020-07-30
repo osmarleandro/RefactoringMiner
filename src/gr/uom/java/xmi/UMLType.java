@@ -169,6 +169,14 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return normalized;
 	}
 
+	@Override
+	public boolean equalClassType(UMLType type) {
+		if(this.getClass() == type.getClass()) {
+			return this.nonQualifiedClassType.equals(((LeafType)type).nonQualifiedClassType);
+		}
+		return false;
+	}
+
 	public static LeafType extractTypeObject(String qualifiedName) {
 		int arrayDimension = 0;
 		List<UMLType> typeArgumentDecomposition = new ArrayList<UMLType>();
