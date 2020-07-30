@@ -13,9 +13,9 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class RemoveAttributeAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
-	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAnnotation annotation;
+	public UMLAttribute attributeBefore;
+	public UMLAttribute attributeAfter;
 
 	public RemoveAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
 			UMLAttribute attributeAfter) {
