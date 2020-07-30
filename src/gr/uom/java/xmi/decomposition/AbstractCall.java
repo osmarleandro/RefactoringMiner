@@ -436,6 +436,18 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	public boolean equals(Object o) {
+	    if(this == o) {
+	        return true;
+	    }
+	    if (o instanceof OperationInvocation) {
+	    	OperationInvocation invocation = (OperationInvocation)o;
+	        return methodName.equals(invocation.methodName) &&
+	            typeArguments == invocation.typeArguments;
+	    }
+	    return false;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}

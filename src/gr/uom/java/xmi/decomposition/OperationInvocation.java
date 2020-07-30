@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
-	private String methodName;
+	String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
@@ -399,19 +399,7 @@ public class OperationInvocation extends AbstractCall {
 		return normalized;
 	}
 
-	public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if (o instanceof OperationInvocation) {
-        	OperationInvocation invocation = (OperationInvocation)o;
-            return methodName.equals(invocation.methodName) &&
-                typeArguments == invocation.typeArguments;
-        }
-        return false;
-    }
-
-    public String toString() {
+	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(methodName);
         sb.append("(");
