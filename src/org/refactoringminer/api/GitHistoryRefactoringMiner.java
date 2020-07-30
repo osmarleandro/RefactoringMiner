@@ -1,6 +1,10 @@
 package org.refactoringminer.api;
 
+import java.io.File;
+import java.util.List;
+
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
  * Detect refactorings in the git history.
@@ -111,4 +115,6 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception;
 }

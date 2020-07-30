@@ -114,6 +114,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
 	}
 
+	@Override
 	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
 		List<Refactoring> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
@@ -150,7 +151,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
-	private void populateFileContents(Repository repository, RevCommit commit,
+	public void populateFileContents(Repository repository, RevCommit commit,
 			List<String> filePaths, Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
 		logger.info("Processing {} {} ...", repository.getDirectory().getParent().toString(), commit.getName());
 		RevTree parentTree = commit.getTree();
@@ -299,7 +300,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	public List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
@@ -344,7 +345,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
+	public UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
