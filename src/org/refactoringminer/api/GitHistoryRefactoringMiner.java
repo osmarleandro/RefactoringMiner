@@ -1,6 +1,11 @@
 package org.refactoringminer.api;
 
+import java.io.File;
+import java.util.List;
+
 import org.eclipse.jgit.lib.Repository;
+
+import gr.uom.java.xmi.UMLModel;
 
 /**
  * Detect refactorings in the git history.
@@ -111,4 +116,6 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception;
 }

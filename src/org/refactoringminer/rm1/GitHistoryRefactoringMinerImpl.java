@@ -348,6 +348,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
+	@Override
 	protected UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
 		return new UMLModelASTReader(projectFolder, filePaths).getUmlModel();
 	}
