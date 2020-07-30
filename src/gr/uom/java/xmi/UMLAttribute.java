@@ -13,7 +13,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private String name;
 	private UMLType type;
 	private String visibility;
-	private String className;
+	String className;
 	private boolean isFinal;
 	private boolean isStatic;
 	private VariableDeclaration variableDeclaration;
@@ -61,6 +61,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.isStatic = isStatic;
 	}
 
+	@Override
 	public String getNonQualifiedClassName() {
 		return className.contains(".") ? className.substring(className.lastIndexOf(".")+1, className.length()) : className;
 	}
