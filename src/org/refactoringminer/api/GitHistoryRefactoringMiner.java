@@ -111,4 +111,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	@Override
+	void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler) throws Exception;
 }
