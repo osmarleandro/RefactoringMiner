@@ -39,4 +39,6 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring();
 }
