@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -396,5 +398,15 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public List<CodeRange> leftSide(ExtractSuperclassRefactoring extractSuperclassRefactoring) {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		for(UMLClass subclass : extractSuperclassRefactoring.subclassSet) {
+			ranges.add(subclass.codeRange()
+					.setDescription("sub-type declaration")
+					.setCodeElement(subclass.getName()));
+		}
+		return ranges;
 	}
 }

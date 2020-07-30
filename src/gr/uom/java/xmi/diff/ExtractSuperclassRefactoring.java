@@ -13,7 +13,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
-	private Set<UMLClass> subclassSet;
+	public Set<UMLClass> subclassSet;
 	
 	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
 		this.extractedClass = extractedClass;
@@ -72,13 +72,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(UMLClass subclass : subclassSet) {
-			ranges.add(subclass.codeRange()
-					.setDescription("sub-type declaration")
-					.setCodeElement(subclass.getName()));
-		}
-		return ranges;
+		return extractedClass.leftSide(this);
 	}
 
 	@Override
