@@ -128,4 +128,8 @@ public class RefactoringSet {
         }
     }
 
+	public void handleException(RefactoringCollector refactoringCollector, String commitId, Exception e) {
+	    refactoringCollector.ex = e;
+	  }
+
 }

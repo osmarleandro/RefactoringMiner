@@ -16,7 +16,7 @@ import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
 public class RefactoringCollector extends RefactoringHandler {
   private final RefactoringSet rs;
-  private Exception ex = null;
+  Exception ex = null;
   public RefactoringCollector(String cloneUrl, String commitId) {
     rs = new RefactoringSet(cloneUrl, commitId);
   }
@@ -57,8 +57,8 @@ public class RefactoringCollector extends RefactoringHandler {
   }
   @Override
   public void handleException(String commitId, Exception e) {
-    this.ex = e;
-  }
+	rs.handleException(this, commitId, e);
+}
   public RefactoringSet assertAndGetResult() {
     if (ex == null) {
       return rs;
