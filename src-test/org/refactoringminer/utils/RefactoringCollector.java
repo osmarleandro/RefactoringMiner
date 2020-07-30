@@ -32,7 +32,7 @@ public class RefactoringCollector extends RefactoringHandler {
       } else if (r instanceof ExtractSuperclassRefactoring) {
         ExtractSuperclassRefactoring ref = (ExtractSuperclassRefactoring) r;
         for (String subclass : ref.getSubclassSet()) {
-          rs.add(new RefactoringRelationship(r.getRefactoringType(), subclass, ref.getExtractedClass().getName()));
+          rs.add(new RefactoringRelationship(r.getRefactoringType(), subclass, ref.getExtractedClass().getExtractedClass().getName()));
         }
       } else if (r instanceof MoveOperationRefactoring) {
         MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
