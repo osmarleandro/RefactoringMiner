@@ -283,6 +283,44 @@ public class GitServiceImpl implements GitService {
 		public String toString() {
 			return "RegularCommitsFilter";
 		}
+
+		public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+			if (currentCommit.getParentCount() > 0) {
+		    	ObjectId oldTree = currentCommit.getParent(0).getTree();
+		        ObjectId newTree = currentCommit.getTree();
+		    	final TreeWalk tw = new TreeWalk(repository);
+		    	tw.setRecursive(true);
+		    	tw.addTree(oldTree);
+		    	tw.addTree(newTree);
+		    	
+		    	List<DiffEntry> diffs = DiffEntry.scan(tw);
+		    	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+				diffFormatter.setRepository(repository);
+				diffFormatter.setContext(0);
+				
+		    	int addedLines = 0;
+				int deletedLines = 0;
+		    	for (DiffEntry entry : diffs) {
+					FileHeader header = diffFormatter.toFileHeader(entry);
+		        	List<? extends HunkHeader> hunks = header.getHunks();
+		        	for (HunkHeader hunkHeader : hunks) {
+		        		for (Edit edit : hunkHeader.toEditList()) {
+							if (edit.getType() == Type.INSERT) {
+								addedLines += edit.getLengthB();
+							} else if (edit.getType() == Type.DELETE) {
+								deletedLines += edit.getLengthA();
+							} else if (edit.getType() == Type.REPLACE) {
+								deletedLines += edit.getLengthA();
+								addedLines += edit.getLengthB();
+							}
+						}
+		        	}
+		    	}
+		    	diffFormatter.close();
+		    	return new Churn(addedLines, deletedLines);
+			}
+			return null;
+		}
 	}
 
 	public void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
@@ -327,40 +365,6 @@ public class GitServiceImpl implements GitService {
 
 	@Override
 	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
-		if (currentCommit.getParentCount() > 0) {
-        	ObjectId oldTree = currentCommit.getParent(0).getTree();
-	        ObjectId newTree = currentCommit.getTree();
-        	final TreeWalk tw = new TreeWalk(repository);
-        	tw.setRecursive(true);
-        	tw.addTree(oldTree);
-        	tw.addTree(newTree);
-        	
-        	List<DiffEntry> diffs = DiffEntry.scan(tw);
-        	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
-    		diffFormatter.setRepository(repository);
-    		diffFormatter.setContext(0);
-    		
-        	int addedLines = 0;
-    		int deletedLines = 0;
-        	for (DiffEntry entry : diffs) {
-    			FileHeader header = diffFormatter.toFileHeader(entry);
-            	List<? extends HunkHeader> hunks = header.getHunks();
-            	for (HunkHeader hunkHeader : hunks) {
-            		for (Edit edit : hunkHeader.toEditList()) {
-    					if (edit.getType() == Type.INSERT) {
-    						addedLines += edit.getLengthB();
-    					} else if (edit.getType() == Type.DELETE) {
-    						deletedLines += edit.getLengthA();
-    					} else if (edit.getType() == Type.REPLACE) {
-    						deletedLines += edit.getLengthA();
-    						addedLines += edit.getLengthB();
-    					}
-    				}
-            	}
-        	}
-        	diffFormatter.close();
-        	return new Churn(addedLines, deletedLines);
-		}
-		return null;
+		return commitsFilter.churn(repository, currentCommit);
 	}
 }
