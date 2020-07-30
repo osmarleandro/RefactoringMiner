@@ -260,7 +260,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public boolean isCommitAnalyzed(String sha1) {
-		return false;
+		return commitsFilter.isCommitAnalyzed(sha1);
 	}
 
 	private class DefaultCommitsFilter extends RevFilter {
@@ -282,6 +282,10 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public boolean isCommitAnalyzed(String sha1) {
+			return false;
 		}
 	}
 
