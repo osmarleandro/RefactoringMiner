@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -180,41 +180,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
-		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
-		try {
-			List<String> filesBefore = new ArrayList<String>();
-			List<String> filesCurrent = new ArrayList<String>();
-			Map<String, String> renamedFilesHint = new HashMap<String, String>();
-			String parentCommitId = populateWithGitHubAPI(cloneURL, currentCommitId, filesBefore, filesCurrent, renamedFilesHint);
-			File currentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + currentCommitId);
-			File parentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + parentCommitId);
-			if (!currentFolder.exists()) {	
-				downloadAndExtractZipFile(projectFolder, cloneURL, currentCommitId);
-			}
-			if (!parentFolder.exists()) {	
-				downloadAndExtractZipFile(projectFolder, cloneURL, parentCommitId);
-			}
-			if (currentFolder.exists() && parentFolder.exists()) {
-				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
-				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
-				// Diff between currentModel e parentModel
-				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-				refactoringsAtRevision = filter(refactoringsAtRevision);
-			}
-			else {
-				logger.warn(String.format("Folder %s not found", currentFolder.getPath()));
-			}
-		} catch (Exception e) {
-			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
-		}
-		handler.handle(currentCommitId, refactoringsAtRevision);
-
-		return refactoringsAtRevision;
-	}
-
-	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
+	public void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
 		String downloadLink = extractDownloadLink(cloneURL, commitId);
 		File destinationFile = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + commitId + ".zip");
@@ -243,7 +209,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	private String populateWithGitHubAPI(String cloneURL, String currentCommitId,
+	public String populateWithGitHubAPI(String cloneURL, String currentCommitId,
 			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
@@ -299,7 +265,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	public List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
@@ -348,7 +314,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
-	protected UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
+	public UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
 		return new UMLModelASTReader(projectFolder, filePaths).getUmlModel();
 	}
 
@@ -369,7 +335,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
 			}
 		} catch (MissingObjectException moe) {
-			this.detectRefactorings(handler, projectFolder, cloneURL, commitId);
+			handler.detectRefactorings(this, projectFolder, cloneURL, commitId);
 		} catch (RefactoringMinerTimedOutException e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
 		} catch (Exception e) {
