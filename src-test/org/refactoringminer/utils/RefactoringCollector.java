@@ -65,4 +65,12 @@ public class RefactoringCollector extends RefactoringHandler {
     }
     throw new RuntimeException(ex); 
   }
+/**
+ * This method is called after each commit is analyzed.
+ * You should override this method to do your custom logic with the list of detected refactorings.
+ * 
+ * @param commitId The sha of the analyzed commit.
+ * @param refactorings List of refactorings detected in the commit.
+ */
+public void handle(String commitId, List<Refactoring> refactorings) {}
 }
