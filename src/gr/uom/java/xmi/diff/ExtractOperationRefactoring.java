@@ -241,4 +241,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public Set<CandidateSplitVariableRefactoring> getAttributeSplits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

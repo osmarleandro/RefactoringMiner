@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class SplitAttributeRefactoring implements Refactoring {
 	private VariableDeclaration oldAttribute;
 	private Set<VariableDeclaration> splitAttributes;
-	private Set<CandidateSplitVariableRefactoring> attributeSplits;
+	public Set<CandidateSplitVariableRefactoring> attributeSplits;
 	private String classNameBefore;
 	private String classNameAfter;
 
@@ -35,6 +35,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return splitAttributes;
 	}
 
+	@Override
 	public Set<CandidateSplitVariableRefactoring> getAttributeSplits() {
 		return attributeSplits;
 	}
