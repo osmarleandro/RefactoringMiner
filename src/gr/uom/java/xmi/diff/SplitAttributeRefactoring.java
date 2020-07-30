@@ -145,4 +145,10 @@ public class SplitAttributeRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public VariableDeclaration getRenamedVariable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
