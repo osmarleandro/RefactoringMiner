@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.refactoringminer.util.AstUtils;
 import org.refactoringminer.utils.RefactoringRelationship;
+import org.refactoringminer.utils.RefactoringSet;
 
 public enum RefactoringType {
 
@@ -262,7 +263,11 @@ public enum RefactoringType {
         }
     }
     
-    public static RefactoringType fromName(String name) {
+    public RefactoringSet add(RefactoringSet refactoringSet, String entityBefore, String entityAfter) {
+	    return refactoringSet.add(new RefactoringRelationship(this, entityBefore, entityAfter));
+	}
+
+	public static RefactoringType fromName(String name) {
       String lcName = name.toLowerCase();
       for (RefactoringType rt : RefactoringType.values()) {
         if (lcName.equals(rt.getDisplayName().toLowerCase())) {
