@@ -64,8 +64,12 @@ public class TestBuilder {
 		return this;
 	}
 
-	private static class Counter {
+	static class Counter {
 		int[] c = new int[5];
+
+		int get(int type, TestBuilder testBuilder) {
+			return c[type];
+		}
 	}
 
 	private void count(int type, String refactoring) {
@@ -81,10 +85,6 @@ public class TestBuilder {
 
 	private int get(int type) {
 		return c.c[type];
-	}
-
-	private int get(int type, Counter counter) {
-		return counter.c[type];
 	}
 
 	public TestBuilder() {
@@ -145,11 +145,11 @@ public class TestBuilder {
 	}
 
 	private String buildResultMessage(Counter c) {
-		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
-		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
+		double precision = ((double) c.get(TP, this) / (c.get(TP, this) + c.get(FP, this)));
+		double recall = ((double) c.get(TP, this)) / (c.get(TP, this) + c.get(FN, this));
 		String mainResultMessage = String.format(
-				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get(TP, c), get(FP, c),
-				get(FN, c), get(TN, c), get(UNK, c), precision, recall);
+				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", c.get(TP, this), c.get(FP, this),
+				c.get(FN, this), c.get(TN, this), c.get(UNK, this), precision, recall);
 		return mainResultMessage;
 	}
 
