@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class ModifyAttributeAnnotationRefactoring implements Refactoring {
@@ -143,5 +144,11 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		} else if (!attributeBefore.equals(other.attributeBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public UMLAnonymousClass getAnonymousClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

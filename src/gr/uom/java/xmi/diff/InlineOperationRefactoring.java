@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -222,5 +223,11 @@ public class InlineOperationRefactoring implements Refactoring {
 		}
 		*/
 		return ranges;
+	}
+
+	@Override
+	public UMLAnonymousClass getAnonymousClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
