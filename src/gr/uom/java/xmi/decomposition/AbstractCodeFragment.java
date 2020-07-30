@@ -158,33 +158,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
 
-	public ObjectCreation creationCoveringEntireFragment() {
-		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
-		String statement = getString();
-		for(String objectCreation : creationMap.keySet()) {
-			List<ObjectCreation> creations = creationMap.get(objectCreation);
-			for(ObjectCreation creation : creations) {
-				if((objectCreation + ";\n").equals(statement) || objectCreation.equals(statement)) {
-					creation.coverage = StatementCoverageType.ONLY_CALL;
-					return creation;
-				}
-				else if(("return " + objectCreation + ";\n").equals(statement)) {
-					creation.coverage = StatementCoverageType.RETURN_CALL;
-					return creation;
-				}
-				else if(("throw " + objectCreation + ";\n").equals(statement)) {
-					creation.coverage = StatementCoverageType.THROW_CALL;
-					return creation;
-				}
-				else if(expressionIsTheInitializerOfVariableDeclaration(objectCreation)) {
-					creation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
-					return creation;
-				}
-			}
-		}
-		return null;
-	}
-
 	public OperationInvocation invocationCoveringEntireFragment() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
 		String statement = getString();
@@ -256,7 +229,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+	protected boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
