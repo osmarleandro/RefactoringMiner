@@ -260,4 +260,8 @@ public class StatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public void setParent(CompositeStatementObject parent) {
+		this.parent = parent;
+	}
 }

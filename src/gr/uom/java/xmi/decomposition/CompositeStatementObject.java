@@ -531,4 +531,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public void setParent(CompositeStatementObject parent) {
+		this.parent = parent;
+	}
 }
