@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<String> getNullLiterals() {
+		List<String> nullLiterals = new ArrayList<String>();
+		for(AbstractExpression expression : expressionList) {
+			nullLiterals.addAll(expression.getNullLiterals());
+		}
+		return nullLiterals;
+	}
 }
