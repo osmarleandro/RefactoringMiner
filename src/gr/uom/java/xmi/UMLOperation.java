@@ -466,6 +466,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
+	@Override
 	public boolean isSetter() {
 		List<String> parameterNames = getParameterNameList();
 		if(getBody() != null && parameterNames.size() == 1) {
