@@ -33,6 +33,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return RefactoringType.CHANGE_RETURN_TYPE;
 	}
 
+	@Override
 	public String getName() {
 		return getRefactoringType().getDisplayName();
 	}
