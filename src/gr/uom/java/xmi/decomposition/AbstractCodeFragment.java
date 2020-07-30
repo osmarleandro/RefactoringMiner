@@ -272,6 +272,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
 		String statement = getString();
 		if(statement.contains("=")) {
