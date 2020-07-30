@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 public class GitServiceImpl implements GitService {
 
 	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
-	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
@@ -126,6 +126,7 @@ public class GitServiceImpl implements GitService {
 //		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
 	}
 
+	@Override
 	public void checkout2(Repository repository, String commitId) throws Exception {
 	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
 		File workingDir = repository.getDirectory().getParentFile();
