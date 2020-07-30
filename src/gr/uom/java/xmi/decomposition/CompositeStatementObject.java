@@ -433,16 +433,6 @@ public class CompositeStatementObject extends AbstractStatement {
 		return locationInfo;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
-			if(declaration.getVariableName().equals(variableName)) {
-				return declaration;
-			}
-		}
-		return null;
-	}
-
 	public Map<String, Set<String>> aliasedAttributes() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
 		for(StatementObject statement : getLeaves()) {
