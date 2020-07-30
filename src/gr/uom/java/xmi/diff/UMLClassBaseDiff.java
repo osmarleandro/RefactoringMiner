@@ -1,7 +1,6 @@
 package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -42,13 +41,13 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
 	protected List<UMLAttribute> removedAttributes;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private boolean visibilityChanged;
-	private String oldVisibility;
-	private String newVisibility;
-	private boolean abstractionChanged;
-	private boolean oldAbstraction;
-	private boolean newAbstraction;
+	protected List<UMLOperationBodyMapper> operationBodyMapperList;
+	protected boolean visibilityChanged;
+	protected String oldVisibility;
+	protected String newVisibility;
+	protected boolean abstractionChanged;
+	protected boolean oldAbstraction;
+	protected boolean newAbstraction;
 	private boolean superclassChanged;
 	private UMLType oldSuperclass;
 	private UMLType newSuperclass;
@@ -56,7 +55,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
-	private List<UMLOperationDiff> operationDiffList;
+	protected List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
@@ -1609,46 +1608,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			operationDiffList.isEmpty() && attributeDiffList.isEmpty() &&
 			operationBodyMapperList.isEmpty() &&
 			!visibilityChanged && !abstractionChanged;
-	}
-
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append(originalClass.getName()).append(":").append("\n");
-		if(visibilityChanged) {
-			sb.append("\t").append("visibility changed from " + oldVisibility + " to " + newVisibility).append("\n");
-		}
-		if(abstractionChanged) {
-			sb.append("\t").append("abstraction changed from " + (oldAbstraction ? "abstract" : "concrete") + " to " +
-					(newAbstraction ? "abstract" : "concrete")).append("\n");
-		}
-		Collections.sort(removedOperations);
-		for(UMLOperation umlOperation : removedOperations) {
-			sb.append("operation " + umlOperation + " removed").append("\n");
-		}
-		Collections.sort(addedOperations);
-		for(UMLOperation umlOperation : addedOperations) {
-			sb.append("operation " + umlOperation + " added").append("\n");
-		}
-		Collections.sort(removedAttributes);
-		for(UMLAttribute umlAttribute : removedAttributes) {
-			sb.append("attribute " + umlAttribute + " removed").append("\n");
-		}
-		Collections.sort(addedAttributes);
-		for(UMLAttribute umlAttribute : addedAttributes) {
-			sb.append("attribute " + umlAttribute + " added").append("\n");
-		}
-		for(UMLOperationDiff operationDiff : operationDiffList) {
-			sb.append(operationDiff);
-		}
-		for(UMLAttributeDiff attributeDiff : attributeDiffList) {
-			sb.append(attributeDiff);
-		}
-		Collections.sort(operationBodyMapperList);
-		for(UMLOperationBodyMapper operationBodyMapper : operationBodyMapperList) {
-			sb.append(operationBodyMapper);
-		}
-		return sb.toString();
 	}
 
 	public int compareTo(UMLClassBaseDiff other) {
