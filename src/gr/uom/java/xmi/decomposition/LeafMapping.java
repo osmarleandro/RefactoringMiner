@@ -1,10 +1,17 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
@@ -114,5 +121,26 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
+		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
+				&& getFragment2() instanceof StatementObject) {
+			StatementObject statement = (StatementObject) getFragment2();
+			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
+			boolean validReplacements = true;
+			for(Replacement replacement : getReplacements()) {
+				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
+					validReplacements = false;
+					break;
+				}
+			}
+			if(variableDeclarations.size() == 1 && validReplacements) {
+				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
+				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
+				processExtractVariableRefactoring(ref, refactorings);
+				identicalWithExtractedVariable = true;
+			}
+		}
 	}
 }

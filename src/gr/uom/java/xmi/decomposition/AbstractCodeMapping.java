@@ -8,8 +8,6 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
-import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
@@ -22,10 +20,10 @@ public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	protected UMLOperation operation1;
+	protected UMLOperation operation2;
 	private Set<Replacement> replacements;
-	private boolean identicalWithExtractedVariable;
+	protected boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
 	public AbstractCodeMapping(AbstractCodeFragment fragment1, AbstractCodeFragment fragment2,
@@ -130,27 +128,6 @@ public abstract class AbstractCodeMapping {
 
 	public String toString() {
 		return fragment1.toString() + fragment2.toString();
-	}
-
-	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
-		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
-				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
-			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
-			boolean validReplacements = true;
-			for(Replacement replacement : getReplacements()) {
-				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
-					validReplacements = false;
-					break;
-				}
-			}
-			if(variableDeclarations.size() == 1 && validReplacements) {
-				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
-				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
-				processExtractVariableRefactoring(ref, refactorings);
-				identicalWithExtractedVariable = true;
-			}
-		}
 	}
 
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
@@ -358,7 +335,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+	protected void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
