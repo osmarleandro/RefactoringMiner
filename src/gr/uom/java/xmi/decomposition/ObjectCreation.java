@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -11,6 +12,8 @@ import org.eclipse.jdt.core.dom.Expression;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
@@ -138,5 +141,22 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+		if(getExpression() != null && call.getExpression() != null) {
+			String expression1 = getExpression();
+			String expression2 = call.getExpression();
+			String expression1AfterReplacements = new String(expression1);
+			for(Replacement replacement : replacements) {
+				if(replacement.getType().equals(ReplacementType.TYPE)) {
+					expression1AfterReplacements = ReplacementUtil.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
+				}
+			}
+			if(expression1AfterReplacements.equals(expression2)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

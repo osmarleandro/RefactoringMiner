@@ -5,6 +5,8 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -526,5 +528,22 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+		if(getExpression() != null && call.getExpression() != null) {
+			String expression1 = getExpression();
+			String expression2 = call.getExpression();
+			String expression1AfterReplacements = new String(expression1);
+			for(Replacement replacement : replacements) {
+				if(replacement.getType().equals(ReplacementType.TYPE)) {
+					expression1AfterReplacements = ReplacementUtil.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
+				}
+			}
+			if(expression1AfterReplacements.equals(expression2)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
