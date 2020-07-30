@@ -12,14 +12,13 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	protected LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -473,10 +472,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			map.remove(key);
 		}
 		return map;
-	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
 	}
 
 	public boolean isLoop() {
