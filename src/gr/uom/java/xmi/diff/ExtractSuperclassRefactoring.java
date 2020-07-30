@@ -89,4 +89,10 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 				.setCodeElement(extractedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public List<MoveClassRefactoring> getMoveClassRefactorings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

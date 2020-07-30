@@ -1,12 +1,15 @@
 package org.refactoringminer.api;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.core.util.BufferRecyclers;
+
+import gr.uom.java.xmi.diff.MoveClassRefactoring;
 
 public interface Refactoring extends Serializable, CodeRangeProvider {
 
@@ -39,4 +42,6 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	List<MoveClassRefactoring> getMoveClassRefactorings();
 }

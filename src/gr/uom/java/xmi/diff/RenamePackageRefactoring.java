@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenamePackageRefactoring implements Refactoring {
 
-	private List<MoveClassRefactoring> moveClassRefactorings;
+	public List<MoveClassRefactoring> moveClassRefactorings;
 	private RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
@@ -33,6 +33,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return pattern;
 	}
 
+	@Override
 	public List<MoveClassRefactoring> getMoveClassRefactorings() {
 		return moveClassRefactorings;
 	}

@@ -127,4 +127,10 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public List<MoveClassRefactoring> getMoveClassRefactorings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
