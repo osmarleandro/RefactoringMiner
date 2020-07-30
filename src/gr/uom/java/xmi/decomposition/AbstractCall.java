@@ -19,7 +19,7 @@ import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
 	protected String expression;
-	protected List<String> arguments;
+	public List<String> arguments;
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
@@ -217,6 +217,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
+	@Override
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
