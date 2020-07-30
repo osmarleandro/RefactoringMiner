@@ -11,8 +11,8 @@ public class ListCompositeType extends UMLType {
 			this.operand = operand;
 		}
 	}
-	private List<UMLType> types = new ArrayList<UMLType>();
-	private Kind kind;
+	List<UMLType> types = new ArrayList<UMLType>();
+	Kind kind;
 
 	public ListCompositeType(List<UMLType> types, Kind kind) {
 		this.types = types;
@@ -34,25 +34,6 @@ public class ListCompositeType extends UMLType {
 		result = prime * result + ((kind == null) ? 0 : kind.hashCode());
 		result = prime * result + ((types == null) ? 0 : types.hashCode());
 		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ListCompositeType other = (ListCompositeType) obj;
-		if (kind != other.kind)
-			return false;
-		if (types == null) {
-			if (other.types != null)
-				return false;
-		} else if (!types.equals(other.types))
-			return false;
-		return true;
 	}
 
 	@Override
