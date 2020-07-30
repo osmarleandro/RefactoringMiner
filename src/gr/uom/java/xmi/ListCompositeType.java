@@ -81,4 +81,13 @@ public class ListCompositeType extends UMLType {
 	public String getClassType() {
 		return types.get(types.size()-1).getClassType();
 	}
+
+	protected String typeArgumentsAndArrayDimensionToString() {
+		StringBuilder sb = new StringBuilder();
+		if(isParameterized())
+			sb.append(typeArgumentsToString());
+		for(int i=0; i<getArrayDimension(); i++)
+			sb.append("[]");
+		return sb.toString();
+	}
 }

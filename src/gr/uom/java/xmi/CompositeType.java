@@ -62,4 +62,13 @@ public class CompositeType extends UMLType {
 	public String getClassType() {
 		return rightType.getClassType();
 	}
+
+	protected String typeArgumentsAndArrayDimensionToString() {
+		StringBuilder sb = new StringBuilder();
+		if(isParameterized())
+			sb.append(typeArgumentsToString());
+		for(int i=0; i<getArrayDimension(); i++)
+			sb.append("[]");
+		return sb.toString();
+	}
 }
