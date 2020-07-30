@@ -74,6 +74,12 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 	}
 
+	public boolean subsumes(SplitVariableReplacement other) {
+		return this.getBefore().equals(other.getBefore()) &&
+				this.splitVariables.containsAll(other.splitVariables) &&
+				this.splitVariables.size() > other.splitVariables.size();
+	}
+
 	public enum ReplacementType {
 		TYPE, STRING_LITERAL, NUMBER_LITERAL, ANONYMOUS_CLASS_DECLARATION, INFIX_OPERATOR, VARIABLE_NAME, VARIABLE_DECLARATION,
 		MERGE_VARIABLES, SPLIT_VARIABLE, ADD_VARIABLE,
