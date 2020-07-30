@@ -301,7 +301,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return false;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
     	return getName();
     }
 
