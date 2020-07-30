@@ -5,6 +5,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -396,5 +397,50 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
+		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
+		int totalOperations = 0;
+		for(UMLOperation operation : operations) {
+			if(!operation.isConstructor() && !operation.overridesObject()) {
+				totalOperations++;
+	    		if(umlClass.containsOperationWithTheSameName(operation)) {
+	    			commonOperations.add(operation);
+	    		}
+			}
+		}
+		for(UMLOperation operation : umlClass.operations) {
+			if(!operation.isConstructor() && !operation.overridesObject()) {
+				totalOperations++;
+	    		if(this.containsOperationWithTheSameName(operation)) {
+	    			commonOperations.add(operation);
+	    		}
+			}
+		}
+		Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+		int totalAttributes = 0;
+		for(UMLAttribute attribute : attributes) {
+			totalAttributes++;
+			if(umlClass.containsAttributeWithTheSameName(attribute)) {
+				commonAttributes.add(attribute);
+			}
+		}
+		for(UMLAttribute attribute : umlClass.attributes) {
+			totalAttributes++;
+			if(this.containsAttributeWithTheSameName(attribute)) {
+				commonAttributes.add(attribute);
+			}
+		}
+		if(this.isTestClass() && umlClass.isTestClass()) {
+			return commonOperations.size() > Math.floor(totalOperations/2.0) || commonOperations.containsAll(this.operations);
+		}
+		if(this.isSingleAbstractMethodInterface() && umlClass.isSingleAbstractMethodInterface()) {
+			return commonOperations.size() == totalOperations;
+		}
+		return (commonOperations.size() >= Math.floor(totalOperations/2.0) && (commonAttributes.size() > 2 || totalAttributes == 0)) ||
+				(commonAttributes.size() >= Math.floor(totalAttributes/2.0) && (commonOperations.size() > 2 || totalOperations == 0)) ||
+				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && this.attributes.size() == umlClass.attributes.size()) ||
+				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 }
