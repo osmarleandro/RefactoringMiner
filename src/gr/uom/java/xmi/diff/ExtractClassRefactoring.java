@@ -44,6 +44,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return RefactoringType.EXTRACT_CLASS;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
