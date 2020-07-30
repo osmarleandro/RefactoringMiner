@@ -1,6 +1,9 @@
 package gr.uom.java.xmi.diff;
 
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	
@@ -24,5 +27,18 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
+		for(Refactoring ref : refactorings) {
+			if(ref instanceof ExtractOperationRefactoring) {
+				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
+				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
+						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
