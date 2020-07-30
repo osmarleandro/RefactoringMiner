@@ -30,4 +30,8 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	public UMLOperationBodyMapper getBodyMapper() {
+		return bodyMapper;
+	}
 }
