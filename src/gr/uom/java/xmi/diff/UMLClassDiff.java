@@ -195,4 +195,27 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	protected void processOperations() throws RefactoringMinerTimedOutException {
+		for(UMLOperation operation : originalClass.getOperations()) {
+			UMLOperation operationWithTheSameSignature = nextClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+			if(operationWithTheSameSignature == null) {
+				this.removedOperations.add(operation);
+			}
+			else if(!mapperListContainsOperation(operation, operationWithTheSameSignature)) {
+				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation, operationWithTheSameSignature, this);
+				this.operationBodyMapperList.add(mapper);
+			}
+		}
+		for(UMLOperation operation : nextClass.getOperations()) {
+			UMLOperation operationWithTheSameSignature = originalClass.operationWithTheSameSignatureIgnoringChangedTypes(operation);
+			if(operationWithTheSameSignature == null) {
+				this.addedOperations.add(operation);
+			}
+			else if(!mapperListContainsOperation(operationWithTheSameSignature, operation)) {
+				UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operationWithTheSameSignature, operation, this);
+				this.operationBodyMapperList.add(mapper);
+			}
+		}
+	}
 }
