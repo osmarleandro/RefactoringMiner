@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	public UMLAttribute movedAttribute;
 	private volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
@@ -46,6 +46,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
+	@Override
 	public UMLAttribute getMovedAttribute() {
 		return movedAttribute;
 	}
