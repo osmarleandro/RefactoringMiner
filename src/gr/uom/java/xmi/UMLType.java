@@ -18,11 +18,10 @@ import org.eclipse.jdt.core.dom.WildcardType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
-	private LocationInfo locationInfo;
+	protected LocationInfo locationInfo;
 	private int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
@@ -37,10 +36,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	public List<UMLAnnotation> getAnnotations() {
 		return annotations;
-	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
 	}
 
 	public void setVarargs() {

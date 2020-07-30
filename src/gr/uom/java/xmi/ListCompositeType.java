@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.diff.CodeRange;
+
 public class ListCompositeType extends UMLType {
 	public enum Kind {
 		UNION("|"), INTERSECTION("&");
@@ -80,5 +82,9 @@ public class ListCompositeType extends UMLType {
 	@Override
 	public String getClassType() {
 		return types.get(types.size()-1).getClassType();
+	}
+
+	public CodeRange codeRange() {
+		return locationInfo.codeRange();
 	}
 }

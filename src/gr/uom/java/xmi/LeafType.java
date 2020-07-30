@@ -2,6 +2,8 @@ package gr.uom.java.xmi;
 
 import java.util.regex.Pattern;
 
+import gr.uom.java.xmi.diff.CodeRange;
+
 public class LeafType extends UMLType {
 	private String classType;
 	private String nonQualifiedClassType;
@@ -150,5 +152,9 @@ public class LeafType extends UMLType {
 		sb.append(classType);
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
+	}
+
+	public CodeRange codeRange() {
+		return locationInfo.codeRange();
 	}
 }
