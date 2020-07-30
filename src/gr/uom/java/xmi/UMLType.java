@@ -154,13 +154,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		return false;
 	}
-	public boolean compatibleTypes(UMLType type) {
-		if(this.getClass() == type.getClass()) {
-			return this.equals(type);
-		}
-		return false;
-	}
-
 	public double normalizedNameDistance(UMLType type) {
 		String s1 = this.toString();
 		String s2 = type.toString();
