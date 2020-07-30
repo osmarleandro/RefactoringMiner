@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
@@ -127,5 +128,11 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setDescription("moved attribute declaration")
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public void addReference(AbstractCodeMapping mapping) {
+		// TODO Auto-generated method stub
+		
 	}
 }
