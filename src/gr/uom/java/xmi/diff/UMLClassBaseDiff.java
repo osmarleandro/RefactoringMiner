@@ -1671,4 +1671,13 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	protected boolean containsMapperForOperation(UMLOperation operation) {
+		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+			if(mapper.getOperation1().equalsQualified(operation)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
