@@ -1,6 +1,11 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -32,5 +37,44 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap, SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
+		SplitVariableReplacement splitToBeRemoved = null;
+		for(SplitVariableReplacement split : splitMap.keySet()) {
+			if(split.subsumes(newSplit)) {
+				splitMap.get(split).add(candidate);
+				return;
+			}
+			else if(split.equal(newSplit)) {
+				splitMap.get(split).add(candidate);
+				return;
+			}
+			else if(split.commonBefore(newSplit)) {
+				splitToBeRemoved = split;
+				Set<String> splitVariables = new LinkedHashSet<String>();
+				splitVariables.addAll(split.getSplitVariables());
+				splitVariables.addAll(newSplit.getSplitVariables());
+				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore(), splitVariables);
+				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
+				candidates.add(candidate);
+				splitMap.put(replacement, candidates);
+				break;
+			}
+			else if(newSplit.subsumes(split)) {
+				splitToBeRemoved = split;
+				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
+				candidates.add(candidate);
+				splitMap.put(newSplit, candidates);
+				break;
+			}
+		}
+		if(splitToBeRemoved != null) {
+			splitMap.remove(splitToBeRemoved);
+			return;
+		}
+		Set<CandidateSplitVariableRefactoring> set = new LinkedHashSet<CandidateSplitVariableRefactoring>();
+		set.add(candidate);
+		splitMap.put(newSplit, set);
 	}
 }
