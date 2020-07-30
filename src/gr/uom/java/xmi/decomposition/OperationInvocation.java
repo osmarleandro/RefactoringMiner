@@ -527,4 +527,8 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean equalArguments(AbstractCall call) {
+		return getArguments().equals(call.getArguments());
+	}
 }
