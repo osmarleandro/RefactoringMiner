@@ -139,4 +139,10 @@ public class ObjectCreation extends AbstractCall {
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
+
+	private boolean argumentIsEqual(String statement) {
+		return statement.endsWith(";\n") && getArguments().size() == 1 &&
+				//length()-2 to remove ";\n" from the end of the statement
+				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(0, statement.length()-2));
+	}
 }
