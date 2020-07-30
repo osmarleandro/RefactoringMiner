@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -214,6 +214,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
+	@Override
 	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
 		String downloadLink = extractDownloadLink(cloneURL, commitId);
@@ -710,7 +711,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return commitURL;
 	}
 
-	private static String extractDownloadLink(String cloneURL, String commitId) {
+	public static String extractDownloadLink(String cloneURL, String commitId) {
 		int indexOfDotGit = cloneURL.length();
 		if(cloneURL.endsWith(".git")) {
 			indexOfDotGit = cloneURL.indexOf(".git");
