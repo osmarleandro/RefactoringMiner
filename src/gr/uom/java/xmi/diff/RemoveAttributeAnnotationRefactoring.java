@@ -15,7 +15,7 @@ import gr.uom.java.xmi.UMLAttribute;
 public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
 	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAttribute attributeAfter;
 
 	public RemoveAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
 			UMLAttribute attributeAfter) {
@@ -32,6 +32,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 		return attributeBefore;
 	}
 
+	@Override
 	public UMLAttribute getAttributeAfter() {
 		return attributeAfter;
 	}
