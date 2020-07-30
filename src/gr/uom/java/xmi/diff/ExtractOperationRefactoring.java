@@ -25,7 +25,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
+	public Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
@@ -111,6 +111,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedCodeFragmentsFromSourceOperation;
 	}
 
+	@Override
 	public Set<AbstractCodeFragment> getExtractedCodeFragmentsToExtractedOperation() {
 		return extractedCodeFragmentsToExtractedOperation;
 	}
