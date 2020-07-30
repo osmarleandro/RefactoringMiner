@@ -22,7 +22,7 @@ public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
-	private UMLOperation operation1;
+	protected UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
@@ -43,10 +43,6 @@ public abstract class AbstractCodeMapping {
 
 	public AbstractCodeFragment getFragment2() {
 		return fragment2;
-	}
-
-	public UMLOperation getOperation1() {
-		return operation1;
 	}
 
 	public UMLOperation getOperation2() {
