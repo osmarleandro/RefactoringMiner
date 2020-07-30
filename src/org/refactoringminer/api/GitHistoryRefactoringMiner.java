@@ -1,5 +1,7 @@
 package org.refactoringminer.api;
 
+import java.io.IOException;
+
 import org.eclipse.jgit.lib.Repository;
 
 /**
@@ -111,4 +113,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	@Override
+	void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException;
 }

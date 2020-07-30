@@ -274,7 +274,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return parentCommitId;
 	}
 
-	private GitHub connectToGitHub() {
+	public GitHub connectToGitHub() {
 		if(gitHub == null) {
 			try {
 				Properties prop = new Properties();
@@ -672,7 +672,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
-	private static String extractRepositoryName(String cloneURL) {
+	public static String extractRepositoryName(String cloneURL) {
 		int hostLength = 0;
 		if(cloneURL.startsWith(GITHUB_URL)) {
 			hostLength = GITHUB_URL.length();
