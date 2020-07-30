@@ -10,31 +10,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.Repository;
-import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
-import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
-import org.refactoringminer.util.GitServiceImpl;
 
 public class TestBuilder {
 
-	private final String tempDir;
-	private final Map<String, ProjectMatcher> map;
-	private final GitHistoryRefactoringMiner refactoringDetector;
-	private boolean verbose;
+	public final String tempDir;
+	public final Map<String, ProjectMatcher> map;
+	public final GitHistoryRefactoringMiner refactoringDetector;
+	public boolean verbose;
 	private boolean aggregate;
-	private int commitsCount;
-	private int errorCommitsCount;
-	private Counter c;// = new Counter();
-	private Map<RefactoringType, Counter> cMap;
-	private static final int TP = 0;
-	private static final int FP = 1;
-	private static final int FN = 2;
+	public int commitsCount;
+	public int errorCommitsCount;
+	public Counter c;// = new Counter();
+	public Map<RefactoringType, Counter> cMap;
+	public static final int TP = 0;
+	public static final int FP = 1;
+	public static final int FN = 2;
 	private static final int TN = 3;
 	private static final int UNK = 4;
 
@@ -64,7 +60,7 @@ public class TestBuilder {
 		return this;
 	}
 
-	private static class Counter {
+	public static class Counter {
 		int[] c = new int[5];
 	}
 
@@ -79,7 +75,7 @@ public class TestBuilder {
 		refTypeCounter.c[type]++;
 	}
 
-	private int get(int type) {
+	public int get(int type) {
 		return c.c[type];
 	}
 
@@ -100,51 +96,7 @@ public class TestBuilder {
 		return projectMatcher;
 	}
 
-	public void assertExpectations() throws Exception {
-		c = new Counter();
-		cMap = new HashMap<RefactoringType, Counter>();
-		commitsCount = 0;
-		errorCommitsCount = 0;
-		GitService gitService = new GitServiceImpl();
-
-		for (ProjectMatcher m : map.values()) {
-			String folder = tempDir + "/"
-					+ m.cloneUrl.substring(m.cloneUrl.lastIndexOf('/') + 1, m.cloneUrl.lastIndexOf('.'));
-			try (Repository rep = gitService.cloneIfNotExists(folder,
-					m.cloneUrl/* , m.branch */)) {
-				if (m.ignoreNonSpecifiedCommits) {
-					// It is faster to only look at particular commits
-					for (String commitId : m.getCommits()) {
-						refactoringDetector.detectAtCommit(rep, commitId, m);
-					}
-				} else {
-					// Iterate over each commit
-					refactoringDetector.detectAll(rep, m.branch, m);
-				}
-			}
-		}
-		System.out.println(String.format("Commits: %d  Errors: %d", commitsCount, errorCommitsCount));
-
-		String mainResultMessage = buildResultMessage(c);
-		System.out.println("Total  " + mainResultMessage);
-		for (RefactoringType refType : RefactoringType.values()) {
-			Counter refTypeCounter = cMap.get(refType);
-			if (refTypeCounter != null) {
-				System.out
-						.println(String.format("%-7s", refType.getAbbreviation()) + buildResultMessage(refTypeCounter));
-			}
-		}
-
-		boolean success = get(FP) == 0 && get(FN) == 0 && get(TP) > 0;
-		if (!success || verbose) {
-			for (ProjectMatcher m : map.values()) {
-				m.printResults();
-			}
-		}
-		Assert.assertTrue(mainResultMessage, success);
-	}
-
-	private String buildResultMessage(Counter c) {
+	public String buildResultMessage(Counter c) {
 		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
 		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
 		String mainResultMessage = String.format(
@@ -191,10 +143,10 @@ public class TestBuilder {
 
 	public class ProjectMatcher extends RefactoringHandler {
 
-		private final String cloneUrl;
-		private final String branch;
+		public final String cloneUrl;
+		public final String branch;
 		private Map<String, CommitMatcher> expected = new HashMap<>();
-		private boolean ignoreNonSpecifiedCommits = true;
+		public boolean ignoreNonSpecifiedCommits = true;
 		private int truePositiveCount = 0;
 		private int falsePositiveCount = 0;
 		private int falseNegativeCount = 0;
@@ -326,7 +278,7 @@ public class TestBuilder {
 			// e.getMessage());
 		}
 
-		private void printResults() {
+		public void printResults() {
 			// if (verbose || this.falsePositiveCount > 0 ||
 			// this.falseNegativeCount > 0 || this.errorsCount > 0) {
 			// System.out.println(this.cloneUrl);

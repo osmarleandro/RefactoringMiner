@@ -1,6 +1,13 @@
 package org.refactoringminer.api;
 
+import java.util.HashMap;
+
 import org.eclipse.jgit.lib.Repository;
+import org.junit.Assert;
+import org.refactoringminer.test.TestBuilder;
+import org.refactoringminer.test.TestBuilder.Counter;
+import org.refactoringminer.test.TestBuilder.ProjectMatcher;
+import org.refactoringminer.util.GitServiceImpl;
 
 /**
  * Detect refactorings in the git history.
@@ -111,4 +118,48 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	default void assertExpectations(TestBuilder testBuilder) throws Exception {
+		testBuilder.c = new Counter();
+		testBuilder.cMap = new HashMap<RefactoringType, Counter>();
+		testBuilder.commitsCount = 0;
+		testBuilder.errorCommitsCount = 0;
+		GitService gitService = new GitServiceImpl();
+	
+		for (ProjectMatcher m : testBuilder.map.values()) {
+			String folder = testBuilder.tempDir + "/"
+					+ m.cloneUrl.substring(m.cloneUrl.lastIndexOf('/') + 1, m.cloneUrl.lastIndexOf('.'));
+			try (Repository rep = gitService.cloneIfNotExists(folder,
+					m.cloneUrl/* , m.branch */)) {
+				if (m.ignoreNonSpecifiedCommits) {
+					// It is faster to only look at particular commits
+					for (String commitId : m.getCommits()) {
+						detectAtCommit(rep, commitId, m);
+					}
+				} else {
+					// Iterate over each commit
+					detectAll(rep, m.branch, m);
+				}
+			}
+		}
+		System.out.println(String.format("Commits: %d  Errors: %d", testBuilder.commitsCount, testBuilder.errorCommitsCount));
+	
+		String mainResultMessage = testBuilder.buildResultMessage(testBuilder.c);
+		System.out.println("Total  " + mainResultMessage);
+		for (RefactoringType refType : RefactoringType.values()) {
+			Counter refTypeCounter = testBuilder.cMap.get(refType);
+			if (refTypeCounter != null) {
+				System.out
+						.println(String.format("%-7s", refType.getAbbreviation()) + testBuilder.buildResultMessage(refTypeCounter));
+			}
+		}
+	
+		boolean success = testBuilder.get(TestBuilder.FP) == 0 && testBuilder.get(TestBuilder.FN) == 0 && testBuilder.get(TestBuilder.TP) > 0;
+		if (!success || testBuilder.verbose) {
+			for (ProjectMatcher m : testBuilder.map.values()) {
+				m.printResults();
+			}
+		}
+		Assert.assertTrue(mainResultMessage, success);
+	}
 }

@@ -12,6 +12,6 @@ public class TestAllRefactorings {
 	public void testAllRefactorings() throws Exception {
 		TestBuilder test = new TestBuilder(new GitHistoryRefactoringMinerImpl(), "tmp1", Refactorings.All.getValue());
 		RefactoringPopulator.feedRefactoringsInstances(Refactorings.All.getValue(), Systems.FSE.getValue(), test);
-		test.assertExpectations();
+		test.refactoringDetector.assertExpectations(test);
 	}
 }
