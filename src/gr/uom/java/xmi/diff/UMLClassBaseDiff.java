@@ -235,10 +235,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return originalClass.getName();
 	}
 
-	public String getNextClassName() {
-		return nextClass.getName();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
