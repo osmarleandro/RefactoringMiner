@@ -2,7 +2,10 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
@@ -13,6 +16,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
 public class UMLClassDiff extends UMLClassBaseDiff {
 	
@@ -194,5 +198,44 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap, MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
+		MergeVariableReplacement mergeToBeRemoved = null;
+		for(MergeVariableReplacement merge : mergeMap.keySet()) {
+			if(merge.subsumes(newMerge)) {
+				mergeMap.get(merge).add(candidate);
+				return;
+			}
+			else if(merge.equal(newMerge)) {
+				mergeMap.get(merge).add(candidate);
+				return;
+			}
+			else if(merge.commonAfter(newMerge)) {
+				mergeToBeRemoved = merge;
+				Set<String> mergedVariables = new LinkedHashSet<String>();
+				mergedVariables.addAll(merge.getMergedVariables());
+				mergedVariables.addAll(newMerge.getMergedVariables());
+				MergeVariableReplacement replacement = new MergeVariableReplacement(mergedVariables, merge.getAfter());
+				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
+				candidates.add(candidate);
+				mergeMap.put(replacement, candidates);
+				break;
+			}
+			else if(newMerge.subsumes(merge)) {
+				mergeToBeRemoved = merge;
+				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
+				candidates.add(candidate);
+				mergeMap.put(newMerge, candidates);
+				break;
+			}
+		}
+		if(mergeToBeRemoved != null) {
+			mergeMap.remove(mergeToBeRemoved);
+			return;
+		}
+		Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+		set.add(candidate);
+		mergeMap.put(newMerge, set);
 	}
 }
