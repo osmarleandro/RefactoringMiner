@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
-	private String methodName;
+	String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
@@ -132,10 +132,6 @@ public class OperationInvocation extends AbstractCall {
 
 	public String getName() {
 		return getMethodName();
-	}
-
-    public String getMethodName() {
-		return methodName;
 	}
 
     public int numberOfSubExpressions() {
