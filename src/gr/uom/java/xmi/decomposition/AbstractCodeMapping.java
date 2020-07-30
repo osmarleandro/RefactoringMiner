@@ -20,10 +20,10 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	protected AbstractCodeFragment fragment1;
+	protected AbstractCodeFragment fragment2;
+	protected UMLOperation operation1;
+	protected UMLOperation operation2;
 	private Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
@@ -427,17 +427,6 @@ public abstract class AbstractCodeMapping {
 		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
 		intersection.retainAll(other.replacements);
 		return intersection;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fragment1 == null) ? 0 : fragment1.hashCode());
-		result = prime * result + ((fragment2 == null) ? 0 : fragment2.hashCode());
-		result = prime * result + ((operation1 == null) ? 0 : operation1.hashCode());
-		result = prime * result + ((operation2 == null) ? 0 : operation2.hashCode());
-		return result;
 	}
 
 	@Override
