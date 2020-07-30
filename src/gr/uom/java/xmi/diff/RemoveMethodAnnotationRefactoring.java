@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLOperation;
 
 public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	
 	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
@@ -28,6 +28,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		return annotation;
 	}
 
+	@Override
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
