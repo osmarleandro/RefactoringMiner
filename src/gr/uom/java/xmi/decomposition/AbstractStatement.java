@@ -13,11 +13,7 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
     	return this.parent;
     }
 
-	public String getString() {
-    	return toString();
-    }
-
-    public VariableDeclaration searchVariableDeclaration(String variableName) {
+	public VariableDeclaration searchVariableDeclaration(String variableName) {
     	VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
     	if(variableDeclaration != null) {
     		return variableDeclaration;

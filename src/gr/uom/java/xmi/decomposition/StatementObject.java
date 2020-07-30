@@ -260,4 +260,8 @@ public class StatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public String getString() {
+		return toString();
+	}
 }
