@@ -15,7 +15,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration renamedAttribute;
 	private Set<CandidateAttributeRefactoring> attributeRenames;
-	private String classNameBefore;
+	public String classNameBefore;
 	private String classNameAfter;
 
 	public RenameAttributeRefactoring(VariableDeclaration originalAttribute, VariableDeclaration renamedAttribute,
@@ -39,6 +39,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return attributeRenames;
 	}
 
+	@Override
 	public String getClassNameBefore() {
 		return classNameBefore;
 	}
