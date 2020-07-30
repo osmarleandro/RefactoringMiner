@@ -64,10 +64,6 @@ public class MoveOperationRefactoring implements Refactoring {
 		return originalOperation;
 	}
 
-	public UMLOperation getMovedOperation() {
-		return movedOperation;
-	}
-
 	public Set<Replacement> getReplacements() {
 		return replacements;
 	}
