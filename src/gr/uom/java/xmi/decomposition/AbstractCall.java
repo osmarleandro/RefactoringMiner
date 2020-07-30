@@ -10,6 +10,7 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -434,6 +435,10 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public UMLType getType() {
+		return type;
 	}
 
 	public enum StatementCoverageType {
