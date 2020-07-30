@@ -40,6 +40,7 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -667,6 +668,74 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	@Override
+	public Repository openRepository(String repositoryPath) throws Exception {
+	    File folder = new File(repositoryPath);
+	    Repository repository;
+	    if (folder.exists()) {
+	        RepositoryBuilder builder = new RepositoryBuilder();
+	        repository = builder
+	            .setGitDir(new File(folder, ".git"))
+	            .readEnvironment()
+	            .findGitDir()
+	            .build();
+	    } else {
+	        throw new FileNotFoundException(repositoryPath);
+	    }
+	    return repository;
+	}
+
+	@Override
+	public Repository openRepository(String repositoryPath) throws Exception {
+	    File folder = new File(repositoryPath);
+	    Repository repository;
+	    if (folder.exists()) {
+	        RepositoryBuilder builder = new RepositoryBuilder();
+	        repository = builder
+	            .setGitDir(new File(folder, ".git"))
+	            .readEnvironment()
+	            .findGitDir()
+	            .build();
+	    } else {
+	        throw new FileNotFoundException(repositoryPath);
+	    }
+	    return repository;
+	}
+
+	@Override
+	public Repository openRepository(String repositoryPath) throws Exception {
+	    File folder = new File(repositoryPath);
+	    Repository repository;
+	    if (folder.exists()) {
+	        RepositoryBuilder builder = new RepositoryBuilder();
+	        repository = builder
+	            .setGitDir(new File(folder, ".git"))
+	            .readEnvironment()
+	            .findGitDir()
+	            .build();
+	    } else {
+	        throw new FileNotFoundException(repositoryPath);
+	    }
+	    return repository;
+	}
+
+	@Override
+	public Repository openRepository(String repositoryPath) throws Exception {
+	    File folder = new File(repositoryPath);
+	    Repository repository;
+	    if (folder.exists()) {
+	        RepositoryBuilder builder = new RepositoryBuilder();
+	        repository = builder
+	            .setGitDir(new File(folder, ".git"))
+	            .readEnvironment()
+	            .findGitDir()
+	            .build();
+	    } else {
+	        throw new FileNotFoundException(repositoryPath);
+	    }
+	    return repository;
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
