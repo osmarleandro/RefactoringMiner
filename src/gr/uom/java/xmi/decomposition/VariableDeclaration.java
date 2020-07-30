@@ -28,7 +28,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private UMLType type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
-	private boolean isParameter;
+	public boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
 	private List<UMLAnnotation> annotations;
@@ -115,6 +115,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return scope;
 	}
 
+	@Override
 	public boolean isParameter() {
 		return isParameter;
 	}
