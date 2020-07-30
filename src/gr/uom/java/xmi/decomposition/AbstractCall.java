@@ -39,6 +39,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return coverage;
 	}
 
+	@Override
 	public abstract boolean identicalName(AbstractCall call);
 	public abstract String getName();
 	public abstract double normalizedNameDistance(AbstractCall call);
