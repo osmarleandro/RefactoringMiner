@@ -5,12 +5,16 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -526,5 +530,50 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
+		if(onlyArgumentsChanged(call, replacements)) {
+			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
+			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
+			for(Replacement replacement : replacements) {
+				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+					String key = replacement.getAfter();
+					if(commonVariableReplacementMap.containsKey(key)) {
+						commonVariableReplacementMap.get(key).add(replacement);
+						int index = updatedArguments1.indexOf(replacement.getBefore());
+						if(index != -1) {
+							updatedArguments1.remove(index);
+						}
+					}
+					else {
+						Set<Replacement> r = new LinkedHashSet<Replacement>();
+						r.add(replacement);
+						commonVariableReplacementMap.put(key, r);
+						int index = updatedArguments1.indexOf(replacement.getBefore());
+						if(index != -1) {
+							updatedArguments1.remove(index);
+							updatedArguments1.add(index, key);
+						}
+					}
+				}
+			}
+			if(updatedArguments1.equals(call.arguments)) {
+				for(String key : commonVariableReplacementMap.keySet()) {
+					Set<Replacement> r = commonVariableReplacementMap.get(key);
+					if(r.size() > 1) {
+						replacements.removeAll(r);
+						Set<String> mergedVariables = new LinkedHashSet<String>();
+						for(Replacement replacement : r) {
+							mergedVariables.add(replacement.getBefore());
+						}
+						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+						replacements.add(merge);
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 }
