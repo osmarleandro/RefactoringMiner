@@ -436,6 +436,16 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	public int hashCode() {
+		if(hashCode == 0) {
+			int result = 17;
+			result = 37*result + methodName.hashCode();
+			result = 37*result + typeArguments;
+			hashCode = result;
+		}
+		return hashCode;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}

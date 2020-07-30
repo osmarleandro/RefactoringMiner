@@ -26,9 +26,9 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
-	private String methodName;
+	String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
-	private volatile int hashCode = 0;
+	volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.METHOD_INVOCATION);
@@ -424,17 +424,7 @@ public class OperationInvocation extends AbstractCall {
         return sb.toString();
     }
 
-    public int hashCode() {
-    	if(hashCode == 0) {
-    		int result = 17;
-    		result = 37*result + methodName.hashCode();
-    		result = 37*result + typeArguments;
-    		hashCode = result;
-    	}
-    	return hashCode;
-    }
-
-	public boolean identicalName(AbstractCall call) {
+    public boolean identicalName(AbstractCall call) {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 
