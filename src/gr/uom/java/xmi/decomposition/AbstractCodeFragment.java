@@ -13,8 +13,9 @@ import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
 	private int index;
-	private String codeFragmentAfterReplacingParametersWithArguments;
+	public String codeFragmentAfterReplacingParametersWithArguments;
 
+	@Override
 	public String getArgumentizedString() {
 		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString();
 	}
