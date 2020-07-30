@@ -42,4 +42,8 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public List<AbstractStatement> getStatements() {
+		return statementList;
+	}
 }
