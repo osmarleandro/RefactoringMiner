@@ -30,4 +30,8 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
 }
