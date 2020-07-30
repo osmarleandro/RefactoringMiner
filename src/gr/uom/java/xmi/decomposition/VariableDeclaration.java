@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public void setEmptyBody(boolean emptyBody) {
+		// TODO Auto-generated method stub
+		
+	}
 }
