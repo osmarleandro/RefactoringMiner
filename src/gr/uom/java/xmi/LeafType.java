@@ -3,9 +3,9 @@ package gr.uom.java.xmi;
 import java.util.regex.Pattern;
 
 public class LeafType extends UMLType {
-	private String classType;
+	String classType;
 	private String nonQualifiedClassType;
-	private volatile int hashCode = 0;
+	volatile int hashCode = 0;
 	private static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
 	
 	public LeafType(String type) {
@@ -121,19 +121,6 @@ public class LeafType extends UMLType {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		if(hashCode == 0) {
-			int result = 17;
-			result = 37*result + classType.hashCode();
-			if(isParameterized())
-				result = 37*result + typeArgumentsToString().hashCode();
-			result = 37*result + getArrayDimension();
-			hashCode = result;
-		}
-		return hashCode;
 	}
 
 	@Override
