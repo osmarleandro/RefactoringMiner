@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitVariableRefactoring implements Refactoring {
-	private Set<VariableDeclaration> splitVariables;
-	private VariableDeclaration oldVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public Set<VariableDeclaration> splitVariables;
+	public VariableDeclaration oldVariable;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
 	public SplitVariableRefactoring(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
@@ -109,34 +109,7 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SplitVariableRefactoring other = (SplitVariableRefactoring) obj;
-		if (oldVariable == null) {
-			if (other.oldVariable != null)
-				return false;
-		} else if (!oldVariable.equals(other.oldVariable))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (splitVariables == null) {
-			if (other.splitVariables != null)
-				return false;
-		} else if (!splitVariables.equals(other.splitVariables))
-			return false;
-		return true;
+		return oldVariable.equals(this, obj);
 	}
 
 	@Override
