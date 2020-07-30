@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ModifyMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
@@ -143,5 +144,11 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		} else if (!operationBefore.equals(other.operationBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public Set<AbstractCodeMapping> getReturnReferences() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

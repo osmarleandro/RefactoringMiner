@@ -18,7 +18,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType changedType;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> returnReferences;
+	public Set<AbstractCodeMapping> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> returnReferences) {
@@ -53,6 +53,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
+	@Override
 	public Set<AbstractCodeMapping> getReturnReferences() {
 		return returnReferences;
 	}

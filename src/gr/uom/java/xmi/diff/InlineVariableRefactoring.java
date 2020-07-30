@@ -135,4 +135,10 @@ public class InlineVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public Set<AbstractCodeMapping> getReturnReferences() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
