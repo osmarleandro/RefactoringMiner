@@ -229,7 +229,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public UMLOperation matchOperation(UMLOperation otherOperation) {
+    @Override
+	public UMLOperation matchOperation(UMLOperation otherOperation) {
     	ListIterator<UMLOperation> operationIt = operations.listIterator();
     	while(operationIt.hasNext()) {
     		UMLOperation operation = operationIt.next();
