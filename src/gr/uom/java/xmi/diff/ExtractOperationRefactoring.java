@@ -25,7 +25,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
+	public Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
@@ -146,6 +146,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the extracted code fragment to the extracted method in the <b>child</b> commit
 	 */
+	@Override
 	public CodeRange getExtractedCodeRangeToExtractedOperation() {
 		return CodeRange.computeRange(extractedCodeFragmentsToExtractedOperation);
 	}
