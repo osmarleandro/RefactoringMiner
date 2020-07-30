@@ -60,4 +60,9 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		}
 	}
 
+	public boolean isExact() {
+		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
+				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
+	}
+
 }
