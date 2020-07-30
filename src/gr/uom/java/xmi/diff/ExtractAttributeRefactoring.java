@@ -34,6 +34,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return RefactoringType.EXTRACT_ATTRIBUTE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
