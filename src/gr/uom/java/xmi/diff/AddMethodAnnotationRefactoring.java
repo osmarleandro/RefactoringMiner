@@ -128,4 +128,10 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public void addMovedClassToAnotherSourceFolder(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
+		// TODO Auto-generated method stub
+		
+	}
 }
