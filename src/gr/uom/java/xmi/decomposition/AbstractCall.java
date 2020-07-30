@@ -17,9 +17,9 @@ import gr.uom.java.xmi.diff.CodeRange;
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
-	protected int typeArguments;
-	protected String expression;
-	protected List<String> arguments;
+	public int typeArguments;
+	public String expression;
+	public List<String> arguments;
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
@@ -416,6 +416,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
 		newCall.typeArguments = this.typeArguments;
 		if(this.expression != null && this.expression.equals(oldExpression)) {

@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public void update(AbstractCall newCall, String oldExpression, String newExpression) {
+		// TODO Auto-generated method stub
+		
+	}
 }
