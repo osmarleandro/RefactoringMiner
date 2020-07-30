@@ -1,5 +1,9 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.List;
+
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
@@ -24,5 +28,9 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public List<Refactoring> getRefactoringsBeforePostProcessing() {
+		return refactorings;
 	}
 }

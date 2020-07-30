@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
@@ -194,5 +195,9 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	public List<Refactoring> getRefactoringsBeforePostProcessing() {
+		return refactorings;
 	}
 }

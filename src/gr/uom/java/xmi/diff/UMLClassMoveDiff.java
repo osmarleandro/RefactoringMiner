@@ -1,5 +1,9 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.List;
+
+import org.refactoringminer.api.Refactoring;
+
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
@@ -32,5 +36,9 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public List<Refactoring> getRefactoringsBeforePostProcessing() {
+		return refactorings;
 	}
 }
