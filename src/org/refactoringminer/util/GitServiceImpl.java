@@ -237,13 +237,6 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private ObjectId getActualRefObjectId(Ref ref) {
-		if(ref.getPeeledObjectId() != null) {
-			return ref.getPeeledObjectId();
-		}
-		return ref.getObjectId();
-	}
-
 	@Override
 	public Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
 			throws Exception {

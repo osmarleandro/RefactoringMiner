@@ -39,6 +39,7 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -667,6 +668,34 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	private ObjectId getActualRefObjectId(Ref ref) {
+		if(ref.getPeeledObjectId() != null) {
+			return ref.getPeeledObjectId();
+		}
+		return ref.getObjectId();
+	}
+
+	private ObjectId getActualRefObjectId(Ref ref) {
+		if(ref.getPeeledObjectId() != null) {
+			return ref.getPeeledObjectId();
+		}
+		return ref.getObjectId();
+	}
+
+	private ObjectId getActualRefObjectId(Ref ref) {
+		if(ref.getPeeledObjectId() != null) {
+			return ref.getPeeledObjectId();
+		}
+		return ref.getObjectId();
+	}
+
+	private ObjectId getActualRefObjectId(Ref ref) {
+		if(ref.getPeeledObjectId() != null) {
+			return ref.getPeeledObjectId();
+		}
+		return ref.getObjectId();
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
