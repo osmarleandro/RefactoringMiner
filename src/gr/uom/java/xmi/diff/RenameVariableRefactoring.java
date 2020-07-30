@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
-	private VariableDeclaration renamedVariable;
+	public VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
@@ -145,10 +145,6 @@ public class RenameVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(renamedVariable.codeRange()
-				.setDescription("renamed variable declaration")
-				.setCodeElement(renamedVariable.toString()));
-		return ranges;
+		return operationAfter.rightSide(this);
 	}
 }
