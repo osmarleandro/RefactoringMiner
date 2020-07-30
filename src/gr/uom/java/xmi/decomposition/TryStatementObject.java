@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<LambdaExpressionObject> getLambdas() {
+		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
+		for(AbstractExpression expression : expressionList) {
+			lambdas.addAll(expression.getLambdas());
+		}
+		return lambdas;
+	}
 }
