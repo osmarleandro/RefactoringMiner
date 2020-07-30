@@ -304,4 +304,15 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
 	}
+
+	public VariableDeclaration searchVariableDeclaration(String variableName) {
+		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
+		if(variableDeclaration != null) {
+			return variableDeclaration;
+		}
+		else if(parent != null) {
+			return parent.searchVariableDeclaration(variableName);
+		}
+		return null;
+	}
 }
