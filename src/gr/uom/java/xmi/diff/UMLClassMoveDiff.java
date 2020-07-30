@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public UMLModelDiff getModelDiff() {
+		return modelDiff;
+	}
 }
