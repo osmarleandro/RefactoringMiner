@@ -13,7 +13,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class MoveAndRenameClassRefactoring implements Refactoring {
 
-	private UMLClass originalClass;
+	public UMLClass originalClass;
 	private UMLClass renamedClass;
 	
 	public MoveAndRenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
@@ -38,6 +38,7 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 		return RefactoringType.MOVE_RENAME_CLASS;
 	}
 
+	@Override
 	public String getOriginalClassName() {
 		return originalClass.getName();
 	}
