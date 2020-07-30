@@ -30,4 +30,15 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	@Override
+	public int statementCount() {
+		int count = 0;
+		if(!this.getString().equals("{"))
+			count++;
+		for(AbstractStatement statement : statementList) {
+			count += statement.statementCount();
+		}
+		return count;
+	}
 }
