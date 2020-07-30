@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -180,6 +180,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
+	@Override
 	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
@@ -214,7 +215,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return refactoringsAtRevision;
 	}
 
-	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
+	public void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
 		String downloadLink = extractDownloadLink(cloneURL, commitId);
 		File destinationFile = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + commitId + ".zip");
@@ -243,7 +244,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	private String populateWithGitHubAPI(String cloneURL, String currentCommitId,
+	public String populateWithGitHubAPI(String cloneURL, String currentCommitId,
 			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
@@ -299,7 +300,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	public List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
@@ -348,7 +349,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
-	protected UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
+	public UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
 		return new UMLModelASTReader(projectFolder, filePaths).getUmlModel();
 	}
 
