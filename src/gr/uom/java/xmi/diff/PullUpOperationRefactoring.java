@@ -30,4 +30,11 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	/**
+	 * @return the code range of the target method in the <b>child</b> commit
+	 */
+	public CodeRange getTargetOperationCodeRangeAfterMove() {
+		return movedOperation.codeRange();
+	}
 }
