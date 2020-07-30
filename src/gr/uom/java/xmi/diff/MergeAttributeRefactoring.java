@@ -16,7 +16,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	private VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
 	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameAfter;
 	
 	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateMergeVariableRefactoring> attributeMerges) {
@@ -43,6 +43,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return classNameBefore;
 	}
 
+	@Override
 	public String getClassNameAfter() {
 		return classNameAfter;
 	}
