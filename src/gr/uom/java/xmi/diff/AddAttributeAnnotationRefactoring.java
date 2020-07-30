@@ -128,4 +128,10 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
