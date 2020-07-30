@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public double normalizedPackageNameDistance(UMLClass c) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

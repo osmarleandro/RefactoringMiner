@@ -59,4 +59,10 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	public boolean isInterface() {
 		return false;
 	}
+
+	@Override
+	public double normalizedPackageNameDistance(UMLClass c) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
