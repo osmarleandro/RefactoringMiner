@@ -34,10 +34,6 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		return sb.toString();
 	}
 
-	public String getName() {
-		return this.getRefactoringType().getDisplayName();
-	}
-
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.REPLACE_ATTRIBUTE;
 	}

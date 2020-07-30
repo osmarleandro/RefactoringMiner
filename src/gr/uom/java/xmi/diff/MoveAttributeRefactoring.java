@@ -128,4 +128,8 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public String getName() {
+		return this.getRefactoringType().getDisplayName();
+	}
 }
