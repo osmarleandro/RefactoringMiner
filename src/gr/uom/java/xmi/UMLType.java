@@ -142,6 +142,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		return false;
 	}
+	@Override
 	public boolean equalsWithSubType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
