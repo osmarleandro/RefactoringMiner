@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public VariableDeclaration searchVariableDeclaration(String variableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
