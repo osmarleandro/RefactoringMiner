@@ -325,8 +325,6 @@ public abstract class UMLAbstractClass {
 		return attributesOfType;
 	}
 
-	public abstract boolean isSingleAbstractMethodInterface();
-
 	public abstract boolean isInterface();
 	
 	public String getSourceFile() {
