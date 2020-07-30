@@ -36,10 +36,12 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -668,6 +670,226 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
 	}
+
+	@Override
+	public Repository cloneIfNotExists(String projectPath, String cloneUrl) throws Exception {
+			File folder = new File(projectPath);
+			Repository repository;
+			if (folder.exists()) {
+				RepositoryBuilder builder = new RepositoryBuilder();
+				repository = builder
+						.setGitDir(new File(folder, ".git"))
+						.readEnvironment()
+						.findGitDir()
+						.build();
+				
+				//logger.info("Project {} is already cloned, current branch is {}", cloneUrl, repository.getBranch());
+				
+			} else {
+				logger.info("Cloning {} ...", cloneUrl);
+				Git git = Git.cloneRepository()
+						.setDirectory(folder)
+						.setURI(cloneUrl)
+						.setCloneAllBranches(true)
+						.call();
+				repository = git.getRepository();
+				//logger.info("Done cloning {}, current branch is {}", cloneUrl, repository.getBranch());
+			}
+	
+	//		if (branch != null && !repository.getBranch().equals(branch)) {
+	//			Git git = new Git(repository);
+	//			
+	//			String localBranch = "refs/heads/" + branch;
+	//			List<Ref> refs = git.branchList().call();
+	//			boolean branchExists = false;
+	//			for (Ref ref : refs) {
+	//				if (ref.getName().equals(localBranch)) {
+	//					branchExists = true;
+	//				}
+	//			}
+	//			
+	//			if (branchExists) {
+	//				git.checkout()
+	//					.setName(branch)
+	//					.call();
+	//			} else {
+	//				git.checkout()
+	//					.setCreateBranch(true)
+	//					.setName(branch)
+	//					.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+	//					.setStartPoint("origin/" + branch)
+	//					.call();
+	//			}
+	//			
+	//			logger.info("Project {} switched to {}", cloneUrl, repository.getBranch());
+	//		}
+			return repository;
+		}
+
+	@Override
+	public Repository cloneIfNotExists(String projectPath, String cloneUrl) throws Exception {
+			File folder = new File(projectPath);
+			Repository repository;
+			if (folder.exists()) {
+				RepositoryBuilder builder = new RepositoryBuilder();
+				repository = builder
+						.setGitDir(new File(folder, ".git"))
+						.readEnvironment()
+						.findGitDir()
+						.build();
+				
+				//logger.info("Project {} is already cloned, current branch is {}", cloneUrl, repository.getBranch());
+				
+			} else {
+				logger.info("Cloning {} ...", cloneUrl);
+				Git git = Git.cloneRepository()
+						.setDirectory(folder)
+						.setURI(cloneUrl)
+						.setCloneAllBranches(true)
+						.call();
+				repository = git.getRepository();
+				//logger.info("Done cloning {}, current branch is {}", cloneUrl, repository.getBranch());
+			}
+	
+	//		if (branch != null && !repository.getBranch().equals(branch)) {
+	//			Git git = new Git(repository);
+	//			
+	//			String localBranch = "refs/heads/" + branch;
+	//			List<Ref> refs = git.branchList().call();
+	//			boolean branchExists = false;
+	//			for (Ref ref : refs) {
+	//				if (ref.getName().equals(localBranch)) {
+	//					branchExists = true;
+	//				}
+	//			}
+	//			
+	//			if (branchExists) {
+	//				git.checkout()
+	//					.setName(branch)
+	//					.call();
+	//			} else {
+	//				git.checkout()
+	//					.setCreateBranch(true)
+	//					.setName(branch)
+	//					.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+	//					.setStartPoint("origin/" + branch)
+	//					.call();
+	//			}
+	//			
+	//			logger.info("Project {} switched to {}", cloneUrl, repository.getBranch());
+	//		}
+			return repository;
+		}
+
+	@Override
+	public Repository cloneIfNotExists(String projectPath, String cloneUrl) throws Exception {
+			File folder = new File(projectPath);
+			Repository repository;
+			if (folder.exists()) {
+				RepositoryBuilder builder = new RepositoryBuilder();
+				repository = builder
+						.setGitDir(new File(folder, ".git"))
+						.readEnvironment()
+						.findGitDir()
+						.build();
+				
+				//logger.info("Project {} is already cloned, current branch is {}", cloneUrl, repository.getBranch());
+				
+			} else {
+				logger.info("Cloning {} ...", cloneUrl);
+				Git git = Git.cloneRepository()
+						.setDirectory(folder)
+						.setURI(cloneUrl)
+						.setCloneAllBranches(true)
+						.call();
+				repository = git.getRepository();
+				//logger.info("Done cloning {}, current branch is {}", cloneUrl, repository.getBranch());
+			}
+	
+	//		if (branch != null && !repository.getBranch().equals(branch)) {
+	//			Git git = new Git(repository);
+	//			
+	//			String localBranch = "refs/heads/" + branch;
+	//			List<Ref> refs = git.branchList().call();
+	//			boolean branchExists = false;
+	//			for (Ref ref : refs) {
+	//				if (ref.getName().equals(localBranch)) {
+	//					branchExists = true;
+	//				}
+	//			}
+	//			
+	//			if (branchExists) {
+	//				git.checkout()
+	//					.setName(branch)
+	//					.call();
+	//			} else {
+	//				git.checkout()
+	//					.setCreateBranch(true)
+	//					.setName(branch)
+	//					.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+	//					.setStartPoint("origin/" + branch)
+	//					.call();
+	//			}
+	//			
+	//			logger.info("Project {} switched to {}", cloneUrl, repository.getBranch());
+	//		}
+			return repository;
+		}
+
+	@Override
+	public Repository cloneIfNotExists(String projectPath, String cloneUrl) throws Exception {
+			File folder = new File(projectPath);
+			Repository repository;
+			if (folder.exists()) {
+				RepositoryBuilder builder = new RepositoryBuilder();
+				repository = builder
+						.setGitDir(new File(folder, ".git"))
+						.readEnvironment()
+						.findGitDir()
+						.build();
+				
+				//logger.info("Project {} is already cloned, current branch is {}", cloneUrl, repository.getBranch());
+				
+			} else {
+				logger.info("Cloning {} ...", cloneUrl);
+				Git git = Git.cloneRepository()
+						.setDirectory(folder)
+						.setURI(cloneUrl)
+						.setCloneAllBranches(true)
+						.call();
+				repository = git.getRepository();
+				//logger.info("Done cloning {}, current branch is {}", cloneUrl, repository.getBranch());
+			}
+	
+	//		if (branch != null && !repository.getBranch().equals(branch)) {
+	//			Git git = new Git(repository);
+	//			
+	//			String localBranch = "refs/heads/" + branch;
+	//			List<Ref> refs = git.branchList().call();
+	//			boolean branchExists = false;
+	//			for (Ref ref : refs) {
+	//				if (ref.getName().equals(localBranch)) {
+	//					branchExists = true;
+	//				}
+	//			}
+	//			
+	//			if (branchExists) {
+	//				git.checkout()
+	//					.setName(branch)
+	//					.call();
+	//			} else {
+	//				git.checkout()
+	//					.setCreateBranch(true)
+	//					.setName(branch)
+	//					.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+	//					.setStartPoint("origin/" + branch)
+	//					.call();
+	//			}
+	//			
+	//			logger.info("Project {} switched to {}", cloneUrl, repository.getBranch());
+	//		}
+			return repository;
+		}
 
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
