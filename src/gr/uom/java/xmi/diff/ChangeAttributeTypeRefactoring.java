@@ -153,4 +153,10 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 				.setCodeElement(changedTypeAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public String getRenamedClassName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
