@@ -72,4 +72,11 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	public boolean equalsWithSubType(UMLType type) {
+		if(this.getClass() == type.getClass()) {
+			return this.equals(type);
+		}
+		return false;
+	}
 }
