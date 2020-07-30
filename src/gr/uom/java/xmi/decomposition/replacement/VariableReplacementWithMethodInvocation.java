@@ -20,6 +20,16 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 		return direction;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((after == null) ? 0 : after.hashCode());
+		result = prime * result + ((before == null) ? 0 : before.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
 	public enum Direction {
 		VARIABLE_TO_INVOCATION, INVOCATION_TO_VARIABLE;
 	}

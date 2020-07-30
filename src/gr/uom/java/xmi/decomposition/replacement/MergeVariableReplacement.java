@@ -32,4 +32,14 @@ public class MergeVariableReplacement extends Replacement {
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((after == null) ? 0 : after.hashCode());
+		result = prime * result + ((before == null) ? 0 : before.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
 }

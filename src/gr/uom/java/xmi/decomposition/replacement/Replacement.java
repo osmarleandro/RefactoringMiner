@@ -3,9 +3,9 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
-	private String before;
-	private String after;
-	private ReplacementType type;
+	protected String before;
+	protected String after;
+	protected ReplacementType type;
 	
 	public Replacement(String before, String after, ReplacementType type) {
 		this.before = before;
@@ -23,16 +23,6 @@ public class Replacement {
 
 	public ReplacementType getType() {
 		return type;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((after == null) ? 0 : after.hashCode());
-		result = prime * result + ((before == null) ? 0 : before.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
 	}
 
 	@Override

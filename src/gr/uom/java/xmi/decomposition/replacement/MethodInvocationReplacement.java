@@ -25,4 +25,14 @@ public class MethodInvocationReplacement extends Replacement {
 	public boolean differentExpressionNameAndArguments() {
 		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((after == null) ? 0 : after.hashCode());
+		result = prime * result + ((before == null) ? 0 : before.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
 }
