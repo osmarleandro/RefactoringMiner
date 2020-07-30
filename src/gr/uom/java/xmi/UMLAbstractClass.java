@@ -277,34 +277,6 @@ public abstract class UMLAbstractClass {
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 
-	public boolean hasSameAttributesAndOperations(UMLAbstractClass umlClass) {
-		if(this.attributes.size() != umlClass.attributes.size())
-			return false;
-		if(this.operations.size() != umlClass.operations.size())
-			return false;
-		for(UMLOperation operation : operations) {
-			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
-				return false;
-			}
-		}
-		for(UMLOperation operation : umlClass.operations) {
-			if(!this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
-				return false;
-			}
-		}
-		for(UMLAttribute attribute : attributes) {
-			if(!umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
-				return false;
-			}
-		}
-		for(UMLAttribute attribute : umlClass.attributes) {
-			if(!this.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public boolean isTestClass() {
 		for(UMLOperation operation : operations) {
 			if(operation.hasTestAnnotation()) {

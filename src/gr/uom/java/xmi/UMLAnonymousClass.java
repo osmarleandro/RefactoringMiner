@@ -59,4 +59,32 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	public boolean isInterface() {
 		return false;
 	}
+
+	public boolean hasSameAttributesAndOperations(UMLAbstractClass umlClass) {
+		if(this.attributes.size() != umlClass.attributes.size())
+			return false;
+		if(this.operations.size() != umlClass.operations.size())
+			return false;
+		for(UMLOperation operation : operations) {
+			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+				return false;
+			}
+		}
+		for(UMLOperation operation : umlClass.operations) {
+			if(!this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+				return false;
+			}
+		}
+		for(UMLAttribute attribute : attributes) {
+			if(!umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+				return false;
+			}
+		}
+		for(UMLAttribute attribute : umlClass.attributes) {
+			if(!this.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
