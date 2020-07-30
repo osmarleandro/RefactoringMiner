@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.refactoringminer.api.RefactoringType;
-
 import gr.uom.java.xmi.UMLAttribute;
 
 public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
@@ -36,10 +34,6 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
-	}
-
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.REPLACE_ATTRIBUTE;
 	}
 
 	@Override
