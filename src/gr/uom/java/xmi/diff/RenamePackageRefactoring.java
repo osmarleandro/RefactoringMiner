@@ -37,6 +37,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return moveClassRefactorings;
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.RENAME_PACKAGE;
 	}
