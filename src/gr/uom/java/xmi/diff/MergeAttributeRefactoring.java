@@ -51,6 +51,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return RefactoringType.MERGE_ATTRIBUTE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
