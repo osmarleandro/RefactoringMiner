@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType originalType;
@@ -142,5 +143,11 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 				.setDescription("changed return type")
 				.setCodeElement(changedType.toString()));
 		return ranges;
+	}
+
+	@Override
+	public UMLOperationBodyMapper getBodyMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
