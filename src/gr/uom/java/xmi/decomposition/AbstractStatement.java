@@ -30,4 +30,9 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	@Override
+	public List<LambdaExpressionObject> getLambdas() {
+		return lambdas;
+	}
 }
