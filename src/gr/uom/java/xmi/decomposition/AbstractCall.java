@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.ClassInstanceCreation;
+import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
@@ -434,6 +438,35 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	protected void processExpression(Expression expression, List<String> subExpressions) {
+		if(expression instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation)expression;
+			if(invocation.getExpression() != null) {
+				String expressionAsString = invocation.getExpression().toString();
+				String invocationAsString = invocation.toString();
+				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
+				subExpressions.add(0, suffix);
+				processExpression(invocation.getExpression(), subExpressions);
+			}
+			else {
+				subExpressions.add(0, invocation.toString());
+			}
+		}
+		else if(expression instanceof ClassInstanceCreation) {
+			ClassInstanceCreation creation = (ClassInstanceCreation)expression;
+			if(creation.getExpression() != null) {
+				String expressionAsString = creation.getExpression().toString();
+				String invocationAsString = creation.toString();
+				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
+				subExpressions.add(0, suffix);
+				processExpression(creation.getExpression(), subExpressions);
+			}
+			else {
+				subExpressions.add(0, creation.toString());
+			}
+		}
 	}
 
 	public enum StatementCoverageType {

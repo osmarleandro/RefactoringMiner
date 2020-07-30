@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ConstructorInvocation;
 import org.eclipse.jdt.core.dom.Expression;
@@ -45,35 +44,6 @@ public class OperationInvocation extends AbstractCall {
 		}
 	}
 	
-	private void processExpression(Expression expression, List<String> subExpressions) {
-		if(expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation)expression;
-			if(invocation.getExpression() != null) {
-				String expressionAsString = invocation.getExpression().toString();
-				String invocationAsString = invocation.toString();
-				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
-				subExpressions.add(0, suffix);
-				processExpression(invocation.getExpression(), subExpressions);
-			}
-			else {
-				subExpressions.add(0, invocation.toString());
-			}
-		}
-		else if(expression instanceof ClassInstanceCreation) {
-			ClassInstanceCreation creation = (ClassInstanceCreation)expression;
-			if(creation.getExpression() != null) {
-				String expressionAsString = creation.getExpression().toString();
-				String invocationAsString = creation.toString();
-				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
-				subExpressions.add(0, suffix);
-				processExpression(creation.getExpression(), subExpressions);
-			}
-			else {
-				subExpressions.add(0, creation.toString());
-			}
-		}
-	}
-
 	public OperationInvocation(CompilationUnit cu, String filePath, SuperMethodInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.SUPER_METHOD_INVOCATION);
 		this.methodName = invocation.getName().getIdentifier();
