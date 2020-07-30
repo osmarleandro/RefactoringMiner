@@ -1,5 +1,7 @@
 package org.refactoringminer.api;
 
+import java.util.Set;
+
 import org.eclipse.jgit.lib.Repository;
 
 /**
@@ -111,4 +113,6 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	boolean atLeastOneStartsWith(Set<String> targetPaths, String path);
 }

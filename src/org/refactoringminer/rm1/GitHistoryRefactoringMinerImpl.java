@@ -625,6 +625,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
+	@Override
 	private boolean atLeastOneStartsWith(Set<String> targetPaths, String path) {
 		for(String targetPath : targetPaths) {
 			if(path.endsWith("/") && targetPath.startsWith(path)) {
