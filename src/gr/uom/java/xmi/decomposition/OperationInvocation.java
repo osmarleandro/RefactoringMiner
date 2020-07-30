@@ -26,8 +26,8 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
-	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	String methodName;
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -115,19 +115,6 @@ public class OperationInvocation extends AbstractCall {
 
 	private OperationInvocation() {
 		
-	}
-
-	public OperationInvocation update(String oldExpression, String newExpression) {
-		OperationInvocation newOperationInvocation = new OperationInvocation();
-		newOperationInvocation.methodName = this.methodName;
-		newOperationInvocation.locationInfo = this.locationInfo;
-		update(newOperationInvocation, oldExpression, newExpression);
-		newOperationInvocation.subExpressions = new ArrayList<String>();
-		for(String argument : this.subExpressions) {
-			newOperationInvocation.subExpressions.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
-		}
-		return newOperationInvocation;
 	}
 
 	public String getName() {
