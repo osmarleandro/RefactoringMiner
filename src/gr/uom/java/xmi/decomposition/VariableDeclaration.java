@@ -206,6 +206,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return null;
 	}
 
+	@Override
 	private static CodeElementType extractVariableDeclarationType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
 			return CodeElementType.SINGLE_VARIABLE_DECLARATION;
