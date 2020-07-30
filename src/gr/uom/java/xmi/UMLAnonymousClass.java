@@ -31,7 +31,8 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     		return packageName + "." + name;
     }
 
-    public boolean equals(Object o) {
+    @Override
+	public boolean equals(Object o) {
     	if(this == o) {
     		return true;
     	}
