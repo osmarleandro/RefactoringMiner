@@ -13,7 +13,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 public class LambdaExpressionObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private OperationBody body;
-	private AbstractExpression expression;
+	public AbstractExpression expression;
 	
 	public LambdaExpressionObject(CompilationUnit cu, String filePath, LambdaExpression lambda) {
 		this.locationInfo = new LocationInfo(cu, filePath, lambda, CodeElementType.LAMBDA_EXPRESSION);
@@ -29,6 +29,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 		return body;
 	}
 
+	@Override
 	public AbstractExpression getExpression() {
 		return expression;
 	}
