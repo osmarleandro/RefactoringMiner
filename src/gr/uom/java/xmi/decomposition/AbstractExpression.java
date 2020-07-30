@@ -190,16 +190,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return null;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
-			if(declaration.getVariableName().equals(variableName)) {
-				return declaration;
-			}
-		}
-		return null;
-	}
-
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
