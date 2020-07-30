@@ -785,6 +785,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return getName().equals("toString") && getReturnParameter().getType().getClassType().equals("String") && parameterTypeList.size() == 0;
 	}
 
+	@Override
 	private boolean isClone() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
 		return getName().equals("clone") && getReturnParameter().getType().getClassType().equals("Object") && parameterTypeList.size() == 0;
