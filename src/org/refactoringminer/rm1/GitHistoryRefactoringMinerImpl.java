@@ -669,8 +669,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	private static final String GITHUB_URL = "https://github.com/";
-	private static final String BITBUCKET_URL = "https://bitbucket.org/";
+	public static final String GITHUB_URL = "https://github.com/";
+	public static final String BITBUCKET_URL = "https://bitbucket.org/";
 
 	private static String extractRepositoryName(String cloneURL) {
 		int hostLength = 0;
@@ -691,6 +691,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return repoName;
 	}
 
+	@Override
 	public static String extractCommitURL(String cloneURL, String commitId) {
 		int indexOfDotGit = cloneURL.length();
 		if(cloneURL.endsWith(".git")) {
