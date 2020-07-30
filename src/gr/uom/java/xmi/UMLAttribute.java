@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private String name;
 	private UMLType type;
 	private String visibility;
@@ -25,6 +25,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.type = type;
 	}
 
+	@Override
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
 	}
