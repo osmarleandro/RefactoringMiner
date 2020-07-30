@@ -115,4 +115,36 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		return new LinkedHashSet<String>();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractCodeMapping other = (AbstractCodeMapping) obj;
+		if (fragment1 == null) {
+			if (other.fragment1 != null)
+				return false;
+		} else if (!fragment1.equals(other.fragment1))
+			return false;
+		if (fragment2 == null) {
+			if (other.fragment2 != null)
+				return false;
+		} else if (!fragment2.equals(other.fragment2))
+			return false;
+		if (operation1 == null) {
+			if (other.operation1 != null)
+				return false;
+		} else if (!operation1.equals(other.operation1))
+			return false;
+		if (operation2 == null) {
+			if (other.operation2 != null)
+				return false;
+		} else if (!operation2.equals(other.operation2))
+			return false;
+		return true;
+	}
 }
