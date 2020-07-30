@@ -343,21 +343,6 @@ public abstract class AbstractCodeMapping {
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
-	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
-		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
-			refactorings.add(ref);
-		}
-		else {
-			for(Refactoring refactoring : refactorings) {
-				if(refactoring.equals(ref)) {
-					((InlineVariableRefactoring)refactoring).addReference(this);
-					break;
-				}
-			}
-		}
-	}
-
 	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
