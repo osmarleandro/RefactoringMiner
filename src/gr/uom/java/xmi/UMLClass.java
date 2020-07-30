@@ -13,7 +13,7 @@ import java.util.Set;
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
     private String sourceFile;
-    private String sourceFolder;
+    String sourceFolder;
     private String visibility;
 	private boolean isAbstract;
 	private boolean isInterface;
@@ -325,6 +325,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 	
+	@Override
 	public double normalizedSourceFolderDistance(UMLClass c) {
 		String s1 = sourceFolder.toLowerCase();
 		String s2 = c.sourceFolder.toLowerCase();
