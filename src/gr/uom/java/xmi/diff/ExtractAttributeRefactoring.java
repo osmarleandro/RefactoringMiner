@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
@@ -126,5 +127,11 @@ public class ExtractAttributeRefactoring implements Refactoring {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted attribute"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public List<OperationInvocation> getInlinedOperationInvocations() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
