@@ -81,10 +81,6 @@ public class AbstractExpression extends AbstractCodeFragment {
     	return toString();
     }
   
-	public String toString() {
-		return getExpression().toString();
-	}
-
 	@Override
 	public List<String> getVariables() {
 		return variables;
