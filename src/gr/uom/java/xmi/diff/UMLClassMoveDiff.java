@@ -1,6 +1,8 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -30,6 +32,14 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		if(o instanceof UMLClassMoveDiff) {
 			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
+		}
+		return false;
+	}
+
+	private boolean mapperListContainsOperation(UMLOperation operation1, UMLOperation operation2) {
+		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
+			if(mapper.getOperation1().equals(operation1) || mapper.getOperation2().equals(operation2))
+				return true;
 		}
 		return false;
 	}
