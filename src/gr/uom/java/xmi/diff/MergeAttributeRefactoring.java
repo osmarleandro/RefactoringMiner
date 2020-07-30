@@ -47,6 +47,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MERGE_ATTRIBUTE;
 	}
