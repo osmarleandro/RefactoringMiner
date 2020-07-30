@@ -151,4 +151,10 @@ public class RenameVariableRefactoring implements Refactoring {
 				.setCodeElement(renamedVariable.toString()));
 		return ranges;
 	}
+
+	@Override
+	public Set<CandidateMergeVariableRefactoring> getAttributeMerges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

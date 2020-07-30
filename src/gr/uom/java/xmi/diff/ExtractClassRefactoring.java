@@ -97,4 +97,10 @@ public class ExtractClassRefactoring implements Refactoring {
 				.setCodeElement(extractedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public Set<CandidateMergeVariableRefactoring> getAttributeMerges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
