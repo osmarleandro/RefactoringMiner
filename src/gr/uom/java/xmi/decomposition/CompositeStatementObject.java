@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	protected List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -240,15 +240,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			postfixExpressions.addAll(expression.getPostfixExpressions());
 		}
 		return postfixExpressions;
-	}
-
-	@Override
-	public List<String> getArguments() {
-		List<String> arguments = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			arguments.addAll(expression.getArguments());
-		}
-		return arguments;
 	}
 
 	@Override
