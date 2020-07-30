@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
@@ -194,5 +195,17 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
+		for(Refactoring refactoring : refactorings) {
+			if(refactoring instanceof MergeAttributeRefactoring) {
+				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
+				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

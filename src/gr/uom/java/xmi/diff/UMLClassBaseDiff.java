@@ -798,18 +798,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return newRefactorings;
 	}
 
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof MergeAttributeRefactoring) {
-				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
-				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
