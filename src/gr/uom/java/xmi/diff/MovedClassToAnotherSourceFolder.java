@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLClass;
 public class MovedClassToAnotherSourceFolder {
 	//private String className;
 	private UMLClass originalClass;
-	private UMLClass movedClass;
+	public UMLClass movedClass;
 	private String originalPath;
 	private String movedPath;
 
@@ -21,10 +21,6 @@ public class MovedClassToAnotherSourceFolder {
 	
 	public String getOriginalClassName() {
 		return originalClass.getName();
-	}
-
-	public String getMovedClassName() {
-		return movedClass.getName();
 	}
 
 	public UMLClass getOriginalClass() {
