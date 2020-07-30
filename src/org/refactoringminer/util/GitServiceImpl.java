@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -15,9 +14,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.Edit.Type;
-import org.eclipse.jgit.diff.RenameDetector;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -285,43 +282,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	public void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
-        if (currentCommit.getParentCount() > 0) {
-        	ObjectId oldTree = currentCommit.getParent(0).getTree();
-	        ObjectId newTree = currentCommit.getTree();
-        	final TreeWalk tw = new TreeWalk(repository);
-        	tw.setRecursive(true);
-        	tw.addTree(oldTree);
-        	tw.addTree(newTree);
-
-        	final RenameDetector rd = new RenameDetector(repository);
-        	rd.setRenameScore(80);
-        	rd.addAll(DiffEntry.scan(tw));
-
-        	for (DiffEntry diff : rd.compute(tw.getObjectReader(), null)) {
-        		ChangeType changeType = diff.getChangeType();
-        		String oldPath = diff.getOldPath();
-        		String newPath = diff.getNewPath();
-        		if (changeType != ChangeType.ADD) {
-	        		if (isJavafile(oldPath)) {
-	        			javaFilesBefore.add(oldPath);
-	        		}
-	        	}
-        		if (changeType != ChangeType.DELETE) {
-	        		if (isJavafile(newPath)) {
-	        			javaFilesCurrent.add(newPath);
-	        		}
-        		}
-        		if (changeType == ChangeType.RENAME && diff.getScore() >= rd.getRenameScore()) {
-        			if (isJavafile(oldPath) && isJavafile(newPath)) {
-        				renamedFilesHint.put(oldPath, newPath);
-        			}
-        		}
-        	}
-        }
-	}
-
-	private boolean isJavafile(String path) {
+	protected boolean isJavafile(String path) {
 		return path.endsWith(".java");
 	}
 
