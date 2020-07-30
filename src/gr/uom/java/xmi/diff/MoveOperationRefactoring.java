@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
@@ -125,5 +126,11 @@ public class MoveOperationRefactoring implements Refactoring {
 				.setDescription("moved method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
+	}
+
+	@Override
+	public VariableDeclaration getOriginalVariable() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
