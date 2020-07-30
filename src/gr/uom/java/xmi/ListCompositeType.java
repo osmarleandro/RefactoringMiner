@@ -6,13 +6,13 @@ import java.util.List;
 public class ListCompositeType extends UMLType {
 	public enum Kind {
 		UNION("|"), INTERSECTION("&");
-		private String operand;
+		String operand;
 		private Kind(String operand) {
 			this.operand = operand;
 		}
 	}
-	private List<UMLType> types = new ArrayList<UMLType>();
-	private Kind kind;
+	List<UMLType> types = new ArrayList<UMLType>();
+	Kind kind;
 
 	public ListCompositeType(List<UMLType> types, Kind kind) {
 		this.types = types;
@@ -53,17 +53,6 @@ public class ListCompositeType extends UMLType {
 		} else if (!types.equals(other.types))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < types.size(); i++) {
-			sb.append(types.get(i).toString());
-			if(i < types.size() - 1)
-				sb.append(kind.operand);
-		}
-		return sb.toString();
 	}
 
 	@Override
