@@ -290,11 +290,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return originalClass.attributesOfType(targetClass);
 	}
 
-	private void reportAddedImplementedInterface(UMLType implementedInterface) {
+	protected void reportAddedImplementedInterface(UMLType implementedInterface) {
 		this.addedImplementedInterfaces.add(implementedInterface);
 	}
 
-	private void reportRemovedImplementedInterface(UMLType implementedInterface) {
+	protected void reportRemovedImplementedInterface(UMLType implementedInterface) {
 		this.removedImplementedInterfaces.add(implementedInterface);
 	}
 
@@ -306,39 +306,39 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.removedAnonymousClasses.add(umlClass);
 	}
 
-	private void setVisibilityChanged(boolean visibilityChanged) {
+	protected void setVisibilityChanged(boolean visibilityChanged) {
 		this.visibilityChanged = visibilityChanged;
 	}
 
-	private void setOldVisibility(String oldVisibility) {
+	protected void setOldVisibility(String oldVisibility) {
 		this.oldVisibility = oldVisibility;
 	}
 
-	private void setNewVisibility(String newVisibility) {
+	protected void setNewVisibility(String newVisibility) {
 		this.newVisibility = newVisibility;
 	}
 
-	private void setAbstractionChanged(boolean abstractionChanged) {
+	protected void setAbstractionChanged(boolean abstractionChanged) {
 		this.abstractionChanged = abstractionChanged;
 	}
 
-	private void setOldAbstraction(boolean oldAbstraction) {
+	protected void setOldAbstraction(boolean oldAbstraction) {
 		this.oldAbstraction = oldAbstraction;
 	}
 
-	private void setNewAbstraction(boolean newAbstraction) {
+	protected void setNewAbstraction(boolean newAbstraction) {
 		this.newAbstraction = newAbstraction;
 	}
 
-	private void setSuperclassChanged(boolean superclassChanged) {
+	protected void setSuperclassChanged(boolean superclassChanged) {
 		this.superclassChanged = superclassChanged;
 	}
 
-	private void setOldSuperclass(UMLType oldSuperclass) {
+	protected void setOldSuperclass(UMLType oldSuperclass) {
 		this.oldSuperclass = oldSuperclass;
 	}
 
-	private void setNewSuperclass(UMLType newSuperclass) {
+	protected void setNewSuperclass(UMLType newSuperclass) {
 		this.newSuperclass = newSuperclass;
 	}
 
@@ -414,46 +414,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				return removedAttribute;
 		}
 		return null;
-	}
-
-	private void processInheritance() {
-		if(!originalClass.getVisibility().equals(nextClass.getVisibility())) {
-			setVisibilityChanged(true);
-			setOldVisibility(originalClass.getVisibility());
-			setNewVisibility(nextClass.getVisibility());
-		}
-		if(!originalClass.isInterface() && !nextClass.isInterface()) {
-			if(originalClass.isAbstract() != nextClass.isAbstract()) {
-				setAbstractionChanged(true);
-				setOldAbstraction(originalClass.isAbstract());
-				setNewAbstraction(nextClass.isAbstract());
-			}
-		}
-		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
-			if(!originalClass.getSuperclass().equals(nextClass.getSuperclass())) {
-				setSuperclassChanged(true);
-			}
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
-		}
-		else if(originalClass.getSuperclass() != null && nextClass.getSuperclass() == null) {
-			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
-		}
-		else if(originalClass.getSuperclass() == null && nextClass.getSuperclass() != null) {
-			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
-		}
-		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
-			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))
-				reportRemovedImplementedInterface(implementedInterface);
-		}
-		for(UMLType implementedInterface : nextClass.getImplementedInterfaces()) {
-			if(!originalClass.getImplementedInterfaces().contains(implementedInterface))
-				reportAddedImplementedInterface(implementedInterface);
-		}
 	}
 
 	public void addOperationBodyMapper(UMLOperationBodyMapper operationBodyMapper) {
