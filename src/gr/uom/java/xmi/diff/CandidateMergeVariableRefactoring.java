@@ -13,7 +13,7 @@ public class CandidateMergeVariableRefactoring {
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
-	private UMLAttribute newAttribute;
+	public UMLAttribute newAttribute;
 
 	public CandidateMergeVariableRefactoring(Set<String> mergedVariables, String newVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
@@ -54,10 +54,6 @@ public class CandidateMergeVariableRefactoring {
 
 	public UMLAttribute getNewAttribute() {
 		return newAttribute;
-	}
-
-	public void setNewAttribute(UMLAttribute newAttribute) {
-		this.newAttribute = newAttribute;
 	}
 
 	public String toString() {

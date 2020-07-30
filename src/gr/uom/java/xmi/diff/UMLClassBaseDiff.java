@@ -494,7 +494,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				else {
 					candidate.setMergedAttributes(mergedAttributes);
-					candidate.setNewAttribute(a2);
+					a2.setNewAttribute(candidate);
 					candidateAttributeMerges.add(candidate);
 				}
 			}
