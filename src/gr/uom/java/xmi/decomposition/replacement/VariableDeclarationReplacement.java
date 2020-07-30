@@ -5,8 +5,8 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class VariableDeclarationReplacement extends Replacement {
 
-	private VariableDeclaration v1;
-	private VariableDeclaration v2;
+	VariableDeclaration v1;
+	VariableDeclaration v2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	
@@ -46,27 +46,5 @@ public class VariableDeclarationReplacement extends Replacement {
 		result = prime * result + ((v1 == null) ? 0 : v1.hashCode());
 		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
 		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VariableDeclarationReplacement other = (VariableDeclarationReplacement) obj;
-		if (v1 == null) {
-			if (other.v1 != null)
-				return false;
-		} else if (!v1.equals(other.v1))
-			return false;
-		if (v2 == null) {
-			if (other.v2 != null)
-				return false;
-		} else if (!v2.equals(other.v2))
-			return false;
-		return true;
 	}
 }
