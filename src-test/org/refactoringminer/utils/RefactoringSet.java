@@ -9,12 +9,23 @@ import java.io.PrintStream;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
+
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
+import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
+import gr.uom.java.xmi.diff.InlineOperationRefactoring;
+import gr.uom.java.xmi.diff.MoveAttributeRefactoring;
+import gr.uom.java.xmi.diff.MoveClassRefactoring;
+import gr.uom.java.xmi.diff.MoveOperationRefactoring;
+import gr.uom.java.xmi.diff.RenameClassRefactoring;
+import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
 public class RefactoringSet {
 
@@ -127,5 +138,40 @@ public class RefactoringSet {
             throw new RuntimeException(e);
         }
     }
+
+	public void handle(String commitId, List<Refactoring> refactorings) {
+	    for (Refactoring r : refactorings) {
+	      if (r instanceof MoveClassRefactoring) {
+	        MoveClassRefactoring ref = (MoveClassRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
+	      } else if (r instanceof RenameClassRefactoring) {
+	        RenameClassRefactoring ref = (RenameClassRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getRenamedClassName()));
+	      } else if (r instanceof ExtractSuperclassRefactoring) {
+	        ExtractSuperclassRefactoring ref = (ExtractSuperclassRefactoring) r;
+	        for (String subclass : ref.getSubclassSet()) {
+	          add(new RefactoringRelationship(r.getRefactoringType(), subclass, ref.getExtractedClass().getName()));
+	        }
+	      } else if (r instanceof MoveOperationRefactoring) {
+	        MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey()));
+	      } else if (r instanceof RenameOperationRefactoring) {
+	        RenameOperationRefactoring ref = (RenameOperationRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey()));
+	      } else if (r instanceof ExtractOperationRefactoring) {
+	        ExtractOperationRefactoring ref = (ExtractOperationRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceOperationBeforeExtraction().getKey(), ref.getExtractedOperation().getKey()));
+	      } else if (r instanceof InlineOperationRefactoring) {
+	        InlineOperationRefactoring ref = (InlineOperationRefactoring) r;
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getKey(), ref.getTargetOperationAfterInline().getKey()));
+	      } else if (r instanceof MoveAttributeRefactoring) {
+	        MoveAttributeRefactoring ref = (MoveAttributeRefactoring) r;
+	        String attrName = ref.getMovedAttribute().getName();
+	        add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName() + "#" + attrName, ref.getTargetClassName() + "#" + attrName));
+	      } else {
+	        throw new RuntimeException("refactoring not supported");
+	      }
+	    }
+	  }
 
 }
