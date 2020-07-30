@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -32,5 +33,11 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	private int computeAbsoluteDifferenceInPositionWithinClass(UMLOperation removedOperation, UMLOperation addedOperation) {
+		int index1 = originalClass.getOperations().indexOf(removedOperation);
+		int index2 = nextClass.getOperations().indexOf(addedOperation);
+		return Math.abs(index1-index2);
 	}
 }

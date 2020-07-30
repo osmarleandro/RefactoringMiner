@@ -981,12 +981,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return totalCount;
 	}
 
-	private int computeAbsoluteDifferenceInPositionWithinClass(UMLOperation removedOperation, UMLOperation addedOperation) {
-		int index1 = originalClass.getOperations().indexOf(removedOperation);
-		int index2 = nextClass.getOperations().indexOf(addedOperation);
-		return Math.abs(index1-index2);
-	}
-
 	private void checkForOperationSignatureChanges() throws RefactoringMinerTimedOutException {
 		consistentMethodInvocationRenames = findConsistentMethodInvocationRenames();
 		if(removedOperations.size() <= addedOperations.size()) {
