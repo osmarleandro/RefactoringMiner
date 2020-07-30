@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
+	public UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
@@ -83,6 +83,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return bodyMapper;
 	}
 
+	@Override
 	public UMLOperation getInlinedOperation() {
 		return inlinedOperation;
 	}

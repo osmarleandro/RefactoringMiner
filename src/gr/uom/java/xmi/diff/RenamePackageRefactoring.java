@@ -9,6 +9,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLOperation;
+
 public class RenamePackageRefactoring implements Refactoring {
 
 	private List<MoveClassRefactoring> moveClassRefactorings;
@@ -92,5 +94,11 @@ public class RenamePackageRefactoring implements Refactoring {
 					.setCodeElement(ref.getMovedClass().getName()));
 		}
 		return ranges;
+	}
+
+	@Override
+	public UMLOperation getInlinedOperation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
