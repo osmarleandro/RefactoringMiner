@@ -128,4 +128,10 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public UMLAttribute getAttributeAfter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
