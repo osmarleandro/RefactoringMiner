@@ -15,14 +15,4 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	public boolean samePackage() {
 		return originalClass.getPackageName().equals(nextClass.getPackageName());
 	}
-
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ");
-		sb.append(originalClass.getName());
-		sb.append(" was renamed to ");
-		sb.append(nextClass.getName());
-		sb.append("\n");
-		return sb.toString();
-	}
 }
