@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import java.io.Serializable;
 
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
-	private String codePath;
+	String codePath;
 	
 	public UMLAnonymousClass(String packageName, String name, String codePath, LocationInfo locationInfo) {
     	super();
@@ -17,6 +17,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 		return !name.contains(".");
 	}
 
+	@Override
 	public String getCodePath() {
 		if(packageName.equals(""))
     		return codePath;
