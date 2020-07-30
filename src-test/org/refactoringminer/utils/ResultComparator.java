@@ -107,7 +107,7 @@ public class ResultComparator {
                         boolean ignoreFp = 
                             ignoreMoveToMovedType && isMoveToMovedType(r, expectedUnfiltered) ||
                             ignoreMoveToRenamedType && isMoveToRenamedType(r, expectedUnfiltered) ||
-                            ignorePullUpToExtractedSupertype && isPullUpToExtractedSupertype(r, expectedUnfiltered);
+                            ignorePullUpToExtractedSupertype && r.isPullUpToExtractedSupertype(expectedUnfiltered);
                         if (!ignoreFp) {
                             falsePositives.add(r);
                         }
@@ -182,7 +182,7 @@ public class ResultComparator {
                             int found = actualRefactorings.contains(r) ? 1 : 0;
                             String label = labels[correct + found];
                             out.print(label);
-                            if (label == "FP" && isPullUpToExtractedSupertype(r, expectedUnfiltered)) {
+                            if (label == "FP" && r.isPullUpToExtractedSupertype(expectedUnfiltered)) {
                                 out.print("<ES>");
                             }
                             if (label == "FP" && isMoveToRenamedType(r, expectedUnfiltered)) {
@@ -219,18 +219,6 @@ public class ResultComparator {
             }
         }
         out.println();
-    }
-
-    private boolean isPullUpToExtractedSupertype(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
-                return true;
-            }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_INTERFACE, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean isMoveToRenamedType(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {

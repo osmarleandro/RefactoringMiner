@@ -1,6 +1,9 @@
 package org.refactoringminer.utils;
 
+import static org.refactoringminer.utils.RefactoringRelationship.parentOf;
+
 import java.util.EnumSet;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringType;
 
@@ -141,7 +144,19 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return new GroupKey(refactoringType, getMainEntity());
   }
 
-  public static class GroupKey implements Comparable<GroupKey> {
+  boolean isPullUpToExtractedSupertype(Set<RefactoringRelationship> expectedUnfiltered) {
+    if (getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
+        if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(getEntityBefore()), parentOf(getEntityAfter())))) {
+            return true;
+        }
+        if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_INTERFACE, parentOf(getEntityBefore()), parentOf(getEntityAfter())))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+public static class GroupKey implements Comparable<GroupKey> {
     private final RefactoringType refactoringType;
     private final String mainEntity;
 
