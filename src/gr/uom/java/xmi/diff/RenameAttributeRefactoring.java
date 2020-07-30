@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameAttributeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
-	private VariableDeclaration renamedAttribute;
+	public VariableDeclaration renamedAttribute;
 	private Set<CandidateAttributeRefactoring> attributeRenames;
 	private String classNameBefore;
 	private String classNameAfter;
@@ -31,6 +31,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
+	@Override
 	public VariableDeclaration getRenamedAttribute() {
 		return renamedAttribute;
 	}
