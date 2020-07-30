@@ -46,6 +46,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 		return RefactoringType.CONVERT_ANONYMOUS_CLASS_TO_TYPE;
 	}
 
+	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getAnonymousClass().getLocationInfo().getFilePath(), getAnonymousClass().getName()));
