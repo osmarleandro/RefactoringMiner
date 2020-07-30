@@ -75,4 +75,10 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 				.setCodeElement(addedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public boolean allVariablesAreParameters() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
