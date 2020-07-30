@@ -30,4 +30,17 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public boolean contains(AbstractCodeFragment fragment) {
+		if(fragment instanceof StatementObject) {
+			return getLeaves().contains(fragment);
+		}
+		else if(fragment instanceof CompositeStatementObject) {
+			return getInnerNodes().contains(fragment);
+		}
+		else if(fragment instanceof AbstractExpression) {
+			return getExpressions().contains(fragment);
+		}
+		return false;
+	}
 }
