@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -32,5 +33,13 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	private boolean mappedElementsMoreThanNonMappedT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
+		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
+		int nonMappedElementsT2CallingAddedOperation = operationBodyMapper.nonMappedElementsT2CallingAddedOperation(addedOperations);
+		int nonMappedElementsT2WithoutThoseCallingAddedOperation = nonMappedElementsT2 - nonMappedElementsT2CallingAddedOperation;
+		return mappings > nonMappedElementsT2 || (mappings >= nonMappedElementsT2WithoutThoseCallingAddedOperation &&
+				nonMappedElementsT2CallingAddedOperation >= nonMappedElementsT2WithoutThoseCallingAddedOperation);
 	}
 }
