@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -32,5 +33,13 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public UMLOperation containsRemovedOperationWithTheSameSignature(UMLOperation operation) {
+		for(UMLOperation removedOperation : removedOperations) {
+			if(removedOperation.equalSignature(operation))
+				return removedOperation;
+		}
+		return null;
 	}
 }
