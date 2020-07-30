@@ -8,9 +8,9 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private String name;
-	private UMLType type;
-	private String kind;
-	private boolean varargs;
+	UMLType type;
+	String kind;
+	boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
@@ -82,6 +82,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 				this.varargs == parameter.varargs;
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
