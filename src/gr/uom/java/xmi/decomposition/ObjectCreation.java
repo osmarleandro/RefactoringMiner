@@ -51,10 +51,6 @@ public class ObjectCreation extends AbstractCall {
 		}
 	}
 
-	public String getName() {
-		return getType().toString();
-	}
-
 	public UMLType getType() {
 		return type;
 	}
