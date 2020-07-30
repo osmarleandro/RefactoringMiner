@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public void setParameter(boolean isParameter) {
+		// TODO Auto-generated method stub
+		
+	}
 }
