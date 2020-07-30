@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
 	private Set<VariableDeclaration> mergedAttributes;
-	private VariableDeclaration newAttribute;
+	public VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
 	private String classNameBefore;
 	private String classNameAfter;
@@ -31,6 +31,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return mergedAttributes;
 	}
 
+	@Override
 	public VariableDeclaration getNewAttribute() {
 		return newAttribute;
 	}
