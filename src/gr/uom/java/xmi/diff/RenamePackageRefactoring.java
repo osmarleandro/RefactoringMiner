@@ -93,4 +93,10 @@ public class RenamePackageRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public boolean compatibleWith(MoveAttributeRefactoring ref) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

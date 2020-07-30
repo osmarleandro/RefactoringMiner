@@ -128,4 +128,10 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public boolean compatibleWith(MoveAttributeRefactoring ref) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
