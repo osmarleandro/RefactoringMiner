@@ -42,10 +42,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return RefactoringType.MOVE_ATTRIBUTE;
 	}
 
-	public UMLAttribute getOriginalAttribute() {
-		return originalAttribute;
-	}
-
 	public UMLAttribute getMovedAttribute() {
 		return movedAttribute;
 	}
