@@ -354,6 +354,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return argumentIntersectionSize;
 	}
 
+	@Override
 	private boolean argumentIsEqual(String statement) {
 		return statement.endsWith(";\n") && getArguments().size() == 1 &&
 				//length()-2 to remove ";\n" from the end of the statement
@@ -404,7 +405,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return null;
 	}
 
-	private static boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+	public static boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
 		if(s1.equals(s2))
 			return true;
 		String parenthesizedS1 = "("+s1+")";
