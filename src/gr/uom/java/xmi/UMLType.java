@@ -22,8 +22,8 @@ import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
-	private LocationInfo locationInfo;
-	private int arrayDimension;
+	LocationInfo locationInfo;
+	int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
@@ -221,6 +221,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return openingTags == closingTags;
 	}
 
+	@Override
 	public static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type, int extraDimensions) {
 		UMLType umlType = extractTypeObject(cu, filePath, type);
 		umlType.locationInfo = new LocationInfo(cu, filePath, type, CodeElementType.TYPE);
@@ -228,7 +229,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return umlType;
 	}
 
-	private static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
+	static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
 		if(type.isPrimitiveType() || type.isSimpleType()) {
 			LeafType leafType = extractTypeObject(type.toString());
 			AnnotatableType annotatableType = (AnnotatableType)type;

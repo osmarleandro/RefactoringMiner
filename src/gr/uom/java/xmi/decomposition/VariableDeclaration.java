@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type, int extraDimensions) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
