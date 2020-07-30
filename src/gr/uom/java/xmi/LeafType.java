@@ -4,9 +4,9 @@ import java.util.regex.Pattern;
 
 public class LeafType extends UMLType {
 	private String classType;
-	private String nonQualifiedClassType;
+	String nonQualifiedClassType;
 	private volatile int hashCode = 0;
-	private static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
+	static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
 	
 	public LeafType(String type) {
 		this.classType = type;
@@ -106,19 +106,6 @@ public class LeafType extends UMLType {
 					this.containsTypeArgument(leafType.getClassType()) ||
 					leafType.containsTypeArgument(this.getClassType()) ||
 					this.commonTokenInClassType(leafType);
-		}
-		return false;
-	}
-
-	private boolean commonTokenInClassType(LeafType type) {
-		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(this.nonQualifiedClassType);
-		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(type.nonQualifiedClassType);
-		for(String token1 : tokens1) {
-			for(String token2 : tokens2) {
-				if((token1.equals(token2) && token1.length() > 1) || token1.equals(token2 + "s") || token2.equals(token1 + "s")) {
-					return true;
-				}
-			}
 		}
 		return false;
 	}
