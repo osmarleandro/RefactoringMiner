@@ -9,7 +9,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 public class CandidateMergeVariableRefactoring {
 	private Set<String> mergedVariables;
 	private String newVariable;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
@@ -30,10 +30,6 @@ public class CandidateMergeVariableRefactoring {
 
 	public String getNewVariable() {
 		return newVariable;
-	}
-
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
 	}
 
 	public UMLOperation getOperationAfter() {
