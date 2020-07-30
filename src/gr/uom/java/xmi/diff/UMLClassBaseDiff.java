@@ -1671,4 +1671,16 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	public boolean equals(Object o) {
+		if(this == o) {
+			return true;
+		}
+		
+		if(o instanceof UMLClassMoveDiff) {
+			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
+			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
+		}
+		return false;
+	}
 }
