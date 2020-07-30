@@ -195,4 +195,15 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	protected void processAnonymousClasses() {
+		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
+			if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
+				this.removedAnonymousClasses.add(umlAnonymousClass);
+		}
+		for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
+			if(!originalClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
+				this.addedAnonymousClasses.add(umlAnonymousClass);
+		}
+	}
 }

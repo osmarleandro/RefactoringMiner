@@ -54,8 +54,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private UMLType newSuperclass;
 	private List<UMLType> addedImplementedInterfaces;
 	private List<UMLType> removedImplementedInterfaces;
-	private List<UMLAnonymousClass> addedAnonymousClasses;
-	private List<UMLAnonymousClass> removedAnonymousClasses;
+	protected List<UMLAnonymousClass> addedAnonymousClasses;
+	protected List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
@@ -140,17 +140,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
 		//optional step
-	}
-
-	protected void processAnonymousClasses() {
-		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
-    		if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
-    			this.removedAnonymousClasses.add(umlAnonymousClass);
-    	}
-    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
-    		if(!originalClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
-    			this.addedAnonymousClasses.add(umlAnonymousClass);
-    	}
 	}
 
 	protected void processAttributes() {
