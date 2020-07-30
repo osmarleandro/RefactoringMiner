@@ -59,6 +59,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.util.ExternalProcess;
 import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -666,6 +667,42 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+		}
+	}
+
+	public void checkout2(Repository repository, String commitId) throws Exception {
+	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		File workingDir = repository.getDirectory().getParentFile();
+		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		if (output.startsWith("fatal")) {
+		    throw new RuntimeException("git error " + output);
+		}
+	}
+
+	public void checkout2(Repository repository, String commitId) throws Exception {
+	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		File workingDir = repository.getDirectory().getParentFile();
+		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		if (output.startsWith("fatal")) {
+		    throw new RuntimeException("git error " + output);
+		}
+	}
+
+	public void checkout2(Repository repository, String commitId) throws Exception {
+	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		File workingDir = repository.getDirectory().getParentFile();
+		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		if (output.startsWith("fatal")) {
+		    throw new RuntimeException("git error " + output);
+		}
+	}
+
+	public void checkout2(Repository repository, String commitId) throws Exception {
+	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		File workingDir = repository.getDirectory().getParentFile();
+		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		if (output.startsWith("fatal")) {
+		    throw new RuntimeException("git error " + output);
 		}
 	}
 
