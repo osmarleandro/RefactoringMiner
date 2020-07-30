@@ -527,4 +527,10 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	private boolean argumentIsReturned(String statement) {
+		return statement.startsWith("return ") && getArguments().size() == 1 &&
+				//length()-2 to remove ";\n" from the end of the return statement, 7 to remove the prefix "return "
+				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(7, statement.length()-2));
+	}
 }
