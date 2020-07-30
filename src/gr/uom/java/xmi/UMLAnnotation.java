@@ -19,7 +19,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
 	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -152,6 +152,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
+	@Override
 	private int memberValuePairsHashCode() {
 		int h = 0;
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
