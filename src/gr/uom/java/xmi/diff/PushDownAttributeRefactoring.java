@@ -38,4 +38,11 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	/**
+	 * @return the code range of the source attribute in the <b>parent</b> commit
+	 */
+	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
+		return originalAttribute.codeRange();
+	}
 }
