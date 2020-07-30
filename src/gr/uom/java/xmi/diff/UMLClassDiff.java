@@ -195,4 +195,8 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	private void reportRemovedImplementedInterface(UMLType implementedInterface) {
+		this.removedImplementedInterfaces.add(implementedInterface);
+	}
 }
