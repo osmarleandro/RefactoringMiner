@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
@@ -152,5 +153,11 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 				.setDescription("changed-type attribute declaration")
 				.setCodeElement(changedTypeAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public Set<Replacement> getReplacements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -23,7 +23,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
-	private Set<Replacement> replacements;
+	public Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
@@ -103,6 +103,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedOperationInvocations;
 	}
 
+	@Override
 	public Set<Replacement> getReplacements() {
 		return replacements;
 	}
