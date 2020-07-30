@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
@@ -303,5 +304,12 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		}
 		return !statement.equals("{") && !statement.startsWith("catch(") && !statement.startsWith("case ") && !statement.startsWith("default :") &&
 				!statement.startsWith("return true;") && !statement.startsWith("return false;") && !statement.startsWith("return this;") && !statement.startsWith("return null;") && !statement.startsWith("return;");
+	}
+
+	@Override
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance,
+			List<UMLOperationBodyMapper> lambdaMappers) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

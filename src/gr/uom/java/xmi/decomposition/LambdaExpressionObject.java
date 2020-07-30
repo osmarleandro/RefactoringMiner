@@ -1,5 +1,8 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -9,6 +12,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class LambdaExpressionObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -40,5 +44,12 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance,
+			List<UMLOperationBodyMapper> lambdaMappers) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

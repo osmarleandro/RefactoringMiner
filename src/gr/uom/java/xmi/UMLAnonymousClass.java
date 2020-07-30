@@ -1,6 +1,12 @@
 package gr.uom.java.xmi;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
+import gr.uom.java.xmi.decomposition.AbstractCall;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
 	private String codePath;
@@ -57,6 +63,13 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	}
 
 	public boolean isInterface() {
+		return false;
+	}
+
+	@Override
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance,
+			List<UMLOperationBodyMapper> lambdaMappers) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }
