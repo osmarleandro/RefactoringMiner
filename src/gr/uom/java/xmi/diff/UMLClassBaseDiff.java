@@ -1671,4 +1671,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	public boolean matches(UMLType type) {
+		return this.className.endsWith("." + type.getClassType());
+	}
 }
