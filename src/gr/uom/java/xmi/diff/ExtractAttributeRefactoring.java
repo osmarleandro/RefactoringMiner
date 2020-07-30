@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -126,5 +127,11 @@ public class ExtractAttributeRefactoring implements Refactoring {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted attribute"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public UMLAnnotation getAnnotationAfter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

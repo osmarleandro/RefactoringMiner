@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
@@ -127,5 +128,11 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setDescription("moved attribute declaration")
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public UMLAnnotation getAnnotationAfter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
