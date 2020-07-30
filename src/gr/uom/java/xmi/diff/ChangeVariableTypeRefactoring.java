@@ -45,6 +45,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return RefactoringType.CHANGE_VARIABLE_TYPE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
