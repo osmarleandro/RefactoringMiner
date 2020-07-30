@@ -3,7 +3,6 @@ package org.refactoringminer.util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
-import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.TrackingRefUpdate;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
@@ -39,8 +37,8 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
-	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
+	protected static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	protected Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
@@ -147,28 +145,6 @@ public class GitServiceImpl implements GitService {
 		} finally {
 			walk.dispose();
 		}
-	}
-
-	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
-        logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
-        try (Git git = new Git(repository)) {
-    		FetchResult result = git.fetch().call();
-    		
-    		Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
-    		List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
-    		for (TrackingRefUpdate update : updates) {
-    			String refName = update.getLocalName();
-    			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-    				ObjectId newObjectId = update.getNewObjectId();
-    				logger.info("{} is now at {}", refName, newObjectId.getName());
-    				remoteRefsChanges.add(update);
-    			}
-    		}
-    		if (updates.isEmpty()) {
-    			logger.info("Nothing changed");
-    		}
-    		return remoteRefsChanges;
-        }
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {

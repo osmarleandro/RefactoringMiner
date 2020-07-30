@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -43,6 +45,8 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.transport.FetchResult;
+import org.eclipse.jgit.transport.TrackingRefUpdate;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHPullRequest;
@@ -667,6 +671,94 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	    logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
+	    try (Git git = new Git(repository)) {
+			FetchResult result = git.fetch().call();
+			
+			Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
+			List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
+			for (TrackingRefUpdate update : updates) {
+				String refName = update.getLocalName();
+				if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+					ObjectId newObjectId = update.getNewObjectId();
+					logger.info("{} is now at {}", refName, newObjectId.getName());
+					remoteRefsChanges.add(update);
+				}
+			}
+			if (updates.isEmpty()) {
+				logger.info("Nothing changed");
+			}
+			return remoteRefsChanges;
+	    }
+	}
+
+	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	    logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
+	    try (Git git = new Git(repository)) {
+			FetchResult result = git.fetch().call();
+			
+			Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
+			List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
+			for (TrackingRefUpdate update : updates) {
+				String refName = update.getLocalName();
+				if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+					ObjectId newObjectId = update.getNewObjectId();
+					logger.info("{} is now at {}", refName, newObjectId.getName());
+					remoteRefsChanges.add(update);
+				}
+			}
+			if (updates.isEmpty()) {
+				logger.info("Nothing changed");
+			}
+			return remoteRefsChanges;
+	    }
+	}
+
+	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	    logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
+	    try (Git git = new Git(repository)) {
+			FetchResult result = git.fetch().call();
+			
+			Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
+			List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
+			for (TrackingRefUpdate update : updates) {
+				String refName = update.getLocalName();
+				if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+					ObjectId newObjectId = update.getNewObjectId();
+					logger.info("{} is now at {}", refName, newObjectId.getName());
+					remoteRefsChanges.add(update);
+				}
+			}
+			if (updates.isEmpty()) {
+				logger.info("Nothing changed");
+			}
+			return remoteRefsChanges;
+	    }
+	}
+
+	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	    logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
+	    try (Git git = new Git(repository)) {
+			FetchResult result = git.fetch().call();
+			
+			Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
+			List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
+			for (TrackingRefUpdate update : updates) {
+				String refName = update.getLocalName();
+				if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+					ObjectId newObjectId = update.getNewObjectId();
+					logger.info("{} is now at {}", refName, newObjectId.getName());
+					remoteRefsChanges.add(update);
+				}
+			}
+			if (updates.isEmpty()) {
+				logger.info("Nothing changed");
+			}
+			return remoteRefsChanges;
+	    }
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
