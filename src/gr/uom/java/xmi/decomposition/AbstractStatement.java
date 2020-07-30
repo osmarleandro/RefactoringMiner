@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
@@ -30,4 +31,15 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	@Override
+	public List<VariableDeclaration> getVariableDeclarations() {
+		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+		//special handling for enhanced-for formal parameter
+		variableDeclarations.addAll(this.variableDeclarations);
+		for(AbstractExpression expression : expressionList) {
+			variableDeclarations.addAll(expression.getVariableDeclarations());
+		}
+		return variableDeclarations;
+	}
 }
