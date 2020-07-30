@@ -1,6 +1,9 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.List;
+
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLType;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	
@@ -24,5 +27,9 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public List<UMLType> getRemovedImplementedInterfaces() {
+		return removedImplementedInterfaces;
 	}
 }
