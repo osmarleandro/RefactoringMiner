@@ -93,4 +93,10 @@ public class RenamePackageRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public Set<String> getSubclassSet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
