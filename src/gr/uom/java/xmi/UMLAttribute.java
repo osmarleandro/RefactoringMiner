@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -170,5 +171,36 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public boolean equals(CandidateMergeVariableRefactoring candidateMergeVariableRefactoring, Object obj) {
+		if (candidateMergeVariableRefactoring == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (candidateMergeVariableRefactoring.getClass() != obj.getClass())
+			return false;
+		CandidateMergeVariableRefactoring other = (CandidateMergeVariableRefactoring) obj;
+		if (candidateMergeVariableRefactoring.mergedVariables == null) {
+			if (other.mergedVariables != null)
+				return false;
+		} else if (!candidateMergeVariableRefactoring.mergedVariables.equals(other.mergedVariables))
+			return false;
+		if (candidateMergeVariableRefactoring.newVariable == null) {
+			if (other.newVariable != null)
+				return false;
+		} else if (!candidateMergeVariableRefactoring.newVariable.equals(other.newVariable))
+			return false;
+		if (candidateMergeVariableRefactoring.operationAfter == null) {
+			if (other.operationAfter != null)
+				return false;
+		} else if (!candidateMergeVariableRefactoring.operationAfter.equals(other.operationAfter))
+			return false;
+		if (candidateMergeVariableRefactoring.operationBefore == null) {
+			if (other.operationBefore != null)
+				return false;
+		} else if (!candidateMergeVariableRefactoring.operationBefore.equals(other.operationBefore))
+			return false;
+		return true;
 	}
 }
