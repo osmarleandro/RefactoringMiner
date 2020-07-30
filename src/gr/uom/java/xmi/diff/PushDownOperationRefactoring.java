@@ -30,4 +30,8 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	public UMLOperation getOriginalOperation() {
+		return originalOperation;
+	}
 }
