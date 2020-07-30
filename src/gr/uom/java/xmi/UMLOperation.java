@@ -688,6 +688,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				(this.getParameterTypeList().containsAll(operation.getParameterTypeList()) || operation.getParameterTypeList().containsAll(this.getParameterTypeList()));
 	}
 	
+	@Override
 	public boolean replacedParameterTypes(UMLOperation operation) {
 		List<UMLType> thisParameterTypes = this.getParameterTypeList();
 		List<UMLType> otherParameterTypes = operation.getParameterTypeList();
