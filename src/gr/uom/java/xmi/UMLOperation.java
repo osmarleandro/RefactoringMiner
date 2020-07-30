@@ -32,7 +32,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -170,6 +170,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<VariableDeclaration>();
 	}
 
+	@Override
 	public VariableDeclaration getVariableDeclaration(String variableName) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclaration(variableName);
