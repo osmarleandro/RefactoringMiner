@@ -42,6 +42,7 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.CONVERT_ANONYMOUS_CLASS_TO_TYPE;
 	}
