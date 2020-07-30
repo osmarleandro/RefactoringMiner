@@ -93,4 +93,10 @@ public class RenamePackageRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getTargetOperationCodeRangeAfterMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
