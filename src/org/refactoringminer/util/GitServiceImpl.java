@@ -247,17 +247,8 @@ public class GitServiceImpl implements GitService {
 	@Override
 	public Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
 			throws Exception {
-		ObjectId from = repository.resolve(startCommitId);
-		ObjectId to = repository.resolve(endCommitId);
-		try (Git git = new Git(repository)) {
-			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(from, to).call()
-					.spliterator(), false)
-					.filter(r -> r.getParentCount() == 1)
-			        .collect(Collectors.toList());
-			Collections.reverse(revCommits);
-			return revCommits;
-		}
-	}
+				return commitsFilter.createRevsWalkBetweenCommits(repository, startCommitId, endCommitId);
+			}
 
 	public boolean isCommitAnalyzed(String sha1) {
 		return false;
@@ -282,6 +273,20 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public Iterable<RevCommit> createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
+				throws Exception {
+			ObjectId from = repository.resolve(startCommitId);
+			ObjectId to = repository.resolve(endCommitId);
+			try (Git git = new Git(repository)) {
+				List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(from, to).call()
+						.spliterator(), false)
+						.filter(r -> r.getParentCount() == 1)
+				        .collect(Collectors.toList());
+				Collections.reverse(revCommits);
+				return revCommits;
+			}
 		}
 	}
 
