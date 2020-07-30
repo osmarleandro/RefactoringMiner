@@ -158,4 +158,10 @@ public class SplitVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public VariableDeclaration getChangedTypeVariable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
