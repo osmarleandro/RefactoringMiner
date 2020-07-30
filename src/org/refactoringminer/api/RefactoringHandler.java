@@ -1,6 +1,15 @@
 package org.refactoringminer.api;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.eclipse.jgit.lib.Repository;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
@@ -48,4 +57,22 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public void detectAtCommit(Repository repository, String commitId, GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl, int timeout) {
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		Future<?> f = null;
+		try {
+			Runnable r = () -> gitHistoryRefactoringMinerImpl.detectAtCommit(repository, commitId, this);
+			f = service.submit(r);
+			f.get(timeout, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			f.cancel(true);
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			service.shutdown();
+		}
+	}
 }

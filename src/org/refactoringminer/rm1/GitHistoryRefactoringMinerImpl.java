@@ -382,21 +382,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler, int timeout) {
-		ExecutorService service = Executors.newSingleThreadExecutor();
-		Future<?> f = null;
-		try {
-			Runnable r = () -> detectAtCommit(repository, commitId, handler);
-			f = service.submit(r);
-			f.get(timeout, TimeUnit.SECONDS);
-		} catch (TimeoutException e) {
-			f.cancel(true);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			service.shutdown();
-		}
+		handler.detectAtCommit(repository, commitId, this, timeout);
 	}
 
 	@Override
