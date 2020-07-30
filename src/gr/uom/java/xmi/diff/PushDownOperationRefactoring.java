@@ -1,8 +1,11 @@
 package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
@@ -29,5 +32,11 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 				.setDescription("pushed down method declaration")
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
+	}
+
+	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
+		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
+		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName()));
+		return pairs;
 	}
 }
