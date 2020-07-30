@@ -13,7 +13,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
-import gr.uom.java.xmi.diff.CodeRange;
+
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
@@ -429,11 +429,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			newCall.arguments.add(
 				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
 		}
-	}
-
-	public CodeRange codeRange() {
-		LocationInfo info = getLocationInfo();
-		return info.codeRange();
 	}
 
 	public enum StatementCoverageType {

@@ -11,6 +11,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
@@ -138,5 +139,10 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	public CodeRange codeRange() {
+		LocationInfo info = getLocationInfo();
+		return info.codeRange();
 	}
 }
