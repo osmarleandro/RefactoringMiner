@@ -22,4 +22,8 @@ public class ObjectCreationReplacement extends Replacement {
 		return createdObjectAfter;
 	}
 
+	public String toString() {
+		return before + " -> " + after;
+	}
+
 }

@@ -69,4 +69,8 @@ public class VariableDeclarationReplacement extends Replacement {
 			return false;
 		return true;
 	}
+
+	public String toString() {
+		return before + " -> " + after;
+	}
 }

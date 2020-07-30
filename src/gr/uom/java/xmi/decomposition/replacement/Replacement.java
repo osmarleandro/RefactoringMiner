@@ -3,8 +3,8 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
-	private String before;
-	private String after;
+	protected String before;
+	protected String after;
 	private ReplacementType type;
 	
 	public Replacement(String before, String after, ReplacementType type) {
@@ -48,10 +48,6 @@ public class Replacement {
 		return false;
 	}
 	
-	public String toString() {
-		return before + " -> " + after;
-	}
-
 	public double normalizedEditDistance() {
 		String s1 = getBefore();
 		String s2 = getAfter();

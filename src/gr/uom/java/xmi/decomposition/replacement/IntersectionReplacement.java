@@ -11,4 +11,7 @@ public class IntersectionReplacement extends Replacement {
 	public Set<String> getCommonElements() {
 		return commonElements;
 	}
+	public String toString() {
+		return before + " -> " + after;
+	}
 }
