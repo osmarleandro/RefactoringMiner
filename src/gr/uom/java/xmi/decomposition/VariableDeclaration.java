@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.SplitVariableRefactoring;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -255,5 +256,14 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	public boolean allVariablesAreParameters(SplitVariableRefactoring splitVariableRefactoring) {
+		for(VariableDeclaration declaration : splitVariableRefactoring.splitVariables) {
+			if(!declaration.isParameter()) {
+				return false;
+			}
+		}
+		return isParameter();
 	}
 }
