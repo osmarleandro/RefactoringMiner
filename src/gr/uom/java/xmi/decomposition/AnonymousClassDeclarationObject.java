@@ -133,4 +133,10 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

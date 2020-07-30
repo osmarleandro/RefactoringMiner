@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
