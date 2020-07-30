@@ -14,8 +14,8 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
-	private UMLOperation operationBefore;
+	public VariableDeclaration variableDeclaration;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
