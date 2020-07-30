@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeAttributeRefactoring implements Refactoring {
@@ -140,5 +141,11 @@ public class MergeAttributeRefactoring implements Refactoring {
 				.setDescription("new attribute declaration")
 				.setCodeElement(newAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public UMLClass getExtractedClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
