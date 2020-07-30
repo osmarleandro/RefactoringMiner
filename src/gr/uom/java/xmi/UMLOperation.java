@@ -33,7 +33,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
-	private List<UMLAnonymousClass> anonymousClassList;
+	List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
@@ -218,6 +218,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return parameters;
 	}
 
+	@Override
 	public void addAnonymousClass(UMLAnonymousClass anonymous) {
 		this.anonymousClassList.add(anonymous);
 	}
