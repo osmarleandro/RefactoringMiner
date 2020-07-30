@@ -117,13 +117,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public void checkout(Repository repository, String commitId) throws Exception {
-	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
-	    try (Git git = new Git(repository)) {
-	        CheckoutCommand checkout = git.checkout().setName(commitId);
-	        checkout.call();
-	    }
-//		File workingDir = repository.getDirectory().getParentFile();
-//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+		commitsFilter.checkout(this, repository, commitId);
 	}
 
 	public void checkout2(Repository repository, String commitId) throws Exception {
@@ -282,6 +276,16 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public void checkout(GitServiceImpl gitServiceImpl, Repository repository, String commitId) throws Exception {
+		    gitServiceImpl.logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
+		    try (Git git = new Git(repository)) {
+		        CheckoutCommand checkout = git.checkout().setName(commitId);
+		        checkout.call();
+		    }
+		//		File workingDir = repository.getDirectory().getParentFile();
+		//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
 		}
 	}
 
