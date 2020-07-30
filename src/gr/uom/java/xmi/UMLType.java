@@ -23,8 +23,8 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private int arrayDimension;
-	private List<UMLType> typeArguments = new ArrayList<UMLType>();
+	int arrayDimension;
+	List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
 	public LocationInfo getLocationInfo() {
@@ -228,6 +228,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return umlType;
 	}
 
+	@Override
 	private static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
 		if(type.isPrimitiveType() || type.isSimpleType()) {
 			LeafType leafType = extractTypeObject(type.toString());

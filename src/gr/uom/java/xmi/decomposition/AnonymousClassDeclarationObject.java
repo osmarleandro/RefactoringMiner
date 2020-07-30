@@ -7,11 +7,13 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Type;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLType;
 
 public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -132,5 +134,11 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
