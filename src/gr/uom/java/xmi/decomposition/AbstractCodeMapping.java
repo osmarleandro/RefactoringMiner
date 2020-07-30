@@ -7,6 +7,7 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
@@ -16,6 +17,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
+import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
@@ -470,5 +472,37 @@ public abstract class AbstractCodeMapping {
 		} else if (!operation2.equals(other.operation2))
 			return false;
 		return true;
+	}
+
+	private double parentEditDistance() {
+		CompositeStatementObject parent1 = getFragment1().getParent();
+		while(parent1 != null && parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
+			parent1 = parent1.getParent();
+		}
+		CompositeStatementObject parent2 = getFragment2().getParent();
+		while(parent2 != null && parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
+			parent2 = parent2.getParent();
+		}
+		if(parent1 == null && parent2 == null) {
+			//method signature is the parent
+			return 0;
+		}
+		else if(parent1 == null && parent2 != null) {
+			String s2 = parent2.getString();
+			int distance = StringDistance.editDistance("{", s2);
+			double normalized = (double)distance/(double)Math.max(1, s2.length());
+			return normalized;
+		}
+		else if(parent1 != null && parent2 == null) {
+			String s1 = parent1.getString();
+			int distance = StringDistance.editDistance(s1, "{");
+			double normalized = (double)distance/(double)Math.max(s1.length(), 1);
+			return normalized;
+		}
+		String s1 = parent1.getString();
+		String s2 = parent2.getString();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }
