@@ -256,4 +256,12 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	public List<CodeRange> leftSide() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(codeRange()
+				.setDescription("original variable declaration")
+				.setCodeElement(toString()));
+		return ranges;
+	}
 }

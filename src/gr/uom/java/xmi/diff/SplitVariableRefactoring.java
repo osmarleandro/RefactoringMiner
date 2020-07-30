@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> splitVariables;
-	private VariableDeclaration oldVariable;
+	public VariableDeclaration oldVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
@@ -141,11 +141,7 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(oldVariable.codeRange()
-				.setDescription("original variable declaration")
-				.setCodeElement(oldVariable.toString()));
-		return ranges;
+		return oldVariable.leftSide();
 	}
 
 	@Override
