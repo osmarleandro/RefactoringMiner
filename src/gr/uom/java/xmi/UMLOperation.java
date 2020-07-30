@@ -30,7 +30,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
-	private boolean isStatic;
+	boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
@@ -103,6 +103,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.isFinal = isFinal;
 	}
 
+	@Override
 	public boolean isStatic() {
 		return isStatic;
 	}
