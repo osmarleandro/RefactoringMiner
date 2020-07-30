@@ -259,6 +259,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
+	@Override
 	public boolean isCommitAnalyzed(String sha1) {
 		return false;
 	}
