@@ -30,4 +30,17 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		sb.append(originalOperation);
+		sb.append(" from class ");
+		sb.append(originalOperation.getClassName());
+		sb.append(" to ");
+		sb.append(movedOperation);
+		sb.append(" from class ");
+		sb.append(movedOperation.getClassName());
+		return sb.toString();
+	}
 }

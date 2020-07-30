@@ -32,19 +32,6 @@ public class MoveOperationRefactoring implements Refactoring {
 		this.replacements = new LinkedHashSet<Replacement>();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalOperation);
-		sb.append(" from class ");
-		sb.append(originalOperation.getClassName());
-		sb.append(" to ");
-		sb.append(movedOperation);
-		sb.append(" from class ");
-		sb.append(movedOperation.getClassName());
-		return sb.toString();
-	}
-
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
