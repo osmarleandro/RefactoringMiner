@@ -10,7 +10,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class TryStatementObject extends CompositeStatementObject {
 	private List<CompositeStatementObject> catchClauses;
-	private CompositeStatementObject finallyClause;
+	CompositeStatementObject finallyClause;
 
 	public TryStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth) {
 		super(cu, filePath, statement, depth, CodeElementType.TRY_STATEMENT);
@@ -27,10 +27,6 @@ public class TryStatementObject extends CompositeStatementObject {
 
 	public void setFinallyClause(CompositeStatementObject finallyClause) {
 		this.finallyClause = finallyClause;
-	}
-
-	public CompositeStatementObject getFinallyClause() {
-		return finallyClause;
 	}
 
 	@Override
