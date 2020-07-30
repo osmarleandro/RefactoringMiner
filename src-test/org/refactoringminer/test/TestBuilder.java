@@ -54,11 +54,6 @@ public class TestBuilder {
 		this.refactoringFilter = refactorings;
 	}
 
-	public TestBuilder verbose() {
-		this.verbose = true;
-		return this;
-	}
-
 	public TestBuilder withAggregation() {
 		this.aggregate = true;
 		return this;
@@ -66,6 +61,11 @@ public class TestBuilder {
 
 	private static class Counter {
 		int[] c = new int[5];
+
+		public TestBuilder verbose(TestBuilder testBuilder) {
+			testBuilder.verbose = true;
+			return testBuilder;
+		}
 	}
 
 	private void count(int type, String refactoring) {
