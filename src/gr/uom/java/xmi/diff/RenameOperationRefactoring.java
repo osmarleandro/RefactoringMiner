@@ -60,6 +60,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return true;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
