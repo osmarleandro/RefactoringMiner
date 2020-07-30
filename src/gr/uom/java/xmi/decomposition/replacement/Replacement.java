@@ -1,5 +1,8 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -72,6 +75,12 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
+	}
+
+	public boolean commonAfter(MergeVariableReplacement other) {
+		Set<String> interestion = new LinkedHashSet<String>(this.mergedVariables);
+		interestion.retainAll(other.mergedVariables);
+		return this.getAfter().equals(other.getAfter()) && interestion.size() == 0;
 	}
 
 	public enum ReplacementType {
