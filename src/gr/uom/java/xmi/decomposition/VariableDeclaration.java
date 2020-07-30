@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public UMLType getSuperclass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
