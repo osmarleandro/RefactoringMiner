@@ -30,4 +30,14 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public VariableDeclaration getVariableDeclaration(String variableName) {
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		for(VariableDeclaration declaration : variableDeclarations) {
+			if(declaration.getVariableName().equals(variableName)) {
+				return declaration;
+			}
+		}
+		return null;
+	}
 }
