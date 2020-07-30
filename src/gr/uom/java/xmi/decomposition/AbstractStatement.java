@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
@@ -30,4 +31,15 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
+			String initializer = variableDeclarations.get(0).getInitializer().toString();
+			if(expressions.contains(initializer)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

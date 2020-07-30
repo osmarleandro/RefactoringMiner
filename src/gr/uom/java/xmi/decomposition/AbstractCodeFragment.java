@@ -2,7 +2,6 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -240,17 +239,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 				if(("return " + casting + expression + ";\n").equals(statement)) {
 					return true;
 				}
-			}
-		}
-		return false;
-	}
-
-	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
-		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
-			String initializer = variableDeclarations.get(0).getInitializer().toString();
-			if(expressions.contains(initializer)) {
-				return true;
 			}
 		}
 		return false;

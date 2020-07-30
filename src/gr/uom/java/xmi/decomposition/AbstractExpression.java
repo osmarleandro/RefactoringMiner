@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -202,5 +203,16 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
+		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
+			String initializer = variableDeclarations.get(0).getInitializer().toString();
+			if(expressions.contains(initializer)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
