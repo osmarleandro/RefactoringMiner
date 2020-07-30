@@ -27,7 +27,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
-	private LocationInfo locationInfo;
+	public LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
@@ -192,6 +192,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return locationInfo;
 	}
 
+	@Override
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
