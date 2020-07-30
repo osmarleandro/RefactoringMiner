@@ -23,14 +23,14 @@ import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
-	private String variableName;
+	public String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
-	private VariableScope scope;
+	public VariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
