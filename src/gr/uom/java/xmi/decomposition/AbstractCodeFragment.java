@@ -230,6 +230,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
+	@Override
 	private boolean isCastExpressionCoveringEntireFragment(String expression) {
 		String statement = getString();
 		int index = statement.indexOf(expression + ";\n");

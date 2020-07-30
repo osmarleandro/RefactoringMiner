@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public boolean isCastExpressionCoveringEntireFragment(String expression) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
