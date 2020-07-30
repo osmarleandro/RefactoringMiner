@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -114,7 +114,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
 	}
 
-	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
+	public List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
 		List<Refactoring> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
 		List<String> filePathsBefore = new ArrayList<String>();
@@ -180,7 +180,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
+	public List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			List<String> filesBefore = new ArrayList<String>();
@@ -354,31 +354,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
-		String cloneURL = repository.getConfig().getString("remote", "origin", "url");
-		File metadataFolder = repository.getDirectory();
-		File projectFolder = metadataFolder.getParentFile();
-		GitService gitService = new GitServiceImpl();
-		RevWalk walk = new RevWalk(repository);
-		try {
-			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
-			if (commit.getParentCount() > 0) {
-				walk.parseCommit(commit.getParent(0));
-				this.detectRefactorings(gitService, repository, handler, projectFolder, commit);
-			}
-			else {
-				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
-			}
-		} catch (MissingObjectException moe) {
-			this.detectRefactorings(handler, projectFolder, cloneURL, commitId);
-		} catch (RefactoringMinerTimedOutException e) {
-			logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
-		} catch (Exception e) {
-			logger.warn(String.format("Ignored revision %s due to error", commitId), e);
-			handler.handleException(commitId, e);
-		} finally {
-			walk.close();
-			walk.dispose();
-		}
+		handler.detectAtCommit(repository, commitId, this);
 	}
 
 	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler, int timeout) {

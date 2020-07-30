@@ -1,6 +1,14 @@
 package org.refactoringminer.api;
 
+import java.io.File;
 import java.util.List;
+
+import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+import org.refactoringminer.util.GitServiceImpl;
 
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
@@ -48,4 +56,32 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public void detectAtCommit(Repository repository, String commitId, GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl) {
+		String cloneURL = repository.getConfig().getString("remote", "origin", "url");
+		File metadataFolder = repository.getDirectory();
+		File projectFolder = metadataFolder.getParentFile();
+		GitService gitService = new GitServiceImpl();
+		RevWalk walk = new RevWalk(repository);
+		try {
+			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
+			if (commit.getParentCount() > 0) {
+				walk.parseCommit(commit.getParent(0));
+				gitHistoryRefactoringMinerImpl.detectRefactorings(gitService, repository, this, projectFolder, commit);
+			}
+			else {
+				gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
+			}
+		} catch (MissingObjectException moe) {
+			gitHistoryRefactoringMinerImpl.detectRefactorings(this, projectFolder, cloneURL, commitId);
+		} catch (RefactoringMinerTimedOutException e) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
+		} catch (Exception e) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to error", commitId), e);
+			handleException(commitId, e);
+		} finally {
+			walk.close();
+			walk.dispose();
+		}
+	}
 }
