@@ -259,10 +259,6 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	public boolean isCommitAnalyzed(String sha1) {
-		return false;
-	}
-
 	private class DefaultCommitsFilter extends RevFilter {
 		@Override
 		public final boolean include(final RevWalk walker, final RevCommit c) {

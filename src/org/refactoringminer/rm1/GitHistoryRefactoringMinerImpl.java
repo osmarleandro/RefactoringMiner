@@ -669,6 +669,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
+	public boolean isCommitAnalyzed(String sha1) {
+		return false;
+	}
+
+	public boolean isCommitAnalyzed(String sha1) {
+		return false;
+	}
+
+	public boolean isCommitAnalyzed(String sha1) {
+		return false;
+	}
+
+	public boolean isCommitAnalyzed(String sha1) {
+		return false;
+	}
+
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
