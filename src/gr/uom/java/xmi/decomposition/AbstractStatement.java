@@ -30,4 +30,18 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
+		String statement = getString();
+		if(statement.contains("=")) {
+			List<String> variables = getVariables();
+			if(variables.size() > 0) {
+				String s = variables.get(0) + "=" + expression + ";\n";
+				if(statement.equals(s)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
