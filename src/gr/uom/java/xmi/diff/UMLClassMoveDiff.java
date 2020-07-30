@@ -1,5 +1,8 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.List;
+
+import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
@@ -32,5 +35,9 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public List<UMLAnonymousClass> getAddedAnonymousClasses() {
+		return addedAnonymousClasses;
 	}
 }
