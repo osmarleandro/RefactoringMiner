@@ -69,6 +69,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return targetOperationAfterInline.getClassName();
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
