@@ -33,4 +33,9 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public boolean matches(String className) {
+		return this.originalClass.getName().equals(className) ||
+				this.nextClass.getName().equals(className);
+	}
 }
