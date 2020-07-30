@@ -39,6 +39,7 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -667,6 +668,82 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				if (branch == null || refName.endsWith("/" + branch)) {
+					currentRemoteRefs.add(ref.getObjectId());
+				}
+			}
+		}
+		
+		RevWalk walk = new RevWalk(repository);
+		for (ObjectId newRef : currentRemoteRefs) {
+			walk.markStart(walk.parseCommit(newRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				if (branch == null || refName.endsWith("/" + branch)) {
+					currentRemoteRefs.add(ref.getObjectId());
+				}
+			}
+		}
+		
+		RevWalk walk = new RevWalk(repository);
+		for (ObjectId newRef : currentRemoteRefs) {
+			walk.markStart(walk.parseCommit(newRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				if (branch == null || refName.endsWith("/" + branch)) {
+					currentRemoteRefs.add(ref.getObjectId());
+				}
+			}
+		}
+		
+		RevWalk walk = new RevWalk(repository);
+		for (ObjectId newRef : currentRemoteRefs) {
+			walk.markStart(walk.parseCommit(newRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
+
+	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
+		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+		for (Ref ref : repository.getRefDatabase().getRefs()) {
+			String refName = ref.getName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				if (branch == null || refName.endsWith("/" + branch)) {
+					currentRemoteRefs.add(ref.getObjectId());
+				}
+			}
+		}
+		
+		RevWalk walk = new RevWalk(repository);
+		for (ObjectId newRef : currentRemoteRefs) {
+			walk.markStart(walk.parseCommit(newRef));
+		}
+		walk.setRevFilter(commitsFilter);
+		return walk;
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";

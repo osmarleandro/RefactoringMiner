@@ -39,10 +39,10 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	protected static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
-	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
+	protected DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
 	@Override
 	public Repository cloneIfNotExists(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
@@ -203,25 +203,6 @@ public class GitServiceImpl implements GitService {
 		return this.createAllRevsWalk(repository, null);
 	}
 
-	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
-		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
-		for (Ref ref : repository.getRefDatabase().getRefs()) {
-			String refName = ref.getName();
-			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-				if (branch == null || refName.endsWith("/" + branch)) {
-					currentRemoteRefs.add(ref.getObjectId());
-				}
-			}
-		}
-		
-		RevWalk walk = new RevWalk(repository);
-		for (ObjectId newRef : currentRemoteRefs) {
-			walk.markStart(walk.parseCommit(newRef));
-		}
-		walk.setRevFilter(commitsFilter);
-		return walk;
-	}
-	
 	@Override
 	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag)
 			throws Exception {
