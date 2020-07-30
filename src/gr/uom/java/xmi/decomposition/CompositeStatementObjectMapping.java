@@ -1,6 +1,8 @@
 package gr.uom.java.xmi.decomposition;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
@@ -58,6 +60,15 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 				}
 			}
 		}
+	}
+
+	public boolean containsReplacement(ReplacementType type) {
+		for(Replacement replacement : replacements) {
+			if(replacement.getType().equals(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
