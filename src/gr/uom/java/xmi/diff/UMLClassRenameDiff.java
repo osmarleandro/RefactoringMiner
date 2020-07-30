@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	
@@ -24,5 +25,14 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
+		for(UMLOperationDiff diff : operationDiffList) {
+			if(diff.getRemovedOperation().equals(operation1) && diff.getAddedOperation().equals(operation2)) {
+				return diff;
+			}
+		}
+		return null;
 	}
 }

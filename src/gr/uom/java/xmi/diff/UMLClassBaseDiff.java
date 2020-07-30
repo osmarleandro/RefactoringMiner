@@ -56,7 +56,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
-	private List<UMLOperationDiff> operationDiffList;
+	protected List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
@@ -99,15 +99,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
 		checkForExtractedOperations();
-	}
-
-	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
-		for(UMLOperationDiff diff : operationDiffList) {
-			if(diff.getRemovedOperation().equals(operation1) && diff.getAddedOperation().equals(operation2)) {
-				return diff;
-			}
-		}
-		return null;
 	}
 
 	public UMLOperationBodyMapper findMapperWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
