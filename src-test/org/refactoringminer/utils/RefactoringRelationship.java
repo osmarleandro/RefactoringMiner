@@ -1,6 +1,9 @@
 package org.refactoringminer.utils;
 
+import static org.refactoringminer.utils.RefactoringRelationship.parentOf;
+
 import java.util.EnumSet;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringType;
 
@@ -141,7 +144,22 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return new GroupKey(refactoringType, getMainEntity());
   }
 
-  public static class GroupKey implements Comparable<GroupKey> {
+  boolean isMoveToMovedType(Set<?> expectedUnfiltered) {
+    if (getRefactoringType() == RefactoringType.MOVE_OPERATION || getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
+        if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(getEntityBefore()), parentOf(getEntityAfter())))) {
+            return true;
+        }
+        if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(parentOf(getEntityBefore())), parentOf(parentOf(getEntityAfter()))))) {
+            return true;
+        }
+        if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_SOURCE_FOLDER, parentOf(getEntityBefore()), parentOf(getEntityAfter())))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+public static class GroupKey implements Comparable<GroupKey> {
     private final RefactoringType refactoringType;
     private final String mainEntity;
 

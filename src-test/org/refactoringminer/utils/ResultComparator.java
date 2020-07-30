@@ -105,7 +105,7 @@ public class ResultComparator {
                         expectedRefactorings.remove(r);
                     } else {
                         boolean ignoreFp = 
-                            ignoreMoveToMovedType && isMoveToMovedType(r, expectedUnfiltered) ||
+                            ignoreMoveToMovedType && r.isMoveToMovedType(expectedUnfiltered) ||
                             ignoreMoveToRenamedType && isMoveToRenamedType(r, expectedUnfiltered) ||
                             ignorePullUpToExtractedSupertype && isPullUpToExtractedSupertype(r, expectedUnfiltered);
                         if (!ignoreFp) {
@@ -188,7 +188,7 @@ public class ResultComparator {
                             if (label == "FP" && isMoveToRenamedType(r, expectedUnfiltered)) {
                                 out.print("<RT>");
                             }
-                            if (label == "FP" && isMoveToMovedType(r, expectedUnfiltered)) {
+                            if (label == "FP" && r.isMoveToMovedType(expectedUnfiltered)) {
                                 out.print("<MT>");
                             }
                             if (label == "FP" && (r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE || r.getRefactoringType() == RefactoringType.MOVE_OPERATION)) {
@@ -239,21 +239,6 @@ public class ResultComparator {
                 return true;
             }
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
-                return true;
-            }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
-                return true;
-            }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_SOURCE_FOLDER, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
         }
