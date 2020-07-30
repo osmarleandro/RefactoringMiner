@@ -16,7 +16,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	private Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
 	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameAfter;
 
 	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
 			String classNameBefore, String classNameAfter, Set<CandidateSplitVariableRefactoring> attributeSplits) {
@@ -43,6 +43,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return classNameBefore;
 	}
 
+	@Override
 	public String getClassNameAfter() {
 		return classNameAfter;
 	}

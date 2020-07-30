@@ -144,4 +144,10 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String getClassNameAfter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
