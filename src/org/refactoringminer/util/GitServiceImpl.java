@@ -321,6 +321,7 @@ public class GitServiceImpl implements GitService {
         }
 	}
 
+	@Override
 	private boolean isJavafile(String path) {
 		return path.endsWith(".java");
 	}
