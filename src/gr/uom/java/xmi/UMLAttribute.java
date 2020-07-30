@@ -164,6 +164,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return this.toString().compareTo(attribute.toString());
 	}
 
+	@Override
 	public double normalizedNameDistance(UMLAttribute attribute) {
 		String s1 = getName().toLowerCase();
 		String s2 = attribute.getName().toLowerCase();
