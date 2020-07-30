@@ -62,4 +62,8 @@ public class CompositeType extends UMLType {
 	public String getClassType() {
 		return rightType.getClassType();
 	}
+
+	public void setVarargs() {
+		arrayDimension++;
+	}
 }

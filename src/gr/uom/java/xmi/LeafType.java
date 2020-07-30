@@ -151,4 +151,8 @@ public class LeafType extends UMLType {
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
 	}
+
+	public void setVarargs() {
+		arrayDimension++;
+	}
 }

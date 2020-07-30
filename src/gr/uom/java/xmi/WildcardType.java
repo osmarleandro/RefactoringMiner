@@ -72,4 +72,8 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	public void setVarargs() {
+		arrayDimension++;
+	}
 }
