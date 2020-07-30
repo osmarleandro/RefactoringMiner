@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
 	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
-	private Set<RefactoringType> refactoringTypesToConsider = null;
+	public Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
 	public GitHistoryRefactoringMinerImpl() {
@@ -299,6 +299,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
+	@Override
 	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
