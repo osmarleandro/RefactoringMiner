@@ -30,7 +30,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return extractedClass.getName(this);
 	}
 
 	public RefactoringType getRefactoringType() {
