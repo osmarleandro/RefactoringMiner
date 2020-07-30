@@ -29,7 +29,7 @@ public class StatementObject extends AbstractStatement {
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
-	private List<String> numberLiterals;
+	List<String> numberLiterals;
 	private List<String> nullLiterals;
 	private List<String> booleanLiterals;
 	private List<String> typeLiterals;
@@ -176,11 +176,6 @@ public class StatementObject extends AbstractStatement {
 	@Override
 	public List<String> getStringLiterals() {
 		return stringLiterals;
-	}
-
-	@Override
-	public List<String> getNumberLiterals() {
-		return numberLiterals;
 	}
 
 	@Override
