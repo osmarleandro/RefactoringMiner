@@ -397,4 +397,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	@Override
+	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

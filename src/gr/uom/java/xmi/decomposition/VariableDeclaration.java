@@ -18,6 +18,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -255,5 +256,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
+	}
+
+	@Override
+	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
