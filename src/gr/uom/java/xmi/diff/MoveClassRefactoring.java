@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 
 import java.util.ArrayList;
@@ -92,5 +93,11 @@ public class MoveClassRefactoring implements Refactoring {
 				.setDescription("moved type declaration")
 				.setCodeElement(movedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
