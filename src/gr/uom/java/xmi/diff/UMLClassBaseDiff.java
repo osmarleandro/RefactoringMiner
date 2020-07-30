@@ -138,10 +138,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		//optional step
 	}
 
-	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
-		//optional step
-	}
-
 	protected void processAnonymousClasses() {
 		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
     		if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
