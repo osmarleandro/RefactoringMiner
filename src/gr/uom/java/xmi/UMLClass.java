@@ -17,7 +17,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private String visibility;
 	private boolean isAbstract;
 	private boolean isInterface;
-	private boolean isEnum;
+	boolean isEnum;
 	private boolean topLevel;
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
@@ -140,6 +140,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return isEnum;
 	}
 
+	@Override
 	public void setEnum(boolean isEnum) {
 		this.isEnum = isEnum;
 	}
