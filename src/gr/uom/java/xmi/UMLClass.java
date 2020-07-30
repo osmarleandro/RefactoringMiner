@@ -397,4 +397,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	@Override
+	public boolean equalSignature(UMLOperation operation) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
