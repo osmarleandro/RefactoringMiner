@@ -207,6 +207,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return (LeafType)typeObject;
 	}
 
+	@Override
 	private static boolean equalOpeningClosingTags(String typeArguments) {
 		int openingTags = 0;
 		int closingTags = 0;
