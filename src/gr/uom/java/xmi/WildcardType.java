@@ -72,4 +72,21 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	protected String typeArgumentsToString() {
+		StringBuilder sb = new StringBuilder();
+		if(typeArguments.isEmpty()) {
+			sb.append("");
+		}
+		else {
+			sb.append("<");
+			for(int i = 0; i < typeArguments.size(); i++) {
+				sb.append(typeArguments.get(i).toQualifiedString());
+				if(i < typeArguments.size() - 1)
+					sb.append(",");
+			}
+			sb.append(">");
+		}
+		return sb.toString();
+	}
 }
