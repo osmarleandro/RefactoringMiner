@@ -23,7 +23,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private int arrayDimension;
+	int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
@@ -31,6 +31,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return locationInfo;
 	}
 
+	@Override
 	public int getArrayDimension() {
 		return this.arrayDimension;
 	}
