@@ -12,9 +12,9 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
-	private volatile int hashCode = 0;
+	public UMLAttribute originalAttribute;
+	public UMLAttribute movedAttribute;
+	public volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
 		this.originalAttribute = originalAttribute;
@@ -87,6 +87,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return false;
 	}
 
+	@Override
 	public int hashCode() {
 		if(hashCode == 0) {
 			int result = 17;
