@@ -390,6 +390,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return null;
 	}
 
+	@Override
 	private boolean argumentIsAssigned(String statement) {
 		return getArguments().size() == 1 && statement.contains("=") && statement.endsWith(";\n") &&
 				//length()-2 to remove ";\n" from the end of the assignment statement, indexOf("=")+1 to remove the left hand side of the assignment
@@ -404,7 +405,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return null;
 	}
 
-	private static boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
+	public static boolean equalsIgnoringExtraParenthesis(String s1, String s2) {
 		if(s1.equals(s2))
 			return true;
 		String parenthesizedS1 = "("+s1+")";
