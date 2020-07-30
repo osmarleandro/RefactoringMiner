@@ -10,7 +10,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private String name;
 	private UMLType type;
 	private String kind;
-	private boolean varargs;
+	boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
@@ -43,6 +43,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return kind;
 	}
 
+	@Override
 	public boolean isVarargs() {
 		return varargs;
 	}
