@@ -30,41 +30,12 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.removedOperations.add(umlOperation);
 	}
 
-	private void reportAddedAttribute(UMLAttribute umlAttribute) {
+	void reportAddedAttribute(UMLAttribute umlAttribute) {
 		this.addedAttributes.add(umlAttribute);
 	}
 
-	private void reportRemovedAttribute(UMLAttribute umlAttribute) {
+	void reportRemovedAttribute(UMLAttribute umlAttribute) {
 		this.removedAttributes.add(umlAttribute);
-	}
-
-	protected void processAttributes() {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
-			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
-    		if(matchingAttribute == null) {
-    			this.reportRemovedAttribute(attribute);
-    		}
-    		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, getOperationBodyMapperList());
-    			if(!attributeDiff.isEmpty()) {
-	    			refactorings.addAll(attributeDiff.getRefactorings());
-	    			this.attributeDiffList.add(attributeDiff);
-    			}
-    		}
-    	}
-    	for(UMLAttribute attribute : nextClass.getAttributes()) {
-    		UMLAttribute matchingAttribute = originalClass.containsAttribute(attribute);
-    		if(matchingAttribute == null) {
-    			this.reportAddedAttribute(attribute);
-    		}
-    		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, getOperationBodyMapperList());
-    			if(!attributeDiff.isEmpty()) {
-	    			refactorings.addAll(attributeDiff.getRefactorings());
-					this.attributeDiffList.add(attributeDiff);
-    			}
-    		}
-    	}
 	}
 
 	protected void processOperations() {
