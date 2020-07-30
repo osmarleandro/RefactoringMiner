@@ -124,6 +124,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
+	@Override
 	public boolean identicalOrConcatenatedArguments(AbstractCall call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
