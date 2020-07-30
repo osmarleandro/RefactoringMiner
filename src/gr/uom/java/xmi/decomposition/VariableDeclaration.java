@@ -29,7 +29,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
-	private boolean isAttribute;
+	public boolean isAttribute;
 	private VariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
@@ -127,6 +127,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return isAttribute;
 	}
 
+	@Override
 	public void setAttribute(boolean isAttribute) {
 		this.isAttribute = isAttribute;
 	}
