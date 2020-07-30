@@ -5,8 +5,11 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
+
+import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -527,4 +530,20 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance,
+			List<UMLOperationBodyMapper> lambdaMappers) {
+				boolean allExactLambdaMappers = lambdaMappers.size() > 0;
+				for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+					if(!allMappingsAreExactMatches(lambdaMapper)) {
+						allExactLambdaMappers = false;
+						break;
+					}
+				}
+				return getExpression() != null && call.getExpression() != null &&
+						identicalExpression(call, replacements) &&
+						(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
+						!equalArguments(call) &&
+						getArguments().size() != call.getArguments().size();
+			}
 }
