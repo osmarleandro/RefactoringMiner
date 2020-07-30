@@ -2,6 +2,8 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
+
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
 	
@@ -30,4 +32,11 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public boolean isLoop() {
+		return this.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
+	}
 }
