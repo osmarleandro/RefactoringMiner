@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType originalType;
-	private UMLType changedType;
+	public UMLType changedType;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
@@ -41,6 +41,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return originalType;
 	}
 
+	@Override
 	public UMLType getChangedType() {
 		return changedType;
 	}

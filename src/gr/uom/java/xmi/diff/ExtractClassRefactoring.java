@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLType;
 
 public class ExtractClassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
@@ -96,5 +97,11 @@ public class ExtractClassRefactoring implements Refactoring {
 				.setDescription("extracted type declaration")
 				.setCodeElement(extractedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public UMLType getChangedType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

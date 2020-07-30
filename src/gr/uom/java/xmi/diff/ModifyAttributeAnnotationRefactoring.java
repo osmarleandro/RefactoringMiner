@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLType;
 
 public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotationBefore;
@@ -143,5 +144,11 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		} else if (!attributeBefore.equals(other.attributeBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public UMLType getChangedType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
