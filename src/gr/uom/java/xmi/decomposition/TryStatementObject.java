@@ -42,4 +42,15 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<VariableDeclaration> getVariableDeclarations() {
+		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+		//special handling for enhanced-for formal parameter
+		variableDeclarations.addAll(this.variableDeclarations);
+		for(AbstractExpression expression : expressionList) {
+			variableDeclarations.addAll(expression.getVariableDeclarations());
+		}
+		return variableDeclarations;
+	}
 }
