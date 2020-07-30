@@ -42,4 +42,20 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
+		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
+		for(AbstractStatement statement : statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
+			}
+			else if(statement instanceof StatementObject) {
+				StatementObject statementObject = (StatementObject)statement;
+				anonymousClassDeclarations.addAll(statementObject.getAnonymousClassDeclarations());
+			}
+		}
+		return anonymousClassDeclarations;
+	}
 }
