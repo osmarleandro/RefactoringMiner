@@ -531,4 +531,14 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	@Override
+	public List<VariableDeclaration> getVariableDeclarations() {
+		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+		variableDeclarations.addAll(super.getVariableDeclarations());
+		for(CompositeStatementObject catchClause : catchClauses) {
+			variableDeclarations.addAll(catchClause.getVariableDeclarations());
+		}
+		return variableDeclarations;
+	}
 }

@@ -9,7 +9,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class TryStatementObject extends CompositeStatementObject {
-	private List<CompositeStatementObject> catchClauses;
+	List<CompositeStatementObject> catchClauses;
 	private CompositeStatementObject finallyClause;
 
 	public TryStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth) {
@@ -31,15 +31,5 @@ public class TryStatementObject extends CompositeStatementObject {
 
 	public CompositeStatementObject getFinallyClause() {
 		return finallyClause;
-	}
-
-	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
-		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-		variableDeclarations.addAll(super.getVariableDeclarations());
-		for(CompositeStatementObject catchClause : catchClauses) {
-			variableDeclarations.addAll(catchClause.getVariableDeclarations());
-		}
-		return variableDeclarations;
 	}
 }
