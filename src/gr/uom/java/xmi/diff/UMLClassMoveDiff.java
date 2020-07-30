@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.Set;
+
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
@@ -32,5 +34,9 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits() {
+		return candidateAttributeSplits;
 	}
 }
