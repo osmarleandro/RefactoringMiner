@@ -41,6 +41,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return RefactoringType.RENAME_PACKAGE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
