@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
@@ -127,5 +128,11 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 		} else if (!attributeBefore.equals(other.attributeBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public VariableDeclaration getVariableDeclaration() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

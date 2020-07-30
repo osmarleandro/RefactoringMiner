@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	public VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
@@ -38,6 +38,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public VariableDeclaration getVariableDeclaration() {
 		return variableDeclaration;
 	}
