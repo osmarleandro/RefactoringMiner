@@ -2,6 +2,8 @@ package gr.uom.java.xmi;
 
 import java.io.Serializable;
 
+import gr.uom.java.xmi.diff.RenamePattern;
+
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
 	private String codePath;
 	
@@ -57,6 +59,20 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	}
 
 	public boolean isInterface() {
+		return false;
+	}
+
+	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
+		if(pattern == null)
+			return false;
+		for(UMLAttribute originalAttribute : attributes) {
+			String originalAttributeName = originalAttribute.getName();
+			if(originalAttributeName.contains(pattern.getBefore())) {
+				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
+				if(originalAttributeNameAfterReplacement.equals(attribute.getName()))
+					return true;
+			}
+		}
 		return false;
 	}
 }
