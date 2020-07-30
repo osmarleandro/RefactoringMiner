@@ -48,7 +48,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private String newVisibility;
 	private boolean abstractionChanged;
 	private boolean oldAbstraction;
-	private boolean newAbstraction;
+	protected boolean newAbstraction;
 	private boolean superclassChanged;
 	private UMLType oldSuperclass;
 	private UMLType newSuperclass;
@@ -324,10 +324,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void setOldAbstraction(boolean oldAbstraction) {
 		this.oldAbstraction = oldAbstraction;
-	}
-
-	private void setNewAbstraction(boolean newAbstraction) {
-		this.newAbstraction = newAbstraction;
 	}
 
 	private void setSuperclassChanged(boolean superclassChanged) {
