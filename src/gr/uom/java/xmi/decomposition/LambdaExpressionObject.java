@@ -41,4 +41,10 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public void setDepth(int depth) {
+		// TODO Auto-generated method stub
+		
+	}
 }
