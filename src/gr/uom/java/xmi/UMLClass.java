@@ -397,4 +397,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	@Override
+	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+		// TODO Auto-generated method stub
+		
+	}
 }

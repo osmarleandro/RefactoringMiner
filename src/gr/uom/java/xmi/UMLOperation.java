@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+		// TODO Auto-generated method stub
+		
+	}
 }

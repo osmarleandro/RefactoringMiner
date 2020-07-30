@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
 	private String codePath;
@@ -58,5 +59,11 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 
 	public boolean isInterface() {
 		return false;
+	}
+
+	@Override
+	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+		// TODO Auto-generated method stub
+		
 	}
 }

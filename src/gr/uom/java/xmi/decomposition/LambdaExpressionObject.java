@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.Map;
+
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -40,5 +42,11 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	@Override
+	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+		// TODO Auto-generated method stub
+		
 	}
 }

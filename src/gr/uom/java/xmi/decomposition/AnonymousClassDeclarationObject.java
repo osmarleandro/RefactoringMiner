@@ -133,4 +133,10 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
+		// TODO Auto-generated method stub
+		
+	}
 }

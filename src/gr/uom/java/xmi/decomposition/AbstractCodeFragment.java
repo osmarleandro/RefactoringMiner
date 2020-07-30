@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;
 	private int index;
-	private String codeFragmentAfterReplacingParametersWithArguments;
+	public String codeFragmentAfterReplacingParametersWithArguments;
 
 	public String getArgumentizedString() {
 		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString();
@@ -58,6 +58,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract VariableDeclaration searchVariableDeclaration(String variableName);
 	public abstract VariableDeclaration getVariableDeclaration(String variableName);
 	
+	@Override
 	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
 		String afterReplacements = getString();
 		for(String parameter : parameterToArgumentMap.keySet()) {
@@ -97,7 +98,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 	}
 
-	private static boolean quoteBefore(String beforeMatch) {
+	public static boolean quoteBefore(String beforeMatch) {
 		if(beforeMatch.contains("\"")) {
 			if(beforeMatch.contains("+")) {
 				int indexOfQuote = beforeMatch.lastIndexOf("\"");
@@ -116,7 +117,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private static boolean quoteAfter(String afterMatch) {
+	public static boolean quoteAfter(String afterMatch) {
 		if(afterMatch.contains("\"")) {
 			if(afterMatch.contains("+")) {
 				int indexOfQuote = afterMatch.indexOf("\"");
