@@ -16,7 +16,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private LocationInfo locationInfo;
 	private CompositeStatementObject owner;
 	private List<String> variables;
-	private List<String> types;
+	List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
@@ -88,11 +88,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<String> getVariables() {
 		return variables;
-	}
-
-	@Override
-	public List<String> getTypes() {
-		return types;
 	}
 
 	@Override
