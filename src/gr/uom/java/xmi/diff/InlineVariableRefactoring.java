@@ -30,6 +30,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		references.add(mapping);
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.INLINE_VARIABLE;
 	}
