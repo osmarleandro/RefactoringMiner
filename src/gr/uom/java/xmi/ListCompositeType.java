@@ -81,4 +81,11 @@ public class ListCompositeType extends UMLType {
 	public String getClassType() {
 		return types.get(types.size()-1).getClassType();
 	}
+
+	public boolean equalClassType(UMLType type) {
+		if(this.getClass() == type.getClass()) {
+			return this.equals(type);
+		}
+		return false;
+	}
 }
