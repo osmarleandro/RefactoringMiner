@@ -245,6 +245,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
