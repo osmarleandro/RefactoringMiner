@@ -120,7 +120,6 @@ public class RefFinderResultReader {
 }
 
 abstract class EntityParser {
-    abstract String parse(List<String> args);
 }
 
 
