@@ -134,10 +134,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return common;
 	}
 
-	protected void checkForAttributeChanges() {
-		//optional step
-	}
-
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
 		//optional step
 	}

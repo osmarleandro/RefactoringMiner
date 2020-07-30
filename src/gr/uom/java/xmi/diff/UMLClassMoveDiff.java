@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	protected void checkForAttributeChanges() {
+		//optional step
+	}
 }
