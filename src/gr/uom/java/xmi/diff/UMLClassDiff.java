@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLClassDiff extends UMLClassBaseDiff {
 	
-	private String className;
+	String className;
 	public UMLClassDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
 		super(originalClass, nextClass, modelDiff);
 		this.className = originalClass.getName();
@@ -186,10 +186,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			}
 		}
 		return false;
-	}
-
-	public boolean matches(String className) {
-		return this.className.equals(className);
 	}
 
 	public boolean matches(UMLType type) {
