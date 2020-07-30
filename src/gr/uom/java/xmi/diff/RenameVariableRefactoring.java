@@ -18,7 +18,7 @@ public class RenameVariableRefactoring implements Refactoring {
 	private VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	public Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
 			VariableDeclaration originalVariable,
@@ -63,6 +63,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
+	@Override
 	public Set<AbstractCodeMapping> getVariableReferences() {
 		return variableReferences;
 	}

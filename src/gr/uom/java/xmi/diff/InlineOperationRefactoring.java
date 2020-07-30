@@ -223,4 +223,10 @@ public class InlineOperationRefactoring implements Refactoring {
 		*/
 		return ranges;
 	}
+
+	@Override
+	public Set<AbstractCodeMapping> getVariableReferences() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
