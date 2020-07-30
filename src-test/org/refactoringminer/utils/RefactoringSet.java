@@ -128,4 +128,11 @@ public class RefactoringSet {
         }
     }
 
+	public RefactoringSet assertAndGetResult(RefactoringCollector refactoringCollector) {
+	    if (refactoringCollector.ex == null) {
+	      return this;
+	    }
+	    throw new RuntimeException(refactoringCollector.ex); 
+	  }
+
 }
