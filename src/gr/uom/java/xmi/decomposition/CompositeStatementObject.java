@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	protected List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -249,15 +249,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			arguments.addAll(expression.getArguments());
 		}
 		return arguments;
-	}
-
-	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
-		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
-		for(AbstractExpression expression : expressionList) {
-			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
-		}
-		return ternaryOperatorExpressions;
 	}
 
 	@Override

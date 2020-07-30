@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
+		for(AbstractExpression expression : expressionList) {
+			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
+		}
+		return ternaryOperatorExpressions;
+	}
 }
