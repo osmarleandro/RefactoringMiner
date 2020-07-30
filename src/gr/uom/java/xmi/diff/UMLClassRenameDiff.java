@@ -25,4 +25,8 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append("\n");
 		return sb.toString();
 	}
+
+	public UMLClass getOriginalClass() {
+		return originalClass;
+	}
 }
