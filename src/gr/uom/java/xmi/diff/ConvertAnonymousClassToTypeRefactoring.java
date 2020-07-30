@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 
 public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
@@ -74,5 +75,11 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 				.setDescription("added type declaration")
 				.setCodeElement(addedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public Set<UMLAttribute> getExtractedAttributes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

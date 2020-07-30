@@ -17,7 +17,7 @@ public class ExtractClassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
-	private Set<UMLAttribute> extractedAttributes;
+	public Set<UMLAttribute> extractedAttributes;
 	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
 
 	public ExtractClassRefactoring(UMLClass extractedClass, UMLClassBaseDiff classDiff,
@@ -60,6 +60,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return extractedOperations;
 	}
 
+	@Override
 	public Set<UMLAttribute> getExtractedAttributes() {
 		return extractedAttributes;
 	}

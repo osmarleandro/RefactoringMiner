@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
@@ -150,5 +151,11 @@ public class RenameVariableRefactoring implements Refactoring {
 				.setDescription("renamed variable declaration")
 				.setCodeElement(renamedVariable.toString()));
 		return ranges;
+	}
+
+	@Override
+	public Set<UMLAttribute> getExtractedAttributes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
