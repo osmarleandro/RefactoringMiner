@@ -436,6 +436,24 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	protected Set<String> subExpressions() {
+		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);
+		String thisExpression = this.expression;
+		if(thisExpression != null) {
+			if(thisExpression.contains(".")) {
+				int indexOfDot = thisExpression.indexOf(".");
+				String subString = thisExpression.substring(0, indexOfDot);
+				if(!subExpressions.contains(subString) && !dotInsideArguments(indexOfDot, thisExpression)) {
+					subExpressions.add(subString);
+				}
+			}
+			else if(!subExpressions.contains(thisExpression)) {
+				subExpressions.add(thisExpression);
+			}
+		}
+		return subExpressions;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}

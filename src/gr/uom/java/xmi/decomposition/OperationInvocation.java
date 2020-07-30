@@ -27,7 +27,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -355,25 +355,7 @@ public class OperationInvocation extends AbstractCall {
 		return false;
 	}
 
-	private Set<String> subExpressions() {
-		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);
-		String thisExpression = this.expression;
-		if(thisExpression != null) {
-			if(thisExpression.contains(".")) {
-				int indexOfDot = thisExpression.indexOf(".");
-				String subString = thisExpression.substring(0, indexOfDot);
-				if(!subExpressions.contains(subString) && !dotInsideArguments(indexOfDot, thisExpression)) {
-					subExpressions.add(subString);
-				}
-			}
-			else if(!subExpressions.contains(thisExpression)) {
-				subExpressions.add(thisExpression);
-			}
-		}
-		return subExpressions;
-	}
-
-	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
+	static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
 		boolean openingParenthesisFound = false;
 		for(int i=indexOfDot; i>=0; i--) {
 			if(thisExpression.charAt(i) == '(') {
