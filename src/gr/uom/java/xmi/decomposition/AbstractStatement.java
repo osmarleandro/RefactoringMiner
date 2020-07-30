@@ -2,6 +2,8 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 
+import gr.uom.java.xmi.LocationInfo;
+
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
 	
@@ -30,4 +32,8 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public LocationInfo getLocationInfo() {
+		return locationInfo;
+	}
 }

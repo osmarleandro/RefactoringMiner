@@ -22,7 +22,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class StatementObject extends AbstractStatement {
 	
 	private String statement;
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -241,10 +241,6 @@ public class StatementObject extends AbstractStatement {
 	@Override
 	public int statementCount() {
 		return 1;
-	}
-
-	public LocationInfo getLocationInfo() {
-		return locationInfo;
 	}
 
 	public CodeRange codeRange() {
