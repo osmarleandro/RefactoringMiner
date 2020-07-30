@@ -260,13 +260,6 @@ public class OperationInvocation extends AbstractCall {
     	return false;
     }
 
-    private boolean varArgsMatch(UMLOperation operation) {
-    	//0 varargs arguments passed
-    	return this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
-    			//>=1 varargs arguments passed
-    			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
-    }
-
     public boolean compatibleExpression(OperationInvocation other) {
     	if(this.expression != null && other.expression != null) {
     		if(this.expression.startsWith("new ") && !other.expression.startsWith("new "))
