@@ -38,4 +38,8 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public String getSourceClassName() {
+		return originalAttribute.getClassName();
+	}
 }

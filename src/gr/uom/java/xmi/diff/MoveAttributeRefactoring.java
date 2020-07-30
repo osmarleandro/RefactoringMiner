@@ -50,10 +50,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return movedAttribute;
 	}
 
-	public String getSourceClassName() {
-		return originalAttribute.getClassName();
-	}
-
 	public String getTargetClassName() {
 		return movedAttribute.getClassName();
 	}
