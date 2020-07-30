@@ -225,17 +225,8 @@ public class GitServiceImpl implements GitService {
 	@Override
 	public Iterable<RevCommit> createRevsWalkBetweenTags(Repository repository, String startTag, String endTag)
 			throws Exception {
-		Ref refFrom = repository.findRef(startTag);
-		Ref refTo = repository.findRef(endTag);
-		try (Git git = new Git(repository)) {
-			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
-					.spliterator(), false)
-			        .filter(r -> r.getParentCount() == 1)
-			        .collect(Collectors.toList());
-			Collections.reverse(revCommits);
-			return revCommits;
-		}
-	}
+				return commitsFilter.createRevsWalkBetweenTags(this, repository, startTag, endTag);
+			}
 
 	private ObjectId getActualRefObjectId(Ref ref) {
 		if(ref.getPeeledObjectId() != null) {
@@ -282,6 +273,20 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public Iterable<RevCommit> createRevsWalkBetweenTags(GitServiceImpl gitServiceImpl, Repository repository, String startTag, String endTag)
+				throws Exception {
+			Ref refFrom = repository.findRef(startTag);
+			Ref refTo = repository.findRef(endTag);
+			try (Git git = new Git(repository)) {
+				List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(gitServiceImpl.getActualRefObjectId(refFrom), gitServiceImpl.getActualRefObjectId(refTo)).call()
+						.spliterator(), false)
+				        .filter(r -> r.getParentCount() == 1)
+				        .collect(Collectors.toList());
+				Collections.reverse(revCommits);
+				return revCommits;
+			}
 		}
 	}
 
