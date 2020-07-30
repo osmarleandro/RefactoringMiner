@@ -149,28 +149,6 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
-        logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
-        try (Git git = new Git(repository)) {
-    		FetchResult result = git.fetch().call();
-    		
-    		Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
-    		List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
-    		for (TrackingRefUpdate update : updates) {
-    			String refName = update.getLocalName();
-    			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-    				ObjectId newObjectId = update.getNewObjectId();
-    				logger.info("{} is now at {}", refName, newObjectId.getName());
-    				remoteRefsChanges.add(update);
-    			}
-    		}
-    		if (updates.isEmpty()) {
-    			logger.info("Nothing changed");
-    		}
-    		return remoteRefsChanges;
-        }
-	}
-
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
 		return this.fetchAndCreateNewRevsWalk(repository, null);
 	}
@@ -184,7 +162,7 @@ public class GitServiceImpl implements GitService {
 			}
 		}
 		
-		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
+		List<TrackingRefUpdate> newRemoteRefs = this.commitsFilter.fetch(this, repository);
 		
 		RevWalk walk = new RevWalk(repository);
 		for (TrackingRefUpdate newRef : newRemoteRefs) {
@@ -282,6 +260,28 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		List<TrackingRefUpdate> fetch(GitServiceImpl gitServiceImpl, Repository repository) throws Exception {
+		    gitServiceImpl.logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
+		    try (Git git = new Git(repository)) {
+				FetchResult result = git.fetch().call();
+				
+				Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
+				List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
+				for (TrackingRefUpdate update : updates) {
+					String refName = update.getLocalName();
+					if (refName.startsWith(GitServiceImpl.REMOTE_REFS_PREFIX)) {
+						ObjectId newObjectId = update.getNewObjectId();
+						gitServiceImpl.logger.info("{} is now at {}", refName, newObjectId.getName());
+						remoteRefsChanges.add(update);
+					}
+				}
+				if (updates.isEmpty()) {
+					gitServiceImpl.logger.info("Nothing changed");
+				}
+				return remoteRefsChanges;
+		    }
 		}
 	}
 
