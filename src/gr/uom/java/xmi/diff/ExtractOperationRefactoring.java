@@ -241,4 +241,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public void addReference(AbstractCodeMapping mapping) {
+		// TODO Auto-generated method stub
+		
+	}
 }

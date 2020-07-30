@@ -154,4 +154,10 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 				.setCodeElement(changedTypeVariable.toString()));
 		return ranges;
 	}
+
+	@Override
+	public void addReference(AbstractCodeMapping mapping) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -153,4 +153,10 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 				.setCodeElement(changedTypeAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public void addReference(AbstractCodeMapping mapping) {
+		// TODO Auto-generated method stub
+		
+	}
 }
