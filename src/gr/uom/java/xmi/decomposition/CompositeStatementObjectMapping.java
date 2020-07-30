@@ -60,4 +60,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		}
 	}
 
+	public AbstractCodeFragment getFragment1() {
+		return fragment1;
+	}
+
 }

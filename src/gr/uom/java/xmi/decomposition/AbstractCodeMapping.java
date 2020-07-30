@@ -20,7 +20,7 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
+	protected AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
@@ -35,10 +35,6 @@ public abstract class AbstractCodeMapping {
 		this.operation1 = operation1;
 		this.operation2 = operation2;
 		this.replacements = new LinkedHashSet<Replacement>();
-	}
-
-	public AbstractCodeFragment getFragment1() {
-		return fragment1;
 	}
 
 	public AbstractCodeFragment getFragment2() {
