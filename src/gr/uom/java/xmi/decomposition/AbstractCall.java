@@ -99,6 +99,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	public boolean equalArguments(AbstractCall call) {
 		return getArguments().equals(call.getArguments());
 	}
