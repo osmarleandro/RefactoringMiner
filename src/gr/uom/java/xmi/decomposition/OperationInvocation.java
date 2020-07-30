@@ -527,4 +527,17 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
+		Set<String> argumentIntersection = argumentIntersection(call);
+		int argumentIntersectionSize = argumentIntersection.size();
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(getArguments().contains(argument) &&
+					call.getArguments().contains(parameter)) {
+				argumentIntersectionSize++;
+			}
+		}
+		return argumentIntersectionSize;
+	}
 }

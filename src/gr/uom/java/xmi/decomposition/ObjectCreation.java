@@ -2,6 +2,8 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -138,5 +140,18 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
+		Set<String> argumentIntersection = argumentIntersection(call);
+		int argumentIntersectionSize = argumentIntersection.size();
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(getArguments().contains(argument) &&
+					call.getArguments().contains(parameter)) {
+				argumentIntersectionSize++;
+			}
+		}
+		return argumentIntersectionSize;
 	}
 }
