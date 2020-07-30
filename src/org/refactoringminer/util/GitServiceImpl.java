@@ -199,6 +199,7 @@ public class GitServiceImpl implements GitService {
 		return walk;
 	}
 
+	@Override
 	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
 		return this.createAllRevsWalk(repository, null);
 	}
