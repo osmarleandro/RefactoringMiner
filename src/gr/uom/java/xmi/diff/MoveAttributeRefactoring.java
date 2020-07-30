@@ -21,6 +21,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		this.movedAttribute = movedAttribute;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
