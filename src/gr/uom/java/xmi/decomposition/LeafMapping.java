@@ -1,10 +1,15 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
@@ -114,5 +119,55 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+		String output = input;
+		for(Refactoring ref : refactorings) {
+			if(ref instanceof ExtractVariableRefactoring) {
+				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
+				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
+				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
+					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+				}
+			}
+		}
+		if(initializer.toString().equals(output)) {
+			return true;
+		}
+		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString(), input);
+		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
+			String prefix1 = initializer.toString().substring(0, initializer.toString().indexOf(longestCommonSuffix));
+			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
+			//skip static variable prefixes
+			if(prefix1.equals(prefix2) || (!prefix1.toUpperCase().equals(prefix1) && !prefix2.toUpperCase().equals(prefix2))) {
+				return true;
+			}
+		}
+		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString(), input);
+		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
+				!longestCommonPrefix.equals(initializer.toString()) && !longestCommonPrefix.equals(input) &&
+				!longestCommonSuffix.equals(initializer.toString()) && !longestCommonSuffix.equals(input) &&
+				longestCommonPrefix.length() + longestCommonSuffix.length() < input.length() &&
+				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString().length()) {
+			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
+			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
+			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
+				VariableDeclaration variable = statement.getVariableDeclaration(s2);
+				if(variable != null) {
+					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
+						return true;
+					}
+					List<TernaryOperatorExpression> ternaryOperators = statement.getTernaryOperatorExpressions();
+					for(TernaryOperatorExpression ternaryOperator : ternaryOperators) {
+						if(ternaryOperator.getThenExpression().toString().equals(s1) ||
+								ternaryOperator.getElseExpression().toString().equals(s1)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
