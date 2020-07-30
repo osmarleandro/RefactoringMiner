@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
