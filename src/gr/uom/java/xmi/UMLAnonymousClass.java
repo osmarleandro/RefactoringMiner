@@ -44,7 +44,8 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     	return false;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
     	return getName();
     }
 
