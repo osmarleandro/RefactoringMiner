@@ -34,10 +34,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.addedAttributes.add(umlAttribute);
 	}
 
-	private void reportRemovedAttribute(UMLAttribute umlAttribute) {
-		this.removedAttributes.add(umlAttribute);
-	}
-
 	protected void processAttributes() {
 		for(UMLAttribute attribute : originalClass.getAttributes()) {
 			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
