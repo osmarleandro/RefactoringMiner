@@ -144,4 +144,10 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public UMLAnnotation getAnnotation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
