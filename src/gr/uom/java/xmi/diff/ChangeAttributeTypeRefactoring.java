@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
-	private VariableDeclaration changedTypeAttribute;
+	public VariableDeclaration changedTypeAttribute;
 	private String classNameBefore;
 	private String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
