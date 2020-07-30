@@ -45,13 +45,10 @@ import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.kohsuke.github.GHCommit;
-import org.kohsuke.github.GHPullRequest;
-import org.kohsuke.github.GHPullRequestCommitDetail;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHTree;
 import org.kohsuke.github.GHTreeEntry;
 import org.kohsuke.github.GitHub;
-import org.kohsuke.github.PagedIterable;
 import org.refactoringminer.api.Churn;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
@@ -274,7 +271,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return parentCommitId;
 	}
 
-	private GitHub connectToGitHub() {
+	public GitHub connectToGitHub() {
 		if(gitHub == null) {
 			try {
 				Properties prop = new Properties();
@@ -659,20 +656,13 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
-		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
-		GHRepository repository = gitHub.getRepository(repoName);
-		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
-		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
-		for(GHPullRequestCommitDetail commit : commits) {
-			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
-		}
+		handler.detectAtPullRequest(cloneURL, pullRequestId, this, timeout);
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
-	private static String extractRepositoryName(String cloneURL) {
+	public static String extractRepositoryName(String cloneURL) {
 		int hostLength = 0;
 		if(cloneURL.startsWith(GITHUB_URL)) {
 			hostLength = GITHUB_URL.length();

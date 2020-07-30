@@ -1,6 +1,14 @@
 package org.refactoringminer.api;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.kohsuke.github.GHPullRequest;
+import org.kohsuke.github.GHPullRequestCommitDetail;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.PagedIterable;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
@@ -48,4 +56,15 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public void detectAtPullRequest(String cloneURL, int pullRequestId, GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl, int timeout) throws IOException {
+		GitHub gitHub = gitHistoryRefactoringMinerImpl.connectToGitHub();
+		String repoName = GitHistoryRefactoringMinerImpl.extractRepositoryName(cloneURL);
+		GHRepository repository = gitHub.getRepository(repoName);
+		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
+		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
+		for(GHPullRequestCommitDetail commit : commits) {
+			gitHistoryRefactoringMinerImpl.detectAtCommit(cloneURL, commit.getSha(), this, timeout);
+		}
+	}
 }
