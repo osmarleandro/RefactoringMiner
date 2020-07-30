@@ -45,10 +45,6 @@ public class MoveOperationRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public String getName() {
-		return this.getRefactoringType().getDisplayName();
-	}
-
 	public RefactoringType getRefactoringType() {
 		if(!originalOperation.getName().equals(movedOperation.getName())) {
 			return RefactoringType.MOVE_AND_RENAME_OPERATION;
