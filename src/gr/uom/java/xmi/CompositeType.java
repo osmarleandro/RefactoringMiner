@@ -62,4 +62,8 @@ public class CompositeType extends UMLType {
 	public String getClassType() {
 		return rightType.getClassType();
 	}
+
+	public boolean isParameterized() {
+		return typeArguments.size() > 0;
+	}
 }
