@@ -305,15 +305,6 @@ public abstract class UMLAbstractClass {
 		return true;
 	}
 
-	public boolean isTestClass() {
-		for(UMLOperation operation : operations) {
-			if(operation.hasTestAnnotation()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public List<UMLAttribute> attributesOfType(String targetClass) {
 		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
 		for(UMLAttribute attribute : attributes) {
