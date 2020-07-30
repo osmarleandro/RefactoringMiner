@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
-	private String qualifiedName;
+	String qualifiedName;
     private String sourceFile;
     private String sourceFolder;
     private String visibility;
@@ -109,7 +109,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.packageName;
 	}
 
-    public String getName() {
+    @Override
+	public String getName() {
     	return this.qualifiedName;
     }
 
