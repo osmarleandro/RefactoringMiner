@@ -21,7 +21,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class StatementObject extends AbstractStatement {
 	
-	private String statement;
+	String statement;
 	private LocationInfo locationInfo;
 	private List<String> variables;
 	private List<String> types;
@@ -142,10 +142,6 @@ public class StatementObject extends AbstractStatement {
 		List<StatementObject> leaves = new ArrayList<StatementObject>();
 		leaves.add(this);
 		return leaves;
-	}
-
-	public String toString() {
-		return statement;
 	}
 
 	@Override
