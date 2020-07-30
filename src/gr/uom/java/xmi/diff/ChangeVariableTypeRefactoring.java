@@ -154,4 +154,10 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 				.setCodeElement(changedTypeVariable.toString()));
 		return ranges;
 	}
+
+	@Override
+	public Set<VariableDeclaration> getMergedAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
