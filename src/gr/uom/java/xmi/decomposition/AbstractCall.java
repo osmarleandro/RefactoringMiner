@@ -436,6 +436,17 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	public Set<String> callChainIntersection(OperationInvocation other) {
+		Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
+		s1.add(this.actualString());
+		Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
+		s2.add(other.actualString());
+	
+		Set<String> intersection = new LinkedHashSet<String>(s1);
+		intersection.retainAll(s2);
+		return intersection;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}

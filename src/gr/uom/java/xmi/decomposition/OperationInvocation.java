@@ -27,7 +27,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -295,17 +295,6 @@ public class OperationInvocation extends AbstractCall {
     		}
     	}
     	return false;
-    }
-
-    public Set<String> callChainIntersection(OperationInvocation other) {
-    	Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
-    	s1.add(this.actualString());
-    	Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
-    	s2.add(other.actualString());
-
-    	Set<String> intersection = new LinkedHashSet<String>(s1);
-    	intersection.retainAll(s2);
-    	return intersection;
     }
 
     private Set<String> subExpressionIntersection(OperationInvocation other) {
