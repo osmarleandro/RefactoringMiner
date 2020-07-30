@@ -384,6 +384,16 @@ public class TestBuilder {
 		// }
 		// }
 
+		/**
+		 * This method is called after all commits are analyzed.
+		 * You may override this method to implement custom logic.
+		 * 
+		 * @param refactoringsCount Total number of refactorings detected. 
+		 * @param commitsCount Total number of commits analyzed.
+		 * @param errorCommitsCount Total number of commits not analyzed due to errors.
+		 */
+		public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
 		public class CommitMatcher {
 			private Set<String> expected = new HashSet<String>();
 			private Set<String> notExpected = new HashSet<String>();
