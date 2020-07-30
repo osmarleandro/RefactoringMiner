@@ -15,17 +15,15 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
-import gr.uom.java.xmi.diff.RenameOperationRefactoring;
-import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
-	private UMLOperation operation1;
-	private UMLOperation operation2;
+	protected AbstractCodeFragment fragment2;
+	protected UMLOperation operation1;
+	protected UMLOperation operation2;
 	private Set<Replacement> replacements;
-	private boolean identicalWithExtractedVariable;
+	protected boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
 	public AbstractCodeMapping(AbstractCodeFragment fragment1, AbstractCodeFragment fragment2,
@@ -153,89 +151,6 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void temporaryVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
-		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-			String variableName = declaration.getVariableName();
-			AbstractExpression initializer = declaration.getInitializer();
-			for(Replacement replacement : getReplacements()) {
-				if(replacement.getAfter().startsWith(variableName + ".")) {
-					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
-					if(replacement.getBefore().endsWith(suffixAfter)) {
-						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
-						if(initializer != null) {
-							if(initializer.toString().equals(prefixBefore) ||
-									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
-								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-								processExtractVariableRefactoring(ref, refactorings);
-								if(getReplacements().size() == 1) {
-									identicalWithExtractedVariable = true;
-								}
-							}
-						}
-					}
-				}
-				if(variableName.equals(replacement.getAfter()) && initializer != null) {
-					if(initializer.toString().equals(replacement.getBefore()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
-							ternaryMatch(initializer, replacement.getBefore()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
-							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
-						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-						processExtractVariableRefactoring(ref, refactorings);
-						if(getReplacements().size() == 1) {
-							identicalWithExtractedVariable = true;
-						}
-					}
-				}
-			}
-			if(classDiff != null && initializer != null) {
-				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
-				if(invocation != null) {
-					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
-						if(refactoring instanceof RenameOperationRefactoring) {
-							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
-							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
-								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
-									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-									processExtractVariableRefactoring(ref, refactorings);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		String argumentizedString = statement.getArgumentizedString();
-		if(argumentizedString.contains("=")) {
-			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
-			String[] tokens = beforeAssignment.split("\\s");
-			String variable = tokens[tokens.length-1];
-			String initializer = null;
-			if(argumentizedString.endsWith(";\n")) {
-				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
-			}
-			else {
-				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
-			}
-			for(Replacement replacement : getReplacements()) {
-				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.getBefore())) {
-					List<VariableDeclaration> variableDeclarations = operation2.getVariableDeclarationsInScope(fragment2.getLocationInfo());
-					for(VariableDeclaration declaration : variableDeclarations) {
-						if(declaration.getVariableName().equals(variable)) {
-							ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
-							processExtractVariableRefactoring(ref, refactorings);
-							if(getReplacements().size() == 1) {
-								identicalWithExtractedVariable = true;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
 	public void inlinedVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
@@ -302,7 +217,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+	protected boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
 		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
 		for(TernaryOperatorExpression ternary : ternaryList) {
 			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
@@ -312,7 +227,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean containsVariableNameReplacement(String variableName) {
+	protected boolean containsVariableNameReplacement(String variableName) {
 		for(Replacement replacement : getReplacements()) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 				if(replacement.getBefore().equals(variableName) || replacement.getAfter().equals(variableName)) {
@@ -323,7 +238,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+	protected boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
@@ -358,7 +273,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+	protected void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
@@ -373,7 +288,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	protected boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
