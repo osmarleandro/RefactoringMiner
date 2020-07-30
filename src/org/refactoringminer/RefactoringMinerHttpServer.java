@@ -72,6 +72,17 @@ public class RefactoringMinerHttpServer {
 			os.write(response.getBytes());
 			os.close();
 		}
+
+		/**
+		 * Indicate commits that should be ignored.
+		 * You may override this method to implement custom logic.
+		 *  
+		 * @param commitId The SHA key that identifies the commit.
+		 * @return True to skip the commit, false otherwise.
+		 */
+		public boolean skipCommit(String commitId) {
+			return false;
+		}
 	}
 
 	private static Map<String, String> queryToMap(String query) {

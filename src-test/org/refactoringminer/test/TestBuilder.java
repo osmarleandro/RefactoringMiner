@@ -384,6 +384,17 @@ public class TestBuilder {
 		// }
 		// }
 
+		/**
+		 * Indicate commits that should be ignored.
+		 * You may override this method to implement custom logic.
+		 *  
+		 * @param commitId The SHA key that identifies the commit.
+		 * @return True to skip the commit, false otherwise.
+		 */
+		public boolean skipCommit(String commitId) {
+			return false;
+		}
+
 		public class CommitMatcher {
 			private Set<String> expected = new HashSet<String>();
 			private Set<String> notExpected = new HashSet<String>();

@@ -9,17 +9,6 @@ import java.util.List;
 public abstract class RefactoringHandler {
 
 	/**
-	 * Indicate commits that should be ignored.
-	 * You may override this method to implement custom logic.
-	 *  
-	 * @param commitId The SHA key that identifies the commit.
-	 * @return True to skip the commit, false otherwise.
-	 */
-	public boolean skipCommit(String commitId) {
-		return false;
-	}
-
-	/**
 	 * This method is called after each commit is analyzed.
 	 * You should override this method to do your custom logic with the list of detected refactorings.
 	 * 
