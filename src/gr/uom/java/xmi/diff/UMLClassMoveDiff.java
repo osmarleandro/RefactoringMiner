@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.diff;
 
+import org.refactoringminer.api.RefactoringMinerTimedOutException;
+
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
@@ -32,5 +34,17 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public void process() throws RefactoringMinerTimedOutException {
+		processInheritance();
+		processOperations();
+		createBodyMappers();
+		processAttributes();
+		checkForAttributeChanges();
+		processAnonymousClasses();
+		checkForOperationSignatureChanges();
+		checkForInlinedOperations();
+		checkForExtractedOperations();
 	}
 }

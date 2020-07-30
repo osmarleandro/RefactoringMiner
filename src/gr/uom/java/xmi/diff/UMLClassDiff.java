@@ -195,4 +195,16 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	public void process() throws RefactoringMinerTimedOutException {
+		processInheritance();
+		processOperations();
+		createBodyMappers();
+		processAttributes();
+		checkForAttributeChanges();
+		processAnonymousClasses();
+		checkForOperationSignatureChanges();
+		checkForInlinedOperations();
+		checkForExtractedOperations();
+	}
 }
