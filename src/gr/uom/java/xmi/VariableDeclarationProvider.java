@@ -4,4 +4,6 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public interface VariableDeclarationProvider {
 	public VariableDeclaration getVariableDeclaration();
+
+	VariableDeclaration getVariableDeclaration();
 }
