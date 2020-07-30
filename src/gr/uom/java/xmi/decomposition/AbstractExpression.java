@@ -203,4 +203,10 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public int statementCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
