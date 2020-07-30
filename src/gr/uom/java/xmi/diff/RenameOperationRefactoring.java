@@ -127,4 +127,10 @@ public class RenameOperationRefactoring implements Refactoring {
 				.setCodeElement(renamedOperation.toString()));
 		return ranges;
 	}
+
+	@Override
+	public UMLOperation getSourceOperationAfterExtraction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

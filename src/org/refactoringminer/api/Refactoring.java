@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.core.util.BufferRecyclers;
 
+import gr.uom.java.xmi.UMLOperation;
+
 public interface Refactoring extends Serializable, CodeRangeProvider {
 
 	public RefactoringType getRefactoringType();
@@ -39,4 +41,6 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	UMLOperation getSourceOperationAfterExtraction();
 }
