@@ -911,15 +911,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public UMLAttribute findAttributeInNextClass(String attributeName) {
-		for(UMLAttribute attribute : nextClass.getAttributes()) {
-			if(attribute.getName().equals(attributeName)) {
-				return attribute;
-			}
-		}
-		return null;
-	}
-
 	private boolean inconsistentAttributeRename(Replacement pattern,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {

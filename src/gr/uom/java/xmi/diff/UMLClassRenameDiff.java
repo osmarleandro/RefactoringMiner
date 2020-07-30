@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
@@ -24,5 +25,14 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public UMLAttribute findAttributeInNextClass(String attributeName) {
+		for(UMLAttribute attribute : nextClass.getAttributes()) {
+			if(attribute.getName().equals(attributeName)) {
+				return attribute;
+			}
+		}
+		return null;
 	}
 }
