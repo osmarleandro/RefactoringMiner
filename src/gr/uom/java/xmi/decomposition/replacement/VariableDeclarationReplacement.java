@@ -5,8 +5,8 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class VariableDeclarationReplacement extends Replacement {
 
-	private VariableDeclaration v1;
-	private VariableDeclaration v2;
+	VariableDeclaration v1;
+	VariableDeclaration v2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	
@@ -37,15 +37,6 @@ public class VariableDeclarationReplacement extends Replacement {
 
 	public Replacement getVariableNameReplacement() {
 		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((v1 == null) ? 0 : v1.hashCode());
-		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
-		return result;
 	}
 
 	@Override

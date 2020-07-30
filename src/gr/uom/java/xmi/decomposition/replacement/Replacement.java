@@ -74,6 +74,15 @@ public class Replacement {
 				type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((v1 == null) ? 0 : v1.hashCode());
+		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
+		return result;
+	}
+
 	public enum ReplacementType {
 		TYPE, STRING_LITERAL, NUMBER_LITERAL, ANONYMOUS_CLASS_DECLARATION, INFIX_OPERATOR, VARIABLE_NAME, VARIABLE_DECLARATION,
 		MERGE_VARIABLES, SPLIT_VARIABLE, ADD_VARIABLE,
