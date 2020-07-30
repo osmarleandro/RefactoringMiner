@@ -59,4 +59,10 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	public boolean isInterface() {
 		return false;
 	}
+
+	@Override
+	public boolean importsType(String targetClass) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
