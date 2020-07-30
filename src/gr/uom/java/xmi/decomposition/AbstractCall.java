@@ -416,6 +416,24 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
+	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
+		boolean openingParenthesisFound = false;
+		for(int i=indexOfDot; i>=0; i--) {
+			if(thisExpression.charAt(i) == '(') {
+				openingParenthesisFound = true;
+				break;
+			}
+		}
+		boolean closingParenthesisFound = false;
+		for(int i=indexOfDot; i<thisExpression.length(); i++) {
+			if(thisExpression.charAt(i) == ')') {
+				closingParenthesisFound = true;
+				break;
+			}
+		}
+		return openingParenthesisFound && closingParenthesisFound;
+	}
+
 	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
 		newCall.typeArguments = this.typeArguments;
 		if(this.expression != null && this.expression.equals(oldExpression)) {

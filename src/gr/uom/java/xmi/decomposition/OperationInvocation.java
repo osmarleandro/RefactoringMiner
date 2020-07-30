@@ -373,24 +373,6 @@ public class OperationInvocation extends AbstractCall {
 		return subExpressions;
 	}
 
-	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
-		boolean openingParenthesisFound = false;
-		for(int i=indexOfDot; i>=0; i--) {
-			if(thisExpression.charAt(i) == '(') {
-				openingParenthesisFound = true;
-				break;
-			}
-		}
-		boolean closingParenthesisFound = false;
-		for(int i=indexOfDot; i<thisExpression.length(); i++) {
-			if(thisExpression.charAt(i) == ')') {
-				closingParenthesisFound = true;
-				break;
-			}
-		}
-		return openingParenthesisFound && closingParenthesisFound;
-	}
-
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
 		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
