@@ -196,6 +196,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return locationInfo.codeRange();
 	}
 
+	@Override
 	private static ASTNode getScopeNode(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		if(variableDeclaration instanceof SingleVariableDeclaration) {
 			return variableDeclaration.getParent();
