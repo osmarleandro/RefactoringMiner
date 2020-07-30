@@ -1,7 +1,6 @@
 package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
@@ -160,23 +159,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		}
 		removedOperations.removeAll(removedOperationsToBeRemoved);
 		addedOperations.removeAll(addedOperationsToBeRemoved);
-	}
-
-	protected void checkForAttributeChanges() {
-		for(Iterator<UMLAttribute> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();) {
-			UMLAttribute removedAttribute = removedAttributeIterator.next();
-			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
-				UMLAttribute addedAttribute = addedAttributeIterator.next();
-				if(removedAttribute.getName().equals(addedAttribute.getName())) {
-					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, getOperationBodyMapperList());
-					refactorings.addAll(attributeDiff.getRefactorings());
-					addedAttributeIterator.remove();
-					removedAttributeIterator.remove();
-					attributeDiffList.add(attributeDiff);
-					break;
-				}
-			}
-		}
 	}
 
 	private boolean containsMapperForOperation(UMLOperation operation) {
