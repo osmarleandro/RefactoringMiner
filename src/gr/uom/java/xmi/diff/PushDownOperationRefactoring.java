@@ -1,6 +1,5 @@
 package gr.uom.java.xmi.diff;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.refactoringminer.api.RefactoringType;
@@ -24,10 +23,6 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedOperation.codeRange()
-				.setDescription("pushed down method declaration")
-				.setCodeElement(movedOperation.toString()));
-		return ranges;
+		return movedOperation.rightSide();
 	}
 }
