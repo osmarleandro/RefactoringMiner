@@ -10,6 +10,9 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -434,6 +437,55 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
+		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
+		if(operationToBeMatched.hasVarargsParameter()) {
+			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
+			if(getArguments().size() < parameters.size()) {
+				int i = 0;
+				for(String argument : getArguments()) {
+					if(typeInferenceMapFromContext.containsKey(argument)) {
+						UMLType argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType paremeterType = parameters.get(i).getType();
+						if(!argumentType.equals(paremeterType))
+							return false;
+					}
+					i++;
+				}
+			}
+			else {
+				int i = 0;
+				for(UMLParameter parameter : parameters) {
+					String argument = getArguments().get(i);
+					if(typeInferenceMapFromContext.containsKey(argument)) {
+						UMLType argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType paremeterType = parameter.isVarargs() ?
+								UMLType.extractTypeObject(parameter.getType().getClassType()) :
+								parameter.getType();
+						if(!argumentType.equals(paremeterType))
+							return false;
+					}
+					i++;
+				}
+			}
+			
+		}
+		else {
+			//we expect an equal number of parameters and arguments
+			int i = 0;
+			for(String argument : getArguments()) {
+				if(typeInferenceMapFromContext.containsKey(argument)) {
+					UMLType argumentType = typeInferenceMapFromContext.get(argument);
+					UMLType paremeterType = parameters.get(i).getType();
+					if(!argumentType.equals(paremeterType))
+						return false;
+				}
+				i++;
+			}
+		}
+		return true;
 	}
 
 	public enum StatementCoverageType {
