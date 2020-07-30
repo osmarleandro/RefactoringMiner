@@ -130,7 +130,6 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return typeArguments.size() > 0;
 	}
 
-	public abstract boolean equals(Object o);
 	public abstract int hashCode();
 	public abstract String toString();
 	public abstract String toQualifiedString();
