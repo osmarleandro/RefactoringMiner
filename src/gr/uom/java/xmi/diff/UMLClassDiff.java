@@ -195,4 +195,15 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
+		if(removedOperation.isGetter() && addedOperation.isGetter()) {
+			UMLType type1 = removedOperation.getReturnParameter().getType();
+			UMLType type2 = addedOperation.getReturnParameter().getType();
+			if(!removedOperation.equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
