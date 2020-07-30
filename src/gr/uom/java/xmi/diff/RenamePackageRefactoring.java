@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 public class RenamePackageRefactoring implements Refactoring {
 
 	private List<MoveClassRefactoring> moveClassRefactorings;
-	private RenamePattern pattern;
+	public RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
@@ -45,6 +45,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
