@@ -312,4 +312,25 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		return null;
 	}
+
+	protected static String simpleNameOf(String name) {
+		int numberOfDots = 0;
+		int indexOfFirstUpperCaseCharacterFollowedByDot = -1;
+		for (int i = 0; i < name.length(); i++) {
+			if (name.charAt(i) == '.') {
+				numberOfDots++;
+				if(Character.isUpperCase(name.charAt(i+1)) &&
+						indexOfFirstUpperCaseCharacterFollowedByDot == -1) {
+					indexOfFirstUpperCaseCharacterFollowedByDot = i+1;
+				}
+			}
+		}
+		if(numberOfDots == 0 || Character.isUpperCase(name.charAt(0))) {
+			return name;
+		}
+		if(numberOfDots > 1 && indexOfFirstUpperCaseCharacterFollowedByDot != -1) {
+			return name.substring(indexOfFirstUpperCaseCharacterFollowedByDot);
+		}
+		return name;
+	}
 }
