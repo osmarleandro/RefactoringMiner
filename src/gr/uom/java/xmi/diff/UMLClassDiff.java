@@ -195,4 +195,12 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	public boolean isEmpty() {
+		return addedOperations.isEmpty() && removedOperations.isEmpty() &&
+			addedAttributes.isEmpty() && removedAttributes.isEmpty() &&
+			operationDiffList.isEmpty() && attributeDiffList.isEmpty() &&
+			operationBodyMapperList.isEmpty() &&
+			!visibilityChanged && !abstractionChanged;
+	}
 }

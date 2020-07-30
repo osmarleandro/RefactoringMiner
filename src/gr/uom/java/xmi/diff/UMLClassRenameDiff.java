@@ -25,4 +25,12 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append("\n");
 		return sb.toString();
 	}
+
+	public boolean isEmpty() {
+		return addedOperations.isEmpty() && removedOperations.isEmpty() &&
+			addedAttributes.isEmpty() && removedAttributes.isEmpty() &&
+			operationDiffList.isEmpty() && attributeDiffList.isEmpty() &&
+			operationBodyMapperList.isEmpty() &&
+			!visibilityChanged && !abstractionChanged;
+	}
 }
