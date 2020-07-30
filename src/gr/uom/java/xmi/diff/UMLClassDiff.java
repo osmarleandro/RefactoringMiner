@@ -195,4 +195,13 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
+
+	public UMLOperationBodyMapper findMapperWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
+		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
+			if(mapper.getOperation1().equalSignature(operation1) && mapper.getOperation2().equalSignature(operation2)) {
+				return mapper;
+			}
+		}
+		return null;
+	}
 }

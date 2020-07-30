@@ -1,6 +1,8 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	
@@ -24,5 +26,14 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append(nextClass.getName());
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	public UMLOperationBodyMapper findMapperWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
+		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
+			if(mapper.getOperation1().equalSignature(operation1) && mapper.getOperation2().equalSignature(operation2)) {
+				return mapper;
+			}
+		}
+		return null;
 	}
 }
