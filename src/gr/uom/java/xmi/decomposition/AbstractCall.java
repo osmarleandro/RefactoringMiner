@@ -23,10 +23,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
-	public String getExpression() {
-		return expression;
-	}
-
 	public List<String> getArguments() {
 		return arguments;
 	}
