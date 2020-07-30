@@ -19,7 +19,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	protected LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -427,10 +427,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			count += statement.statementCount();
 		}
 		return count;
-	}
-
-	public LocationInfo getLocationInfo() {
-		return locationInfo;
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {

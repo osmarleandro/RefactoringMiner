@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
+import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class TryStatementObject extends CompositeStatementObject {
@@ -41,5 +42,9 @@ public class TryStatementObject extends CompositeStatementObject {
 			variableDeclarations.addAll(catchClause.getVariableDeclarations());
 		}
 		return variableDeclarations;
+	}
+
+	public LocationInfo getLocationInfo() {
+		return locationInfo;
 	}
 }
