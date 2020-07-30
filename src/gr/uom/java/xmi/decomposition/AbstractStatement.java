@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
@@ -30,4 +31,17 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
+		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
+		for(String methodInvocation : methodInvocationMap.keySet()) {
+			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
+			for(OperationInvocation invocation : invocations) {
+				if(expressionIsTheRightHandSideOfAssignment(methodInvocation)) {
+					return invocation;
+				}
+			}
+		}
+		return null;
+	}
 }

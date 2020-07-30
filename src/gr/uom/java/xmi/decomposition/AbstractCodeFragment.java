@@ -217,19 +217,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
-		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
-		for(String methodInvocation : methodInvocationMap.keySet()) {
-			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
-			for(OperationInvocation invocation : invocations) {
-				if(expressionIsTheRightHandSideOfAssignment(methodInvocation)) {
-					return invocation;
-				}
-			}
-		}
-		return null;
-	}
-
 	private boolean isCastExpressionCoveringEntireFragment(String expression) {
 		String statement = getString();
 		int index = statement.indexOf(expression + ";\n");
@@ -272,7 +259,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
+	protected boolean expressionIsTheRightHandSideOfAssignment(String expression) {
 		String statement = getString();
 		if(statement.contains("=")) {
 			List<String> variables = getVariables();

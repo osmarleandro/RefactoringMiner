@@ -203,4 +203,17 @@ public class AbstractExpression extends AbstractCodeFragment {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
+		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
+		for(String methodInvocation : methodInvocationMap.keySet()) {
+			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
+			for(OperationInvocation invocation : invocations) {
+				if(expressionIsTheRightHandSideOfAssignment(methodInvocation)) {
+					return invocation;
+				}
+			}
+		}
+		return null;
+	}
 }
