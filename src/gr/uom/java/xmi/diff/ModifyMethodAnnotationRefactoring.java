@@ -144,4 +144,10 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public UMLOperation getMovedOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
