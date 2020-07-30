@@ -1,6 +1,10 @@
 package gr.uom.java.xmi.diff;
 
+import java.util.Set;
+
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -30,6 +34,18 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		if(o instanceof UMLClassMoveDiff) {
 			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
+		}
+		return false;
+	}
+
+	private boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
+		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
+			if(mapper.getOperation1().getName().equals(rename.getBefore()) && !mapper.getOperation2().getName().equals(rename.getAfter())) {
+				return true;
+			}
+			else if(!mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
+				return true;
+			}
 		}
 		return false;
 	}
