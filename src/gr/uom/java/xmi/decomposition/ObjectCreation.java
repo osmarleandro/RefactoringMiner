@@ -135,8 +135,4 @@ public class ObjectCreation extends AbstractCall {
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
-
-	public boolean identicalName(AbstractCall call) {
-		return getType().equals(((ObjectCreation)call).getType());
-	}
 }
