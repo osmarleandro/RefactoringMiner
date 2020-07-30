@@ -165,6 +165,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
 			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
