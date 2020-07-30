@@ -30,4 +30,11 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	/**
+	 * @return the code range of the source method in the <b>parent</b> commit
+	 */
+	public CodeRange getSourceOperationCodeRangeBeforeMove() {
+		return originalOperation.codeRange();
+	}
 }
