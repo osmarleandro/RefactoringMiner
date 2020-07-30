@@ -169,6 +169,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
+	@Override
 	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
