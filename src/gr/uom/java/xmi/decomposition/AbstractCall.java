@@ -208,15 +208,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
-		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
-		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
-		return getExpression() != null && call.getExpression() != null &&
-				identicalExpression(call, replacements) &&
-				!identicalName(call) &&
-				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
-	}
-
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
