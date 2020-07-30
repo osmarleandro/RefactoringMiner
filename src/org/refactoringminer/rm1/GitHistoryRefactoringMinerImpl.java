@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -434,27 +434,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
-		GitService gitService = new GitServiceImpl();
-		RevWalk walk = new RevWalk(repository);
-		try {
-			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
-			if (commit.getParentCount() > 0) {
-				walk.parseCommit(commit.getParent(0));
-				return gitService.churn(repository, commit);
-			}
-			else {
-				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
-			}
-		} catch (MissingObjectException moe) {
-			logger.warn(String.format("Ignored revision %s due to missing commit", commitId), moe);
-		} catch (Exception e) {
-			logger.warn(String.format("Ignored revision %s due to error", commitId), e);
-			handler.handleException(commitId, e);
-		} finally {
-			walk.close();
-			walk.dispose();
-		}
-		return null;
+		return handler.churnAtCommit(repository, commitId, this);
 	}
 
 	@Override

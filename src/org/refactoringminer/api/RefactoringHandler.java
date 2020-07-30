@@ -2,6 +2,13 @@ package org.refactoringminer.api;
 
 import java.util.List;
 
+import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+import org.refactoringminer.util.GitServiceImpl;
+
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
  * 
@@ -48,4 +55,28 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public Churn churnAtCommit(Repository repository, String commitId, GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl) {
+		GitService gitService = new GitServiceImpl();
+		RevWalk walk = new RevWalk(repository);
+		try {
+			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
+			if (commit.getParentCount() > 0) {
+				walk.parseCommit(commit.getParent(0));
+				return gitService.churn(repository, commit);
+			}
+			else {
+				gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
+			}
+		} catch (MissingObjectException moe) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to missing commit", commitId), moe);
+		} catch (Exception e) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to error", commitId), e);
+			handleException(commitId, e);
+		} finally {
+			walk.close();
+			walk.dispose();
+		}
+		return null;
+	}
 }
