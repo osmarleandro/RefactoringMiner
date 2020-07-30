@@ -18,8 +18,8 @@ import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
 public abstract class AbstractCall implements LocationInfoProvider {
 	protected int typeArguments;
-	protected String expression;
-	protected List<String> arguments;
+	public String expression;
+	public List<String> arguments;
 	protected LocationInfo locationInfo;
 	protected StatementCoverageType coverage = StatementCoverageType.NONE;
 
@@ -44,6 +44,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public abstract double normalizedNameDistance(AbstractCall call);
 	public abstract AbstractCall update(String oldExpression, String newExpression);
 
+	@Override
 	public String actualString() {
 		StringBuilder sb = new StringBuilder();
 		if(expression != null) {
