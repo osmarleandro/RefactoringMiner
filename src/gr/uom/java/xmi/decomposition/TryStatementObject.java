@@ -1,7 +1,9 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
@@ -41,5 +43,24 @@ public class TryStatementObject extends CompositeStatementObject {
 			variableDeclarations.addAll(catchClause.getVariableDeclarations());
 		}
 		return variableDeclarations;
+	}
+
+	@Override
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
+		for(AbstractExpression expression : expressionList) {
+			Map<String, List<OperationInvocation>> expressionMap = expression.getMethodInvocationMap();
+			for(String key : expressionMap.keySet()) {
+				if(map.containsKey(key)) {
+					map.get(key).addAll(expressionMap.get(key));
+				}
+				else {
+					List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+					list.addAll(expressionMap.get(key));
+					map.put(key, list);
+				}
+			}
+		}
+		return map;
 	}
 }
