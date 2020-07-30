@@ -30,4 +30,10 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public void addStatement(AbstractStatement statement) {
+		statement.setIndex(statementList.size());
+		statementList.add(statement);
+		statement.setParent(this);
+	}
 }
