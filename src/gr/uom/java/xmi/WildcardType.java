@@ -72,4 +72,8 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	public LocationInfo getLocationInfo() {
+		return locationInfo;
+	}
 }
