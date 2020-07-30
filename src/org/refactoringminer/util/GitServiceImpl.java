@@ -39,10 +39,10 @@ import org.slf4j.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
-	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
+	public static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
-	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
+	public DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
 	@Override
 	public Repository cloneIfNotExists(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
@@ -149,7 +149,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
-	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
+	public List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
         logger.info("Fetching changes of repository {}", repository.getDirectory().toString());
         try (Git git = new Git(repository)) {
     		FetchResult result = git.fetch().call();
@@ -175,6 +175,7 @@ public class GitServiceImpl implements GitService {
 		return this.fetchAndCreateNewRevsWalk(repository, null);
 	}
 
+	@Override
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
 		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
 		for (Ref ref : repository.getRefDatabase().getRefs()) {
