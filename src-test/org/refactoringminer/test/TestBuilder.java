@@ -64,8 +64,12 @@ public class TestBuilder {
 		return this;
 	}
 
-	private static class Counter {
+	static class Counter {
 		int[] c = new int[5];
+
+		int get(TestBuilder testBuilder, int type) {
+			return c[type];
+		}
 	}
 
 	private void count(int type, String refactoring) {
@@ -77,10 +81,6 @@ public class TestBuilder {
 			cMap.put(refType, refTypeCounter);
 		}
 		refTypeCounter.c[type]++;
-	}
-
-	private int get(int type) {
-		return c.c[type];
 	}
 
 	private int get(int type, Counter counter) {
@@ -135,7 +135,7 @@ public class TestBuilder {
 			}
 		}
 
-		boolean success = get(FP) == 0 && get(FN) == 0 && get(TP) > 0;
+		boolean success = c.get(this, FP) == 0 && c.get(this, FN) == 0 && c.get(this, TP) > 0;
 		if (!success || verbose) {
 			for (ProjectMatcher m : map.values()) {
 				m.printResults();
