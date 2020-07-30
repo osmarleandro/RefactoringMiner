@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public boolean originalClassImportsType(String targetClass) {
+		return originalClass.importsType(targetClass);
+	}
 }

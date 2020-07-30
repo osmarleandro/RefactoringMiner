@@ -278,10 +278,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return nextClass.importsType(targetClass);
 	}
 
-	public boolean originalClassImportsType(String targetClass) {
-		return originalClass.importsType(targetClass);
-	}
-
 	public List<UMLAttribute> nextClassAttributesOfType(String targetClass) {
 		return nextClass.attributesOfType(targetClass);
 	}
