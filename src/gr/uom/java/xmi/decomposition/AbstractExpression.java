@@ -24,7 +24,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> numberLiterals;
 	private List<String> nullLiterals;
 	private List<String> booleanLiterals;
-	private List<String> typeLiterals;
+	List<String> typeLiterals;
 	private Map<String, List<ObjectCreation>> creationMap;
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
@@ -128,11 +128,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<String> getBooleanLiterals() {
 		return booleanLiterals;
-	}
-
-	@Override
-	public List<String> getTypeLiterals() {
-		return typeLiterals;
 	}
 
 	@Override
