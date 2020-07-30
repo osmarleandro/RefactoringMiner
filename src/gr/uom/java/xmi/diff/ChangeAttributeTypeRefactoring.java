@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
@@ -152,5 +153,11 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 				.setDescription("changed-type attribute declaration")
 				.setCodeElement(changedTypeAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public List<OperationInvocation> getExtractedOperationInvocations() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

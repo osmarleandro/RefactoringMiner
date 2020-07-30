@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
@@ -150,5 +151,11 @@ public class RenameVariableRefactoring implements Refactoring {
 				.setDescription("renamed variable declaration")
 				.setCodeElement(renamedVariable.toString()));
 		return ranges;
+	}
+
+	@Override
+	public List<OperationInvocation> getExtractedOperationInvocations() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

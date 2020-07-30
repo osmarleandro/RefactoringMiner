@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -82,5 +83,11 @@ public class RenameClassRefactoring implements Refactoring {
 				.setDescription("renamed type declaration")
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public List<OperationInvocation> getExtractedOperationInvocations() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
