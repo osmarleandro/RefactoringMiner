@@ -59,13 +59,13 @@ public class TestBuilder {
 		return this;
 	}
 
-	public TestBuilder withAggregation() {
-		this.aggregate = true;
-		return this;
-	}
-
 	private static class Counter {
 		int[] c = new int[5];
+
+		public TestBuilder withAggregation(TestBuilder testBuilder) {
+			testBuilder.aggregate = true;
+			return testBuilder;
+		}
 	}
 
 	private void count(int type, String refactoring) {
