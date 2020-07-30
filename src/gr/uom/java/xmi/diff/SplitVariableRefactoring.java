@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class SplitVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> splitVariables;
 	private VariableDeclaration oldVariable;
-	private UMLOperation operationBefore;
+	public UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
@@ -35,10 +35,6 @@ public class SplitVariableRefactoring implements Refactoring {
 
 	public VariableDeclaration getOldVariable() {
 		return oldVariable;
-	}
-
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
 	}
 
 	public UMLOperation getOperationAfter() {
@@ -73,7 +69,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(oldVariable.getOperationBefore(this).getLocationInfo().getFilePath(), oldVariable.getOperationBefore(this).getClassName()));
 		return pairs;
 	}
 
