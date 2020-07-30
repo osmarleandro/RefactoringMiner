@@ -23,7 +23,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private int arrayDimension;
+	int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
@@ -73,7 +73,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return sb.toString();
 	}
 
-	private boolean equalTypeArguments(UMLType type) {
+	boolean equalTypeArguments(UMLType type) {
 		String thisTypeArguments = this.typeArgumentsToString();
 		String otherTypeArguments = type.typeArgumentsToString();
 		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
@@ -97,6 +97,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
+	@Override
 	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
 		if(!this.isParameterized() && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
