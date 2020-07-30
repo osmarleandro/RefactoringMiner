@@ -36,14 +36,21 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.diff.DiffFormatter;
+import org.eclipse.jgit.diff.Edit;
+import org.eclipse.jgit.diff.Edit.Type;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.patch.FileHeader;
+import org.eclipse.jgit.patch.HunkHeader;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
+import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHPullRequestCommitDetail;
@@ -667,6 +674,162 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	@Override
+	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+		if (currentCommit.getParentCount() > 0) {
+	    	ObjectId oldTree = currentCommit.getParent(0).getTree();
+	        ObjectId newTree = currentCommit.getTree();
+	    	final TreeWalk tw = new TreeWalk(repository);
+	    	tw.setRecursive(true);
+	    	tw.addTree(oldTree);
+	    	tw.addTree(newTree);
+	    	
+	    	List<DiffEntry> diffs = DiffEntry.scan(tw);
+	    	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+			diffFormatter.setRepository(repository);
+			diffFormatter.setContext(0);
+			
+	    	int addedLines = 0;
+			int deletedLines = 0;
+	    	for (DiffEntry entry : diffs) {
+				FileHeader header = diffFormatter.toFileHeader(entry);
+	        	List<? extends HunkHeader> hunks = header.getHunks();
+	        	for (HunkHeader hunkHeader : hunks) {
+	        		for (Edit edit : hunkHeader.toEditList()) {
+						if (edit.getType() == Type.INSERT) {
+							addedLines += edit.getLengthB();
+						} else if (edit.getType() == Type.DELETE) {
+							deletedLines += edit.getLengthA();
+						} else if (edit.getType() == Type.REPLACE) {
+							deletedLines += edit.getLengthA();
+							addedLines += edit.getLengthB();
+						}
+					}
+	        	}
+	    	}
+	    	diffFormatter.close();
+	    	return new Churn(addedLines, deletedLines);
+		}
+		return null;
+	}
+
+	@Override
+	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+		if (currentCommit.getParentCount() > 0) {
+	    	ObjectId oldTree = currentCommit.getParent(0).getTree();
+	        ObjectId newTree = currentCommit.getTree();
+	    	final TreeWalk tw = new TreeWalk(repository);
+	    	tw.setRecursive(true);
+	    	tw.addTree(oldTree);
+	    	tw.addTree(newTree);
+	    	
+	    	List<DiffEntry> diffs = DiffEntry.scan(tw);
+	    	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+			diffFormatter.setRepository(repository);
+			diffFormatter.setContext(0);
+			
+	    	int addedLines = 0;
+			int deletedLines = 0;
+	    	for (DiffEntry entry : diffs) {
+				FileHeader header = diffFormatter.toFileHeader(entry);
+	        	List<? extends HunkHeader> hunks = header.getHunks();
+	        	for (HunkHeader hunkHeader : hunks) {
+	        		for (Edit edit : hunkHeader.toEditList()) {
+						if (edit.getType() == Type.INSERT) {
+							addedLines += edit.getLengthB();
+						} else if (edit.getType() == Type.DELETE) {
+							deletedLines += edit.getLengthA();
+						} else if (edit.getType() == Type.REPLACE) {
+							deletedLines += edit.getLengthA();
+							addedLines += edit.getLengthB();
+						}
+					}
+	        	}
+	    	}
+	    	diffFormatter.close();
+	    	return new Churn(addedLines, deletedLines);
+		}
+		return null;
+	}
+
+	@Override
+	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+		if (currentCommit.getParentCount() > 0) {
+	    	ObjectId oldTree = currentCommit.getParent(0).getTree();
+	        ObjectId newTree = currentCommit.getTree();
+	    	final TreeWalk tw = new TreeWalk(repository);
+	    	tw.setRecursive(true);
+	    	tw.addTree(oldTree);
+	    	tw.addTree(newTree);
+	    	
+	    	List<DiffEntry> diffs = DiffEntry.scan(tw);
+	    	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+			diffFormatter.setRepository(repository);
+			diffFormatter.setContext(0);
+			
+	    	int addedLines = 0;
+			int deletedLines = 0;
+	    	for (DiffEntry entry : diffs) {
+				FileHeader header = diffFormatter.toFileHeader(entry);
+	        	List<? extends HunkHeader> hunks = header.getHunks();
+	        	for (HunkHeader hunkHeader : hunks) {
+	        		for (Edit edit : hunkHeader.toEditList()) {
+						if (edit.getType() == Type.INSERT) {
+							addedLines += edit.getLengthB();
+						} else if (edit.getType() == Type.DELETE) {
+							deletedLines += edit.getLengthA();
+						} else if (edit.getType() == Type.REPLACE) {
+							deletedLines += edit.getLengthA();
+							addedLines += edit.getLengthB();
+						}
+					}
+	        	}
+	    	}
+	    	diffFormatter.close();
+	    	return new Churn(addedLines, deletedLines);
+		}
+		return null;
+	}
+
+	@Override
+	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+		if (currentCommit.getParentCount() > 0) {
+	    	ObjectId oldTree = currentCommit.getParent(0).getTree();
+	        ObjectId newTree = currentCommit.getTree();
+	    	final TreeWalk tw = new TreeWalk(repository);
+	    	tw.setRecursive(true);
+	    	tw.addTree(oldTree);
+	    	tw.addTree(newTree);
+	    	
+	    	List<DiffEntry> diffs = DiffEntry.scan(tw);
+	    	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+			diffFormatter.setRepository(repository);
+			diffFormatter.setContext(0);
+			
+	    	int addedLines = 0;
+			int deletedLines = 0;
+	    	for (DiffEntry entry : diffs) {
+				FileHeader header = diffFormatter.toFileHeader(entry);
+	        	List<? extends HunkHeader> hunks = header.getHunks();
+	        	for (HunkHeader hunkHeader : hunks) {
+	        		for (Edit edit : hunkHeader.toEditList()) {
+						if (edit.getType() == Type.INSERT) {
+							addedLines += edit.getLengthB();
+						} else if (edit.getType() == Type.DELETE) {
+							deletedLines += edit.getLengthA();
+						} else if (edit.getType() == Type.REPLACE) {
+							deletedLines += edit.getLengthA();
+							addedLines += edit.getLengthB();
+						}
+					}
+	        	}
+	    	}
+	    	diffFormatter.close();
+	    	return new Churn(addedLines, deletedLines);
+		}
+		return null;
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
