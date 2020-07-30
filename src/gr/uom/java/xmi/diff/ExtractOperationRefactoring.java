@@ -161,6 +161,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return codeRanges;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
