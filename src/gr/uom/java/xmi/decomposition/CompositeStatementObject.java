@@ -17,9 +17,9 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	protected List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	protected LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -88,20 +88,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			return getExpressions().contains(fragment);
 		}
 		return false;
-	}
-
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(locationInfo.getCodeElementType().getName());
-		if(expressionList.size() > 0) {
-			sb.append("(");
-			for(int i=0; i<expressionList.size()-1; i++) {
-				sb.append(expressionList.get(i).toString()).append("; ");
-			}
-			sb.append(expressionList.get(expressionList.size()-1).toString());
-			sb.append(")");
-		}
-		return sb.toString();
 	}
 
 	@Override
