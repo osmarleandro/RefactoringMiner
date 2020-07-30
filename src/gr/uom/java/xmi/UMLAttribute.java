@@ -10,12 +10,12 @@ import java.util.List;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private UMLType type;
+	String name;
+	UMLType type;
 	private String visibility;
 	private String className;
-	private boolean isFinal;
-	private boolean isStatic;
+	boolean isFinal;
+	boolean isStatic;
 	private VariableDeclaration variableDeclaration;
 	private UMLJavadoc javadoc;
 
@@ -97,6 +97,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return variableDeclaration.getAnnotations();
 	}
 
+	@Override
 	public boolean equalsIgnoringChangedType(UMLAttribute attribute) {
 		if(this.isStatic != attribute.isStatic)
 			return false;
