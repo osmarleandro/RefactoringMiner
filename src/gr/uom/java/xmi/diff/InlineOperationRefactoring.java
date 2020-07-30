@@ -26,7 +26,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
 			List<OperationInvocation> operationInvocations) {
@@ -79,6 +79,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return RefactoringType.INLINE_OPERATION;
 	}
 
+	@Override
 	public UMLOperationBodyMapper getBodyMapper() {
 		return bodyMapper;
 	}
