@@ -527,4 +527,23 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public boolean identicalOrWrappedArguments(AbstractCall call) {
+		List<String> arguments1 = getArguments();
+		List<String> arguments2 = call.getArguments();
+		if(arguments1.size() != arguments2.size())
+			return false;
+		for(int i=0; i<arguments1.size(); i++) {
+			String argument1 = arguments1.get(i);
+			String argument2 = arguments2.get(i);
+			boolean argumentWrapped = false;
+			if(argument1.contains("(" + argument2 + ")") ||
+					argument2.contains("(" + argument1 + ")")) {
+				argumentWrapped = true;
+			}
+			if(!argument1.equals(argument2) && !argumentWrapped)
+				return false;
+		}
+		return true;
+	}
 }
