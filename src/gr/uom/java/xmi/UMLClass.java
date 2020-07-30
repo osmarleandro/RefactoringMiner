@@ -397,4 +397,16 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
+		for(UMLOperation originalOperation : operations) {
+			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
+				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+				if(originalOperationEmptyBody == operationEmptyBody)
+					return true;
+			}
+		}
+		return false;
+	}
 }

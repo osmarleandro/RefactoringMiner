@@ -59,4 +59,16 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 	public boolean isInterface() {
 		return false;
 	}
+
+	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
+		for(UMLOperation originalOperation : operations) {
+			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
+				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+				if(originalOperationEmptyBody == operationEmptyBody)
+					return true;
+			}
+		}
+		return false;
+	}
 }

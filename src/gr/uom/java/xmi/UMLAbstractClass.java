@@ -90,18 +90,6 @@ public abstract class UMLAbstractClass {
 		return null;
 	}
 
-	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
-			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
-				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
-				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
-				if(originalOperationEmptyBody == operationEmptyBody)
-					return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean containsOperationWithTheSameName(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
 			if(originalOperation.getName().equals(operation.getName()))
