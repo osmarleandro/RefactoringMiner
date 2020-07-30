@@ -49,7 +49,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return variableReferences;
 	}
 
-	private boolean allVariablesAreParameters() {
+	public boolean allVariablesAreParameters() {
 		for(VariableDeclaration declaration : splitVariables) {
 			if(!declaration.isParameter()) {
 				return false;
