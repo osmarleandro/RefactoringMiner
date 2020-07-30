@@ -1,6 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -170,5 +171,17 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	public String toString(CandidateMergeVariableRefactoring candidateMergeVariableRefactoring) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Merge Attribute").append("\t");
+		sb.append(candidateMergeVariableRefactoring.mergedVariables);
+		sb.append(" to ");
+		sb.append(candidateMergeVariableRefactoring.newVariable);
+		sb.append(" in method ");
+		sb.append(candidateMergeVariableRefactoring.operationAfter);
+		sb.append(" in class ").append(candidateMergeVariableRefactoring.operationAfter.getClassName());
+		return sb.toString();
 	}
 }
