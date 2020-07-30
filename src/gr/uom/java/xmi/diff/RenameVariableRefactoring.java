@@ -14,10 +14,10 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration renamedVariable;
+	public VariableDeclaration originalVariable;
+	public VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
@@ -67,6 +67,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		return variableReferences;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
