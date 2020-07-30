@@ -21,7 +21,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	protected String expression;
 	protected List<String> arguments;
 	protected LocationInfo locationInfo;
-	protected StatementCoverageType coverage = StatementCoverageType.NONE;
+	public StatementCoverageType coverage = StatementCoverageType.NONE;
 
 	public String getExpression() {
 		return expression;
@@ -434,6 +434,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	@Override
+	public OperationInvocation invocationCoveringEntireFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public enum StatementCoverageType {

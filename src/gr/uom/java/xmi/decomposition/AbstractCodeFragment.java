@@ -185,6 +185,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
+	@Override
 	public OperationInvocation invocationCoveringEntireFragment() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
 		String statement = getString();
@@ -230,7 +231,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	private boolean isCastExpressionCoveringEntireFragment(String expression) {
+	public boolean isCastExpressionCoveringEntireFragment(String expression) {
 		String statement = getString();
 		int index = statement.indexOf(expression + ";\n");
 		if(index != -1) {
@@ -256,7 +257,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+	public boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
