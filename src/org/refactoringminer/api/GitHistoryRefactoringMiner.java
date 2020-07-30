@@ -1,5 +1,9 @@
 package org.refactoringminer.api;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.jgit.lib.Repository;
 
 /**
@@ -111,4 +115,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
 	 */
 	String getConfigId();
+
+	void populateWithGitHubAPI(String cloneURL, String currentCommitId, Map<String, String> filesBefore, Map<String, String> filesCurrent, Map<String, String> renamedFilesHint, Set<String> repositoryDirectoriesBefore,
+			Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException;
 }
