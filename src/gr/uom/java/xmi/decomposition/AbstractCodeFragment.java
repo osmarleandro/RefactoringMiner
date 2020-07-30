@@ -97,6 +97,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 	}
 
+	@Override
 	private static boolean quoteBefore(String beforeMatch) {
 		if(beforeMatch.contains("\"")) {
 			if(beforeMatch.contains("+")) {
