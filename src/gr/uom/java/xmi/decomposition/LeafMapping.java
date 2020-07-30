@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -114,5 +116,25 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
+		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		boolean methodInvocationMatch = true;
+		if(initializerInvocation != null && replacementInvocation != null) {
+			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
+				methodInvocationMatch = false;
+			}
+		}
+		else if(initializerInvocation != null && replacementInvocation == null) {
+			methodInvocationMatch = false;
+		}
+		else if(initializerInvocation == null && replacementInvocation != null) {
+			methodInvocationMatch = false;
+		}
+		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
+		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
+		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 }

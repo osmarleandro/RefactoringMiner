@@ -1,6 +1,8 @@
 package gr.uom.java.xmi.decomposition;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
@@ -58,6 +60,26 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 				}
 			}
 		}
+	}
+
+	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
+		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		boolean methodInvocationMatch = true;
+		if(initializerInvocation != null && replacementInvocation != null) {
+			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {
+				methodInvocationMatch = false;
+			}
+		}
+		else if(initializerInvocation != null && replacementInvocation == null) {
+			methodInvocationMatch = false;
+		}
+		else if(initializerInvocation == null && replacementInvocation != null) {
+			methodInvocationMatch = false;
+		}
+		String initializerReservedTokens = ReplacementUtil.keepReservedTokens(initializer.toString());
+		String replacementReservedTokens = ReplacementUtil.keepReservedTokens(replacedExpression);
+		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
 }
