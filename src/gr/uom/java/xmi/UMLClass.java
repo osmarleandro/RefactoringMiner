@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.AbstractCall;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -396,5 +398,11 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	@Override
+	public boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

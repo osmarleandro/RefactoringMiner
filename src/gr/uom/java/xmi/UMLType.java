@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.AnnotatableType;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -18,6 +19,8 @@ import org.eclipse.jdt.core.dom.WildcardType;
 
 import gr.uom.java.xmi.ListCompositeType.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractCall;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -167,6 +170,12 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	@Override
+	public boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	public static LeafType extractTypeObject(String qualifiedName) {
