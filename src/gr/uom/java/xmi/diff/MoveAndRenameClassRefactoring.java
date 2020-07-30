@@ -14,7 +14,7 @@ import org.refactoringminer.api.RefactoringType;
 public class MoveAndRenameClassRefactoring implements Refactoring {
 
 	private UMLClass originalClass;
-	private UMLClass renamedClass;
+	public UMLClass renamedClass;
 	
 	public MoveAndRenameClassRefactoring(UMLClass originalClass,  UMLClass renamedClass) {
 		this.originalClass = originalClass;
@@ -50,10 +50,6 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 		return originalClass;
 	}
 
-	public UMLClass getRenamedClass() {
-		return renamedClass;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
@@ -62,7 +58,7 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedClass().getLocationInfo().getFilePath(), getRenamedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(originalClass.getRenamedClass(this).getLocationInfo().getFilePath(), originalClass.getRenamedClass(this).getName()));
 		return pairs;
 	}
 

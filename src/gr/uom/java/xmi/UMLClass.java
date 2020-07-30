@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.MoveAndRenameClassRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -396,5 +397,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public UMLClass getRenamedClass(MoveAndRenameClassRefactoring moveAndRenameClassRefactoring) {
+		return moveAndRenameClassRefactoring.renamedClass;
 	}
 }
