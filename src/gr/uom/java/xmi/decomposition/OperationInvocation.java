@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
-	private String methodName;
+	String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
@@ -487,38 +487,6 @@ public class OperationInvocation extends AbstractCall {
 		return true;
 	}
 	
-	public boolean differentExpressionNameAndArguments(OperationInvocation other) {
-		boolean differentExpression = false;
-		if(this.expression == null && other.expression != null)
-			differentExpression = true;
-		if(this.expression != null && other.expression == null)
-			differentExpression = true;
-		if(this.expression != null && other.expression != null)
-			differentExpression = !this.expression.equals(other.expression) &&
-			!this.expression.startsWith(other.expression) && !other.expression.startsWith(this.expression);
-		boolean differentName = !this.methodName.equals(other.methodName);
-		Set<String> argumentIntersection = new LinkedHashSet<String>(this.arguments);
-		argumentIntersection.retainAll(other.arguments);
-		boolean argumentFoundInExpression = false;
-		if(this.expression != null) {
-			for(String argument : other.arguments) {
-				if(this.expression.contains(argument)) {
-					argumentFoundInExpression = true;
-				}
-			}
-		}
-		if(other.expression != null) {
-			for(String argument : this.arguments) {
-				if(other.expression.contains(argument)) {
-					argumentFoundInExpression = true;
-				}
-			}
-		}
-		boolean differentArguments = !this.arguments.equals(other.arguments) &&
-				argumentIntersection.isEmpty() && !argumentFoundInExpression;
-		return differentExpression && differentName && differentArguments;
-	}
-
 	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
 		Set<String> subExpressionIntersection = subExpressionIntersection(other);
 		return identicalName(other) &&
