@@ -397,4 +397,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	@Override
+	public double normalizedNameDistance(UMLType type) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
