@@ -17,12 +17,11 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
 
 public class StatementObject extends AbstractStatement {
 	
 	private String statement;
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -245,10 +244,6 @@ public class StatementObject extends AbstractStatement {
 
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
-	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
 	}
 
 	public VariableDeclaration getVariableDeclaration(String variableName) {
