@@ -27,7 +27,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -286,15 +286,6 @@ public class OperationInvocation extends AbstractCall {
     			return false;
     	}
     	return true;
-    }
-
-    public boolean containsVeryLongSubExpression() {
-    	for(String expression : subExpressions) {
-    		if(expression.length() > 100 && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(expression)) {
-    			return true;
-    		}
-    	}
-    	return false;
     }
 
     public Set<String> callChainIntersection(OperationInvocation other) {
