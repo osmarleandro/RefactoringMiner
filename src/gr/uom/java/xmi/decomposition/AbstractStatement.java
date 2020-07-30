@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
@@ -30,4 +31,13 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	@Override
+	public List<String> getPrefixExpressions() {
+		List<String> prefixExpressions = new ArrayList<String>();
+		for(AbstractExpression expression : expressionList) {
+			prefixExpressions.addAll(expression.getPrefixExpressions());
+		}
+		return prefixExpressions;
+	}
 }
