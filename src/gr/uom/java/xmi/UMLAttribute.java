@@ -13,7 +13,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private String name;
 	private UMLType type;
 	private String visibility;
-	private String className;
+	String className;
 	private boolean isFinal;
 	private boolean isStatic;
 	private VariableDeclaration variableDeclaration;
@@ -69,6 +69,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return className;
 	}
 
+	@Override
 	public void setClassName(String className) {
 		this.className = className;
 	}
