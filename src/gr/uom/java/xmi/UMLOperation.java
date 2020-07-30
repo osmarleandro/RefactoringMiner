@@ -833,4 +833,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		}
 		return null;
 	}
+
+	@Override
+	public boolean isInnerClass(UMLClass innerClass) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
