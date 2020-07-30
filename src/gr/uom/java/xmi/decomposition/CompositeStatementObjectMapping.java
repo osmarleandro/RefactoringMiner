@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.List;
+
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -58,6 +60,16 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 				}
 			}
 		}
+	}
+
+	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
+		for(TernaryOperatorExpression ternary : ternaryList) {
+			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

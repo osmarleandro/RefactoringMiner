@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import gr.uom.java.xmi.UMLOperation;
@@ -114,5 +115,15 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
+		for(TernaryOperatorExpression ternary : ternaryList) {
+			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

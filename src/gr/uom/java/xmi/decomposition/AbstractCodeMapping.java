@@ -302,16 +302,6 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
-		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
-		for(TernaryOperatorExpression ternary : ternaryList) {
-			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	private boolean containsVariableNameReplacement(String variableName) {
 		for(Replacement replacement : getReplacements()) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
