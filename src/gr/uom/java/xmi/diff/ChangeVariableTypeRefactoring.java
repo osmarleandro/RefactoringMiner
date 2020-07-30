@@ -18,7 +18,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	private VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	public Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
 	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
@@ -65,6 +65,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
+	@Override
 	public Set<AbstractCodeMapping> getVariableReferences() {
 		return variableReferences;
 	}
