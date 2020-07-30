@@ -13,4 +13,8 @@ public class AddVariableReplacement extends Replacement {
 	public Set<String> getAddedVariables() {
 		return addedVariables;
 	}
+
+	public String getAfter() {
+		return after;
+	}
 }

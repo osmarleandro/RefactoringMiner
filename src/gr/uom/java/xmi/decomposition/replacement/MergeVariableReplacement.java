@@ -32,4 +32,8 @@ public class MergeVariableReplacement extends Replacement {
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
 	}
+
+	public String getAfter() {
+		return after;
+	}
 }

@@ -4,7 +4,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
 	private String before;
-	private String after;
+	protected String after;
 	private ReplacementType type;
 	
 	public Replacement(String before, String after, ReplacementType type) {
@@ -15,10 +15,6 @@ public class Replacement {
 
 	public String getBefore() {
 		return before;
-	}
-
-	public String getAfter() {
-		return after;
 	}
 
 	public ReplacementType getType() {

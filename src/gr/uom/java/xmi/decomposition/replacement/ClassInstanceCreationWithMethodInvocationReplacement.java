@@ -22,4 +22,8 @@ public class ClassInstanceCreationWithMethodInvocationReplacement extends Replac
 		return invokedOperationAfter;
 	}
 
+	public String getAfter() {
+		return after;
+	}
+
 }
