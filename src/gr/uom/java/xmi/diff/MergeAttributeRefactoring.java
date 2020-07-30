@@ -141,4 +141,10 @@ public class MergeAttributeRefactoring implements Refactoring {
 				.setCodeElement(newAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public VariableDeclaration getOriginalAttribute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
