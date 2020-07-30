@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
 
@@ -74,5 +75,11 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 				.setDescription("added type declaration")
 				.setCodeElement(addedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public UMLAnnotation getAnnotationBefore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

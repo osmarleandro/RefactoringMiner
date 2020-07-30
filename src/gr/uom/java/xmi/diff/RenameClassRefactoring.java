@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLClass;
 
 import java.util.ArrayList;
@@ -82,5 +83,11 @@ public class RenameClassRefactoring implements Refactoring {
 				.setDescription("renamed type declaration")
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public UMLAnnotation getAnnotationBefore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
