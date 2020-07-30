@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
-	private UMLClass nextClass;
+	public UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
 
 	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
@@ -66,6 +66,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return originalClass;
 	}
 
+	@Override
 	public UMLClass getNextClass() {
 		return nextClass;
 	}
