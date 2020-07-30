@@ -40,6 +40,7 @@ public class MoveClassRefactoring implements Refactoring {
 		return new RenamePattern(originalPath, movedPath);
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
