@@ -1,6 +1,14 @@
 package org.refactoringminer.api;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+
+import gr.uom.java.xmi.UMLModel;
 
 /**
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
@@ -48,4 +56,32 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	public List<Refactoring> detectRefactorings(GitHistoryRefactoringMinerImpl gitHistoryRefactoringMinerImpl, String gitURL, String currentCommitId) {
+		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
+		try {
+			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
+			Set<String> repositoryDirectoriesCurrent = ConcurrentHashMap.newKeySet();
+			Map<String, String> fileContentsBefore = new ConcurrentHashMap<String, String>();
+			Map<String, String> fileContentsCurrent = new ConcurrentHashMap<String, String>();
+			Map<String, String> renamedFilesHint = new ConcurrentHashMap<String, String>();
+			gitHistoryRefactoringMinerImpl.populateWithGitHubAPI(gitURL, currentCommitId, fileContentsBefore, fileContentsCurrent, renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent);
+			UMLModel currentUMLModel = gitHistoryRefactoringMinerImpl.createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
+			UMLModel parentUMLModel = gitHistoryRefactoringMinerImpl.createModel(fileContentsBefore, repositoryDirectoriesBefore);
+			//  Diff between currentModel e parentModel
+			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+			refactoringsAtRevision = gitHistoryRefactoringMinerImpl.filter(refactoringsAtRevision);
+		}
+		catch(RefactoringMinerTimedOutException e) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to timeout", currentCommitId), e);
+			handleException(currentCommitId, e);
+		}
+		catch (Exception e) {
+			gitHistoryRefactoringMinerImpl.logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
+			handleException(currentCommitId, e);
+		}
+		handle(currentCommitId, refactoringsAtRevision);
+	
+		return refactoringsAtRevision;
+	}
 }

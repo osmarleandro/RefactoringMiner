@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -299,7 +299,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	public List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
@@ -344,7 +344,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
+	public UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
 		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
 	}
 
@@ -476,35 +476,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
-		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
-		try {
-			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
-			Set<String> repositoryDirectoriesCurrent = ConcurrentHashMap.newKeySet();
-			Map<String, String> fileContentsBefore = new ConcurrentHashMap<String, String>();
-			Map<String, String> fileContentsCurrent = new ConcurrentHashMap<String, String>();
-			Map<String, String> renamedFilesHint = new ConcurrentHashMap<String, String>();
-			populateWithGitHubAPI(gitURL, currentCommitId, fileContentsBefore, fileContentsCurrent, renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent);
-			UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
-			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
-			//  Diff between currentModel e parentModel
-			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-			refactoringsAtRevision = filter(refactoringsAtRevision);
-		}
-		catch(RefactoringMinerTimedOutException e) {
-			logger.warn(String.format("Ignored revision %s due to timeout", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
-		}
-		catch (Exception e) {
-			logger.warn(String.format("Ignored revision %s due to error", currentCommitId), e);
-			handler.handleException(currentCommitId, e);
-		}
-		handler.handle(currentCommitId, refactoringsAtRevision);
-
-		return refactoringsAtRevision;
-	}
-
-	private void populateWithGitHubAPI(String cloneURL, String currentCommitId,
+	public void populateWithGitHubAPI(String cloneURL, String currentCommitId,
 			Map<String, String> filesBefore, Map<String, String> filesCurrent, Map<String, String> renamedFilesHint,
 			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
