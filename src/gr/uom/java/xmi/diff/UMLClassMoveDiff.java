@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLType;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
@@ -32,5 +33,10 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
+	}
+
+	public boolean matches(UMLType type) {
+		return this.originalClass.getName().endsWith("." + type.getClassType()) ||
+				this.nextClass.getName().endsWith("." + type.getClassType());
 	}
 }
