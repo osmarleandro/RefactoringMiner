@@ -29,6 +29,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		this.returnReferences = returnReferences;
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.CHANGE_RETURN_TYPE;
 	}
