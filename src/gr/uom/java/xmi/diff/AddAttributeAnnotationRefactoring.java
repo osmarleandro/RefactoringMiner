@@ -13,9 +13,9 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
 public class AddAttributeAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
+	public UMLAnnotation annotation;
 	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	public UMLAttribute attributeAfter;
 
 	public AddAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
 			UMLAttribute attributeAfter) {
@@ -81,6 +81,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 		return pairs;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
