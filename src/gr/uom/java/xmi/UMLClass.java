@@ -203,7 +203,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public UMLAttribute matchAttribute(UMLAttribute otherAttribute) {
+    @Override
+	public UMLAttribute matchAttribute(UMLAttribute otherAttribute) {
     	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
     		UMLAttribute attribute = attributeIt.next();
