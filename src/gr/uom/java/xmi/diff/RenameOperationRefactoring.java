@@ -64,6 +64,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.RENAME_METHOD;
 	}
