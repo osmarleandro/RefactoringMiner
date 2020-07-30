@@ -139,4 +139,19 @@ public class ObjectCreation extends AbstractCall {
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
+
+	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
+		newCall.typeArguments = this.typeArguments;
+		if(this.expression != null && this.expression.equals(oldExpression)) {
+			newCall.expression = newExpression;
+		}
+		else {
+			newCall.expression = this.expression;
+		}
+		newCall.arguments = new ArrayList<String>();
+		for(String argument : this.arguments) {
+			newCall.arguments.add(
+				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
+		}
+	}
 }
