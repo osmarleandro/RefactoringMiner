@@ -20,7 +20,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean isEnum;
 	private boolean topLevel;
     private UMLType superclass;
-    private List<UMLType> implementedInterfaces;
+    List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
@@ -172,6 +172,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.implementedInterfaces.add(implementedInterface);
 	}
 
+	@Override
 	public List<UMLType> getImplementedInterfaces() {
 		return implementedInterfaces;
 	}
