@@ -103,6 +103,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return true;
 	}
 
+	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
