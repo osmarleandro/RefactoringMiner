@@ -30,10 +30,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.removedOperations.add(umlOperation);
 	}
 
-	private void reportAddedAttribute(UMLAttribute umlAttribute) {
-		this.addedAttributes.add(umlAttribute);
-	}
-
 	private void reportRemovedAttribute(UMLAttribute umlAttribute) {
 		this.removedAttributes.add(umlAttribute);
 	}
