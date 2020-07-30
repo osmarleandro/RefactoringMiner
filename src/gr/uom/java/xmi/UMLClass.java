@@ -22,7 +22,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
-    private List<String> importedTypes;
+    List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
     private List<UMLAnnotation> annotations;
@@ -176,6 +176,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return implementedInterfaces;
 	}
 
+	@Override
 	public List<String> getImportedTypes() {
 		return importedTypes;
 	}
