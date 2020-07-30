@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLAttribute;
 public class MoveAttributeRefactoring implements Refactoring {
 	protected UMLAttribute originalAttribute;
 	protected UMLAttribute movedAttribute;
-	private volatile int hashCode = 0;
+	protected volatile int hashCode = 0;
 	
 	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
 		this.originalAttribute = originalAttribute;
@@ -85,18 +85,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 				this.getTargetClassName().equals(other.getTargetClassName());
 		}
 		return false;
-	}
-
-	public int hashCode() {
-		if(hashCode == 0) {
-			int result = 17;
-			result = 37*result + originalAttribute.hashCode();
-			result = 37*result + movedAttribute.hashCode();
-			result = 37*result + getSourceClassName().hashCode();
-			result = 37*result + getTargetClassName().hashCode();
-			hashCode = result;
-		}
-		return hashCode;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

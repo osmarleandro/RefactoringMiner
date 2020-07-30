@@ -38,4 +38,16 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public int hashCode() {
+		if(hashCode == 0) {
+			int result = 17;
+			result = 37*result + originalAttribute.hashCode();
+			result = 37*result + movedAttribute.hashCode();
+			result = 37*result + getSourceClassName().hashCode();
+			result = 37*result + getTargetClassName().hashCode();
+			hashCode = result;
+		}
+		return hashCode;
+	}
 }
