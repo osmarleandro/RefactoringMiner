@@ -2,7 +2,9 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
@@ -13,6 +15,8 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 
 public class UMLClassDiff extends UMLClassBaseDiff {
 	
@@ -194,5 +198,17 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
+		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
+			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
+			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
+					methodInvocationRenames);
+		}
+		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
+		return allConsistentMethodInvocationRenames;
 	}
 }
