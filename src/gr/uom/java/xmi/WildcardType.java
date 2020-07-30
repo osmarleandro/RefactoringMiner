@@ -72,4 +72,28 @@ public class WildcardType extends UMLType {
 		}
 		return "Object";
 	}
+
+	private boolean equalTypeArguments(UMLType type) {
+		String thisTypeArguments = this.typeArgumentsToString();
+		String otherTypeArguments = type.typeArgumentsToString();
+		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
+				(thisTypeArguments.startsWith("<? ") && otherTypeArguments.equals("<?>"))) {
+			return true;
+		}
+		if((thisTypeArguments.equals("<Object>") && otherTypeArguments.contains("<Object>")) ||
+				(otherTypeArguments.equals("<Object>") && thisTypeArguments.contains("<Object>"))) {
+			return true;
+		}
+		if(this.typeArguments.size() != type.typeArguments.size()) {
+			return false;
+		}
+		for(int i=0; i<this.typeArguments.size(); i++) {
+			UMLType thisComponent = this.typeArguments.get(i);
+			UMLType otherComponent = type.typeArguments.get(i);
+			if(!thisComponent.equals(otherComponent)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
