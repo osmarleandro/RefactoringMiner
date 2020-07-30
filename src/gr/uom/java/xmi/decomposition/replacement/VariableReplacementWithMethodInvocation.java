@@ -20,6 +20,10 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 		return direction;
 	}
 
+	public ReplacementType getType() {
+		return type;
+	}
+
 	public enum Direction {
 		VARIABLE_TO_INVOCATION, INVOCATION_TO_VARIABLE;
 	}

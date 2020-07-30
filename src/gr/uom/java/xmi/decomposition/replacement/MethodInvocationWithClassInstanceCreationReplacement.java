@@ -22,4 +22,8 @@ public class MethodInvocationWithClassInstanceCreationReplacement extends Replac
 		return objectCreationAfter;
 	}
 
+	public ReplacementType getType() {
+		return type;
+	}
+
 }
