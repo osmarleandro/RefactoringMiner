@@ -83,4 +83,10 @@ public class RenameClassRefactoring implements Refactoring {
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public void addMoveClassRefactoring(MoveClassRefactoring moveClassRefactoring) {
+		// TODO Auto-generated method stub
+		
+	}
 }
