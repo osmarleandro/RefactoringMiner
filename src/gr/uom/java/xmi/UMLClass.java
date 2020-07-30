@@ -105,7 +105,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	anonymousClassList.add(anonymousClass);
     }
 
-    public String getPackageName() {
+    @Override
+	public String getPackageName() {
 		return this.packageName;
 	}
 
