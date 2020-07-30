@@ -34,6 +34,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return RefactoringType.INLINE_VARIABLE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
