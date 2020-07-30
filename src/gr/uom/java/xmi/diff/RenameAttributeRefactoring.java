@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class RenameAttributeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
@@ -136,5 +137,11 @@ public class RenameAttributeRefactoring implements Refactoring {
 				.setDescription("renamed attribute declaration")
 				.setCodeElement(renamedAttribute.toString()));
 		return ranges;
+	}
+
+	@Override
+	public Set<Replacement> getReplacements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
