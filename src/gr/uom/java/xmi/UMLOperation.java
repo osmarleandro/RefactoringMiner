@@ -27,7 +27,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String visibility;
 	private boolean isAbstract;
 	private List<UMLParameter> parameters;
-	private String className;
+	String className;
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -198,6 +198,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.operationBody = body;
 	}
 
+	@Override
 	public String getNonQualifiedClassName() {
 		return className.contains(".") ? className.substring(className.lastIndexOf(".")+1, className.length()) : className;
 	}
