@@ -31,7 +31,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
-	private List<UMLAnnotation> annotations;
+	public List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
 		this.annotations = new ArrayList<UMLAnnotation>();
@@ -135,6 +135,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return varargsParameter;
 	}
 
+	@Override
 	public List<UMLAnnotation> getAnnotations() {
 		return annotations;
 	}
