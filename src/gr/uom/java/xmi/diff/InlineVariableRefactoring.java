@@ -135,4 +135,10 @@ public class InlineVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public VariableDeclaration getNewVariable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
