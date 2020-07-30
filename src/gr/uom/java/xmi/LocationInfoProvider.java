@@ -5,4 +5,5 @@ import gr.uom.java.xmi.diff.CodeRange;
 public interface LocationInfoProvider {
 	public LocationInfo getLocationInfo();
 	public CodeRange codeRange();
+	boolean equivalentNames(UMLOperation operation1, UMLOperation operation2);
 }
