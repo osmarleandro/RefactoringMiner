@@ -21,7 +21,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean topLevel;
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
-    private List<UMLAnonymousClass> anonymousClassList;
+    List<UMLAnonymousClass> anonymousClassList;
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
@@ -374,6 +374,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
+	@Override
 	public boolean containsAnonymousWithSameAttributesAndOperations(UMLAnonymousClass anonymous) {
 		for(UMLAnonymousClass thisAnonymous : anonymousClassList) {
 			if(thisAnonymous.hasSameAttributesAndOperations(anonymous))
