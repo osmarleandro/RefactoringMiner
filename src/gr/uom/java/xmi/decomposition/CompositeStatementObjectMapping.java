@@ -1,6 +1,11 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
@@ -58,6 +63,14 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 				}
 			}
 		}
+	}
+
+	public Set<ReplacementType> getReplacementTypes() {
+		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
+		for(Replacement replacement : replacements) {
+			types.add(replacement.getType());
+		}
+		return types;
 	}
 
 }
