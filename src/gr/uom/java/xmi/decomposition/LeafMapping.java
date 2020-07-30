@@ -115,4 +115,8 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		return new LinkedHashSet<String>();
 	}
+
+	public String toString() {
+		return fragment1.toString() + fragment2.toString();
+	}
 }

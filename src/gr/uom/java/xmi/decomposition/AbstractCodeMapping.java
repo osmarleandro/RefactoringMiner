@@ -20,8 +20,8 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	protected AbstractCodeFragment fragment1;
+	protected AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
@@ -126,10 +126,6 @@ public abstract class AbstractCodeMapping {
 			types.add(replacement.getType());
 		}
 		return types;
-	}
-
-	public String toString() {
-		return fragment1.toString() + fragment2.toString();
 	}
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {

@@ -60,4 +60,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		}
 	}
 
+	public String toString() {
+		return fragment1.toString() + fragment2.toString();
+	}
+
 }
