@@ -1,10 +1,12 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -396,5 +398,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 			}
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	public Set<UMLClass> getUMLSubclassSet(ExtractSuperclassRefactoring extractSuperclassRefactoring) {
+		return new LinkedHashSet<UMLClass>(extractSuperclassRefactoring.subclassSet);
 	}
 }
