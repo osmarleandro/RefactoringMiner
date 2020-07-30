@@ -172,7 +172,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
-		return this.fetchAndCreateNewRevsWalk(repository, null);
+		return commitsFilter.fetchAndCreateNewRevsWalk(this, repository);
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
@@ -282,6 +282,10 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public RevWalk fetchAndCreateNewRevsWalk(GitServiceImpl gitServiceImpl, Repository repository) throws Exception {
+			return gitServiceImpl.fetchAndCreateNewRevsWalk(repository, null);
 		}
 	}
 
