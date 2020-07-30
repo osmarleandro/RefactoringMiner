@@ -64,6 +64,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		return RefactoringType.MERGE_VARIABLE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
