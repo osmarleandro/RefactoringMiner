@@ -25,10 +25,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private LocationInfo locationInfo;
 	private String name;
 	private String visibility;
-	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	boolean isAbstract;
+	List<UMLParameter> parameters;
 	private String className;
-	private boolean isConstructor;
+	boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
@@ -294,6 +294,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				equalTypeParameters(operation);
 	}
 
+	@Override
 	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
 		if(!(this.isConstructor && operation.isConstructor || equivalentName(operation)))
 			return false;
@@ -340,7 +341,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return true;
 	}
 
-	private boolean equivalentName(UMLOperation operation) {
+	boolean equivalentName(UMLOperation operation) {
 		return this.name.equals(operation.name) || equivalentNames(this, operation) || equivalentNames(operation, this);
 	}
 
@@ -670,7 +671,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters(operation);
 	}
 
-	private boolean equalTypeParameters(UMLOperation operation) {
+	boolean equalTypeParameters(UMLOperation operation) {
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
