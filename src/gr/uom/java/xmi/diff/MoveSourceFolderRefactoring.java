@@ -92,4 +92,10 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getInlinedOperationCodeRange() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
