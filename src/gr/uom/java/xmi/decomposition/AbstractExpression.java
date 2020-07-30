@@ -31,7 +31,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
 	private List<String> arguments;
-	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
+	List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
     
     public AbstractExpression(CompilationUnit cu, String filePath, Expression expression, CodeElementType codeElementType) {
@@ -163,11 +163,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 	@Override
 	public List<String> getArguments() {
 		return arguments;
-	}
-
-	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
-		return ternaryOperatorExpressions;
 	}
 
 	@Override
