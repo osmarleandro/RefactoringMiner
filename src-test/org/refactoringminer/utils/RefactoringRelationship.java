@@ -1,8 +1,11 @@
 package org.refactoringminer.utils;
 
 import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 public class RefactoringRelationship implements Comparable<RefactoringRelationship> {
 
@@ -141,7 +144,19 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return new GroupKey(refactoringType, getMainEntity());
   }
 
-  public static class GroupKey implements Comparable<GroupKey> {
+  public RefactoringSet add(RefactoringSet refactoringSet) {
+    refactoringSet.refactorings.add(this);
+    GroupKey groupKey = getGroupKey();
+    Set<RefactoringRelationship> group = refactoringSet.refactoringGroups.get(groupKey);
+    if (group == null) {
+        group = new HashSet<>();
+        refactoringSet.refactoringGroups.put(groupKey, group);
+    }
+    group.add(this);
+    return refactoringSet;
+}
+
+public static class GroupKey implements Comparable<GroupKey> {
     private final RefactoringType refactoringType;
     private final String mainEntity;
 

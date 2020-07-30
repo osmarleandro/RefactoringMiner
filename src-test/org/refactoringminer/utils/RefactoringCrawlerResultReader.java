@@ -18,7 +18,7 @@ public class RefactoringCrawlerResultReader {
     try {
       RefactoringSet result = new RefactoringSet(project, revision);
       for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
-        result.add(r.toRefactoringRelationship());
+        r.toRefactoringRelationship().add(result);
       }
       return result;
     } catch (Exception e) {

@@ -14,14 +14,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 public class RefactoringSet {
 
     private final String project;
     private final String revision;
-    private final Set<RefactoringRelationship> refactorings;
-    private final Map<RefactoringRelationship.GroupKey, Set<RefactoringRelationship>> refactoringGroups;
+    final Set<RefactoringRelationship> refactorings;
+    final Map<RefactoringRelationship.GroupKey, Set<RefactoringRelationship>> refactoringGroups;
 
     public RefactoringSet(String project, String revision) {
         super();
@@ -48,24 +47,12 @@ public class RefactoringSet {
     }
 
     public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
-        return add(new RefactoringRelationship(type, entityBefore, entityAfter));
-    }
-
-    public RefactoringSet add(RefactoringRelationship r) {
-        this.refactorings.add(r);
-        GroupKey groupKey = r.getGroupKey();
-        Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
-        if (group == null) {
-            group = new HashSet<>();
-            refactoringGroups.put(groupKey, group);
-        }
-        group.add(r);
-        return this;
+        return new RefactoringRelationship(type, entityBefore, entityAfter).add(this);
     }
 
     public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
-            this.add(r);
+            r.add(this);
         }
         return this;
     }

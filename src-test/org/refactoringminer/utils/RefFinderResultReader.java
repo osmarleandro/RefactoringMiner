@@ -20,7 +20,7 @@ public class RefFinderResultReader {
         try {
             RefactoringSet result = new RefactoringSet(project, revision);
             for (RefactoringRelationship r : readFolder(folderPath)) {
-                result.add(r);
+                r.add(result);
             }
             return result;
         } catch (Exception e) {
