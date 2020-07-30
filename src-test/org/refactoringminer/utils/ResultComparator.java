@@ -106,7 +106,7 @@ public class ResultComparator {
                     } else {
                         boolean ignoreFp = 
                             ignoreMoveToMovedType && isMoveToMovedType(r, expectedUnfiltered) ||
-                            ignoreMoveToRenamedType && isMoveToRenamedType(r, expectedUnfiltered) ||
+                            ignoreMoveToRenamedType && r.isMoveToRenamedType(expectedUnfiltered) ||
                             ignorePullUpToExtractedSupertype && isPullUpToExtractedSupertype(r, expectedUnfiltered);
                         if (!ignoreFp) {
                             falsePositives.add(r);
@@ -185,7 +185,7 @@ public class ResultComparator {
                             if (label == "FP" && isPullUpToExtractedSupertype(r, expectedUnfiltered)) {
                                 out.print("<ES>");
                             }
-                            if (label == "FP" && isMoveToRenamedType(r, expectedUnfiltered)) {
+                            if (label == "FP" && r.isMoveToRenamedType(expectedUnfiltered)) {
                                 out.print("<RT>");
                             }
                             if (label == "FP" && isMoveToMovedType(r, expectedUnfiltered)) {
@@ -233,18 +233,6 @@ public class ResultComparator {
         return false;
     }
 
-    private boolean isMoveToRenamedType(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
-                return true;
-            }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
     private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
