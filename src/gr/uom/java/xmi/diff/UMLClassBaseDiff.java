@@ -44,7 +44,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLAttribute> removedAttributes;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
 	private boolean visibilityChanged;
-	private String oldVisibility;
+	protected String oldVisibility;
 	private String newVisibility;
 	private boolean abstractionChanged;
 	private boolean oldAbstraction;
@@ -308,10 +308,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void setVisibilityChanged(boolean visibilityChanged) {
 		this.visibilityChanged = visibilityChanged;
-	}
-
-	private void setOldVisibility(String oldVisibility) {
-		this.oldVisibility = oldVisibility;
 	}
 
 	private void setNewVisibility(String newVisibility) {

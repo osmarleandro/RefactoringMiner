@@ -25,4 +25,8 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		sb.append("\n");
 		return sb.toString();
 	}
+
+	private void setOldVisibility(String oldVisibility) {
+		this.oldVisibility = oldVisibility;
+	}
 }
