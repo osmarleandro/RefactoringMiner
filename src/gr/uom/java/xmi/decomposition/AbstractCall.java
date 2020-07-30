@@ -2,6 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -434,6 +435,25 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
+	}
+
+	protected Set<String> subExpressionIntersection(OperationInvocation other) {
+		Set<String> subExpressions1 = this.subExpressions();
+		Set<String> subExpressions2 = other.subExpressions();
+		Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
+		intersection.retainAll(subExpressions2);
+		if(subExpressions1.size() == subExpressions2.size()) {
+			Iterator<String> it1 = subExpressions1.iterator();
+			Iterator<String> it2 = subExpressions2.iterator();
+			while(it1.hasNext()) {
+				String subExpression1 = it1.next();
+				String subExpression2 = it2.next();
+				if(!intersection.contains(subExpression1) && differInThisDot(subExpression1, subExpression2)) {
+					intersection.add(subExpression1);
+				}
+			}
+		}
+		return intersection;
 	}
 
 	public enum StatementCoverageType {
