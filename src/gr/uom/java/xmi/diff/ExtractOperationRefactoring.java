@@ -19,14 +19,14 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
-	private UMLOperation extractedOperation;
+	public UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
-	private UMLOperation sourceOperationAfterExtraction;
-	private List<OperationInvocation> extractedOperationInvocations;
+	public UMLOperation sourceOperationAfterExtraction;
+	public List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	public Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
+	public UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
