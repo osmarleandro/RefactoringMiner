@@ -128,4 +128,10 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public boolean isNumeric(String str) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

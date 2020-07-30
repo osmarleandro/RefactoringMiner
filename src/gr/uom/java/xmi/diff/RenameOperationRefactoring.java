@@ -53,6 +53,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return sourceClassName.equals(targetClassName) || targetIsAnonymousInsideSource ? sourceClassName : targetClassName;
 	}
 
+	@Override
 	private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;

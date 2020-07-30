@@ -75,4 +75,10 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 				.setCodeElement(addedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public boolean isNumeric(String str) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

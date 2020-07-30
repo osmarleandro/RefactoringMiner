@@ -135,4 +135,10 @@ public class InlineVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public boolean isNumeric(String str) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
