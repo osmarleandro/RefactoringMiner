@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -65,7 +64,7 @@ import org.slf4j.LoggerFactory;
 
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	public Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
@@ -80,41 +79,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 	
-	private void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
-		int commitsCount = 0;
-		int errorCommitsCount = 0;
-		int refactoringsCount = 0;
-
-		File metadataFolder = repository.getDirectory();
-		File projectFolder = metadataFolder.getParentFile();
-		String projectName = projectFolder.getName();
-		
-		long time = System.currentTimeMillis();
-		while (i.hasNext()) {
-			RevCommit currentCommit = i.next();
-			try {
-				List<Refactoring> refactoringsAtRevision = detectRefactorings(gitService, repository, handler, projectFolder, currentCommit);
-				refactoringsCount += refactoringsAtRevision.size();
-				
-			} catch (Exception e) {
-				logger.warn(String.format("Ignored revision %s due to error", currentCommit.getId().getName()), e);
-				handler.handleException(currentCommit.getId().getName(),e);
-				errorCommitsCount++;
-			}
-
-			commitsCount++;
-			long time2 = System.currentTimeMillis();
-			if ((time2 - time) > 20000) {
-				time = time2;
-				logger.info(String.format("Processing %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
-			}
-		}
-
-		handler.onFinish(refactoringsCount, commitsCount, errorCommitsCount);
-		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
-	}
-
-	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
+	public List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
 		List<Refactoring> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
 		List<String> filePathsBefore = new ArrayList<String>();
@@ -322,7 +287,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		RevWalk walk = gitService.createAllRevsWalk(repository, branch);
 		try {
-			detect(gitService, repository, handler, walk.iterator());
+			gitService.detect(this, repository, handler, walk.iterator());
 		} finally {
 			walk.dispose();
 		}
@@ -338,7 +303,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		RevWalk walk = gitService.fetchAndCreateNewRevsWalk(repository);
 		try {
-			detect(gitService, repository, handler, walk.iterator());
+			gitService.detect(this, repository, handler, walk.iterator());
 		} finally {
 			walk.dispose();
 		}
@@ -415,7 +380,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		
 		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenTags(repository, startTag, endTag);
-		detect(gitService, repository, handler, walk.iterator());
+		gitService.detect(this, repository, handler, walk.iterator());
 	}
 
 	@Override
@@ -429,7 +394,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		};
 		
 		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenCommits(repository, startCommitId, endCommitId);
-		detect(gitService, repository, handler, walk.iterator());
+		gitService.detect(this, repository, handler, walk.iterator());
 	}
 
 	@Override
