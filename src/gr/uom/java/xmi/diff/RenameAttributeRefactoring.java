@@ -47,6 +47,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.RENAME_ATTRIBUTE;
 	}
