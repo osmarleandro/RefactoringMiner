@@ -139,4 +139,10 @@ public class ObjectCreation extends AbstractCall {
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
+
+	private boolean argumentIsAssigned(String statement) {
+		return getArguments().size() == 1 && statement.contains("=") && statement.endsWith(";\n") &&
+				//length()-2 to remove ";\n" from the end of the assignment statement, indexOf("=")+1 to remove the left hand side of the assignment
+				equalsIgnoringExtraParenthesis(getArguments().get(0), statement.substring(statement.indexOf("=")+1, statement.length()-2));
+	}
 }
