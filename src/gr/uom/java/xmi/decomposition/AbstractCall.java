@@ -103,6 +103,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return getArguments().equals(call.getArguments());
 	}
 
+	@Override
 	public boolean identicalOrReplacedArguments(AbstractCall call, Set<Replacement> replacements) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
