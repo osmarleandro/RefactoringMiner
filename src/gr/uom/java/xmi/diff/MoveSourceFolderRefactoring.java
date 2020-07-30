@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
 	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
-	private RenamePattern pattern;
+	public RenamePattern pattern;
 	
 	public MoveSourceFolderRefactoring(RenamePattern pattern) {
 		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
@@ -32,6 +32,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		return movedClassesToAnotherSourceFolder;
 	}
 
+	@Override
 	public RenamePattern getPattern() {
 		return pattern;
 	}
