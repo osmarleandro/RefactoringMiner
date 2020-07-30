@@ -27,7 +27,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
-	private List<String> subExpressions = new ArrayList<String>();
+	List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
@@ -267,27 +267,6 @@ public class OperationInvocation extends AbstractCall {
     			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
-    public boolean compatibleExpression(OperationInvocation other) {
-    	if(this.expression != null && other.expression != null) {
-    		if(this.expression.startsWith("new ") && !other.expression.startsWith("new "))
-    			return false;
-    		if(!this.expression.startsWith("new ") && other.expression.startsWith("new "))
-    			return false;
-    	}
-    	if(this.expression != null && this.expression.startsWith("new ") && other.expression == null)
-    		return false;
-    	if(other.expression != null && other.expression.startsWith("new ") && this.expression == null)
-    		return false;
-    	if(this.subExpressions.size() > 1 || other.subExpressions.size() > 1) {
-    		Set<String> intersection = subExpressionIntersection(other);
-    		int thisUnmatchedSubExpressions = this.subExpressions().size() - intersection.size();
-    		int otherUnmatchedSubExpressions = other.subExpressions().size() - intersection.size();
-    		if(thisUnmatchedSubExpressions > intersection.size() || otherUnmatchedSubExpressions > intersection.size())
-    			return false;
-    	}
-    	return true;
-    }
-
     public boolean containsVeryLongSubExpression() {
     	for(String expression : subExpressions) {
     		if(expression.length() > 100 && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(expression)) {
@@ -308,7 +287,7 @@ public class OperationInvocation extends AbstractCall {
     	return intersection;
     }
 
-    private Set<String> subExpressionIntersection(OperationInvocation other) {
+    Set<String> subExpressionIntersection(OperationInvocation other) {
     	Set<String> subExpressions1 = this.subExpressions();
     	Set<String> subExpressions2 = other.subExpressions();
     	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
@@ -355,7 +334,7 @@ public class OperationInvocation extends AbstractCall {
 		return false;
 	}
 
-	private Set<String> subExpressions() {
+	Set<String> subExpressions() {
 		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);
 		String thisExpression = this.expression;
 		if(thisExpression != null) {
