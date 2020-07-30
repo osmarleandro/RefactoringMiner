@@ -176,27 +176,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception {
-		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
-		for (Ref ref : repository.getRefDatabase().getRefs()) {
-			String refName = ref.getName();
-			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-				currentRemoteRefs.add(ref.getObjectId());
-			}
-		}
-		
-		List<TrackingRefUpdate> newRemoteRefs = this.fetch(repository);
-		
-		RevWalk walk = new RevWalk(repository);
-		for (TrackingRefUpdate newRef : newRemoteRefs) {
-			if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
-				walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
-			}
-		}
-		for (ObjectId oldRef : currentRemoteRefs) {
-			walk.markUninteresting(walk.parseCommit(oldRef));
-		}
-		walk.setRevFilter(commitsFilter);
-		return walk;
+		return commitsFilter.fetchAndCreateNewRevsWalk(this, repository, branch);
 	}
 
 	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
@@ -282,6 +262,30 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public RevWalk fetchAndCreateNewRevsWalk(GitServiceImpl gitServiceImpl, Repository repository, String branch) throws Exception {
+			List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
+			for (Ref ref : repository.getRefDatabase().getRefs()) {
+				String refName = ref.getName();
+				if (refName.startsWith(GitServiceImpl.REMOTE_REFS_PREFIX)) {
+					currentRemoteRefs.add(ref.getObjectId());
+				}
+			}
+			
+			List<TrackingRefUpdate> newRemoteRefs = gitServiceImpl.fetch(repository);
+			
+			RevWalk walk = new RevWalk(repository);
+			for (TrackingRefUpdate newRef : newRemoteRefs) {
+				if (branch == null || newRef.getLocalName().endsWith("/" + branch)) {
+					walk.markStart(walk.parseCommit(newRef.getNewObjectId()));
+				}
+			}
+			for (ObjectId oldRef : currentRemoteRefs) {
+				walk.markUninteresting(walk.parseCommit(oldRef));
+			}
+			walk.setRevFilter(this);
+			return walk;
 		}
 	}
 
