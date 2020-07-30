@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	protected List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -38,14 +38,6 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<AbstractStatement> getStatements() {
 		return statementList;
-	}
-
-	public void addExpression(AbstractExpression expression) {
-		//an expression has the same index and depth as the composite statement it belong to
-		expression.setDepth(this.getDepth());
-		expression.setIndex(this.getIndex());
-		expressionList.add(expression);
-		expression.setOwner(this);
 	}
 
 	public List<AbstractExpression> getExpressions() {
