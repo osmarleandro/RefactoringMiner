@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import java.util.List;
+
 public class WildcardType extends UMLType {
 	private UMLType bound;
 	private boolean upperBound;
@@ -71,5 +73,9 @@ public class WildcardType extends UMLType {
 			return bound.getClassType();
 		}
 		return "Object";
+	}
+
+	public List<UMLAnnotation> getAnnotations() {
+		return annotations;
 	}
 }

@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class LeafType extends UMLType {
@@ -150,5 +151,9 @@ public class LeafType extends UMLType {
 		sb.append(classType);
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
+	}
+
+	public List<UMLAnnotation> getAnnotations() {
+		return annotations;
 	}
 }

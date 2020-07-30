@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import java.util.List;
+
 public class CompositeType extends UMLType {
 	private UMLType leftType;
 	private LeafType rightType;
@@ -61,5 +63,9 @@ public class CompositeType extends UMLType {
 	@Override
 	public String getClassType() {
 		return rightType.getClassType();
+	}
+
+	public List<UMLAnnotation> getAnnotations() {
+		return annotations;
 	}
 }
