@@ -11,16 +11,12 @@ public class ListCompositeType extends UMLType {
 			this.operand = operand;
 		}
 	}
-	private List<UMLType> types = new ArrayList<UMLType>();
+	List<UMLType> types = new ArrayList<UMLType>();
 	private Kind kind;
 
 	public ListCompositeType(List<UMLType> types, Kind kind) {
 		this.types = types;
 		this.kind = kind;
-	}
-
-	public List<UMLType> getTypes() {
-		return types;
 	}
 
 	public Kind getKind() {
