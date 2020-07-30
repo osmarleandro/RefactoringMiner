@@ -24,7 +24,7 @@ public abstract class AbstractCodeMapping {
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<Replacement> replacements;
+	protected Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
@@ -82,19 +82,6 @@ public abstract class AbstractCodeMapping {
 		ObjectCreation creation2 = fragment2.creationCoveringEntireFragment();
 		if(creation1 != null && creation2 != null) {
 			return creation1.actualString().equals(creation2.actualString());
-		}
-		return false;
-	}
-
-	private boolean containsIdenticalOrCompositeReplacement() {
-		for(Replacement r : replacements) {
-			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
-					r.getBefore().equals(r.getAfter())) {
-				return true;
-			}
-			else if(r.getType().equals(ReplacementType.COMPOSITE)) {
-				return true;
-			}
 		}
 		return false;
 	}

@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -114,5 +116,18 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return invocation1.callChainIntersection(invocation2);
 		}
 		return new LinkedHashSet<String>();
+	}
+
+	private boolean containsIdenticalOrCompositeReplacement() {
+		for(Replacement r : replacements) {
+			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
+					r.getBefore().equals(r.getAfter())) {
+				return true;
+			}
+			else if(r.getType().equals(ReplacementType.COMPOSITE)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
