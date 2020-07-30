@@ -158,6 +158,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
 
+	@Override
 	public ObjectCreation creationCoveringEntireFragment() {
 		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
 		String statement = getString();
@@ -256,7 +257,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+	public boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
