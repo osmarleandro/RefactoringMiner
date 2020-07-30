@@ -252,13 +252,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call, replacements) &&
-				identicalName(call) &&
-				!equalArguments(call) &&
-				getArguments().size() != call.getArguments().size();
-	}
-
 	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
