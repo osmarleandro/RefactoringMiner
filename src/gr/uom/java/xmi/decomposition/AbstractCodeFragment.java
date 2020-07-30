@@ -290,6 +290,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return getString().startsWith("throw new ");
 	}
 
+	@Override
 	public boolean countableStatement() {
 		String statement = getString();
 		//covers the cases of lambda expressions having an expression as their body
