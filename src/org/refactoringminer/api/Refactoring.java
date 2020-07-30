@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.core.util.BufferRecyclers;
 
+import gr.uom.java.xmi.diff.CodeRange;
+
 public interface Refactoring extends Serializable, CodeRangeProvider {
 
 	public RefactoringType getRefactoringType();
@@ -39,4 +41,9 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	/**
+	 * @return the code range of the target method in the <b>child</b> commit
+	 */
+	CodeRange getTargetOperationCodeRangeAfterRename();
 }

@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class RenameOperationRefactoring implements Refactoring {
 	private UMLOperation originalOperation;
-	private UMLOperation renamedOperation;
+	public UMLOperation renamedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 	
@@ -94,6 +94,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
+	@Override
 	public CodeRange getTargetOperationCodeRangeAfterRename() {
 		return renamedOperation.codeRange();
 	}

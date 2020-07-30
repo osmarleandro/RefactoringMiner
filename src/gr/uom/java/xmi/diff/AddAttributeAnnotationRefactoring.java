@@ -128,4 +128,10 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		return true;
 	}
+
+	@Override
+	public CodeRange getTargetOperationCodeRangeAfterRename() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
