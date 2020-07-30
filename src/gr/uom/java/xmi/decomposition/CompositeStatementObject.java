@@ -16,7 +16,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
 
-	private List<AbstractStatement> statementList;
+	protected List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
@@ -282,57 +282,6 @@ public class CompositeStatementObject extends AbstractStatement {
 					List<ObjectCreation> list = new ArrayList<ObjectCreation>();
 					list.addAll(expressionMap.get(key));
 					map.put(key, list);
-				}
-			}
-		}
-		return map;
-	}
-
-	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
-		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
-		map.putAll(getMethodInvocationMap());
-		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
-				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
-				for(String key : compositeMap.keySet()) {
-					if(map.containsKey(key)) {
-						map.get(key).addAll(compositeMap.get(key));
-					}
-					else {
-						List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-						list.addAll(compositeMap.get(key));
-						map.put(key, list);
-					}
-				}
-			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
-				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap();
-				for(String key : statementMap.keySet()) {
-					if(map.containsKey(key)) {
-						map.get(key).addAll(statementMap.get(key));
-					}
-					else {
-						List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-						list.addAll(statementMap.get(key));
-						map.put(key, list);
-					}
-				}
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
-					if(lambda.getBody() != null) {
-						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
-						for(String key : lambdaMap.keySet()) {
-							if(map.containsKey(key)) {
-								map.get(key).addAll(lambdaMap.get(key));
-							}
-							else {
-								List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-								list.addAll(lambdaMap.get(key));
-								map.put(key, list);
-							}
-						}
-					}
 				}
 			}
 		}
