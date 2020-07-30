@@ -397,4 +397,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	@Override
+	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
