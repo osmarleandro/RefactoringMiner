@@ -12,7 +12,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
-	private UMLClass extractedClass;
+	public UMLClass extractedClass;
 	private Set<UMLClass> subclassSet;
 	
 	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
@@ -34,10 +34,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(extractedClass.isInterface())
-			return RefactoringType.EXTRACT_INTERFACE;
-		else
-			return RefactoringType.EXTRACT_SUPERCLASS;
+		return extractedClass.getRefactoringType();
 	}
 
 	public UMLClass getExtractedClass() {
