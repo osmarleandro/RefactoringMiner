@@ -133,4 +133,10 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
+
+	@Override
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
