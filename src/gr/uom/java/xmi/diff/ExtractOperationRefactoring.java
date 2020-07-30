@@ -241,4 +241,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getExtractedVariableDeclarationCodeRange() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

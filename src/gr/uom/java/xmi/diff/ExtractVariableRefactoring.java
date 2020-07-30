@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	public VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
@@ -68,6 +68,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
 	 */
+	@Override
 	public CodeRange getExtractedVariableDeclarationCodeRange() {
 		return variableDeclaration.codeRange();
 	}
