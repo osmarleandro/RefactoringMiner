@@ -48,4 +48,9 @@ public abstract class RefactoringHandler {
 	 * @param errorCommitsCount Total number of commits not analyzed due to errors.
 	 */
 	public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {}
+
+	@Override
+	public void handleException(String commitId, Exception e) {
+	    this.ex = e;
+	  }
 }
