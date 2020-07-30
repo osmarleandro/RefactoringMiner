@@ -40,22 +40,6 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if(this == o) {
-			return true;
-		}
-
-		if (o instanceof LeafType) {
-			LeafType typeObject = (LeafType)o;
-
-			if(equalClassType(typeObject) && equalTypeArgumentsAndArrayDimension(typeObject)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
 	public boolean equalsQualified(UMLType type) {
 		if(this.getClass() == type.getClass()) {
 			if(this.classType.equals(((LeafType)type).classType) && equalTypeArgumentsAndArrayDimension(type)) {
