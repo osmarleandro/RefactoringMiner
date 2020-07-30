@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 	private UMLAnonymousClass anonymousClass;
@@ -74,5 +75,11 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 				.setDescription("added type declaration")
 				.setCodeElement(addedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public Set<VariableDeclaration> getMergedVariables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
