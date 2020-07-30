@@ -63,9 +63,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
-	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
-	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
+	protected Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
+	protected Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
+	protected Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
 	public UMLClassBaseDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
@@ -592,62 +592,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return refactorings;
 	}
 
-	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : mapper.getRefactorings()) {
-			if(refactorings.contains(refactoring)) {
-				//special handling for replacing rename variable refactorings having statement mapping information
-				int index = refactorings.indexOf(refactoring);
-				refactorings.remove(index);
-				refactorings.add(index, refactoring);
-			}
-			else {
-				refactorings.add(refactoring);
-			}
-		}
-		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
-			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
-				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
-				if(before.contains(".") && after.contains(".")) {
-					String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
-					String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
-					if(prefix1.equals(prefix2)) {
-						before = before.substring(prefix1.length(), before.length());
-						after = after.substring(prefix2.length(), after.length());
-					}
-				}
-				Replacement renamePattern = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
-				if(renameMap.containsKey(renamePattern)) {
-					renameMap.get(renamePattern).add(candidate);
-				}
-				else {
-					Set<CandidateAttributeRefactoring> set = new LinkedHashSet<CandidateAttributeRefactoring>();
-					set.add(candidate);
-					renameMap.put(renamePattern, set);
-				}
-			}
-		}
-		for(CandidateMergeVariableRefactoring candidate : mapper.getCandidateAttributeMerges()) {
-			Set<String> before = new LinkedHashSet<String>();
-			for(String mergedVariable : candidate.getMergedVariables()) {
-				before.add(PrefixSuffixUtils.normalize(mergedVariable));
-			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
-			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
-			processMerge(mergeMap, merge, candidate);
-		}
-		for(CandidateSplitVariableRefactoring candidate : mapper.getCandidateAttributeSplits()) {
-			Set<String> after = new LinkedHashSet<String>();
-			for(String splitVariable : candidate.getSplitVariables()) {
-				after.add(PrefixSuffixUtils.normalize(splitVariable));
-			}
-			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
-			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
-			processSplit(splitMap, split, candidate);
-		}
-	}
-
-	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
+	protected boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
@@ -822,7 +767,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
+	protected void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
 			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
 		MergeVariableReplacement mergeToBeRemoved = null;
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
@@ -862,7 +807,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		mergeMap.put(newMerge, set);
 	}
 
-	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
+	protected void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
 			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
 		SplitVariableReplacement splitToBeRemoved = null;
 		for(SplitVariableReplacement split : splitMap.keySet()) {
