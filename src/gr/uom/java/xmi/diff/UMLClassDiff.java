@@ -2,7 +2,9 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
@@ -194,5 +196,11 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 
 	public boolean matches(UMLType type) {
 		return this.className.endsWith("." + type.getClassType());
+	}
+
+	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
+		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
+		common.retainAll(other.nextClass.getImplementedInterfaces());
+		return common;
 	}
 }
