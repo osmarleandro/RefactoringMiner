@@ -256,4 +256,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	public VariableDeclaration getVariableDeclaration() {
 		return this;
 	}
+
+	@Override
+	public boolean isNormalAnnotation() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
