@@ -158,4 +158,10 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
 	}
+
+	@Override
+	public int compareTo(UMLOperation operation) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
