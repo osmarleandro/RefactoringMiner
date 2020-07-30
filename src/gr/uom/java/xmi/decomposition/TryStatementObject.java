@@ -42,4 +42,8 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public void addVariableDeclaration(VariableDeclaration declaration) {
+		this.variableDeclarations.add(declaration);
+	}
 }
