@@ -42,4 +42,13 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public List<String> getInfixOperators() {
+		List<String> infixOperators = new ArrayList<String>();
+		for(AbstractExpression expression : expressionList) {
+			infixOperators.addAll(expression.getInfixOperators());
+		}
+		return infixOperators;
+	}
 }

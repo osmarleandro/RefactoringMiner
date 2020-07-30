@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	protected List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -204,15 +204,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			typeLiterals.addAll(expression.getTypeLiterals());
 		}
 		return typeLiterals;
-	}
-
-	@Override
-	public List<String> getInfixOperators() {
-		List<String> infixOperators = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			infixOperators.addAll(expression.getInfixOperators());
-		}
-		return infixOperators;
 	}
 
 	@Override
