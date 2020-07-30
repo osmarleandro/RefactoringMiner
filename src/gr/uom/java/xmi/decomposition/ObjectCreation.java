@@ -15,8 +15,8 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
 	private UMLType type;
-	private String anonymousClassDeclaration;
-	private boolean isArray = false;
+	String anonymousClassDeclaration;
+	boolean isArray = false;
 	private volatile int hashCode = 0;
 	
 	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
@@ -116,19 +116,7 @@ public class ObjectCreation extends AbstractCall {
     	return hashCode;
     }
 
-    public boolean identicalArrayInitializer(ObjectCreation other) {
-    	if(this.isArray && other.isArray) {
-    		if(this.anonymousClassDeclaration != null && other.anonymousClassDeclaration != null) {
-    			return this.anonymousClassDeclaration.equals(other.anonymousClassDeclaration);
-    		}
-    		else if(this.anonymousClassDeclaration == null && other.anonymousClassDeclaration == null) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-
-	public double normalizedNameDistance(AbstractCall call) {
+    public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);

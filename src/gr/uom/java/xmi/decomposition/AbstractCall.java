@@ -436,6 +436,18 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return info.codeRange();
 	}
 
+	public boolean identicalArrayInitializer(ObjectCreation other) {
+		if(this.isArray && other.isArray) {
+			if(this.anonymousClassDeclaration != null && other.anonymousClassDeclaration != null) {
+				return this.anonymousClassDeclaration.equals(other.anonymousClassDeclaration);
+			}
+			else if(this.anonymousClassDeclaration == null && other.anonymousClassDeclaration == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public enum StatementCoverageType {
 		NONE, ONLY_CALL, RETURN_CALL, THROW_CALL, CAST_CALL, VARIABLE_DECLARATION_INITIALIZER_CALL;
 	}
