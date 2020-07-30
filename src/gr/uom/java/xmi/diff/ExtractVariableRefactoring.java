@@ -34,6 +34,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return RefactoringType.EXTRACT_VARIABLE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
