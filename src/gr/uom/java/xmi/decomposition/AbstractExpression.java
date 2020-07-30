@@ -8,12 +8,11 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
 	
 	private String expression;
-	private LocationInfo locationInfo;
+	LocationInfo locationInfo;
 	private CompositeStatementObject owner;
 	private List<String> variables;
 	private List<String> types;
@@ -198,9 +197,5 @@ public class AbstractExpression extends AbstractCodeFragment {
 			}
 		}
 		return null;
-	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
 	}
 }
