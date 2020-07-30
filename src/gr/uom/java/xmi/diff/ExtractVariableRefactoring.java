@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class ExtractVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
@@ -46,6 +46,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return operationBefore;
 	}
 
+	@Override
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
 	}
