@@ -38,4 +38,8 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.MOVE_ATTRIBUTE;
+	}
 }
