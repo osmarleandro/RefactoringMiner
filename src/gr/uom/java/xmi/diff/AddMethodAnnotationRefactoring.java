@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class AddMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
@@ -127,5 +128,11 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		} else if (!operationBefore.equals(other.operationBefore))
 			return false;
 		return true;
+	}
+
+	@Override
+	public VariableDeclaration getOldAttribute() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
