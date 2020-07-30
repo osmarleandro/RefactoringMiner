@@ -128,4 +128,8 @@ public class MoveAttributeRefactoring implements Refactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.PULL_UP_ATTRIBUTE;
+	}
 }
