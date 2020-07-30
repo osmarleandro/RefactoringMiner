@@ -11,8 +11,8 @@ public class ListCompositeType extends UMLType {
 			this.operand = operand;
 		}
 	}
-	private List<UMLType> types = new ArrayList<UMLType>();
-	private Kind kind;
+	List<UMLType> types = new ArrayList<UMLType>();
+	Kind kind;
 
 	public ListCompositeType(List<UMLType> types, Kind kind) {
 		this.types = types;
@@ -25,15 +25,6 @@ public class ListCompositeType extends UMLType {
 
 	public Kind getKind() {
 		return kind;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((kind == null) ? 0 : kind.hashCode());
-		result = prime * result + ((types == null) ? 0 : types.hashCode());
-		return result;
 	}
 
 	@Override
