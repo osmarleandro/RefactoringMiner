@@ -397,4 +397,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		}
 		return new LinkedHashMap<String, Set<String>>();
 	}
+
+	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
+		for(UMLAttribute originalAttribute : attributes) {
+			if(originalAttribute.equalsIgnoringChangedType(attribute))
+				return originalAttribute;
+		}
+		return null;
+	}
 }
