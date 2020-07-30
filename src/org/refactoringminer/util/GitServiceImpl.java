@@ -237,6 +237,7 @@ public class GitServiceImpl implements GitService {
 		}
 	}
 
+	@Override
 	private ObjectId getActualRefObjectId(Ref ref) {
 		if(ref.getPeeledObjectId() != null) {
 			return ref.getPeeledObjectId();

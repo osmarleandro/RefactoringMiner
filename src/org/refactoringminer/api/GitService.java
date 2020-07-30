@@ -3,6 +3,8 @@ package org.refactoringminer.api;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -44,4 +46,6 @@ public interface GitService {
 	void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws Exception;
 
 	Churn churn(Repository repository, RevCommit currentCommit) throws Exception;
+
+	ObjectId getActualRefObjectId(Ref ref);
 }
