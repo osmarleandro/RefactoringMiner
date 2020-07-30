@@ -25,7 +25,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
-	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
+	public Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
@@ -138,6 +138,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the inlined code fragment in the target method in the <b>child</b> commit
 	 */
+	@Override
 	public CodeRange getInlinedCodeRangeInTargetOperation() {
 		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
 	}
