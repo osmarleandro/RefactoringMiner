@@ -23,7 +23,6 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
-import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
@@ -326,34 +325,6 @@ public class OperationInvocation extends AbstractCall {
     	}
     	return intersection;
     }
-
-	private static boolean differInThisDot(String subExpression1, String subExpression2) {
-		if(subExpression1.length() < subExpression2.length()) {
-			String modified = subExpression1;
-			String previousCommonPrefix = "";
-			String commonPrefix = null;
-			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression2)).length() > previousCommonPrefix.length()) {
-				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
-				if(modified.equals(subExpression2)) {
-					return true;
-				}
-				previousCommonPrefix = commonPrefix;
-			}
-		}
-		else if(subExpression1.length() > subExpression2.length()) {
-			String modified = subExpression2;
-			String previousCommonPrefix = "";
-			String commonPrefix = null;
-			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression1)).length() > previousCommonPrefix.length()) {
-				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
-				if(modified.equals(subExpression1)) {
-					return true;
-				}
-				previousCommonPrefix = commonPrefix;
-			}
-		}
-		return false;
-	}
 
 	private Set<String> subExpressions() {
 		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);

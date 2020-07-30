@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.util.PrefixSuffixUtils;
+
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
@@ -413,6 +415,34 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		String parenthesizedS2 = "("+s2+")";
 		if(parenthesizedS2.equals(s1))
 			return true;
+		return false;
+	}
+
+	private static boolean differInThisDot(String subExpression1, String subExpression2) {
+		if(subExpression1.length() < subExpression2.length()) {
+			String modified = subExpression1;
+			String previousCommonPrefix = "";
+			String commonPrefix = null;
+			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression2)).length() > previousCommonPrefix.length()) {
+				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
+				if(modified.equals(subExpression2)) {
+					return true;
+				}
+				previousCommonPrefix = commonPrefix;
+			}
+		}
+		else if(subExpression1.length() > subExpression2.length()) {
+			String modified = subExpression2;
+			String previousCommonPrefix = "";
+			String commonPrefix = null;
+			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression1)).length() > previousCommonPrefix.length()) {
+				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
+				if(modified.equals(subExpression1)) {
+					return true;
+				}
+				previousCommonPrefix = commonPrefix;
+			}
+		}
 		return false;
 	}
 
