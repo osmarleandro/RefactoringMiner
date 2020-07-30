@@ -19,8 +19,8 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
-	private UMLOperation targetOperationAfterInline;
+	public UMLOperation inlinedOperation;
+	public UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
@@ -44,6 +44,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		}
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
@@ -65,7 +66,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	private String getClassName() {
+	public String getClassName() {
 		return targetOperationAfterInline.getClassName();
 	}
 
