@@ -11,7 +11,7 @@ public class CandidateMergeVariableRefactoring {
 	private String newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	public Set<AbstractCodeMapping> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
 	private UMLAttribute newAttribute;
 
@@ -38,10 +38,6 @@ public class CandidateMergeVariableRefactoring {
 
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
-	}
-
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
 	}
 
 	public Set<UMLAttribute> getMergedAttributes() {
