@@ -16,7 +16,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration changedTypeAttribute;
 	private String classNameBefore;
-	private String classNameAfter;
+	public String classNameAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private Set<Refactoring> relatedRefactorings;
 	
@@ -50,6 +50,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return classNameBefore;
 	}
 
+	@Override
 	public String getClassNameAfter() {
 		return classNameAfter;
 	}
