@@ -1671,4 +1671,15 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public UMLModelDiff getModelDiff() {
 		return modelDiff;
 	}
+
+	protected void processAnonymousClasses() {
+		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
+			if(!nextClass.getAnonymousClassList().contains(umlAnonymousClass))
+				this.reportRemovedAnonymousClass(umlAnonymousClass);
+		}
+		for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
+			if(!originalClass.getAnonymousClassList().contains(umlAnonymousClass))
+				this.reportAddedAnonymousClass(umlAnonymousClass);
+		}
+	}
 }

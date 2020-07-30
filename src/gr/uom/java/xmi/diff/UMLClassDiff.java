@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
@@ -75,17 +74,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     	for(UMLOperation operation : nextClass.getOperations()) {
     		if(!originalClass.getOperations().contains(operation))
     			this.reportAddedOperation(operation);
-    	}
-	}
-
-	protected void processAnonymousClasses() {
-		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
-    		if(!nextClass.getAnonymousClassList().contains(umlAnonymousClass))
-    			this.reportRemovedAnonymousClass(umlAnonymousClass);
-    	}
-    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
-    		if(!originalClass.getAnonymousClassList().contains(umlAnonymousClass))
-    			this.reportAddedAnonymousClass(umlAnonymousClass);
     	}
 	}
 
