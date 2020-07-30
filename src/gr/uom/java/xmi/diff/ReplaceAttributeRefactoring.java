@@ -50,4 +50,11 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	/**
+	 * @return the code range of the target attribute in the <b>child</b> commit
+	 */
+	public CodeRange getTargetAttributeCodeRangeAfterMove() {
+		return movedAttribute.codeRange();
+	}
 }
