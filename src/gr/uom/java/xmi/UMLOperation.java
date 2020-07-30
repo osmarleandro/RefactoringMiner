@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	List<UMLParameter> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -354,6 +354,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
+	@Override
 	public List<UMLParameter> getParametersWithoutReturnType() {
 		List<UMLParameter> params = new ArrayList<UMLParameter>();
 		for(UMLParameter parameter : parameters) {
