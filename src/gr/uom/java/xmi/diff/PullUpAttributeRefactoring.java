@@ -38,4 +38,13 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 				.setCodeElement(movedAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public List<CodeRange> leftSide() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(originalAttribute.codeRange()
+				.setDescription("original attribute declaration")
+				.setCodeElement(originalAttribute.toString()));
+		return ranges;
+	}
 }
