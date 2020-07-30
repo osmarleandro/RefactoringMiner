@@ -527,4 +527,12 @@ public class OperationInvocation extends AbstractCall {
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
 	}
+
+	public Set<String> argumentIntersection(AbstractCall call) {
+		List<String> args1 = preprocessArguments(getArguments());
+		List<String> args2 = preprocessArguments(call.getArguments());
+		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
+		argumentIntersection.retainAll(args2);
+		return argumentIntersection;
+	}
 }
