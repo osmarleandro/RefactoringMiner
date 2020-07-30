@@ -101,19 +101,7 @@ public class GitServiceImpl implements GitService {
 
 	@Override
 	public Repository openRepository(String repositoryPath) throws Exception {
-	    File folder = new File(repositoryPath);
-	    Repository repository;
-	    if (folder.exists()) {
-	        RepositoryBuilder builder = new RepositoryBuilder();
-	        repository = builder
-	            .setGitDir(new File(folder, ".git"))
-	            .readEnvironment()
-	            .findGitDir()
-	            .build();
-	    } else {
-	        throw new FileNotFoundException(repositoryPath);
-	    }
-	    return repository;
+		return commitsFilter.openRepository(repositoryPath);
 	}
 
 	public void checkout(Repository repository, String commitId) throws Exception {
@@ -282,6 +270,22 @@ public class GitServiceImpl implements GitService {
 		@Override
 		public String toString() {
 			return "RegularCommitsFilter";
+		}
+
+		public Repository openRepository(String repositoryPath) throws Exception {
+		    File folder = new File(repositoryPath);
+		    Repository repository;
+		    if (folder.exists()) {
+		        RepositoryBuilder builder = new RepositoryBuilder();
+		        repository = builder
+		            .setGitDir(new File(folder, ".git"))
+		            .readEnvironment()
+		            .findGitDir()
+		            .build();
+		    } else {
+		        throw new FileNotFoundException(repositoryPath);
+		    }
+		    return repository;
 		}
 	}
 
