@@ -223,4 +223,10 @@ public class InlineOperationRefactoring implements Refactoring {
 		*/
 		return ranges;
 	}
+
+	@Override
+	public UMLOperation getSourceOperationBeforeExtraction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
