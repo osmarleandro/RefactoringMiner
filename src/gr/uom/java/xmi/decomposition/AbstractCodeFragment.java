@@ -116,6 +116,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
+	@Override
 	private static boolean quoteAfter(String afterMatch) {
 		if(afterMatch.contains("\"")) {
 			if(afterMatch.contains("+")) {
