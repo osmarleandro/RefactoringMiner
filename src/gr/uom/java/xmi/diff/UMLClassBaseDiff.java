@@ -384,14 +384,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return candidateAttributeSplits;
 	}
 
-	public boolean containsOperationWithTheSameSignatureInOriginalClass(UMLOperation operation) {
-		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			if(originalOperation.equalSignature(operation))
-				return true;
-		}
-		return false;
-	}
-
 	public boolean containsOperationWithTheSameSignatureInNextClass(UMLOperation operation) {
 		for(UMLOperation originalOperation : nextClass.getOperations()) {
 			if(originalOperation.equalSignature(operation))
