@@ -12,7 +12,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
 	
-	private String expression;
+	String expression;
 	private LocationInfo locationInfo;
 	private CompositeStatementObject owner;
 	private List<String> variables;
@@ -73,11 +73,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return getOwner();
 	}
 
-    public String getExpression() {
-    	return expression;
-    }
-
-	public String getString() {
+    public String getString() {
     	return toString();
     }
   
