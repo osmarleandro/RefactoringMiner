@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenamePackageRefactoring implements Refactoring {
 
-	private List<MoveClassRefactoring> moveClassRefactorings;
+	public List<MoveClassRefactoring> moveClassRefactorings;
 	private RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
@@ -56,6 +56,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
+	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
