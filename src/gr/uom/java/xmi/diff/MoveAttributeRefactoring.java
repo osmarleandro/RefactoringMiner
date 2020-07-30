@@ -38,6 +38,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MOVE_ATTRIBUTE;
 	}
