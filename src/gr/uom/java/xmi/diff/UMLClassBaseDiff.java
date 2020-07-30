@@ -902,15 +902,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		splitMap.put(newSplit, set);
 	}
 
-	public UMLAttribute findAttributeInOriginalClass(String attributeName) {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
-			if(attribute.getName().equals(attributeName)) {
-				return attribute;
-			}
-		}
-		return null;
-	}
-
 	public UMLAttribute findAttributeInNextClass(String attributeName) {
 		for(UMLAttribute attribute : nextClass.getAttributes()) {
 			if(attribute.getName().equals(attributeName)) {
