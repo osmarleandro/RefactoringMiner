@@ -11,7 +11,7 @@ public class ListCompositeType extends UMLType {
 			this.operand = operand;
 		}
 	}
-	private List<UMLType> types = new ArrayList<UMLType>();
+	List<UMLType> types = new ArrayList<UMLType>();
 	private Kind kind;
 
 	public ListCompositeType(List<UMLType> types, Kind kind) {
@@ -75,10 +75,5 @@ public class ListCompositeType extends UMLType {
 				sb.append(kind.operand);
 		}
 		return sb.toString();
-	}
-
-	@Override
-	public String getClassType() {
-		return types.get(types.size()-1).getClassType();
 	}
 }
