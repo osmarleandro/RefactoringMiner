@@ -42,4 +42,11 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public boolean isLoop() {
+		return this.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
+				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
+	}
 }
