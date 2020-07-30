@@ -34,6 +34,7 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
+	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MOVE_RENAME_CLASS;
 	}
