@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	public int compareTo(UMLClassBaseDiff other) {
+		return this.originalClass.getName().compareTo(other.originalClass.getName());
+	}
 }
