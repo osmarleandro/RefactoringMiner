@@ -459,24 +459,10 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectAtCommit(String gitURL, String commitId, RefactoringHandler handler, int timeout) {
-		ExecutorService service = Executors.newSingleThreadExecutor();
-		Future<?> f = null;
-		try {
-			Runnable r = () -> detectRefactorings(handler, gitURL, commitId);
-			f = service.submit(r);
-			f.get(timeout, TimeUnit.SECONDS);
-		} catch (TimeoutException e) {
-			f.cancel(true);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			service.shutdown();
-		}
+		handler.detectAtCommit(gitURL, commitId, this, timeout);
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
+	public List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
