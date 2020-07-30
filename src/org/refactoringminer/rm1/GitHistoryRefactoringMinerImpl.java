@@ -669,6 +669,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
+		return this.fetchAndCreateNewRevsWalk(repository, null);
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
+		return this.fetchAndCreateNewRevsWalk(repository, null);
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
+		return this.fetchAndCreateNewRevsWalk(repository, null);
+	}
+
+	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
+		return this.fetchAndCreateNewRevsWalk(repository, null);
+	}
+
 	private static final String GITHUB_URL = "https://github.com/";
 	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
