@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class AbstractExpression extends AbstractCodeFragment {
@@ -202,5 +203,37 @@ public class AbstractExpression extends AbstractCodeFragment {
 
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
+	}
+
+	public OperationInvocation invocationCoveringEntireFragment() {
+		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
+		String statement = getString();
+		for(String methodInvocation : methodInvocationMap.keySet()) {
+			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
+			for(OperationInvocation invocation : invocations) {
+				if((methodInvocation + ";\n").equals(statement) || methodInvocation.equals(statement)) {
+					invocation.coverage = StatementCoverageType.ONLY_CALL;
+					return invocation;
+				}
+				else if(("return " + methodInvocation + ";\n").equals(statement)) {
+					invocation.coverage = StatementCoverageType.RETURN_CALL;
+					return invocation;
+				}
+				else if(isCastExpressionCoveringEntireFragment(methodInvocation)) {
+					invocation.coverage = StatementCoverageType.CAST_CALL;
+					return invocation;
+				}
+				else if(expressionIsTheInitializerOfVariableDeclaration(methodInvocation)) {
+					invocation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
+					return invocation;
+				}
+				else if(invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.SUPER_CONSTRUCTOR_INVOCATION) ||
+						invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.CONSTRUCTOR_INVOCATION)) {
+					invocation.coverage = StatementCoverageType.ONLY_CALL;
+					return invocation;
+				}
+			}
+		}
+		return null;
 	}
 }

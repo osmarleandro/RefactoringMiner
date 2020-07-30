@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 
@@ -185,38 +184,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	public OperationInvocation invocationCoveringEntireFragment() {
-		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
-		String statement = getString();
-		for(String methodInvocation : methodInvocationMap.keySet()) {
-			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
-			for(OperationInvocation invocation : invocations) {
-				if((methodInvocation + ";\n").equals(statement) || methodInvocation.equals(statement)) {
-					invocation.coverage = StatementCoverageType.ONLY_CALL;
-					return invocation;
-				}
-				else if(("return " + methodInvocation + ";\n").equals(statement)) {
-					invocation.coverage = StatementCoverageType.RETURN_CALL;
-					return invocation;
-				}
-				else if(isCastExpressionCoveringEntireFragment(methodInvocation)) {
-					invocation.coverage = StatementCoverageType.CAST_CALL;
-					return invocation;
-				}
-				else if(expressionIsTheInitializerOfVariableDeclaration(methodInvocation)) {
-					invocation.coverage = StatementCoverageType.VARIABLE_DECLARATION_INITIALIZER_CALL;
-					return invocation;
-				}
-				else if(invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.SUPER_CONSTRUCTOR_INVOCATION) ||
-						invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.CONSTRUCTOR_INVOCATION)) {
-					invocation.coverage = StatementCoverageType.ONLY_CALL;
-					return invocation;
-				}
-			}
-		}
-		return null;
-	}
-
 	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
@@ -230,7 +197,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
-	private boolean isCastExpressionCoveringEntireFragment(String expression) {
+	protected boolean isCastExpressionCoveringEntireFragment(String expression) {
 		String statement = getString();
 		int index = statement.indexOf(expression + ";\n");
 		if(index != -1) {
@@ -256,7 +223,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
+	protected boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
