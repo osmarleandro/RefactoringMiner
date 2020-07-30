@@ -151,4 +151,12 @@ public class LeafType extends UMLType {
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
 	}
+
+	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
+		if(!this.isParameterized() && !typeObject.isParameterized())
+			return this.arrayDimension == typeObject.arrayDimension;
+		else if(this.isParameterized() && typeObject.isParameterized())
+			return equalTypeArguments(typeObject) && this.arrayDimension == typeObject.arrayDimension;
+		return false;
+	}
 }
