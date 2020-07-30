@@ -17,7 +17,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
-	private Set<AbstractCodeMapping> references;
+	public Set<AbstractCodeMapping> references;
 
 	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
 		this.attributeDeclaration = variableDeclaration;
@@ -42,6 +42,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return attributeDeclaration;
 	}
 
+	@Override
 	public Set<AbstractCodeMapping> getReferences() {
 		return references;
 	}

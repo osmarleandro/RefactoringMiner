@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
@@ -126,5 +127,11 @@ public class RenameOperationRefactoring implements Refactoring {
 				.setDescription("renamed method declaration")
 				.setCodeElement(renamedOperation.toString()));
 		return ranges;
+	}
+
+	@Override
+	public Set<AbstractCodeMapping> getReferences() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
