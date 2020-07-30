@@ -56,6 +56,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
 		return false;
 	}
 
+	@Override
 	public boolean isInterface() {
 		return false;
 	}
