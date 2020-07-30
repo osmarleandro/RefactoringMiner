@@ -245,6 +245,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 	}
 
+	@Override
 	public boolean equalQualifiedReturnParameter(UMLOperation operation) {
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
