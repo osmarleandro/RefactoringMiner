@@ -33,4 +33,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		}
 		return false;
 	}
+
+	private void setNewVisibility(String newVisibility) {
+		this.newVisibility = newVisibility;
+	}
 }
