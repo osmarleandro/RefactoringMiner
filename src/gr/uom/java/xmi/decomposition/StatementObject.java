@@ -37,7 +37,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> infixOperators;
 	private List<String> arrayAccesses;
 	private List<String> prefixExpressions;
-	private List<String> postfixExpressions;
+	List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
@@ -216,11 +216,6 @@ public class StatementObject extends AbstractStatement {
 	@Override
 	public List<String> getPrefixExpressions() {
 		return prefixExpressions;
-	}
-
-	@Override
-	public List<String> getPostfixExpressions() {
-		return postfixExpressions;
 	}
 
 	@Override
