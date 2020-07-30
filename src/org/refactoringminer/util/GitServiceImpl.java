@@ -283,6 +283,10 @@ public class GitServiceImpl implements GitService {
 		public String toString() {
 			return "RegularCommitsFilter";
 		}
+
+		boolean isJavafile(String path) {
+			return path.endsWith(".java");
+		}
 	}
 
 	public void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
@@ -303,26 +307,22 @@ public class GitServiceImpl implements GitService {
         		String oldPath = diff.getOldPath();
         		String newPath = diff.getNewPath();
         		if (changeType != ChangeType.ADD) {
-	        		if (isJavafile(oldPath)) {
+	        		if (commitsFilter.isJavafile(oldPath)) {
 	        			javaFilesBefore.add(oldPath);
 	        		}
 	        	}
         		if (changeType != ChangeType.DELETE) {
-	        		if (isJavafile(newPath)) {
+	        		if (commitsFilter.isJavafile(newPath)) {
 	        			javaFilesCurrent.add(newPath);
 	        		}
         		}
         		if (changeType == ChangeType.RENAME && diff.getScore() >= rd.getRenameScore()) {
-        			if (isJavafile(oldPath) && isJavafile(newPath)) {
+        			if (commitsFilter.isJavafile(oldPath) && commitsFilter.isJavafile(newPath)) {
         				renamedFilesHint.put(oldPath, newPath);
         			}
         		}
         	}
         }
-	}
-
-	private boolean isJavafile(String path) {
-		return path.endsWith(".java");
 	}
 
 	@Override
