@@ -12,7 +12,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private LocationInfo locationInfo;
 	private String name;
 	private UMLType type;
-	private String visibility;
+	String visibility;
 	private String className;
 	private boolean isFinal;
 	private boolean isStatic;
@@ -37,6 +37,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.type = type;
 	}
 
+	@Override
 	public String getVisibility() {
 		return visibility;
 	}
