@@ -126,4 +126,8 @@ public class MoveOperationRefactoring implements Refactoring {
 				.setCodeElement(movedOperation.toString()));
 		return ranges;
 	}
+
+	public RefactoringType getRefactoringType() {
+		return RefactoringType.PUSH_DOWN_OPERATION;
+	}
 }
