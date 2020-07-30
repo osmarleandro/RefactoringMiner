@@ -135,4 +135,10 @@ public class InlineVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
+
+	@Override
+	public UMLOperation getRenamedOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
