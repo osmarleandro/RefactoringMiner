@@ -51,6 +51,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return RefactoringType.RENAME_ATTRIBUTE;
 	}
 
+	@Override
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
