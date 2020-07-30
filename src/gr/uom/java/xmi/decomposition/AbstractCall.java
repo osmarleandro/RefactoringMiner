@@ -320,6 +320,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
+	@Override
 	public Set<String> argumentIntersection(AbstractCall call) {
 		List<String> args1 = preprocessArguments(getArguments());
 		List<String> args2 = preprocessArguments(call.getArguments());
@@ -328,7 +329,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return argumentIntersection;
 	}
 
-	private List<String> preprocessArguments(List<String> arguments) {
+	public List<String> preprocessArguments(List<String> arguments) {
 		List<String> args = new ArrayList<String>();
 		for(String arg : arguments) {
 			if(arg.contains("\n")) {
