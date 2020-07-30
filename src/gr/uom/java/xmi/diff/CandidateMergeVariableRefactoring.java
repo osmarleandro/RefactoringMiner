@@ -7,10 +7,10 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateMergeVariableRefactoring {
-	private Set<String> mergedVariables;
-	private String newVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public Set<String> mergedVariables;
+	public String newVariable;
+	public UMLOperation operationBefore;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
 	private UMLAttribute newAttribute;
@@ -74,13 +74,7 @@ public class CandidateMergeVariableRefactoring {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((mergedVariables == null) ? 0 : mergedVariables.hashCode());
-		result = prime * result + ((newVariable == null) ? 0 : newVariable.hashCode());
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
-		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
-		return result;
+		return newAttribute.hashCode(this);
 	}
 
 	@Override
