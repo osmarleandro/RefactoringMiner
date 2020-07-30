@@ -217,6 +217,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return null;
 	}
 
+	@Override
 	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
 		Map<String, List<OperationInvocation>> methodInvocationMap = getMethodInvocationMap();
 		for(String methodInvocation : methodInvocationMap.keySet()) {
@@ -272,7 +273,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return false;
 	}
 
-	private boolean expressionIsTheRightHandSideOfAssignment(String expression) {
+	public boolean expressionIsTheRightHandSideOfAssignment(String expression) {
 		String statement = getString();
 		if(statement.contains("=")) {
 			List<String> variables = getVariables();
