@@ -28,11 +28,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isAbstract;
 	private List<UMLParameter> parameters;
 	private String className;
-	private boolean isConstructor;
+	boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -809,6 +809,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
+	@Override
 	public Map<String, Set<String>> aliasedAttributes() {
 		if(operationBody != null && isConstructor) {
 			List<String> parameterNames = getParameterNameList();
