@@ -24,7 +24,7 @@ public abstract class AbstractCodeMapping {
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<Replacement> replacements;
+	protected Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
@@ -421,12 +421,6 @@ public abstract class AbstractCodeMapping {
 			}
 		}
 		return false;
-	}
-
-	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
-		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
-		intersection.retainAll(other.replacements);
-		return intersection;
 	}
 
 	@Override
