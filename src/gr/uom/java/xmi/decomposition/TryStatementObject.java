@@ -42,4 +42,16 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	public List<CompositeStatementObject> getInnerNodes() {
+		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
+		for(AbstractStatement statement : statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				innerNodes.addAll(composite.getInnerNodes());
+			}
+		}
+		innerNodes.add(this);
+		return innerNodes;
+	}
 }
