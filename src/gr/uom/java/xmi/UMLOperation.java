@@ -23,18 +23,18 @@ import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
-	private String name;
-	private String visibility;
-	private boolean isAbstract;
+	String name;
+	String visibility;
+	boolean isAbstract;
 	private List<UMLParameter> parameters;
-	private String className;
+	String className;
 	private boolean isConstructor;
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
-	private List<UMLTypeParameter> typeParameters;
+	List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
@@ -557,6 +557,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
