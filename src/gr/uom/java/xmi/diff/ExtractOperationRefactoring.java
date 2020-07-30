@@ -16,6 +16,7 @@ import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
@@ -240,5 +241,11 @@ public class ExtractOperationRefactoring implements Refactoring {
 					setDescription("added statement in extracted method declaration"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public VariableDeclaration getOriginalAttribute() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

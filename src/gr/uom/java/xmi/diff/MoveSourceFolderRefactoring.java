@@ -9,6 +9,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.decomposition.VariableDeclaration;
+
 public class MoveSourceFolderRefactoring implements Refactoring {
 	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
 	private RenamePattern pattern;
@@ -91,5 +93,11 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 					.setCodeElement(ref.getMovedClass().getName()));
 		}
 		return ranges;
+	}
+
+	@Override
+	public VariableDeclaration getOriginalAttribute() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
