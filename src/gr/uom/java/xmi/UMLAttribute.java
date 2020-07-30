@@ -1,5 +1,6 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -7,6 +8,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
@@ -170,5 +172,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	@Override
+	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
