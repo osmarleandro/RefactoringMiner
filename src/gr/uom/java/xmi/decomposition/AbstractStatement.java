@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
@@ -30,4 +31,20 @@ public abstract class AbstractStatement extends AbstractCodeFragment {
 
     public abstract List<StatementObject> getLeaves();
     public abstract int statementCount();
+
+	public List<LambdaExpressionObject> getAllLambdas() {
+		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
+		lambdas.addAll(getLambdas());
+		for(AbstractStatement statement : statementList) {
+			if(statement instanceof CompositeStatementObject) {
+				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				lambdas.addAll(composite.getAllLambdas());
+			}
+			else if(statement instanceof StatementObject) {
+				StatementObject statementObject = (StatementObject)statement;
+				lambdas.addAll(statementObject.getLambdas());
+			}
+		}
+		return lambdas;
+	}
 }
