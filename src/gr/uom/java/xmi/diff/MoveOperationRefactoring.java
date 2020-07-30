@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
 	protected UMLOperation originalOperation;
-	protected UMLOperation movedOperation;
+	public UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
