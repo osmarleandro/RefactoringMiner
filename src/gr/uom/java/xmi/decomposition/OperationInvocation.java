@@ -8,6 +8,8 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
+import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -526,5 +528,19 @@ public class OperationInvocation extends AbstractCall {
 				subExpressionIntersection.size() > 0 &&
 				(subExpressionIntersection.size() == this.subExpressions().size() ||
 				subExpressionIntersection.size() == other.subExpressions().size());
+	}
+
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
+		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+			if(!allMappingsAreExactMatches(lambdaMapper)) {
+				allExactLambdaMappers = false;
+				break;
+			}
+		}
+		return getExpression() == null && call.getExpression() == null &&
+				!identicalName(call) &&
+				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
+				equalArguments(call);
 	}
 }

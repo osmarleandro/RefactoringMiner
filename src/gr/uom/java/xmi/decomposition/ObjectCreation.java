@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
+import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,5 +140,19 @@ public class ObjectCreation extends AbstractCall {
 
 	public boolean identicalName(AbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
+	}
+
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
+		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+			if(!allMappingsAreExactMatches(lambdaMapper)) {
+				allExactLambdaMappers = false;
+				break;
+			}
+		}
+		return getExpression() == null && call.getExpression() == null &&
+				!identicalName(call) &&
+				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
+				equalArguments(call);
 	}
 }
