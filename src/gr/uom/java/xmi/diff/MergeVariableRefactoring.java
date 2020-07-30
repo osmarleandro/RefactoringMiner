@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MergeVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> mergedVariables;
@@ -153,5 +154,11 @@ public class MergeVariableRefactoring implements Refactoring {
 				.setDescription("new variable declaration")
 				.setCodeElement(newVariable.toString()));
 		return ranges;
+	}
+
+	@Override
+	public Set<Replacement> getReplacements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

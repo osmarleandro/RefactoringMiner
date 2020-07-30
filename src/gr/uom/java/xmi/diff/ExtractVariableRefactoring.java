@@ -12,6 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
@@ -134,5 +135,11 @@ public class ExtractVariableRefactoring implements Refactoring {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;
+	}
+
+	@Override
+	public Set<Replacement> getReplacements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
