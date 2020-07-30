@@ -93,4 +93,10 @@ public class MoveClassRefactoring implements Refactoring {
 				.setCodeElement(movedClass.getName()));
 		return ranges;
 	}
+
+	@Override
+	public CodeRange getSourceOperationCodeRangeBeforeMove() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
