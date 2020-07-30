@@ -23,7 +23,7 @@ public class StatementObject extends AbstractStatement {
 	
 	private String statement;
 	private LocationInfo locationInfo;
-	private List<String> variables;
+	List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
@@ -146,11 +146,6 @@ public class StatementObject extends AbstractStatement {
 
 	public String toString() {
 		return statement;
-	}
-
-	@Override
-	public List<String> getVariables() {
-		return variables;
 	}
 
 	@Override
