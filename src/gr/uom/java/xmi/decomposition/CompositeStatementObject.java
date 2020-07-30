@@ -531,4 +531,15 @@ public class CompositeStatementObject extends AbstractStatement {
 		}
 		return null;
 	}
+
+	public VariableDeclaration searchVariableDeclaration(String variableName) {
+		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
+		if(variableDeclaration != null) {
+			return variableDeclaration;
+		}
+		else if(parent != null) {
+			return parent.searchVariableDeclaration(variableName);
+		}
+		return null;
+	}
 }
