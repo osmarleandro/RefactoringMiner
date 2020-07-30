@@ -17,7 +17,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> splitVariables;
 	private VariableDeclaration oldVariable;
 	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	public UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
 	public SplitVariableRefactoring(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
@@ -41,6 +41,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return operationBefore;
 	}
 
+	@Override
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
 	}
