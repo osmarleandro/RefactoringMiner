@@ -312,4 +312,13 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		return null;
 	}
+
+	private static boolean firstOrLastCamelCaseTokenMatch(String classType1, String classType2) {
+		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(classType1);
+		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(classType2);
+		if(tokens1.length > 0 && tokens2.length > 0) {
+			return tokens1[0].equals(tokens2[0]) || tokens1[tokens1.length-1].equals(tokens2[tokens2.length-1]);
+		}
+		return false;
+	}
 }

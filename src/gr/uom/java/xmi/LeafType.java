@@ -6,7 +6,7 @@ public class LeafType extends UMLType {
 	private String classType;
 	private String nonQualifiedClassType;
 	private volatile int hashCode = 0;
-	private static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
+	static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
 	
 	public LeafType(String type) {
 		this.classType = type;
@@ -71,15 +71,6 @@ public class LeafType extends UMLType {
 			if(firstOrLastCamelCaseTokenMatch(this.nonQualifiedClassType, ((LeafType)type).nonQualifiedClassType) && equalTypeArgumentsAndArrayDimensionForSubType(type)) {
 				return true;
 			}
-		}
-		return false;
-	}
-
-	private static boolean firstOrLastCamelCaseTokenMatch(String classType1, String classType2) {
-		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(classType1);
-		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(classType2);
-		if(tokens1.length > 0 && tokens2.length > 0) {
-			return tokens1[0].equals(tokens2[0]) || tokens1[tokens1.length-1].equals(tokens2[tokens2.length-1]);
 		}
 		return false;
 	}
