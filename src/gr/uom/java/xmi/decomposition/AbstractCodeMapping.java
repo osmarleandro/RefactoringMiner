@@ -21,7 +21,7 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 public abstract class AbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	protected AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
@@ -39,10 +39,6 @@ public abstract class AbstractCodeMapping {
 
 	public AbstractCodeFragment getFragment1() {
 		return fragment1;
-	}
-
-	public AbstractCodeFragment getFragment2() {
-		return fragment2;
 	}
 
 	public UMLOperation getOperation1() {
