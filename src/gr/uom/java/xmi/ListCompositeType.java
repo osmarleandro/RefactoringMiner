@@ -3,6 +3,8 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.diff.StringDistance;
+
 public class ListCompositeType extends UMLType {
 	public enum Kind {
 		UNION("|"), INTERSECTION("&");
@@ -80,5 +82,13 @@ public class ListCompositeType extends UMLType {
 	@Override
 	public String getClassType() {
 		return types.get(types.size()-1).getClassType();
+	}
+
+	public double normalizedNameDistance(UMLType type) {
+		String s1 = this.toString();
+		String s2 = type.toString();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }

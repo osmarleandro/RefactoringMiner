@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.StringDistance;
+
 public class CompositeType extends UMLType {
 	private UMLType leftType;
 	private LeafType rightType;
@@ -61,5 +63,13 @@ public class CompositeType extends UMLType {
 	@Override
 	public String getClassType() {
 		return rightType.getClassType();
+	}
+
+	public double normalizedNameDistance(UMLType type) {
+		String s1 = this.toString();
+		String s2 = type.toString();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }

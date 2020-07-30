@@ -1,5 +1,7 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.StringDistance;
+
 public class WildcardType extends UMLType {
 	private UMLType bound;
 	private boolean upperBound;
@@ -71,5 +73,13 @@ public class WildcardType extends UMLType {
 			return bound.getClassType();
 		}
 		return "Object";
+	}
+
+	public double normalizedNameDistance(UMLType type) {
+		String s1 = this.toString();
+		String s2 = type.toString();
+		int distance = StringDistance.editDistance(s1, s2);
+		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+		return normalized;
 	}
 }
