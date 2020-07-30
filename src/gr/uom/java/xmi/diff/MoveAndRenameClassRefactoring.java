@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -82,5 +83,11 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 				.setDescription("moved and renamed type declaration")
 				.setCodeElement(renamedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public void addReference(AbstractCodeMapping mapping) {
+		// TODO Auto-generated method stub
+		
 	}
 }
