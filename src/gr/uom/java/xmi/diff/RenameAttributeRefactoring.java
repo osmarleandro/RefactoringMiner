@@ -137,4 +137,10 @@ public class RenameAttributeRefactoring implements Refactoring {
 				.setCodeElement(renamedAttribute.toString()));
 		return ranges;
 	}
+
+	@Override
+	public String getClassName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
