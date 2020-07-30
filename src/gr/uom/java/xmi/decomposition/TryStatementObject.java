@@ -42,4 +42,15 @@ public class TryStatementObject extends CompositeStatementObject {
 		}
 		return variableDeclarations;
 	}
+
+	@Override
+	public int statementCount() {
+		int count = 0;
+		if(!this.getString().equals("{"))
+			count++;
+		for(AbstractStatement statement : statementList) {
+			count += statement.statementCount();
+		}
+		return count;
+	}
 }
