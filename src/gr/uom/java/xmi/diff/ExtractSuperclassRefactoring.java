@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLType;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -88,5 +89,11 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 				.setDescription("extracted super-type declaration")
 				.setCodeElement(extractedClass.getName()));
 		return ranges;
+	}
+
+	@Override
+	public UMLType getOriginalType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
