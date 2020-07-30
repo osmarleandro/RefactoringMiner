@@ -26,7 +26,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
-	private boolean varargsParameter;
+	public boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
@@ -131,6 +131,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.isAttribute = isAttribute;
 	}
 
+	@Override
 	public boolean isVarargsParameter() {
 		return varargsParameter;
 	}
