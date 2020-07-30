@@ -647,38 +647,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
-				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
-					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
-					if(extractedInvocations.size() > 1) {
-						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
-						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
-						for(OperationInvocation extractedInvocation : extractedInvocations) {
-							for(String argument : extractedInvocation.getArguments()) {
-								for(UMLAttribute attribute : originalClass.getAttributes()) {
-									if(attribute.getName().equals(argument)) {
-										attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
-										attributeNamesMatchedWithArguments.add(attribute.getName());
-										break;
-									}
-								}
-							}
-						}
-						if((attributeNamesMatchedWithArguments.contains(candidate.getOriginalVariableName()) ||
-								attributeNamesMatchedWithArguments.contains(candidate.getRenamedVariableName())) &&
-								attributesMatchedWithArguments.size() > 1) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
 		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
 		for(Replacement replacement : map.keySet()) {
