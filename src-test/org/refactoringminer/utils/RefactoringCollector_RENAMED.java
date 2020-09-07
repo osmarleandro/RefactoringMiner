@@ -14,10 +14,10 @@ import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
-public class RefactoringCollector extends RefactoringHandler {
+public class RefactoringCollector_RENAMED extends RefactoringHandler {
   private final RefactoringSet rs;
   private Exception ex = null;
-  public RefactoringCollector(String cloneUrl, String commitId) {
+  public RefactoringCollector_RENAMED(String cloneUrl, String commitId) {
     rs = new RefactoringSet(cloneUrl, commitId);
   }
   @Override
