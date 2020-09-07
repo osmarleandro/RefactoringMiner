@@ -55,12 +55,12 @@ public class UMLModelASTReader {
 	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
 	private static final String systemFileSeparator = Matcher.quoteReplacement(File.separator);
 	
-	private UMLModel umlModel;
+	private UMLModel_RENAMED umlModel;
 	private String projectRoot;
 	private ASTParser parser;
 
 	public UMLModelASTReader(Map<String, String> javaFileContents, Set<String> repositoryDirectories) {
-		this.umlModel = new UMLModel(repositoryDirectories);
+		this.umlModel = new UMLModel_RENAMED(repositoryDirectories);
 		this.parser = ASTParser.newParser(AST.JLS11);
 		for(String filePath : javaFileContents.keySet()) {
 			Map<String, String> options = JavaCore.getOptions();
@@ -111,7 +111,7 @@ public class UMLModelASTReader {
 	}
 
 	private UMLModelASTReader(File rootFolder, ASTParser parser, List<String> javaFiles, Set<String> repositoryDirectories) {
-		this.umlModel = new UMLModel(repositoryDirectories);
+		this.umlModel = new UMLModel_RENAMED(repositoryDirectories);
 		this.projectRoot = rootFolder.getPath();
 		this.parser = parser;
 		final String[] emptyArray = new String[0];
@@ -142,7 +142,7 @@ public class UMLModelASTReader {
 		return parser;
 	}
 
-	public UMLModel getUmlModel() {
+	public UMLModel_RENAMED getUmlModel() {
 		return this.umlModel;
 	}
 

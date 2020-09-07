@@ -12,13 +12,13 @@ import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
-public class UMLModel {
+public class UMLModel_RENAMED {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
     private List<UMLRealization> realizationList;
 
-    public UMLModel(Set<String> repositoryDirectories) {
+    public UMLModel_RENAMED(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
         classList = new ArrayList<UMLClass>();
         generalizationList = new ArrayList<UMLGeneralization>();
@@ -107,11 +107,11 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
+    public UMLModelDiff diff(UMLModel_RENAMED umlModel) throws RefactoringMinerTimedOutException {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
     }
 
-	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
+	public UMLModelDiff diff(UMLModel_RENAMED umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
     	UMLModelDiff modelDiff = new UMLModelDiff();
     	for(UMLClass umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
