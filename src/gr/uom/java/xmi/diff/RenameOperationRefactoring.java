@@ -10,16 +10,16 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class RenameOperationRefactoring implements Refactoring {
 	private UMLOperation originalOperation;
 	private UMLOperation renamedOperation;
 	private Set<Replacement> replacements;
-	private UMLOperationBodyMapper bodyMapper;
+	private UMLOperationBodyMapper_RENAMED bodyMapper;
 	
-	public RenameOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
+	public RenameOperationRefactoring(UMLOperationBodyMapper_RENAMED bodyMapper) {
 		this.bodyMapper = bodyMapper;
 		this.originalOperation = bodyMapper.getOperation1();
 		this.renamedOperation = bodyMapper.getOperation2();
@@ -68,7 +68,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return RefactoringType.RENAME_METHOD;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
+	public UMLOperationBodyMapper_RENAMED getBodyMapper() {
 		return bodyMapper;
 	}
 

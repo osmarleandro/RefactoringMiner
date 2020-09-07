@@ -48,7 +48,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
+public class UMLOperationBodyMapper_RENAMED implements Comparable<UMLOperationBodyMapper_RENAMED> {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
@@ -60,8 +60,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
-	private UMLOperationBodyMapper parentMapper;
+	private List<UMLOperationBodyMapper_RENAMED> childMappers = new ArrayList<UMLOperationBodyMapper_RENAMED>();
+	private UMLOperationBodyMapper_RENAMED parentMapper;
 	private static final Pattern SPLIT_CONDITIONAL_PATTERN = Pattern.compile("(\\|\\|)|(&&)|(\\?)|(:)");
 	public static final String SPLIT_CONCAT_STRING_PATTERN = "(\\s)*(\\+)(\\s)*";
 	private static final Pattern DOUBLE_QUOTES = Pattern.compile("\"([^\"]*)\"|(\\S+)");
@@ -71,7 +71,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
 	
-	public UMLOperationBodyMapper(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
+	public UMLOperationBodyMapper_RENAMED(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.classDiff = classDiff;
 		if(classDiff != null)
 			this.modelDiff = classDiff.getModelDiff();
@@ -160,7 +160,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private UMLOperationBodyMapper(LambdaExpressionObject lambda1, LambdaExpressionObject lambda2, UMLOperationBodyMapper parentMapper) throws RefactoringMinerTimedOutException {
+	private UMLOperationBodyMapper_RENAMED(LambdaExpressionObject lambda1, LambdaExpressionObject lambda2, UMLOperationBodyMapper_RENAMED parentMapper) throws RefactoringMinerTimedOutException {
 		this.classDiff = parentMapper.classDiff;
 		if(classDiff != null)
 			this.modelDiff = classDiff.getModelDiff();
@@ -204,17 +204,17 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public void addChildMapper(UMLOperationBodyMapper mapper) {
+	public void addChildMapper(UMLOperationBodyMapper_RENAMED mapper) {
 		this.childMappers.add(mapper);
 		//TODO add logic to remove the mappings from "this" mapper,
 		//which are less similar than the mappings of the mapper passed as parameter
 	}
 
-	public List<UMLOperationBodyMapper> getChildMappers() {
+	public List<UMLOperationBodyMapper_RENAMED> getChildMappers() {
 		return childMappers;
 	}
 
-	public UMLOperationBodyMapper getParentMapper() {
+	public UMLOperationBodyMapper_RENAMED getParentMapper() {
 		return parentMapper;
 	}
 
@@ -269,7 +269,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nullLiteralReplacements > 0 && numberOfReplacements == nullLiteralReplacements + methodInvocationReplacementsToIgnore + variableNameReplacementsToIgnore;
 	}
 
-	public UMLOperationBodyMapper(UMLOperationBodyMapper operationBodyMapper, UMLOperation addedOperation,
+	public UMLOperationBodyMapper_RENAMED(UMLOperationBodyMapper_RENAMED operationBodyMapper, UMLOperation addedOperation,
 			Map<String, String> parameterToArgumentMap1, Map<String, String> parameterToArgumentMap2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.parentMapper = operationBodyMapper;
 		this.operation1 = operationBodyMapper.operation1;
@@ -436,7 +436,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject> leaves1,
 			List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1,
-			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
+			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper_RENAMED operationBodyMapper) {
 		if(fragment instanceof StatementObject) {
 			StatementObject statement = (StatementObject)fragment;
 			if(!leaves1.contains(statement)) {
@@ -493,7 +493,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	public UMLOperationBodyMapper(UMLOperation removedOperation, UMLOperationBodyMapper operationBodyMapper,
+	public UMLOperationBodyMapper_RENAMED(UMLOperation removedOperation, UMLOperationBodyMapper_RENAMED operationBodyMapper,
 			Map<String, String> parameterToArgumentMap, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.parentMapper = operationBodyMapper;
 		this.operation1 = removedOperation;
@@ -2040,7 +2040,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						for(UMLOperation operation1 : anonymousClass1.getOperations()) {
 							for(UMLOperation operation2 : anonymousClass2.getOperations()) {
 								if(operation1.equals(operation2) || operation1.equalSignature(operation2) || operation1.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation2)) {	
-									UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation1, operation2, classDiff);
+									UMLOperationBodyMapper_RENAMED mapper = new UMLOperationBodyMapper_RENAMED(operation1, operation2, classDiff);
 									int mappings = mapper.mappingsWithoutBlocks();
 									if(mappings > 0) {
 										int nonMappedElementsT1 = mapper.nonMappedElementsT1();
@@ -2069,13 +2069,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		List<LambdaExpressionObject> lambdas1 = statement1.getLambdas();
 		List<LambdaExpressionObject> lambdas2 = statement2.getLambdas();
-		List<UMLOperationBodyMapper> lambdaMappers = new ArrayList<UMLOperationBodyMapper>();
+		List<UMLOperationBodyMapper_RENAMED> lambdaMappers = new ArrayList<UMLOperationBodyMapper_RENAMED>();
 		if(!lambdas1.isEmpty() && !lambdas2.isEmpty()) {
 			for(int i=0; i<lambdas1.size(); i++) {
 				for(int j=0; j<lambdas2.size(); j++) {
 					LambdaExpressionObject lambda1 = lambdas1.get(i);
 					LambdaExpressionObject lambda2 = lambdas2.get(j);
-					UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(lambda1, lambda2, this);
+					UMLOperationBodyMapper_RENAMED mapper = new UMLOperationBodyMapper_RENAMED(lambda1, lambda2, this);
 					int mappings = mapper.mappingsWithoutBlocks();
 					if(mappings > 0) {
 						int nonMappedElementsT1 = mapper.nonMappedElementsT1();
@@ -3957,8 +3957,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
     		return true;
     	}
     	
-    	if(o instanceof UMLOperationBodyMapper) {
-    		UMLOperationBodyMapper other = (UMLOperationBodyMapper)o;
+    	if(o instanceof UMLOperationBodyMapper_RENAMED) {
+    		UMLOperationBodyMapper_RENAMED other = (UMLOperationBodyMapper_RENAMED)o;
     		return this.operation1.equals(other.operation1) && this.operation2.equals(other.operation2);
     	}
     	return false;
@@ -3969,7 +3969,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	@Override
-	public int compareTo(UMLOperationBodyMapper operationBodyMapper) {
+	public int compareTo(UMLOperationBodyMapper_RENAMED operationBodyMapper) {
 		int thisCallChainIntersectionSum = 0;
 		for(AbstractCodeMapping mapping : this.mappings) {
 			if(mapping instanceof LeafMapping) {

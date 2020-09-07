@@ -2,10 +2,10 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.Comparator;
 
-public class UMLOperationBodyMapperComparator implements Comparator<UMLOperationBodyMapper> {
+public class UMLOperationBodyMapperComparator implements Comparator<UMLOperationBodyMapper_RENAMED> {
 
 	@Override
-	public int compare(UMLOperationBodyMapper o1, UMLOperationBodyMapper o2) {
+	public int compare(UMLOperationBodyMapper_RENAMED o1, UMLOperationBodyMapper_RENAMED o2) {
 		int thisOperationNameEditDistance = o1.operationNameEditDistance();
 		int otherOperationNameEditDistance = o2.operationNameEditDistance();
 		if(thisOperationNameEditDistance != otherOperationNameEditDistance)

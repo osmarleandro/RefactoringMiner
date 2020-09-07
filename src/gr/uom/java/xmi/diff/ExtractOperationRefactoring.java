@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class ExtractOperationRefactoring implements Refactoring {
@@ -26,9 +26,9 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
-	private UMLOperationBodyMapper bodyMapper;
+	private UMLOperationBodyMapper_RENAMED bodyMapper;
 
-	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
+	public ExtractOperationRefactoring(UMLOperationBodyMapper_RENAMED bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.extractedOperation = bodyMapper.getOperation2();
 		this.sourceOperationBeforeExtraction = bodyMapper.getOperation1();
@@ -43,7 +43,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		}
 	}
 
-	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation extractedOperation,
+	public ExtractOperationRefactoring(UMLOperationBodyMapper_RENAMED bodyMapper, UMLOperation extractedOperation,
 			UMLOperation sourceOperationBeforeExtraction, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.extractedOperation = extractedOperation;
@@ -83,7 +83,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
+	public UMLOperationBodyMapper_RENAMED getBodyMapper() {
 		return bodyMapper;
 	}
 

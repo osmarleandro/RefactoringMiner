@@ -6,11 +6,11 @@ import java.util.List;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 
 public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 
-	public PushDownOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
+	public PushDownOperationRefactoring(UMLOperationBodyMapper_RENAMED bodyMapper) {
 		super(bodyMapper);
 	}
 

@@ -46,7 +46,7 @@ public class VariableReplacementAnalysis {
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private List<UMLOperationBodyMapper> childMappers;
+	private List<UMLOperationBodyMapper_RENAMED> childMappers;
 	private Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
@@ -58,7 +58,7 @@ public class VariableReplacementAnalysis {
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 
-	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+	public VariableReplacementAnalysis(UMLOperationBodyMapper_RENAMED mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		this.mappings = mapper.getMappings();
 		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
 		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
@@ -66,9 +66,9 @@ public class VariableReplacementAnalysis {
 		this.nonMappedInnerNodesT2 = mapper.getNonMappedInnerNodesT2();
 		this.operation1 = mapper.getOperation1();
 		this.operation2 = mapper.getOperation2();
-		this.childMappers = new ArrayList<UMLOperationBodyMapper>();
+		this.childMappers = new ArrayList<UMLOperationBodyMapper_RENAMED>();
 		this.childMappers.addAll(mapper.getChildMappers());
-		UMLOperationBodyMapper parentMapper = mapper.getParentMapper();
+		UMLOperationBodyMapper_RENAMED parentMapper = mapper.getParentMapper();
 		if(parentMapper != null) {
 			this.childMappers.addAll(parentMapper.getChildMappers());
 		}
@@ -1042,7 +1042,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1 != null) {
-			for(UMLOperationBodyMapper mapper : childMappers) {
+			for(UMLOperationBodyMapper_RENAMED mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {

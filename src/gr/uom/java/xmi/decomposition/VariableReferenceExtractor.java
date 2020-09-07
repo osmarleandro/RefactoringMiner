@@ -40,9 +40,9 @@ public class VariableReferenceExtractor {
 		return references;
 	}
 
-	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, List<UMLOperationBodyMapper> operationBodyMapperList) {
+	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, List<UMLOperationBodyMapper_RENAMED> operationBodyMapperList) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
-		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
+		for(UMLOperationBodyMapper_RENAMED mapper : operationBodyMapperList) {
 			references.addAll(findReferences(declaration1, declaration2, mapper.getMappings()));
 		}
 		return references;

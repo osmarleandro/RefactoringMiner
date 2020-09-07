@@ -11,7 +11,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLClassDiff extends UMLClassBaseDiff {
@@ -94,7 +94,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			for(UMLOperation nextOperation : nextClass.getOperations()) {
 				if(originalOperation.equalsQualified(nextOperation)) {
 					if(getModelDiff() != null) {
-						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
+						List<UMLOperationBodyMapper_RENAMED> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
 						if(mappers.size() > 0) {
 							UMLOperation operation1 = mappers.get(0).getOperation1();
 							if(!operation1.equalSignature(originalOperation) &&
@@ -106,7 +106,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 							}
 						}
 					}
-	    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(originalOperation, nextOperation, this);
+	    			UMLOperationBodyMapper_RENAMED operationBodyMapper = new UMLOperationBodyMapper_RENAMED(originalOperation, nextOperation, this);
 	    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(originalOperation, nextOperation, operationBodyMapper.getMappings());
 					refactorings.addAll(operationSignatureDiff.getRefactorings());
 	    			this.addOperationBodyMapper(operationBodyMapper);
@@ -125,7 +125,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     					finalIndex = lastIndex;
     				}
     			}
-    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(operation, nextClass.getOperations().get(finalIndex), this);
+    			UMLOperationBodyMapper_RENAMED operationBodyMapper = new UMLOperationBodyMapper_RENAMED(operation, nextClass.getOperations().get(finalIndex), this);
     			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(operation, nextClass.getOperations().get(finalIndex), operationBodyMapper.getMappings());
     			refactorings.addAll(operationSignatureDiff.getRefactorings());
     			this.addOperationBodyMapper(operationBodyMapper);
@@ -136,7 +136,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		for(UMLOperation removedOperation : removedOperations) {
 			for(UMLOperation addedOperation : addedOperations) {
 				if(removedOperation.equalsIgnoringVisibility(addedOperation)) {
-					UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
+					UMLOperationBodyMapper_RENAMED operationBodyMapper = new UMLOperationBodyMapper_RENAMED(removedOperation, addedOperation, this);
 					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, operationBodyMapper.getMappings());
 					refactorings.addAll(operationSignatureDiff.getRefactorings());
 					this.addOperationBodyMapper(operationBodyMapper);
@@ -144,7 +144,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 					addedOperationsToBeRemoved.add(addedOperation);
 				}
 				else if(removedOperation.equalsIgnoringNameCase(addedOperation)) {
-					UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
+					UMLOperationBodyMapper_RENAMED operationBodyMapper = new UMLOperationBodyMapper_RENAMED(removedOperation, addedOperation, this);
 					UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, operationBodyMapper.getMappings());
 					refactorings.addAll(operationSignatureDiff.getRefactorings());
 					if(!removedOperation.getName().equals(addedOperation.getName()) &&
@@ -180,7 +180,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	private boolean containsMapperForOperation(UMLOperation operation) {
-		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+		for(UMLOperationBodyMapper_RENAMED mapper : getOperationBodyMapperList()) {
 			if(mapper.getOperation1().equalsQualified(operation)) {
 				return true;
 			}

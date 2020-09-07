@@ -134,8 +134,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String argument2 = arguments2.get(i);
 			boolean argumentConcatenated = false;
 			if((argument1.contains("+") || argument2.contains("+")) && !argument1.contains("++") && !argument2.contains("++")) {
-				Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(argument1.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
-				Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(argument2.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
+				Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(argument1.split(UMLOperationBodyMapper_RENAMED.SPLIT_CONCAT_STRING_PATTERN)));
+				Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(argument2.split(UMLOperationBodyMapper_RENAMED.SPLIT_CONCAT_STRING_PATTERN)));
 				Set<String> intersection = new LinkedHashSet<String>(tokens1);
 				intersection.retainAll(tokens2);
 				int size = intersection.size();
@@ -223,9 +223,9 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
 	}
 
-	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper_RENAMED> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+		for(UMLOperationBodyMapper_RENAMED lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;
@@ -237,9 +237,9 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
-	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper_RENAMED> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+		for(UMLOperationBodyMapper_RENAMED lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;

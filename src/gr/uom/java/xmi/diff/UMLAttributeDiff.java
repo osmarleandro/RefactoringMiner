@@ -8,7 +8,7 @@ import org.refactoringminer.api.Refactoring;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
@@ -20,10 +20,10 @@ public class UMLAttributeDiff {
 	private boolean renamed;
 	private boolean staticChanged;
 	private boolean finalChanged;
-	private List<UMLOperationBodyMapper> operationBodyMapperList;
+	private List<UMLOperationBodyMapper_RENAMED> operationBodyMapperList;
 	private UMLAnnotationListDiff annotationListDiff;
 
-	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
+	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper_RENAMED> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
 		this.addedAttribute = addedAttribute;
 		this.operationBodyMapperList = operationBodyMapperList;

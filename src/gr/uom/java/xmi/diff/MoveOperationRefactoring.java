@@ -10,16 +10,16 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
 	protected UMLOperation originalOperation;
 	protected UMLOperation movedOperation;
 	private Set<Replacement> replacements;
-	private UMLOperationBodyMapper bodyMapper;
+	private UMLOperationBodyMapper_RENAMED bodyMapper;
 
-	public MoveOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
+	public MoveOperationRefactoring(UMLOperationBodyMapper_RENAMED bodyMapper) {
 		this.bodyMapper = bodyMapper;
 		this.originalOperation = bodyMapper.getOperation1();
 		this.movedOperation = bodyMapper.getOperation2();
@@ -56,7 +56,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return RefactoringType.MOVE_OPERATION;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
+	public UMLOperationBodyMapper_RENAMED getBodyMapper() {
 		return bodyMapper;
 	}
 
