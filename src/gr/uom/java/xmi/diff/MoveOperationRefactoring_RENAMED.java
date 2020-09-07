@@ -13,20 +13,20 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
-public class MoveOperationRefactoring implements Refactoring {
+public class MoveOperationRefactoring_RENAMED implements Refactoring {
 	protected UMLOperation originalOperation;
 	protected UMLOperation movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
-	public MoveOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
+	public MoveOperationRefactoring_RENAMED(UMLOperationBodyMapper bodyMapper) {
 		this.bodyMapper = bodyMapper;
 		this.originalOperation = bodyMapper.getOperation1();
 		this.movedOperation = bodyMapper.getOperation2();
 		this.replacements = bodyMapper.getReplacements();
 	}
 
-	public MoveOperationRefactoring(UMLOperation originalOperation, UMLOperation movedOperation) {
+	public MoveOperationRefactoring_RENAMED(UMLOperation originalOperation, UMLOperation movedOperation) {
 		this.originalOperation = originalOperation;
 		this.movedOperation = movedOperation;
 		this.replacements = new LinkedHashSet<Replacement>();

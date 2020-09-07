@@ -738,8 +738,8 @@ public class UMLModelDiff {
    private int computeCompatibility(MoveAttributeRefactoring candidate) {
 	   int count = 0;
 	   for(Refactoring ref : refactorings) {
-		   if(ref instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
+		   if(ref instanceof MoveOperationRefactoring_RENAMED) {
+			   MoveOperationRefactoring_RENAMED moveRef = (MoveOperationRefactoring_RENAMED)ref;
 			   if(moveRef.compatibleWith(candidate)) {
 				   count++;
 			   }
@@ -1092,7 +1092,7 @@ public class UMLModelDiff {
 				   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
-				   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
+				   ref = new MoveOperationRefactoring_RENAMED(removedOperation, addedOperation);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
 				   ref = new PushDownOperationRefactoring(removedOperation, addedOperation);
@@ -2132,11 +2132,11 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
-	                  refactoring = new MoveOperationRefactoring(firstMapper);
+	                  refactoring = new MoveOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
-	                  refactoring = new MoveOperationRefactoring(firstMapper);
+	                  refactoring = new MoveOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
@@ -2217,11 +2217,11 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
-	                  refactoring = new MoveOperationRefactoring(firstMapper);
+	                  refactoring = new MoveOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedAndRenamedMethodSignature(removedOperation, addedOperation, firstMapper) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
-	                  refactoring = new MoveOperationRefactoring(firstMapper);
+	                  refactoring = new MoveOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
@@ -2479,8 +2479,8 @@ public class UMLModelDiff {
 
    private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   for(Refactoring refactoring : refactorings) {
-		   if(refactoring instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
+		   if(refactoring instanceof MoveOperationRefactoring_RENAMED) {
+			   MoveOperationRefactoring_RENAMED moveRefactoring = (MoveOperationRefactoring_RENAMED)refactoring;
 			   if(moveRefactoring.getOriginalOperation().equals(removedOperation)) {
 				   return true;
 			   }
