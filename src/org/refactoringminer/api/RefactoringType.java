@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.refactoringminer.util.AstUtils;
+import org.refactoringminer.util.AstUtils_RENAMED;
 import org.refactoringminer.utils.RefactoringRelationship;
 
 public enum RefactoringType {
@@ -223,11 +223,11 @@ public enum RefactoringType {
     }
 
     private static String methodKey(String methodSignature, String typeKey) {
-        return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
+        return typeKey + "#" + AstUtils_RENAMED.normalizeMethodSignature(methodSignature);
     }
 
     private static String attributeKey(String attribute, String typeKey) {
-        return typeKey + "#" + AstUtils.normalizeAttribute(attribute);
+        return typeKey + "#" + AstUtils_RENAMED.normalizeAttribute(attribute);
     }
 
     public List<RefactoringRelationship> parseRefactoring(String refactoringDescription) {

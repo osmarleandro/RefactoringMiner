@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.Type;
 
-public class AstUtils {
+public class AstUtils_RENAMED {
 
-	private AstUtils() {
+	private AstUtils_RENAMED() {
 		//
 	}
 	

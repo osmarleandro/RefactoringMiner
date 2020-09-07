@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.refactoringminer.util.AstUtils;
+import org.refactoringminer.util.AstUtils_RENAMED;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -641,7 +641,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		for (int i = 0; i < parameters.size(); i++) {
 			UMLParameter parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
-				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
+				sb.append(AstUtils_RENAMED.stripTypeParamsFromTypeName(parameter.getType().toString()));
 				if(i < parameters.size() - 1)
 					sb.append(", ");
 			}
