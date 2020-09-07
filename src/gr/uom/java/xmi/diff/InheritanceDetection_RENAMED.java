@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class InheritanceDetection {
+public class InheritanceDetection_RENAMED {
 	private Map<String, LinkedHashSet<String>> subclassMap;
 
-	public InheritanceDetection(UMLModelDiff modelDiff) {
+	public InheritanceDetection_RENAMED(UMLModelDiff modelDiff) {
 		this.subclassMap = new LinkedHashMap<String, LinkedHashSet<String>>();
 		generateNewInheritanceHierarchies(modelDiff);
 	}
