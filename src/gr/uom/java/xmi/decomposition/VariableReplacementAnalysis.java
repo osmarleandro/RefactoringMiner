@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.VariableDeclarationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.VariableDeclarationReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation.Direction;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -424,7 +424,7 @@ public class VariableReplacementAnalysis {
 		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
 		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
-			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
+			VariableDeclarationReplacement_RENAMED vdReplacement = (VariableDeclarationReplacement_RENAMED)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
 			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
@@ -613,7 +613,7 @@ public class VariableReplacementAnalysis {
 					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
 					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
 					if(v1 != null && v2 != null) {
-						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
+						VariableDeclarationReplacement_RENAMED r = new VariableDeclarationReplacement_RENAMED(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
 						if(map.containsKey(r)) {
 							map.get(r).add(mapping);
 						}
@@ -636,7 +636,7 @@ public class VariableReplacementAnalysis {
 			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
 			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
-					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
+					VariableDeclarationReplacement_RENAMED vdR = (VariableDeclarationReplacement_RENAMED)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						matchedParameterDiffs.add(parameterDiff);
@@ -644,10 +644,10 @@ public class VariableReplacementAnalysis {
 					}
 				}
 			}
-			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
+			Set<VariableDeclarationReplacement_RENAMED> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement_RENAMED>();
 			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
-					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
+					VariableDeclarationReplacement_RENAMED vdR = (VariableDeclarationReplacement_RENAMED)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						keysToBeRemoved.add(vdR);
@@ -658,7 +658,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 			}
-			for(VariableDeclarationReplacement key : keysToBeRemoved) {
+			for(VariableDeclarationReplacement_RENAMED key : keysToBeRemoved) {
 				map.remove(key);
 			}
 		}

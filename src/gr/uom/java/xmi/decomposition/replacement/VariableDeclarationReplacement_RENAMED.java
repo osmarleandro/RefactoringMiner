@@ -3,14 +3,14 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class VariableDeclarationReplacement extends Replacement {
+public class VariableDeclarationReplacement_RENAMED extends Replacement {
 
 	private VariableDeclaration v1;
 	private VariableDeclaration v2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	
-	public VariableDeclarationReplacement(VariableDeclaration v1, VariableDeclaration v2,
+	public VariableDeclarationReplacement_RENAMED(VariableDeclaration v1, VariableDeclaration v2,
 			UMLOperation operation1, UMLOperation operation2) {
 		super(v1.toString() + " | " + v1.getScope(), v2.toString() + " | " + v2.getScope(), ReplacementType.VARIABLE_DECLARATION);
 		this.v1 = v1;
@@ -56,7 +56,7 @@ public class VariableDeclarationReplacement extends Replacement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VariableDeclarationReplacement other = (VariableDeclarationReplacement) obj;
+		VariableDeclarationReplacement_RENAMED other = (VariableDeclarationReplacement_RENAMED) obj;
 		if (v1 == null) {
 			if (other.v1 != null)
 				return false;
