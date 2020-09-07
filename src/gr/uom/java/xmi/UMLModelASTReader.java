@@ -326,7 +326,7 @@ public class UMLModelASTReader {
 
 	private void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
 			String packageName, String sourceFile, String className, UMLClass umlClass) {
-		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
+		AnonymousClassDeclarationVisitor_RENAMED visitor = new AnonymousClassDeclarationVisitor_RENAMED();
     	typeDeclaration.accept(visitor);
     	Set<AnonymousClassDeclaration> anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
     	
