@@ -8,11 +8,11 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class TryStatementObject extends CompositeStatementObject {
+public class TryStatementObject_RENAMED extends CompositeStatementObject {
 	private List<CompositeStatementObject> catchClauses;
 	private CompositeStatementObject finallyClause;
 
-	public TryStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth) {
+	public TryStatementObject_RENAMED(CompilationUnit cu, String filePath, Statement statement, int depth) {
 		super(cu, filePath, statement, depth, CodeElementType.TRY_STATEMENT);
 		this.catchClauses = new ArrayList<CompositeStatementObject>();
 	}

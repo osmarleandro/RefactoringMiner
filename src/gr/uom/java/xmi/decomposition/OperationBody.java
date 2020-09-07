@@ -216,7 +216,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof TryStatement) {
 			TryStatement tryStatement = (TryStatement)statement;
-			TryStatementObject child = new TryStatementObject(cu, filePath, tryStatement, parent.getDepth()+1);
+			TryStatementObject_RENAMED child = new TryStatementObject_RENAMED(cu, filePath, tryStatement, parent.getDepth()+1);
 			parent.addStatement(child);
 			List<Expression> resources = tryStatement.resources();
 			for(Expression resource : resources) {
