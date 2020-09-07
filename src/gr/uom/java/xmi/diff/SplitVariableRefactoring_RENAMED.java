@@ -13,14 +13,14 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class SplitVariableRefactoring implements Refactoring {
+public class SplitVariableRefactoring_RENAMED implements Refactoring {
 	private Set<VariableDeclaration> splitVariables;
 	private VariableDeclaration oldVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
-	public SplitVariableRefactoring(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
+	public SplitVariableRefactoring_RENAMED(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.splitVariables = splitVariables;
 		this.oldVariable = oldVariable;
@@ -115,7 +115,7 @@ public class SplitVariableRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SplitVariableRefactoring other = (SplitVariableRefactoring) obj;
+		SplitVariableRefactoring_RENAMED other = (SplitVariableRefactoring_RENAMED) obj;
 		if (oldVariable == null) {
 			if (other.oldVariable != null)
 				return false;

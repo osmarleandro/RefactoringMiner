@@ -746,8 +746,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 						}
 					}
-					else if(refactoring instanceof SplitVariableRefactoring) {
-						SplitVariableRefactoring split = (SplitVariableRefactoring)refactoring;
+					else if(refactoring instanceof SplitVariableRefactoring_RENAMED) {
+						SplitVariableRefactoring_RENAMED split = (SplitVariableRefactoring_RENAMED)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
 						for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {

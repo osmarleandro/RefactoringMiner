@@ -33,7 +33,7 @@ import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
-import gr.uom.java.xmi.diff.SplitVariableRefactoring;
+import gr.uom.java.xmi.diff.SplitVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLOperationDiff;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
@@ -53,7 +53,7 @@ public class VariableReplacementAnalysis {
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
-	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
+	private Set<SplitVariableRefactoring_RENAMED> variableSplits = new LinkedHashSet<SplitVariableRefactoring_RENAMED>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
@@ -142,7 +142,7 @@ public class VariableReplacementAnalysis {
 		return variableMerges;
 	}
 
-	public Set<SplitVariableRefactoring> getVariableSplits() {
+	public Set<SplitVariableRefactoring_RENAMED> getVariableSplits() {
 		return variableSplits;
 	}
 
@@ -241,7 +241,7 @@ public class VariableReplacementAnalysis {
 			SimpleEntry<VariableDeclaration,UMLOperation> oldVariable = getVariableDeclaration1(split);
 			if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && oldVariable != null) {
 				UMLOperation operationAfter = splitVariableOperations.iterator().next();
-				SplitVariableRefactoring refactoring = new SplitVariableRefactoring(oldVariable.getKey(), splitVariables, oldVariable.getValue(), operationAfter, splitMap.get(split));
+				SplitVariableRefactoring_RENAMED refactoring = new SplitVariableRefactoring_RENAMED(oldVariable.getKey(), splitVariables, oldVariable.getValue(), operationAfter, splitMap.get(split));
 				if(!existsConflictingExtractVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
 					variableSplits.add(refactoring);
 				}
@@ -1114,7 +1114,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingParameterRenameInOperationDiff(SplitVariableRefactoring ref) {
+	private boolean existsConflictingParameterRenameInOperationDiff(SplitVariableRefactoring_RENAMED ref) {
 		if(operationDiff != null) {
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getSplitVariables().contains(parameterDiff.getAddedParameter().getVariableDeclaration()) &&
@@ -1140,7 +1140,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring ref) {
+	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring_RENAMED ref) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
@@ -1177,7 +1177,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingSplitVariableRefactoring(RenameVariableRefactoring ref) {
-		for(SplitVariableRefactoring split : variableSplits) {
+		for(SplitVariableRefactoring_RENAMED split : variableSplits) {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
 					split.getOperationAfter().equals(ref.getOperationAfter()) &&
 					split.getSplitVariables().contains(ref.getRenamedVariable()) &&
