@@ -13,7 +13,7 @@ import java.util.Set;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
-import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.GitService_RENAMED;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
@@ -105,7 +105,7 @@ public class TestBuilder {
 		cMap = new HashMap<RefactoringType, Counter>();
 		commitsCount = 0;
 		errorCommitsCount = 0;
-		GitService gitService = new GitServiceImpl();
+		GitService_RENAMED gitService = new GitServiceImpl();
 
 		for (ProjectMatcher m : map.values()) {
 			String folder = tempDir + "/"

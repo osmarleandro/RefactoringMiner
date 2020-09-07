@@ -33,11 +33,11 @@ import org.eclipse.jgit.transport.TrackingRefUpdate;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.refactoringminer.api.Churn;
-import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.GitService_RENAMED;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitServiceImpl implements GitService {
+public class GitServiceImpl implements GitService_RENAMED {
 
 	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);

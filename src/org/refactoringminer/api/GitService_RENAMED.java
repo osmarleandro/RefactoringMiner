@@ -11,7 +11,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
  * Simple service to make git related tasks easier.  
  *
  */
-public interface GitService {
+public interface GitService_RENAMED {
 
 	/**
 	 * Clone the git repository given by {@code cloneUrl} only if is does not exist yet in {@code folder}.
