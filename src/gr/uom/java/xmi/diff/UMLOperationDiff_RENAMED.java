@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 
-public class UMLOperationDiff {
+public class UMLOperationDiff_RENAMED {
 	private UMLOperation removedOperation;
 	private UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
@@ -32,7 +32,7 @@ public class UMLOperationDiff {
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 	private UMLAnnotationListDiff annotationListDiff;
 	
-	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
+	public UMLOperationDiff_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation) {
 		this.removedOperation = removedOperation;
 		this.addedOperation = addedOperation;
 		this.addedParameters = new ArrayList<UMLParameter>();
@@ -113,7 +113,7 @@ public class UMLOperationDiff {
 			}
 		}
 	}
-	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping> mappings) {
+	public UMLOperationDiff_RENAMED(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping> mappings) {
 		this(removedOperation, addedOperation);
 		this.mappings = mappings;
 	}

@@ -26,7 +26,7 @@ import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
-import gr.uom.java.xmi.diff.UMLOperationDiff;
+import gr.uom.java.xmi.diff.UMLOperationDiff_RENAMED;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 import java.util.AbstractMap;
@@ -90,7 +90,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = composite2.getLeaves();
 			
-			UMLOperationDiff operationDiff = new UMLOperationDiff(operation1, operation2);
+			UMLOperationDiff_RENAMED operationDiff = new UMLOperationDiff_RENAMED(operation1, operation2);
 			Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
 			Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
 			List<UMLParameter> addedParameters = operationDiff.getAddedParameters();
@@ -3061,9 +3061,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
-		UMLOperationDiff operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
+		UMLOperationDiff_RENAMED operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		if(operationDiff == null) {
-			operationDiff = new UMLOperationDiff(operation1, operation2);
+			operationDiff = new UMLOperationDiff_RENAMED(operation1, operation2);
 		}
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(s1, s2);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);

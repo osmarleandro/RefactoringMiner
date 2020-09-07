@@ -35,7 +35,7 @@ import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.SplitVariableRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
-import gr.uom.java.xmi.diff.UMLOperationDiff;
+import gr.uom.java.xmi.diff.UMLOperationDiff_RENAMED;
 import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 public class VariableReplacementAnalysis {
@@ -49,7 +49,7 @@ public class VariableReplacementAnalysis {
 	private List<UMLOperationBodyMapper> childMappers;
 	private Set<Refactoring> refactorings;
 	private UMLOperation callSiteOperation;
-	private UMLOperationDiff operationDiff;
+	private UMLOperationDiff_RENAMED operationDiff;
 	private UMLClassBaseDiff classDiff;
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();

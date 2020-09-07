@@ -56,7 +56,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
-	private List<UMLOperationDiff> operationDiffList;
+	private List<UMLOperationDiff_RENAMED> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
@@ -83,7 +83,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.removedImplementedInterfaces = new ArrayList<UMLType>();
 		this.addedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
-		this.operationDiffList = new ArrayList<UMLOperationDiff>();
+		this.operationDiffList = new ArrayList<UMLOperationDiff_RENAMED>();
 		this.attributeDiffList = new ArrayList<UMLAttributeDiff>();
 		this.refactorings = new ArrayList<Refactoring>();
 		this.modelDiff = modelDiff;
@@ -101,8 +101,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		checkForExtractedOperations();
 	}
 
-	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
-		for(UMLOperationDiff diff : operationDiffList) {
+	public UMLOperationDiff_RENAMED getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
+		for(UMLOperationDiff_RENAMED diff : operationDiffList) {
 			if(diff.getRemovedOperation().equals(operation1) && diff.getAddedOperation().equals(operation2)) {
 				return diff;
 			}
@@ -467,7 +467,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public List<Refactoring> getRefactorings() {
 		List<Refactoring> refactorings = new ArrayList<Refactoring>(this.refactorings);
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
-			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
+			UMLOperationDiff_RENAMED operationSignatureDiff = new UMLOperationDiff_RENAMED(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
 			refactorings.addAll(operationSignatureDiff.getRefactorings());
 			processMapperRefactorings(mapper, refactorings);
 		}
@@ -1016,7 +1016,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						addedOperations.remove(addedOperation);
 						removedOperationIterator.remove();
 	
-						UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
+						UMLOperationDiff_RENAMED operationSignatureDiff = new UMLOperationDiff_RENAMED(removedOperation, addedOperation, bestMapper.getMappings());
 						operationDiffList.add(operationSignatureDiff);
 						refactorings.addAll(operationSignatureDiff.getRefactorings());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
@@ -1056,7 +1056,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						removedOperations.remove(removedOperation);
 						addedOperationIterator.remove();
 	
-						UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, bestMapper.getMappings());
+						UMLOperationDiff_RENAMED operationSignatureDiff = new UMLOperationDiff_RENAMED(removedOperation, addedOperation, bestMapper.getMappings());
 						operationDiffList.add(operationSignatureDiff);
 						refactorings.addAll(operationSignatureDiff.getRefactorings());
 						if(!removedOperation.getName().equals(addedOperation.getName()) &&
@@ -1638,7 +1638,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLAttribute umlAttribute : addedAttributes) {
 			sb.append("attribute " + umlAttribute + " added").append("\n");
 		}
-		for(UMLOperationDiff operationDiff : operationDiffList) {
+		for(UMLOperationDiff_RENAMED operationDiff : operationDiffList) {
 			sb.append(operationDiff);
 		}
 		for(UMLAttributeDiff attributeDiff : attributeDiffList) {
