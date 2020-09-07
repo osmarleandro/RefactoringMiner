@@ -8,12 +8,12 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private String name;
-	private UMLType type;
+	private UMLType_RENAMED type;
 	private String kind;
 	private boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
-	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
+	public UMLParameter(String name, UMLType_RENAMED type, String kind, boolean varargs) {
 		this.name = name;
 		this.type = type;
 		this.kind = kind;
@@ -23,7 +23,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		}
 	}
 
-	public UMLType getType() {
+	public UMLType_RENAMED getType() {
 		return type;
 	}
 

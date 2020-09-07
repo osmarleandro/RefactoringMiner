@@ -4,7 +4,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
-import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.UMLType_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
@@ -143,11 +143,11 @@ public class OperationInvocation extends AbstractCall {
     }
 
     public boolean matchesOperation(UMLOperation operation) {
-    	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
+    	return matchesOperation(operation, new HashMap<String, UMLType_RENAMED>(), null);
     }
 
-    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
-    	List<UMLType> inferredArgumentTypes = new ArrayList<UMLType>();
+    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType_RENAMED> variableTypeMap, UMLModelDiff modelDiff) {
+    	List<UMLType_RENAMED> inferredArgumentTypes = new ArrayList<UMLType_RENAMED>();
     	for(String arg : arguments) {
     		int indexOfOpeningParenthesis = arg.indexOf("(");
     		int indexOfOpeningSquareBracket = arg.indexOf("[");
@@ -171,23 +171,23 @@ public class OperationInvocation extends AbstractCall {
     			inferredArgumentTypes.add(variableTypeMap.get(arg));
     		}
     		else if(arg.startsWith("\"") && arg.endsWith("\"")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("String"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("String"));
     		}
     		else if(arg.startsWith("\'") && arg.endsWith("\'")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("char"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("char"));
     		}
     		else if(arg.endsWith(".class")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("Class"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("Class"));
     		}
     		else if(arg.equals("true")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("boolean"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("boolean"));
     		}
     		else if(arg.equals("false")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("boolean"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("boolean"));
     		}
     		else if(arg.startsWith("new ") && arg.contains("(") && openingParenthesisBeforeSquareBracket) {
     			String type = arg.substring(4, arg.indexOf("("));
-    			inferredArgumentTypes.add(UMLType.extractTypeObject(type));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject(type));
     		}
     		else if(arg.startsWith("new ") && arg.contains("[") && openingSquareBracketBeforeParenthesis) {
     			String type = arg.substring(4, arg.indexOf("["));
@@ -199,15 +199,15 @@ public class OperationInvocation extends AbstractCall {
     					break;
     				}
     			}
-    			inferredArgumentTypes.add(UMLType.extractTypeObject(type));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject(type));
     		}
     		else if(arg.endsWith(".getClassLoader()")) {
-    			inferredArgumentTypes.add(UMLType.extractTypeObject("ClassLoader"));
+    			inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("ClassLoader"));
     		}
     		else if(arg.contains("+") && !arg.contains("++") && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(arg)) {
     			String[] tokens = arg.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN);
     			if(tokens[0].startsWith("\"") && tokens[0].endsWith("\"")) {
-    				inferredArgumentTypes.add(UMLType.extractTypeObject("String"));
+    				inferredArgumentTypes.add(UMLType_RENAMED.extractTypeObject("String"));
     			}
     			else {
     				inferredArgumentTypes.add(null);
@@ -219,7 +219,7 @@ public class OperationInvocation extends AbstractCall {
     	}
     	int i=0;
     	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
-    		UMLType parameterType = parameter.getType();
+    		UMLType_RENAMED parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
     					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -232,7 +232,7 @@ public class OperationInvocation extends AbstractCall {
     	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
     }
 
-    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+    private boolean compatibleTypes(UMLParameter parameter, UMLType_RENAMED type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
@@ -438,7 +438,7 @@ public class OperationInvocation extends AbstractCall {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 
-	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
+	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType_RENAMED> typeInferenceMapFromContext) {
 		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
@@ -446,8 +446,8 @@ public class OperationInvocation extends AbstractCall {
 				int i = 0;
 				for(String argument : getArguments()) {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
-						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameters.get(i).getType();
+						UMLType_RENAMED argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType_RENAMED paremeterType = parameters.get(i).getType();
 						if(!argumentType.equals(paremeterType))
 							return false;
 					}
@@ -459,9 +459,9 @@ public class OperationInvocation extends AbstractCall {
 				for(UMLParameter parameter : parameters) {
 					String argument = getArguments().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
-						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameter.isVarargs() ?
-								UMLType.extractTypeObject(parameter.getType().getClassType()) :
+						UMLType_RENAMED argumentType = typeInferenceMapFromContext.get(argument);
+						UMLType_RENAMED paremeterType = parameter.isVarargs() ?
+								UMLType_RENAMED.extractTypeObject(parameter.getType().getClassType()) :
 								parameter.getType();
 						if(!argumentType.equals(paremeterType))
 							return false;
@@ -476,8 +476,8 @@ public class OperationInvocation extends AbstractCall {
 			int i = 0;
 			for(String argument : getArguments()) {
 				if(typeInferenceMapFromContext.containsKey(argument)) {
-					UMLType argumentType = typeInferenceMapFromContext.get(argument);
-					UMLType paremeterType = parameters.get(i).getType();
+					UMLType_RENAMED argumentType = typeInferenceMapFromContext.get(argument);
+					UMLType_RENAMED paremeterType = parameters.get(i).getType();
 					if(!argumentType.equals(paremeterType))
 						return false;
 				}

@@ -10,7 +10,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.UMLType_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
@@ -192,7 +192,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		return this.className.equals(className);
 	}
 
-	public boolean matches(UMLType type) {
+	public boolean matches(UMLType_RENAMED type) {
 		return this.className.endsWith("." + type.getClassType());
 	}
 }

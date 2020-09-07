@@ -18,7 +18,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.UMLType_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -50,10 +50,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean oldAbstraction;
 	private boolean newAbstraction;
 	private boolean superclassChanged;
-	private UMLType oldSuperclass;
-	private UMLType newSuperclass;
-	private List<UMLType> addedImplementedInterfaces;
-	private List<UMLType> removedImplementedInterfaces;
+	private UMLType_RENAMED oldSuperclass;
+	private UMLType_RENAMED newSuperclass;
+	private List<UMLType_RENAMED> addedImplementedInterfaces;
+	private List<UMLType_RENAMED> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
@@ -79,8 +79,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.addedAttributes = new ArrayList<UMLAttribute>();
 		this.removedAttributes = new ArrayList<UMLAttribute>();
 		this.operationBodyMapperList = new ArrayList<UMLOperationBodyMapper>();
-		this.addedImplementedInterfaces = new ArrayList<UMLType>();
-		this.removedImplementedInterfaces = new ArrayList<UMLType>();
+		this.addedImplementedInterfaces = new ArrayList<UMLType_RENAMED>();
+		this.removedImplementedInterfaces = new ArrayList<UMLType_RENAMED>();
 		this.addedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.operationDiffList = new ArrayList<UMLOperationDiff>();
@@ -128,8 +128,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
-		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
+	public Set<UMLType_RENAMED> nextClassCommonInterfaces(UMLClassBaseDiff other) {
+		Set<UMLType_RENAMED> common = new LinkedHashSet<UMLType_RENAMED>(nextClass.getImplementedInterfaces());
 		common.retainAll(other.nextClass.getImplementedInterfaces());
 		return common;
 	}
@@ -226,7 +226,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				this.nextClass.getName().equals(className);
 	}
 
-	public boolean matches(UMLType type) {
+	public boolean matches(UMLType_RENAMED type) {
 		return this.originalClass.getName().endsWith("." + type.getClassType()) ||
 				this.nextClass.getName().endsWith("." + type.getClassType());
 	}
@@ -290,11 +290,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return originalClass.attributesOfType(targetClass);
 	}
 
-	private void reportAddedImplementedInterface(UMLType implementedInterface) {
+	private void reportAddedImplementedInterface(UMLType_RENAMED implementedInterface) {
 		this.addedImplementedInterfaces.add(implementedInterface);
 	}
 
-	private void reportRemovedImplementedInterface(UMLType implementedInterface) {
+	private void reportRemovedImplementedInterface(UMLType_RENAMED implementedInterface) {
 		this.removedImplementedInterfaces.add(implementedInterface);
 	}
 
@@ -334,33 +334,33 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.superclassChanged = superclassChanged;
 	}
 
-	private void setOldSuperclass(UMLType oldSuperclass) {
+	private void setOldSuperclass(UMLType_RENAMED oldSuperclass) {
 		this.oldSuperclass = oldSuperclass;
 	}
 
-	private void setNewSuperclass(UMLType newSuperclass) {
+	private void setNewSuperclass(UMLType_RENAMED newSuperclass) {
 		this.newSuperclass = newSuperclass;
 	}
 
-	public UMLType getSuperclass() {
+	public UMLType_RENAMED getSuperclass() {
 		if(!superclassChanged && oldSuperclass != null && newSuperclass != null)
 			return oldSuperclass;
 		return null;
 	}
 
-	public UMLType getOldSuperclass() {
+	public UMLType_RENAMED getOldSuperclass() {
 		return oldSuperclass;
 	}
 
-	public UMLType getNewSuperclass() {
+	public UMLType_RENAMED getNewSuperclass() {
 		return newSuperclass;
 	}
 
-	public List<UMLType> getAddedImplementedInterfaces() {
+	public List<UMLType_RENAMED> getAddedImplementedInterfaces() {
 		return addedImplementedInterfaces;
 	}
 
-	public List<UMLType> getRemovedImplementedInterfaces() {
+	public List<UMLType_RENAMED> getRemovedImplementedInterfaces() {
 		return removedImplementedInterfaces;
 	}
 
@@ -446,11 +446,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			setOldSuperclass(originalClass.getSuperclass());
 			setNewSuperclass(nextClass.getSuperclass());
 		}
-		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
+		for(UMLType_RENAMED implementedInterface : originalClass.getImplementedInterfaces()) {
 			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))
 				reportRemovedImplementedInterface(implementedInterface);
 		}
-		for(UMLType implementedInterface : nextClass.getImplementedInterfaces()) {
+		for(UMLType_RENAMED implementedInterface : nextClass.getImplementedInterfaces()) {
 			if(!originalClass.getImplementedInterfaces().contains(implementedInterface))
 				reportAddedImplementedInterface(implementedInterface);
 		}
@@ -1477,8 +1477,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
-			UMLType type1 = removedOperation.getReturnParameter().getType();
-			UMLType type2 = addedOperation.getReturnParameter().getType();
+			UMLType_RENAMED type1 = removedOperation.getReturnParameter().getType();
+			UMLType_RENAMED type2 = addedOperation.getReturnParameter().getType();
 			if(!removedOperation.equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
 				return true;
 			}

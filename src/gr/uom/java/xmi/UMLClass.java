@@ -19,8 +19,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean isInterface;
 	private boolean isEnum;
 	private boolean topLevel;
-    private UMLType superclass;
-    private List<UMLType> implementedInterfaces;
+    private UMLType_RENAMED superclass;
+    private List<UMLType_RENAMED> implementedInterfaces;
     private List<UMLAnonymousClass> anonymousClassList;
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
@@ -70,7 +70,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
         this.isInterface = false;
         this.topLevel = topLevel;
         this.superclass = null;
-        this.implementedInterfaces = new ArrayList<UMLType>();
+        this.implementedInterfaces = new ArrayList<UMLType_RENAMED>();
         this.anonymousClassList = new ArrayList<UMLAnonymousClass>();
         this.importedTypes = importedTypes;
         this.typeParameters = new ArrayList<UMLTypeParameter>();
@@ -160,19 +160,19 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.isAbstract = isAbstract;
 	}
 
-    public UMLType getSuperclass() {
+    public UMLType_RENAMED getSuperclass() {
 		return superclass;
 	}
 
-	public void setSuperclass(UMLType superclass) {
+	public void setSuperclass(UMLType_RENAMED superclass) {
 		this.superclass = superclass;
 	}
 
-	public void addImplementedInterface(UMLType implementedInterface) {
+	public void addImplementedInterface(UMLType_RENAMED implementedInterface) {
 		this.implementedInterfaces.add(implementedInterface);
 	}
 
-	public List<UMLType> getImplementedInterfaces() {
+	public List<UMLType_RENAMED> getImplementedInterfaces() {
 		return implementedInterfaces;
 	}
 
@@ -333,8 +333,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 
-	public boolean implementsInterface(Set<UMLType> interfaces) {
-		for(UMLType type : interfaces) {
+	public boolean implementsInterface(Set<UMLType_RENAMED> interfaces) {
+		for(UMLType_RENAMED type : interfaces) {
 			if(implementedInterfaces.contains(type))
 				return true;
 		}
@@ -347,7 +347,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 				return true;
 			}
 		}
-		for(UMLType implementedInterface : implementedInterfaces) {
+		for(UMLType_RENAMED implementedInterface : implementedInterfaces) {
 			if(umlClass.getName().endsWith("." + implementedInterface.getClassType())) {
 				return true;
 			}

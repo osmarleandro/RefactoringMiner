@@ -18,14 +18,14 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.UMLType_RENAMED;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
 	private AbstractExpression initializer;
-	private UMLType type;
+	private UMLType_RENAMED type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
 	private boolean isParameter;
@@ -60,7 +60,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
-		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
+		this.type = UMLType_RENAMED.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		ASTNode scopeNode = getScopeNode(fragment);
 		int startOffset = 0;
 		if(locationInfo.getCodeElementType().equals(CodeElementType.FIELD_DECLARATION)) {
@@ -87,7 +87,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
-		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
+		this.type = UMLType_RENAMED.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		int startOffset = fragment.getStartPosition();
 		ASTNode scopeNode = getScopeNode(fragment);
 		int endOffset = scopeNode.getStartPosition() + scopeNode.getLength();
@@ -107,7 +107,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return initializer;
 	}
 
-	public UMLType getType() {
+	public UMLType_RENAMED getType() {
 		return type;
 	}
 

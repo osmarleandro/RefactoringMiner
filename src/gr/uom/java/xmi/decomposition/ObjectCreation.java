@@ -10,18 +10,18 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.UMLType_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
-	private UMLType type;
+	private UMLType_RENAMED type;
 	private String anonymousClassDeclaration;
 	private boolean isArray = false;
 	private volatile int hashCode = 0;
 	
 	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.CLASS_INSTANCE_CREATION);
-		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
+		this.type = UMLType_RENAMED.extractTypeObject(cu, filePath, creation.getType(), 0);
 		this.typeArguments = creation.arguments().size();
 		this.arguments = new ArrayList<String>();
 		List<Expression> args = creation.arguments();
@@ -39,7 +39,7 @@ public class ObjectCreation extends AbstractCall {
 	public ObjectCreation(CompilationUnit cu, String filePath, ArrayCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.ARRAY_CREATION);
 		this.isArray = true;
-		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
+		this.type = UMLType_RENAMED.extractTypeObject(cu, filePath, creation.getType(), 0);
 		this.typeArguments = creation.dimensions().size();
 		this.arguments = new ArrayList<String>();
 		List<Expression> args = creation.dimensions();
@@ -55,7 +55,7 @@ public class ObjectCreation extends AbstractCall {
 		return getType().toString();
 	}
 
-	public UMLType getType() {
+	public UMLType_RENAMED getType() {
 		return type;
 	}
 

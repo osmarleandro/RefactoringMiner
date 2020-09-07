@@ -21,10 +21,10 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public abstract class UMLType implements Serializable, LocationInfoProvider {
+public abstract class UMLType_RENAMED implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
-	private List<UMLType> typeArguments = new ArrayList<UMLType>();
+	private List<UMLType_RENAMED> typeArguments = new ArrayList<UMLType_RENAMED>();
 	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
 
 	public LocationInfo getLocationInfo() {
@@ -73,7 +73,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return sb.toString();
 	}
 
-	private boolean equalTypeArguments(UMLType type) {
+	private boolean equalTypeArguments(UMLType_RENAMED type) {
 		String thisTypeArguments = this.typeArgumentsToString();
 		String otherTypeArguments = type.typeArgumentsToString();
 		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
@@ -88,8 +88,8 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			return false;
 		}
 		for(int i=0; i<this.typeArguments.size(); i++) {
-			UMLType thisComponent = this.typeArguments.get(i);
-			UMLType otherComponent = type.typeArguments.get(i);
+			UMLType_RENAMED thisComponent = this.typeArguments.get(i);
+			UMLType_RENAMED otherComponent = type.typeArguments.get(i);
 			if(!thisComponent.equals(otherComponent)) {
 				return false;
 			}
@@ -97,7 +97,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	protected boolean equalTypeArgumentsAndArrayDimension(UMLType typeObject) {
+	protected boolean equalTypeArgumentsAndArrayDimension(UMLType_RENAMED typeObject) {
 		if(!this.isParameterized() && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
 		else if(this.isParameterized() && typeObject.isParameterized())
@@ -105,7 +105,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return false;
 	}
 
-	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType typeObject) {
+	protected boolean equalTypeArgumentsAndArrayDimensionForSubType(UMLType_RENAMED typeObject) {
 		if(!this.isParameterized() && !typeObject.isParameterized())
 			return this.arrayDimension == typeObject.arrayDimension;
 		else if(this.isParameterized() && typeObject.isParameterized())
@@ -118,7 +118,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	public boolean containsTypeArgument(String type) {
-		for(UMLType typeArgument : typeArguments) {
+		for(UMLType_RENAMED typeArgument : typeArguments) {
 			if(typeArgument.toString().equals(type)) {
 				return true;
 			}
@@ -136,32 +136,32 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	public abstract String toQualifiedString();
 	public abstract String getClassType();
 
-	public boolean equalsQualified(UMLType type) {
+	public boolean equalsQualified(UMLType_RENAMED type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
-	public boolean equalsWithSubType(UMLType type) {
+	public boolean equalsWithSubType(UMLType_RENAMED type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
-	public boolean equalClassType(UMLType type) {
+	public boolean equalClassType(UMLType_RENAMED type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
-	public boolean compatibleTypes(UMLType type) {
+	public boolean compatibleTypes(UMLType_RENAMED type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
 
-	public double normalizedNameDistance(UMLType type) {
+	public double normalizedNameDistance(UMLType_RENAMED type) {
 		String s1 = this.toString();
 		String s2 = type.toString();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -171,7 +171,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 
 	public static LeafType extractTypeObject(String qualifiedName) {
 		int arrayDimension = 0;
-		List<UMLType> typeArgumentDecomposition = new ArrayList<UMLType>();
+		List<UMLType_RENAMED> typeArgumentDecomposition = new ArrayList<UMLType_RENAMED>();
 		if(qualifiedName.endsWith("[]")) {
 			while(qualifiedName.endsWith("[]")) {
 				qualifiedName = qualifiedName.substring(0, qualifiedName.lastIndexOf("[]"));
@@ -201,7 +201,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			}
 			qualifiedName = qualifiedName.substring(0, qualifiedName.indexOf("<"));
 		}
-		UMLType typeObject = new LeafType(qualifiedName);
+		UMLType_RENAMED typeObject = new LeafType(qualifiedName);
 		typeObject.arrayDimension = arrayDimension;
 		typeObject.typeArguments = typeArgumentDecomposition;
 		return (LeafType)typeObject;
@@ -221,14 +221,14 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return openingTags == closingTags;
 	}
 
-	public static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type, int extraDimensions) {
-		UMLType umlType = extractTypeObject(cu, filePath, type);
+	public static UMLType_RENAMED extractTypeObject(CompilationUnit cu, String filePath, Type type, int extraDimensions) {
+		UMLType_RENAMED umlType = extractTypeObject(cu, filePath, type);
 		umlType.locationInfo = new LocationInfo(cu, filePath, type, CodeElementType.TYPE);
 		umlType.arrayDimension += extraDimensions;
 		return umlType;
 	}
 
-	private static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
+	private static UMLType_RENAMED extractTypeObject(CompilationUnit cu, String filePath, Type type) {
 		if(type.isPrimitiveType() || type.isSimpleType()) {
 			LeafType leafType = extractTypeObject(type.toString());
 			AnnotatableType annotatableType = (AnnotatableType)type;
@@ -240,7 +240,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		else if(type instanceof QualifiedType) {
 			QualifiedType qualified = (QualifiedType)type;
-			UMLType leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
+			UMLType_RENAMED leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
 			LeafType rightType = extractTypeObject(qualified.getName().getFullyQualifiedName());
 			AnnotatableType annotatableType = (AnnotatableType)qualified;
 			List<Annotation> annotations = annotatableType.annotations();
@@ -264,7 +264,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			WildcardType wildcard = (WildcardType)type;
 			gr.uom.java.xmi.WildcardType myWildcardType = null;
 			if(wildcard.getBound() != null) {
-				UMLType bound = extractTypeObject(cu, filePath, wildcard.getBound());
+				UMLType_RENAMED bound = extractTypeObject(cu, filePath, wildcard.getBound());
 				myWildcardType = new gr.uom.java.xmi.WildcardType(bound, wildcard.isUpperBound());
 			}
 			else {
@@ -279,13 +279,13 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		else if(type instanceof ArrayType) {
 			ArrayType array = (ArrayType)type;
-			UMLType arrayType = extractTypeObject(cu, filePath, array.getElementType());
+			UMLType_RENAMED arrayType = extractTypeObject(cu, filePath, array.getElementType());
 			arrayType.arrayDimension = array.getDimensions();
 			return arrayType;
 		}
 		else if(type instanceof ParameterizedType) {
 			ParameterizedType parameterized = (ParameterizedType)type;
-			UMLType container = extractTypeObject(cu, filePath, parameterized.getType());
+			UMLType_RENAMED container = extractTypeObject(cu, filePath, parameterized.getType());
 			List<Type> typeArguments = parameterized.typeArguments();
 			for(Type argument : typeArguments) {
 				container.typeArguments.add(extractTypeObject(cu, filePath, argument));
@@ -295,7 +295,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		else if(type instanceof UnionType) {
 			UnionType union = (UnionType)type;
 			List<Type> types = union.types();
-			List<UMLType> umlTypes = new ArrayList<UMLType>();
+			List<UMLType_RENAMED> umlTypes = new ArrayList<UMLType_RENAMED>();
 			for(Type unionType : types) {
 				umlTypes.add(extractTypeObject(cu, filePath, unionType));
 			}
@@ -304,7 +304,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		else if(type instanceof IntersectionType) {
 			IntersectionType intersection = (IntersectionType)type;
 			List<Type> types = intersection.types();
-			List<UMLType> umlTypes = new ArrayList<UMLType>();
+			List<UMLType_RENAMED> umlTypes = new ArrayList<UMLType_RENAMED>();
 			for(Type unionType : types) {
 				umlTypes.add(extractTypeObject(cu, filePath, unionType));
 			}
