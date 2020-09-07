@@ -133,7 +133,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
-		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
+		if(this instanceof LeafMapping_RENAMED && getFragment1() instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
 			StatementObject statement = (StatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();

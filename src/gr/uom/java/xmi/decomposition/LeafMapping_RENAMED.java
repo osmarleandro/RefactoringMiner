@@ -7,15 +7,15 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
+public class LeafMapping_RENAMED extends AbstractCodeMapping implements Comparable<LeafMapping_RENAMED> {
 
-	public LeafMapping(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	public LeafMapping_RENAMED(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
 			UMLOperation operation1, UMLOperation operation2) {
 		super(statement1, statement2, operation1, operation2);
 	}
 
 	@Override
-	public int compareTo(LeafMapping o) {
+	public int compareTo(LeafMapping_RENAMED o) {
 		double distance1;
 		double distance2;
 		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {

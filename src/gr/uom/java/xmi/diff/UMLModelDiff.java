@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
-import gr.uom.java.xmi.decomposition.LeafMapping;
+import gr.uom.java.xmi.decomposition.LeafMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -2331,7 +2331,7 @@ public class UMLModelDiff {
 								v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {
 							nonMappedStatementsDeclaringSameVariable++;
 							leafIterator1.remove();
-							LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
+							LeafMapping_RENAMED mapping = new LeafMapping_RENAMED(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
 							operationBodyMapper.getMappings().add(mapping);
 							break;
 						}
@@ -2377,7 +2377,7 @@ public class UMLModelDiff {
 	   }
 	   int exactLeafMappings = 0;
 	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
+		   if(mapping instanceof LeafMapping_RENAMED && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
 	   }
