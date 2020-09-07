@@ -6,12 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnnotation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 
 public class UMLAnnotationDiff {
-	private UMLAnnotation removedAnnotation;
-	private UMLAnnotation addedAnnotation;
+	private UMLAnnotation_RENAMED removedAnnotation;
+	private UMLAnnotation_RENAMED addedAnnotation;
 	private boolean typeNameChanged = false;
 	private boolean valueChanged = false;
 	private boolean valueRemoved = false;
@@ -20,7 +20,7 @@ public class UMLAnnotationDiff {
 	private List<SimpleEntry<String, AbstractExpression>> addedMemberValuePairs;
 	private Map<SimpleEntry<String, AbstractExpression>, SimpleEntry<String, AbstractExpression>> matchedMemberValuePairsWithDifferentExpressions;
 	
-	public UMLAnnotationDiff(UMLAnnotation removedAnnotation, UMLAnnotation addedAnnotation) {
+	public UMLAnnotationDiff(UMLAnnotation_RENAMED removedAnnotation, UMLAnnotation_RENAMED addedAnnotation) {
 		this.removedAnnotation = removedAnnotation;
 		this.addedAnnotation = addedAnnotation;
 		this.removedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression>>();
@@ -72,11 +72,11 @@ public class UMLAnnotationDiff {
 		}
 	}
 	
-	public UMLAnnotation getRemovedAnnotation() {
+	public UMLAnnotation_RENAMED getRemovedAnnotation() {
 		return removedAnnotation;
 	}
 
-	public UMLAnnotation getAddedAnnotation() {
+	public UMLAnnotation_RENAMED getAddedAnnotation() {
 		return addedAnnotation;
 	}
 

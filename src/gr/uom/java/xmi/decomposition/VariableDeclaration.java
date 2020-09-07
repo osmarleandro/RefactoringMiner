@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
-import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnnotation_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -31,10 +31,10 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
-	private List<UMLAnnotation> annotations;
+	private List<UMLAnnotation_RENAMED> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
-		this.annotations = new ArrayList<UMLAnnotation>();
+		this.annotations = new ArrayList<UMLAnnotation_RENAMED>();
 		List<IExtendedModifier> extendedModifiers = null;
 		if(fragment.getParent() instanceof VariableDeclarationStatement) {
 			VariableDeclarationStatement parent = (VariableDeclarationStatement)fragment.getParent();
@@ -52,7 +52,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 			for(IExtendedModifier extendedModifier : extendedModifiers) {
 				if(extendedModifier.isAnnotation()) {
 					Annotation annotation = (Annotation)extendedModifier;
-					this.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+					this.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 				}
 			}
 		}
@@ -75,12 +75,12 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	}
 
 	public VariableDeclaration(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment) {
-		this.annotations = new ArrayList<UMLAnnotation>();
+		this.annotations = new ArrayList<UMLAnnotation_RENAMED>();
 		List<IExtendedModifier> extendedModifiers = fragment.modifiers();
 		for(IExtendedModifier extendedModifier : extendedModifiers) {
 			if(extendedModifier.isAnnotation()) {
 				Annotation annotation = (Annotation)extendedModifier;
-				this.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+				this.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 			}
 		}
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
@@ -135,7 +135,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return varargsParameter;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation_RENAMED> getAnnotations() {
 		return annotations;
 	}
 

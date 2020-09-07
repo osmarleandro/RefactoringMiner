@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnnotation_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -217,10 +217,10 @@ public class UMLOperationDiff {
 		for(UMLParameterDiff parameterDiff : parameterDiffList) {
 			sb.append(parameterDiff);
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getRemovedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getAddedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " added").append("\n");
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
@@ -258,11 +258,11 @@ public class UMLOperationDiff {
 				refactorings.add(refactoring);
 			}
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getAddedAnnotations()) {
 			AddMethodAnnotationRefactoring refactoring = new AddMethodAnnotationRefactoring(annotation, removedOperation, addedOperation);
 			refactorings.add(refactoring);
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getRemovedAnnotations()) {
 			RemoveMethodAnnotationRefactoring refactoring = new RemoveMethodAnnotationRefactoring(annotation, removedOperation, addedOperation);
 			refactorings.add(refactoring);
 		}

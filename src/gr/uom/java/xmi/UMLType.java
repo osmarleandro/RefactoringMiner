@@ -25,7 +25,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
-	protected List<UMLAnnotation> annotations = new ArrayList<UMLAnnotation>();
+	protected List<UMLAnnotation_RENAMED> annotations = new ArrayList<UMLAnnotation_RENAMED>();
 
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
@@ -35,7 +35,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		return this.arrayDimension;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
+	public List<UMLAnnotation_RENAMED> getAnnotations() {
 		return annotations;
 	}
 
@@ -234,7 +234,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			AnnotatableType annotatableType = (AnnotatableType)type;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
-				leafType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+				leafType.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 			}
 			return leafType;
 		}
@@ -245,7 +245,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			AnnotatableType annotatableType = (AnnotatableType)qualified;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
-				rightType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+				rightType.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 			}
 			return new CompositeType(leftType, rightType);
 		}
@@ -256,7 +256,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			AnnotatableType annotatableType = (AnnotatableType)nameQualified;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
-				rightType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+				rightType.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 			}
 			return new CompositeType(leftType, rightType);
 		}
@@ -273,7 +273,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			AnnotatableType annotatableType = (AnnotatableType)wildcard;
 			List<Annotation> annotations = annotatableType.annotations();
 			for(Annotation annotation : annotations) {
-				myWildcardType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+				myWildcardType.annotations.add(new UMLAnnotation_RENAMED(cu, filePath, annotation));
 			}
 			return myWildcardType;
 		}

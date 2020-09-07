@@ -15,13 +15,13 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class UMLAnnotation implements Serializable, LocationInfoProvider {
+public class UMLAnnotation_RENAMED implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
 	private AbstractExpression value;
 	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
-	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
+	public UMLAnnotation_RENAMED(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
 		this.locationInfo = new LocationInfo(cu, filePath, annotation, CodeElementType.ANNOTATION);
 		if(annotation instanceof SingleMemberAnnotation) {
@@ -112,7 +112,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UMLAnnotation other = (UMLAnnotation) obj;
+		UMLAnnotation_RENAMED other = (UMLAnnotation_RENAMED) obj;
 		if (memberValuePairs == null) {
 			if (other.memberValuePairs != null)
 				return false;
@@ -131,7 +131,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return true;
 	}
 
-	private boolean memberValuePairsEquals(UMLAnnotation other) {
+	private boolean memberValuePairsEquals(UMLAnnotation_RENAMED other) {
 		Map<String, AbstractExpression> m = other.memberValuePairs;
 		int thisSize = this.memberValuePairs.size();
 		int otherSize = other.memberValuePairs.size();

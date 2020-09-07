@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 
-import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnnotation_RENAMED;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
@@ -91,10 +91,10 @@ public class UMLAttributeDiff {
 		if(finalChanged)
 			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
 					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getRemovedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getAddedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " added").append("\n");
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
@@ -105,11 +105,11 @@ public class UMLAttributeDiff {
 
 	private Set<Refactoring> getAnnotationRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getAddedAnnotations()) {
 			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(UMLAnnotation_RENAMED annotation : annotationListDiff.getRemovedAnnotations()) {
 			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}

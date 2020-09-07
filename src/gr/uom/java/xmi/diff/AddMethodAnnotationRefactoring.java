@@ -9,22 +9,22 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLAnnotation;
+import gr.uom.java.xmi.UMLAnnotation_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 
 public class AddMethodAnnotationRefactoring implements Refactoring {
-	private UMLAnnotation annotation;
+	private UMLAnnotation_RENAMED annotation;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	
-	public AddMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
+	public AddMethodAnnotationRefactoring(UMLAnnotation_RENAMED annotation, UMLOperation operationBefore,
 			UMLOperation operationAfter) {
 		this.annotation = annotation;
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
 	}
 
-	public UMLAnnotation getAnnotation() {
+	public UMLAnnotation_RENAMED getAnnotation() {
 		return annotation;
 	}
 
