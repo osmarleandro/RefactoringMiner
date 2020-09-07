@@ -11,14 +11,14 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class SplitAttributeRefactoring implements Refactoring {
+public class SplitAttributeRefactoring_RENAMED implements Refactoring {
 	private VariableDeclaration oldAttribute;
 	private Set<VariableDeclaration> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
 	private String classNameBefore;
 	private String classNameAfter;
 
-	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
+	public SplitAttributeRefactoring_RENAMED(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
 			String classNameBefore, String classNameAfter, Set<CandidateSplitVariableRefactoring> attributeSplits) {
 		this.oldAttribute = oldAttribute;
 		this.splitAttributes = splitAttributes;
@@ -86,7 +86,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SplitAttributeRefactoring other = (SplitAttributeRefactoring) obj;
+		SplitAttributeRefactoring_RENAMED other = (SplitAttributeRefactoring_RENAMED) obj;
 		if (classNameAfter == null) {
 			if (other.classNameAfter != null)
 				return false;

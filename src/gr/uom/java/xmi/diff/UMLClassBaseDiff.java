@@ -513,7 +513,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			Set<CandidateSplitVariableRefactoring> set = splitMap.get(split);
 			for(CandidateSplitVariableRefactoring candidate : set) {
 				if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
-					SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), set);
+					SplitAttributeRefactoring_RENAMED ref = new SplitAttributeRefactoring_RENAMED(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), set);
 					if(!refactorings.contains(ref)) {
 						refactorings.add(ref);
 						break;//it's not necessary to repeat the same process for all candidates in the set
@@ -785,7 +785,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							UMLAttribute a1 = findAttributeInOriginalClass(originalAttributeName);
 							if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && a1 != null) {
-								SplitAttributeRefactoring ref = new SplitAttributeRefactoring(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateSplitVariableRefactoring>());
+								SplitAttributeRefactoring_RENAMED ref = new SplitAttributeRefactoring_RENAMED(a1.getVariableDeclaration(), splitVariables, getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateSplitVariableRefactoring>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);
 								}
@@ -812,8 +812,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof SplitAttributeRefactoring) {
-				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
+			if(refactoring instanceof SplitAttributeRefactoring_RENAMED) {
+				SplitAttributeRefactoring_RENAMED split = (SplitAttributeRefactoring_RENAMED)refactoring;
 				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
 					return true;
 				}
