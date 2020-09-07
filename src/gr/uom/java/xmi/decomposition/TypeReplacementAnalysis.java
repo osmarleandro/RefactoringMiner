@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 
 public class TypeReplacementAnalysis {
@@ -26,7 +26,7 @@ public class TypeReplacementAnalysis {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
-			for(Replacement replacement : mapping.getReplacements()) {
+			for(Replacement_RENAMED replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
 					List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
 					List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();

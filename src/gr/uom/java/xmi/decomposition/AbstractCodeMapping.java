@@ -10,8 +10,8 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
@@ -24,7 +24,7 @@ public abstract class AbstractCodeMapping {
 	private AbstractCodeFragment fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
-	private Set<Replacement> replacements;
+	private Set<Replacement_RENAMED> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
@@ -34,7 +34,7 @@ public abstract class AbstractCodeMapping {
 		this.fragment2 = fragment2;
 		this.operation1 = operation1;
 		this.operation2 = operation2;
-		this.replacements = new LinkedHashSet<Replacement>();
+		this.replacements = new LinkedHashSet<Replacement_RENAMED>();
 	}
 
 	public AbstractCodeFragment getFragment1() {
@@ -87,7 +87,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	private boolean containsIdenticalOrCompositeReplacement() {
-		for(Replacement r : replacements) {
+		for(Replacement_RENAMED r : replacements) {
 			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
 					r.getBefore().equals(r.getAfter())) {
 				return true;
@@ -99,20 +99,20 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public void addReplacement(Replacement replacement) {
+	public void addReplacement(Replacement_RENAMED replacement) {
 		this.replacements.add(replacement);
 	}
 
-	public void addReplacements(Set<Replacement> replacements) {
+	public void addReplacements(Set<Replacement_RENAMED> replacements) {
 		this.replacements.addAll(replacements);
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement_RENAMED> getReplacements() {
 		return replacements;
 	}
 
 	public boolean containsReplacement(ReplacementType type) {
-		for(Replacement replacement : replacements) {
+		for(Replacement_RENAMED replacement : replacements) {
 			if(replacement.getType().equals(type)) {
 				return true;
 			}
@@ -122,7 +122,7 @@ public abstract class AbstractCodeMapping {
 
 	public Set<ReplacementType> getReplacementTypes() {
 		Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
-		for(Replacement replacement : replacements) {
+		for(Replacement_RENAMED replacement : replacements) {
 			types.add(replacement.getType());
 		}
 		return types;
@@ -138,7 +138,7 @@ public abstract class AbstractCodeMapping {
 			StatementObject statement = (StatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
-			for(Replacement replacement : getReplacements()) {
+			for(Replacement_RENAMED replacement : getReplacements()) {
 				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
 					validReplacements = false;
 					break;
@@ -158,7 +158,7 @@ public abstract class AbstractCodeMapping {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
 			AbstractExpression initializer = declaration.getInitializer();
-			for(Replacement replacement : getReplacements()) {
+			for(Replacement_RENAMED replacement : getReplacements()) {
 				if(replacement.getAfter().startsWith(variableName + ".")) {
 					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
 					if(replacement.getBefore().endsWith(suffixAfter)) {
@@ -219,7 +219,7 @@ public abstract class AbstractCodeMapping {
 			else {
 				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
 			}
-			for(Replacement replacement : getReplacements()) {
+			for(Replacement_RENAMED replacement : getReplacements()) {
 				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.getBefore())) {
 					List<VariableDeclaration> variableDeclarations = operation2.getVariableDeclarationsInScope(fragment2.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
@@ -239,7 +239,7 @@ public abstract class AbstractCodeMapping {
 	public void inlinedVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-			for(Replacement replacement : getReplacements()) {
+			for(Replacement_RENAMED replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
 				AbstractExpression initializer = declaration.getInitializer();
 				if(replacement.getBefore().startsWith(variableName + ".")) {
@@ -285,7 +285,7 @@ public abstract class AbstractCodeMapping {
 			else {
 				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
 			}
-			for(Replacement replacement : getReplacements()) {
+			for(Replacement_RENAMED replacement : getReplacements()) {
 				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
 					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
@@ -313,7 +313,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	private boolean containsVariableNameReplacement(String variableName) {
-		for(Replacement replacement : getReplacements()) {
+		for(Replacement_RENAMED replacement : getReplacements()) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 				if(replacement.getBefore().equals(variableName) || replacement.getAfter().equals(variableName)) {
 					return true;
@@ -323,7 +323,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement_RENAMED replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
@@ -423,8 +423,8 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
-		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
+	public Set<Replacement_RENAMED> commonReplacements(AbstractCodeMapping other) {
+		Set<Replacement_RENAMED> intersection = new LinkedHashSet<Replacement_RENAMED>(this.replacements);
 		intersection.retainAll(other.replacements);
 		return intersection;
 	}

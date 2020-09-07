@@ -16,14 +16,14 @@ import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
 
 public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
-	private Set<Replacement> replacements;
+	private Set<Replacement_RENAMED> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
@@ -99,7 +99,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return inlinedOperationInvocations;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement_RENAMED> getReplacements() {
 		return replacements;
 	}
 

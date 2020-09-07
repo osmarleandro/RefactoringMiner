@@ -2,12 +2,12 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class Replacement {
+public class Replacement_RENAMED {
 	private String before;
 	private String after;
 	private ReplacementType type;
 	
-	public Replacement(String before, String after, ReplacementType type) {
+	public Replacement_RENAMED(String before, String after, ReplacementType type) {
 		this.before = before;
 		this.after = after;
 		this.type = type;
@@ -41,8 +41,8 @@ public class Replacement {
 			return true;
 		if (obj == null)
 			return false;
-		if(obj instanceof Replacement) {
-			Replacement other = (Replacement)obj;
+		if(obj instanceof Replacement_RENAMED) {
+			Replacement_RENAMED other = (Replacement_RENAMED)obj;
 			return this.before.equals(other.before) && this.after.equals(other.after) && this.type.equals(other.type);
 		}
 		return false;

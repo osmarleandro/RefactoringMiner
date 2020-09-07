@@ -6,8 +6,8 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -276,7 +276,7 @@ public class UMLOperationDiff {
 	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
 			for(AbstractCodeMapping mapping : mappings) {
-				for(Replacement replacement : mapping.getReplacements()) {
+				for(Replacement_RENAMED replacement : mapping.getReplacements()) {
 					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {
 							return true;

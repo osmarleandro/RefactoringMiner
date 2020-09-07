@@ -27,8 +27,8 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
@@ -63,7 +63,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
+	private Map<Replacement_RENAMED, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement_RENAMED, Set<CandidateAttributeRefactoring>>();
 	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
@@ -526,15 +526,15 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		Set<Replacement> renames = renameMap.keySet();
-		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
-		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
+		Set<Replacement_RENAMED> renames = renameMap.keySet();
+		Set<Replacement_RENAMED> allConsistentRenames = new LinkedHashSet<Replacement_RENAMED>();
+		Set<Replacement_RENAMED> allInconsistentRenames = new LinkedHashSet<Replacement_RENAMED>();
 		Map<String, Set<String>> aliasedAttributesInOriginalClass = originalClass.aliasedAttributes();
 		Map<String, Set<String>> aliasedAttributesInNextClass = nextClass.aliasedAttributes();
 		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames,
 				aliasedAttributesInOriginalClass, aliasedAttributesInNextClass);
 		allConsistentRenames.removeAll(allInconsistentRenames);
-		for(Replacement pattern : allConsistentRenames) {
+		for(Replacement_RENAMED pattern : allConsistentRenames) {
 			UMLAttribute a1 = findAttributeInOriginalClass(pattern.getBefore());
 			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
 			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
@@ -616,7 +616,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						after = after.substring(prefix2.length(), after.length());
 					}
 				}
-				Replacement renamePattern = new Replacement(before, after, ReplacementType.VARIABLE_NAME);
+				Replacement_RENAMED renamePattern = new Replacement_RENAMED(before, after, ReplacementType.VARIABLE_NAME);
 				if(renameMap.containsKey(renamePattern)) {
 					renameMap.get(renamePattern).add(candidate);
 				}
@@ -679,9 +679,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
+	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement_RENAMED, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
 		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
-		for(Replacement replacement : map.keySet()) {
+		for(Replacement_RENAMED replacement : map.keySet()) {
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
 			for(CandidateAttributeRefactoring candidate : candidates) {
 				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
@@ -920,7 +920,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	private boolean inconsistentAttributeRename(Replacement pattern,
+	private boolean inconsistentAttributeRename(Replacement_RENAMED pattern,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
 		for(String key : aliasedAttributesInOriginalClass.keySet()) {
@@ -964,8 +964,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
-		for(Replacement r : renames.keySet()) {
+	private static boolean cyclicRename(Map<Replacement_RENAMED, Set<CandidateAttributeRefactoring>> renames, Replacement_RENAMED rename) {
+		for(Replacement_RENAMED r : renames.keySet()) {
 			if((rename.getAfter().equals(r.getBefore()) || rename.getBefore().equals(r.getAfter())) &&
 					(totalOccurrences(renames.get(rename)) > 1 || totalOccurrences(renames.get(r)) > 1))
 			return true;

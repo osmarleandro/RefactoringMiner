@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class VariableDeclarationReplacement extends Replacement {
+public class VariableDeclarationReplacement extends Replacement_RENAMED {
 
 	private VariableDeclaration v1;
 	private VariableDeclaration v2;
@@ -35,8 +35,8 @@ public class VariableDeclarationReplacement extends Replacement {
 		return operation2;
 	}
 
-	public Replacement getVariableNameReplacement() {
-		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
+	public Replacement_RENAMED getVariableNameReplacement() {
+		return new Replacement_RENAMED(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
 	}
 
 	@Override

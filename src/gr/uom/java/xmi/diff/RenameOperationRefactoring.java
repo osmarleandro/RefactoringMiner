@@ -11,12 +11,12 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
 
 public class RenameOperationRefactoring implements Refactoring {
 	private UMLOperation originalOperation;
 	private UMLOperation renamedOperation;
-	private Set<Replacement> replacements;
+	private Set<Replacement_RENAMED> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public RenameOperationRefactoring(UMLOperationBodyMapper bodyMapper) {
@@ -29,7 +29,7 @@ public class RenameOperationRefactoring implements Refactoring {
 	public RenameOperationRefactoring(UMLOperation originalOperation, UMLOperation renamedOperation) {
 		this.originalOperation = originalOperation;
 		this.renamedOperation = renamedOperation;
-		this.replacements = new LinkedHashSet<Replacement>();
+		this.replacements = new LinkedHashSet<Replacement_RENAMED>();
 	}
 
 	public String toString() {
@@ -80,7 +80,7 @@ public class RenameOperationRefactoring implements Refactoring {
 		return renamedOperation;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement_RENAMED> getReplacements() {
 		return replacements;
 	}
 

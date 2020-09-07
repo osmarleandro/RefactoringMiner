@@ -4,8 +4,8 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ConditionalExpression;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 
 public class TernaryOperatorExpression {
 
@@ -37,22 +37,22 @@ public class TernaryOperatorExpression {
 		return expression;
 	}
 
-	public Replacement makeReplacementWithTernaryOnTheRight(String statement) {
+	public Replacement_RENAMED makeReplacementWithTernaryOnTheRight(String statement) {
 		if(getElseExpression().getString().equals(statement)) {
-			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
+			return new Replacement_RENAMED(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
 		if(getThenExpression().getString().equals(statement)) {
-			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
+			return new Replacement_RENAMED(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
 	}
 
-	public Replacement makeReplacementWithTernaryOnTheLeft(String statement) {
+	public Replacement_RENAMED makeReplacementWithTernaryOnTheLeft(String statement) {
 		if(getElseExpression().getString().equals(statement)) {
-			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
+			return new Replacement_RENAMED(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
 		if(getThenExpression().getString().equals(statement)) {
-			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
+			return new Replacement_RENAMED(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_THEN);
 		}
 		return null;
 	}

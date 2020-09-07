@@ -18,7 +18,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED.ReplacementType;
 
 public class ExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;

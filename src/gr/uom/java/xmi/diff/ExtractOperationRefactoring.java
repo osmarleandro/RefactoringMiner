@@ -16,14 +16,14 @@ import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.replacement.Replacement;
+import gr.uom.java.xmi.decomposition.replacement.Replacement_RENAMED;
 
 public class ExtractOperationRefactoring implements Refactoring {
 	private UMLOperation extractedOperation;
 	private UMLOperation sourceOperationBeforeExtraction;
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
-	private Set<Replacement> replacements;
+	private Set<Replacement_RENAMED> replacements;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
 	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
@@ -103,7 +103,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedOperationInvocations;
 	}
 
-	public Set<Replacement> getReplacements() {
+	public Set<Replacement_RENAMED> getReplacements() {
 		return replacements;
 	}
 

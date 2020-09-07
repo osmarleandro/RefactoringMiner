@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class SplitVariableReplacement extends Replacement {
+public class SplitVariableReplacement extends Replacement_RENAMED {
 	private Set<String> splitVariables;
 
 	public SplitVariableReplacement(String oldVariable, Set<String> newVariables) {
