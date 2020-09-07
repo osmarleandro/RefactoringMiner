@@ -9,7 +9,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
-import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
+import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationWithClassInstanceCreationReplacement;
@@ -3488,7 +3488,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			int size = filteredIntersection.size();
 			int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
 			if((size > 0 && size > threshold) || (size > 1 && size >= threshold)) {
-				IntersectionReplacement r = new IntersectionReplacement(s1, s2, intersection, ReplacementType.CONCATENATION);
+				IntersectionReplacement_RENAMED r = new IntersectionReplacement_RENAMED(s1, s2, intersection, ReplacementType.CONCATENATION);
 				info.getReplacements().add(r);
 				return true;
 			}
@@ -3538,7 +3538,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				if(matches > 0) {
-					Replacement r = new IntersectionReplacement(s1, s2, intersection, ReplacementType.CONDITIONAL);
+					Replacement r = new IntersectionReplacement_RENAMED(s1, s2, intersection, ReplacementType.CONDITIONAL);
 					info.addReplacement(r);
 				}
 				boolean invertConditionalFound = false;
