@@ -55,7 +55,7 @@ import org.kohsuke.github.PagedIterable;
 import org.refactoringminer.api.Churn;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
@@ -93,7 +93,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		while (i.hasNext()) {
 			RevCommit currentCommit = i.next();
 			try {
-				List<Refactoring> refactoringsAtRevision = detectRefactorings(gitService, repository, handler, projectFolder, currentCommit);
+				List<Refactoring_RENAMED> refactoringsAtRevision = detectRefactorings(gitService, repository, handler, projectFolder, currentCommit);
 				refactoringsCount += refactoringsAtRevision.size();
 				
 			} catch (Exception e) {
@@ -114,8 +114,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
 	}
 
-	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
-		List<Refactoring> refactoringsAtRevision;
+	protected List<Refactoring_RENAMED> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
+		List<Refactoring_RENAMED> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
 		List<String> filePathsBefore = new ArrayList<String>();
 		List<String> filePathsCurrent = new ArrayList<String>();
@@ -180,8 +180,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
-		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
+	protected List<Refactoring_RENAMED> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
+		List<Refactoring_RENAMED> refactoringsAtRevision = Collections.emptyList();
 		try {
 			List<String> filesBefore = new ArrayList<String>();
 			List<String> filesCurrent = new ArrayList<String>();
@@ -299,12 +299,12 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		return gitHub;
 	}
 
-	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
+	protected List<Refactoring_RENAMED> filter(List<Refactoring_RENAMED> refactoringsAtRevision) {
 		if (this.refactoringTypesToConsider == null) {
 			return refactoringsAtRevision;
 		}
-		List<Refactoring> filteredList = new ArrayList<Refactoring>();
-		for (Refactoring ref : refactoringsAtRevision) {
+		List<Refactoring_RENAMED> filteredList = new ArrayList<Refactoring_RENAMED>();
+		for (Refactoring_RENAMED ref : refactoringsAtRevision) {
 			if (this.refactoringTypesToConsider.contains(ref.getRefactoringType())) {
 				filteredList.add(ref);
 			}
@@ -476,8 +476,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
-		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
+	protected List<Refactoring_RENAMED> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
+		List<Refactoring_RENAMED> refactoringsAtRevision = Collections.emptyList();
 		try {
 			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
 			Set<String> repositoryDirectoriesCurrent = ConcurrentHashMap.newKeySet();

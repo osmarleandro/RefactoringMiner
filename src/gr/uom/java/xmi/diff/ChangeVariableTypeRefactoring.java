@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class ChangeVariableTypeRefactoring implements Refactoring {
+public class ChangeVariableTypeRefactoring implements Refactoring_RENAMED {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
-	private Set<Refactoring> relatedRefactorings;
+	private Set<Refactoring_RENAMED> relatedRefactorings;
 
 	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
@@ -28,14 +28,14 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
 		this.variableReferences = variableReferences;
-		this.relatedRefactorings = new LinkedHashSet<Refactoring>();
+		this.relatedRefactorings = new LinkedHashSet<Refactoring_RENAMED>();
 	}
 
-	public void addRelatedRefactoring(Refactoring refactoring) {
+	public void addRelatedRefactoring(Refactoring_RENAMED refactoring) {
 		this.relatedRefactorings.add(refactoring);
 	}
 
-	public Set<Refactoring> getRelatedRefactorings() {
+	public Set<Refactoring_RENAMED> getRelatedRefactorings() {
 		return relatedRefactorings;
 	}
 

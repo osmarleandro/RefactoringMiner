@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
-public class AddMethodAnnotationRefactoring implements Refactoring {
+public class AddMethodAnnotationRefactoring implements Refactoring_RENAMED {
 	private UMLAnnotation annotation;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;

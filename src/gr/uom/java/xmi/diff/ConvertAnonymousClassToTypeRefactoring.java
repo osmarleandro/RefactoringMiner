@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
 
-public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
+public class ConvertAnonymousClassToTypeRefactoring implements Refactoring_RENAMED {
 	private UMLAnonymousClass anonymousClass;
 	private UMLClass addedClass;
 	

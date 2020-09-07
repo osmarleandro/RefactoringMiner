@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
@@ -132,7 +132,7 @@ public abstract class AbstractCodeMapping {
 		return fragment1.toString() + fragment2.toString();
 	}
 
-	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
+	public void temporaryVariableAssignment(Set<Refactoring_RENAMED> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
 			StatementObject statement = (StatementObject) getFragment2();
@@ -154,7 +154,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring_RENAMED> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
 			AbstractExpression initializer = declaration.getInitializer();
@@ -192,7 +192,7 @@ public abstract class AbstractCodeMapping {
 			if(classDiff != null && initializer != null) {
 				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 				if(invocation != null) {
-					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
+					for(Refactoring_RENAMED refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
@@ -237,7 +237,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void inlinedVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring_RENAMED> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
@@ -343,13 +343,13 @@ public abstract class AbstractCodeMapping {
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
-	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
+	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring_RENAMED> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
 		}
 		else {
-			for(Refactoring refactoring : refactorings) {
+			for(Refactoring_RENAMED refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
 					((InlineVariableRefactoring)refactoring).addReference(this);
 					break;
@@ -358,13 +358,13 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring_RENAMED> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
 		}
 		else {
-			for(Refactoring refactoring : refactorings) {
+			for(Refactoring_RENAMED refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
 					((ExtractVariableRefactoring)refactoring).addReference(this);
 					break;
@@ -373,9 +373,9 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring_RENAMED> refactorings) {
 		String output = input;
-		for(Refactoring ref : refactorings) {
+		for(Refactoring_RENAMED ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();

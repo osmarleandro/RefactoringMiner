@@ -36,7 +36,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
@@ -57,7 +57,7 @@ public class UMLModelDiff {
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
-   private List<Refactoring> refactorings;
+   private List<Refactoring_RENAMED> refactorings;
    private Set<String> deletedFolderPaths;
    
    public UMLModelDiff() {
@@ -73,7 +73,7 @@ public class UMLModelDiff {
       this.classMoveDiffList = new ArrayList<UMLClassMoveDiff>();
       this.innerClassMoveDiffList = new ArrayList<UMLClassMoveDiff>();
       this.classRenameDiffList = new ArrayList<UMLClassRenameDiff>();
-      this.refactorings = new ArrayList<Refactoring>();
+      this.refactorings = new ArrayList<Refactoring_RENAMED>();
       this.deletedFolderPaths = new LinkedHashSet<String>();
    }
 
@@ -737,7 +737,7 @@ public class UMLModelDiff {
 
    private int computeCompatibility(MoveAttributeRefactoring candidate) {
 	   int count = 0;
-	   for(Refactoring ref : refactorings) {
+	   for(Refactoring_RENAMED ref : refactorings) {
 		   if(ref instanceof MoveOperationRefactoring) {
 			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
 			   if(moveRef.compatibleWith(candidate)) {
@@ -851,7 +851,7 @@ public class UMLModelDiff {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          addedOperations.addAll(classDiff.getAddedOperations());
-         for(Refactoring ref : classDiff.getRefactorings()) {
+         for(Refactoring_RENAMED ref : classDiff.getRefactorings()) {
         	 if(ref instanceof ExtractOperationRefactoring) {
         		 ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
         		 addedOperations.add(extractRef.getExtractedOperation());
@@ -904,7 +904,7 @@ public class UMLModelDiff {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
-         for(Refactoring ref : classDiff.getRefactorings()) {
+         for(Refactoring_RENAMED ref : classDiff.getRefactorings()) {
         	 if(ref instanceof InlineOperationRefactoring) {
         		 InlineOperationRefactoring extractRef = (InlineOperationRefactoring)ref;
         		 removedOperations.add(extractRef.getInlinedOperation());
@@ -1087,7 +1087,7 @@ public class UMLModelDiff {
 		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
 		   if(removedOperation != null) {
 			   classDiff.getRemovedOperations().remove(removedOperation);
-			   Refactoring ref = null;
+			   Refactoring_RENAMED ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
 			   }
@@ -1108,7 +1108,7 @@ public class UMLModelDiff {
 		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
 		   if(removedAttribute != null) {
 			   classDiff.getRemovedAttributes().remove(removedAttribute);
-			   Refactoring ref = null;
+			   Refactoring_RENAMED ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
@@ -1180,8 +1180,8 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   private List<Refactoring> getMoveClassRefactorings() {
-	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
+   private List<Refactoring_RENAMED> getMoveClassRefactorings() {
+	   List<Refactoring_RENAMED> refactorings = new ArrayList<Refactoring_RENAMED>();
 	   List<RenamePackageRefactoring> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring>();
 	   List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring>();
 	   for(UMLClassMoveDiff classMoveDiff : classMoveDiffList) {
@@ -1265,10 +1265,10 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private List<Refactoring> getRenameClassRefactorings() {
-      List<Refactoring> refactorings = new ArrayList<Refactoring>();
+   private List<Refactoring_RENAMED> getRenameClassRefactorings() {
+      List<Refactoring_RENAMED> refactorings = new ArrayList<Refactoring_RENAMED>();
       for(UMLClassRenameDiff classRenameDiff : classRenameDiffList) {
-    	  Refactoring refactoring = null;
+    	  Refactoring_RENAMED refactoring = null;
     	  if(classRenameDiff.samePackage())
     		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
     	  else
@@ -1278,8 +1278,8 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   public List<Refactoring> getRefactorings() throws RefactoringMinerTimedOutException {
-      Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+   public List<Refactoring_RENAMED> getRefactorings() throws RefactoringMinerTimedOutException {
+      Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
       refactorings.addAll(getMoveClassRefactorings());
       refactorings.addAll(getRenameClassRefactorings());
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
@@ -1317,7 +1317,7 @@ public class UMLModelDiff {
     			  extractMergePatterns(renameDiff, mergeMap);
     			  extractRenamePatterns(renameDiff, renameMap);
     			  classRenameDiffList.add(renameDiff);
-    			  Refactoring refactoring = null;
+    			  Refactoring_RENAMED refactoring = null;
     			  if(renameDiff.samePackage())
     	    		  refactoring = new RenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
     	    	  else
@@ -1348,7 +1348,7 @@ public class UMLModelDiff {
     			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);
-    				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
+    				  Refactoring_RENAMED conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
     				  if(conflictingRefactoring != null) {
     					  refactorings.remove(conflictingRefactoring);
     				  }
@@ -1368,7 +1368,7 @@ public class UMLModelDiff {
 								!diff.getNextClass().containsAttributeWithName(pattern.getBefore()) &&
 								!attributeMerged(a1, a2, refactorings)) {
 						 UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, diff.getOperationBodyMapperList());
-						 Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
+						 Set<Refactoring_RENAMED> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 						 if(!refactorings.containsAll(attributeDiffRefactorings)) {
 							 refactorings.addAll(attributeDiffRefactorings);
 							 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1483,12 +1483,12 @@ public class UMLModelDiff {
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
     	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
       }
-      return new ArrayList<Refactoring>(refactorings);
+      return new ArrayList<Refactoring_RENAMED>(refactorings);
    }
 
-   private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
+   private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring_RENAMED> refactorings) {
 	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
-	  for(Refactoring ref : refactorings) {
+	  for(Refactoring_RENAMED ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
     		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
     		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
@@ -1523,7 +1523,7 @@ public class UMLModelDiff {
 	  return typeRenamePatternMap;
    }
 
-   private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
+   private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring_RENAMED> refactorings) {
 	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
@@ -1534,7 +1534,7 @@ public class UMLModelDiff {
 						  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 						  refactorings.add(refactoring);
 					  }
-					  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+					  Set<Refactoring_RENAMED> signatureRefactorings = operationSignatureDiff.getRefactorings();
 					  refactorings.addAll(signatureRefactorings);
 					  if(signatureRefactorings.isEmpty()) {
 						  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
@@ -1554,7 +1554,7 @@ public class UMLModelDiff {
 							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 							  refactorings.add(refactoring);
 						  }
-						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  Set<Refactoring_RENAMED> signatureRefactorings = operationSignatureDiff.getRefactorings();
 						  refactorings.addAll(signatureRefactorings);
 						  if(signatureRefactorings.isEmpty()) {
 							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
@@ -1566,9 +1566,9 @@ public class UMLModelDiff {
 	  }
    }
 
-   private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
+   private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring_RENAMED> refactorings) {
 	   for(UMLOperationBodyMapper mapper : mappers) {
-		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
+		   for(Refactoring_RENAMED refactoring : mapper.getRefactoringsAfterPostProcessing()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
@@ -2114,7 +2114,7 @@ public class UMLModelDiff {
 	                  removedOperations.remove(removedOperation);
 	               }
 	
-	               Refactoring refactoring = null;
+	               Refactoring_RENAMED refactoring = null;
 	               if(removedOperation.getClassName().equals(addedOperation.getClassName())) {
 	            	  if (addedOperation.equalParameters(removedOperation)) {
 	            		  //refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
@@ -2199,7 +2199,7 @@ public class UMLModelDiff {
 	                  addedOperations.remove(addedOperation);
 	               }
 
-	               Refactoring refactoring = null;
+	               Refactoring_RENAMED refactoring = null;
 	               if(removedOperation.getClassName().equals(addedOperation.getClassName())) {
 	            	  if (addedOperation.equalParameters(removedOperation)) {
 	            		  //refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
@@ -2478,7 +2478,7 @@ public class UMLModelDiff {
    }
 
    private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
-	   for(Refactoring refactoring : refactorings) {
+	   for(Refactoring_RENAMED refactoring : refactorings) {
 		   if(refactoring instanceof MoveOperationRefactoring) {
 			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
 			   if(moveRefactoring.getOriginalOperation().equals(removedOperation)) {
@@ -2489,8 +2489,8 @@ public class UMLModelDiff {
 	   return false;
    }
 
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
 				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
@@ -2501,8 +2501,8 @@ public class UMLModelDiff {
 		return false;
 	}
 
-	private Refactoring attributeRenamed(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+	private Refactoring_RENAMED attributeRenamed(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof RenameAttributeRefactoring) {
 				RenameAttributeRefactoring rename = (RenameAttributeRefactoring)refactoring;
 				if(mergedAttributes.contains(rename.getOriginalAttribute()) && a2.equals(rename.getRenamedAttribute())) {

@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class RenameAttributeRefactoring implements Refactoring {
+public class RenameAttributeRefactoring implements Refactoring_RENAMED {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration renamedAttribute;
 	private Set<CandidateAttributeRefactoring> attributeRenames;

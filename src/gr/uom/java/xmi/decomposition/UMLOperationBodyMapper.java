@@ -44,7 +44,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
@@ -56,7 +56,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<StatementObject> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
-	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	private Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
@@ -609,7 +609,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return operation2;
 	}
 
-	public Set<Refactoring> getRefactorings() {
+	public Set<Refactoring_RENAMED> getRefactorings() {
 		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
 		refactorings.addAll(analysis.getVariableRenames());
 		refactorings.addAll(analysis.getVariableMerges());
@@ -622,7 +622,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return refactorings;
 	}
 
-	public Set<Refactoring> getRefactoringsAfterPostProcessing() {
+	public Set<Refactoring_RENAMED> getRefactoringsAfterPostProcessing() {
 		return refactorings;
 	}
 
@@ -714,7 +714,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean isTemporaryVariableAssignment(StatementObject statement) {
-		for(Refactoring refactoring : refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
 				if(statement.getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {

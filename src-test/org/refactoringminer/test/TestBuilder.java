@@ -14,7 +14,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
@@ -234,7 +234,7 @@ public class TestBuilder {
 		}
 
 		@Override
-		public void handle(String commitId, List<Refactoring> refactorings) {
+		public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 			refactorings= filterRefactoring(refactorings);
 			CommitMatcher matcher;
 			commitsCount++;
@@ -251,7 +251,7 @@ public class TestBuilder {
 			if (matcher != null) {
 				matcher.analyzed = true;
 				Set<String> refactoringsFound = new HashSet<String>();
-				for (Refactoring refactoring : refactorings) {
+				for (Refactoring_RENAMED refactoring : refactorings) {
 					refactoringsFound.addAll(normalize(refactoring.toString()));
 				}
 				// count true positives
@@ -302,10 +302,10 @@ public class TestBuilder {
 			}
 		}
 
-		private List<Refactoring> filterRefactoring(List<Refactoring> refactorings) {
-			List<Refactoring> filteredRefactorings = new ArrayList<>();
+		private List<Refactoring_RENAMED> filterRefactoring(List<Refactoring_RENAMED> refactorings) {
+			List<Refactoring_RENAMED> filteredRefactorings = new ArrayList<>();
 
-			for (Refactoring refactoring : refactorings) {
+			for (Refactoring_RENAMED refactoring : refactorings) {
 				BigInteger value = Enum.valueOf(Refactorings.class, refactoring.getName().replace(" ", "")).getValue();
 				if (value.and(refactoringFilter).compareTo(BigInteger.ZERO) == 1) {
 					filteredRefactorings.add(refactoring);

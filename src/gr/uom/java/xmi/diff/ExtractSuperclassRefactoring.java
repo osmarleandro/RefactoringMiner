@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
-public class ExtractSuperclassRefactoring implements Refactoring {
+public class ExtractSuperclassRefactoring implements Refactoring_RENAMED {
 	private UMLClass extractedClass;
 	private Set<UMLClass> subclassSet;
 	

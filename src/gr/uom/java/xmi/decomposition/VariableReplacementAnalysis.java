@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
@@ -47,7 +47,7 @@ public class VariableReplacementAnalysis {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
-	private Set<Refactoring> refactorings;
+	private Set<Refactoring_RENAMED> refactorings;
 	private UMLOperation callSiteOperation;
 	private UMLOperationDiff operationDiff;
 	private UMLClassBaseDiff classDiff;
@@ -58,7 +58,7 @@ public class VariableReplacementAnalysis {
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 
-	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring_RENAMED> refactorings, UMLClassBaseDiff classDiff) {
 		this.mappings = mapper.getMappings();
 		this.nonMappedLeavesT1 = mapper.getNonMappedLeavesT1();
 		this.nonMappedLeavesT2 = mapper.getNonMappedLeavesT2();
@@ -1128,7 +1128,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingExtractVariableRefactoring(RenameVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
@@ -1141,7 +1141,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(ref.getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
@@ -1153,7 +1153,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingInlineVariableRefactoring(MergeVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof InlineVariableRefactoring) {
 				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
 				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {

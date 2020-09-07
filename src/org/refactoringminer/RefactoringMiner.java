@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.util.GitServiceImpl;
@@ -59,7 +59,7 @@ public class RefactoringMiner {
 			detector.detectAll(repo, branch, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
-				public void handle(String commitId, List<Refactoring> refactorings) {
+				public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
@@ -100,7 +100,7 @@ public class RefactoringMiner {
 			detector.detectBetweenCommits(repo, startCommit, endCommit, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
-				public void handle(String commitId, List<Refactoring> refactorings) {
+				public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
@@ -141,7 +141,7 @@ public class RefactoringMiner {
 			detector.detectBetweenTags(repo, startTag, endTag, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
-				public void handle(String commitId, List<Refactoring> refactorings) {
+				public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
@@ -180,7 +180,7 @@ public class RefactoringMiner {
 			startJSON(sb);
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
 				@Override
-				public void handle(String commitId, List<Refactoring> refactorings) {
+				public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 					commitJSON(sb, gitURL, commitId, refactorings);
 				}
 
@@ -207,7 +207,7 @@ public class RefactoringMiner {
 		startJSON(sb);
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 			@Override
-			public void handle(String commitId, List<Refactoring> refactorings) {
+			public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 				commitJSON(sb, gitURL, commitId, refactorings);
 			}
 
@@ -234,7 +234,7 @@ public class RefactoringMiner {
 		detector.detectAtPullRequest(gitURL, pullId, new RefactoringHandler() {
 			private int commitCount = 0;
 			@Override
-			public void handle(String commitId, List<Refactoring> refactorings) {
+			public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 				if(commitCount > 0) {
 					sb.append(",").append("\n");
 				}
@@ -252,7 +252,7 @@ public class RefactoringMiner {
 		System.out.println(sb.toString());
 	}
 
-	private static void commitJSON(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
+	private static void commitJSON(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring_RENAMED> refactoringsAtRevision) {
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(cloneURL).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
@@ -261,7 +261,7 @@ public class RefactoringMiner {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(Refactoring_RENAMED refactoring : refactoringsAtRevision) {
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");

@@ -16,7 +16,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 
 public class UMLOperationDiff {
 	private UMLOperation removedOperation;
@@ -229,8 +229,8 @@ public class UMLOperationDiff {
 		return sb.toString();
 	}
 
-	public Set<Refactoring> getRefactorings() {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	public Set<Refactoring_RENAMED> getRefactorings() {
+		Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
 		if(returnTypeChanged || qualifiedReturnTypeChanged) {
 			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
 			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();

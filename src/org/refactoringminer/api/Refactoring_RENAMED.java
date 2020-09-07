@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.core.util.BufferRecyclers;
 
-public interface Refactoring extends Serializable, CodeRangeProvider {
+public interface Refactoring_RENAMED extends Serializable, CodeRangeProvider {
 
 	public RefactoringType getRefactoringType();
 	

@@ -2,7 +2,7 @@ package org.refactoringminer.utils;
 
 import java.util.List;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringHandler;
 
 import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
@@ -21,8 +21,8 @@ public class RefactoringCollector extends RefactoringHandler {
     rs = new RefactoringSet(cloneUrl, commitId);
   }
   @Override
-  public void handle(String commitId, List<Refactoring> refactorings) {
-    for (Refactoring r : refactorings) {
+  public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
+    for (Refactoring_RENAMED r : refactorings) {
       if (r instanceof MoveClassRefactoring) {
         MoveClassRefactoring ref = (MoveClassRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));

@@ -24,7 +24,7 @@ import javax.net.ssl.SSLParameters;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 
@@ -103,12 +103,12 @@ public class RefactoringMinerHttpsServer {
 			String gitURL = queryToMap.get("gitURL");
 			String commitId = queryToMap.get("commitId");
 			int timeout = Integer.parseInt(queryToMap.get("timeout"));
-			List<Refactoring> detectedRefactorings = new ArrayList<Refactoring>();
+			List<Refactoring_RENAMED> detectedRefactorings = new ArrayList<Refactoring_RENAMED>();
 
 			GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
 			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 				@Override
-				public void handle(String commitId, List<Refactoring> refactorings) {
+				public void handle(String commitId, List<Refactoring_RENAMED> refactorings) {
 					detectedRefactorings.addAll(refactorings);
 				}
 			}, timeout);
@@ -137,7 +137,7 @@ public class RefactoringMinerHttpsServer {
 		return result;
 	}
 
-	private static String JSON(String gitURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
+	private static String JSON(String gitURL, String currentCommitId, List<Refactoring_RENAMED> refactoringsAtRevision) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
 		sb.append("\"").append("commits").append("\"").append(": ");
@@ -150,7 +150,7 @@ public class RefactoringMinerHttpsServer {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(Refactoring_RENAMED refactoring : refactoringsAtRevision) {
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");

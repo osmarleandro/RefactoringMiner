@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
@@ -58,7 +58,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
-	protected List<Refactoring> refactorings;
+	protected List<Refactoring_RENAMED> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
@@ -85,7 +85,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.operationDiffList = new ArrayList<UMLOperationDiff>();
 		this.attributeDiffList = new ArrayList<UMLAttributeDiff>();
-		this.refactorings = new ArrayList<Refactoring>();
+		this.refactorings = new ArrayList<Refactoring_RENAMED>();
 		this.modelDiff = modelDiff;
 	}
 
@@ -460,12 +460,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.operationBodyMapperList.add(operationBodyMapper);
 	}
 
-	public List<Refactoring> getRefactoringsBeforePostProcessing() {
+	public List<Refactoring_RENAMED> getRefactoringsBeforePostProcessing() {
 		return refactorings;
 	}
 
-	public List<Refactoring> getRefactorings() {
-		List<Refactoring> refactorings = new ArrayList<Refactoring>(this.refactorings);
+	public List<Refactoring_RENAMED> getRefactorings() {
+		List<Refactoring_RENAMED> refactorings = new ArrayList<Refactoring_RENAMED>(this.refactorings);
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(mapper.getOperation1(), mapper.getOperation2(), mapper.getMappings());
 			refactorings.addAll(operationSignatureDiff.getRefactorings());
@@ -546,7 +546,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
-							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
+							Set<Refactoring_RENAMED> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 							if(!refactorings.containsAll(attributeDiffRefactorings)) {
 								refactorings.addAll(attributeDiffRefactorings);
 								break;//it's not necessary to repeat the same process for all candidates in the set
@@ -592,8 +592,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return refactorings;
 	}
 
-	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : mapper.getRefactorings()) {
+	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : mapper.getRefactorings()) {
 			if(refactorings.contains(refactoring)) {
 				//special handling for replacing rename variable refactorings having statement mapping information
 				int index = refactorings.indexOf(refactoring);
@@ -647,8 +647,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
@@ -679,8 +679,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
-		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
+	private Set<Refactoring_RENAMED> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring_RENAMED> refactorings) {
+		Set<Refactoring_RENAMED> newRefactorings = new LinkedHashSet<Refactoring_RENAMED>();
 		for(Replacement replacement : map.keySet()) {
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
 			for(CandidateAttributeRefactoring candidate : candidates) {
@@ -699,7 +699,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						}
 					}
 				}
-				for(Refactoring refactoring : refactorings) {
+				for(Refactoring_RENAMED refactoring : refactorings) {
 					if(refactoring instanceof MergeVariableRefactoring) {
 						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
@@ -798,8 +798,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return newRefactorings;
 	}
 
-	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
 				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
@@ -810,8 +810,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring_RENAMED> refactorings) {
+		for(Refactoring_RENAMED refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
 				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
 				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
@@ -1571,8 +1571,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
 		if(mapper.getChildMappers().size() > 1) {
-			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
-			for(Refactoring r : refactorings) {
+			Set<Refactoring_RENAMED> refactoringsToBeRemoved = new LinkedHashSet<Refactoring_RENAMED>();
+			for(Refactoring_RENAMED r : refactorings) {
 				if(r instanceof RenameVariableRefactoring) {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
@@ -1656,7 +1656,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
-		for(Refactoring ref : refactorings) {
+		for(Refactoring_RENAMED ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
 				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&

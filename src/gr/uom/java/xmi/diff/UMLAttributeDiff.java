@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
@@ -103,8 +103,8 @@ public class UMLAttributeDiff {
 		return sb.toString();
 	}
 
-	private Set<Refactoring> getAnnotationRefactorings() {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	private Set<Refactoring_RENAMED> getAnnotationRefactorings() {
+		Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
 			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
@@ -120,8 +120,8 @@ public class UMLAttributeDiff {
 		return refactorings;
 	}
 
-	public Set<Refactoring> getRefactorings() {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	public Set<Refactoring_RENAMED> getRefactorings() {
+		Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
 		if(isTypeChanged() || isQualifiedTypeChanged()) {
 			ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(),
 					VariableReferenceExtractor.findReferences(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), operationBodyMapperList));
@@ -131,8 +131,8 @@ public class UMLAttributeDiff {
 		return refactorings;
 	}
 	
-	public Set<Refactoring> getRefactorings(Set<CandidateAttributeRefactoring> set) {
-		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
+	public Set<Refactoring_RENAMED> getRefactorings(Set<CandidateAttributeRefactoring> set) {
+		Set<Refactoring_RENAMED> refactorings = new LinkedHashSet<Refactoring_RENAMED>();
 		RenameAttributeRefactoring rename = null;
 		if(isRenamed()) {
 			rename = new RenameAttributeRefactoring(removedAttribute.getVariableDeclaration(), addedAttribute.getVariableDeclaration(), removedAttribute.getClassName(), addedAttribute.getClassName(), set);

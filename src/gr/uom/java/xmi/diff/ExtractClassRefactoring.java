@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.refactoringminer.api.Refactoring;
+import org.refactoringminer.api.Refactoring_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 
-public class ExtractClassRefactoring implements Refactoring {
+public class ExtractClassRefactoring implements Refactoring_RENAMED {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
