@@ -22,7 +22,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
-import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -715,8 +715,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean isTemporaryVariableAssignment(StatementObject statement) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
+			if(refactoring instanceof ExtractVariableRefactoring_RENAMED) {
+				ExtractVariableRefactoring_RENAMED extractVariable = (ExtractVariableRefactoring_RENAMED)refactoring;
 				if(statement.getVariableDeclarations().contains(extractVariable.getVariableDeclaration())) {
 					return true;
 				}

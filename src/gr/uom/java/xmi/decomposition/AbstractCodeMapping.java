@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
-import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -146,7 +146,7 @@ public abstract class AbstractCodeMapping {
 			}
 			if(variableDeclarations.size() == 1 && validReplacements) {
 				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
-				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
+				ExtractVariableRefactoring_RENAMED ref = new ExtractVariableRefactoring_RENAMED(variableDeclaration, operation1, operation2);
 				processExtractVariableRefactoring(ref, refactorings);
 				identicalWithExtractedVariable = true;
 			}
@@ -166,7 +166,7 @@ public abstract class AbstractCodeMapping {
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixBefore) ||
 									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
-								ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
+								ExtractVariableRefactoring_RENAMED ref = new ExtractVariableRefactoring_RENAMED(declaration, operation1, operation2);
 								processExtractVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
 									identicalWithExtractedVariable = true;
@@ -181,7 +181,7 @@ public abstract class AbstractCodeMapping {
 							ternaryMatch(initializer, replacement.getBefore()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
 							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
-						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
+						ExtractVariableRefactoring_RENAMED ref = new ExtractVariableRefactoring_RENAMED(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithExtractedVariable = true;
@@ -198,7 +198,7 @@ public abstract class AbstractCodeMapping {
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
 								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
-									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
+									ExtractVariableRefactoring_RENAMED ref = new ExtractVariableRefactoring_RENAMED(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}
 							}
@@ -224,7 +224,7 @@ public abstract class AbstractCodeMapping {
 					List<VariableDeclaration> variableDeclarations = operation2.getVariableDeclarationsInScope(fragment2.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
-							ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
+							ExtractVariableRefactoring_RENAMED ref = new ExtractVariableRefactoring_RENAMED(declaration, operation1, operation2);
 							processExtractVariableRefactoring(ref, refactorings);
 							if(getReplacements().size() == 1) {
 								identicalWithExtractedVariable = true;
@@ -358,7 +358,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
+	private void processExtractVariableRefactoring(ExtractVariableRefactoring_RENAMED ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
@@ -366,7 +366,7 @@ public abstract class AbstractCodeMapping {
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((ExtractVariableRefactoring)refactoring).addReference(this);
+					((ExtractVariableRefactoring_RENAMED)refactoring).addReference(this);
 					break;
 				}
 			}
@@ -376,8 +376,8 @@ public abstract class AbstractCodeMapping {
 	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
-			if(ref instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
+			if(ref instanceof ExtractVariableRefactoring_RENAMED) {
+				ExtractVariableRefactoring_RENAMED extractVariable = (ExtractVariableRefactoring_RENAMED)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
 				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
 					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
