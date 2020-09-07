@@ -51,7 +51,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class UMLModelASTReader {
+public class UMLModelASTReader_RENAMED {
 	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
 	private static final String systemFileSeparator = Matcher.quoteReplacement(File.separator);
 	
@@ -59,7 +59,7 @@ public class UMLModelASTReader {
 	private String projectRoot;
 	private ASTParser parser;
 
-	public UMLModelASTReader(Map<String, String> javaFileContents, Set<String> repositoryDirectories) {
+	public UMLModelASTReader_RENAMED(Map<String, String> javaFileContents, Set<String> repositoryDirectories) {
 		this.umlModel = new UMLModel(repositoryDirectories);
 		this.parser = ASTParser.newParser(AST.JLS11);
 		for(String filePath : javaFileContents.keySet()) {
@@ -80,11 +80,11 @@ public class UMLModelASTReader {
 		}
 	}
 
-	public UMLModelASTReader(File rootFolder) throws IOException {
+	public UMLModelASTReader_RENAMED(File rootFolder) throws IOException {
 		this(rootFolder, getJavaFilePaths(rootFolder));
 	}
 
-	public UMLModelASTReader(File rootFolder, List<String> javaFiles) throws IOException {
+	public UMLModelASTReader_RENAMED(File rootFolder, List<String> javaFiles) throws IOException {
 		this(rootFolder, buildAstParser(rootFolder), javaFiles, getDirectories(rootFolder, javaFiles));
 	}
 
@@ -110,7 +110,7 @@ public class UMLModelASTReader {
 		return repositoryDirectories;
 	}
 
-	private UMLModelASTReader(File rootFolder, ASTParser parser, List<String> javaFiles, Set<String> repositoryDirectories) {
+	private UMLModelASTReader_RENAMED(File rootFolder, ASTParser parser, List<String> javaFiles, Set<String> repositoryDirectories) {
 		this.umlModel = new UMLModel(repositoryDirectories);
 		this.projectRoot = rootFolder.getPath();
 		this.parser = parser;

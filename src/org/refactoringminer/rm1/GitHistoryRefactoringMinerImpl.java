@@ -1,7 +1,7 @@
 package org.refactoringminer.rm1;
 
 import gr.uom.java.xmi.UMLModel;
-import gr.uom.java.xmi.UMLModelASTReader;
+import gr.uom.java.xmi.UMLModelASTReader_RENAMED;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -345,11 +345,11 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	protected UMLModel createModel(Map<String, String> fileContents, Set<String> repositoryDirectories) throws Exception {
-		return new UMLModelASTReader(fileContents, repositoryDirectories).getUmlModel();
+		return new UMLModelASTReader_RENAMED(fileContents, repositoryDirectories).getUmlModel();
 	}
 
 	protected UMLModel createModel(File projectFolder, List<String> filePaths) throws Exception {
-		return new UMLModelASTReader(projectFolder, filePaths).getUmlModel();
+		return new UMLModelASTReader_RENAMED(projectFolder, filePaths).getUmlModel();
 	}
 
 	@Override
