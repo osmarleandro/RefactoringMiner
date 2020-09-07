@@ -1095,7 +1095,7 @@ public class UMLModelDiff {
 				   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
-				   ref = new PushDownOperationRefactoring(removedOperation, addedOperation);
+				   ref = new PushDownOperationRefactoring_RENAMED(removedOperation, addedOperation);
 			   }
 			   this.refactorings.add(ref);
 			   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, classDiff);
@@ -2128,7 +2128,7 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
-	                  refactoring = new PushDownOperationRefactoring(firstMapper);
+	                  refactoring = new PushDownOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
@@ -2213,7 +2213,7 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
-	                  refactoring = new PushDownOperationRefactoring(firstMapper);
+	                  refactoring = new PushDownOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   movedMethodSignature(removedOperation, addedOperation) && !refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(removedOperation, addedOperation)) {
