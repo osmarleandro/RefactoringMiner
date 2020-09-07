@@ -10,15 +10,15 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 
 public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	
-	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
-			UMLOperation operationAfter) {
+	public RemoveMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation_RENAMED operationBefore,
+			UMLOperation_RENAMED operationAfter) {
 		this.annotation = annotation;
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
@@ -28,11 +28,11 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		return annotation;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

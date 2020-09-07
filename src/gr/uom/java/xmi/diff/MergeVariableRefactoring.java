@@ -9,19 +9,19 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeVariableRefactoring implements Refactoring {
 	private Set<VariableDeclaration> mergedVariables;
 	private VariableDeclaration newVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
 	public MergeVariableRefactoring(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			UMLOperation_RENAMED operationBefore, UMLOperation_RENAMED operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
 		this.operationBefore = operationBefore;
@@ -37,11 +37,11 @@ public class MergeVariableRefactoring implements Refactoring {
 		return newVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

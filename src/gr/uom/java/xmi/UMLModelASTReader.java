@@ -225,7 +225,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
-				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
+				UMLOperation_RENAMED operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
 	    		operation.setClassName(umlClass.getName());
 	    		umlClass.addOperation(operation);
 			}
@@ -301,7 +301,7 @@ public class UMLModelASTReader {
     	
     	MethodDeclaration[] methodDeclarations = typeDeclaration.getMethods();
     	for(MethodDeclaration methodDeclaration : methodDeclarations) {
-    		UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
+    		UMLOperation_RENAMED operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
     		operation.setClassName(umlClass.getName());
     		umlClass.addOperation(operation);
     	}
@@ -345,13 +345,13 @@ public class UMLModelASTReader {
     			String anonymousCodePath = getAnonymousCodePath(node);
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
-    			for(UMLOperation operation : umlClass.getOperations()) {
+    			for(UMLOperation_RENAMED operation : umlClass.getOperations()) {
     				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
     					operation.addAnonymousClass(anonymousClass);
     				}
     			}
     			for(UMLAnonymousClass createdAnonymousClass : createdAnonymousClasses) {
-    				for(UMLOperation operation : createdAnonymousClass.getOperations()) {
+    				for(UMLOperation_RENAMED operation : createdAnonymousClass.getOperations()) {
         				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
         					operation.addAnonymousClass(anonymousClass);
         				}
@@ -385,11 +385,11 @@ public class UMLModelASTReader {
 		}
 	}
 
-	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
+	private UMLOperation_RENAMED processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
 		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
-		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
+		UMLOperation_RENAMED umlOperation = new UMLOperation_RENAMED(methodName, locationInfo);
 		umlOperation.setJavadoc(javadoc);
 		
 		if(methodDeclaration.isConstructor())
@@ -528,7 +528,7 @@ public class UMLModelASTReader {
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
-				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
+				UMLOperation_RENAMED operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
 				operation.setClassName(anonymousClass.getCodePath());
 				anonymousClass.addOperation(operation);
 			}

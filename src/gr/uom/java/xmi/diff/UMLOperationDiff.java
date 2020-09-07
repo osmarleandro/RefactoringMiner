@@ -1,7 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
@@ -19,8 +19,8 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 
 public class UMLOperationDiff {
-	private UMLOperation removedOperation;
-	private UMLOperation addedOperation;
+	private UMLOperation_RENAMED removedOperation;
+	private UMLOperation_RENAMED addedOperation;
 	private List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
 	private List<UMLParameterDiff> parameterDiffList;
@@ -32,7 +32,7 @@ public class UMLOperationDiff {
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 	private UMLAnnotationListDiff annotationListDiff;
 	
-	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
+	public UMLOperationDiff(UMLOperation_RENAMED removedOperation, UMLOperation_RENAMED addedOperation) {
 		this.removedOperation = removedOperation;
 		this.addedOperation = addedOperation;
 		this.addedParameters = new ArrayList<UMLParameter>();
@@ -113,7 +113,7 @@ public class UMLOperationDiff {
 			}
 		}
 	}
-	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping> mappings) {
+	public UMLOperationDiff(UMLOperation_RENAMED removedOperation, UMLOperation_RENAMED addedOperation, Set<AbstractCodeMapping> mappings) {
 		this(removedOperation, addedOperation);
 		this.mappings = mappings;
 	}
@@ -131,7 +131,7 @@ public class UMLOperationDiff {
 		return false;
 	}
 
-	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation_RENAMED removedOperation, UMLOperation_RENAMED addedOperation) {
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
 		for(UMLParameter parameter1 : removedOperation.getParameters()) {
 			if(!parameter1.getKind().equals("return")) {
@@ -170,11 +170,11 @@ public class UMLOperationDiff {
 		return parameterDiffList;
 	}
 
-	public UMLOperation getRemovedOperation() {
+	public UMLOperation_RENAMED getRemovedOperation() {
 		return removedOperation;
 	}
 
-	public UMLOperation getAddedOperation() {
+	public UMLOperation_RENAMED getAddedOperation() {
 		return addedOperation;
 	}
 

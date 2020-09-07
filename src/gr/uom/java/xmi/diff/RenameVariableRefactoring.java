@@ -9,22 +9,22 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class RenameVariableRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration renamedVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
 			VariableDeclaration originalVariable,
 			VariableDeclaration renamedVariable,
-			UMLOperation operationBefore,
-			UMLOperation operationAfter,
+			UMLOperation_RENAMED operationBefore,
+			UMLOperation_RENAMED operationAfter,
 			Set<AbstractCodeMapping> variableReferences) {
 		this.originalVariable = originalVariable;
 		this.renamedVariable = renamedVariable;
@@ -55,11 +55,11 @@ public class RenameVariableRefactoring implements Refactoring {
 		return renamedVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

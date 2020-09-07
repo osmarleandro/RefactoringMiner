@@ -9,13 +9,13 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class MoveOperationRefactoring implements Refactoring {
-	protected UMLOperation originalOperation;
-	protected UMLOperation movedOperation;
+	protected UMLOperation_RENAMED originalOperation;
+	protected UMLOperation_RENAMED movedOperation;
 	private Set<Replacement> replacements;
 	private UMLOperationBodyMapper bodyMapper;
 
@@ -26,7 +26,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		this.replacements = bodyMapper.getReplacements();
 	}
 
-	public MoveOperationRefactoring(UMLOperation originalOperation, UMLOperation movedOperation) {
+	public MoveOperationRefactoring(UMLOperation_RENAMED originalOperation, UMLOperation_RENAMED movedOperation) {
 		this.originalOperation = originalOperation;
 		this.movedOperation = movedOperation;
 		this.replacements = new LinkedHashSet<Replacement>();
@@ -60,11 +60,11 @@ public class MoveOperationRefactoring implements Refactoring {
 		return bodyMapper;
 	}
 
-	public UMLOperation getOriginalOperation() {
+	public UMLOperation_RENAMED getOriginalOperation() {
 		return originalOperation;
 	}
 
-	public UMLOperation getMovedOperation() {
+	public UMLOperation_RENAMED getMovedOperation() {
 		return movedOperation;
 	}
 

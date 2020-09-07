@@ -9,19 +9,19 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType originalType;
 	private UMLType changedType;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> returnReferences) {
+			UMLOperation_RENAMED operationBefore, UMLOperation_RENAMED operationAfter, Set<AbstractCodeMapping> returnReferences) {
 		this.originalType = originalType;
 		this.changedType = changedType;
 		this.operationBefore = operationBefore;
@@ -45,11 +45,11 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return changedType;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

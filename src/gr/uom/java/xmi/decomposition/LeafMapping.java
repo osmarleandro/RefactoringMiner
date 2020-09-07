@@ -3,14 +3,14 @@ package gr.uom.java.xmi.decomposition;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
 
 	public LeafMapping(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
-			UMLOperation operation1, UMLOperation operation2) {
+			UMLOperation_RENAMED operation1, UMLOperation_RENAMED operation2) {
 		super(statement1, statement2, operation1, operation2);
 	}
 

@@ -9,20 +9,20 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration changedTypeVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
 	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			UMLOperation_RENAMED operationBefore, UMLOperation_RENAMED operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.originalVariable = originalVariable;
 		this.changedTypeVariable = changedTypeVariable;
 		this.operationBefore = operationBefore;
@@ -57,11 +57,11 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return changedTypeVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

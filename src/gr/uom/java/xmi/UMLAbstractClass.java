@@ -15,11 +15,11 @@ public abstract class UMLAbstractClass {
 	protected LocationInfo locationInfo;
 	protected String packageName;
 	protected String name;
-	protected List<UMLOperation> operations;
+	protected List<UMLOperation_RENAMED> operations;
 	protected List<UMLAttribute> attributes;
 
 	public UMLAbstractClass() {
-        this.operations = new ArrayList<UMLOperation>();
+        this.operations = new ArrayList<UMLOperation_RENAMED>();
         this.attributes = new ArrayList<UMLAttribute>();
 	}
 
@@ -27,7 +27,7 @@ public abstract class UMLAbstractClass {
 		return locationInfo;
 	}
 
-	public void addOperation(UMLOperation operation) {
+	public void addOperation(UMLOperation_RENAMED operation) {
 		this.operations.add(operation);
 	}
 
@@ -35,7 +35,7 @@ public abstract class UMLAbstractClass {
 		this.attributes.add(attribute);
 	}
 
-	public List<UMLOperation> getOperations() {
+	public List<UMLOperation_RENAMED> getOperations() {
 		return operations;
 	}
 
@@ -43,25 +43,25 @@ public abstract class UMLAbstractClass {
 		return attributes;
 	}
 
-	public UMLOperation operationWithTheSameSignature(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public UMLOperation_RENAMED operationWithTheSameSignature(UMLOperation_RENAMED operation) {
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
 				return originalOperation;
 		}
 		return null;
 	}
 
-	public boolean containsOperationWithTheSameSignature(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public boolean containsOperationWithTheSameSignature(UMLOperation_RENAMED operation) {
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
 				return true;
 		}
 		return false;
 	}
 
-	public UMLOperation operationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
-		List<UMLOperation> matchingOperations = new ArrayList<UMLOperation>();
-		for(UMLOperation originalOperation : operations) {
+	public UMLOperation_RENAMED operationWithTheSameSignatureIgnoringChangedTypes(UMLOperation_RENAMED operation) {
+		List<UMLOperation_RENAMED> matchingOperations = new ArrayList<UMLOperation_RENAMED>();
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			boolean matchesOperation = isInterface() ?
 				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
 				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
@@ -77,7 +77,7 @@ public abstract class UMLAbstractClass {
 		}
 		else if(matchingOperations.size() > 1) {
 			int minDistance = StringDistance.editDistance(matchingOperations.get(0).toString(), operation.toString());
-			UMLOperation matchingOperation = matchingOperations.get(0);
+			UMLOperation_RENAMED matchingOperation = matchingOperations.get(0);
 			for(int i=1; i<matchingOperations.size(); i++) {
 				int distance = StringDistance.editDistance(matchingOperations.get(i).toString(), operation.toString());
 				if(distance < minDistance) {
@@ -90,8 +90,8 @@ public abstract class UMLAbstractClass {
 		return null;
 	}
 
-	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation_RENAMED operation) {
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
 				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
@@ -102,18 +102,18 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameName(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public boolean containsOperationWithTheSameName(UMLOperation_RENAMED operation) {
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			if(originalOperation.getName().equals(operation.getName()))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
+	public boolean containsOperationWithTheSameRenamePattern(UMLOperation_RENAMED operation, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
-		for(UMLOperation originalOperation : operations) {
+		for(UMLOperation_RENAMED originalOperation : operations) {
 			String originalOperationName = originalOperation.getName();
 			if(originalOperationName.contains(pattern.getBefore())) {
 				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
@@ -171,9 +171,9 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
-		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
+		Set<UMLOperation_RENAMED> commonOperations = new LinkedHashSet<UMLOperation_RENAMED>();
 		int totalOperations = 0;
-		for(UMLOperation operation : operations) {
+		for(UMLOperation_RENAMED operation : operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameName(operation)) {
@@ -181,7 +181,7 @@ public abstract class UMLAbstractClass {
 	    		}
 			}
 		}
-		for(UMLOperation operation : umlClass.operations) {
+		for(UMLOperation_RENAMED operation : umlClass.operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(this.containsOperationWithTheSameName(operation)) {
@@ -228,9 +228,9 @@ public abstract class UMLAbstractClass {
 			String diff2 = beginIndexS2 > endIndexS2 ? "" :	umlClass.name.substring(beginIndexS2, endIndexS2);
 			pattern = new RenamePattern(diff1, diff2);
 		}
-		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
+		Set<UMLOperation_RENAMED> commonOperations = new LinkedHashSet<UMLOperation_RENAMED>();
 		int totalOperations = 0;
-		for(UMLOperation operation : operations) {
+		for(UMLOperation_RENAMED operation : operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
@@ -239,7 +239,7 @@ public abstract class UMLAbstractClass {
 	    		}
 			}
 		}
-		for(UMLOperation operation : umlClass.operations) {
+		for(UMLOperation_RENAMED operation : umlClass.operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
 	    		if(this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation) ||
@@ -282,12 +282,12 @@ public abstract class UMLAbstractClass {
 			return false;
 		if(this.operations.size() != umlClass.operations.size())
 			return false;
-		for(UMLOperation operation : operations) {
+		for(UMLOperation_RENAMED operation : operations) {
 			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
 				return false;
 			}
 		}
-		for(UMLOperation operation : umlClass.operations) {
+		for(UMLOperation_RENAMED operation : umlClass.operations) {
 			if(!this.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
 				return false;
 			}
@@ -306,7 +306,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean isTestClass() {
-		for(UMLOperation operation : operations) {
+		for(UMLOperation_RENAMED operation : operations) {
 			if(operation.hasTestAnnotation()) {
 				return true;
 			}

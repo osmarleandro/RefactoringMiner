@@ -8,7 +8,7 @@ import java.util.Map;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -17,13 +17,13 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class InlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
-	private List<UMLOperation> removedOperations;
+	private List<UMLOperation_RENAMED> removedOperations;
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 	
-	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> removedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
+	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation_RENAMED> removedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
 		this.removedOperations = removedOperations;
 		this.classDiff = classDiff;
@@ -31,7 +31,7 @@ public class InlineOperationDetection {
 		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
 	}
 
-	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
+	public List<InlineOperationRefactoring> check(UMLOperation_RENAMED removedOperation) throws RefactoringMinerTimedOutException {
 		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
@@ -73,7 +73,7 @@ public class InlineOperationDetection {
 		return refactorings;
 	}
 
-	private List<OperationInvocation> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
+	private List<OperationInvocation> matchingInvocations(UMLOperation_RENAMED removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {
 			if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
@@ -84,7 +84,7 @@ public class InlineOperationDetection {
 	}
 
 	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
+			UMLOperation_RENAMED removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<String> arguments = removedOperationInvocation.getArguments();
 		List<String> parameters = removedOperation.getParameterNameList();
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
@@ -97,9 +97,9 @@ public class InlineOperationDetection {
 		return operationBodyMapper;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(UMLOperation_RENAMED operation, CallTreeNode parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
-		for(UMLOperation removedOperation : removedOperations) {
+		for(UMLOperation_RENAMED removedOperation : removedOperations) {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(removedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(removedOperation)) {
@@ -118,7 +118,7 @@ public class InlineOperationDetection {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
-					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
+					for(UMLOperation_RENAMED anonymousOperation : anonymousClass.getOperations()) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
 							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
 								operationInvocations.add(anonymousInvocation);
@@ -150,7 +150,7 @@ public class InlineOperationDetection {
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+			for(UMLOperation_RENAMED addedOperation : classDiff.getAddedOperations()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {
 					return true;
 				}

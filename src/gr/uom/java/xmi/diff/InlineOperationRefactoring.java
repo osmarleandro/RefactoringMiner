@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
@@ -19,16 +19,16 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
 public class InlineOperationRefactoring implements Refactoring {
-	private UMLOperation inlinedOperation;
-	private UMLOperation targetOperationAfterInline;
-	private UMLOperation targetOperationBeforeInline;
+	private UMLOperation_RENAMED inlinedOperation;
+	private UMLOperation_RENAMED targetOperationAfterInline;
+	private UMLOperation_RENAMED targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
 	
-	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
+	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation_RENAMED targetOperationBeforeInline,
 			List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.inlinedOperation = bodyMapper.getOperation1();
@@ -83,15 +83,15 @@ public class InlineOperationRefactoring implements Refactoring {
 		return bodyMapper;
 	}
 
-	public UMLOperation getInlinedOperation() {
+	public UMLOperation_RENAMED getInlinedOperation() {
 		return inlinedOperation;
 	}
 
-	public UMLOperation getTargetOperationAfterInline() {
+	public UMLOperation_RENAMED getTargetOperationAfterInline() {
 		return targetOperationAfterInline;
 	}
 
-	public UMLOperation getTargetOperationBeforeInline() {
+	public UMLOperation_RENAMED getTargetOperationBeforeInline() {
 		return targetOperationBeforeInline;
 	}
 

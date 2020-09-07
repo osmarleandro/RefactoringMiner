@@ -11,17 +11,17 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 
 public class ExtractClassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
-	private Set<UMLOperation> extractedOperations;
+	private Set<UMLOperation_RENAMED> extractedOperations;
 	private Set<UMLAttribute> extractedAttributes;
 	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
 
 	public ExtractClassRefactoring(UMLClass extractedClass, UMLClassBaseDiff classDiff,
-			Set<UMLOperation> extractedOperations, Set<UMLAttribute> extractedAttributes, UMLAttribute attributeOfExtractedClassType) {
+			Set<UMLOperation_RENAMED> extractedOperations, Set<UMLAttribute> extractedAttributes, UMLAttribute attributeOfExtractedClassType) {
 		this.extractedClass = extractedClass;
 		this.classDiff = classDiff;
 		this.extractedOperations = extractedOperations;
@@ -56,7 +56,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return classDiff.getOriginalClass();
 	}
 
-	public Set<UMLOperation> getExtractedOperations() {
+	public Set<UMLOperation_RENAMED> getExtractedOperations() {
 		return extractedOperations;
 	}
 

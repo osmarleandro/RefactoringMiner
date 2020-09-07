@@ -3,15 +3,15 @@ package gr.uom.java.xmi.diff;
 import java.util.Set;
 
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.UMLOperation_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class CandidateAttributeRefactoring {
 	private String originalVariableName;
 	private String renamedVariableName;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private UMLOperation_RENAMED operationBefore;
+	private UMLOperation_RENAMED operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
 	private VariableDeclaration originalVariableDeclaration;
 	private VariableDeclaration renamedVariableDeclaration;
@@ -21,8 +21,8 @@ public class CandidateAttributeRefactoring {
 	public CandidateAttributeRefactoring(
 			String originalVariableName,
 			String renamedVariableName,
-			UMLOperation operationBefore,
-			UMLOperation operationAfter,
+			UMLOperation_RENAMED operationBefore,
+			UMLOperation_RENAMED operationAfter,
 			Set<AbstractCodeMapping> attributeReferences) {
 		this.originalVariableName = originalVariableName;
 		this.renamedVariableName = renamedVariableName;
@@ -39,11 +39,11 @@ public class CandidateAttributeRefactoring {
 		return renamedVariableName;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public UMLOperation_RENAMED getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public UMLOperation_RENAMED getOperationAfter() {
 		return operationAfter;
 	}
 

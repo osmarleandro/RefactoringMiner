@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.refactoringminer.util.AstUtils;
 
-public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
+public class UMLOperation_RENAMED implements Comparable<UMLOperation_RENAMED>, Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String name;
 	private String visibility;
@@ -38,7 +38,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
-	public UMLOperation(String name, LocationInfo locationInfo) {
+	public UMLOperation_RENAMED(String name, LocationInfo locationInfo) {
 		this.locationInfo = locationInfo;
         this.name = name;
         this.parameters = new ArrayList<UMLParameter>();
@@ -234,7 +234,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return null;
 	}
 
-	public boolean equalReturnParameter(UMLOperation operation) {
+	public boolean equalReturnParameter(UMLOperation_RENAMED operation) {
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
@@ -245,7 +245,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 	}
 
-	public boolean equalQualifiedReturnParameter(UMLOperation operation) {
+	public boolean equalQualifiedReturnParameter(UMLOperation_RENAMED operation) {
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
@@ -256,7 +256,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 	}
 
-	public boolean equalSignature(UMLOperation operation) {
+	public boolean equalSignature(UMLOperation_RENAMED operation) {
 		boolean equalParameterTypes = this.getParameterTypeList().equals(operation.getParameterTypeList());
 		boolean compatibleParameterTypes = false;
 		if(!equalParameterTypes) {
@@ -285,7 +285,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
 	}
 
-	public boolean equalSignatureIgnoringOperationName(UMLOperation operation) {
+	public boolean equalSignatureIgnoringOperationName(UMLOperation_RENAMED operation) {
 		return this.visibility.equals(operation.visibility) &&
 				this.isAbstract == operation.isAbstract &&
 				this.isFinal == operation.isFinal &&
@@ -294,7 +294,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				equalTypeParameters(operation);
 	}
 
-	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
+	public boolean equalSignatureIgnoringChangedTypes(UMLOperation_RENAMED operation) {
 		if(!(this.isConstructor && operation.isConstructor || equivalentName(operation)))
 			return false;
 		if(this.isAbstract != operation.isAbstract)
@@ -317,7 +317,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return true;
 	}
 
-	public boolean equalSignatureWithIdenticalNameIgnoringChangedTypes(UMLOperation operation) {
+	public boolean equalSignatureWithIdenticalNameIgnoringChangedTypes(UMLOperation_RENAMED operation) {
 		if(!(this.isConstructor && operation.isConstructor || this.name.equals(operation.name)))
 			return false;
 		if(this.isAbstract != operation.isAbstract)
@@ -340,11 +340,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return true;
 	}
 
-	private boolean equivalentName(UMLOperation operation) {
+	private boolean equivalentName(UMLOperation_RENAMED operation) {
 		return this.name.equals(operation.name) || equivalentNames(this, operation) || equivalentNames(operation, this);
 	}
 
-	private static boolean equivalentNames(UMLOperation operation1, UMLOperation operation2) {
+	private static boolean equivalentNames(UMLOperation_RENAMED operation1, UMLOperation_RENAMED operation2) {
 		boolean equalReturn = operation1.equalReturnParameter(operation2) && operation1.getParametersWithoutReturnType().size() > 0 && operation2.getParametersWithoutReturnType().size() > 0;
 		if(operation1.name.startsWith(operation2.name) && !operation2.name.equals("get") && !operation2.name.equals("set") && !operation2.name.equals("print")) {
 			String suffix1 = operation1.name.substring(operation2.name.length(), operation1.name.length());
@@ -363,7 +363,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return params;
 	}
 
-	public List<UMLType> commonParameterTypes(UMLOperation operation) {
+	public List<UMLType> commonParameterTypes(UMLOperation_RENAMED operation) {
 		List<UMLType> commonParameterTypes = new ArrayList<UMLType>();
 		List<UMLType> thisParameterTypeList = getParameterTypeList();
 		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
@@ -482,7 +482,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringVisibility(UMLOperation operation) {
+	public boolean equalsIgnoringVisibility(UMLOperation_RENAMED operation) {
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 		return this.className.equals(operation.className) &&
@@ -494,7 +494,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				equalTypeParameters(operation);
 	}
 
-	public boolean equalsIgnoringNameCase(UMLOperation operation) {
+	public boolean equalsIgnoringNameCase(UMLOperation_RENAMED operation) {
 		boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 		boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 		return this.className.equals(operation.className) &&
@@ -512,8 +512,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
             return true;
         }
 		
-		if(o instanceof UMLOperation) {
-			UMLOperation operation = (UMLOperation)o;
+		if(o instanceof UMLOperation_RENAMED) {
+			UMLOperation_RENAMED operation = (UMLOperation_RENAMED)o;
 			boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 			boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
 			return this.className.equals(operation.className) &&
@@ -527,7 +527,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsQualified(UMLOperation operation) {
+	public boolean equalsQualified(UMLOperation_RENAMED operation) {
 		if(this.className.equals(operation.className) &&
 				this.name.equals(operation.name) &&
 				this.visibility.equals(operation.visibility) &&
@@ -650,11 +650,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 	
-	public int compareTo(UMLOperation operation) {
+	public int compareTo(UMLOperation_RENAMED operation) {
 		return this.toString().compareTo(operation.toString());
 	}
 
-	public double normalizedNameDistance(UMLOperation operation) {
+	public double normalizedNameDistance(UMLOperation_RENAMED operation) {
 		String s1 = getName().toLowerCase();
 		String s2 = operation.getName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -662,33 +662,33 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return normalized;
 	}
 
-	public boolean equalParameters(UMLOperation operation) {
+	public boolean equalParameters(UMLOperation_RENAMED operation) {
 		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
 	}
 
-	public boolean equalParameterTypes(UMLOperation operation) {
+	public boolean equalParameterTypes(UMLOperation_RENAMED operation) {
 		return this.equalReturnParameter(operation) && this.getParameterTypeList().equals(operation.getParameterTypeList()) && equalTypeParameters(operation);
 	}
 
-	private boolean equalTypeParameters(UMLOperation operation) {
+	private boolean equalTypeParameters(UMLOperation_RENAMED operation) {
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
-	public boolean equalParameterNames(UMLOperation operation) {
+	public boolean equalParameterNames(UMLOperation_RENAMED operation) {
 		return this.equalReturnParameter(operation) && this.getParameterNameList().equals(operation.getParameterNameList());
 	}
 
-	public boolean overloadedParameters(UMLOperation operation) {
+	public boolean overloadedParameters(UMLOperation_RENAMED operation) {
 		return this.equalReturnParameter(operation) &&
 				(this.getParameters().containsAll(operation.getParameters()) || operation.getParameters().containsAll(this.getParameters()));
 	}
 
-	public boolean overloadedParameterTypes(UMLOperation operation) {
+	public boolean overloadedParameterTypes(UMLOperation_RENAMED operation) {
 		return this.equalReturnParameter(operation) &&
 				(this.getParameterTypeList().containsAll(operation.getParameterTypeList()) || operation.getParameterTypeList().containsAll(this.getParameterTypeList()));
 	}
 	
-	public boolean replacedParameterTypes(UMLOperation operation) {
+	public boolean replacedParameterTypes(UMLOperation_RENAMED operation) {
 		List<UMLType> thisParameterTypes = this.getParameterTypeList();
 		List<UMLType> otherParameterTypes = operation.getParameterTypeList();
 		
@@ -746,8 +746,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
-		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
+	public List<UMLOperation_RENAMED> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
+		List<UMLOperation_RENAMED> operationsInsideAnonymousClass = new ArrayList<UMLOperation_RENAMED>();
 		if(this.operationBody != null) {
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
@@ -795,7 +795,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return getName().equals("compareTo") && getReturnParameter().getType().getClassType().equals("int") && parameterTypeList.size() == 1;
 	}
 
-	public boolean compatibleSignature(UMLOperation removedOperation) {
+	public boolean compatibleSignature(UMLOperation_RENAMED removedOperation) {
 		return equalParameterTypes(removedOperation) || overloadedParameterTypes(removedOperation) || replacedParameterTypes(removedOperation) || equalParameterNames(removedOperation);
 	}
 
