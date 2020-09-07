@@ -19,7 +19,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class StatementObject extends AbstractStatement {
+public class StatementObject extends AbstractStatement_RENAMED {
 	
 	private String statement;
 	private LocationInfo locationInfo;

@@ -1399,9 +1399,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		for(AbstractCodeMapping mapping : this.mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
-			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
-				AbstractStatement statement1 = (AbstractStatement)fragment1;
-				AbstractStatement statement2 = (AbstractStatement)fragment2;
+			if(fragment1 instanceof AbstractStatement_RENAMED && fragment2 instanceof AbstractStatement_RENAMED) {
+				AbstractStatement_RENAMED statement1 = (AbstractStatement_RENAMED)fragment1;
+				AbstractStatement_RENAMED statement2 = (AbstractStatement_RENAMED)fragment2;
 				CompositeStatementObject parent1 = statement1.getParent();
 				CompositeStatementObject parent2 = statement2.getParent();
 				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
@@ -1449,9 +1449,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(LeafMapping mapping : mappingSet) {
 				AbstractCodeFragment fragment1 = mapping.getFragment1();
 				AbstractCodeFragment fragment2 = mapping.getFragment2();
-				if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
-					AbstractStatement statement1 = (AbstractStatement)fragment1;
-					AbstractStatement statement2 = (AbstractStatement)fragment2;
+				if(fragment1 instanceof AbstractStatement_RENAMED && fragment2 instanceof AbstractStatement_RENAMED) {
+					AbstractStatement_RENAMED statement1 = (AbstractStatement_RENAMED)fragment1;
+					AbstractStatement_RENAMED statement2 = (AbstractStatement_RENAMED)fragment2;
 					CompositeStatementObject parent1 = statement1.getParent();
 					CompositeStatementObject parent2 = statement2.getParent();
 					if(parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT) &&
@@ -4063,8 +4063,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private double compositeChildMatchingScore(CompositeStatementObject comp1, CompositeStatementObject comp2, Set<AbstractCodeMapping> mappings,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
-		List<AbstractStatement> compStatements1 = comp1.getStatements();
-		List<AbstractStatement> compStatements2 = comp2.getStatements();
+		List<AbstractStatement_RENAMED> compStatements1 = comp1.getStatements();
+		List<AbstractStatement_RENAMED> compStatements2 = comp2.getStatements();
 		int childrenSize1 = compStatements1.size();
 		int childrenSize2 = compStatements2.size();
 		

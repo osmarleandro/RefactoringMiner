@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.List;
 
-public abstract class AbstractStatement extends AbstractCodeFragment {
+public abstract class AbstractStatement_RENAMED extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
 	
 	public void setParent(CompositeStatementObject parent) {
