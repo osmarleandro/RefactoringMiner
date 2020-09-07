@@ -9,7 +9,7 @@ import java.util.Map;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 
-public class UMLAnnotationDiff {
+public class UMLAnnotationDiff_RENAMED {
 	private UMLAnnotation removedAnnotation;
 	private UMLAnnotation addedAnnotation;
 	private boolean typeNameChanged = false;
@@ -20,7 +20,7 @@ public class UMLAnnotationDiff {
 	private List<SimpleEntry<String, AbstractExpression>> addedMemberValuePairs;
 	private Map<SimpleEntry<String, AbstractExpression>, SimpleEntry<String, AbstractExpression>> matchedMemberValuePairsWithDifferentExpressions;
 	
-	public UMLAnnotationDiff(UMLAnnotation removedAnnotation, UMLAnnotation addedAnnotation) {
+	public UMLAnnotationDiff_RENAMED(UMLAnnotation removedAnnotation, UMLAnnotation addedAnnotation) {
 		this.removedAnnotation = removedAnnotation;
 		this.addedAnnotation = addedAnnotation;
 		this.removedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression>>();

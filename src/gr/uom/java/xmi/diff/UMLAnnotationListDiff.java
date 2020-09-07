@@ -9,12 +9,12 @@ import gr.uom.java.xmi.UMLAnnotation;
 public class UMLAnnotationListDiff {
 	private List<UMLAnnotation> removedAnnotations;
 	private List<UMLAnnotation> addedAnnotations;
-	private List<UMLAnnotationDiff> annotationDiffList;
+	private List<UMLAnnotationDiff_RENAMED> annotationDiffList;
 
 	public UMLAnnotationListDiff(List<UMLAnnotation> annotations1, List<UMLAnnotation> annotations2) {
 		this.removedAnnotations = new ArrayList<UMLAnnotation>();
 		this.addedAnnotations = new ArrayList<UMLAnnotation>();
-		this.annotationDiffList = new ArrayList<UMLAnnotationDiff>();
+		this.annotationDiffList = new ArrayList<UMLAnnotationDiff_RENAMED>();
 		List<SimpleEntry<UMLAnnotation, UMLAnnotation>> matchedAnnotations = new ArrayList<SimpleEntry<UMLAnnotation,UMLAnnotation>>();
 		for(UMLAnnotation annotation1 : annotations1) {
 			boolean found = false;
@@ -43,7 +43,7 @@ public class UMLAnnotationListDiff {
 			}
 		}
 		for(SimpleEntry<UMLAnnotation, UMLAnnotation> entry : matchedAnnotations) {
-			UMLAnnotationDiff annotationDiff = new UMLAnnotationDiff(entry.getKey(), entry.getValue());
+			UMLAnnotationDiff_RENAMED annotationDiff = new UMLAnnotationDiff_RENAMED(entry.getKey(), entry.getValue());
 			if(!annotationDiff.isEmpty()) {
 				annotationDiffList.add(annotationDiff);
 			}
@@ -58,7 +58,7 @@ public class UMLAnnotationListDiff {
 		return addedAnnotations;
 	}
 
-	public List<UMLAnnotationDiff> getAnnotationDiffList() {
+	public List<UMLAnnotationDiff_RENAMED> getAnnotationDiffList() {
 		return annotationDiffList;
 	}
 
