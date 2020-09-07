@@ -277,7 +277,7 @@ public class UMLModelASTReader {
     	Type superclassType = typeDeclaration.getSuperclassType();
     	if(superclassType != null) {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, superclassType, 0);
-    		UMLGeneralization umlGeneralization = new UMLGeneralization(umlClass, umlType.getClassType());
+    		UMLGeneralization_RENAMED umlGeneralization = new UMLGeneralization_RENAMED(umlClass, umlType.getClassType());
     		umlClass.setSuperclass(umlType);
     		getUmlModel().addGeneralization(umlGeneralization);
     	}

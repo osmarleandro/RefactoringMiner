@@ -1,10 +1,10 @@
 package gr.uom.java.xmi;
 
-public class UMLGeneralization implements Comparable<UMLGeneralization> {
+public class UMLGeneralization_RENAMED implements Comparable<UMLGeneralization_RENAMED> {
     private UMLClass child;
     private String parent;
 
-    public UMLGeneralization(UMLClass child, String parent) {
+    public UMLGeneralization_RENAMED(UMLClass child, String parent) {
         this.child = child;
         this.parent = parent;
     }
@@ -22,8 +22,8 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     		return true;
     	}
     	
-    	if(o instanceof UMLGeneralization) {
-    		UMLGeneralization umlGeneralization = (UMLGeneralization)o;
+    	if(o instanceof UMLGeneralization_RENAMED) {
+    		UMLGeneralization_RENAMED umlGeneralization = (UMLGeneralization_RENAMED)o;
     		return this.child.equals(umlGeneralization.child) &&
     			this.parent.equals(umlGeneralization.parent);
     	}
@@ -34,7 +34,7 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     	return child + "->" + parent;
     }
 
-	public int compareTo(UMLGeneralization generalization) {
+	public int compareTo(UMLGeneralization_RENAMED generalization) {
 		return this.toString().compareTo(generalization.toString());
 	}
 }

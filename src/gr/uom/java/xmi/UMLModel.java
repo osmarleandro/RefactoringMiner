@@ -15,13 +15,13 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 public class UMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
-    private List<UMLGeneralization> generalizationList;
+    private List<UMLGeneralization_RENAMED> generalizationList;
     private List<UMLRealization> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
         classList = new ArrayList<UMLClass>();
-        generalizationList = new ArrayList<UMLGeneralization>();
+        generalizationList = new ArrayList<UMLGeneralization_RENAMED>();
         realizationList = new ArrayList<UMLRealization>();
     }
 
@@ -29,7 +29,7 @@ public class UMLModel {
         classList.add(umlClass);
     }
 
-    public void addGeneralization(UMLGeneralization umlGeneralization) {
+    public void addGeneralization(UMLGeneralization_RENAMED umlGeneralization) {
         generalizationList.add(umlGeneralization);
     }
 
@@ -51,7 +51,7 @@ public class UMLModel {
         return this.classList;
     }
 
-    public List<UMLGeneralization> getGeneralizationList() {
+    public List<UMLGeneralization_RENAMED> getGeneralizationList() {
         return this.generalizationList;
     }
 
@@ -59,10 +59,10 @@ public class UMLModel {
 		return realizationList;
 	}
 
-	public UMLGeneralization matchGeneralization(UMLGeneralization otherGeneralization) {
-    	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
+	public UMLGeneralization_RENAMED matchGeneralization(UMLGeneralization_RENAMED otherGeneralization) {
+    	ListIterator<UMLGeneralization_RENAMED> generalizationIt = generalizationList.listIterator();
     	while(generalizationIt.hasNext()) {
-    		UMLGeneralization generalization = generalizationIt.next();
+    		UMLGeneralization_RENAMED generalization = generalizationIt.next();
     		if(generalization.getChild().equals(otherGeneralization.getChild())) {
     			String thisParent = generalization.getParent();
     			String otherParent = otherGeneralization.getParent();
@@ -123,11 +123,11 @@ public class UMLModel {
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.Move());
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
-    	for(UMLGeneralization umlGeneralization : generalizationList) {
+    	for(UMLGeneralization_RENAMED umlGeneralization : generalizationList) {
     		if(!umlModel.generalizationList.contains(umlGeneralization))
     			modelDiff.reportRemovedGeneralization(umlGeneralization);
     	}
-    	for(UMLGeneralization umlGeneralization : umlModel.generalizationList) {
+    	for(UMLGeneralization_RENAMED umlGeneralization : umlModel.generalizationList) {
     		if(!this.generalizationList.contains(umlGeneralization))
     			modelDiff.reportAddedGeneralization(umlGeneralization);
     	}

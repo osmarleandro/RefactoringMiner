@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLClassMatcher;
-import gr.uom.java.xmi.UMLGeneralization;
+import gr.uom.java.xmi.UMLGeneralization_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLRealization;
@@ -46,8 +46,8 @@ public class UMLModelDiff {
    private List<UMLClass> addedClasses;
    private List<UMLClass> removedClasses;
    
-   private List<UMLGeneralization> addedGeneralizations;
-   private List<UMLGeneralization> removedGeneralizations;
+   private List<UMLGeneralization_RENAMED> addedGeneralizations;
+   private List<UMLGeneralization_RENAMED> removedGeneralizations;
    private List<UMLGeneralizationDiff> generalizationDiffList;
    private List<UMLRealization> addedRealizations;
    private List<UMLRealization> removedRealizations;
@@ -63,8 +63,8 @@ public class UMLModelDiff {
    public UMLModelDiff() {
       this.addedClasses = new ArrayList<UMLClass>();
       this.removedClasses = new ArrayList<UMLClass>();
-      this.addedGeneralizations = new ArrayList<UMLGeneralization>();
-      this.removedGeneralizations = new ArrayList<UMLGeneralization>();
+      this.addedGeneralizations = new ArrayList<UMLGeneralization_RENAMED>();
+      this.removedGeneralizations = new ArrayList<UMLGeneralization_RENAMED>();
       this.generalizationDiffList = new ArrayList<UMLGeneralizationDiff>();
       this.realizationDiffList = new ArrayList<UMLRealizationDiff>();
       this.addedRealizations = new ArrayList<UMLRealization>();
@@ -87,11 +87,11 @@ public class UMLModelDiff {
 		   this.removedClasses.add(umlClass);
    }
 
-   public void reportAddedGeneralization(UMLGeneralization umlGeneralization) {
+   public void reportAddedGeneralization(UMLGeneralization_RENAMED umlGeneralization) {
       this.addedGeneralizations.add(umlGeneralization);
    }
 
-   public void reportRemovedGeneralization(UMLGeneralization umlGeneralization) {
+   public void reportRemovedGeneralization(UMLGeneralization_RENAMED umlGeneralization) {
       this.removedGeneralizations.add(umlGeneralization);
    }
 
@@ -372,10 +372,10 @@ public class UMLModelDiff {
    }
 
    public void checkForGeneralizationChanges() {
-      for(Iterator<UMLGeneralization> removedGeneralizationIterator = removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();) {
-         UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
-         for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
-            UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
+      for(Iterator<UMLGeneralization_RENAMED> removedGeneralizationIterator = removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();) {
+         UMLGeneralization_RENAMED removedGeneralization = removedGeneralizationIterator.next();
+         for(Iterator<UMLGeneralization_RENAMED> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
+            UMLGeneralization_RENAMED addedGeneralization = addedGeneralizationIterator.next();
             String renamedChild = isRenamedClass(removedGeneralization.getChild());
             String movedChild = isMovedClass(removedGeneralization.getChild());
             if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
@@ -536,7 +536,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   public List<UMLGeneralization> getAddedGeneralizations() {
+   public List<UMLGeneralization_RENAMED> getAddedGeneralizations() {
       return addedGeneralizations;
    }
 
@@ -1034,12 +1034,12 @@ public class UMLModelDiff {
       for(UMLClass addedClass : addedClasses) {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
-         for(UMLGeneralization addedGeneralization : addedGeneralizations) {
+         for(UMLGeneralization_RENAMED addedGeneralization : addedGeneralizations) {
         	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
          }
          for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
-        	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
-        	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
+        	 UMLGeneralization_RENAMED addedGeneralization = generalizationDiff.getAddedGeneralization();
+        	 UMLGeneralization_RENAMED removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
         		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
         	 }
@@ -1070,7 +1070,7 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
+   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization_RENAMED addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
