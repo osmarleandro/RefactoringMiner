@@ -6,7 +6,7 @@ import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -418,8 +418,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public OperationInvocation isDelegate() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
-			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
+			if(statements.size() == 1 && statements.get(0) instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statement = (StatementObject_RENAMED)statements.get(0);
 				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
@@ -438,8 +438,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			List<UMLParameter> parameters = getParametersWithoutReturnType();
-			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
+			if(statements.size() == 1 && statements.get(0) instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statement = (StatementObject_RENAMED)statements.get(0);
 				if(statement.getString().startsWith("return ")) {
 					for(String variable : statement.getVariables()) {
 						if(statement.getString().equals("return " + variable + ";\n") && parameters.size() == 0) {
@@ -470,8 +470,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		List<String> parameterNames = getParameterNameList();
 		if(getBody() != null && parameterNames.size() == 1) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
-			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
+			if(statements.size() == 1 && statements.get(0) instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statement = (StatementObject_RENAMED)statements.get(0);
 				for(String variable : statement.getVariables()) {
 					if(statement.getString().equals(variable + "=" + parameterNames.get(0) + ";\n")) {
 						return true;

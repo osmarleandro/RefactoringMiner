@@ -52,8 +52,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
-	private List<StatementObject> nonMappedLeavesT1;
-	private List<StatementObject> nonMappedLeavesT2;
+	private List<StatementObject_RENAMED> nonMappedLeavesT1;
+	private List<StatementObject_RENAMED> nonMappedLeavesT2;
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
@@ -78,8 +78,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.operation1 = operation1;
 		this.operation2 = operation2;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
-		this.nonMappedLeavesT1 = new ArrayList<StatementObject>();
-		this.nonMappedLeavesT2 = new ArrayList<StatementObject>();
+		this.nonMappedLeavesT1 = new ArrayList<StatementObject_RENAMED>();
+		this.nonMappedLeavesT2 = new ArrayList<StatementObject_RENAMED>();
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		OperationBody body1 = operation1.getBody();
@@ -87,8 +87,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(body1 != null && body2 != null) {
 			CompositeStatementObject composite1 = body1.getCompositeStatement();
 			CompositeStatementObject composite2 = body2.getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject_RENAMED> leaves1 = composite1.getLeaves();
+			List<StatementObject_RENAMED> leaves2 = composite2.getLeaves();
 			
 			UMLOperationDiff operationDiff = new UMLOperationDiff(operation1, operation2);
 			Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
@@ -113,14 +113,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			resetNodes(leaves1);
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
-				for(StatementObject leave1 : leaves1) {
+				for(StatementObject_RENAMED leave1 : leaves1) {
 					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
-				for(StatementObject leave2 : leaves2) {
+				for(StatementObject_RENAMED leave2 : leaves2) {
 					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
 				}
 			}
@@ -151,10 +151,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
-			for(StatementObject statement : getNonMappedLeavesT1()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
@@ -167,8 +167,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.operation1 = parentMapper.operation1;
 		this.operation2 = parentMapper.operation2;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
-		this.nonMappedLeavesT1 = new ArrayList<StatementObject>();
-		this.nonMappedLeavesT2 = new ArrayList<StatementObject>();
+		this.nonMappedLeavesT1 = new ArrayList<StatementObject_RENAMED>();
+		this.nonMappedLeavesT2 = new ArrayList<StatementObject_RENAMED>();
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
@@ -182,8 +182,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		else if(lambda1.getBody() != null && lambda2.getBody() != null) {
 			CompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
 			CompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject_RENAMED> leaves1 = composite1.getLeaves();
+			List<StatementObject_RENAMED> leaves2 = composite2.getLeaves();
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
@@ -195,10 +195,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
-			for(StatementObject statement : getNonMappedLeavesT1()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
@@ -277,20 +277,20 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.operation2 = addedOperation;
 		this.classDiff = classDiff;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
-		this.nonMappedLeavesT1 = new ArrayList<StatementObject>();
-		this.nonMappedLeavesT2 = new ArrayList<StatementObject>();
+		this.nonMappedLeavesT1 = new ArrayList<StatementObject_RENAMED>();
+		this.nonMappedLeavesT2 = new ArrayList<StatementObject_RENAMED>();
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
 		OperationBody addedOperationBody = addedOperation.getBody();
 		if(addedOperationBody != null) {
 			CompositeStatementObject composite2 = addedOperationBody.getCompositeStatement();
-			List<StatementObject> leaves1 = operationBodyMapper.getNonMappedLeavesT1();
+			List<StatementObject_RENAMED> leaves1 = operationBodyMapper.getNonMappedLeavesT1();
 			List<CompositeStatementObject> innerNodes1 = operationBodyMapper.getNonMappedInnerNodesT1();
 			//adding leaves that were mapped with replacements
-			Set<StatementObject> addedLeaves1 = new LinkedHashSet<StatementObject>();
+			Set<StatementObject_RENAMED> addedLeaves1 = new LinkedHashSet<StatementObject_RENAMED>();
 			Set<CompositeStatementObject> addedInnerNodes1 = new LinkedHashSet<CompositeStatementObject>();
-			for(StatementObject nonMappedLeaf1 : new ArrayList<>(operationBodyMapper.getNonMappedLeavesT1())) {
+			for(StatementObject_RENAMED nonMappedLeaf1 : new ArrayList<>(operationBodyMapper.getNonMappedLeavesT1())) {
 				expandAnonymousAndLambdas(nonMappedLeaf1, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 			}
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
@@ -299,18 +299,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					expandAnonymousAndLambdas(fragment, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 				}
 			}
-			List<StatementObject> leaves2 = composite2.getLeaves();
+			List<StatementObject_RENAMED> leaves2 = composite2.getLeaves();
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
-			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
+			Set<StatementObject_RENAMED> addedLeaves2 = new LinkedHashSet<StatementObject_RENAMED>();
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
-			for(StatementObject statement : leaves2) {
+			for(StatementObject_RENAMED statement : leaves2) {
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
 					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
-								for(StatementObject anonymousLeaf : anonymousClassLeaves) {
+								List<StatementObject_RENAMED> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+								for(StatementObject_RENAMED anonymousLeaf : anonymousClassLeaves) {
 									if(!leaves2.contains(anonymousLeaf)) {
 										addedLeaves2.add(anonymousLeaf);
 										codeFragmentOperationMap2.put(anonymousLeaf, anonymousOperation);
@@ -330,8 +330,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(!statement.getLambdas().isEmpty()) {
 					for(LambdaExpressionObject lambda : statement.getLambdas()) {
 						if(lambda.getBody() != null) {
-							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
-							for(StatementObject lambdaLeaf : lambdaLeaves) {
+							List<StatementObject_RENAMED> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+							for(StatementObject_RENAMED lambdaLeaf : lambdaLeaves) {
 								if(!leaves2.contains(lambdaLeaf)) {
 									addedLeaves2.add(lambdaLeaf);
 									codeFragmentOperationMap2.put(lambdaLeaf, operation2);
@@ -352,14 +352,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			resetNodes(leaves1);
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
-				for(StatementObject leave1 : leaves1) {
+				for(StatementObject_RENAMED leave1 : leaves1) {
 					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
-				for(StatementObject leave2 : leaves2) {
+				for(StatementObject_RENAMED leave2 : leaves2) {
 					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
 				}
 			}
@@ -425,20 +425,20 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
-			for(StatementObject statement : getNonMappedLeavesT1()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
 	}
 
-	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject> leaves1,
-			List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1,
+	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject_RENAMED> leaves1,
+			List<CompositeStatementObject> innerNodes1, Set<StatementObject_RENAMED> addedLeaves1,
 			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
-		if(fragment instanceof StatementObject) {
-			StatementObject statement = (StatementObject)fragment;
+		if(fragment instanceof StatementObject_RENAMED) {
+			StatementObject_RENAMED statement = (StatementObject_RENAMED)fragment;
 			if(!leaves1.contains(statement)) {
 				leaves1.add(statement);
 				addedLeaves1.add(statement);
@@ -448,8 +448,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(UMLAnonymousClass anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
-							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
-							for(StatementObject anonymousLeaf : anonymousClassLeaves) {
+							List<StatementObject_RENAMED> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
+							for(StatementObject_RENAMED anonymousLeaf : anonymousClassLeaves) {
 								if(!leaves1.contains(anonymousLeaf)) {
 									leaves1.add(anonymousLeaf);
 									addedLeaves1.add(anonymousLeaf);
@@ -471,8 +471,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!statement.getLambdas().isEmpty()) {
 				for(LambdaExpressionObject lambda : statement.getLambdas()) {
 					if(lambda.getBody() != null) {
-						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
-						for(StatementObject lambdaLeaf : lambdaLeaves) {
+						List<StatementObject_RENAMED> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
+						for(StatementObject_RENAMED lambdaLeaf : lambdaLeaves) {
 							if(!leaves1.contains(lambdaLeaf)) {
 								leaves1.add(lambdaLeaf);
 								addedLeaves1.add(lambdaLeaf);
@@ -501,23 +501,23 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.callSiteOperation = operationBodyMapper.operation1;
 		this.classDiff = classDiff;
 		this.mappings = new LinkedHashSet<AbstractCodeMapping>();
-		this.nonMappedLeavesT1 = new ArrayList<StatementObject>();
-		this.nonMappedLeavesT2 = new ArrayList<StatementObject>();
+		this.nonMappedLeavesT1 = new ArrayList<StatementObject_RENAMED>();
+		this.nonMappedLeavesT2 = new ArrayList<StatementObject_RENAMED>();
 		this.nonMappedInnerNodesT1 = new ArrayList<CompositeStatementObject>();
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
 		OperationBody removedOperationBody = removedOperation.getBody();
 		if(removedOperationBody != null) {
 			CompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
-			List<StatementObject> leaves1 = composite1.getLeaves();
-			List<StatementObject> leaves2 = operationBodyMapper.getNonMappedLeavesT2();
+			List<StatementObject_RENAMED> leaves1 = composite1.getLeaves();
+			List<StatementObject_RENAMED> leaves2 = operationBodyMapper.getNonMappedLeavesT2();
 			//adding leaves that were mapped with replacements or are inexact matches
-			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
+			Set<StatementObject_RENAMED> addedLeaves2 = new LinkedHashSet<StatementObject_RENAMED>();
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!returnWithVariableReplacement(mapping) && !nullLiteralReplacements(mapping) && (!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2()))) {
 					AbstractCodeFragment fragment = mapping.getFragment2();
-					if(fragment instanceof StatementObject) {
-						StatementObject statement = (StatementObject)fragment;
+					if(fragment instanceof StatementObject_RENAMED) {
+						StatementObject_RENAMED statement = (StatementObject_RENAMED)fragment;
 						if(!leaves2.contains(statement)) {
 							leaves2.add(statement);
 							addedLeaves2.add(statement);
@@ -529,7 +529,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap.isEmpty()) {
 				//check for temporary variables that the argument might be assigned to
-				for(StatementObject leave2 : leaves2) {
+				for(StatementObject_RENAMED leave2 : leaves2) {
 					List<VariableDeclaration> variableDeclarations = leave2.getVariableDeclarations();
 					for(VariableDeclaration variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
@@ -540,7 +540,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 				}
-				for(StatementObject leave1 : leaves1) {
+				for(StatementObject_RENAMED leave1 : leaves1) {
 					leave1.replaceParametersWithArguments(parameterToArgumentMap);
 				}
 			}
@@ -592,10 +592,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT1.addAll(innerNodes1);
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
-			for(StatementObject statement : getNonMappedLeavesT2()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
-			for(StatementObject statement : getNonMappedLeavesT1()) {
+			for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
@@ -642,11 +642,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mappings;
 	}
 
-	public List<StatementObject> getNonMappedLeavesT1() {
+	public List<StatementObject_RENAMED> getNonMappedLeavesT1() {
 		return nonMappedLeavesT1;
 	}
 
-	public List<StatementObject> getNonMappedLeavesT2() {
+	public List<StatementObject_RENAMED> getNonMappedLeavesT2() {
 		return nonMappedLeavesT2;
 	}
 
@@ -674,7 +674,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nonMappedInnerNodeCount++;
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT1()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement())
 				nonMappedLeafCount++;
 		}
@@ -683,7 +683,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedLeafElementsT1() {
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT1()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement())
 				nonMappedLeafCount++;
 		}
@@ -697,7 +697,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nonMappedInnerNodeCount++;
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
@@ -706,14 +706,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedLeafElementsT2() {
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement() && !isTemporaryVariableAssignment(statement))
 				nonMappedLeafCount++;
 		}
 		return nonMappedLeafCount;
 	}
 
-	private boolean isTemporaryVariableAssignment(StatementObject statement) {
+	private boolean isTemporaryVariableAssignment(StatementObject_RENAMED statement) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
@@ -725,13 +725,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
+	private void inlinedVariableAssignment(StatementObject_RENAMED statement, List<StatementObject_RENAMED> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
 		}
 	}
 
-	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
+	private void temporaryVariableAssignment(StatementObject_RENAMED statement, List<StatementObject_RENAMED> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
 			mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff);
@@ -756,7 +756,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT2()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
@@ -792,7 +792,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT1()) {
+		for(StatementObject_RENAMED statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement()) {
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
@@ -1499,7 +1499,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		String argumentizedString = new String(leaf1.getArgumentizedString());
-		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression) {
+		if (leaf1 instanceof StatementObject_RENAMED && leaf2 instanceof AbstractExpression) {
 			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
 				argumentizedString = argumentizedString.substring("return ".length(),
 						argumentizedString.lastIndexOf(";\n"));
@@ -2672,8 +2672,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(LambdaExpressionObject lambda : statement.getLambdas()) {
 				OperationBody body = lambda.getBody();
 				if(body != null) {
-					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
-					for(StatementObject leaf : leaves) {
+					List<StatementObject_RENAMED> leaves = body.getCompositeStatement().getLeaves();
+					for(StatementObject_RENAMED leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
 								String statementWithoutAnonymous = statementWithoutAnonymous(leaf, anonymousClassDeclaration, operation);
@@ -2706,8 +2706,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(UMLOperation anonymousOperation : anonymousOperations) {
 				OperationBody body = anonymousOperation.getBody();
 				if(body != null) {
-					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
-					for(StatementObject leaf : leaves) {
+					List<StatementObject_RENAMED> leaves = body.getCompositeStatement().getLeaves();
+					for(StatementObject_RENAMED leaf : leaves) {
 						for(AnonymousClassDeclarationObject anonymousObject : leaf.getAnonymousClassDeclarations()) {
 							if(anonymousObject.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo()) ||
 									anonymousObject.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
@@ -4086,8 +4086,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		if(mappedChildrenSize == 0) {
-			List<StatementObject> leaves1 = comp1.getLeaves();
-			List<StatementObject> leaves2 = comp2.getLeaves();
+			List<StatementObject_RENAMED> leaves1 = comp1.getLeaves();
+			List<StatementObject_RENAMED> leaves2 = comp2.getLeaves();
 			int leaveSize1 = leaves1.size();
 			int leaveSize2 = leaves2.size();
 			int mappedLeavesSize = 0;
@@ -4099,7 +4099,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(mappedLeavesSize == 0) {
 				//check for possible extract or inline
 				if(leaveSize2 <= 2) {
-					for(StatementObject leaf2 : leaves2) {
+					for(StatementObject_RENAMED leaf2 : leaves2) {
 						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
 						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
 							mappedLeavesSize++;
@@ -4107,7 +4107,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				else if(leaveSize1 <= 2) {
-					for(StatementObject leaf1 : leaves1) {
+					for(StatementObject_RENAMED leaf1 : leaves1) {
 						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
 						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
 							mappedLeavesSize++;

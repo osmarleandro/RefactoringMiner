@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
@@ -231,7 +231,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 					.setDescription("extracted method invocation")
 					.setCodeElement(invocation.actualString()));
 		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
+		for(StatementObject_RENAMED statement : bodyMapper.getNonMappedLeavesT2()) {
 			ranges.add(statement.codeRange().
 					setDescription("added statement in extracted method declaration"));
 		}

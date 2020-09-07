@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
@@ -98,9 +98,9 @@ public class ExtractOperationDetection {
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
-								if(fragment1 instanceof StatementObject) {
+								if(fragment1 instanceof StatementObject_RENAMED) {
 									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {
-										mapper.getNonMappedLeavesT1().add((StatementObject)fragment1);
+										mapper.getNonMappedLeavesT1().add((StatementObject_RENAMED)fragment1);
 									}
 								}
 								else if(fragment1 instanceof CompositeStatementObject) {
@@ -128,13 +128,13 @@ public class ExtractOperationDetection {
 
 	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
+		for(StatementObject_RENAMED statement : mapper.getNonMappedLeavesT2()) {
 			addStatementInvocations(operationInvocations, statement);
 		}
 		return operationInvocations;
 	}
 
-	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject statement) {
+	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject_RENAMED statement) {
 		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
 		for(String key : statementMethodInvocationMap.keySet()) {
 			for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
@@ -237,9 +237,9 @@ public class ExtractOperationDetection {
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
 			AbstractCodeMapping mapping = exactMatchList.get(0);
-			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
-				StatementObject statement1 = (StatementObject)mapping.getFragment1();
-				StatementObject statement2 = (StatementObject)mapping.getFragment2();
+			if(mapping.getFragment1() instanceof StatementObject_RENAMED && mapping.getFragment2() instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statement1 = (StatementObject_RENAMED)mapping.getFragment1();
+				StatementObject_RENAMED statement2 = (StatementObject_RENAMED)mapping.getFragment2();
 				if(statement1.getParent().getString().startsWith("catch(") &&
 						statement2.getParent().getString().startsWith("catch(")) {
 					exceptionHandlingExactMatch = true;
@@ -268,7 +268,7 @@ public class ExtractOperationDetection {
 				iterator.remove();
 			}
 		}
-		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
+		List<StatementObject_RENAMED> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		return totalMappings.size() == 1 && totalMappings.get(0).containsReplacement(ReplacementType.ARGUMENT_REPLACED_WITH_RETURN_EXPRESSION) &&
 				nonMappedInnerNodesT2.size() == 1 && nonMappedInnerNodesT2.get(0).toString().startsWith("if") &&
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");

@@ -12,7 +12,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
-import gr.uom.java.xmi.decomposition.StatementObject;
+import gr.uom.java.xmi.decomposition.StatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
 public class InlineOperationDetection {
@@ -114,7 +114,7 @@ public class InlineOperationDetection {
 
 	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
+		for(StatementObject_RENAMED statement : mapper.getNonMappedLeavesT1()) {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
@@ -133,7 +133,7 @@ public class InlineOperationDetection {
 
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
 		int delegateStatements = 0;
-		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+		for(StatementObject_RENAMED statement : operationBodyMapper.getNonMappedLeavesT1()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;

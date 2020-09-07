@@ -166,7 +166,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof ExpressionStatement) {
 			ExpressionStatement expressionStatement = (ExpressionStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, expressionStatement, parent.getDepth()+1, CodeElementType.EXPRESSION_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, expressionStatement, parent.getDepth()+1, CodeElementType.EXPRESSION_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof SwitchStatement) {
@@ -181,12 +181,12 @@ public class OperationBody {
 		}
 		else if(statement instanceof SwitchCase) {
 			SwitchCase switchCase = (SwitchCase)statement;
-			StatementObject child = new StatementObject(cu, filePath, switchCase, parent.getDepth()+1, CodeElementType.SWITCH_CASE);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, switchCase, parent.getDepth()+1, CodeElementType.SWITCH_CASE);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof AssertStatement) {
 			AssertStatement assertStatement = (AssertStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, assertStatement, parent.getDepth()+1, CodeElementType.ASSERT_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, assertStatement, parent.getDepth()+1, CodeElementType.ASSERT_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof LabeledStatement) {
@@ -198,7 +198,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof ReturnStatement) {
 			ReturnStatement returnStatement = (ReturnStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, returnStatement, parent.getDepth()+1, CodeElementType.RETURN_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, returnStatement, parent.getDepth()+1, CodeElementType.RETURN_STATEMENT);
 			parent.addStatement(child);	
 		}
 		else if(statement instanceof SynchronizedStatement) {
@@ -211,7 +211,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof ThrowStatement) {
 			ThrowStatement throwStatement = (ThrowStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, throwStatement, parent.getDepth()+1, CodeElementType.THROW_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, throwStatement, parent.getDepth()+1, CodeElementType.THROW_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof TryStatement) {
@@ -260,32 +260,32 @@ public class OperationBody {
 		}
 		else if(statement instanceof VariableDeclarationStatement) {
 			VariableDeclarationStatement variableDeclarationStatement = (VariableDeclarationStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, variableDeclarationStatement, parent.getDepth()+1, CodeElementType.VARIABLE_DECLARATION_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, variableDeclarationStatement, parent.getDepth()+1, CodeElementType.VARIABLE_DECLARATION_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof ConstructorInvocation) {
 			ConstructorInvocation constructorInvocation = (ConstructorInvocation)statement;
-			StatementObject child = new StatementObject(cu, filePath, constructorInvocation, parent.getDepth()+1, CodeElementType.CONSTRUCTOR_INVOCATION);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, constructorInvocation, parent.getDepth()+1, CodeElementType.CONSTRUCTOR_INVOCATION);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof SuperConstructorInvocation) {
 			SuperConstructorInvocation superConstructorInvocation = (SuperConstructorInvocation)statement;
-			StatementObject child = new StatementObject(cu, filePath, superConstructorInvocation, parent.getDepth()+1, CodeElementType.SUPER_CONSTRUCTOR_INVOCATION);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, superConstructorInvocation, parent.getDepth()+1, CodeElementType.SUPER_CONSTRUCTOR_INVOCATION);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof BreakStatement) {
 			BreakStatement breakStatement = (BreakStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, breakStatement, parent.getDepth()+1, CodeElementType.BREAK_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, breakStatement, parent.getDepth()+1, CodeElementType.BREAK_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof ContinueStatement) {
 			ContinueStatement continueStatement = (ContinueStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, continueStatement, parent.getDepth()+1, CodeElementType.CONTINUE_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, continueStatement, parent.getDepth()+1, CodeElementType.CONTINUE_STATEMENT);
 			parent.addStatement(child);
 		}
 		else if(statement instanceof EmptyStatement) {
 			EmptyStatement emptyStatement = (EmptyStatement)statement;
-			StatementObject child = new StatementObject(cu, filePath, emptyStatement, parent.getDepth()+1, CodeElementType.EMPTY_STATEMENT);
+			StatementObject_RENAMED child = new StatementObject_RENAMED(cu, filePath, emptyStatement, parent.getDepth()+1, CodeElementType.EMPTY_STATEMENT);
 			parent.addStatement(child);
 		}
 	}

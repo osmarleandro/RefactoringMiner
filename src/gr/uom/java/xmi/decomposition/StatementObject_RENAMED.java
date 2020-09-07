@@ -19,7 +19,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class StatementObject extends AbstractStatement {
+public class StatementObject_RENAMED extends AbstractStatement {
 	
 	private String statement;
 	private LocationInfo locationInfo;
@@ -42,7 +42,7 @@ public class StatementObject extends AbstractStatement {
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
 	
-	public StatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
+	public StatementObject_RENAMED(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
 		Visitor visitor = new Visitor(cu, filePath);
@@ -138,8 +138,8 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<StatementObject> getLeaves() {
-		List<StatementObject> leaves = new ArrayList<StatementObject>();
+	public List<StatementObject_RENAMED> getLeaves() {
+		List<StatementObject_RENAMED> leaves = new ArrayList<StatementObject_RENAMED>();
 		leaves.add(this);
 		return leaves;
 	}

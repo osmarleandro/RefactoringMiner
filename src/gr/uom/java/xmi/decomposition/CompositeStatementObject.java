@@ -57,8 +57,8 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<StatementObject> getLeaves() {
-		List<StatementObject> leaves = new ArrayList<StatementObject>();
+	public List<StatementObject_RENAMED> getLeaves() {
+		List<StatementObject_RENAMED> leaves = new ArrayList<StatementObject_RENAMED>();
 		for(AbstractStatement statement : statementList) {
 			leaves.addAll(statement.getLeaves());
 		}
@@ -78,7 +78,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	public boolean contains(AbstractCodeFragment fragment) {
-		if(fragment instanceof StatementObject) {
+		if(fragment instanceof StatementObject_RENAMED) {
 			return getLeaves().contains(fragment);
 		}
 		else if(fragment instanceof CompositeStatementObject) {
@@ -306,8 +306,8 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+			else if(statement instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statementObject = (StatementObject_RENAMED)statement;
 				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap();
 				for(String key : statementMap.keySet()) {
 					if(map.containsKey(key)) {
@@ -347,8 +347,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
 			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+			else if(statement instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statementObject = (StatementObject_RENAMED)statement;
 				anonymousClassDeclarations.addAll(statementObject.getAnonymousClassDeclarations());
 			}
 		}
@@ -363,8 +363,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				lambdas.addAll(composite.getAllLambdas());
 			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+			else if(statement instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statementObject = (StatementObject_RENAMED)statement;
 				lambdas.addAll(statementObject.getLambdas());
 			}
 		}
@@ -379,8 +379,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variables.addAll(composite.getAllVariables());
 			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+			else if(statement instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statementObject = (StatementObject_RENAMED)statement;
 				variables.addAll(statementObject.getVariables());
 			}
 		}
@@ -395,8 +395,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
 			}
-			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+			else if(statement instanceof StatementObject_RENAMED) {
+				StatementObject_RENAMED statementObject = (StatementObject_RENAMED)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
@@ -445,7 +445,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
-		for(StatementObject statement : getLeaves()) {
+		for(StatementObject_RENAMED statement : getLeaves()) {
 			String s = statement.getString();
 			if(s.startsWith("this.") && s.endsWith(";\n")) {
 				String firstLine = s.substring(0, s.indexOf("\n"));
@@ -517,7 +517,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean currentElementNameMatched = false;
-				for(StatementObject statement : innerNode.getLeaves()) {
+				for(StatementObject_RENAMED statement : innerNode.getLeaves()) {
 					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;
