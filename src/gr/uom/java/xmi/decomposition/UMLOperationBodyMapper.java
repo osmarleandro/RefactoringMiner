@@ -936,19 +936,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//exact string+depth matching - inner nodes
 			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes2.remove(minStatementMapping.getFragment2());
 					innerNodeIterator1.remove();
@@ -958,18 +958,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//exact string matching - inner nodes - finds moves to another level
 			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes2.remove(minStatementMapping.getFragment2());
 					innerNodeIterator1.remove();
@@ -979,7 +979,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			// exact matching - inner nodes - with variable renames
 			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
 					
@@ -994,13 +994,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mapping.addReplacements(replacements);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes2.remove(minStatementMapping.getFragment2());
 					innerNodeIterator1.remove();
@@ -1011,19 +1011,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//exact string+depth matching - inner nodes
 			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							statement1.getDepth() == statement2.getDepth() &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes1.remove(minStatementMapping.getFragment1());
 					innerNodeIterator2.remove();
@@ -1033,18 +1033,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//exact string matching - inner nodes - finds moves to another level
 			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
 					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes1.remove(minStatementMapping.getFragment1());
 					innerNodeIterator2.remove();
@@ -1054,7 +1054,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			// exact matching - inner nodes - with variable renames
 			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+				TreeSet<CompositeStatementObjectMapping_RENAMED> mappingSet = new TreeSet<CompositeStatementObjectMapping_RENAMED>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
 					
@@ -1069,13 +1069,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					if(replacements != null &&
 							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+						CompositeStatementObjectMapping_RENAMED mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
 						mapping.addReplacements(replacements);
 						mappingSet.add(mapping);
 					}
 				}
 				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+					CompositeStatementObjectMapping_RENAMED minStatementMapping = mappingSet.first();
 					mappings.add(minStatementMapping);
 					innerNodes1.remove(minStatementMapping.getFragment1());
 					innerNodeIterator2.remove();
@@ -1092,11 +1092,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return compositeChildMatchingScore(statement1, statement2, mappings, removedOperations, addedOperations);
 	}
 
-	private CompositeStatementObjectMapping createCompositeMapping(CompositeStatementObject statement1,
+	private CompositeStatementObjectMapping_RENAMED createCompositeMapping(CompositeStatementObject statement1,
 			CompositeStatementObject statement2, Map<String, String> parameterToArgumentMap, double score) {
 		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(statement1) ? codeFragmentOperationMap1.get(statement1) : this.operation1;
 		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(statement2) ? codeFragmentOperationMap2.get(statement2) : this.operation2;
-		CompositeStatementObjectMapping mapping = new CompositeStatementObjectMapping(statement1, statement2, operation1, operation2, score);
+		CompositeStatementObjectMapping_RENAMED mapping = new CompositeStatementObjectMapping_RENAMED(statement1, statement2, operation1, operation2, score);
 		for(String key : parameterToArgumentMap.keySet()) {
 			String value = parameterToArgumentMap.get(key);
 			if(!key.equals(value) && ReplacementUtil.contains(statement2.getString(), key) && ReplacementUtil.contains(statement1.getString(), value)) {

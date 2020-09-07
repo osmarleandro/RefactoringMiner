@@ -3,18 +3,18 @@ package gr.uom.java.xmi.decomposition;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
+public class CompositeStatementObjectMapping_RENAMED extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping_RENAMED> {
 
 	private double compositeChildMatchingScore;
 	
-	public CompositeStatementObjectMapping(CompositeStatementObject statement1, CompositeStatementObject statement2,
+	public CompositeStatementObjectMapping_RENAMED(CompositeStatementObject statement1, CompositeStatementObject statement2,
 			UMLOperation operation1, UMLOperation operation2, double score) {
 		super(statement1, statement2, operation1, operation2);
 		this.compositeChildMatchingScore = score;
 	}
 
 	@Override
-	public int compareTo(CompositeStatementObjectMapping o) {
+	public int compareTo(CompositeStatementObjectMapping_RENAMED o) {
 		double distance1;
 		double distance2;
 		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {

@@ -12,7 +12,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
-import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1764,8 +1764,8 @@ public class UMLModelDiff {
 				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
 					return false;
 				}
-				if(mapping instanceof CompositeStatementObjectMapping) {
-					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
+				if(mapping instanceof CompositeStatementObjectMapping_RENAMED) {
+					CompositeStatementObjectMapping_RENAMED compositeMapping = (CompositeStatementObjectMapping_RENAMED)mapping;
 					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
 					for(AbstractExpression expression : fragment2.getExpressions()) {
 						if(expression.equals(mappingList.get(0).getFragment2())) {
@@ -1962,8 +1962,8 @@ public class UMLModelDiff {
 			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
 				   return false;
 			   }
-			   if(mapping instanceof CompositeStatementObjectMapping) {
-				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
+			   if(mapping instanceof CompositeStatementObjectMapping_RENAMED) {
+				   CompositeStatementObjectMapping_RENAMED compositeMapping = (CompositeStatementObjectMapping_RENAMED)mapping;
 				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
 				   for(AbstractExpression expression : fragment1.getExpressions()) {
 					   if(expression.equals(mappingList.get(0).getFragment1())) {
