@@ -14,10 +14,10 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
-public class UMLClassDiff extends UMLClassBaseDiff {
+public class UMLClassDiff_RENAMED extends UMLClassBaseDiff {
 	
 	private String className;
-	public UMLClassDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
+	public UMLClassDiff_RENAMED(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
 		super(originalClass, nextClass, modelDiff);
 		this.className = originalClass.getName();
 	}

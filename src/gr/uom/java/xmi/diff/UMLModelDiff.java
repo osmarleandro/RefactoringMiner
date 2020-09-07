@@ -53,7 +53,7 @@ public class UMLModelDiff {
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
-   private List<UMLClassDiff> commonClassDiffList;
+   private List<UMLClassDiff_RENAMED> commonClassDiffList;
    private List<UMLClassMoveDiff> classMoveDiffList;
    private List<UMLClassMoveDiff> innerClassMoveDiffList;
    private List<UMLClassRenameDiff> classRenameDiffList;
@@ -69,7 +69,7 @@ public class UMLModelDiff {
       this.realizationDiffList = new ArrayList<UMLRealizationDiff>();
       this.addedRealizations = new ArrayList<UMLRealization>();
       this.removedRealizations = new ArrayList<UMLRealization>();
-      this.commonClassDiffList = new ArrayList<UMLClassDiff>();
+      this.commonClassDiffList = new ArrayList<UMLClassDiff_RENAMED>();
       this.classMoveDiffList = new ArrayList<UMLClassMoveDiff>();
       this.innerClassMoveDiffList = new ArrayList<UMLClassMoveDiff>();
       this.classRenameDiffList = new ArrayList<UMLClassRenameDiff>();
@@ -103,7 +103,7 @@ public class UMLModelDiff {
       this.removedRealizations.add(umlRealization);
    }
 
-   public void addUMLClassDiff(UMLClassDiff classDiff) {
+   public void addUMLClassDiff(UMLClassDiff_RENAMED classDiff) {
       this.commonClassDiffList.add(classDiff);
    }
 
@@ -124,7 +124,7 @@ public class UMLModelDiff {
    }
 
    private UMLClassBaseDiff getUMLClassDiff(String className) {
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          if(classDiff.matches(className))
             return classDiff;
       }
@@ -144,7 +144,7 @@ public class UMLModelDiff {
    }
 
    private UMLClassBaseDiff getUMLClassDiff(UMLType type) {
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          if(classDiff.matches(type))
             return classDiff;
       }
@@ -164,7 +164,7 @@ public class UMLModelDiff {
    }
 
    private UMLClassBaseDiff getUMLClassDiffWithAttribute(Replacement pattern) {
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
         		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
             return classDiff;
@@ -189,7 +189,7 @@ public class UMLModelDiff {
 
    private List<UMLClassBaseDiff> getUMLClassDiffWithExistingAttributeAfter(Replacement pattern) {
 	   List<UMLClassBaseDiff> classDiffs = new ArrayList<UMLClassBaseDiff>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
+	   for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
 		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) != null &&
 				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
 			   classDiffs.add(classDiff);
@@ -214,7 +214,7 @@ public class UMLModelDiff {
 
    private List<UMLClassBaseDiff> getUMLClassDiffWithNewAttributeAfter(Replacement pattern) {
 	   List<UMLClassBaseDiff> classDiffs = new ArrayList<UMLClassBaseDiff>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
+	   for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
 		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) == null &&
 				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
 			   classDiffs.add(classDiff);
@@ -825,7 +825,7 @@ public class UMLModelDiff {
 
    private List<UMLAttribute> getAddedAttributesInCommonClasses() {
       List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          addedAttributes.addAll(classDiff.getAddedAttributes());
       }
       return addedAttributes;
@@ -833,7 +833,7 @@ public class UMLModelDiff {
 
    private List<UMLAttribute> getRemovedAttributesInCommonClasses() {
       List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          removedAttributes.addAll(classDiff.getRemovedAttributes());
       }
       return removedAttributes;
@@ -841,7 +841,7 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getAddedOperationsInCommonClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          addedOperations.addAll(classDiff.getAddedOperations());
       }
       return addedOperations;
@@ -849,7 +849,7 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getAddedAndExtractedOperationsInCommonClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          addedOperations.addAll(classDiff.getAddedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof ExtractOperationRefactoring) {
@@ -877,7 +877,7 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getRemovedOperationsInCommonClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
       }
       return removedOperations;
@@ -885,7 +885,7 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getRemovedOperationsInCommonMovedRenamedClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
@@ -902,7 +902,7 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getRemovedAndInlinedOperationsInCommonClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof InlineOperationRefactoring) {
@@ -916,7 +916,7 @@ public class UMLModelDiff {
    
    private List<UMLOperationBodyMapper> getOperationBodyMappersInCommonClasses() {
       List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          mappers.addAll(classDiff.getOperationBodyMapperList());
       }
       return mappers;
@@ -1166,7 +1166,7 @@ public class UMLModelDiff {
 
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
 	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 	         for(UMLClass addedClass : addedClasses) {
 	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
@@ -1285,7 +1285,7 @@ public class UMLModelDiff {
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
       Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
       Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
@@ -1471,7 +1471,7 @@ public class UMLModelDiff {
       refactorings.addAll(checkForAttributeMovesIncludingAddedClasses());
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
       refactorings.addAll(this.refactorings);
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
     	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
@@ -1623,7 +1623,7 @@ public class UMLModelDiff {
 
    private List<UMLOperationBodyMapper> findMappersWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
+	   for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
@@ -1652,7 +1652,7 @@ public class UMLModelDiff {
 
    public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2(UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
+	   for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
 		   if(mapper != null) {
 			   mappers.add(mapper);
@@ -1840,7 +1840,7 @@ public class UMLModelDiff {
             	  else {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className);
             		  if(umlClassDiff == null) {
-            			  for(UMLClassDiff classDiff : commonClassDiffList) {
+            			  for(UMLClassDiff_RENAMED classDiff : commonClassDiffList) {
             				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses()) {
             					  if(className.equals(anonymousClass.getCodePath())) {
             						  umlClassDiff = classDiff;

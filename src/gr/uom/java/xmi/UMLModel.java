@@ -1,6 +1,6 @@
 package gr.uom.java.xmi;
 
-import gr.uom.java.xmi.diff.UMLClassDiff;
+import gr.uom.java.xmi.diff.UMLClassDiff_RENAMED;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class UMLModel {
     	modelDiff.checkForRealizationChanges();
     	for(UMLClass umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
-    			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
+    			UMLClassDiff_RENAMED classDiff = new UMLClassDiff_RENAMED(umlClass, umlModel.getClass(umlClass), modelDiff);
     			classDiff.process();
     			if(!classDiff.isEmpty())
     				modelDiff.addUMLClassDiff(classDiff);
