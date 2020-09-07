@@ -6,7 +6,7 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class VariableReferenceExtractor {
+public class VariableReferenceExtractor_RENAMED {
 
 	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, Set<AbstractCodeMapping> mappings) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
