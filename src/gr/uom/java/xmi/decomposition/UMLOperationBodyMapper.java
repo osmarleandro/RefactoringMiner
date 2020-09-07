@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
 import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
@@ -3147,7 +3147,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						if(concat.toString().equals(diff2)) {
-							AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+							AddVariableReplacement_RENAMED r = new AddVariableReplacement_RENAMED(addedVariables);
 							replacementInfo.getReplacements().add(r);
 							return true;
 						}
@@ -3222,7 +3222,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								counter++;
 							}
 							if(concat.toString().equals(diff2)) {
-								AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+								AddVariableReplacement_RENAMED r = new AddVariableReplacement_RENAMED(addedVariables);
 								replacementInfo.getReplacements().add(r);
 								return true;
 							}
@@ -3305,7 +3305,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						if(concat.toString().equals(diff2)) {
-							AddVariableReplacement r = new AddVariableReplacement(addedVariables);
+							AddVariableReplacement_RENAMED r = new AddVariableReplacement_RENAMED(addedVariables);
 							replacementInfo.getReplacements().add(r);
 							return true;
 						}
