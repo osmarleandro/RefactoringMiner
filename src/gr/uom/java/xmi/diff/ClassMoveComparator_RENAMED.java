@@ -2,7 +2,7 @@ package gr.uom.java.xmi.diff;
 
 import java.util.Comparator;
 
-public class ClassMoveComparator implements Comparator<UMLClassMoveDiff> {
+public class ClassMoveComparator_RENAMED implements Comparator<UMLClassMoveDiff> {
 
 	@Override
 	public int compare(UMLClassMoveDiff o1, UMLClassMoveDiff o2) {
