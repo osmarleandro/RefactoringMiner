@@ -939,7 +939,7 @@ public class UMLModelDiff {
    private List<ExtractClassRefactoring> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
 	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
 	   for(UMLClass addedClass : addedClasses) {
-		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
+		   List<CandidateExtractClassRefactoring_RENAMED> candidates = new ArrayList<CandidateExtractClassRefactoring_RENAMED>();
 		   UMLType addedClassSuperType = addedClass.getSuperclass();
 		   if(!addedClass.isInterface()) {
 			   for(UMLClassBaseDiff classDiff : classDiffs) {
@@ -964,7 +964,7 @@ public class UMLModelDiff {
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
 					   ExtractClassRefactoring refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
 					   if(refactoring != null) {
-						   CandidateExtractClassRefactoring candidate = new CandidateExtractClassRefactoring(classDiff, refactoring);
+						   CandidateExtractClassRefactoring_RENAMED candidate = new CandidateExtractClassRefactoring_RENAMED(classDiff, refactoring);
 						   candidates.add(candidate);
 					   }
 				   }
@@ -972,7 +972,7 @@ public class UMLModelDiff {
 		   }
 		   if(!candidates.isEmpty()) {
 			   boolean innerClassExtract = false;
-			   for(CandidateExtractClassRefactoring candidate : candidates) {
+			   for(CandidateExtractClassRefactoring_RENAMED candidate : candidates) {
 				   if(candidate.innerClassExtract()) {
 					   innerClassExtract = true;
 					   detectSubRefactorings(candidate.getClassDiff(),
@@ -983,7 +983,7 @@ public class UMLModelDiff {
 				   }
 			   }
 			   if(!innerClassExtract) {
-				   for(CandidateExtractClassRefactoring candidate : candidates) {
+				   for(CandidateExtractClassRefactoring_RENAMED candidate : candidates) {
 					   detectSubRefactorings(candidate.getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),
 							   candidate.getRefactoring().getRefactoringType());
