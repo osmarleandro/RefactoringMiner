@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringMinerTimedOutException_RENAMED;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
@@ -31,7 +31,7 @@ public class InlineOperationDetection {
 		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
 	}
 
-	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
+	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException_RENAMED {
 		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
@@ -84,7 +84,7 @@ public class InlineOperationDetection {
 	}
 
 	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
+			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException_RENAMED {
 		List<String> arguments = removedOperationInvocation.getArguments();
 		List<String> parameters = removedOperation.getParameterNameList();
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();

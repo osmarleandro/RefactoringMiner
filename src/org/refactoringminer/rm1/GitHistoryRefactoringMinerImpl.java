@@ -57,7 +57,7 @@ import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
-import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringMinerTimedOutException_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
@@ -370,7 +370,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			}
 		} catch (MissingObjectException moe) {
 			this.detectRefactorings(handler, projectFolder, cloneURL, commitId);
-		} catch (RefactoringMinerTimedOutException e) {
+		} catch (RefactoringMinerTimedOutException_RENAMED e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", commitId), e);
 		} catch (Exception e) {
 			logger.warn(String.format("Ignored revision %s due to error", commitId), e);
@@ -491,7 +491,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
 			refactoringsAtRevision = filter(refactoringsAtRevision);
 		}
-		catch(RefactoringMinerTimedOutException e) {
+		catch(RefactoringMinerTimedOutException_RENAMED e) {
 			logger.warn(String.format("Ignored revision %s due to timeout", currentCommitId), e);
 			handler.handleException(currentCommitId, e);
 		}

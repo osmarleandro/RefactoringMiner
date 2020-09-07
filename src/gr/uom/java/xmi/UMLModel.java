@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.refactoringminer.api.RefactoringMinerTimedOutException;
+import org.refactoringminer.api.RefactoringMinerTimedOutException_RENAMED;
 
 public class UMLModel {
 	private Set<String> repositoryDirectories;
@@ -107,11 +107,11 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
+    public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException_RENAMED {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
     }
 
-	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
+	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException_RENAMED {
     	UMLModelDiff modelDiff = new UMLModelDiff();
     	for(UMLClass umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
