@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
-import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
+import gr.uom.java.xmi.decomposition.AbstractCall_RENAMED.StatementCoverageType;
 
 public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int depth;

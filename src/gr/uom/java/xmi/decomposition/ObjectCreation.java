@@ -13,7 +13,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class ObjectCreation extends AbstractCall {
+public class ObjectCreation extends AbstractCall_RENAMED {
 	private UMLType type;
 	private String anonymousClassDeclaration;
 	private boolean isArray = false;
@@ -128,7 +128,7 @@ public class ObjectCreation extends AbstractCall {
     	return false;
     }
 
-	public double normalizedNameDistance(AbstractCall call) {
+	public double normalizedNameDistance(AbstractCall_RENAMED call) {
 		String s1 = getType().toString().toLowerCase();
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -136,7 +136,7 @@ public class ObjectCreation extends AbstractCall {
 		return normalized;
 	}
 
-	public boolean identicalName(AbstractCall call) {
+	public boolean identicalName(AbstractCall_RENAMED call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
 }

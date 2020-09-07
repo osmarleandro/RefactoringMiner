@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
-public abstract class AbstractCall implements LocationInfoProvider {
+public abstract class AbstractCall_RENAMED implements LocationInfoProvider {
 	protected int typeArguments;
 	protected String expression;
 	protected List<String> arguments;
@@ -39,10 +39,10 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return coverage;
 	}
 
-	public abstract boolean identicalName(AbstractCall call);
+	public abstract boolean identicalName(AbstractCall_RENAMED call);
 	public abstract String getName();
-	public abstract double normalizedNameDistance(AbstractCall call);
-	public abstract AbstractCall update(String oldExpression, String newExpression);
+	public abstract double normalizedNameDistance(AbstractCall_RENAMED call);
+	public abstract AbstractCall_RENAMED update(String oldExpression, String newExpression);
 
 	public String actualString() {
 		StringBuilder sb = new StringBuilder();
@@ -71,18 +71,18 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalExpression(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalExpression(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		return identicalExpression(call) ||
 		identicalExpressionAfterTypeReplacements(call, replacements);
 	}
 
-	public boolean identicalExpression(AbstractCall call) {
+	public boolean identicalExpression(AbstractCall_RENAMED call) {
 		return (getExpression() != null && call.getExpression() != null &&
 				getExpression().equals(call.getExpression())) ||
 				(getExpression() == null && call.getExpression() == null);
 	}
 
-	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+	private boolean identicalExpressionAfterTypeReplacements(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		if(getExpression() != null && call.getExpression() != null) {
 			String expression1 = getExpression();
 			String expression2 = call.getExpression();
@@ -99,11 +99,11 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean equalArguments(AbstractCall call) {
+	public boolean equalArguments(AbstractCall_RENAMED call) {
 		return getArguments().equals(call.getArguments());
 	}
 
-	public boolean identicalOrReplacedArguments(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalOrReplacedArguments(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -124,7 +124,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean identicalOrConcatenatedArguments(AbstractCall call) {
+	public boolean identicalOrConcatenatedArguments(AbstractCall_RENAMED call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -150,7 +150,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean identicalOrWrappedArguments(AbstractCall call) {
+	public boolean identicalOrWrappedArguments(AbstractCall_RENAMED call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -169,7 +169,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
+	public boolean allArgumentsReplaced(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
@@ -188,7 +188,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+	public boolean allArgumentsReplaced(AbstractCall_RENAMED call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
@@ -208,7 +208,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
+	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall_RENAMED call, Set<Replacement> replacements, double distance) {
 		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
 		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
 		return getExpression() != null && call.getExpression() != null &&
@@ -217,13 +217,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
-	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
+	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall_RENAMED call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
 				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
 	}
 
-	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall_RENAMED call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
@@ -237,7 +237,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
-	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall_RENAMED call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
@@ -252,14 +252,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
+	private boolean onlyArgumentsChanged(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				!equalArguments(call) &&
 				getArguments().size() != call.getArguments().size();
 	}
 
-	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalWithMergedArguments(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
 			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
@@ -304,7 +304,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+	public boolean identicalWithDifferentNumberOfArguments(AbstractCall_RENAMED call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
 			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
@@ -314,13 +314,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identical(AbstractCall_RENAMED call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				equalArguments(call);
 	}
 
-	public Set<String> argumentIntersection(AbstractCall call) {
+	public Set<String> argumentIntersection(AbstractCall_RENAMED call) {
 		List<String> args1 = preprocessArguments(getArguments());
 		List<String> args2 = preprocessArguments(call.getArguments());
 		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
@@ -341,7 +341,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return args;
 	}
 
-	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
+	private int argumentIntersectionSize(AbstractCall_RENAMED call, Map<String, String> parameterToArgumentMap) {
 		Set<String> argumentIntersection = argumentIntersection(call);
 		int argumentIntersectionSize = argumentIntersection.size();
 		for(String parameter : parameterToArgumentMap.keySet()) {
@@ -416,7 +416,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
+	protected void update(AbstractCall_RENAMED newCall, String oldExpression, String newExpression) {
 		newCall.typeArguments = this.typeArguments;
 		if(this.expression != null && this.expression.equals(oldExpression)) {
 			newCall.expression = newExpression;

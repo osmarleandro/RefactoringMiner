@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class OperationInvocation extends AbstractCall {
+public class OperationInvocation extends AbstractCall_RENAMED {
 	private String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
@@ -391,7 +391,7 @@ public class OperationInvocation extends AbstractCall {
 		return openingParenthesisFound && closingParenthesisFound;
 	}
 
-	public double normalizedNameDistance(AbstractCall call) {
+	public double normalizedNameDistance(AbstractCall_RENAMED call) {
 		String s1 = getMethodName().toLowerCase();
 		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -434,7 +434,7 @@ public class OperationInvocation extends AbstractCall {
     	return hashCode;
     }
 
-	public boolean identicalName(AbstractCall call) {
+	public boolean identicalName(AbstractCall_RENAMED call) {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 
