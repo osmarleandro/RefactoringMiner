@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 public class RefactoringSet {
@@ -47,7 +47,7 @@ public class RefactoringSet {
         return refactoringGroups.keySet();
     }
 
-    public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
+    public RefactoringSet add(RefactoringType_RENAMED type, String entityBefore, String entityAfter) {
         return add(new RefactoringRelationship(type, entityBefore, entityAfter));
     }
 
@@ -70,7 +70,7 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet ignoring(EnumSet<RefactoringType> refTypes) {
+    public RefactoringSet ignoring(EnumSet<RefactoringType_RENAMED> refTypes) {
         RefactoringSet newSet = new RefactoringSet(project, revision);
         newSet.add(refactorings.stream()
             .filter(r -> !refTypes.contains(r.getRefactoringType()))
@@ -117,7 +117,7 @@ public class RefactoringSet {
             while ((line = br.readLine()) != null) {
                 if (!line.isEmpty()) {
                     String[] array = line.split("\t");
-                    RefactoringType refactoringType = RefactoringType.fromName(array[0].trim());
+                    RefactoringType_RENAMED refactoringType = RefactoringType_RENAMED.fromName(array[0].trim());
                     String entityBefore = array[1].trim();
                     String entityAfter = array[2].trim();
                     add(refactoringType, entityBefore, entityAfter);

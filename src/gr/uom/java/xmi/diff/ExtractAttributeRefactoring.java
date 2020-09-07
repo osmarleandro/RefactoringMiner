@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -30,8 +30,8 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		references.add(mapping);
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.EXTRACT_ATTRIBUTE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.EXTRACT_ATTRIBUTE;
 	}
 
 	public String getName() {

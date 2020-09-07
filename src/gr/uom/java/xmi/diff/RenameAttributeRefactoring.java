@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
@@ -47,8 +47,8 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.RENAME_ATTRIBUTE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.RENAME_ATTRIBUTE;
 	}
 
 	public String getName() {

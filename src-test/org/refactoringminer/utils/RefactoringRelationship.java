@@ -2,24 +2,24 @@ package org.refactoringminer.utils;
 
 import java.util.EnumSet;
 
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class RefactoringRelationship implements Comparable<RefactoringRelationship> {
 
-  private static final EnumSet<RefactoringType> typesWithMainEntityAfter = EnumSet.of(
-    RefactoringType.EXTRACT_AND_MOVE_OPERATION,
-    RefactoringType.EXTRACT_INTERFACE,
-    RefactoringType.EXTRACT_OPERATION,
-    RefactoringType.EXTRACT_SUPERCLASS,
-    RefactoringType.PULL_UP_ATTRIBUTE,
-    RefactoringType.PULL_UP_OPERATION
+  private static final EnumSet<RefactoringType_RENAMED> typesWithMainEntityAfter = EnumSet.of(
+    RefactoringType_RENAMED.EXTRACT_AND_MOVE_OPERATION,
+    RefactoringType_RENAMED.EXTRACT_INTERFACE,
+    RefactoringType_RENAMED.EXTRACT_OPERATION,
+    RefactoringType_RENAMED.EXTRACT_SUPERCLASS,
+    RefactoringType_RENAMED.PULL_UP_ATTRIBUTE,
+    RefactoringType_RENAMED.PULL_UP_OPERATION
   );
   
-  private final RefactoringType refactoringType;
+  private final RefactoringType_RENAMED refactoringType;
   private final String entityBefore;
   private final String entityAfter;
 
-  public RefactoringRelationship(RefactoringType refactoringType, String entityBefore, String entityAfter) {
+  public RefactoringRelationship(RefactoringType_RENAMED refactoringType, String entityBefore, String entityAfter) {
     if (refactoringType == null || entityBefore == null || entityAfter == null) {
       throw new IllegalArgumentException("arguments should not be null");
     }
@@ -28,7 +28,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     this.entityAfter = normalize(entityAfter).trim();
   }
 
-  public RefactoringType getRefactoringType() {
+  public RefactoringType_RENAMED getRefactoringType() {
     return refactoringType;
   }
 
@@ -142,10 +142,10 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
 
   public static class GroupKey implements Comparable<GroupKey> {
-    private final RefactoringType refactoringType;
+    private final RefactoringType_RENAMED refactoringType;
     private final String mainEntity;
 
-    public GroupKey(RefactoringType refactoringType, String mainEntity) {
+    public GroupKey(RefactoringType_RENAMED refactoringType, String mainEntity) {
       this.refactoringType = refactoringType;
       this.mainEntity = mainEntity;
     }

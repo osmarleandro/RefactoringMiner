@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
 	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
@@ -51,8 +51,8 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.MOVE_SOURCE_FOLDER;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.MOVE_SOURCE_FOLDER;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

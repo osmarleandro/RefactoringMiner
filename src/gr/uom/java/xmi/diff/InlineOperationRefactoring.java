@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
@@ -48,13 +48,13 @@ public class InlineOperationRefactoring implements Refactoring {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(inlinedOperation);
-		if(getRefactoringType().equals(RefactoringType.INLINE_OPERATION)) {
+		if(getRefactoringType().equals(RefactoringType_RENAMED.INLINE_OPERATION)) {
 			sb.append(" inlined to ");
 			sb.append(targetOperationAfterInline);
 			sb.append(" in class ");
 			sb.append(getClassName());
 		}
-		else if(getRefactoringType().equals(RefactoringType.MOVE_AND_INLINE_OPERATION)) {
+		else if(getRefactoringType().equals(RefactoringType_RENAMED.MOVE_AND_INLINE_OPERATION)) {
 			sb.append(" moved from class ");
 			sb.append(inlinedOperation.getClassName());
 			sb.append(" to class ");
@@ -73,10 +73,10 @@ public class InlineOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
-			return RefactoringType.MOVE_AND_INLINE_OPERATION;
-		return RefactoringType.INLINE_OPERATION;
+			return RefactoringType_RENAMED.MOVE_AND_INLINE_OPERATION;
+		return RefactoringType_RENAMED.INLINE_OPERATION;
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {

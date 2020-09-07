@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -59,10 +59,10 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(allVariablesAreParameters())
-			return RefactoringType.SPLIT_PARAMETER;
-		return RefactoringType.SPLIT_VARIABLE;
+			return RefactoringType_RENAMED.SPLIT_PARAMETER;
+		return RefactoringType_RENAMED.SPLIT_VARIABLE;
 	}
 
 	@Override

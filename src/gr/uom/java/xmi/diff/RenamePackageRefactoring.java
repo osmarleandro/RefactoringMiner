@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class RenamePackageRefactoring implements Refactoring {
 
@@ -37,8 +37,8 @@ public class RenamePackageRefactoring implements Refactoring {
 		return moveClassRefactorings;
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.RENAME_PACKAGE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.RENAME_PACKAGE;
 	}
 
 	public String getName() {

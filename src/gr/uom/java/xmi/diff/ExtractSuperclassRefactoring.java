@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
@@ -33,11 +33,11 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(extractedClass.isInterface())
-			return RefactoringType.EXTRACT_INTERFACE;
+			return RefactoringType_RENAMED.EXTRACT_INTERFACE;
 		else
-			return RefactoringType.EXTRACT_SUPERCLASS;
+			return RefactoringType_RENAMED.EXTRACT_SUPERCLASS;
 	}
 
 	public UMLClass getExtractedClass() {

@@ -38,7 +38,7 @@ import java.util.TreeSet;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class UMLModelDiff {
@@ -1076,25 +1076,25 @@ public class UMLModelDiff {
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
-			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
+			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType_RENAMED.EXTRACT_SUPERCLASS);
 		   }
 		   subclassSet.add(subclass);
 	   }
    }
 
-   private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
+   private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType_RENAMED parentType) throws RefactoringMinerTimedOutException {
 	   for(UMLOperation addedOperation : addedClass.getOperations()) {
 		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
 		   if(removedOperation != null) {
 			   classDiff.getRemovedOperations().remove(removedOperation);
 			   Refactoring ref = null;
-			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
+			   if(parentType.equals(RefactoringType_RENAMED.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
 			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
+			   else if(parentType.equals(RefactoringType_RENAMED.EXTRACT_CLASS)) {
 				   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
 			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
+			   else if(parentType.equals(RefactoringType_RENAMED.EXTRACT_SUBCLASS)) {
 				   ref = new PushDownOperationRefactoring(removedOperation, addedOperation);
 			   }
 			   this.refactorings.add(ref);
@@ -1109,13 +1109,13 @@ public class UMLModelDiff {
 		   if(removedAttribute != null) {
 			   classDiff.getRemovedAttributes().remove(removedAttribute);
 			   Refactoring ref = null;
-			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
+			   if(parentType.equals(RefactoringType_RENAMED.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
+			   else if(parentType.equals(RefactoringType_RENAMED.EXTRACT_CLASS)) {
 				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
+			   else if(parentType.equals(RefactoringType_RENAMED.EXTRACT_SUBCLASS)) {
 				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
 			   this.refactorings.add(ref);

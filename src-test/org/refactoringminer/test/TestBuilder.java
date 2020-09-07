@@ -16,7 +16,7 @@ import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
 import org.refactoringminer.util.GitServiceImpl;
@@ -31,7 +31,7 @@ public class TestBuilder {
 	private int commitsCount;
 	private int errorCommitsCount;
 	private Counter c;// = new Counter();
-	private Map<RefactoringType, Counter> cMap;
+	private Map<RefactoringType_RENAMED, Counter> cMap;
 	private static final int TP = 0;
 	private static final int FP = 1;
 	private static final int FN = 2;
@@ -70,7 +70,7 @@ public class TestBuilder {
 
 	private void count(int type, String refactoring) {
 		c.c[type]++;
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+		RefactoringType_RENAMED refType = RefactoringType_RENAMED.extractFromDescription(refactoring);
 		Counter refTypeCounter = cMap.get(refType);
 		if (refTypeCounter == null) {
 			refTypeCounter = new Counter();
@@ -102,7 +102,7 @@ public class TestBuilder {
 
 	public void assertExpectations() throws Exception {
 		c = new Counter();
-		cMap = new HashMap<RefactoringType, Counter>();
+		cMap = new HashMap<RefactoringType_RENAMED, Counter>();
 		commitsCount = 0;
 		errorCommitsCount = 0;
 		GitService gitService = new GitServiceImpl();
@@ -127,7 +127,7 @@ public class TestBuilder {
 
 		String mainResultMessage = buildResultMessage(c);
 		System.out.println("Total  " + mainResultMessage);
-		for (RefactoringType refType : RefactoringType.values()) {
+		for (RefactoringType_RENAMED refType : RefactoringType_RENAMED.values()) {
 			Counter refTypeCounter = cMap.get(refType);
 			if (refTypeCounter != null) {
 				System.out
@@ -154,7 +154,7 @@ public class TestBuilder {
 	}
 
 	private List<String> normalize(String refactoring) {
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+		RefactoringType_RENAMED refType = RefactoringType_RENAMED.extractFromDescription(refactoring);
 		refactoring = normalizeSingle(refactoring);
 		if (aggregate) {
 			refactoring = refType.aggregate(refactoring);

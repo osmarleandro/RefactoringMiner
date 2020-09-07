@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -33,14 +33,14 @@ public class RenameVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(originalVariable.isParameter() && renamedVariable.isParameter())
-			return RefactoringType.RENAME_PARAMETER;
+			return RefactoringType_RENAMED.RENAME_PARAMETER;
 		if(!originalVariable.isParameter() && renamedVariable.isParameter())
-			return RefactoringType.PARAMETERIZE_VARIABLE;
+			return RefactoringType_RENAMED.PARAMETERIZE_VARIABLE;
 		if(!originalVariable.isAttribute() && renamedVariable.isAttribute())
-			return RefactoringType.REPLACE_VARIABLE_WITH_ATTRIBUTE;
-		return RefactoringType.RENAME_VARIABLE;
+			return RefactoringType_RENAMED.REPLACE_VARIABLE_WITH_ATTRIBUTE;
+		return RefactoringType_RENAMED.RENAME_VARIABLE;
 	}
 
 	public String getName() {

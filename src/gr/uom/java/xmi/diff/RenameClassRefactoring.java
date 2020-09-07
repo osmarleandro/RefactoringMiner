@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class RenameClassRefactoring implements Refactoring {
 
@@ -34,8 +34,8 @@ public class RenameClassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.RENAME_CLASS;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.RENAME_CLASS;
 	}
 
 	public String getOriginalClassName() {

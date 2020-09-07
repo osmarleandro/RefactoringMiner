@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
@@ -42,8 +42,8 @@ public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.CONVERT_ANONYMOUS_CLASS_TO_TYPE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.CONVERT_ANONYMOUS_CLASS_TO_TYPE;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

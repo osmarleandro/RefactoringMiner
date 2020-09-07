@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
@@ -48,8 +48,8 @@ public class SplitAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.SPLIT_ATTRIBUTE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.SPLIT_ATTRIBUTE;
 	}
 
 	@Override

@@ -3,20 +3,20 @@ package org.refactoringminer.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 public class RefactoringCrawlerRefactoring {
 
-  private static final Map<String, RefactoringType> TYPE_MAP;
+  private static final Map<String, RefactoringType_RENAMED> TYPE_MAP;
   static {
     TYPE_MAP = new HashMap<>();
-    TYPE_MAP.put("RenamedClasses", RefactoringType.RENAME_CLASS);
-    TYPE_MAP.put("RenamedMethods", RefactoringType.RENAME_METHOD);
-    TYPE_MAP.put("PulledUpMethods", RefactoringType.PULL_UP_OPERATION);
-    TYPE_MAP.put("PushedDownMethods", RefactoringType.PUSH_DOWN_OPERATION);
-    TYPE_MAP.put("MovedMethods", RefactoringType.MOVE_OPERATION);
-    TYPE_MAP.put("ChangedMethodSignatures", RefactoringType.CHANGE_METHOD_SIGNATURE);
-    TYPE_MAP.put("RenamedPackages", RefactoringType.RENAME_PACKAGE);
+    TYPE_MAP.put("RenamedClasses", RefactoringType_RENAMED.RENAME_CLASS);
+    TYPE_MAP.put("RenamedMethods", RefactoringType_RENAMED.RENAME_METHOD);
+    TYPE_MAP.put("PulledUpMethods", RefactoringType_RENAMED.PULL_UP_OPERATION);
+    TYPE_MAP.put("PushedDownMethods", RefactoringType_RENAMED.PUSH_DOWN_OPERATION);
+    TYPE_MAP.put("MovedMethods", RefactoringType_RENAMED.MOVE_OPERATION);
+    TYPE_MAP.put("ChangedMethodSignatures", RefactoringType_RENAMED.CHANGE_METHOD_SIGNATURE);
+    TYPE_MAP.put("RenamedPackages", RefactoringType_RENAMED.RENAME_PACKAGE);
   }
 
   private String type;
@@ -47,7 +47,7 @@ public class RefactoringCrawlerRefactoring {
   }
 
   RefactoringRelationship toRefactoringRelationship() {
-    RefactoringType refType = TYPE_MAP.get(type);
+    RefactoringType_RENAMED refType = TYPE_MAP.get(type);
     if (refType == null) {
       throw new RuntimeException("unkown refactoring type " + type);
     }

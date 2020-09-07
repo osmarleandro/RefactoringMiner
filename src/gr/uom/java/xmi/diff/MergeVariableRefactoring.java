@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -58,10 +58,10 @@ public class MergeVariableRefactoring implements Refactoring {
 		return newVariable.isParameter();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(allVariablesAreParameters())
-			return RefactoringType.MERGE_PARAMETER;
-		return RefactoringType.MERGE_VARIABLE;
+			return RefactoringType_RENAMED.MERGE_PARAMETER;
+		return RefactoringType_RENAMED.MERGE_VARIABLE;
 	}
 
 	public String getName() {

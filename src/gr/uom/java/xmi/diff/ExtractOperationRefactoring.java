@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
@@ -67,7 +67,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		sb.append(sourceOperationBeforeExtraction);
 		sb.append(" in class ");
 		sb.append(getClassName());
-		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
+		if(getRefactoringType().equals(RefactoringType_RENAMED.EXTRACT_AND_MOVE_OPERATION)) {
 			sb.append(" & moved to class ");
 			sb.append(extractedOperation.getClassName());
 		}
@@ -75,7 +75,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	private String getClassName() {
-		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
+		if(getRefactoringType().equals(RefactoringType_RENAMED.EXTRACT_AND_MOVE_OPERATION)) {
 			return getSourceOperationBeforeExtraction().getClassName();
 		}
 		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
@@ -165,10 +165,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
-			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
-		return RefactoringType.EXTRACT_OPERATION;
+			return RefactoringType_RENAMED.EXTRACT_AND_MOVE_OPERATION;
+		return RefactoringType_RENAMED.EXTRACT_OPERATION;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -30,8 +30,8 @@ public class InlineVariableRefactoring implements Refactoring {
 		references.add(mapping);
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.INLINE_VARIABLE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.INLINE_VARIABLE;
 	}
 
 	public String getName() {

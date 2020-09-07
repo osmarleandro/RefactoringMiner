@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -39,10 +39,10 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return relatedRefactorings;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(originalVariable.isParameter() && changedTypeVariable.isParameter())
-			return RefactoringType.CHANGE_PARAMETER_TYPE;
-		return RefactoringType.CHANGE_VARIABLE_TYPE;
+			return RefactoringType_RENAMED.CHANGE_PARAMETER_TYPE;
+		return RefactoringType_RENAMED.CHANGE_VARIABLE_TYPE;
 	}
 
 	public String getName() {

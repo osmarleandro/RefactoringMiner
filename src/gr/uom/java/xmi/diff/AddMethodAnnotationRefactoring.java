@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
@@ -58,8 +58,8 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.ADD_METHOD_ANNOTATION;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.ADD_METHOD_ANNOTATION;
 	}
 
 	@Override

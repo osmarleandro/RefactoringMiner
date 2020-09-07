@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -38,10 +38,10 @@ public class ExtractClassRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(extractedClass.isSubTypeOf(classDiff.getOriginalClass()) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
-			return RefactoringType.EXTRACT_SUBCLASS;
-		return RefactoringType.EXTRACT_CLASS;
+			return RefactoringType_RENAMED.EXTRACT_SUBCLASS;
+		return RefactoringType_RENAMED.EXTRACT_CLASS;
 	}
 
 	public String getName() {

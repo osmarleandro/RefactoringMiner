@@ -3,7 +3,7 @@ package gr.uom.java.xmi.diff;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLAttribute;
 
@@ -26,8 +26,8 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.PULL_UP_ATTRIBUTE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.PULL_UP_ATTRIBUTE;
 	}
 
 	@Override

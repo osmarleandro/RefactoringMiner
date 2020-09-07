@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -49,11 +49,11 @@ public class MoveOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public RefactoringType_RENAMED getRefactoringType() {
 		if(!originalOperation.getName().equals(movedOperation.getName())) {
-			return RefactoringType.MOVE_AND_RENAME_OPERATION;
+			return RefactoringType_RENAMED.MOVE_AND_RENAME_OPERATION;
 		}
-		return RefactoringType.MOVE_OPERATION;
+		return RefactoringType_RENAMED.MOVE_OPERATION;
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {

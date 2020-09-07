@@ -17,7 +17,7 @@ import java.util.Set;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.util.GitServiceImpl;
 
 public class ResultComparator {
@@ -67,13 +67,13 @@ public class ResultComparator {
 
     
     
-    public void printSummary(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
+    public void printSummary(PrintStream out, EnumSet<RefactoringType_RENAMED> refTypesToConsider) {
         for (String groupId : groupIds) {
             CompareResult r = getCompareResult(groupId, refTypesToConsider);
             out.println("# " + groupId + " #");
             out.println("Total  " + getResultLine(r.getTPCount(), r.getFPCount(), r.getFNCount()));
 
-            for (RefactoringType refType : refTypesToConsider) {
+            for (RefactoringType_RENAMED refType : refTypesToConsider) {
                 int tpRt = r.getTPCount(refType);
                 int fpRt = r.getFPCount(refType);
                 int fnRt = r.getFNCount(refType);
@@ -86,12 +86,12 @@ public class ResultComparator {
         out.println();
     }
 
-    public CompareResult getCompareResult(String groupId, EnumSet<RefactoringType> refTypesToConsider) {
+    public CompareResult getCompareResult(String groupId, EnumSet<RefactoringType_RENAMED> refTypesToConsider) {
         Set<Object> truePositives = new HashSet<>();
         Set<Object> falsePositives = new HashSet<>();
         Set<Object> falseNegatives = new HashSet<>();
 
-        EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
+        EnumSet<RefactoringType_RENAMED> ignore = EnumSet.complementOf(refTypesToConsider);
         
         for (RefactoringSet expected : expectedMap.values()) {
             RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
@@ -143,9 +143,9 @@ public class ResultComparator {
         return tp == 0 ? 0.0 : 2.0 * precision * recall / (precision + recall);
     }
 
-    public void printDetails(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
+    public void printDetails(PrintStream out, EnumSet<RefactoringType_RENAMED> refTypesToConsider) {
         String[] labels = {"TN", "FP", "FN", "TP"};
-        EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
+        EnumSet<RefactoringType_RENAMED> ignore = EnumSet.complementOf(refTypesToConsider);
         boolean headerPrinted = false;
         for (RefactoringSet expected : expectedMap.values()) {
             Set<RefactoringRelationship> all = new HashSet<>();
@@ -191,24 +191,24 @@ public class ResultComparator {
                             if (label == "FP" && isMoveToMovedType(r, expectedUnfiltered)) {
                                 out.print("<MT>");
                             }
-                            if (label == "FP" && (r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE || r.getRefactoringType() == RefactoringType.MOVE_OPERATION)) {
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+                            if (label == "FP" && (r.getRefactoringType() == RefactoringType_RENAMED.MOVE_ATTRIBUTE || r.getRefactoringType() == RefactoringType_RENAMED.MOVE_OPERATION)) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                                     out.print("<ES>");
                                 }
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_INTERFACE, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.EXTRACT_INTERFACE, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                                     out.print("<ES>");
                                 }
                                 
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.PULL_UP_ATTRIBUTE, (r.getEntityBefore()), (r.getEntityAfter())))) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.PULL_UP_ATTRIBUTE, (r.getEntityBefore()), (r.getEntityAfter())))) {
                                     out.print("<PUF>");
                                 }
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.PUSH_DOWN_ATTRIBUTE, (r.getEntityBefore()), (r.getEntityAfter())))) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.PUSH_DOWN_ATTRIBUTE, (r.getEntityBefore()), (r.getEntityAfter())))) {
                                     out.print("<PDF>");
                                 }
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.PULL_UP_OPERATION, (r.getEntityBefore()), (r.getEntityAfter())))) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.PULL_UP_OPERATION, (r.getEntityBefore()), (r.getEntityAfter())))) {
                                     out.print("<PUM>");
                                 }
-                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.PUSH_DOWN_OPERATION, (r.getEntityBefore()), (r.getEntityAfter())))) {
+                                if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.PUSH_DOWN_OPERATION, (r.getEntityBefore()), (r.getEntityAfter())))) {
                                     out.print("<PDM>");
                                 }
                             }
@@ -222,11 +222,11 @@ public class ResultComparator {
     }
 
     private boolean isPullUpToExtractedSupertype(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+        if (r.getRefactoringType() == RefactoringType_RENAMED.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType_RENAMED.PULL_UP_OPERATION) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_INTERFACE, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.EXTRACT_INTERFACE, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
         }
@@ -234,11 +234,11 @@ public class ResultComparator {
     }
 
     private boolean isMoveToRenamedType(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+        if (r.getRefactoringType() == RefactoringType_RENAMED.MOVE_OPERATION || r.getRefactoringType() == RefactoringType_RENAMED.MOVE_ATTRIBUTE) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.RENAME_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.RENAME_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
                 return true;
             }
         }
@@ -246,14 +246,14 @@ public class ResultComparator {
     }
     
     private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
-        if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+        if (r.getRefactoringType() == RefactoringType_RENAMED.MOVE_OPERATION || r.getRefactoringType() == RefactoringType_RENAMED.MOVE_ATTRIBUTE) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.MOVE_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_SOURCE_FOLDER, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType_RENAMED.MOVE_SOURCE_FOLDER, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
             }
         }
@@ -312,15 +312,15 @@ public class ResultComparator {
             return ResultComparator.getF1(tp, fp, fn);
         }
 
-        public int getTPCount(RefactoringType rt) {
+        public int getTPCount(RefactoringType_RENAMED rt) {
             return (int) this.truePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
 
-        public int getFPCount(RefactoringType rt) {
+        public int getFPCount(RefactoringType_RENAMED rt) {
             return (int) this.falsePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
 
-        public int getFNCount(RefactoringType rt) {
+        public int getFNCount(RefactoringType_RENAMED rt) {
             return (int) this.falseNegatives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
     }

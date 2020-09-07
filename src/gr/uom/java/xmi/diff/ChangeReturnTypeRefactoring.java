@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
@@ -29,8 +29,8 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		this.returnReferences = returnReferences;
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.CHANGE_RETURN_TYPE;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.CHANGE_RETURN_TYPE;
 	}
 
 	public String getName() {

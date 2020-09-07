@@ -58,7 +58,7 @@ import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,16 +66,16 @@ import org.slf4j.LoggerFactory;
 public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
 
 	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
-	private Set<RefactoringType> refactoringTypesToConsider = null;
+	private Set<RefactoringType_RENAMED> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
 	public GitHistoryRefactoringMinerImpl() {
-		this.setRefactoringTypesToConsider(RefactoringType.ALL);
+		this.setRefactoringTypesToConsider(RefactoringType_RENAMED.ALL);
 	}
 
-	public void setRefactoringTypesToConsider(RefactoringType ... types) {
-		this.refactoringTypesToConsider = new HashSet<RefactoringType>();
-		for (RefactoringType type : types) {
+	public void setRefactoringTypesToConsider(RefactoringType_RENAMED ... types) {
+		this.refactoringTypesToConsider = new HashSet<RefactoringType_RENAMED>();
+		for (RefactoringType_RENAMED type : types) {
 			this.refactoringTypesToConsider.add(type);
 		}
 	}

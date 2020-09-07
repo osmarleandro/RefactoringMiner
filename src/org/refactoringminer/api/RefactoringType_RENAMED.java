@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.refactoringminer.util.AstUtils;
 import org.refactoringminer.utils.RefactoringRelationship;
 
-public enum RefactoringType {
+public enum RefactoringType_RENAMED {
 
 	EXTRACT_OPERATION("Extract Method", "Extract Method (.+) extracted from (.+) in class (.+)", 2),
 	RENAME_CLASS("Rename Class", "Rename Class (.+) renamed to (.+)"),
@@ -65,7 +65,7 @@ public enum RefactoringType {
 	private String displayName;
 	private Pattern regex;
 	private int[] aggregateGroups;
-	public static RefactoringType[] ALL = {
+	public static RefactoringType_RENAMED[] ALL = {
 		RENAME_CLASS,
 		MOVE_CLASS,
 		MOVE_SOURCE_FOLDER,
@@ -115,7 +115,7 @@ public enum RefactoringType {
 		MODIFY_ATTRIBUTE_ANNOTATION
 	};
 
-	private RefactoringType(String displayName, String regex, int ... aggregateGroups) {
+	private RefactoringType_RENAMED(String displayName, String regex, int ... aggregateGroups) {
 		this.displayName = displayName;
 		this.regex = Pattern.compile(regex);
 		this.aggregateGroups = aggregateGroups;
@@ -164,7 +164,7 @@ public enum RefactoringType {
     }
 
     public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
-        RefactoringType refType = extractFromDescription(refactoringDescription);
+        RefactoringType_RENAMED refType = extractFromDescription(refactoringDescription);
         Matcher m = refType.regex.matcher(refactoringDescription);
         if (m.matches()) {
             switch (refType) {
@@ -244,8 +244,8 @@ public enum RefactoringType {
         }
     }
 
-    public static RefactoringType extractFromDescription(String refactoringDescription) {
-        for (RefactoringType refType : RefactoringType.values()) {
+    public static RefactoringType_RENAMED extractFromDescription(String refactoringDescription) {
+        for (RefactoringType_RENAMED refType : RefactoringType_RENAMED.values()) {
             if (refactoringDescription.startsWith(refType.getDisplayName())) {
                 return refType;
             }
@@ -262,9 +262,9 @@ public enum RefactoringType {
         }
     }
     
-    public static RefactoringType fromName(String name) {
+    public static RefactoringType_RENAMED fromName(String name) {
       String lcName = name.toLowerCase();
-      for (RefactoringType rt : RefactoringType.values()) {
+      for (RefactoringType_RENAMED rt : RefactoringType_RENAMED.values()) {
         if (lcName.equals(rt.getDisplayName().toLowerCase())) {
           return rt;
         }

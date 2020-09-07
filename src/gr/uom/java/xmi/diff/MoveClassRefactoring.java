@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.RefactoringType_RENAMED;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
@@ -44,8 +44,8 @@ public class MoveClassRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.MOVE_CLASS;
+	public RefactoringType_RENAMED getRefactoringType() {
+		return RefactoringType_RENAMED.MOVE_CLASS;
 	}
 
 	public String getOriginalClassName() {
