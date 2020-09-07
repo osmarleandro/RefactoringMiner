@@ -3,12 +3,12 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UMLTypeParameter {
+public class UMLTypeParameter_RENAMED {
 	private String name;
 	private List<UMLType> typeBounds;
 	private List<UMLAnnotation> annotations;
 
-	public UMLTypeParameter(String name) {
+	public UMLTypeParameter_RENAMED(String name) {
 		this.name = name;
 		this.typeBounds = new ArrayList<UMLType>();
 		this.annotations = new ArrayList<UMLAnnotation>();
@@ -51,7 +51,7 @@ public class UMLTypeParameter {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UMLTypeParameter other = (UMLTypeParameter) obj;
+		UMLTypeParameter_RENAMED other = (UMLTypeParameter_RENAMED) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
