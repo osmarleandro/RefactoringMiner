@@ -2503,8 +2503,8 @@ public class UMLModelDiff {
 
 	private Refactoring attributeRenamed(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof RenameAttributeRefactoring) {
-				RenameAttributeRefactoring rename = (RenameAttributeRefactoring)refactoring;
+			if(refactoring instanceof RenameAttributeRefactoring_RENAMED) {
+				RenameAttributeRefactoring_RENAMED rename = (RenameAttributeRefactoring_RENAMED)refactoring;
 				if(mergedAttributes.contains(rename.getOriginalAttribute()) && a2.equals(rename.getRenamedAttribute())) {
 					return rename;
 				}
