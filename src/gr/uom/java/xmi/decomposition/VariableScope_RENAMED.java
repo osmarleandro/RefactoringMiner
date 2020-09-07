@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import gr.uom.java.xmi.LocationInfo;
 
-public class VariableScope {
+public class VariableScope_RENAMED {
 	private String filePath;
 	private int startOffset;
 	private int endOffset;
@@ -13,7 +13,7 @@ public class VariableScope {
 	private int endLine;
 	private int endColumn;
 	
-	public VariableScope(CompilationUnit cu, String filePath, int startOffset, int endOffset) {
+	public VariableScope_RENAMED(CompilationUnit cu, String filePath, int startOffset, int endOffset) {
 		//ASTNode parent = node.getParent();
 		this.filePath = filePath;
 		this.startOffset = startOffset;
@@ -59,7 +59,7 @@ public class VariableScope {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VariableScope other = (VariableScope) obj;
+		VariableScope_RENAMED other = (VariableScope_RENAMED) obj;
 		if (endColumn != other.endColumn)
 			return false;
 		if (endLine != other.endLine)

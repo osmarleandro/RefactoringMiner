@@ -30,7 +30,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
-	private VariableScope scope;
+	private VariableScope_RENAMED scope;
 	private List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
@@ -71,7 +71,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 			startOffset = fragment.getStartPosition();
 		}
 		int endOffset = scopeNode.getStartPosition() + scopeNode.getLength();
-		this.scope = new VariableScope(cu, filePath, startOffset, endOffset);
+		this.scope = new VariableScope_RENAMED(cu, filePath, startOffset, endOffset);
 	}
 
 	public VariableDeclaration(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment) {
@@ -91,7 +91,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		int startOffset = fragment.getStartPosition();
 		ASTNode scopeNode = getScopeNode(fragment);
 		int endOffset = scopeNode.getStartPosition() + scopeNode.getLength();
-		this.scope = new VariableScope(cu, filePath, startOffset, endOffset);
+		this.scope = new VariableScope_RENAMED(cu, filePath, startOffset, endOffset);
 	}
 
 	public VariableDeclaration(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment, boolean varargs) {
@@ -111,7 +111,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return type;
 	}
 
-	public VariableScope getScope() {
+	public VariableScope_RENAMED getScope() {
 		return scope;
 	}
 
