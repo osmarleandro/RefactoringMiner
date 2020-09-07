@@ -63,13 +63,13 @@ import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
+public class GitHistoryRefactoringMinerImpl_RENAMED implements GitHistoryRefactoringMiner {
 
-	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
+	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl_RENAMED.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
 	private GitHub gitHub;
 	
-	public GitHistoryRefactoringMinerImpl() {
+	public GitHistoryRefactoringMinerImpl_RENAMED() {
 		this.setRefactoringTypesToConsider(RefactoringType.ALL);
 	}
 

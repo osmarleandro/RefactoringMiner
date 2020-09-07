@@ -17,7 +17,7 @@ import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl_RENAMED;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
 import org.refactoringminer.util.GitServiceImpl;
 
@@ -88,7 +88,7 @@ public class TestBuilder {
 	}
 
 	public TestBuilder() {
-		this(new GitHistoryRefactoringMinerImpl(), "tmp");
+		this(new GitHistoryRefactoringMinerImpl_RENAMED(), "tmp");
 	}
 
 	public final ProjectMatcher project(String cloneUrl, String branch) {

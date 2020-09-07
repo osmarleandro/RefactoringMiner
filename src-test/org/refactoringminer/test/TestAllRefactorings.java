@@ -1,6 +1,6 @@
 package org.refactoringminer.test;
 
-import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
+import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl_RENAMED;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
 import org.refactoringminer.test.RefactoringPopulator.Systems;
 
@@ -10,7 +10,7 @@ public class TestAllRefactorings {
 
 	@Test
 	public void testAllRefactorings() throws Exception {
-		TestBuilder test = new TestBuilder(new GitHistoryRefactoringMinerImpl(), "tmp1", Refactorings.All.getValue());
+		TestBuilder test = new TestBuilder(new GitHistoryRefactoringMinerImpl_RENAMED(), "tmp1", Refactorings.All.getValue());
 		RefactoringPopulator.feedRefactoringsInstances(Refactorings.All.getValue(), Systems.FSE.getValue(), test);
 		test.assertExpectations();
 	}
