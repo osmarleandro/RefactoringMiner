@@ -701,7 +701,7 @@ public class UMLModelDiff {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
 		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
-			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
+			   PullUpAttributeRefactoring_RENAMED pullUpAttribute = new PullUpAttributeRefactoring_RENAMED(removedAttribute, addedAttribute);
 			   return pullUpAttribute;
 		   }
 		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
@@ -1110,7 +1110,7 @@ public class UMLModelDiff {
 			   classDiff.getRemovedAttributes().remove(removedAttribute);
 			   Refactoring ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
-				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
+				   ref = new PullUpAttributeRefactoring_RENAMED(removedAttribute, addedAttribute);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
 				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
