@@ -2,13 +2,13 @@ package gr.uom.java.xmi;
 
 import java.util.regex.Pattern;
 
-public class LeafType extends UMLType {
+public class LeafType_RENAMED extends UMLType {
 	private String classType;
 	private String nonQualifiedClassType;
 	private volatile int hashCode = 0;
 	private static final Pattern CAMEL_CASE_SPLIT_PATTERN = Pattern.compile("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])");
 	
-	public LeafType(String type) {
+	public LeafType_RENAMED(String type) {
 		this.classType = type;
 		this.nonQualifiedClassType = simpleNameOf(type);
 	}
@@ -45,8 +45,8 @@ public class LeafType extends UMLType {
 			return true;
 		}
 
-		if (o instanceof LeafType) {
-			LeafType typeObject = (LeafType)o;
+		if (o instanceof LeafType_RENAMED) {
+			LeafType_RENAMED typeObject = (LeafType_RENAMED)o;
 
 			if(equalClassType(typeObject) && equalTypeArgumentsAndArrayDimension(typeObject)) {
 				return true;
@@ -58,7 +58,7 @@ public class LeafType extends UMLType {
 	@Override
 	public boolean equalsQualified(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			if(this.classType.equals(((LeafType)type).classType) && equalTypeArgumentsAndArrayDimension(type)) {
+			if(this.classType.equals(((LeafType_RENAMED)type).classType) && equalTypeArgumentsAndArrayDimension(type)) {
 				return true;
 			}
 		}
@@ -68,7 +68,7 @@ public class LeafType extends UMLType {
 	@Override
 	public boolean equalsWithSubType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			if(firstOrLastCamelCaseTokenMatch(this.nonQualifiedClassType, ((LeafType)type).nonQualifiedClassType) && equalTypeArgumentsAndArrayDimensionForSubType(type)) {
+			if(firstOrLastCamelCaseTokenMatch(this.nonQualifiedClassType, ((LeafType_RENAMED)type).nonQualifiedClassType) && equalTypeArgumentsAndArrayDimensionForSubType(type)) {
 				return true;
 			}
 		}
@@ -87,7 +87,7 @@ public class LeafType extends UMLType {
 	@Override
 	public boolean equalClassType(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			return this.nonQualifiedClassType.equals(((LeafType)type).nonQualifiedClassType);
+			return this.nonQualifiedClassType.equals(((LeafType_RENAMED)type).nonQualifiedClassType);
 		}
 		return false;
 	}
@@ -95,7 +95,7 @@ public class LeafType extends UMLType {
 	@Override
 	public boolean compatibleTypes(UMLType type) {
 		if(this.getClass() == type.getClass()) {
-			LeafType leafType = (LeafType)type;
+			LeafType_RENAMED leafType = (LeafType_RENAMED)type;
 			return this.getClassType().equals(leafType.getClassType()) ||
 					this.getClassType().equals("Object") ||
 					leafType.getClassType().equals("Object") ||
@@ -110,7 +110,7 @@ public class LeafType extends UMLType {
 		return false;
 	}
 
-	private boolean commonTokenInClassType(LeafType type) {
+	private boolean commonTokenInClassType(LeafType_RENAMED type) {
 		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(this.nonQualifiedClassType);
 		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(type.nonQualifiedClassType);
 		for(String token1 : tokens1) {
