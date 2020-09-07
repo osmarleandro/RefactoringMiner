@@ -14,14 +14,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
+import org.refactoringminer.utils.RefactoringRelationship_RENAMED.GroupKey;
 
 public class RefactoringSet {
 
     private final String project;
     private final String revision;
-    private final Set<RefactoringRelationship> refactorings;
-    private final Map<RefactoringRelationship.GroupKey, Set<RefactoringRelationship>> refactoringGroups;
+    private final Set<RefactoringRelationship_RENAMED> refactorings;
+    private final Map<RefactoringRelationship_RENAMED.GroupKey, Set<RefactoringRelationship_RENAMED>> refactoringGroups;
 
     public RefactoringSet(String project, String revision) {
         super();
@@ -39,22 +39,22 @@ public class RefactoringSet {
         return revision;
     }
 
-    public Set<RefactoringRelationship> getRefactorings() {
+    public Set<RefactoringRelationship_RENAMED> getRefactorings() {
         return refactorings;
     }
 
-    public Set<RefactoringRelationship.GroupKey> getRefactoringsGroups() {
+    public Set<RefactoringRelationship_RENAMED.GroupKey> getRefactoringsGroups() {
         return refactoringGroups.keySet();
     }
 
     public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
-        return add(new RefactoringRelationship(type, entityBefore, entityAfter));
+        return add(new RefactoringRelationship_RENAMED(type, entityBefore, entityAfter));
     }
 
-    public RefactoringSet add(RefactoringRelationship r) {
+    public RefactoringSet add(RefactoringRelationship_RENAMED r) {
         this.refactorings.add(r);
         GroupKey groupKey = r.getGroupKey();
-        Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
+        Set<RefactoringRelationship_RENAMED> group = refactoringGroups.get(groupKey);
         if (group == null) {
             group = new HashSet<>();
             refactoringGroups.put(groupKey, group);
@@ -63,8 +63,8 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
-        for (RefactoringRelationship r : rs) {
+    public RefactoringSet add(Iterable<RefactoringRelationship_RENAMED> rs) {
+        for (RefactoringRelationship_RENAMED r : rs) {
             this.add(r);
         }
         return this;
@@ -83,7 +83,7 @@ public class RefactoringSet {
         }
         RefactoringSet newSet = new RefactoringSet(project, revision);
         newSet.add(refactorings.stream()
-            .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
+            .map(r -> new RefactoringRelationship_RENAMED(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
             .collect(Collectors.toList()));
         return newSet;
     }
@@ -95,7 +95,7 @@ public class RefactoringSet {
 
     public void printSourceCode(PrintStream pw) {
         pw.printf("new RefactoringSet(\"%s\", \"%s\")", project, revision);
-        for (RefactoringRelationship r : refactorings) {
+        for (RefactoringRelationship_RENAMED r : refactorings) {
             pw.printf("\n    .add(RefactoringType.%s, \"%s\", \"%s\")", r.getRefactoringType().toString(), r.getEntityBefore(), r.getEntityAfter());
         }
         pw.println(";");
@@ -103,7 +103,7 @@ public class RefactoringSet {
 
     public void saveToFile(File file) {
         try (PrintStream pw = new PrintStream(file)) {
-            for (RefactoringRelationship r : refactorings) {
+            for (RefactoringRelationship_RENAMED r : refactorings) {
                 pw.printf("%s\t%s\t%s\n", r.getRefactoringType().getDisplayName(), r.getEntityBefore(), r.getEntityAfter());
             }
         } catch (FileNotFoundException e) {

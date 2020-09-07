@@ -14,12 +14,12 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RefFinderResultReader {
 
-    private static Map<String, Function<List<String>, RefactoringRelationship>> mappers = initMappings();
+    private static Map<String, Function<List<String>, RefactoringRelationship_RENAMED>> mappers = initMappings();
     
     public static RefactoringSet read(String project, String revision, String folderPath) {
         try {
             RefactoringSet result = new RefactoringSet(project, revision);
-            for (RefactoringRelationship r : readFolder(folderPath)) {
+            for (RefactoringRelationship_RENAMED r : readFolder(folderPath)) {
                 result.add(r);
             }
             return result;
@@ -28,8 +28,8 @@ public class RefFinderResultReader {
         }
     }
 
-    private static List<RefactoringRelationship> readFolder(String path) throws Exception {
-        List<RefactoringRelationship> result = new ArrayList<>();
+    private static List<RefactoringRelationship_RENAMED> readFolder(String path) throws Exception {
+        List<RefactoringRelationship_RENAMED> result = new ArrayList<>();
         File folder = new File(path);
         for (File f : folder.listFiles()) {
             if (f.isFile()) {
@@ -39,12 +39,12 @@ public class RefFinderResultReader {
         return result;
     }
 
-    public static void readXml(String path, List<RefactoringRelationship> result) throws Exception {
+    public static void readXml(String path, List<RefactoringRelationship_RENAMED> result) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
-                    RefactoringRelationship r = parse(line);
+                    RefactoringRelationship_RENAMED r = parse(line);
                     if (r != null) {
                         result.add(r);
                     }
@@ -53,11 +53,11 @@ public class RefFinderResultReader {
         }
     }
 
-    private static RefactoringRelationship parse(String line) {
+    private static RefactoringRelationship_RENAMED parse(String line) {
         int openPar = line.indexOf('(');
         String type = line.substring(0, openPar);
         String args = line.substring(openPar + 2, line.length() - 2);
-        Function<List<String>, RefactoringRelationship> mapper = mappers.get(type);
+        Function<List<String>, RefactoringRelationship_RENAMED> mapper = mappers.get(type);
         //rename_method("org.springframework.boot.bind%.RelaxedDataBinder#setIgnoreNestedProperties()","org.springframework.boot.bind%.RelaxedDataBinder#setIgnoreNestedPropertiesRenamed()","org.springframework.boot.bind%.RelaxedDataBinder")
         if (mapper != null) {
             List<String> argList = Arrays.asList(args.split("\",\""));
@@ -66,8 +66,8 @@ public class RefFinderResultReader {
         return null;
     }
 
-    private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings() {
-        Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
+    private static Map<String, Function<List<String>, RefactoringRelationship_RENAMED>> initMappings() {
+        Map<String, Function<List<String>, RefactoringRelationship_RENAMED>> mappers = new HashMap<>();
         mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
         mappers.put("extract_interface", args -> parse(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
         mappers.put("rename_method", args -> parse(args, RefactoringType.RENAME_METHOD, member(1), member(2)));
@@ -83,8 +83,8 @@ public class RefFinderResultReader {
         return mappers;
     }
     
-    private static RefactoringRelationship parse(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
-        return new RefactoringRelationship(type, parserBefore.parse(args), parserAfter.parse(args));
+    private static RefactoringRelationship_RENAMED parse(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
+        return new RefactoringRelationship_RENAMED(type, parserBefore.parse(args), parserAfter.parse(args));
     }
     
     private static EntityParser type(final int i) {

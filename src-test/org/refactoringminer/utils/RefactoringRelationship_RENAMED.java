@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringRelationship implements Comparable<RefactoringRelationship> {
+public class RefactoringRelationship_RENAMED implements Comparable<RefactoringRelationship_RENAMED> {
 
   private static final EnumSet<RefactoringType> typesWithMainEntityAfter = EnumSet.of(
     RefactoringType.EXTRACT_AND_MOVE_OPERATION,
@@ -19,7 +19,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   private final String entityBefore;
   private final String entityAfter;
 
-  public RefactoringRelationship(RefactoringType refactoringType, String entityBefore, String entityAfter) {
+  public RefactoringRelationship_RENAMED(RefactoringType refactoringType, String entityBefore, String entityAfter) {
     if (refactoringType == null || entityBefore == null || entityAfter == null) {
       throw new IllegalArgumentException("arguments should not be null");
     }
@@ -42,8 +42,8 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
 
   @Override
   public boolean equals(Object obj) {
-    if (obj instanceof RefactoringRelationship) {
-      RefactoringRelationship other = (RefactoringRelationship) obj;
+    if (obj instanceof RefactoringRelationship_RENAMED) {
+      RefactoringRelationship_RENAMED other = (RefactoringRelationship_RENAMED) obj;
       return other.refactoringType.equals(this.refactoringType) && other.entityBefore.equals(this.entityBefore) && other.entityAfter.equals(this.entityAfter);
     }
     return false;
@@ -129,7 +129,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
   
   @Override
-  public int compareTo(RefactoringRelationship o) {
+  public int compareTo(RefactoringRelationship_RENAMED o) {
     int rt = getRefactoringType().compareTo(o.getRefactoringType());
     int cm = getMainEntity().compareTo(o.getMainEntity());
     int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());

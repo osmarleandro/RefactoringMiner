@@ -7,13 +7,13 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RefactoringRelationshipGroup {
 
-  private List<RefactoringRelationship> refactoringRelationships = new ArrayList<>();
+  private List<RefactoringRelationship_RENAMED> refactoringRelationships = new ArrayList<>();
 
-  public RefactoringRelationshipGroup(RefactoringRelationship refactoringRelationship) {
+  public RefactoringRelationshipGroup(RefactoringRelationship_RENAMED refactoringRelationship) {
     refactoringRelationships.add(refactoringRelationship);
   }
 
-  public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
+  public RefactoringType addRefactoringRelationship(RefactoringRelationship_RENAMED r) {
     if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
       refactoringRelationships.add(r);
     }

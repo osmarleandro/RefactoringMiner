@@ -46,11 +46,11 @@ public class RefactoringCrawlerRefactoring {
     return type + '\t' + oldElement + '\t' + newElement;
   }
 
-  RefactoringRelationship toRefactoringRelationship() {
+  RefactoringRelationship_RENAMED toRefactoringRelationship() {
     RefactoringType refType = TYPE_MAP.get(type);
     if (refType == null) {
       throw new RuntimeException("unkown refactoring type " + type);
     }
-    return new RefactoringRelationship(refType, oldElement, newElement);
+    return new RefactoringRelationship_RENAMED(refType, oldElement, newElement);
   }
 }

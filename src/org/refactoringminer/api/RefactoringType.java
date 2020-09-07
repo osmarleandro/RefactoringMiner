@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.refactoringminer.util.AstUtils;
-import org.refactoringminer.utils.RefactoringRelationship;
+import org.refactoringminer.utils.RefactoringRelationship_RENAMED;
 
 public enum RefactoringType {
 
@@ -163,7 +163,7 @@ public enum RefactoringType {
         }
     }
 
-    public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
+    public static void parse(String refactoringDescription, Collection<RefactoringRelationship_RENAMED> result) {
         RefactoringType refType = extractFromDescription(refactoringDescription);
         Matcher m = refType.regex.matcher(refactoringDescription);
         if (m.matches()) {
@@ -173,7 +173,7 @@ public enum RefactoringType {
             case RENAME_PACKAGE: {
                 String entityBefore = m.group(1);
                 String entityAfter = m.group(2);
-                result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 return;
             }
             case MOVE_OPERATION:
@@ -181,20 +181,20 @@ public enum RefactoringType {
             case PUSH_DOWN_OPERATION: {
                 String entityBefore = methodKey(m.group(1), m.group(2));
                 String entityAfter = methodKey(m.group(3), m.group(4));
-                result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 return;
             }
             case RENAME_METHOD:
             case INLINE_OPERATION: {
                 String entityBefore = methodKey(m.group(1), m.group(3));
                 String entityAfter = methodKey(m.group(2), m.group(3));
-                result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 return;
             }
             case EXTRACT_OPERATION: {
                 String entityBefore = methodKey(m.group(2), m.group(3));
                 String entityAfter = methodKey(m.group(1), m.group(3));
-                result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 return;
             }
             case EXTRACT_INTERFACE:
@@ -202,7 +202,7 @@ public enum RefactoringType {
                 String entityAfter = m.group(1);
                 String[] entityBeforeArray = m.group(2).split(" *, *");
                 for (String entityBefore : entityBeforeArray) {
-                    result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                    result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 }
                 return;
             }
@@ -211,7 +211,7 @@ public enum RefactoringType {
             case PUSH_DOWN_ATTRIBUTE: {
                 String entityBefore = attributeKey(m.group(1), m.group(2));
                 String entityAfter = attributeKey(m.group(1), m.group(3));
-                result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
+                result.add(new RefactoringRelationship_RENAMED(refType, entityBefore, entityAfter));
                 return;
             }
             default:
@@ -230,8 +230,8 @@ public enum RefactoringType {
         return typeKey + "#" + AstUtils.normalizeAttribute(attribute);
     }
 
-    public List<RefactoringRelationship> parseRefactoring(String refactoringDescription) {
-        List<RefactoringRelationship> result;
+    public List<RefactoringRelationship_RENAMED> parseRefactoring(String refactoringDescription) {
+        List<RefactoringRelationship_RENAMED> result;
         Matcher m = regex.matcher(refactoringDescription);
         if (m.matches()) {
             
