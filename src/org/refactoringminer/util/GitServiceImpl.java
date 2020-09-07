@@ -32,7 +32,7 @@ import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.TrackingRefUpdate;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
-import org.refactoringminer.api.Churn;
+import org.refactoringminer.api.Churn_RENAMED;
 import org.refactoringminer.api.GitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -326,7 +326,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+	public Churn_RENAMED churn(Repository repository, RevCommit currentCommit) throws Exception {
 		if (currentCommit.getParentCount() > 0) {
         	ObjectId oldTree = currentCommit.getParent(0).getTree();
 	        ObjectId newTree = currentCommit.getTree();
@@ -359,7 +359,7 @@ public class GitServiceImpl implements GitService {
             	}
         	}
         	diffFormatter.close();
-        	return new Churn(addedLines, deletedLines);
+        	return new Churn_RENAMED(addedLines, deletedLines);
 		}
 		return null;
 	}

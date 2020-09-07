@@ -52,7 +52,7 @@ import org.kohsuke.github.GHTree;
 import org.kohsuke.github.GHTreeEntry;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterable;
-import org.refactoringminer.api.Churn;
+import org.refactoringminer.api.Churn_RENAMED;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
@@ -433,7 +433,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
+	public Churn_RENAMED churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
 		GitService gitService = new GitServiceImpl();
 		RevWalk walk = new RevWalk(repository);
 		try {

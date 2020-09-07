@@ -1,11 +1,11 @@
 package org.refactoringminer.api;
 
-public class Churn {
+public class Churn_RENAMED {
 	
 	private final int linesAdded;
 	private final int linesRemoved;
 	
-	public Churn(int linesAdded, int linesRemoved) {
+	public Churn_RENAMED(int linesAdded, int linesRemoved) {
 		this.linesAdded = linesAdded;
 		this.linesRemoved = linesRemoved;
 	}
