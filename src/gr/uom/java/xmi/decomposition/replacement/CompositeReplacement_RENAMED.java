@@ -4,11 +4,11 @@ import java.util.Set;
 
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 
-public class CompositeReplacement extends Replacement {
+public class CompositeReplacement_RENAMED extends Replacement {
 	private Set<AbstractCodeFragment> additionallyMatchedStatements1;
 	private Set<AbstractCodeFragment> additionallyMatchedStatements2;
 	
-	public CompositeReplacement(String before, String after,
+	public CompositeReplacement_RENAMED(String before, String after,
 			Set<AbstractCodeFragment> additionallyMatchedStatements1, Set<AbstractCodeFragment> additionallyMatchedStatements2) {
 		super(before, after, ReplacementType.COMPOSITE);
 		this.additionallyMatchedStatements1 = additionallyMatchedStatements1;
