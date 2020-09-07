@@ -36,11 +36,11 @@ import org.eclipse.jdt.core.dom.WhileStatement;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class OperationBody {
+public class OperationBody_RENAMED {
 
 	private CompositeStatementObject compositeStatement;
 
-	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
+	public OperationBody_RENAMED(CompilationUnit cu, String filePath, Block methodBody) {
 		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
 		List<Statement> statements = methodBody.statements();
 		for(Statement statement : statements) {
