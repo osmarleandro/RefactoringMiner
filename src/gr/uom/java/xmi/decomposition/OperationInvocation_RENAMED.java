@@ -25,12 +25,12 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class OperationInvocation extends AbstractCall {
+public class OperationInvocation_RENAMED extends AbstractCall {
 	private String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
 	
-	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
+	public OperationInvocation_RENAMED(CompilationUnit cu, String filePath, MethodInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.METHOD_INVOCATION);
 		this.methodName = invocation.getName().getIdentifier();
 		this.typeArguments = invocation.arguments().size();
@@ -74,7 +74,7 @@ public class OperationInvocation extends AbstractCall {
 		}
 	}
 
-	public OperationInvocation(CompilationUnit cu, String filePath, SuperMethodInvocation invocation) {
+	public OperationInvocation_RENAMED(CompilationUnit cu, String filePath, SuperMethodInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.SUPER_METHOD_INVOCATION);
 		this.methodName = invocation.getName().getIdentifier();
 		this.typeArguments = invocation.arguments().size();
@@ -87,7 +87,7 @@ public class OperationInvocation extends AbstractCall {
 		}
 	}
 
-	public OperationInvocation(CompilationUnit cu, String filePath, SuperConstructorInvocation invocation) {
+	public OperationInvocation_RENAMED(CompilationUnit cu, String filePath, SuperConstructorInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.SUPER_CONSTRUCTOR_INVOCATION);
 		this.methodName = "super";
 		this.typeArguments = invocation.arguments().size();
@@ -102,7 +102,7 @@ public class OperationInvocation extends AbstractCall {
 		}
 	}
 
-	public OperationInvocation(CompilationUnit cu, String filePath, ConstructorInvocation invocation) {
+	public OperationInvocation_RENAMED(CompilationUnit cu, String filePath, ConstructorInvocation invocation) {
 		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.CONSTRUCTOR_INVOCATION);
 		this.methodName = "this";
 		this.typeArguments = invocation.arguments().size();
@@ -113,12 +113,12 @@ public class OperationInvocation extends AbstractCall {
 		}
 	}
 
-	private OperationInvocation() {
+	private OperationInvocation_RENAMED() {
 		
 	}
 
-	public OperationInvocation update(String oldExpression, String newExpression) {
-		OperationInvocation newOperationInvocation = new OperationInvocation();
+	public OperationInvocation_RENAMED update(String oldExpression, String newExpression) {
+		OperationInvocation_RENAMED newOperationInvocation = new OperationInvocation_RENAMED();
 		newOperationInvocation.methodName = this.methodName;
 		newOperationInvocation.locationInfo = this.locationInfo;
 		update(newOperationInvocation, oldExpression, newExpression);
@@ -267,7 +267,7 @@ public class OperationInvocation extends AbstractCall {
     			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
-    public boolean compatibleExpression(OperationInvocation other) {
+    public boolean compatibleExpression(OperationInvocation_RENAMED other) {
     	if(this.expression != null && other.expression != null) {
     		if(this.expression.startsWith("new ") && !other.expression.startsWith("new "))
     			return false;
@@ -297,7 +297,7 @@ public class OperationInvocation extends AbstractCall {
     	return false;
     }
 
-    public Set<String> callChainIntersection(OperationInvocation other) {
+    public Set<String> callChainIntersection(OperationInvocation_RENAMED other) {
     	Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
     	s1.add(this.actualString());
     	Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
@@ -308,7 +308,7 @@ public class OperationInvocation extends AbstractCall {
     	return intersection;
     }
 
-    private Set<String> subExpressionIntersection(OperationInvocation other) {
+    private Set<String> subExpressionIntersection(OperationInvocation_RENAMED other) {
     	Set<String> subExpressions1 = this.subExpressions();
     	Set<String> subExpressions2 = other.subExpressions();
     	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
@@ -393,7 +393,7 @@ public class OperationInvocation extends AbstractCall {
 
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
-		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
+		String s2 = ((OperationInvocation_RENAMED)call).getMethodName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
@@ -403,8 +403,8 @@ public class OperationInvocation extends AbstractCall {
         if(this == o) {
             return true;
         }
-        if (o instanceof OperationInvocation) {
-        	OperationInvocation invocation = (OperationInvocation)o;
+        if (o instanceof OperationInvocation_RENAMED) {
+        	OperationInvocation_RENAMED invocation = (OperationInvocation_RENAMED)o;
             return methodName.equals(invocation.methodName) &&
                 typeArguments == invocation.typeArguments;
         }
@@ -435,7 +435,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
 	public boolean identicalName(AbstractCall call) {
-		return getMethodName().equals(((OperationInvocation)call).getMethodName());
+		return getMethodName().equals(((OperationInvocation_RENAMED)call).getMethodName());
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
@@ -487,7 +487,7 @@ public class OperationInvocation extends AbstractCall {
 		return true;
 	}
 	
-	public boolean differentExpressionNameAndArguments(OperationInvocation other) {
+	public boolean differentExpressionNameAndArguments(OperationInvocation_RENAMED other) {
 		boolean differentExpression = false;
 		if(this.expression == null && other.expression != null)
 			differentExpression = true;
@@ -519,7 +519,7 @@ public class OperationInvocation extends AbstractCall {
 		return differentExpression && differentName && differentArguments;
 	}
 
-	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
+	public boolean identicalWithExpressionCallChainDifference(OperationInvocation_RENAMED other) {
 		Set<String> subExpressionIntersection = subExpressionIntersection(other);
 		return identicalName(other) &&
 				equalArguments(other) &&

@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
 import gr.uom.java.xmi.decomposition.LeafMapping;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.OperationInvocation_RENAMED;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapperComparator;
@@ -1126,13 +1126,13 @@ public class UMLModelDiff {
    private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
 	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
 	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
-	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
-	   List<OperationInvocation> addedInvocations = addedOperation.getAllOperationInvocations();
-	   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
+	   List<OperationInvocation_RENAMED> removedInvocations = removedOperation.getAllOperationInvocations();
+	   List<OperationInvocation_RENAMED> addedInvocations = addedOperation.getAllOperationInvocations();
+	   Set<OperationInvocation_RENAMED> intersection = new LinkedHashSet<OperationInvocation_RENAMED>(removedInvocations);
 	   intersection.retainAll(addedInvocations);
-	   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
+	   Set<OperationInvocation_RENAMED> newInvocations = new LinkedHashSet<OperationInvocation_RENAMED>(addedInvocations);
 	   newInvocations.removeAll(intersection);
-	   for(OperationInvocation newInvocation : newInvocations) {
+	   for(OperationInvocation_RENAMED newInvocation : newInvocations) {
 		   for(UMLOperation operation : addedClass.getOperations()) {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
@@ -1727,15 +1727,15 @@ public class UMLModelDiff {
 		   UMLOperation removedOperation = removedOperationIterator.next();
 		   for(UMLOperationBodyMapper mapper : mappers) {
 			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
-				   for(OperationInvocation invocation : operationInvocations) {
+				   List<OperationInvocation_RENAMED> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
+				   List<OperationInvocation_RENAMED> removedOperationInvocations = new ArrayList<OperationInvocation_RENAMED>();
+				   for(OperationInvocation_RENAMED invocation : operationInvocations) {
 					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().variableTypeMap(), this)) {
 						   removedOperationInvocations.add(invocation);
 					   }
 				   }
 				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
-						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
+						OperationInvocation_RENAMED removedOperationInvocation = removedOperationInvocations.get(0);
 						List<String> arguments = removedOperationInvocation.getArguments();
 						List<String> parameters = removedOperation.getParameterNameList();
 						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
@@ -1777,7 +1777,7 @@ public class UMLModelDiff {
 		}
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			OperationInvocation_RENAMED invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
 			}
@@ -1791,7 +1791,7 @@ public class UMLModelDiff {
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
 	}
 
-	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
+	private boolean invocationMatchesWithAddedOperation(OperationInvocation_RENAMED removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation_RENAMED> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
 			for(UMLOperation addedOperation : getAddedOperationsInCommonClasses()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, this)) {
@@ -1807,15 +1807,15 @@ public class UMLModelDiff {
     	  UMLOperation addedOperation = addedOperationIterator.next();
     	  for(UMLOperationBodyMapper mapper : mappers) {
     		  if((mapper.nonMappedElementsT1() > 0 || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) && !mapper.containsExtractOperationRefactoring(addedOperation)) {
-               List<OperationInvocation> operationInvocations = ExtractOperationDetection.getInvocationsInSourceOperationAfterExtraction(mapper);
-               List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
-               for(OperationInvocation invocation : operationInvocations) {
+               List<OperationInvocation_RENAMED> operationInvocations = ExtractOperationDetection.getInvocationsInSourceOperationAfterExtraction(mapper);
+               List<OperationInvocation_RENAMED> addedOperationInvocations = new ArrayList<OperationInvocation_RENAMED>();
+               for(OperationInvocation_RENAMED invocation : operationInvocations) {
                   if(invocation.matchesOperation(addedOperation, mapper.getOperation2().variableTypeMap(), this)) {
                      addedOperationInvocations.add(invocation);
                   }
                }
                if(addedOperationInvocations.size() > 0) {
-            	  OperationInvocation addedOperationInvocation = addedOperationInvocations.get(0);
+            	  OperationInvocation_RENAMED addedOperationInvocation = addedOperationInvocations.get(0);
             	  List<String> arguments = addedOperationInvocation.getArguments();
             	  List<String> parameters = addedOperation.getParameterNameList();
             	  Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
@@ -1919,7 +1919,7 @@ public class UMLModelDiff {
       }
    }
 
-   private boolean conflictingExpression(OperationInvocation invocation, UMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
+   private boolean conflictingExpression(OperationInvocation_RENAMED invocation, UMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
 	   String expression = invocation.getExpression();
 	   if(expression != null && variableTypeMap.containsKey(expression)) {
 		   UMLType type = variableTypeMap.get(expression);
@@ -1936,7 +1936,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
+   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation_RENAMED invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
 	   String expression = invocation.getExpression();
 	   if(expression != null) {
 		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());

@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.OperationInvocation_RENAMED;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -22,14 +22,14 @@ public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation inlinedOperation;
 	private UMLOperation targetOperationAfterInline;
 	private UMLOperation targetOperationBeforeInline;
-	private List<OperationInvocation> inlinedOperationInvocations;
+	private List<OperationInvocation_RENAMED> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
 	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
-			List<OperationInvocation> operationInvocations) {
+			List<OperationInvocation_RENAMED> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.inlinedOperation = bodyMapper.getOperation1();
 		this.targetOperationAfterInline = bodyMapper.getOperation2();
@@ -95,7 +95,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return targetOperationBeforeInline;
 	}
 
-	public List<OperationInvocation> getInlinedOperationInvocations() {
+	public List<OperationInvocation_RENAMED> getInlinedOperationInvocations() {
 		return inlinedOperationInvocations;
 	}
 
@@ -147,7 +147,7 @@ public class InlineOperationRefactoring implements Refactoring {
 	 */
 	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
 		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
-		for(OperationInvocation invocation : inlinedOperationInvocations) {
+		for(OperationInvocation_RENAMED invocation : inlinedOperationInvocations) {
 			codeRanges.add(invocation.codeRange());
 		}
 		return codeRanges;
@@ -179,7 +179,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		ranges.add(getTargetOperationCodeRangeBeforeInline()
 				.setDescription("target method declaration before inline")
 				.setCodeElement(targetOperationBeforeInline.toString()));
-		for(OperationInvocation invocation : inlinedOperationInvocations) {
+		for(OperationInvocation_RENAMED invocation : inlinedOperationInvocations) {
 			ranges.add(invocation.codeRange()
 					.setDescription("inlined method invocation")
 					.setCodeElement(invocation.actualString()));

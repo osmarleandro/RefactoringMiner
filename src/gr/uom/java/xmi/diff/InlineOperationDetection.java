@@ -11,7 +11,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.OperationInvocation_RENAMED;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
@@ -20,7 +20,7 @@ public class InlineOperationDetection {
 	private List<UMLOperation> removedOperations;
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
-	private List<OperationInvocation> operationInvocations;
+	private List<OperationInvocation_RENAMED> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 	
 	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> removedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
@@ -35,9 +35,9 @@ public class InlineOperationDetection {
 		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-			List<OperationInvocation> removedOperationInvocations = matchingInvocations(removedOperation, operationInvocations, mapper.getOperation1().variableTypeMap());
+			List<OperationInvocation_RENAMED> removedOperationInvocations = matchingInvocations(removedOperation, operationInvocations, mapper.getOperation1().variableTypeMap());
 			if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
-				OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
+				OperationInvocation_RENAMED removedOperationInvocation = removedOperationInvocations.get(0);
 				CallTreeNode root = new CallTreeNode(mapper.getOperation1(), removedOperation, removedOperationInvocation);
 				CallTree callTree = null;
 				if(callTreeMap.containsKey(root)) {
@@ -57,7 +57,7 @@ public class InlineOperationDetection {
 						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod(mapper, node.getInvokedOperation(), node.getInvocation());
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(inlineMatchCondition(nestedMapper)) {
-							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
+							List<OperationInvocation_RENAMED> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);
@@ -73,9 +73,9 @@ public class InlineOperationDetection {
 		return refactorings;
 	}
 
-	private List<OperationInvocation> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
-		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
-		for(OperationInvocation invocation : operationInvocations) {
+	private List<OperationInvocation_RENAMED> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation_RENAMED> operationInvocations, Map<String, UMLType> variableTypeMap) {
+		List<OperationInvocation_RENAMED> removedOperationInvocations = new ArrayList<OperationInvocation_RENAMED>();
+		for(OperationInvocation_RENAMED invocation : operationInvocations) {
 			if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
 				removedOperationInvocations.add(invocation);
 			}
@@ -84,7 +84,7 @@ public class InlineOperationDetection {
 	}
 
 	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
+			UMLOperation removedOperation, OperationInvocation_RENAMED removedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<String> arguments = removedOperationInvocation.getArguments();
 		List<String> parameters = removedOperation.getParameterNameList();
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
@@ -98,9 +98,9 @@ public class InlineOperationDetection {
 	}
 
 	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
-		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
+		List<OperationInvocation_RENAMED> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation removedOperation : removedOperations) {
-			for(OperationInvocation invocation : invocations) {
+			for(OperationInvocation_RENAMED invocation : invocations) {
 				if(invocation.matchesOperation(removedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(removedOperation)) {
 						CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
@@ -112,14 +112,14 @@ public class InlineOperationDetection {
 		}
 	}
 
-	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
-		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
+	private List<OperationInvocation_RENAMED> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
+		List<OperationInvocation_RENAMED> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
 					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
-						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
+						for(OperationInvocation_RENAMED anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
 							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
 								operationInvocations.add(anonymousInvocation);
 							}
@@ -134,7 +134,7 @@ public class InlineOperationDetection {
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			OperationInvocation_RENAMED invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
 			}
@@ -148,7 +148,7 @@ public class InlineOperationDetection {
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
 	}
 
-	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
+	private boolean invocationMatchesWithAddedOperation(OperationInvocation_RENAMED removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation_RENAMED> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
 			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {

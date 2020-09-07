@@ -21,7 +21,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.OperationInvocation_RENAMED;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
@@ -652,11 +652,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
-					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
+					List<OperationInvocation_RENAMED> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
 					if(extractedInvocations.size() > 1) {
 						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
-						for(OperationInvocation extractedInvocation : extractedInvocations) {
+						for(OperationInvocation_RENAMED extractedInvocation : extractedInvocations) {
 							for(String argument : extractedInvocation.getArguments()) {
 								for(UMLAttribute attribute : originalClass.getAttributes()) {
 									if(attribute.getName().equals(argument)) {
@@ -1210,7 +1210,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : removedOperation.getParameterNameList()) {
-							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							OperationInvocation_RENAMED invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker1 = statement;
 								break;
@@ -1223,7 +1223,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
 					if(statement.countableStatement()) {
 						for(String parameterName : addedOperation.getParameterNameList()) {
-							OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+							OperationInvocation_RENAMED invocation = statement.invocationCoveringEntireFragment();
 							if(invocation != null && invocation.getExpression() != null && invocation.getExpression().equals(parameterName)) {
 								statementUsingParameterAsInvoker2 = statement;
 								break;
@@ -1284,9 +1284,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(int i=1; i<mapperList.size(); i++) {
 			UMLOperationBodyMapper mapper = mapperList.get(i);
 			UMLOperation operation2 = mapper.getOperation2();
-			List<OperationInvocation> operationInvocations2 = operation2.getAllOperationInvocations();
+			List<OperationInvocation_RENAMED> operationInvocations2 = operation2.getAllOperationInvocations();
 			boolean anotherMapperCallsOperation2OfTheBestMapper = false;
-			for(OperationInvocation invocation : operationInvocations2) {
+			for(OperationInvocation_RENAMED invocation : operationInvocations2) {
 				if(invocation.matchesOperation(bestMapper.getOperation2(), operation2.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation1(), operation2.variableTypeMap(), modelDiff) &&
 						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, removedOperations)) {
 					anotherMapperCallsOperation2OfTheBestMapper = true;
@@ -1294,9 +1294,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 			UMLOperation operation1 = mapper.getOperation1();
-			List<OperationInvocation> operationInvocations1 = operation1.getAllOperationInvocations();
+			List<OperationInvocation_RENAMED> operationInvocations1 = operation1.getAllOperationInvocations();
 			boolean anotherMapperCallsOperation1OfTheBestMapper = false;
-			for(OperationInvocation invocation : operationInvocations1) {
+			for(OperationInvocation_RENAMED invocation : operationInvocations1) {
 				if(invocation.matchesOperation(bestMapper.getOperation1(), operation1.variableTypeMap(), modelDiff) && !invocation.matchesOperation(bestMapper.getOperation2(), operation1.variableTypeMap(), modelDiff) &&
 						!operationContainsMethodInvocationWithTheSameNameAndCommonArguments(invocation, addedOperations)) {
 					anotherMapperCallsOperation1OfTheBestMapper = true;
@@ -1341,10 +1341,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(OperationInvocation invocation, List<UMLOperation> operations) {
+	private boolean operationContainsMethodInvocationWithTheSameNameAndCommonArguments(OperationInvocation_RENAMED invocation, List<UMLOperation> operations) {
 		for(UMLOperation operation : operations) {
-			List<OperationInvocation> operationInvocations = operation.getAllOperationInvocations();
-			for(OperationInvocation operationInvocation : operationInvocations) {
+			List<OperationInvocation_RENAMED> operationInvocations = operation.getAllOperationInvocations();
+			for(OperationInvocation_RENAMED operationInvocation : operationInvocations) {
 				Set<String> argumentIntersection = new LinkedHashSet<String>(operationInvocation.getArguments());
 				argumentIntersection.retainAll(invocation.getArguments());
 				if(operationInvocation.getMethodName().equals(invocation.getMethodName()) && !argumentIntersection.isEmpty()) {
@@ -1363,12 +1363,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
-			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
+			OperationInvocation_RENAMED invocationT2 = statementT2.invocationCoveringEntireFragment();
 			if(invocationT2 != null) {
 				for(UMLOperation addedOperation : addedOperations) {
 					if(invocationT2.matchesOperation(addedOperation, operationBodyMapper.getOperation2().variableTypeMap(), modelDiff)) {
 						StatementObject statementT1 = nonMappedLeavesT1.get(0);
-						OperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment();
+						OperationInvocation_RENAMED invocationT1 = statementT1.invocationCoveringEntireFragment();
 						if(invocationT1 != null && addedOperation.getAllOperationInvocations().contains(invocationT1)) {
 							return true;
 						}
@@ -1380,14 +1380,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean isPartOfMethodExtracted(UMLOperation removedOperation, UMLOperation addedOperation) {
-		List<OperationInvocation> removedOperationInvocations = removedOperation.getAllOperationInvocations();
-		List<OperationInvocation> addedOperationInvocations = addedOperation.getAllOperationInvocations();
-		Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
+		List<OperationInvocation_RENAMED> removedOperationInvocations = removedOperation.getAllOperationInvocations();
+		List<OperationInvocation_RENAMED> addedOperationInvocations = addedOperation.getAllOperationInvocations();
+		Set<OperationInvocation_RENAMED> intersection = new LinkedHashSet<OperationInvocation_RENAMED>(removedOperationInvocations);
 		intersection.retainAll(addedOperationInvocations);
-		int numberOfInvocationsMissingFromRemovedOperation = new LinkedHashSet<OperationInvocation>(removedOperationInvocations).size() - intersection.size();
+		int numberOfInvocationsMissingFromRemovedOperation = new LinkedHashSet<OperationInvocation_RENAMED>(removedOperationInvocations).size() - intersection.size();
 		
-		Set<OperationInvocation> operationInvocationsInMethodsCalledByAddedOperation = new LinkedHashSet<OperationInvocation>();
-		for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
+		Set<OperationInvocation_RENAMED> operationInvocationsInMethodsCalledByAddedOperation = new LinkedHashSet<OperationInvocation_RENAMED>();
+		for(OperationInvocation_RENAMED addedOperationInvocation : addedOperationInvocations) {
 			if(!intersection.contains(addedOperationInvocation)) {
 				for(UMLOperation operation : addedOperations) {
 					if(!operation.equals(addedOperation) && operation.getBody() != null) {
@@ -1399,14 +1399,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		Set<OperationInvocation> newIntersection = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
+		Set<OperationInvocation_RENAMED> newIntersection = new LinkedHashSet<OperationInvocation_RENAMED>(removedOperationInvocations);
 		newIntersection.retainAll(operationInvocationsInMethodsCalledByAddedOperation);
 		
-		Set<OperationInvocation> removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
+		Set<OperationInvocation_RENAMED> removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted = new LinkedHashSet<OperationInvocation_RENAMED>(removedOperationInvocations);
 		removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.removeAll(intersection);
 		removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.removeAll(newIntersection);
-		for(Iterator<OperationInvocation> operationInvocationIterator = removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.iterator(); operationInvocationIterator.hasNext();) {
-			OperationInvocation invocation = operationInvocationIterator.next();
+		for(Iterator<OperationInvocation_RENAMED> operationInvocationIterator = removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.iterator(); operationInvocationIterator.hasNext();) {
+			OperationInvocation_RENAMED invocation = operationInvocationIterator.next();
 			if(invocation.getMethodName().startsWith("get")) {
 				operationInvocationIterator.remove();
 			}
@@ -1418,14 +1418,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean isPartOfMethodInlined(UMLOperation removedOperation, UMLOperation addedOperation) {
-		List<OperationInvocation> removedOperationInvocations = removedOperation.getAllOperationInvocations();
-		List<OperationInvocation> addedOperationInvocations = addedOperation.getAllOperationInvocations();
-		Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedOperationInvocations);
+		List<OperationInvocation_RENAMED> removedOperationInvocations = removedOperation.getAllOperationInvocations();
+		List<OperationInvocation_RENAMED> addedOperationInvocations = addedOperation.getAllOperationInvocations();
+		Set<OperationInvocation_RENAMED> intersection = new LinkedHashSet<OperationInvocation_RENAMED>(removedOperationInvocations);
 		intersection.retainAll(addedOperationInvocations);
-		int numberOfInvocationsMissingFromAddedOperation = new LinkedHashSet<OperationInvocation>(addedOperationInvocations).size() - intersection.size();
+		int numberOfInvocationsMissingFromAddedOperation = new LinkedHashSet<OperationInvocation_RENAMED>(addedOperationInvocations).size() - intersection.size();
 		
-		Set<OperationInvocation> operationInvocationsInMethodsCalledByRemovedOperation = new LinkedHashSet<OperationInvocation>();
-		for(OperationInvocation removedOperationInvocation : removedOperationInvocations) {
+		Set<OperationInvocation_RENAMED> operationInvocationsInMethodsCalledByRemovedOperation = new LinkedHashSet<OperationInvocation_RENAMED>();
+		for(OperationInvocation_RENAMED removedOperationInvocation : removedOperationInvocations) {
 			if(!intersection.contains(removedOperationInvocation)) {
 				for(UMLOperation operation : removedOperations) {
 					if(!operation.equals(removedOperation) && operation.getBody() != null) {
@@ -1437,7 +1437,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		Set<OperationInvocation> newIntersection = new LinkedHashSet<OperationInvocation>(addedOperationInvocations);
+		Set<OperationInvocation_RENAMED> newIntersection = new LinkedHashSet<OperationInvocation_RENAMED>(addedOperationInvocations);
 		newIntersection.retainAll(operationInvocationsInMethodsCalledByRemovedOperation);
 		
 		int numberOfInvocationsCalledByAddedOperationFoundInOtherRemovedOperations = newIntersection.size();

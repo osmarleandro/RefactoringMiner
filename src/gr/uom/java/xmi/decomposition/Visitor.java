@@ -61,7 +61,7 @@ public class Visitor extends ASTVisitor {
 	private String filePath;
 	private List<String> variables = new ArrayList<String>();
 	private List<String> types = new ArrayList<String>();
-	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
+	private Map<String, List<OperationInvocation_RENAMED>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation_RENAMED>>();
 	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 	private List<String> stringLiterals = new ArrayList<String>();
@@ -511,8 +511,8 @@ public class Visitor extends ASTVisitor {
 		}
 		boolean builderPatternChain = false;
 		for(String key : methodInvocationMap.keySet()) {
-			List<OperationInvocation> invocations = methodInvocationMap.get(key);
-			OperationInvocation invocation = invocations.get(0);
+			List<OperationInvocation_RENAMED> invocations = methodInvocationMap.get(key);
+			OperationInvocation_RENAMED invocation = invocations.get(0);
 			if(key.startsWith(methodInvocation) && invocation.numberOfSubExpressions() > 0 &&
 					!(invocation.getName().equals("length") && invocation.getArguments().size() == 0)) {
 				builderPatternChains.add(node);
@@ -524,23 +524,23 @@ public class Visitor extends ASTVisitor {
 		if(builderPatternChain) {
 			return false;
 		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
+		OperationInvocation_RENAMED invocation = new OperationInvocation_RENAMED(cu, filePath, node);
 		if(methodInvocationMap.containsKey(methodInvocation)) {
 			methodInvocationMap.get(methodInvocation).add(invocation);
 		}
 		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+			List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 			list.add(invocation);
 			methodInvocationMap.put(methodInvocation, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
+			Map<String, List<OperationInvocation_RENAMED>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(methodInvocation)) {
 				anonymousMethodInvocationMap.get(methodInvocation).add(invocation);
 			}
 			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+				List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 				list.add(invocation);
 				anonymousMethodInvocationMap.put(methodInvocation, list);
 			}
@@ -548,7 +548,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	private boolean complexInvocation(OperationInvocation invocation) {
+	private boolean complexInvocation(OperationInvocation_RENAMED invocation) {
 		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
 				invocation.numberOfSubExpressions() > 15;
 	}
@@ -586,24 +586,24 @@ public class Visitor extends ASTVisitor {
 		for(Expression argument : arguments) {
 			processArgument(argument);
 		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
+		OperationInvocation_RENAMED invocation = new OperationInvocation_RENAMED(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(methodInvocationMap.containsKey(nodeAsString)) {
 			methodInvocationMap.get(nodeAsString).add(invocation);
 		}
 		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+			List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 			list.add(invocation);
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
+			Map<String, List<OperationInvocation_RENAMED>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
 			}
 			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+				List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 				list.add(invocation);
 				anonymousMethodInvocationMap.put(nodeAsString, list);
 			}
@@ -616,24 +616,24 @@ public class Visitor extends ASTVisitor {
 		for(Expression argument : arguments) {
 			processArgument(argument);
 		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
+		OperationInvocation_RENAMED invocation = new OperationInvocation_RENAMED(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(methodInvocationMap.containsKey(nodeAsString)) {
 			methodInvocationMap.get(nodeAsString).add(invocation);
 		}
 		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+			List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 			list.add(invocation);
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
+			Map<String, List<OperationInvocation_RENAMED>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
 			}
 			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+				List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 				list.add(invocation);
 				anonymousMethodInvocationMap.put(nodeAsString, list);
 			}
@@ -646,24 +646,24 @@ public class Visitor extends ASTVisitor {
 		for(Expression argument : arguments) {
 			processArgument(argument);
 		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
+		OperationInvocation_RENAMED invocation = new OperationInvocation_RENAMED(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(methodInvocationMap.containsKey(nodeAsString)) {
 			methodInvocationMap.get(nodeAsString).add(invocation);
 		}
 		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+			List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 			list.add(invocation);
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
+			Map<String, List<OperationInvocation_RENAMED>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
 			}
 			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
+				List<OperationInvocation_RENAMED> list = new ArrayList<OperationInvocation_RENAMED>();
 				list.add(invocation);
 				anonymousMethodInvocationMap.put(nodeAsString, list);
 			}
@@ -788,7 +788,7 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 
-	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
+	public Map<String, List<OperationInvocation_RENAMED>> getMethodInvocationMap() {
 		return this.methodInvocationMap;
 	}
 

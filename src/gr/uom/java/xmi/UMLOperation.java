@@ -5,7 +5,7 @@ import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
+import gr.uom.java.xmi.decomposition.OperationInvocation_RENAMED;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -140,10 +140,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.javadoc = javadoc;
 	}
 
-	public List<OperationInvocation> getAllOperationInvocations() {
+	public List<OperationInvocation_RENAMED> getAllOperationInvocations() {
 		if(operationBody != null)
 			return operationBody.getAllOperationInvocations();
-		return new ArrayList<OperationInvocation>();
+		return new ArrayList<OperationInvocation_RENAMED>();
 	}
 
 	public List<LambdaExpressionObject> getAllLambdas() {
@@ -415,15 +415,15 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public OperationInvocation isDelegate() {
+	public OperationInvocation_RENAMED isDelegate() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
-				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
+				Map<String, List<OperationInvocation_RENAMED>> operationInvocationMap = statement.getMethodInvocationMap();
 				for(String key : operationInvocationMap.keySet()) {
-					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
-					for(OperationInvocation operationInvocation : operationInvocations) {
+					List<OperationInvocation_RENAMED> operationInvocations = operationInvocationMap.get(key);
+					for(OperationInvocation_RENAMED operationInvocation : operationInvocations) {
 						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName())) {
 							return operationInvocation;
 						}
