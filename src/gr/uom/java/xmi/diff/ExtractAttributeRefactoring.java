@@ -10,16 +10,16 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class ExtractAttributeRefactoring implements Refactoring {
 	private UMLAttribute attributeDeclaration;
-	private UMLClass originalClass;
-	private UMLClass nextClass;
+	private UMLClass_RENAMED originalClass;
+	private UMLClass_RENAMED nextClass;
 	private Set<AbstractCodeMapping> references;
 
-	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
+	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass_RENAMED originalClass, UMLClass_RENAMED nextClass) {
 		this.attributeDeclaration = variableDeclaration;
 		this.originalClass = originalClass;
 		this.nextClass = nextClass;
@@ -62,11 +62,11 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return attributeDeclaration.codeRange();
 	}
 
-	public UMLClass getOriginalClass() {
+	public UMLClass_RENAMED getOriginalClass() {
 		return originalClass;
 	}
 
-	public UMLClass getNextClass() {
+	public UMLClass_RENAMED getNextClass() {
 		return nextClass;
 	}
 

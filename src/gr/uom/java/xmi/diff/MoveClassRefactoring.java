@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -13,10 +13,10 @@ import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 public class MoveClassRefactoring implements Refactoring {
-	private UMLClass originalClass;
-	private UMLClass movedClass;
+	private UMLClass_RENAMED originalClass;
+	private UMLClass_RENAMED movedClass;
 	
-	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
+	public MoveClassRefactoring(UMLClass_RENAMED originalClass,  UMLClass_RENAMED movedClass) {
 		this.originalClass = originalClass;
 		this.movedClass = movedClass;
 	}
@@ -56,11 +56,11 @@ public class MoveClassRefactoring implements Refactoring {
 		return movedClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
+	public UMLClass_RENAMED getOriginalClass() {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
+	public UMLClass_RENAMED getMovedClass() {
 		return movedClass;
 	}
 

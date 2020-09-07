@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
+public class UMLClass_RENAMED extends UMLAbstractClass implements Comparable<UMLClass_RENAMED>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
     private String sourceFile;
     private String sourceFolder;
@@ -27,7 +27,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     private UMLJavadoc javadoc;
     private List<UMLAnnotation> annotations;
     
-    public UMLClass(String packageName, String name, LocationInfo locationInfo, boolean topLevel, List<String> importedTypes) {
+    public UMLClass_RENAMED(String packageName, String name, LocationInfo locationInfo, boolean topLevel, List<String> importedTypes) {
     	super();
     	this.locationInfo = locationInfo;
     	this.packageName = packageName;
@@ -114,7 +114,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
     //returns true if the "innerClass" parameter is inner class of this
-    public boolean isInnerClass(UMLClass innerClass) {
+    public boolean isInnerClass(UMLClass_RENAMED innerClass) {
     	if(this.getName().equals(innerClass.packageName))
     		return true;
     	return false;
@@ -267,7 +267,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public boolean hasSameNameAndKind(UMLClass umlClass) {
+    public boolean hasSameNameAndKind(UMLClass_RENAMED umlClass) {
     	if(!this.name.equals(umlClass.name))
     		return false;
     	if(!hasSameKind(umlClass))
@@ -275,7 +275,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return true;
     }
 
-    public boolean hasSameKind(UMLClass umlClass) {
+    public boolean hasSameKind(UMLClass_RENAMED umlClass) {
     	if(this.isAbstract != umlClass.isAbstract)
     		return false;
     	if(this.isInterface != umlClass.isInterface)
@@ -285,7 +285,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return true;
     }
 
-	private boolean equalTypeParameters(UMLClass umlClass) {
+	private boolean equalTypeParameters(UMLClass_RENAMED umlClass) {
 		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
 	}
 
@@ -294,8 +294,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     		return true;
     	}
     	
-    	if(o instanceof UMLClass) {
-    		UMLClass umlClass = (UMLClass)o;
+    	if(o instanceof UMLClass_RENAMED) {
+    		UMLClass_RENAMED umlClass = (UMLClass_RENAMED)o;
     		return this.packageName.equals(umlClass.packageName) && this.name.equals(umlClass.name) && this.sourceFile.equals(umlClass.sourceFile);
     	}
     	return false;
@@ -305,11 +305,11 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return getName();
     }
 
-	public int compareTo(UMLClass umlClass) {
+	public int compareTo(UMLClass_RENAMED umlClass) {
 		return this.toString().compareTo(umlClass.toString());
 	}
 
-	public double normalizedNameDistance(UMLClass c) {
+	public double normalizedNameDistance(UMLClass_RENAMED c) {
 		String s1 = name.toLowerCase();
 		String s2 = c.name.toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -317,7 +317,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 
-	public double normalizedPackageNameDistance(UMLClass c) {
+	public double normalizedPackageNameDistance(UMLClass_RENAMED c) {
 		String s1 = packageName.toLowerCase();
 		String s2 = c.packageName.toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -325,7 +325,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return normalized;
 	}
 	
-	public double normalizedSourceFolderDistance(UMLClass c) {
+	public double normalizedSourceFolderDistance(UMLClass_RENAMED c) {
 		String s1 = sourceFolder.toLowerCase();
 		String s2 = c.sourceFolder.toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -341,7 +341,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean isSubTypeOf(UMLClass umlClass) {
+	public boolean isSubTypeOf(UMLClass_RENAMED umlClass) {
 		if(superclass != null) {
 			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
 				return true;

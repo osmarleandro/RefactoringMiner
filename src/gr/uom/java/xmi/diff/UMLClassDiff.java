@@ -8,7 +8,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -17,7 +17,7 @@ import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 public class UMLClassDiff extends UMLClassBaseDiff {
 	
 	private String className;
-	public UMLClassDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
+	public UMLClassDiff(UMLClass_RENAMED originalClass, UMLClass_RENAMED nextClass, UMLModelDiff modelDiff) {
 		super(originalClass, nextClass, modelDiff);
 		this.className = originalClass.getName();
 	}

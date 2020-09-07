@@ -198,7 +198,7 @@ public class UMLModelASTReader {
 		}
 		String className = enumDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
-		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
+		UMLClass_RENAMED umlClass = new UMLClass_RENAMED(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
 		umlClass.setJavadoc(javadoc);
 		
 		umlClass.setEnum(true);
@@ -212,7 +212,7 @@ public class UMLModelASTReader {
 	}
 
 	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
-			String sourceFile, List<String> importedTypes, UMLClass umlClass) {
+			String sourceFile, List<String> importedTypes, UMLClass_RENAMED umlClass) {
 		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
@@ -248,7 +248,7 @@ public class UMLModelASTReader {
 		}
 		String className = typeDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, typeDeclaration, CodeElementType.TYPE_DECLARATION);
-		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, typeDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
+		UMLClass_RENAMED umlClass = new UMLClass_RENAMED(packageName, className, locationInfo, typeDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
 		umlClass.setJavadoc(javadoc);
 		
 		if(typeDeclaration.isInterface()) {
@@ -325,7 +325,7 @@ public class UMLModelASTReader {
 	}
 
 	private void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
-			String packageName, String sourceFile, String className, UMLClass umlClass) {
+			String packageName, String sourceFile, String className, UMLClass_RENAMED umlClass) {
 		AnonymousClassDeclarationVisitor visitor = new AnonymousClassDeclarationVisitor();
     	typeDeclaration.accept(visitor);
     	Set<AnonymousClassDeclaration> anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
@@ -362,7 +362,7 @@ public class UMLModelASTReader {
     	}
 	}
 
-	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
+	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass_RENAMED umlClass) {
 		int modifiers = typeDeclaration.getModifiers();
     	if((modifiers & Modifier.ABSTRACT) != 0)
     		umlClass.setAbstract(true);

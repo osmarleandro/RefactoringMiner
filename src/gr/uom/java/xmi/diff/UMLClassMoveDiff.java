@@ -1,14 +1,14 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
-	public UMLClassMoveDiff(UMLClass originalClass, UMLClass movedClass, UMLModelDiff modelDiff) {
+	public UMLClassMoveDiff(UMLClass_RENAMED originalClass, UMLClass_RENAMED movedClass, UMLModelDiff modelDiff) {
 		super(originalClass, movedClass, modelDiff);
 	}
 
-	public UMLClass getMovedClass() {
+	public UMLClass_RENAMED getMovedClass() {
 		return nextClass;
 	}
 

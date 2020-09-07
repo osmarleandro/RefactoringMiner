@@ -14,18 +14,18 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 public class UMLModel {
 	private Set<String> repositoryDirectories;
-    private List<UMLClass> classList;
+    private List<UMLClass_RENAMED> classList;
     private List<UMLGeneralization> generalizationList;
     private List<UMLRealization> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
-        classList = new ArrayList<UMLClass>();
+        classList = new ArrayList<UMLClass_RENAMED>();
         generalizationList = new ArrayList<UMLGeneralization>();
         realizationList = new ArrayList<UMLRealization>();
     }
 
-	public void addClass(UMLClass umlClass) {
+	public void addClass(UMLClass_RENAMED umlClass) {
         classList.add(umlClass);
     }
 
@@ -37,17 +37,17 @@ public class UMLModel {
     	realizationList.add(umlRealization);
     }
 
-    public UMLClass getClass(UMLClass umlClassFromOtherModel) {
-    	ListIterator<UMLClass> it = classList.listIterator();
+    public UMLClass_RENAMED getClass(UMLClass_RENAMED umlClassFromOtherModel) {
+    	ListIterator<UMLClass_RENAMED> it = classList.listIterator();
         while(it.hasNext()) {
-            UMLClass umlClass = it.next();
+            UMLClass_RENAMED umlClass = it.next();
             if(umlClass.equals(umlClassFromOtherModel))
                 return umlClass;
         }
         return null;
     }
 
-    public List<UMLClass> getClassList() {
+    public List<UMLClass_RENAMED> getClassList() {
         return this.classList;
     }
 
@@ -113,11 +113,11 @@ public class UMLModel {
 
 	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
     	UMLModelDiff modelDiff = new UMLModelDiff();
-    	for(UMLClass umlClass : classList) {
+    	for(UMLClass_RENAMED umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
     			modelDiff.reportRemovedClass(umlClass);
     	}
-    	for(UMLClass umlClass : umlModel.classList) {
+    	for(UMLClass_RENAMED umlClass : umlModel.classList) {
     		if(!this.classList.contains(umlClass))
     			modelDiff.reportAddedClass(umlClass);
     	}
@@ -141,7 +141,7 @@ public class UMLModel {
     			modelDiff.reportAddedRealization(umlRealization);
     	}
     	modelDiff.checkForRealizationChanges();
-    	for(UMLClass umlClass : classList) {
+    	for(UMLClass_RENAMED umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
     			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
     			classDiff.process();

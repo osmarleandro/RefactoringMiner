@@ -16,7 +16,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -36,8 +36,8 @@ import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
-	protected UMLClass originalClass;
-	protected UMLClass nextClass;
+	protected UMLClass_RENAMED originalClass;
+	protected UMLClass_RENAMED nextClass;
 	protected List<UMLOperation> addedOperations;
 	protected List<UMLOperation> removedOperations;
 	protected List<UMLAttribute> addedAttributes;
@@ -68,7 +68,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
-	public UMLClassBaseDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
+	public UMLClassBaseDiff(UMLClass_RENAMED originalClass, UMLClass_RENAMED nextClass, UMLModelDiff modelDiff) {
 		this.originalClass = originalClass;
 		this.nextClass = nextClass;
 		this.visibilityChanged = false;
@@ -239,11 +239,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return nextClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
+	public UMLClass_RENAMED getOriginalClass() {
 		return originalClass;
 	}
 
-	public UMLClass getNextClass() {
+	public UMLClass_RENAMED getNextClass() {
 		return nextClass;
 	}
 

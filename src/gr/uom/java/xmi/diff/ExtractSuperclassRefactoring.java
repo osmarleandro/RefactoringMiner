@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.UMLClass_RENAMED;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -12,10 +12,10 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class ExtractSuperclassRefactoring implements Refactoring {
-	private UMLClass extractedClass;
-	private Set<UMLClass> subclassSet;
+	private UMLClass_RENAMED extractedClass;
+	private Set<UMLClass_RENAMED> subclassSet;
 	
-	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
+	public ExtractSuperclassRefactoring(UMLClass_RENAMED extractedClass, Set<UMLClass_RENAMED> subclassSet) {
 		this.extractedClass = extractedClass;
 		this.subclassSet = subclassSet;
 	}
@@ -40,25 +40,25 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 			return RefactoringType.EXTRACT_SUPERCLASS;
 	}
 
-	public UMLClass getExtractedClass() {
+	public UMLClass_RENAMED getExtractedClass() {
 		return extractedClass;
 	}
 
 	public Set<String> getSubclassSet() {
 		Set<String> subclassSet = new LinkedHashSet<String>();
-		for(UMLClass umlClass : this.subclassSet) {
+		for(UMLClass_RENAMED umlClass : this.subclassSet) {
 			subclassSet.add(umlClass.getName());
 		}
 		return subclassSet;
 	}
 
-	public Set<UMLClass> getUMLSubclassSet() {
-		return new LinkedHashSet<UMLClass>(subclassSet);
+	public Set<UMLClass_RENAMED> getUMLSubclassSet() {
+		return new LinkedHashSet<UMLClass_RENAMED>(subclassSet);
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(UMLClass umlClass : this.subclassSet) {
+		for(UMLClass_RENAMED umlClass : this.subclassSet) {
 			pairs.add(new ImmutablePair<String, String>(umlClass.getLocationInfo().getFilePath(), umlClass.getName()));
 		}
 		return pairs;
@@ -73,7 +73,7 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(UMLClass subclass : subclassSet) {
+		for(UMLClass_RENAMED subclass : subclassSet) {
 			ranges.add(subclass.codeRange()
 					.setDescription("sub-type declaration")
 					.setCodeElement(subclass.getName()));
