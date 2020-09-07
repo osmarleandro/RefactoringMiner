@@ -13,14 +13,14 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class MergeVariableRefactoring implements Refactoring {
+public class MergeVariableRefactoring_RENAMED implements Refactoring {
 	private Set<VariableDeclaration> mergedVariables;
 	private VariableDeclaration newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
-	public MergeVariableRefactoring(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
+	public MergeVariableRefactoring_RENAMED(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
@@ -111,7 +111,7 @@ public class MergeVariableRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MergeVariableRefactoring other = (MergeVariableRefactoring) obj;
+		MergeVariableRefactoring_RENAMED other = (MergeVariableRefactoring_RENAMED) obj;
 		if (mergedVariables == null) {
 			if (other.mergedVariables != null)
 				return false;
