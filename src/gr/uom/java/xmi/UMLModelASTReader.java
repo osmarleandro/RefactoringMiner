@@ -179,7 +179,7 @@ public class UMLModelASTReader {
 			doc = new UMLJavadoc();
 			List<TagElement> tags = javaDoc.tags();
 			for(TagElement tag : tags) {
-				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+				UMLTagElement_RENAMED tagElement = new UMLTagElement_RENAMED(tag.getTagName());
 				List fragments = tag.fragments();
 				for(Object docElement : fragments) {
 					tagElement.addFragment(docElement.toString());

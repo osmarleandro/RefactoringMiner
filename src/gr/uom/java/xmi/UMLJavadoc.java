@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UMLJavadoc {
-	private List<UMLTagElement> tags;
+	private List<UMLTagElement_RENAMED> tags;
 
 	public UMLJavadoc() {
-		this.tags = new ArrayList<UMLTagElement>();
+		this.tags = new ArrayList<UMLTagElement_RENAMED>();
 	}
 	
-	public void addTag(UMLTagElement tag) {
+	public void addTag(UMLTagElement_RENAMED tag) {
 		tags.add(tag);
 	}
 
-	public List<UMLTagElement> getTags() {
+	public List<UMLTagElement_RENAMED> getTags() {
 		return tags;
 	}
 
 	public boolean contains(String s) {
-		for(UMLTagElement tag : tags) {
+		for(UMLTagElement_RENAMED tag : tags) {
 			if(tag.contains(s)) {
 				return true;
 			}
@@ -28,7 +28,7 @@ public class UMLJavadoc {
 	}
 
 	public boolean containsIgnoreCase(String s) {
-		for(UMLTagElement tag : tags) {
+		for(UMLTagElement_RENAMED tag : tags) {
 			if(tag.containsIgnoreCase(s)) {
 				return true;
 			}
