@@ -15,7 +15,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -742,7 +742,7 @@ public class VariableReplacementAnalysis {
 		Set<Replacement> renames = replacementOccurrenceMap.keySet();
 		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
 		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
+		ConsistentReplacementDetector_RENAMED.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		return allConsistentRenames;
 	}

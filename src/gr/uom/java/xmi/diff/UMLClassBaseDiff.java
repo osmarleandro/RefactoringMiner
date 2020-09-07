@@ -30,7 +30,7 @@ import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
-import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
@@ -531,7 +531,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
 		Map<String, Set<String>> aliasedAttributesInOriginalClass = originalClass.aliasedAttributes();
 		Map<String, Set<String>> aliasedAttributesInNextClass = nextClass.aliasedAttributes();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames,
+		ConsistentReplacementDetector_RENAMED.updateRenames(allConsistentRenames, allInconsistentRenames, renames,
 				aliasedAttributesInOriginalClass, aliasedAttributesInNextClass);
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		for(Replacement pattern : allConsistentRenames) {
@@ -1076,7 +1076,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
 			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
-			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
+			ConsistentReplacementDetector_RENAMED.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
 					methodInvocationRenames);
 		}
 		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
