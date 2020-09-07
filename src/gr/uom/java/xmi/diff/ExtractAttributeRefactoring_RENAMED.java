@@ -13,13 +13,13 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class ExtractAttributeRefactoring implements Refactoring {
+public class ExtractAttributeRefactoring_RENAMED implements Refactoring {
 	private UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
 	private Set<AbstractCodeMapping> references;
 
-	public ExtractAttributeRefactoring(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
+	public ExtractAttributeRefactoring_RENAMED(UMLAttribute variableDeclaration, UMLClass originalClass, UMLClass nextClass) {
 		this.attributeDeclaration = variableDeclaration;
 		this.originalClass = originalClass;
 		this.nextClass = nextClass;
@@ -86,7 +86,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ExtractAttributeRefactoring other = (ExtractAttributeRefactoring) obj;
+		ExtractAttributeRefactoring_RENAMED other = (ExtractAttributeRefactoring_RENAMED) obj;
 		if (attributeDeclaration == null) {
 			if (other.attributeDeclaration != null)
 				return false;

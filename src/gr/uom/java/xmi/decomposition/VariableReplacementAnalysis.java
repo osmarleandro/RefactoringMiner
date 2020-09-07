@@ -28,7 +28,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
-import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
+import gr.uom.java.xmi.diff.ExtractAttributeRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
@@ -92,7 +92,7 @@ public class VariableReplacementAnalysis {
 							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
 							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
 									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
-								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
+								ExtractAttributeRefactoring_RENAMED refactoring = new ExtractAttributeRefactoring_RENAMED(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
 								refactoring.addReference(mapping);
 								refactorings.add(refactoring);
 							}
