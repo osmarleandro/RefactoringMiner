@@ -10,23 +10,23 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
 	private VariableDeclaration variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> references;
+	private Set<AbstractCodeMapping_RENAMED> references;
 
 	public ExtractVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
-		this.references = new LinkedHashSet<AbstractCodeMapping>();
+		this.references = new LinkedHashSet<AbstractCodeMapping_RENAMED>();
 	}
 
-	public void addReference(AbstractCodeMapping mapping) {
+	public void addReference(AbstractCodeMapping_RENAMED mapping) {
 		references.add(mapping);
 	}
 
@@ -50,7 +50,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getReferences() {
 		return references;
 	}
 
@@ -118,7 +118,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(AbstractCodeMapping mapping : references) {
+		for(AbstractCodeMapping_RENAMED mapping : references) {
 			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted variable"));
 		}
 		return ranges;
@@ -130,7 +130,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("extracted variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
+		for(AbstractCodeMapping_RENAMED mapping : references) {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;

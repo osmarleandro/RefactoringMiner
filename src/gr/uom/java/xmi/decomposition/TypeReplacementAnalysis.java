@@ -10,10 +10,10 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 
 public class TypeReplacementAnalysis {
-	private Set<AbstractCodeMapping> mappings;
+	private Set<AbstractCodeMapping_RENAMED> mappings;
 	private Set<ChangeVariableTypeRefactoring> changedTypes = new LinkedHashSet<ChangeVariableTypeRefactoring>();
 
-	public TypeReplacementAnalysis(Set<AbstractCodeMapping> mappings) {
+	public TypeReplacementAnalysis(Set<AbstractCodeMapping_RENAMED> mappings) {
 		this.mappings = mappings;
 		findTypeChanges();
 	}
@@ -23,7 +23,7 @@ public class TypeReplacementAnalysis {
 	}
 
 	private void findTypeChanges() {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(AbstractCodeMapping_RENAMED mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			for(Replacement replacement : mapping.getReplacements()) {

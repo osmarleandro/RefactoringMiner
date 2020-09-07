@@ -10,7 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitVariableRefactoring implements Refactoring {
@@ -18,10 +18,10 @@ public class SplitVariableRefactoring implements Refactoring {
 	private VariableDeclaration oldVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	private Set<AbstractCodeMapping_RENAMED> variableReferences;
 	
 	public SplitVariableRefactoring(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping_RENAMED> variableReferences) {
 		this.splitVariables = splitVariables;
 		this.oldVariable = oldVariable;
 		this.operationBefore = operationBefore;
@@ -45,7 +45,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getVariableReferences() {
 		return variableReferences;
 	}
 

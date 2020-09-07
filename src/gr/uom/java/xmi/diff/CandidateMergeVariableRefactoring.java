@@ -4,19 +4,19 @@ import java.util.Set;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 
 public class CandidateMergeVariableRefactoring {
 	private Set<String> mergedVariables;
 	private String newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	private Set<AbstractCodeMapping_RENAMED> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
 	private UMLAttribute newAttribute;
 
 	public CandidateMergeVariableRefactoring(Set<String> mergedVariables, String newVariable,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping_RENAMED> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
 		this.operationBefore = operationBefore;
@@ -40,7 +40,7 @@ public class CandidateMergeVariableRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getVariableReferences() {
 		return variableReferences;
 	}
 

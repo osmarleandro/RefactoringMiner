@@ -8,11 +8,11 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class VariableReferenceExtractor {
 
-	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, Set<AbstractCodeMapping> mappings) {
-		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
+	public static Set<AbstractCodeMapping_RENAMED> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, Set<AbstractCodeMapping_RENAMED> mappings) {
+		Set<AbstractCodeMapping_RENAMED> references = new LinkedHashSet<AbstractCodeMapping_RENAMED>();
 		VariableScope scope1 = declaration1.getScope();
 		VariableScope scope2 = declaration2.getScope();
-		for(AbstractCodeMapping mapping : mappings) {
+		for(AbstractCodeMapping_RENAMED mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
@@ -29,9 +29,9 @@ public class VariableReferenceExtractor {
 				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));
 	}
 
-	public static Set<AbstractCodeMapping> findReturnReferences(Set<AbstractCodeMapping> mappings) {
-		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
-		for(AbstractCodeMapping mapping : mappings) {
+	public static Set<AbstractCodeMapping_RENAMED> findReturnReferences(Set<AbstractCodeMapping_RENAMED> mappings) {
+		Set<AbstractCodeMapping_RENAMED> references = new LinkedHashSet<AbstractCodeMapping_RENAMED>();
+		for(AbstractCodeMapping_RENAMED mapping : mappings) {
 			if(mapping.getFragment1().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
 					mapping.getFragment2().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
 				references.add(mapping);
@@ -40,8 +40,8 @@ public class VariableReferenceExtractor {
 		return references;
 	}
 
-	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, List<UMLOperationBodyMapper> operationBodyMapperList) {
-		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
+	public static Set<AbstractCodeMapping_RENAMED> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, List<UMLOperationBodyMapper> operationBodyMapperList) {
+		Set<AbstractCodeMapping_RENAMED> references = new LinkedHashSet<AbstractCodeMapping_RENAMED>();
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			references.addAll(findReferences(declaration1, declaration2, mapper.getMappings()));
 		}

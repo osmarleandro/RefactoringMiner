@@ -10,7 +10,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -49,7 +49,7 @@ public class InlineOperationDetection {
 					callTreeMap.put(root, callTree);
 				}
 				UMLOperationBodyMapper operationBodyMapper = createMapperForInlinedMethod(mapper, removedOperation, removedOperationInvocation);
-				List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
+				List<AbstractCodeMapping_RENAMED> additionalExactMatches = new ArrayList<AbstractCodeMapping_RENAMED>();
 				List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 				for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 					CallTreeNode node = nodesInBreadthFirstOrder.get(i);
@@ -141,7 +141,7 @@ public class InlineOperationDetection {
 		}
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
-		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
+		List<AbstractCodeMapping_RENAMED> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
 				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||

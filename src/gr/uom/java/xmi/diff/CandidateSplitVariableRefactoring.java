@@ -4,19 +4,19 @@ import java.util.Set;
 
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 
 public class CandidateSplitVariableRefactoring {
 	private String oldVariable;
 	private Set<String> splitVariables;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> variableReferences;
+	private Set<AbstractCodeMapping_RENAMED> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
 
 	public CandidateSplitVariableRefactoring(String oldVariable, Set<String> splitVariables,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping_RENAMED> variableReferences) {
 		this.oldVariable = oldVariable;
 		this.splitVariables = splitVariables;
 		this.operationBefore = operationBefore;
@@ -40,7 +40,7 @@ public class CandidateSplitVariableRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getVariableReferences() {
 		return variableReferences;
 	}
 

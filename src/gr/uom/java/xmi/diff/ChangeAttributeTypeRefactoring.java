@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeAttributeTypeRefactoring implements Refactoring {
@@ -17,11 +17,11 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private VariableDeclaration changedTypeAttribute;
 	private String classNameBefore;
 	private String classNameAfter;
-	private Set<AbstractCodeMapping> attributeReferences;
+	private Set<AbstractCodeMapping_RENAMED> attributeReferences;
 	private Set<Refactoring> relatedRefactorings;
 	
 	public ChangeAttributeTypeRefactoring(VariableDeclaration originalAttribute,
-			VariableDeclaration changedTypeAttribute, String classNameBefore, String classNameAfter, Set<AbstractCodeMapping> attributeReferences) {
+			VariableDeclaration changedTypeAttribute, String classNameBefore, String classNameAfter, Set<AbstractCodeMapping_RENAMED> attributeReferences) {
 		this.originalAttribute = originalAttribute;
 		this.changedTypeAttribute = changedTypeAttribute;
 		this.classNameBefore = classNameBefore;
@@ -54,7 +54,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
-	public Set<AbstractCodeMapping> getAttributeReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getAttributeReferences() {
 		return attributeReferences;
 	}
 

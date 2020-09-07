@@ -12,7 +12,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -80,7 +80,7 @@ public class ExtractOperationDetection {
 		}
 		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
 		if(operationBodyMapper != null) {
-			List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
+			List<AbstractCodeMapping_RENAMED> additionalExactMatches = new ArrayList<AbstractCodeMapping_RENAMED>();
 			List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 			for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 				CallTreeNode node = nodesInBreadthFirstOrder.get(i);
@@ -88,14 +88,14 @@ public class ExtractOperationDetection {
 					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
-						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
+						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping_RENAMED>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);
 						}
 						//add back to mapper non-exact matches
-						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
+						for(AbstractCodeMapping_RENAMED mapping : nestedMapper.getMappings()) {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
@@ -228,15 +228,15 @@ public class ExtractOperationDetection {
 		return null;
 	}
 
-	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
+	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping_RENAMED> additionalExactMatches) {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-		List<AbstractCodeMapping> exactMatchList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getExactMatches());
+		List<AbstractCodeMapping_RENAMED> exactMatchList = new ArrayList<AbstractCodeMapping_RENAMED>(operationBodyMapper.getExactMatches());
 		boolean exceptionHandlingExactMatch = false;
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
-			AbstractCodeMapping mapping = exactMatchList.get(0);
+			AbstractCodeMapping_RENAMED mapping = exactMatchList.get(0);
 			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
 				StatementObject statement1 = (StatementObject)mapping.getFragment1();
 				StatementObject statement2 = (StatementObject)mapping.getFragment2();
@@ -260,7 +260,7 @@ public class ExtractOperationDetection {
 	}
 
 	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
-		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
+		List<AbstractCodeMapping_RENAMED> totalMappings = new ArrayList<AbstractCodeMapping_RENAMED>(operationBodyMapper.getMappings());
 		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
 		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
 		while(iterator.hasNext()) {

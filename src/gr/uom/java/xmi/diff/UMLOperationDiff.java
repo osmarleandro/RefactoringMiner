@@ -3,7 +3,7 @@ package gr.uom.java.xmi.diff;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -29,7 +29,7 @@ public class UMLOperationDiff {
 	private boolean returnTypeChanged;
 	private boolean qualifiedReturnTypeChanged;
 	private boolean operationRenamed;
-	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
+	private Set<AbstractCodeMapping_RENAMED> mappings = new LinkedHashSet<AbstractCodeMapping_RENAMED>();
 	private UMLAnnotationListDiff annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
@@ -113,7 +113,7 @@ public class UMLOperationDiff {
 			}
 		}
 	}
-	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping> mappings) {
+	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation, Set<AbstractCodeMapping_RENAMED> mappings) {
 		this(removedOperation, addedOperation);
 		this.mappings = mappings;
 	}
@@ -235,7 +235,7 @@ public class UMLOperationDiff {
 			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
 			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
-				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
+				Set<AbstractCodeMapping_RENAMED> references = VariableReferenceExtractor.findReturnReferences(mappings);
 				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
 						removedOperation, addedOperation, references);
 				refactorings.add(refactoring);
@@ -244,7 +244,7 @@ public class UMLOperationDiff {
 		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
 			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
-			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
+			Set<AbstractCodeMapping_RENAMED> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
 			RenameVariableRefactoring renameRefactoring = null;
 			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
 				renameRefactoring = new RenameVariableRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
@@ -275,7 +275,7 @@ public class UMLOperationDiff {
 	
 	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
-			for(AbstractCodeMapping mapping : mappings) {
+			for(AbstractCodeMapping_RENAMED mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
 					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {

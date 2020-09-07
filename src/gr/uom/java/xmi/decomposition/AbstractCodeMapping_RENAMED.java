@@ -18,7 +18,7 @@ import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
-public abstract class AbstractCodeMapping {
+public abstract class AbstractCodeMapping_RENAMED {
 
 	private AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
@@ -28,7 +28,7 @@ public abstract class AbstractCodeMapping {
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
-	public AbstractCodeMapping(AbstractCodeFragment fragment1, AbstractCodeFragment fragment2,
+	public AbstractCodeMapping_RENAMED(AbstractCodeFragment fragment1, AbstractCodeFragment fragment2,
 			UMLOperation operation1, UMLOperation operation2) {
 		this.fragment1 = fragment1;
 		this.fragment2 = fragment2;
@@ -423,7 +423,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
+	public Set<Replacement> commonReplacements(AbstractCodeMapping_RENAMED other) {
 		Set<Replacement> intersection = new LinkedHashSet<Replacement>(this.replacements);
 		intersection.retainAll(other.replacements);
 		return intersection;
@@ -448,7 +448,7 @@ public abstract class AbstractCodeMapping {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractCodeMapping other = (AbstractCodeMapping) obj;
+		AbstractCodeMapping_RENAMED other = (AbstractCodeMapping_RENAMED) obj;
 		if (fragment1 == null) {
 			if (other.fragment1 != null)
 				return false;

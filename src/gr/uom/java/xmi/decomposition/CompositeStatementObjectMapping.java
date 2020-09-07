@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class CompositeStatementObjectMapping extends AbstractCodeMapping implements Comparable<CompositeStatementObjectMapping> {
+public class CompositeStatementObjectMapping extends AbstractCodeMapping_RENAMED implements Comparable<CompositeStatementObjectMapping> {
 
 	private double compositeChildMatchingScore;
 	

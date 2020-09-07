@@ -11,17 +11,17 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 
 public class ChangeReturnTypeRefactoring implements Refactoring {
 	private UMLType originalType;
 	private UMLType changedType;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
-	private Set<AbstractCodeMapping> returnReferences;
+	private Set<AbstractCodeMapping_RENAMED> returnReferences;
 
 	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> returnReferences) {
+			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping_RENAMED> returnReferences) {
 		this.originalType = originalType;
 		this.changedType = changedType;
 		this.operationBefore = operationBefore;
@@ -53,7 +53,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReturnReferences() {
+	public Set<AbstractCodeMapping_RENAMED> getReturnReferences() {
 		return returnReferences;
 	}
 

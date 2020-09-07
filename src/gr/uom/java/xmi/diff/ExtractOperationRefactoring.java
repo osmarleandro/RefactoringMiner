@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
-import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping_RENAMED;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -37,7 +37,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.replacements = bodyMapper.getReplacements();
 		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
-		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
+		for(AbstractCodeMapping_RENAMED mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
 			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
 		}
@@ -53,7 +53,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.replacements = bodyMapper.getReplacements();
 		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
-		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
+		for(AbstractCodeMapping_RENAMED mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
 			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
 		}
