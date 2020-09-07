@@ -14,7 +14,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
-import gr.uom.java.xmi.diff.InlineVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
@@ -249,7 +249,7 @@ public abstract class AbstractCodeMapping {
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixAfter) ||
 									overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
-								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
+								InlineVariableRefactoring_RENAMED ref = new InlineVariableRefactoring_RENAMED(declaration, operation1, operation2);
 								processInlineVariableRefactoring(ref, refactorings);
 								if(getReplacements().size() == 1) {
 									identicalWithInlinedVariable = true;
@@ -264,7 +264,7 @@ public abstract class AbstractCodeMapping {
 							ternaryMatch(initializer, replacement.getAfter()) ||
 							reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
 							overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
-						InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
+						InlineVariableRefactoring_RENAMED ref = new InlineVariableRefactoring_RENAMED(declaration, operation1, operation2);
 						processInlineVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithInlinedVariable = true;
@@ -290,7 +290,7 @@ public abstract class AbstractCodeMapping {
 					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
-							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
+							InlineVariableRefactoring_RENAMED ref = new InlineVariableRefactoring_RENAMED(declaration, operation1, operation2);
 							processInlineVariableRefactoring(ref, refactorings);
 							if(getReplacements().size() == 1) {
 								identicalWithInlinedVariable = true;
@@ -343,7 +343,7 @@ public abstract class AbstractCodeMapping {
 		return methodInvocationMatch && !initializerReservedTokens.isEmpty() && !initializerReservedTokens.equals("[]") && !initializerReservedTokens.equals(".()") && initializerReservedTokens.equals(replacementReservedTokens);
 	}
 
-	private void processInlineVariableRefactoring(InlineVariableRefactoring ref, Set<Refactoring> refactorings) {
+	private void processInlineVariableRefactoring(InlineVariableRefactoring_RENAMED ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
 			ref.addReference(this);
 			refactorings.add(ref);
@@ -351,7 +351,7 @@ public abstract class AbstractCodeMapping {
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((InlineVariableRefactoring)refactoring).addReference(this);
+					((InlineVariableRefactoring_RENAMED)refactoring).addReference(this);
 					break;
 				}
 			}

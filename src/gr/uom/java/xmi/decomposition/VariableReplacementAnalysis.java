@@ -30,7 +30,7 @@ import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
-import gr.uom.java.xmi.diff.InlineVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.SplitVariableRefactoring;
@@ -1154,8 +1154,8 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingInlineVariableRefactoring(MergeVariableRefactoring ref) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof InlineVariableRefactoring) {
-				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
+			if(refactoring instanceof InlineVariableRefactoring_RENAMED) {
+				InlineVariableRefactoring_RENAMED inlineVariableRef = (InlineVariableRefactoring_RENAMED)refactoring;
 				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {
 					return true;
 				}
