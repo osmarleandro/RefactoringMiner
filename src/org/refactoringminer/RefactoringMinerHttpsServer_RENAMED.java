@@ -35,7 +35,7 @@ import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsParameters;
 import com.sun.net.httpserver.HttpsServer;
 
-public class RefactoringMinerHttpsServer {
+public class RefactoringMinerHttpsServer_RENAMED {
 
 	public static void main(String[] args) throws Exception {
 		Properties prop = new Properties();
