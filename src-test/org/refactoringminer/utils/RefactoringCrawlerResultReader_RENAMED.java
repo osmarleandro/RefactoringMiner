@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RefactoringCrawlerResultReader {
+public class RefactoringCrawlerResultReader_RENAMED {
 
   public static RefactoringSet read(String project, String revision, String folderPath) {
 //    List<RefactoringCrawlerRefactoring> list = readFolder("D:\\Danilo\\Workspaces\\phd-rmdataset\\results\\atmosphere-cc2b3f1");
