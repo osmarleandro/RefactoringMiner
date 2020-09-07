@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
+public class UMLAttribute_RENAMED implements Comparable<UMLAttribute_RENAMED>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
 	private String name;
 	private UMLType type;
@@ -19,7 +19,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private VariableDeclaration variableDeclaration;
 	private UMLJavadoc javadoc;
 
-	public UMLAttribute(String name, UMLType type, LocationInfo locationInfo) {
+	public UMLAttribute_RENAMED(String name, UMLType type, LocationInfo locationInfo) {
 		this.locationInfo = locationInfo;
 		this.name = name;
 		this.type = type;
@@ -97,7 +97,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return variableDeclaration.getAnnotations();
 	}
 
-	public boolean equalsIgnoringChangedType(UMLAttribute attribute) {
+	public boolean equalsIgnoringChangedType(UMLAttribute_RENAMED attribute) {
 		if(this.isStatic != attribute.isStatic)
 			return false;
 		if(this.isFinal != attribute.isFinal)
@@ -109,7 +109,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return false;
 	}
 
-	public boolean equalsIgnoringChangedVisibility(UMLAttribute attribute) {
+	public boolean equalsIgnoringChangedVisibility(UMLAttribute_RENAMED attribute) {
 		if(this.name.equals(attribute.name) && this.type.equals(attribute.type))
 			return true;
 		return false;
@@ -125,8 +125,8 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     		return true;
     	}
     	
-    	if(o instanceof UMLAttribute) {
-    		UMLAttribute umlAttribute = (UMLAttribute)o;
+    	if(o instanceof UMLAttribute_RENAMED) {
+    		UMLAttribute_RENAMED umlAttribute = (UMLAttribute_RENAMED)o;
     		return this.name.equals(umlAttribute.name) &&
 			this.visibility.equals(umlAttribute.visibility) &&
 			this.type.equals(umlAttribute.type);
@@ -134,7 +134,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     	return false;
 	}
 
-	public boolean equalsQualified(UMLAttribute umlAttribute) {
+	public boolean equalsQualified(UMLAttribute_RENAMED umlAttribute) {
 		return this.name.equals(umlAttribute.name) &&
 				this.visibility.equals(umlAttribute.visibility) &&
 				this.type.equalsQualified(umlAttribute.type);
@@ -160,11 +160,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return sb.toString();
 	}
 
-	public int compareTo(UMLAttribute attribute) {
+	public int compareTo(UMLAttribute_RENAMED attribute) {
 		return this.toString().compareTo(attribute.toString());
 	}
 
-	public double normalizedNameDistance(UMLAttribute attribute) {
+	public double normalizedNameDistance(UMLAttribute_RENAMED attribute) {
 		String s1 = getName().toLowerCase();
 		String s2 = attribute.getName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);

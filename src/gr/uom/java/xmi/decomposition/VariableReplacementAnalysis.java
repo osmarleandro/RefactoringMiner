@@ -14,7 +14,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
@@ -88,7 +88,7 @@ public class VariableReplacementAnalysis {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
 					if(replacement.involvesVariable()) {
-						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
+						for(UMLAttribute_RENAMED addedAttribute : classDiff.getAddedAttributes()) {
 							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
 							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
 									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {

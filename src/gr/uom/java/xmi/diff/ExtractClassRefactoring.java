@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 
@@ -17,11 +17,11 @@ public class ExtractClassRefactoring implements Refactoring {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
-	private Set<UMLAttribute> extractedAttributes;
-	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
+	private Set<UMLAttribute_RENAMED> extractedAttributes;
+	private UMLAttribute_RENAMED attributeOfExtractedClassTypeInOriginalClass;
 
 	public ExtractClassRefactoring(UMLClass extractedClass, UMLClassBaseDiff classDiff,
-			Set<UMLOperation> extractedOperations, Set<UMLAttribute> extractedAttributes, UMLAttribute attributeOfExtractedClassType) {
+			Set<UMLOperation> extractedOperations, Set<UMLAttribute_RENAMED> extractedAttributes, UMLAttribute_RENAMED attributeOfExtractedClassType) {
 		this.extractedClass = extractedClass;
 		this.classDiff = classDiff;
 		this.extractedOperations = extractedOperations;
@@ -60,11 +60,11 @@ public class ExtractClassRefactoring implements Refactoring {
 		return extractedOperations;
 	}
 
-	public Set<UMLAttribute> getExtractedAttributes() {
+	public Set<UMLAttribute_RENAMED> getExtractedAttributes() {
 		return extractedAttributes;
 	}
 
-	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
+	public UMLAttribute_RENAMED getAttributeOfExtractedClassTypeInOriginalClass() {
 		return attributeOfExtractedClassTypeInOriginalClass;
 	}
 

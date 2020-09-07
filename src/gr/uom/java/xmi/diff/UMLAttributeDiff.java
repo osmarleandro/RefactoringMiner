@@ -7,13 +7,13 @@ import java.util.Set;
 import org.refactoringminer.api.Refactoring;
 
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
 public class UMLAttributeDiff {
-	private UMLAttribute removedAttribute;
-	private UMLAttribute addedAttribute;
+	private UMLAttribute_RENAMED removedAttribute;
+	private UMLAttribute_RENAMED addedAttribute;
 	private boolean visibilityChanged;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
@@ -23,7 +23,7 @@ public class UMLAttributeDiff {
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
 	private UMLAnnotationListDiff annotationListDiff;
 
-	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
+	public UMLAttributeDiff(UMLAttribute_RENAMED removedAttribute, UMLAttribute_RENAMED addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
 		this.addedAttribute = addedAttribute;
 		this.operationBodyMapperList = operationBodyMapperList;
@@ -47,11 +47,11 @@ public class UMLAttributeDiff {
 		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
 	}
 
-	public UMLAttribute getRemovedAttribute() {
+	public UMLAttribute_RENAMED getRemovedAttribute() {
 		return removedAttribute;
 	}
 
-	public UMLAttribute getAddedAttribute() {
+	public UMLAttribute_RENAMED getAddedAttribute() {
 		return addedAttribute;
 	}
 

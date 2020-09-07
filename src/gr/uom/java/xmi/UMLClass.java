@@ -192,10 +192,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.javadoc = javadoc;
 	}
 
-    public UMLAttribute containsAttribute(UMLAttribute otherAttribute) {
-    	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
+    public UMLAttribute_RENAMED containsAttribute(UMLAttribute_RENAMED otherAttribute) {
+    	ListIterator<UMLAttribute_RENAMED> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
-    		UMLAttribute attribute = attributeIt.next();
+    		UMLAttribute_RENAMED attribute = attributeIt.next();
     		if(attribute.equals(otherAttribute)) {
     			return attribute;
     		}
@@ -203,10 +203,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public UMLAttribute matchAttribute(UMLAttribute otherAttribute) {
-    	ListIterator<UMLAttribute> attributeIt = attributes.listIterator();
+    public UMLAttribute_RENAMED matchAttribute(UMLAttribute_RENAMED otherAttribute) {
+    	ListIterator<UMLAttribute_RENAMED> attributeIt = attributes.listIterator();
     	while(attributeIt.hasNext()) {
-    		UMLAttribute attribute = attributeIt.next();
+    		UMLAttribute_RENAMED attribute = attributeIt.next();
     		if(attribute.getName().equals(otherAttribute.getName())) {
     			String thisAttributeType = attribute.getType().getClassType();
 				String otherAttributeType = otherAttribute.getType().getClassType();

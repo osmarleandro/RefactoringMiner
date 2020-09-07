@@ -9,14 +9,14 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 
 public class MoveAttributeRefactoring implements Refactoring {
-	protected UMLAttribute originalAttribute;
-	protected UMLAttribute movedAttribute;
+	protected UMLAttribute_RENAMED originalAttribute;
+	protected UMLAttribute_RENAMED movedAttribute;
 	private volatile int hashCode = 0;
 	
-	public MoveAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
+	public MoveAttributeRefactoring(UMLAttribute_RENAMED originalAttribute, UMLAttribute_RENAMED movedAttribute) {
 		this.originalAttribute = originalAttribute;
 		this.movedAttribute = movedAttribute;
 	}
@@ -42,11 +42,11 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return RefactoringType.MOVE_ATTRIBUTE;
 	}
 
-	public UMLAttribute getOriginalAttribute() {
+	public UMLAttribute_RENAMED getOriginalAttribute() {
 		return originalAttribute;
 	}
 
-	public UMLAttribute getMovedAttribute() {
+	public UMLAttribute_RENAMED getMovedAttribute() {
 		return movedAttribute;
 	}
 

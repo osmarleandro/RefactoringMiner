@@ -1,7 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -3172,8 +3172,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				if(classDiff != null) {
-					List<UMLAttribute> matchingAttributes = new ArrayList<UMLAttribute>();
-					for(UMLAttribute attribute : classDiff.getNextClass().getAttributes()) {
+					List<UMLAttribute_RENAMED> matchingAttributes = new ArrayList<UMLAttribute_RENAMED>();
+					for(UMLAttribute_RENAMED attribute : classDiff.getNextClass().getAttributes()) {
 						if(diff2.contains(attribute.getName())) {
 							matchingAttributes.add(attribute);
 						}
@@ -3194,7 +3194,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							splitVariables.add(matchingReplacement.getAfter());
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(UMLAttribute_RENAMED attribute : matchingAttributes) {
 								splitVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {
@@ -3213,7 +3213,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							Set<String> addedVariables = new LinkedHashSet<String>();
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(UMLAttribute_RENAMED attribute : matchingAttributes) {
 								addedVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {
@@ -3231,7 +3231,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							Set<String> splitVariables = new LinkedHashSet<String>();
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(UMLAttribute_RENAMED attribute : matchingAttributes) {
 								splitVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {

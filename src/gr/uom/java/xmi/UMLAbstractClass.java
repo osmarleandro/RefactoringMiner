@@ -16,11 +16,11 @@ public abstract class UMLAbstractClass {
 	protected String packageName;
 	protected String name;
 	protected List<UMLOperation> operations;
-	protected List<UMLAttribute> attributes;
+	protected List<UMLAttribute_RENAMED> attributes;
 
 	public UMLAbstractClass() {
         this.operations = new ArrayList<UMLOperation>();
-        this.attributes = new ArrayList<UMLAttribute>();
+        this.attributes = new ArrayList<UMLAttribute_RENAMED>();
 	}
 
 	public LocationInfo getLocationInfo() {
@@ -31,7 +31,7 @@ public abstract class UMLAbstractClass {
 		this.operations.add(operation);
 	}
 
-	public void addAttribute(UMLAttribute attribute) {
+	public void addAttribute(UMLAttribute_RENAMED attribute) {
 		this.attributes.add(attribute);
 	}
 
@@ -39,7 +39,7 @@ public abstract class UMLAbstractClass {
 		return operations;
 	}
 
-	public List<UMLAttribute> getAttributes() {
+	public List<UMLAttribute_RENAMED> getAttributes() {
 		return attributes;
 	}
 
@@ -124,34 +124,34 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public UMLAttribute attributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
-		for(UMLAttribute originalAttribute : attributes) {
+	public UMLAttribute_RENAMED attributeWithTheSameNameIgnoringChangedType(UMLAttribute_RENAMED attribute) {
+		for(UMLAttribute_RENAMED originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))
 				return originalAttribute;
 		}
 		return null;
 	}
 
-	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAttribute attribute) {
-		for(UMLAttribute originalAttribute : attributes) {
+	public boolean containsAttributeWithTheSameNameIgnoringChangedType(UMLAttribute_RENAMED attribute) {
+		for(UMLAttribute_RENAMED originalAttribute : attributes) {
 			if(originalAttribute.equalsIgnoringChangedType(attribute))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameName(UMLAttribute attribute) {
-		for(UMLAttribute originalAttribute : attributes) {
+	public boolean containsAttributeWithTheSameName(UMLAttribute_RENAMED attribute) {
+		for(UMLAttribute_RENAMED originalAttribute : attributes) {
 			if(originalAttribute.getName().equals(attribute.getName()))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
+	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute_RENAMED attribute, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
-		for(UMLAttribute originalAttribute : attributes) {
+		for(UMLAttribute_RENAMED originalAttribute : attributes) {
 			String originalAttributeName = originalAttribute.getName();
 			if(originalAttributeName.contains(pattern.getBefore())) {
 				String originalAttributeNameAfterReplacement = originalAttributeName.replace(pattern.getBefore(), pattern.getAfter());
@@ -163,7 +163,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean containsAttributeWithName(String attributeName) {
-		for(UMLAttribute originalAttribute : attributes) {
+		for(UMLAttribute_RENAMED originalAttribute : attributes) {
 			if(originalAttribute.getName().equals(attributeName))
 				return true;
 		}
@@ -189,15 +189,15 @@ public abstract class UMLAbstractClass {
 	    		}
 			}
 		}
-		Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+		Set<UMLAttribute_RENAMED> commonAttributes = new LinkedHashSet<UMLAttribute_RENAMED>();
 		int totalAttributes = 0;
-		for(UMLAttribute attribute : attributes) {
+		for(UMLAttribute_RENAMED attribute : attributes) {
 			totalAttributes++;
 			if(umlClass.containsAttributeWithTheSameName(attribute)) {
 				commonAttributes.add(attribute);
 			}
 		}
-		for(UMLAttribute attribute : umlClass.attributes) {
+		for(UMLAttribute_RENAMED attribute : umlClass.attributes) {
 			totalAttributes++;
 			if(this.containsAttributeWithTheSameName(attribute)) {
 				commonAttributes.add(attribute);
@@ -248,16 +248,16 @@ public abstract class UMLAbstractClass {
 	    		}
 			}
 		}
-		Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+		Set<UMLAttribute_RENAMED> commonAttributes = new LinkedHashSet<UMLAttribute_RENAMED>();
 		int totalAttributes = 0;
-		for(UMLAttribute attribute : attributes) {
+		for(UMLAttribute_RENAMED attribute : attributes) {
 			totalAttributes++;
 			if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
     				(pattern != null && umlClass.containsAttributeWithTheSameRenamePattern(attribute, pattern.reverse()))) {
 				commonAttributes.add(attribute);
 			}
 		}
-		for(UMLAttribute attribute : umlClass.attributes) {
+		for(UMLAttribute_RENAMED attribute : umlClass.attributes) {
 			totalAttributes++;
 			if(this.containsAttributeWithTheSameNameIgnoringChangedType(attribute) ||
     				(pattern != null && this.containsAttributeWithTheSameRenamePattern(attribute, pattern))) {
@@ -292,12 +292,12 @@ public abstract class UMLAbstractClass {
 				return false;
 			}
 		}
-		for(UMLAttribute attribute : attributes) {
+		for(UMLAttribute_RENAMED attribute : attributes) {
 			if(!umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
 				return false;
 			}
 		}
-		for(UMLAttribute attribute : umlClass.attributes) {
+		for(UMLAttribute_RENAMED attribute : umlClass.attributes) {
 			if(!this.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
 				return false;
 			}
@@ -314,9 +314,9 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public List<UMLAttribute> attributesOfType(String targetClass) {
-		List<UMLAttribute> attributesOfType = new ArrayList<UMLAttribute>();
-		for(UMLAttribute attribute : attributes) {
+	public List<UMLAttribute_RENAMED> attributesOfType(String targetClass) {
+		List<UMLAttribute_RENAMED> attributesOfType = new ArrayList<UMLAttribute_RENAMED>();
+		for(UMLAttribute_RENAMED attribute : attributes) {
 			if(targetClass.endsWith("." + attribute.getType().getClassType()) ||
 					targetClass.equals(attribute.getType().getClassType())) {
 				attributesOfType.add(attribute);

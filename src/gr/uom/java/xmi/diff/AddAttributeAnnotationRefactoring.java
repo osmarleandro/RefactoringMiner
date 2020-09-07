@@ -10,15 +10,15 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 
 public class AddAttributeAnnotationRefactoring implements Refactoring {
 	private UMLAnnotation annotation;
-	private UMLAttribute attributeBefore;
-	private UMLAttribute attributeAfter;
+	private UMLAttribute_RENAMED attributeBefore;
+	private UMLAttribute_RENAMED attributeAfter;
 
-	public AddAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
-			UMLAttribute attributeAfter) {
+	public AddAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute_RENAMED attributeBefore,
+			UMLAttribute_RENAMED attributeAfter) {
 		this.annotation = annotation;
 		this.attributeBefore = attributeBefore;
 		this.attributeAfter = attributeAfter;
@@ -28,11 +28,11 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 		return annotation;
 	}
 
-	public UMLAttribute getAttributeBefore() {
+	public UMLAttribute_RENAMED getAttributeBefore() {
 		return attributeBefore;
 	}
 
-	public UMLAttribute getAttributeAfter() {
+	public UMLAttribute_RENAMED getAttributeAfter() {
 		return attributeAfter;
 	}
 

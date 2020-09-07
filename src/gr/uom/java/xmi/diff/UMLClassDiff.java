@@ -7,7 +7,7 @@ import java.util.List;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLAnonymousClass;
-import gr.uom.java.xmi.UMLAttribute;
+import gr.uom.java.xmi.UMLAttribute_RENAMED;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
@@ -30,17 +30,17 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		this.removedOperations.add(umlOperation);
 	}
 
-	private void reportAddedAttribute(UMLAttribute umlAttribute) {
+	private void reportAddedAttribute(UMLAttribute_RENAMED umlAttribute) {
 		this.addedAttributes.add(umlAttribute);
 	}
 
-	private void reportRemovedAttribute(UMLAttribute umlAttribute) {
+	private void reportRemovedAttribute(UMLAttribute_RENAMED umlAttribute) {
 		this.removedAttributes.add(umlAttribute);
 	}
 
 	protected void processAttributes() {
-		for(UMLAttribute attribute : originalClass.getAttributes()) {
-			UMLAttribute matchingAttribute = nextClass.containsAttribute(attribute);
+		for(UMLAttribute_RENAMED attribute : originalClass.getAttributes()) {
+			UMLAttribute_RENAMED matchingAttribute = nextClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
     			this.reportRemovedAttribute(attribute);
     		}
@@ -52,8 +52,8 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			}
     		}
     	}
-    	for(UMLAttribute attribute : nextClass.getAttributes()) {
-    		UMLAttribute matchingAttribute = originalClass.containsAttribute(attribute);
+    	for(UMLAttribute_RENAMED attribute : nextClass.getAttributes()) {
+    		UMLAttribute_RENAMED matchingAttribute = originalClass.containsAttribute(attribute);
     		if(matchingAttribute == null) {
     			this.reportAddedAttribute(attribute);
     		}
@@ -163,10 +163,10 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void checkForAttributeChanges() {
-		for(Iterator<UMLAttribute> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();) {
-			UMLAttribute removedAttribute = removedAttributeIterator.next();
-			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
-				UMLAttribute addedAttribute = addedAttributeIterator.next();
+		for(Iterator<UMLAttribute_RENAMED> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();) {
+			UMLAttribute_RENAMED removedAttribute = removedAttributeIterator.next();
+			for(Iterator<UMLAttribute_RENAMED> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
+				UMLAttribute_RENAMED addedAttribute = addedAttributeIterator.next();
 				if(removedAttribute.getName().equals(addedAttribute.getName())) {
 					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, getOperationBodyMapperList());
 					refactorings.addAll(attributeDiff.getRefactorings());
