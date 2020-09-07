@@ -11,11 +11,11 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-public class ExtractSuperclassRefactoring implements Refactoring {
+public class ExtractSuperclassRefactoring_RENAMED implements Refactoring {
 	private UMLClass extractedClass;
 	private Set<UMLClass> subclassSet;
 	
-	public ExtractSuperclassRefactoring(UMLClass extractedClass, Set<UMLClass> subclassSet) {
+	public ExtractSuperclassRefactoring_RENAMED(UMLClass extractedClass, Set<UMLClass> subclassSet) {
 		this.extractedClass = extractedClass;
 		this.subclassSet = subclassSet;
 	}

@@ -1029,8 +1029,8 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   private List<ExtractSuperclassRefactoring> identifyExtractSuperclassRefactorings() throws RefactoringMinerTimedOutException {
-      List<ExtractSuperclassRefactoring> refactorings = new ArrayList<ExtractSuperclassRefactoring>();
+   private List<ExtractSuperclassRefactoring_RENAMED> identifyExtractSuperclassRefactorings() throws RefactoringMinerTimedOutException {
+      List<ExtractSuperclassRefactoring_RENAMED> refactorings = new ArrayList<ExtractSuperclassRefactoring_RENAMED>();
       for(UMLClass addedClass : addedClasses) {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
@@ -1063,7 +1063,7 @@ public class UMLModelDiff {
             }
          }
          if(subclassSet.size() > 0) {
-            ExtractSuperclassRefactoring extractSuperclassRefactoring = new ExtractSuperclassRefactoring(addedClass, subclassSet);
+            ExtractSuperclassRefactoring_RENAMED extractSuperclassRefactoring = new ExtractSuperclassRefactoring_RENAMED(addedClass, subclassSet);
             refactorings.add(extractSuperclassRefactoring);
          }
       }
