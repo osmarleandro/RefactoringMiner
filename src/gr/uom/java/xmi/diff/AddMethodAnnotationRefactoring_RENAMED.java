@@ -12,12 +12,12 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
-public class AddMethodAnnotationRefactoring implements Refactoring {
+public class AddMethodAnnotationRefactoring_RENAMED implements Refactoring {
 	private UMLAnnotation annotation;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	
-	public AddMethodAnnotationRefactoring(UMLAnnotation annotation, UMLOperation operationBefore,
+	public AddMethodAnnotationRefactoring_RENAMED(UMLAnnotation annotation, UMLOperation operationBefore,
 			UMLOperation operationAfter) {
 		this.annotation = annotation;
 		this.operationBefore = operationBefore;
@@ -110,7 +110,7 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AddMethodAnnotationRefactoring other = (AddMethodAnnotationRefactoring) obj;
+		AddMethodAnnotationRefactoring_RENAMED other = (AddMethodAnnotationRefactoring_RENAMED) obj;
 		if (annotation == null) {
 			if (other.annotation != null)
 				return false;
