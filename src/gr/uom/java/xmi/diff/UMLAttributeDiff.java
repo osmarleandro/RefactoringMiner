@@ -106,7 +106,7 @@ public class UMLAttributeDiff {
 	private Set<Refactoring> getAnnotationRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
+			AddAttributeAnnotationRefactoring_RENAMED refactoring = new AddAttributeAnnotationRefactoring_RENAMED(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
 		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
