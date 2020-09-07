@@ -1183,7 +1183,7 @@ public class UMLModelDiff {
    private List<Refactoring> getMoveClassRefactorings() {
 	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
 	   List<RenamePackageRefactoring> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring>();
-	   List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring>();
+	   List<MoveSourceFolderRefactoring_RENAMED> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring_RENAMED>();
 	   for(UMLClassMoveDiff classMoveDiff : classMoveDiffList) {
 		   UMLClass originalClass = classMoveDiff.getOriginalClass();
 		   String originalName = originalClass.getName();
@@ -1227,7 +1227,7 @@ public class UMLModelDiff {
 			   MovedClassToAnotherSourceFolder refactoring = new MovedClassToAnotherSourceFolder(originalClass, movedClass, originalPathPrefix, movedPathPrefix);
 			   RenamePattern renamePattern = refactoring.getRenamePattern();
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
-			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
+			   for(MoveSourceFolderRefactoring_RENAMED moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
 				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
 					   moveSourceFolderRefactoring.addMovedClassToAnotherSourceFolder(refactoring);
 					   foundInMatchingMoveSourceFolderRefactoring = true;
@@ -1235,7 +1235,7 @@ public class UMLModelDiff {
 				   }
 			   }
 			   if(!foundInMatchingMoveSourceFolderRefactoring) {
-				   moveSourceFolderRefactorings.add(new MoveSourceFolderRefactoring(refactoring));
+				   moveSourceFolderRefactorings.add(new MoveSourceFolderRefactoring_RENAMED(refactoring));
 			   }
 		   }
 	   }

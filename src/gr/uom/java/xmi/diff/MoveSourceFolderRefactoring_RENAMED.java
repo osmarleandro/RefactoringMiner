@@ -9,16 +9,16 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-public class MoveSourceFolderRefactoring implements Refactoring {
+public class MoveSourceFolderRefactoring_RENAMED implements Refactoring {
 	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
 	private RenamePattern pattern;
 	
-	public MoveSourceFolderRefactoring(RenamePattern pattern) {
+	public MoveSourceFolderRefactoring_RENAMED(RenamePattern pattern) {
 		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
 		this.pattern = pattern;
 	}
 
-	public MoveSourceFolderRefactoring(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
+	public MoveSourceFolderRefactoring_RENAMED(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
 		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
 		this.movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
 		this.pattern = movedClassToAnotherSourceFolder.getRenamePattern();
