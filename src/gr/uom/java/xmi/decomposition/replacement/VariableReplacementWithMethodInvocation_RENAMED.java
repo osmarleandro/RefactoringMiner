@@ -2,11 +2,11 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
-public class VariableReplacementWithMethodInvocation extends Replacement {
+public class VariableReplacementWithMethodInvocation_RENAMED extends Replacement {
 	private OperationInvocation invokedOperation;
 	private Direction direction;
 	
-	public VariableReplacementWithMethodInvocation(String before, String after, OperationInvocation invocation, Direction direction) {
+	public VariableReplacementWithMethodInvocation_RENAMED(String before, String after, OperationInvocation invocation, Direction direction) {
 		super(before, after, ReplacementType.VARIABLE_REPLACED_WITH_METHOD_INVOCATION);
 		this.invokedOperation = invocation;
 		this.direction = direction;
