@@ -1,14 +1,14 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLRealization;
+import gr.uom.java.xmi.UMLRealization_RENAMED;
 
 public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
-	private UMLRealization removedRealization;
-	private UMLRealization addedRealization;
+	private UMLRealization_RENAMED removedRealization;
+	private UMLRealization_RENAMED addedRealization;
 	private boolean parentChanged;
 	private boolean childChanged;
 	
-	public UMLRealizationDiff(UMLRealization removedRealization, UMLRealization addedRealization) {
+	public UMLRealizationDiff(UMLRealization_RENAMED removedRealization, UMLRealization_RENAMED addedRealization) {
 		this.removedRealization = removedRealization;
 		this.addedRealization = addedRealization;
 		this.parentChanged = false;

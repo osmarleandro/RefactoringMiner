@@ -285,7 +285,7 @@ public class UMLModelASTReader {
     	List<Type> superInterfaceTypes = typeDeclaration.superInterfaceTypes();
     	for(Type interfaceType : superInterfaceTypes) {
     		UMLType umlType = UMLType.extractTypeObject(cu, sourceFile, interfaceType, 0);
-    		UMLRealization umlRealization = new UMLRealization(umlClass, umlType.getClassType());
+    		UMLRealization_RENAMED umlRealization = new UMLRealization_RENAMED(umlClass, umlType.getClassType());
     		umlClass.addImplementedInterface(umlType);
     		getUmlModel().addRealization(umlRealization);
     	}

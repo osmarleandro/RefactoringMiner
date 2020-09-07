@@ -16,13 +16,13 @@ public class UMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;
-    private List<UMLRealization> realizationList;
+    private List<UMLRealization_RENAMED> realizationList;
 
     public UMLModel(Set<String> repositoryDirectories) {
     	this.repositoryDirectories = repositoryDirectories;
         classList = new ArrayList<UMLClass>();
         generalizationList = new ArrayList<UMLGeneralization>();
-        realizationList = new ArrayList<UMLRealization>();
+        realizationList = new ArrayList<UMLRealization_RENAMED>();
     }
 
 	public void addClass(UMLClass umlClass) {
@@ -33,7 +33,7 @@ public class UMLModel {
         generalizationList.add(umlGeneralization);
     }
 
-    public void addRealization(UMLRealization umlRealization) {
+    public void addRealization(UMLRealization_RENAMED umlRealization) {
     	realizationList.add(umlRealization);
     }
 
@@ -55,7 +55,7 @@ public class UMLModel {
         return this.generalizationList;
     }
 
-    public List<UMLRealization> getRealizationList() {
+    public List<UMLRealization_RENAMED> getRealizationList() {
 		return realizationList;
 	}
 
@@ -83,10 +83,10 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
-    	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
+    public UMLRealization_RENAMED matchRealization(UMLRealization_RENAMED otherRealization) {
+    	ListIterator<UMLRealization_RENAMED> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
-    		UMLRealization realization = realizationIt.next();
+    		UMLRealization_RENAMED realization = realizationIt.next();
     		if(realization.getClient().equals(otherRealization.getClient())) {
     			String thisSupplier = realization.getSupplier();
     			String otherSupplier = otherRealization.getSupplier();
@@ -132,11 +132,11 @@ public class UMLModel {
     			modelDiff.reportAddedGeneralization(umlGeneralization);
     	}
     	modelDiff.checkForGeneralizationChanges();
-    	for(UMLRealization umlRealization : realizationList) {
+    	for(UMLRealization_RENAMED umlRealization : realizationList) {
     		if(!umlModel.realizationList.contains(umlRealization))
     			modelDiff.reportRemovedRealization(umlRealization);
     	}
-    	for(UMLRealization umlRealization : umlModel.realizationList) {
+    	for(UMLRealization_RENAMED umlRealization : umlModel.realizationList) {
     		if(!this.realizationList.contains(umlRealization))
     			modelDiff.reportAddedRealization(umlRealization);
     	}

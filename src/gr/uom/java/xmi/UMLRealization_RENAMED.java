@@ -1,10 +1,10 @@
 package gr.uom.java.xmi;
 
-public class UMLRealization implements Comparable<UMLRealization> {
+public class UMLRealization_RENAMED implements Comparable<UMLRealization_RENAMED> {
     private UMLClass client;
     private String supplier;
 
-    public UMLRealization(UMLClass client, String supplier) {
+    public UMLRealization_RENAMED(UMLClass client, String supplier) {
         this.supplier = supplier;
         this.client = client;
     }
@@ -22,8 +22,8 @@ public class UMLRealization implements Comparable<UMLRealization> {
     		return true;
     	}
     	
-    	if(o instanceof UMLRealization) {
-    		UMLRealization umlRealization = (UMLRealization)o;
+    	if(o instanceof UMLRealization_RENAMED) {
+    		UMLRealization_RENAMED umlRealization = (UMLRealization_RENAMED)o;
     		return this.client.equals(umlRealization.client) &&
     			this.supplier.equals(umlRealization.supplier);
     	}
@@ -34,7 +34,7 @@ public class UMLRealization implements Comparable<UMLRealization> {
     	return client + "->" + supplier;
     }
 
-	public int compareTo(UMLRealization realization) {
+	public int compareTo(UMLRealization_RENAMED realization) {
 		return this.toString().compareTo(realization.toString());
 	}
 }

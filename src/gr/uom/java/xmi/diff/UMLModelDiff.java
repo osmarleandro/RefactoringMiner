@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLClassMatcher;
 import gr.uom.java.xmi.UMLGeneralization;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
-import gr.uom.java.xmi.UMLRealization;
+import gr.uom.java.xmi.UMLRealization_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
@@ -49,8 +49,8 @@ public class UMLModelDiff {
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
    private List<UMLGeneralizationDiff> generalizationDiffList;
-   private List<UMLRealization> addedRealizations;
-   private List<UMLRealization> removedRealizations;
+   private List<UMLRealization_RENAMED> addedRealizations;
+   private List<UMLRealization_RENAMED> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
    
    private List<UMLClassDiff> commonClassDiffList;
@@ -67,8 +67,8 @@ public class UMLModelDiff {
       this.removedGeneralizations = new ArrayList<UMLGeneralization>();
       this.generalizationDiffList = new ArrayList<UMLGeneralizationDiff>();
       this.realizationDiffList = new ArrayList<UMLRealizationDiff>();
-      this.addedRealizations = new ArrayList<UMLRealization>();
-      this.removedRealizations = new ArrayList<UMLRealization>();
+      this.addedRealizations = new ArrayList<UMLRealization_RENAMED>();
+      this.removedRealizations = new ArrayList<UMLRealization_RENAMED>();
       this.commonClassDiffList = new ArrayList<UMLClassDiff>();
       this.classMoveDiffList = new ArrayList<UMLClassMoveDiff>();
       this.innerClassMoveDiffList = new ArrayList<UMLClassMoveDiff>();
@@ -95,11 +95,11 @@ public class UMLModelDiff {
       this.removedGeneralizations.add(umlGeneralization);
    }
 
-   public void reportAddedRealization(UMLRealization umlRealization) {
+   public void reportAddedRealization(UMLRealization_RENAMED umlRealization) {
       this.addedRealizations.add(umlRealization);
    }
 
-   public void reportRemovedRealization(UMLRealization umlRealization) {
+   public void reportRemovedRealization(UMLRealization_RENAMED umlRealization) {
       this.removedRealizations.add(umlRealization);
    }
 
@@ -398,10 +398,10 @@ public class UMLModelDiff {
    }
 
    public void checkForRealizationChanges() {
-      for(Iterator<UMLRealization> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
-         UMLRealization removedRealization = removedRealizationIterator.next();
-         for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
-            UMLRealization addedRealization = addedRealizationIterator.next();
+      for(Iterator<UMLRealization_RENAMED> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
+         UMLRealization_RENAMED removedRealization = removedRealizationIterator.next();
+         for(Iterator<UMLRealization_RENAMED> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
+            UMLRealization_RENAMED addedRealization = addedRealizationIterator.next();
             String renamedChild = isRenamedClass(removedRealization.getClient());
             String movedChild = isMovedClass(removedRealization.getClient());
             //String renamedParent = isRenamedClass(removedRealization.getSupplier());
@@ -540,7 +540,7 @@ public class UMLModelDiff {
       return addedGeneralizations;
    }
 
-   public List<UMLRealization> getAddedRealizations() {
+   public List<UMLRealization_RENAMED> getAddedRealizations() {
       return addedRealizations;
    }
 
@@ -1044,7 +1044,7 @@ public class UMLModelDiff {
         		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
         	 }
          }
-         for(UMLRealization addedRealization : addedRealizations) {
+         for(UMLRealization_RENAMED addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
 			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
