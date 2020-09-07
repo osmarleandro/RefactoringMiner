@@ -705,7 +705,7 @@ public class UMLModelDiff {
 			   return pullUpAttribute;
 		   }
 		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
-			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
+			   PushDownAttributeRefactoring_RENAMED pushDownAttribute = new PushDownAttributeRefactoring_RENAMED(removedAttribute, addedAttribute);
 			   return pushDownAttribute;
 		   }
 		   else if(sourceClassImportsTargetClass(removedAttribute.getClassName(), addedAttribute.getClassName()) ||
@@ -1116,7 +1116,7 @@ public class UMLModelDiff {
 				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
-				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
+				   ref = new PushDownAttributeRefactoring_RENAMED(removedAttribute, addedAttribute);
 			   }
 			   this.refactorings.add(ref);
 		   }
