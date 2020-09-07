@@ -48,7 +48,7 @@ public class UMLModelDiff {
    
    private List<UMLGeneralization> addedGeneralizations;
    private List<UMLGeneralization> removedGeneralizations;
-   private List<UMLGeneralizationDiff> generalizationDiffList;
+   private List<UMLGeneralizationDiff_RENAMED> generalizationDiffList;
    private List<UMLRealization> addedRealizations;
    private List<UMLRealization> removedRealizations;
    private List<UMLRealizationDiff> realizationDiffList;
@@ -65,7 +65,7 @@ public class UMLModelDiff {
       this.removedClasses = new ArrayList<UMLClass>();
       this.addedGeneralizations = new ArrayList<UMLGeneralization>();
       this.removedGeneralizations = new ArrayList<UMLGeneralization>();
-      this.generalizationDiffList = new ArrayList<UMLGeneralizationDiff>();
+      this.generalizationDiffList = new ArrayList<UMLGeneralizationDiff_RENAMED>();
       this.realizationDiffList = new ArrayList<UMLRealizationDiff>();
       this.addedRealizations = new ArrayList<UMLRealization>();
       this.removedRealizations = new ArrayList<UMLRealization>();
@@ -379,7 +379,7 @@ public class UMLModelDiff {
             String renamedChild = isRenamedClass(removedGeneralization.getChild());
             String movedChild = isMovedClass(removedGeneralization.getChild());
             if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
-               UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
+               UMLGeneralizationDiff_RENAMED generalizationDiff = new UMLGeneralizationDiff_RENAMED(removedGeneralization, addedGeneralization);
                addedGeneralizationIterator.remove();
                removedGeneralizationIterator.remove();
                generalizationDiffList.add(generalizationDiff);
@@ -387,7 +387,7 @@ public class UMLModelDiff {
             }
             if( (renamedChild != null && renamedChild.equals(addedGeneralization.getChild().getName())) ||
                   (movedChild != null && movedChild.equals(addedGeneralization.getChild().getName()))) {
-               UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
+               UMLGeneralizationDiff_RENAMED generalizationDiff = new UMLGeneralizationDiff_RENAMED(removedGeneralization, addedGeneralization);
                addedGeneralizationIterator.remove();
                removedGeneralizationIterator.remove();
                generalizationDiffList.add(generalizationDiff);
@@ -1037,7 +1037,7 @@ public class UMLModelDiff {
          for(UMLGeneralization addedGeneralization : addedGeneralizations) {
         	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
          }
-         for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
+         for(UMLGeneralizationDiff_RENAMED generalizationDiff : generalizationDiffList) {
         	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
         	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
