@@ -9,7 +9,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
-import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
@@ -139,7 +139,7 @@ public abstract class AbstractCodeMapping {
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {
-				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
+				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement_RENAMED) {
 					validReplacements = false;
 					break;
 				}

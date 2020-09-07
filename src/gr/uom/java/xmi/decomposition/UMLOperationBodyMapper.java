@@ -13,7 +13,7 @@ import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationWithClassInstanceCreationReplacement;
-import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -2388,7 +2388,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return replacementInfo.getReplacements();
 			}
 			else if(creationCoveringTheEntireStatement1.identicalWithDifferentNumberOfArguments(creationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)) {
-				Replacement replacement = new ObjectCreationReplacement(creationCoveringTheEntireStatement1.getName(),
+				Replacement replacement = new ObjectCreationReplacement_RENAMED(creationCoveringTheEntireStatement1.getName(),
 						creationCoveringTheEntireStatement2.getName(), creationCoveringTheEntireStatement1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
 				replacementInfo.addReplacement(replacement);
 				return replacementInfo.getReplacements();
@@ -2420,7 +2420,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					creationCoveringTheEntireStatement1.isArray() && !creationCoveringTheEntireStatement2.isArray() &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("[")+1, initializer1.lastIndexOf("]")).equals(initializer2.substring(initializer2.indexOf("(")+1, initializer2.lastIndexOf(")")))) {
-				r = new ObjectCreationReplacement(initializer1, initializer2,
+				r = new ObjectCreationReplacement_RENAMED(initializer1, initializer2,
 						creationCoveringTheEntireStatement1, creationCoveringTheEntireStatement2, ReplacementType.ARRAY_CREATION_REPLACED_WITH_DATA_STRUCTURE_CREATION);
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
@@ -2429,7 +2429,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					!creationCoveringTheEntireStatement1.isArray() && creationCoveringTheEntireStatement2.isArray() &&
 					initializer1 != null && initializer2 != null &&
 					initializer1.substring(initializer1.indexOf("(")+1, initializer1.lastIndexOf(")")).equals(initializer2.substring(initializer2.indexOf("[")+1, initializer2.lastIndexOf("]")))) {
-				r = new ObjectCreationReplacement(initializer1, initializer2,
+				r = new ObjectCreationReplacement_RENAMED(initializer1, initializer2,
 						creationCoveringTheEntireStatement1, creationCoveringTheEntireStatement2, ReplacementType.ARRAY_CREATION_REPLACED_WITH_DATA_STRUCTURE_CREATION);
 				replacementInfo.addReplacement(r);
 				return replacementInfo.getReplacements();
@@ -2442,7 +2442,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						return replacementInfo.getReplacements();
 					}
 					else if(objectCreation1.identicalWithDifferentNumberOfArguments(creationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)) {
-						Replacement replacement = new ObjectCreationReplacement(objectCreation1.getName(),
+						Replacement replacement = new ObjectCreationReplacement_RENAMED(objectCreation1.getName(),
 								creationCoveringTheEntireStatement2.getName(), (ObjectCreation)objectCreation1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
 						replacementInfo.addReplacement(replacement);
 						return replacementInfo.getReplacements();

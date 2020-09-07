@@ -2,11 +2,11 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.ObjectCreation;
 
-public class ObjectCreationReplacement extends Replacement {
+public class ObjectCreationReplacement_RENAMED extends Replacement {
 	private ObjectCreation createdObjectBefore;
 	private ObjectCreation createdObjectAfter;
 
-	public ObjectCreationReplacement(String before, String after,
+	public ObjectCreationReplacement_RENAMED(String before, String after,
 			ObjectCreation createdObjectBefore, ObjectCreation createdObjectAfter,
 			ReplacementType type) {
 		super(before, after, type);
