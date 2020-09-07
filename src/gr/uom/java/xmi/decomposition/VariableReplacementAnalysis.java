@@ -26,7 +26,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
-import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
@@ -56,7 +56,7 @@ public class VariableReplacementAnalysis {
 	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
-	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
+	private Set<CandidateSplitVariableRefactoring_RENAMED> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring_RENAMED>();
 
 	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		this.mappings = mapper.getMappings();
@@ -154,7 +154,7 @@ public class VariableReplacementAnalysis {
 		return candidateAttributeMerges;
 	}
 
-	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits() {
+	public Set<CandidateSplitVariableRefactoring_RENAMED> getCandidateAttributeSplits() {
 		return candidateAttributeSplits;
 	}
 
@@ -247,7 +247,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			else {
-				CandidateSplitVariableRefactoring candidate = new CandidateSplitVariableRefactoring(split.getBefore(), split.getSplitVariables(), operation1, operation2, splitMap.get(split));
+				CandidateSplitVariableRefactoring_RENAMED candidate = new CandidateSplitVariableRefactoring_RENAMED(split.getBefore(), split.getSplitVariables(), operation1, operation2, splitMap.get(split));
 				candidateAttributeSplits.add(candidate);
 			}
 		}

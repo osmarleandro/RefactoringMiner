@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class CandidateSplitVariableRefactoring {
+public class CandidateSplitVariableRefactoring_RENAMED {
 	private String oldVariable;
 	private Set<String> splitVariables;
 	private UMLOperation operationBefore;
@@ -15,7 +15,7 @@ public class CandidateSplitVariableRefactoring {
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
 
-	public CandidateSplitVariableRefactoring(String oldVariable, Set<String> splitVariables,
+	public CandidateSplitVariableRefactoring_RENAMED(String oldVariable, Set<String> splitVariables,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.oldVariable = oldVariable;
 		this.splitVariables = splitVariables;
@@ -91,7 +91,7 @@ public class CandidateSplitVariableRefactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CandidateSplitVariableRefactoring other = (CandidateSplitVariableRefactoring) obj;
+		CandidateSplitVariableRefactoring_RENAMED other = (CandidateSplitVariableRefactoring_RENAMED) obj;
 		if (oldVariable == null) {
 			if (other.oldVariable != null)
 				return false;
