@@ -11,21 +11,21 @@ import org.refactoringminer.api.RefactoringType;
 
 public class RenamePackageRefactoring implements Refactoring {
 
-	private List<MoveClassRefactoring> moveClassRefactorings;
+	private List<MoveClassRefactoring_RENAMED> moveClassRefactorings;
 	private RenamePattern pattern;
 	
 	public RenamePackageRefactoring(RenamePattern pattern) {
-		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
+		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring_RENAMED>();
 		this.pattern = pattern;
 	}
 
-	public RenamePackageRefactoring(MoveClassRefactoring moveClassRefactoring) {
-		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
+	public RenamePackageRefactoring(MoveClassRefactoring_RENAMED moveClassRefactoring) {
+		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring_RENAMED>();
 		this.moveClassRefactorings.add(moveClassRefactoring);
 		this.pattern = moveClassRefactoring.getRenamePattern();
 	}
 
-	public void addMoveClassRefactoring(MoveClassRefactoring moveClassRefactoring) {
+	public void addMoveClassRefactoring(MoveClassRefactoring_RENAMED moveClassRefactoring) {
 		moveClassRefactorings.add(moveClassRefactoring);
 	}
 
@@ -33,7 +33,7 @@ public class RenamePackageRefactoring implements Refactoring {
 		return pattern;
 	}
 
-	public List<MoveClassRefactoring> getMoveClassRefactorings() {
+	public List<MoveClassRefactoring_RENAMED> getMoveClassRefactorings() {
 		return moveClassRefactorings;
 	}
 
@@ -58,7 +58,7 @@ public class RenamePackageRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(MoveClassRefactoring ref : moveClassRefactorings) {
+		for(MoveClassRefactoring_RENAMED ref : moveClassRefactorings) {
 			pairs.add(new ImmutablePair<String, String>(ref.getOriginalClass().getLocationInfo().getFilePath(), ref.getOriginalClassName()));
 		}
 		return pairs;
@@ -66,7 +66,7 @@ public class RenamePackageRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(MoveClassRefactoring ref : moveClassRefactorings) {
+		for(MoveClassRefactoring_RENAMED ref : moveClassRefactorings) {
 			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getLocationInfo().getFilePath(), ref.getMovedClassName()));
 		}
 		return pairs;
@@ -75,7 +75,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MoveClassRefactoring ref : moveClassRefactorings) {
+		for(MoveClassRefactoring_RENAMED ref : moveClassRefactorings) {
 			ranges.add(ref.getOriginalClass().codeRange()
 					.setDescription("original type declaration")
 					.setCodeElement(ref.getOriginalClass().getName()));
@@ -86,7 +86,7 @@ public class RenamePackageRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MoveClassRefactoring ref : moveClassRefactorings) {
+		for(MoveClassRefactoring_RENAMED ref : moveClassRefactorings) {
 			ranges.add(ref.getMovedClass().codeRange()
 					.setDescription("moved type declaration")
 					.setCodeElement(ref.getMovedClass().getName()));

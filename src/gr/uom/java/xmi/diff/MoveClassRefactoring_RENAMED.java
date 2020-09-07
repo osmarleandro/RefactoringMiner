@@ -12,11 +12,11 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class MoveClassRefactoring implements Refactoring {
+public class MoveClassRefactoring_RENAMED implements Refactoring {
 	private UMLClass originalClass;
 	private UMLClass movedClass;
 	
-	public MoveClassRefactoring(UMLClass originalClass,  UMLClass movedClass) {
+	public MoveClassRefactoring_RENAMED(UMLClass originalClass,  UMLClass movedClass) {
 		this.originalClass = originalClass;
 		this.movedClass = movedClass;
 	}

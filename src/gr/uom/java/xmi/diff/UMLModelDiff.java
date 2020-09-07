@@ -1202,7 +1202,7 @@ public class UMLModelDiff {
 		   }
 		   
 		   if (!originalName.equals(movedName)) {
-			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
+			   MoveClassRefactoring_RENAMED refactoring = new MoveClassRefactoring_RENAMED(originalClass, movedClass);
 			   RenamePattern renamePattern = refactoring.getRenamePattern();
 			   //check if the the original path is a substring of the moved path and vice versa
 			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
@@ -1240,7 +1240,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
-		   List<MoveClassRefactoring> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
+		   List<MoveClassRefactoring_RENAMED> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
 		   if(moveClassRefactorings.size() > 1 && isSourcePackageDeleted(renamePackageRefactoring)) {
 			   refactorings.add(renamePackageRefactoring);
 		   }

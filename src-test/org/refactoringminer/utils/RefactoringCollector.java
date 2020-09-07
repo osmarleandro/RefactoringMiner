@@ -9,7 +9,7 @@ import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
 import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.MoveAttributeRefactoring;
-import gr.uom.java.xmi.diff.MoveClassRefactoring;
+import gr.uom.java.xmi.diff.MoveClassRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
@@ -23,8 +23,8 @@ public class RefactoringCollector extends RefactoringHandler {
   @Override
   public void handle(String commitId, List<Refactoring> refactorings) {
     for (Refactoring r : refactorings) {
-      if (r instanceof MoveClassRefactoring) {
-        MoveClassRefactoring ref = (MoveClassRefactoring) r;
+      if (r instanceof MoveClassRefactoring_RENAMED) {
+        MoveClassRefactoring_RENAMED ref = (MoveClassRefactoring_RENAMED) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
       } else if (r instanceof RenameClassRefactoring) {
         RenameClassRefactoring ref = (RenameClassRefactoring) r;
