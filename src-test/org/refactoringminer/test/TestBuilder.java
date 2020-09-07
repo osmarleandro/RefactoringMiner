@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringHandler;
+import org.refactoringminer.api.RefactoringHandler_RENAMED;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
@@ -189,7 +189,7 @@ public class TestBuilder {
 		return sb.toString();
 	}
 
-	public class ProjectMatcher extends RefactoringHandler {
+	public class ProjectMatcher extends RefactoringHandler_RENAMED {
 
 		private final String cloneUrl;
 		private final String branch;

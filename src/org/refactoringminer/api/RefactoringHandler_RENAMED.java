@@ -6,7 +6,7 @@ import java.util.List;
  * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
  * 
  */
-public abstract class RefactoringHandler {
+public abstract class RefactoringHandler_RENAMED {
 
 	/**
 	 * Indicate commits that should be ignored.

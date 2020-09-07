@@ -3,7 +3,7 @@ package org.refactoringminer.utils;
 import java.util.List;
 
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringHandler;
+import org.refactoringminer.api.RefactoringHandler_RENAMED;
 
 import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
@@ -14,7 +14,7 @@ import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
-public class RefactoringCollector extends RefactoringHandler {
+public class RefactoringCollector extends RefactoringHandler_RENAMED {
   private final RefactoringSet rs;
   private Exception ex = null;
   public RefactoringCollector(String cloneUrl, String commitId) {

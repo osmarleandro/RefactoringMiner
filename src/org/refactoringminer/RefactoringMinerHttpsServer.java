@@ -25,7 +25,7 @@ import javax.net.ssl.TrustManagerFactory;
 
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringHandler;
+import org.refactoringminer.api.RefactoringHandler_RENAMED;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 
 import com.sun.net.httpserver.Headers;
@@ -106,7 +106,7 @@ public class RefactoringMinerHttpsServer {
 			List<Refactoring> detectedRefactorings = new ArrayList<Refactoring>();
 
 			GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
-			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
+			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler_RENAMED() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
 					detectedRefactorings.addAll(refactorings);
