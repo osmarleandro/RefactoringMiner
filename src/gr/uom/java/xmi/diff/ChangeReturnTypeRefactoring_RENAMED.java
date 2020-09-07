@@ -13,14 +13,14 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class ChangeReturnTypeRefactoring implements Refactoring {
+public class ChangeReturnTypeRefactoring_RENAMED implements Refactoring {
 	private UMLType originalType;
 	private UMLType changedType;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> returnReferences;
 
-	public ChangeReturnTypeRefactoring(UMLType originalType, UMLType changedType,
+	public ChangeReturnTypeRefactoring_RENAMED(UMLType originalType, UMLType changedType,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> returnReferences) {
 		this.originalType = originalType;
 		this.changedType = changedType;
@@ -89,7 +89,7 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeReturnTypeRefactoring other = (ChangeReturnTypeRefactoring) obj;
+		ChangeReturnTypeRefactoring_RENAMED other = (ChangeReturnTypeRefactoring_RENAMED) obj;
 		if (changedType == null) {
 			if (other.changedType != null)
 				return false;

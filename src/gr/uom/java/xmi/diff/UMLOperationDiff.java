@@ -236,7 +236,7 @@ public class UMLOperationDiff {
 			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
 				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
-				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
+				ChangeReturnTypeRefactoring_RENAMED refactoring = new ChangeReturnTypeRefactoring_RENAMED(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
 						removedOperation, addedOperation, references);
 				refactorings.add(refactoring);
 			}
