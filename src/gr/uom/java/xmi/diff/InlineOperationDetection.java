@@ -18,12 +18,12 @@ import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 public class InlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> removedOperations;
-	private UMLClassBaseDiff classDiff;
+	private UMLClassBaseDiff_RENAMED classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 	
-	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> removedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
+	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> removedOperations, UMLClassBaseDiff_RENAMED classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
 		this.removedOperations = removedOperations;
 		this.classDiff = classDiff;

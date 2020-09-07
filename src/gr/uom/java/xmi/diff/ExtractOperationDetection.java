@@ -23,12 +23,12 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 public class ExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> addedOperations;
-	private UMLClassBaseDiff classDiff;
+	private UMLClassBaseDiff_RENAMED classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 
-	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
+	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff_RENAMED classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
 		this.addedOperations = addedOperations;
 		this.classDiff = classDiff;

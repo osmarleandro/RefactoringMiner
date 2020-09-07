@@ -33,7 +33,7 @@ import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
-public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
+public abstract class UMLClassBaseDiff_RENAMED implements Comparable<UMLClassBaseDiff_RENAMED> {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
 	protected UMLClass originalClass;
@@ -68,7 +68,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
-	public UMLClassBaseDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
+	public UMLClassBaseDiff_RENAMED(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
 		this.originalClass = originalClass;
 		this.nextClass = nextClass;
 		this.visibilityChanged = false;
@@ -128,7 +128,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return null;
 	}
 
-	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
+	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff_RENAMED other) {
 		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
 		common.retainAll(other.nextClass.getImplementedInterfaces());
 		return common;
@@ -268,7 +268,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	//return true if "classMoveDiff" represents the move of a class that is inner to this.originalClass
-	public boolean isInnerClassMove(UMLClassBaseDiff classDiff) {
+	public boolean isInnerClassMove(UMLClassBaseDiff_RENAMED classDiff) {
 		if(this.originalClass.isInnerClass(classDiff.originalClass) && this.nextClass.isInnerClass(classDiff.nextClass))
 			return true;
 		return false;
@@ -1651,7 +1651,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return sb.toString();
 	}
 
-	public int compareTo(UMLClassBaseDiff other) {
+	public int compareTo(UMLClassBaseDiff_RENAMED other) {
 		return this.originalClass.getName().compareTo(other.originalClass.getName());
 	}
 

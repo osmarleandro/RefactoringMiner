@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
-import gr.uom.java.xmi.diff.UMLClassBaseDiff;
+import gr.uom.java.xmi.diff.UMLClassBaseDiff_RENAMED;
 
 public abstract class AbstractCodeMapping {
 
@@ -154,7 +154,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff_RENAMED classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
 			AbstractExpression initializer = declaration.getInitializer();
