@@ -10,7 +10,7 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
-import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -294,7 +294,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 						for(Replacement replacement : r) {
 							mergedVariables.add(replacement.getBefore());
 						}
-						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+						MergeVariableReplacement_RENAMED merge = new MergeVariableReplacement_RENAMED(mergedVariables, key);
 						replacements.add(merge);
 					}
 				}

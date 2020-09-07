@@ -10,7 +10,7 @@ import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
 import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
-import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationWithClassInstanceCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
@@ -3367,7 +3367,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(Replacement replacement : replacements) {
 						mergedVariables.add(replacement.getBefore());
 					}
-					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+					MergeVariableReplacement_RENAMED merge = new MergeVariableReplacement_RENAMED(mergedVariables, key);
 					replacementInfo.getReplacements().add(merge);
 				}
 			}

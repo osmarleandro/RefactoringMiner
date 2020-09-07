@@ -16,7 +16,7 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
-import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.VariableDeclarationReplacement;
@@ -286,13 +286,13 @@ public class VariableReplacementAnalysis {
 	}
 
 	private void findVariableMerges() {
-		Map<MergeVariableReplacement, Set<AbstractCodeMapping>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<AbstractCodeMapping>>();
+		Map<MergeVariableReplacement_RENAMED, Set<AbstractCodeMapping>> mergeMap = new LinkedHashMap<MergeVariableReplacement_RENAMED, Set<AbstractCodeMapping>>();
 		Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap = new LinkedHashMap<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>>();
 		Map<String, Map<Replacement, Set<AbstractCodeMapping>>> variableInvocationVariableMap = new LinkedHashMap<String, Map<Replacement, Set<AbstractCodeMapping>>>();
 		for(AbstractCodeMapping mapping : mappings) {
 			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement instanceof MergeVariableReplacement) {
-					MergeVariableReplacement merge = (MergeVariableReplacement)replacement;
+				if(replacement instanceof MergeVariableReplacement_RENAMED) {
+					MergeVariableReplacement_RENAMED merge = (MergeVariableReplacement_RENAMED)replacement;
 					if(mergeMap.containsKey(merge)) {
 						mergeMap.get(merge).add(mapping);
 					}
@@ -376,7 +376,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			if(mergedVariables.size() > 0) {
-				MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+				MergeVariableReplacement_RENAMED merge = new MergeVariableReplacement_RENAMED(mergedVariables, key);
 				mergeMap.put(merge, mappings);
 			}
 		}
@@ -391,11 +391,11 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			if(mergedVariables.size() > 0) {
-				MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+				MergeVariableReplacement_RENAMED merge = new MergeVariableReplacement_RENAMED(mergedVariables, key);
 				mergeMap.put(merge, mappings);
 			}
 		}
-		for(MergeVariableReplacement merge : mergeMap.keySet()) {
+		for(MergeVariableReplacement_RENAMED merge : mergeMap.keySet()) {
 			Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 			Set<UMLOperation> mergedVariableOperations = new LinkedHashSet<UMLOperation>();
 			for(String variableName : merge.getMergedVariables()) {
@@ -916,7 +916,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(MergeVariableReplacement replacement, String variableName) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(MergeVariableReplacement_RENAMED replacement, String variableName) {
 		for(AbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {
@@ -1008,7 +1008,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(MergeVariableReplacement replacement) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(MergeVariableReplacement_RENAMED replacement) {
 		for(AbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {

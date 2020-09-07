@@ -31,7 +31,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
-import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement_RENAMED;
 
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
@@ -64,7 +64,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
-	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
+	private Map<MergeVariableReplacement_RENAMED, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement_RENAMED, Set<CandidateMergeVariableRefactoring>>();
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
@@ -472,7 +472,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			processMapperRefactorings(mapper, refactorings);
 		}
 		refactorings.addAll(inferAttributeMergesAndSplits(renameMap, refactorings));
-		for(MergeVariableReplacement merge : mergeMap.keySet()) {
+		for(MergeVariableReplacement_RENAMED merge : mergeMap.keySet()) {
 			Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
 			Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
 			for(String mergedVariable : merge.getMergedVariables()) {
@@ -633,7 +633,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
 			}
 			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
-			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
+			MergeVariableReplacement_RENAMED merge = new MergeVariableReplacement_RENAMED(before, after);
 			processMerge(mergeMap, merge, candidate);
 		}
 		for(CandidateSplitVariableRefactoring candidate : mapper.getCandidateAttributeSplits()) {
@@ -822,10 +822,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
-			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
-		MergeVariableReplacement mergeToBeRemoved = null;
-		for(MergeVariableReplacement merge : mergeMap.keySet()) {
+	private void processMerge(Map<MergeVariableReplacement_RENAMED, Set<CandidateMergeVariableRefactoring>> mergeMap,
+			MergeVariableReplacement_RENAMED newMerge, CandidateMergeVariableRefactoring candidate) {
+		MergeVariableReplacement_RENAMED mergeToBeRemoved = null;
+		for(MergeVariableReplacement_RENAMED merge : mergeMap.keySet()) {
 			if(merge.subsumes(newMerge)) {
 				mergeMap.get(merge).add(candidate);
 				return;
@@ -839,7 +839,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				Set<String> mergedVariables = new LinkedHashSet<String>();
 				mergedVariables.addAll(merge.getMergedVariables());
 				mergedVariables.addAll(newMerge.getMergedVariables());
-				MergeVariableReplacement replacement = new MergeVariableReplacement(mergedVariables, merge.getAfter());
+				MergeVariableReplacement_RENAMED replacement = new MergeVariableReplacement_RENAMED(mergedVariables, merge.getAfter());
 				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
 				candidates.add(candidate);
 				mergeMap.put(replacement, candidates);
