@@ -7,7 +7,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
 
-public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
+public class PullUpAttributeRefactoring extends MoveAttributeRefactoring_RENAMED {
 
 	public PullUpAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute) {
 		super(originalAttribute, movedAttribute);
