@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import gr.uom.java.xmi.UMLAnnotation;
 
-public class UMLAnnotationListDiff {
+public class UMLAnnotationListDiff_RENAMED {
 	private List<UMLAnnotation> removedAnnotations;
 	private List<UMLAnnotation> addedAnnotations;
 	private List<UMLAnnotationDiff> annotationDiffList;
 
-	public UMLAnnotationListDiff(List<UMLAnnotation> annotations1, List<UMLAnnotation> annotations2) {
+	public UMLAnnotationListDiff_RENAMED(List<UMLAnnotation> annotations1, List<UMLAnnotation> annotations2) {
 		this.removedAnnotations = new ArrayList<UMLAnnotation>();
 		this.addedAnnotations = new ArrayList<UMLAnnotation>();
 		this.annotationDiffList = new ArrayList<UMLAnnotationDiff>();

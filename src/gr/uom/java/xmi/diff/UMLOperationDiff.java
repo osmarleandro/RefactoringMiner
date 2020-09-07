@@ -30,7 +30,7 @@ public class UMLOperationDiff {
 	private boolean qualifiedReturnTypeChanged;
 	private boolean operationRenamed;
 	private Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-	private UMLAnnotationListDiff annotationListDiff;
+	private UMLAnnotationListDiff_RENAMED annotationListDiff;
 	
 	public UMLOperationDiff(UMLOperation removedOperation, UMLOperation addedOperation) {
 		this.removedOperation = removedOperation;
@@ -52,7 +52,7 @@ public class UMLOperationDiff {
 			returnTypeChanged = true;
 		else if(!removedOperation.equalQualifiedReturnParameter(addedOperation))
 			qualifiedReturnTypeChanged = true;
-		this.annotationListDiff = new UMLAnnotationListDiff(removedOperation.getAnnotations(), addedOperation.getAnnotations());
+		this.annotationListDiff = new UMLAnnotationListDiff_RENAMED(removedOperation.getAnnotations(), addedOperation.getAnnotations());
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = updateAddedRemovedParameters(removedOperation, addedOperation);
 		for(SimpleEntry<UMLParameter, UMLParameter> matchedParameter : matchedParameters) {
 			UMLParameter parameter1 = matchedParameter.getKey();

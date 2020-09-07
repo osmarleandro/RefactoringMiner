@@ -21,7 +21,7 @@ public class UMLAttributeDiff {
 	private boolean staticChanged;
 	private boolean finalChanged;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private UMLAnnotationListDiff annotationListDiff;
+	private UMLAnnotationListDiff_RENAMED annotationListDiff;
 
 	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
@@ -44,7 +44,7 @@ public class UMLAttributeDiff {
 			staticChanged = true;
 		if(removedAttribute.isFinal() != addedAttribute.isFinal())
 			finalChanged = true;
-		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
+		this.annotationListDiff = new UMLAnnotationListDiff_RENAMED(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
 	}
 
 	public UMLAttribute getRemovedAttribute() {
