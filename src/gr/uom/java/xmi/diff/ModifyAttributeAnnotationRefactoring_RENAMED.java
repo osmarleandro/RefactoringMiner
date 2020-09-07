@@ -12,13 +12,13 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
-public class ModifyAttributeAnnotationRefactoring implements Refactoring {
+public class ModifyAttributeAnnotationRefactoring_RENAMED implements Refactoring {
 	private UMLAnnotation annotationBefore;
 	private UMLAnnotation annotationAfter;
 	private UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
 
-	public ModifyAttributeAnnotationRefactoring(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
+	public ModifyAttributeAnnotationRefactoring_RENAMED(UMLAnnotation annotationBefore, UMLAnnotation annotationAfter,
 			UMLAttribute attributeBefore, UMLAttribute attributeAfter) {
 		this.annotationBefore = annotationBefore;
 		this.annotationAfter = annotationAfter;
@@ -121,7 +121,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModifyAttributeAnnotationRefactoring other = (ModifyAttributeAnnotationRefactoring) obj;
+		ModifyAttributeAnnotationRefactoring_RENAMED other = (ModifyAttributeAnnotationRefactoring_RENAMED) obj;
 		if (annotationAfter == null) {
 			if (other.annotationAfter != null)
 				return false;

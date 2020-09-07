@@ -114,7 +114,7 @@ public class UMLAttributeDiff {
 			refactorings.add(refactoring);
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			ModifyAttributeAnnotationRefactoring refactoring = new ModifyAttributeAnnotationRefactoring(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), removedAttribute, addedAttribute);
+			ModifyAttributeAnnotationRefactoring_RENAMED refactoring = new ModifyAttributeAnnotationRefactoring_RENAMED(annotationDiff.getRemovedAnnotation(), annotationDiff.getAddedAnnotation(), removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
 		return refactorings;
