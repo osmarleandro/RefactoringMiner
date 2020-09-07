@@ -26,7 +26,7 @@ public class ExtractOperationDetection {
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
-	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
+	private Map<CallTreeNode, CallTree_RENAMED> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree_RENAMED>();
 
 	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
@@ -69,12 +69,12 @@ public class ExtractOperationDetection {
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
 		CallTreeNode root = new CallTreeNode(mapper.getOperation1(), addedOperation, addedOperationInvocation);
-		CallTree callTree = null;
+		CallTree_RENAMED callTree = null;
 		if(callTreeMap.containsKey(root)) {
 			callTree = callTreeMap.get(root);
 		}
 		else {
-			callTree = new CallTree(root);
+			callTree = new CallTree_RENAMED(root);
 			generateCallTree(addedOperation, root, callTree);
 			callTreeMap.put(root, callTree);
 		}
@@ -185,7 +185,7 @@ public class ExtractOperationDetection {
 		return addedOperationInvocations;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree_RENAMED callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {

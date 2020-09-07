@@ -21,7 +21,7 @@ public class InlineOperationDetection {
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
-	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
+	private Map<CallTreeNode, CallTree_RENAMED> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree_RENAMED>();
 	
 	public InlineOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> removedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
@@ -39,12 +39,12 @@ public class InlineOperationDetection {
 			if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
 				OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 				CallTreeNode root = new CallTreeNode(mapper.getOperation1(), removedOperation, removedOperationInvocation);
-				CallTree callTree = null;
+				CallTree_RENAMED callTree = null;
 				if(callTreeMap.containsKey(root)) {
 					callTree = callTreeMap.get(root);
 				}
 				else {
-					callTree = new CallTree(root);
+					callTree = new CallTree_RENAMED(root);
 					generateCallTree(removedOperation, root, callTree);
 					callTreeMap.put(root, callTree);
 				}
@@ -97,7 +97,7 @@ public class InlineOperationDetection {
 		return operationBodyMapper;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree_RENAMED callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation removedOperation : removedOperations) {
 			for(OperationInvocation invocation : invocations) {

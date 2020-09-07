@@ -6,10 +6,10 @@ import java.util.List;
 
 import gr.uom.java.xmi.UMLOperation;
 
-public class CallTree {
+public class CallTree_RENAMED {
 	private CallTreeNode root;
 	
-	public CallTree(CallTreeNode root) {
+	public CallTree_RENAMED(CallTreeNode root) {
 		this.root = root;
 	}
 	
