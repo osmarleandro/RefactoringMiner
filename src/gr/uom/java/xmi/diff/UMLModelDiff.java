@@ -1489,8 +1489,8 @@ public class UMLModelDiff {
    private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
 	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
 	  for(Refactoring ref : refactorings) {
-    	  if(ref instanceof ChangeVariableTypeRefactoring) {
-    		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
+    	  if(ref instanceof ChangeVariableTypeRefactoring_RENAMED) {
+    		  ChangeVariableTypeRefactoring_RENAMED refactoring = (ChangeVariableTypeRefactoring_RENAMED)ref;
     		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
@@ -1593,8 +1593,8 @@ public class UMLModelDiff {
 					   refactorings.add(newRename);
 				   }
 			   }
-			   else if(refactoring instanceof ChangeVariableTypeRefactoring) {
-				   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
+			   else if(refactoring instanceof ChangeVariableTypeRefactoring_RENAMED) {
+				   ChangeVariableTypeRefactoring_RENAMED changeType = (ChangeVariableTypeRefactoring_RENAMED)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
@@ -1612,7 +1612,7 @@ public class UMLModelDiff {
 					   }
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
-					   ChangeVariableTypeRefactoring newChangeType = new ChangeVariableTypeRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+					   ChangeVariableTypeRefactoring_RENAMED newChangeType = new ChangeVariableTypeRefactoring_RENAMED(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
 							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newChangeType);
 				   }

@@ -7,18 +7,18 @@ import java.util.Set;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
-import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring_RENAMED;
 
 public class TypeReplacementAnalysis {
 	private Set<AbstractCodeMapping> mappings;
-	private Set<ChangeVariableTypeRefactoring> changedTypes = new LinkedHashSet<ChangeVariableTypeRefactoring>();
+	private Set<ChangeVariableTypeRefactoring_RENAMED> changedTypes = new LinkedHashSet<ChangeVariableTypeRefactoring_RENAMED>();
 
 	public TypeReplacementAnalysis(Set<AbstractCodeMapping> mappings) {
 		this.mappings = mappings;
 		findTypeChanges();
 	}
 
-	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
+	public Set<ChangeVariableTypeRefactoring_RENAMED> getChangedTypes() {
 		return changedTypes;
 	}
 
@@ -35,7 +35,7 @@ public class TypeReplacementAnalysis {
 							if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
 									(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 									!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
-								ChangeVariableTypeRefactoring ref = new ChangeVariableTypeRefactoring(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
+								ChangeVariableTypeRefactoring_RENAMED ref = new ChangeVariableTypeRefactoring_RENAMED(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
 										VariableReferenceExtractor.findReferences(declaration1, declaration2, mappings));
 								changedTypes.add(ref);
 								break;
@@ -53,7 +53,7 @@ public class TypeReplacementAnalysis {
 						if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
 								(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 								!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
-							ChangeVariableTypeRefactoring ref = new ChangeVariableTypeRefactoring(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
+							ChangeVariableTypeRefactoring_RENAMED ref = new ChangeVariableTypeRefactoring_RENAMED(declaration1, declaration2, mapping.getOperation1(), mapping.getOperation2(),
 									VariableReferenceExtractor.findReferences(declaration1, declaration2, mappings));
 							changedTypes.add(ref);
 							break;

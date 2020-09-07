@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class ChangeVariableTypeRefactoring implements Refactoring {
+public class ChangeVariableTypeRefactoring_RENAMED implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration changedTypeVariable;
 	private UMLOperation operationBefore;
@@ -21,7 +21,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
-	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
+	public ChangeVariableTypeRefactoring_RENAMED(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.originalVariable = originalVariable;
 		this.changedTypeVariable = changedTypeVariable;
@@ -101,7 +101,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeVariableTypeRefactoring other = (ChangeVariableTypeRefactoring) obj;
+		ChangeVariableTypeRefactoring_RENAMED other = (ChangeVariableTypeRefactoring_RENAMED) obj;
 		if (changedTypeVariable == null) {
 			if (other.changedTypeVariable != null)
 				return false;

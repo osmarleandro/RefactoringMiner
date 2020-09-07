@@ -27,7 +27,7 @@ import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
-import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
+import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
@@ -120,7 +120,7 @@ public class VariableReplacementAnalysis {
 									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 										variableRenames.add(ref);
 										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
-											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
+											ChangeVariableTypeRefactoring_RENAMED refactoring = new ChangeVariableTypeRefactoring_RENAMED(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
 											refactoring.addRelatedRefactoring(ref);
 											refactorings.add(refactoring);
 										}
@@ -432,7 +432,7 @@ public class VariableReplacementAnalysis {
 				if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
 					variableRenames.add(ref);
 					if(!vdReplacement.getVariableDeclaration1().getType().equals(vdReplacement.getVariableDeclaration2().getType()) || !vdReplacement.getVariableDeclaration1().getType().equalsQualified(vdReplacement.getVariableDeclaration2().getType())) {
-						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
+						ChangeVariableTypeRefactoring_RENAMED refactoring = new ChangeVariableTypeRefactoring_RENAMED(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
 					}
@@ -473,7 +473,7 @@ public class VariableReplacementAnalysis {
 						v1.getKey().isVarargsParameter() == v2.getKey().isVarargsParameter()) {
 					variableRenames.add(ref);
 					if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
-						ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
+						ChangeVariableTypeRefactoring_RENAMED refactoring = new ChangeVariableTypeRefactoring_RENAMED(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), variableReferences);
 						refactoring.addRelatedRefactoring(ref);
 						refactorings.add(refactoring);
 					}
