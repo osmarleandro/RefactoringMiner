@@ -335,7 +335,7 @@ public class UMLModelASTReader {
     		insertNode(anonymous, root);
     	}
     	
-    	List<UMLAnonymousClass> createdAnonymousClasses = new ArrayList<UMLAnonymousClass>();
+    	List<UMLAnonymousClass_RENAMED> createdAnonymousClasses = new ArrayList<UMLAnonymousClass_RENAMED>();
     	Enumeration enumeration = root.preorderEnumeration();
     	while(enumeration.hasMoreElements()) {
     		DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumeration.nextElement();
@@ -343,14 +343,14 @@ public class UMLModelASTReader {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
     			String anonymousBinaryName = getAnonymousBinaryName(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
-    			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
+    			UMLAnonymousClass_RENAMED anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
     				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
     					operation.addAnonymousClass(anonymousClass);
     				}
     			}
-    			for(UMLAnonymousClass createdAnonymousClass : createdAnonymousClasses) {
+    			for(UMLAnonymousClass_RENAMED createdAnonymousClass : createdAnonymousClasses) {
     				for(UMLOperation operation : createdAnonymousClass.getOperations()) {
         				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
         					operation.addAnonymousClass(anonymousClass);
@@ -512,10 +512,10 @@ public class UMLModelASTReader {
 		return attributes;
 	}
 	
-	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
+	private UMLAnonymousClass_RENAMED processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
 		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
-		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
+		UMLAnonymousClass_RENAMED anonymousClass = new UMLAnonymousClass_RENAMED(packageName, binaryName, codePath, locationInfo);
 		
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {

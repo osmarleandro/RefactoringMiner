@@ -9,19 +9,19 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLAnonymousClass_RENAMED;
 import gr.uom.java.xmi.UMLClass;
 
 public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
-	private UMLAnonymousClass anonymousClass;
+	private UMLAnonymousClass_RENAMED anonymousClass;
 	private UMLClass addedClass;
 	
-	public ConvertAnonymousClassToTypeRefactoring(UMLAnonymousClass anonymousClass, UMLClass addedClass) {
+	public ConvertAnonymousClassToTypeRefactoring(UMLAnonymousClass_RENAMED anonymousClass, UMLClass addedClass) {
 		this.anonymousClass = anonymousClass;
 		this.addedClass = addedClass;
 	}
 
-	public UMLAnonymousClass getAnonymousClass() {
+	public UMLAnonymousClass_RENAMED getAnonymousClass() {
 		return anonymousClass;
 	}
 

@@ -14,7 +14,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLAnonymousClass_RENAMED;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
@@ -54,8 +54,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private UMLType newSuperclass;
 	private List<UMLType> addedImplementedInterfaces;
 	private List<UMLType> removedImplementedInterfaces;
-	private List<UMLAnonymousClass> addedAnonymousClasses;
-	private List<UMLAnonymousClass> removedAnonymousClasses;
+	private List<UMLAnonymousClass_RENAMED> addedAnonymousClasses;
+	private List<UMLAnonymousClass_RENAMED> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
@@ -81,8 +81,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.operationBodyMapperList = new ArrayList<UMLOperationBodyMapper>();
 		this.addedImplementedInterfaces = new ArrayList<UMLType>();
 		this.removedImplementedInterfaces = new ArrayList<UMLType>();
-		this.addedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
-		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
+		this.addedAnonymousClasses = new ArrayList<UMLAnonymousClass_RENAMED>();
+		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass_RENAMED>();
 		this.operationDiffList = new ArrayList<UMLOperationDiff>();
 		this.attributeDiffList = new ArrayList<UMLAttributeDiff>();
 		this.refactorings = new ArrayList<Refactoring>();
@@ -143,11 +143,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	protected void processAnonymousClasses() {
-		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
+		for(UMLAnonymousClass_RENAMED umlAnonymousClass : originalClass.getAnonymousClassList()) {
     		if(!nextClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
     			this.removedAnonymousClasses.add(umlAnonymousClass);
     	}
-    	for(UMLAnonymousClass umlAnonymousClass : nextClass.getAnonymousClassList()) {
+    	for(UMLAnonymousClass_RENAMED umlAnonymousClass : nextClass.getAnonymousClassList()) {
     		if(!originalClass.containsAnonymousWithSameAttributesAndOperations(umlAnonymousClass))
     			this.addedAnonymousClasses.add(umlAnonymousClass);
     	}
@@ -298,11 +298,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.removedImplementedInterfaces.add(implementedInterface);
 	}
 
-	public void reportAddedAnonymousClass(UMLAnonymousClass umlClass) {
+	public void reportAddedAnonymousClass(UMLAnonymousClass_RENAMED umlClass) {
 		this.addedAnonymousClasses.add(umlClass);
 	}
 
-	public void reportRemovedAnonymousClass(UMLAnonymousClass umlClass) {
+	public void reportRemovedAnonymousClass(UMLAnonymousClass_RENAMED umlClass) {
 		this.removedAnonymousClasses.add(umlClass);
 	}
 
@@ -364,11 +364,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return removedImplementedInterfaces;
 	}
 
-	public List<UMLAnonymousClass> getAddedAnonymousClasses() {
+	public List<UMLAnonymousClass_RENAMED> getAddedAnonymousClasses() {
 		return addedAnonymousClasses;
 	}
 
-	public List<UMLAnonymousClass> getRemovedAnonymousClasses() {
+	public List<UMLAnonymousClass_RENAMED> getRemovedAnonymousClasses() {
 		return removedAnonymousClasses;
 	}
 

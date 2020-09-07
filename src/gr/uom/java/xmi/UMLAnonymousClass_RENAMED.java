@@ -2,10 +2,10 @@ package gr.uom.java.xmi;
 
 import java.io.Serializable;
 
-public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
+public class UMLAnonymousClass_RENAMED extends UMLAbstractClass implements Comparable<UMLAnonymousClass_RENAMED>, Serializable, LocationInfoProvider {
 	private String codePath;
 	
-	public UMLAnonymousClass(String packageName, String name, String codePath, LocationInfo locationInfo) {
+	public UMLAnonymousClass_RENAMED(String packageName, String name, String codePath, LocationInfo locationInfo) {
     	super();
 		this.packageName = packageName;
         this.name = name;
@@ -36,8 +36,8 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     		return true;
     	}
     	
-    	if(o instanceof UMLAnonymousClass) {
-    		UMLAnonymousClass umlClass = (UMLAnonymousClass)o;
+    	if(o instanceof UMLAnonymousClass_RENAMED) {
+    		UMLAnonymousClass_RENAMED umlClass = (UMLAnonymousClass_RENAMED)o;
     		return this.packageName.equals(umlClass.packageName) && this.attributes.equals(umlClass.attributes) &&
     				this.operations.equals(umlClass.operations) && this.getSourceFile().equals(umlClass.getSourceFile());
     	}
@@ -48,7 +48,7 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     	return getName();
     }
 
-	public int compareTo(UMLAnonymousClass umlClass) {
+	public int compareTo(UMLAnonymousClass_RENAMED umlClass) {
 		return this.toString().compareTo(umlClass.toString());
 	}
 

@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLAnonymousClass_RENAMED;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLClassMatcher;
@@ -1167,7 +1167,7 @@ public class UMLModelDiff {
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
+	      for(UMLAnonymousClass_RENAMED anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 	         for(UMLClass addedClass : addedClasses) {
 	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
 	                  addedClass.getOperations().containsAll(anonymousClass.getOperations())) {
@@ -1830,7 +1830,7 @@ public class UMLModelDiff {
             		  //add enclosing class fields + anonymous class fields
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
-            		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
+            		  for(UMLAnonymousClass_RENAMED anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
             			  if(anonymous.getName().equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
             				  break;
@@ -1841,7 +1841,7 @@ public class UMLModelDiff {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className);
             		  if(umlClassDiff == null) {
             			  for(UMLClassDiff classDiff : commonClassDiffList) {
-            				  for(UMLAnonymousClass anonymousClass : classDiff.getAddedAnonymousClasses()) {
+            				  for(UMLAnonymousClass_RENAMED anonymousClass : classDiff.getAddedAnonymousClasses()) {
             					  if(className.equals(anonymousClass.getCodePath())) {
             						  umlClassDiff = classDiff;
             						  attributes.addAll(anonymousClass.attributesOfType(addedOperation.getClassName()));

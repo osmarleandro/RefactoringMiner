@@ -33,7 +33,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isStatic;
 	private boolean emptyBody;
 	private OperationBody operationBody;
-	private List<UMLAnonymousClass> anonymousClassList;
+	private List<UMLAnonymousClass_RENAMED> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
@@ -42,7 +42,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.locationInfo = locationInfo;
         this.name = name;
         this.parameters = new ArrayList<UMLParameter>();
-        this.anonymousClassList = new ArrayList<UMLAnonymousClass>();
+        this.anonymousClassList = new ArrayList<UMLAnonymousClass_RENAMED>();
         this.typeParameters = new ArrayList<UMLTypeParameter>();
         this.annotations = new ArrayList<UMLAnnotation>();
     }
@@ -218,11 +218,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return parameters;
 	}
 
-	public void addAnonymousClass(UMLAnonymousClass anonymous) {
+	public void addAnonymousClass(UMLAnonymousClass_RENAMED anonymous) {
 		this.anonymousClassList.add(anonymous);
 	}
 
-	public List<UMLAnonymousClass> getAnonymousClassList() {
+	public List<UMLAnonymousClass_RENAMED> getAnonymousClassList() {
 		return anonymousClassList;
 	}
 
@@ -746,12 +746,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
+	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass_RENAMED> allAddedAnonymousClasses) {
 		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
 		if(this.operationBody != null) {
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
-				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
+				for(UMLAnonymousClass_RENAMED anonymousClass : allAddedAnonymousClasses) {
 					if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
 						operationsInsideAnonymousClass.addAll(anonymousClass.getOperations());
 					}

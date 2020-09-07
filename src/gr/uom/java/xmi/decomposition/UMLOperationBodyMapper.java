@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
-import gr.uom.java.xmi.UMLAnonymousClass;
+import gr.uom.java.xmi.UMLAnonymousClass_RENAMED;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
@@ -305,8 +305,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(StatementObject statement : leaves2) {
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
-					for(UMLAnonymousClass anonymous : anonymousList) {
+					List<UMLAnonymousClass_RENAMED> anonymousList = operation2.getAnonymousClassList();
+					for(UMLAnonymousClass_RENAMED anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
 								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
@@ -444,8 +444,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				addedLeaves1.add(statement);
 			}
 			if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-				List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
-				for(UMLAnonymousClass anonymous : anonymousList) {
+				List<UMLAnonymousClass_RENAMED> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+				for(UMLAnonymousClass_RENAMED anonymous : anonymousList) {
 					if(statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 						for(UMLOperation anonymousOperation : anonymous.getOperations()) {
 							List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
@@ -2034,8 +2034,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							(invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null &&
 							(invocationCoveringTheEntireStatement1.identicalWithMergedArguments(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements()) ||
 							invocationCoveringTheEntireStatement1.identicalWithDifferentNumberOfArguments(invocationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)))) {
-						UMLAnonymousClass anonymousClass1 = findAnonymousClass(anonymousClassDeclaration1, operation1);
-						UMLAnonymousClass anonymousClass2 = findAnonymousClass(anonymousClassDeclaration2, operation2);
+						UMLAnonymousClass_RENAMED anonymousClass1 = findAnonymousClass(anonymousClassDeclaration1, operation1);
+						UMLAnonymousClass_RENAMED anonymousClass2 = findAnonymousClass(anonymousClassDeclaration2, operation2);
 						int matchedOperations = 0;
 						for(UMLOperation operation1 : anonymousClass1.getOperations()) {
 							for(UMLOperation operation2 : anonymousClass2.getOperations()) {
@@ -2654,8 +2654,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
-		for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+	private UMLAnonymousClass_RENAMED findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
+		for(UMLAnonymousClass_RENAMED anonymousClass : operation.getAnonymousClassList()) {
 			if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration1.getLocationInfo())) {
 				return anonymousClass;
 			}
@@ -2697,7 +2697,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			List<UMLOperation> anonymousOperations = new ArrayList<UMLOperation>();
 			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations()) {
-				for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+				for(UMLAnonymousClass_RENAMED anonymousClass : operation.getAnonymousClassList()) {
 					if(anonymousClass.getLocationInfo().equals(anonymousObject.getLocationInfo())) {
 						anonymousOperations.addAll(anonymousClass.getOperations());
 					}

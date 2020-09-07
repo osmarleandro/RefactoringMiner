@@ -21,7 +21,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	private boolean topLevel;
     private UMLType superclass;
     private List<UMLType> implementedInterfaces;
-    private List<UMLAnonymousClass> anonymousClassList;
+    private List<UMLAnonymousClass_RENAMED> anonymousClassList;
     private List<String> importedTypes;
     private List<UMLTypeParameter> typeParameters;
     private UMLJavadoc javadoc;
@@ -71,7 +71,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
         this.topLevel = topLevel;
         this.superclass = null;
         this.implementedInterfaces = new ArrayList<UMLType>();
-        this.anonymousClassList = new ArrayList<UMLAnonymousClass>();
+        this.anonymousClassList = new ArrayList<UMLAnonymousClass_RENAMED>();
         this.importedTypes = importedTypes;
         this.typeParameters = new ArrayList<UMLTypeParameter>();
         this.annotations = new ArrayList<UMLAnnotation>();
@@ -101,7 +101,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	annotations.add(annotation);
     }
 
-	public void addAnonymousClass(UMLAnonymousClass anonymousClass) {
+	public void addAnonymousClass(UMLAnonymousClass_RENAMED anonymousClass) {
     	anonymousClassList.add(anonymousClass);
     }
 
@@ -180,7 +180,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return importedTypes;
 	}
 
-	public List<UMLAnonymousClass> getAnonymousClassList() {
+	public List<UMLAnonymousClass_RENAMED> getAnonymousClassList() {
 		return anonymousClassList;
 	}
 
@@ -374,8 +374,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean containsAnonymousWithSameAttributesAndOperations(UMLAnonymousClass anonymous) {
-		for(UMLAnonymousClass thisAnonymous : anonymousClassList) {
+	public boolean containsAnonymousWithSameAttributesAndOperations(UMLAnonymousClass_RENAMED anonymous) {
+		for(UMLAnonymousClass_RENAMED thisAnonymous : anonymousClassList) {
 			if(thisAnonymous.hasSameAttributesAndOperations(anonymous))
 				return true;
 		}
