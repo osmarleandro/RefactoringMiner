@@ -69,8 +69,8 @@ public class OperationBody {
 		return invocations;
 	}
 
-	public List<LambdaExpressionObject> getAllLambdas() {
-		return new ArrayList<LambdaExpressionObject>(compositeStatement.getAllLambdas());
+	public List<LambdaExpressionObject_RENAMED> getAllLambdas() {
+		return new ArrayList<LambdaExpressionObject_RENAMED>(compositeStatement.getAllLambdas());
 	}
 
 	public List<String> getAllVariables() {

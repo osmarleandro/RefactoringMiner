@@ -160,7 +160,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private UMLOperationBodyMapper(LambdaExpressionObject lambda1, LambdaExpressionObject lambda2, UMLOperationBodyMapper parentMapper) throws RefactoringMinerTimedOutException {
+	private UMLOperationBodyMapper(LambdaExpressionObject_RENAMED lambda1, LambdaExpressionObject_RENAMED lambda2, UMLOperationBodyMapper parentMapper) throws RefactoringMinerTimedOutException {
 		this.classDiff = parentMapper.classDiff;
 		if(classDiff != null)
 			this.modelDiff = classDiff.getModelDiff();
@@ -328,7 +328,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				if(!statement.getLambdas().isEmpty()) {
-					for(LambdaExpressionObject lambda : statement.getLambdas()) {
+					for(LambdaExpressionObject_RENAMED lambda : statement.getLambdas()) {
 						if(lambda.getBody() != null) {
 							List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
 							for(StatementObject lambdaLeaf : lambdaLeaves) {
@@ -469,7 +469,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			if(!statement.getLambdas().isEmpty()) {
-				for(LambdaExpressionObject lambda : statement.getLambdas()) {
+				for(LambdaExpressionObject_RENAMED lambda : statement.getLambdas()) {
 					if(lambda.getBody() != null) {
 						List<StatementObject> lambdaLeaves = lambda.getBody().getCompositeStatement().getLeaves();
 						for(StatementObject lambdaLeaf : lambdaLeaves) {
@@ -2067,14 +2067,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		List<LambdaExpressionObject> lambdas1 = statement1.getLambdas();
-		List<LambdaExpressionObject> lambdas2 = statement2.getLambdas();
+		List<LambdaExpressionObject_RENAMED> lambdas1 = statement1.getLambdas();
+		List<LambdaExpressionObject_RENAMED> lambdas2 = statement2.getLambdas();
 		List<UMLOperationBodyMapper> lambdaMappers = new ArrayList<UMLOperationBodyMapper>();
 		if(!lambdas1.isEmpty() && !lambdas2.isEmpty()) {
 			for(int i=0; i<lambdas1.size(); i++) {
 				for(int j=0; j<lambdas2.size(); j++) {
-					LambdaExpressionObject lambda1 = lambdas1.get(i);
-					LambdaExpressionObject lambda2 = lambdas2.get(j);
+					LambdaExpressionObject_RENAMED lambda1 = lambdas1.get(i);
+					LambdaExpressionObject_RENAMED lambda2 = lambdas2.get(j);
 					UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(lambda1, lambda2, this);
 					int mappings = mapper.mappingsWithoutBlocks();
 					if(mappings > 0) {
@@ -2669,7 +2669,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return statement.getString().substring(0, index);
 		}
 		else {
-			for(LambdaExpressionObject lambda : statement.getLambdas()) {
+			for(LambdaExpressionObject_RENAMED lambda : statement.getLambdas()) {
 				OperationBody body = lambda.getBody();
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();

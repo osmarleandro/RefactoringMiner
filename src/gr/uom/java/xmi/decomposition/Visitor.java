@@ -76,7 +76,7 @@ public class Visitor extends ASTVisitor {
 	private List<String> postfixExpressions = new ArrayList<String>();
 	private List<String> arguments = new ArrayList<String>();
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
-	private List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
+	private List<LambdaExpressionObject_RENAMED> lambdas = new ArrayList<LambdaExpressionObject_RENAMED>();
 	private Set<ASTNode> builderPatternChains = new LinkedHashSet<ASTNode>();
 	private DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 	private DefaultMutableTreeNode current = root;
@@ -779,7 +779,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(LambdaExpression node) {
-		LambdaExpressionObject lambda = new LambdaExpressionObject(cu, filePath, node);
+		LambdaExpressionObject_RENAMED lambda = new LambdaExpressionObject_RENAMED(cu, filePath, node);
 		lambdas.add(lambda);
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -856,7 +856,7 @@ public class Visitor extends ASTVisitor {
 		return variables;
 	}
 
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject_RENAMED> getLambdas() {
 		return lambdas;
 	}
 

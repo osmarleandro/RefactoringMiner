@@ -261,8 +261,8 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<LambdaExpressionObject> getLambdas() {
-		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
+	public List<LambdaExpressionObject_RENAMED> getLambdas() {
+		List<LambdaExpressionObject_RENAMED> lambdas = new ArrayList<LambdaExpressionObject_RENAMED>();
 		for(AbstractExpression expression : expressionList) {
 			lambdas.addAll(expression.getLambdas());
 		}
@@ -319,7 +319,7 @@ public class CompositeStatementObject extends AbstractStatement {
 						map.put(key, list);
 					}
 				}
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(LambdaExpressionObject_RENAMED lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
 						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
 						for(String key : lambdaMap.keySet()) {
@@ -355,8 +355,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		return anonymousClassDeclarations;
 	}
 
-	public List<LambdaExpressionObject> getAllLambdas() {
-		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
+	public List<LambdaExpressionObject_RENAMED> getAllLambdas() {
+		List<LambdaExpressionObject_RENAMED> lambdas = new ArrayList<LambdaExpressionObject_RENAMED>();
 		lambdas.addAll(getLambdas());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
@@ -398,7 +398,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(LambdaExpressionObject_RENAMED lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
 						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
 					}

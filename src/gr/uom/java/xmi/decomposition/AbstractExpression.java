@@ -32,7 +32,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> postfixExpressions;
 	private List<String> arguments;
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
-	private List<LambdaExpressionObject> lambdas;
+	private List<LambdaExpressionObject_RENAMED> lambdas;
     
     public AbstractExpression(CompilationUnit cu, String filePath, Expression expression, CodeElementType codeElementType) {
     	this.locationInfo = new LocationInfo(cu, filePath, expression, codeElementType);
@@ -171,7 +171,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<LambdaExpressionObject> getLambdas() {
+	public List<LambdaExpressionObject_RENAMED> getLambdas() {
 		return lambdas;
 	}
 

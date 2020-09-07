@@ -10,12 +10,12 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
-public class LambdaExpressionObject implements LocationInfoProvider {
+public class LambdaExpressionObject_RENAMED implements LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;
 	
-	public LambdaExpressionObject(CompilationUnit cu, String filePath, LambdaExpression lambda) {
+	public LambdaExpressionObject_RENAMED(CompilationUnit cu, String filePath, LambdaExpression lambda) {
 		this.locationInfo = new LocationInfo(cu, filePath, lambda, CodeElementType.LAMBDA_EXPRESSION);
 		if(lambda.getBody() instanceof Block) {
 			this.body = new OperationBody(cu, filePath, (Block)lambda.getBody());
