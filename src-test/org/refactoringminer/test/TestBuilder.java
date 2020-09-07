@@ -19,7 +19,7 @@ import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
-import org.refactoringminer.util.GitServiceImpl;
+import org.refactoringminer.util.GitServiceImpl_RENAMED;
 
 public class TestBuilder {
 
@@ -105,7 +105,7 @@ public class TestBuilder {
 		cMap = new HashMap<RefactoringType, Counter>();
 		commitsCount = 0;
 		errorCommitsCount = 0;
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 
 		for (ProjectMatcher m : map.values()) {
 			String folder = tempDir + "/"

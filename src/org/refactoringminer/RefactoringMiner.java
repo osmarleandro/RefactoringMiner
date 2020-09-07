@@ -8,7 +8,7 @@ import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
-import org.refactoringminer.util.GitServiceImpl;
+import org.refactoringminer.util.GitServiceImpl_RENAMED;
 
 public class RefactoringMiner {
 
@@ -50,7 +50,7 @@ public class RefactoringMiner {
 		if (args.length == 3) {
 			branch = args[2];
 		}
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
@@ -91,7 +91,7 @@ public class RefactoringMiner {
 		String folder = args[1];
 		String startCommit = args[2];
 		String endCommit = (args.length == 4) ? args[3] : null;
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
@@ -132,7 +132,7 @@ public class RefactoringMiner {
 		String folder = args[1];
 		String startTag = args[2];
 		String endTag = (args.length == 4) ? args[3] : null;
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
@@ -172,7 +172,7 @@ public class RefactoringMiner {
 		}
 		String folder = args[1];
 		String commitId = args[2];
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();

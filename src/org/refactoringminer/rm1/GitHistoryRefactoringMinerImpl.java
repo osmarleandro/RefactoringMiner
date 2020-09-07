@@ -59,7 +59,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.util.GitServiceImpl;
+import org.refactoringminer.util.GitServiceImpl_RENAMED;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -314,7 +314,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	
 	@Override
 	public void detectAll(Repository repository, String branch, final RefactoringHandler handler) throws Exception {
-		GitService gitService = new GitServiceImpl() {
+		GitService gitService = new GitServiceImpl_RENAMED() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
 				return handler.skipCommit(sha1);
@@ -330,7 +330,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void fetchAndDetectNew(Repository repository, final RefactoringHandler handler) throws Exception {
-		GitService gitService = new GitServiceImpl() {
+		GitService gitService = new GitServiceImpl_RENAMED() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
 				return handler.skipCommit(sha1);
@@ -357,7 +357,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		String cloneURL = repository.getConfig().getString("remote", "origin", "url");
 		File metadataFolder = repository.getDirectory();
 		File projectFolder = metadataFolder.getParentFile();
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		RevWalk walk = new RevWalk(repository);
 		try {
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
@@ -407,7 +407,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	@Override
 	public void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
 			throws Exception {
-		GitService gitService = new GitServiceImpl() {
+		GitService gitService = new GitServiceImpl_RENAMED() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
 				return handler.skipCommit(sha1);
@@ -421,7 +421,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	@Override
 	public void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId,
 			RefactoringHandler handler) throws Exception {
-		GitService gitService = new GitServiceImpl() {
+		GitService gitService = new GitServiceImpl_RENAMED() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
 				return handler.skipCommit(sha1);
@@ -434,7 +434,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
-		GitService gitService = new GitServiceImpl();
+		GitService gitService = new GitServiceImpl_RENAMED();
 		RevWalk walk = new RevWalk(repository);
 		try {
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));

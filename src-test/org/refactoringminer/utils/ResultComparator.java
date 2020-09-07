@@ -18,7 +18,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.util.GitServiceImpl;
+import org.refactoringminer.util.GitServiceImpl_RENAMED;
 
 public class ResultComparator {
 
@@ -326,7 +326,7 @@ public class ResultComparator {
     }
 
     public static RefactoringSet collectRmResult(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
-        GitService git = new GitServiceImpl();
+        GitService git = new GitServiceImpl_RENAMED();
         String tempDir = "tmp";
         String resultCacheDir = "tmpResult";
         String projectName = cloneUrl.substring(cloneUrl.lastIndexOf('/') + 1, cloneUrl.lastIndexOf('.'));

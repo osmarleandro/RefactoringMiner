@@ -37,10 +37,10 @@ import org.refactoringminer.api.GitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitServiceImpl implements GitService {
+public class GitServiceImpl_RENAMED implements GitService {
 
 	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
-	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
+	Logger logger = LoggerFactory.getLogger(GitServiceImpl_RENAMED.class);
 
 	DefaultCommitsFilter commitsFilter = new DefaultCommitsFilter();
 	
