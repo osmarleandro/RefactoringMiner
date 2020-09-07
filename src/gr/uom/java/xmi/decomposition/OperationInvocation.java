@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
-import org.refactoringminer.util.PrefixSuffixUtils;
+import org.refactoringminer.util.PrefixSuffixUtils_RENAMED;
 
 public class OperationInvocation extends AbstractCall {
 	private String methodName;
@@ -332,7 +332,7 @@ public class OperationInvocation extends AbstractCall {
 			String modified = subExpression1;
 			String previousCommonPrefix = "";
 			String commonPrefix = null;
-			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression2)).length() > previousCommonPrefix.length()) {
+			while((commonPrefix = PrefixSuffixUtils_RENAMED.longestCommonPrefix(modified, subExpression2)).length() > previousCommonPrefix.length()) {
 				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
 				if(modified.equals(subExpression2)) {
 					return true;
@@ -344,7 +344,7 @@ public class OperationInvocation extends AbstractCall {
 			String modified = subExpression2;
 			String previousCommonPrefix = "";
 			String commonPrefix = null;
-			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression1)).length() > previousCommonPrefix.length()) {
+			while((commonPrefix = PrefixSuffixUtils_RENAMED.longestCommonPrefix(modified, subExpression1)).length() > previousCommonPrefix.length()) {
 				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
 				if(modified.equals(subExpression1)) {
 					return true;

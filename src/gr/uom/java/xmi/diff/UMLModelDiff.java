@@ -39,7 +39,7 @@ import java.util.TreeSet;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.util.PrefixSuffixUtils;
+import org.refactoringminer.util.PrefixSuffixUtils_RENAMED;
 
 public class UMLModelDiff {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
@@ -658,7 +658,7 @@ public class UMLModelDiff {
 		   List<MoveAttributeRefactoring> sourceFilePathGroup = groupBySourceFilePath.get(sourceFilePath);
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> groupByLongestCommonSourceFilePath = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
 		   for(MoveAttributeRefactoring ref : sourceFilePathGroup) {
-			   String longestCommonFilePathPrefix = PrefixSuffixUtils.longestCommonPrefix(ref.getOriginalAttribute().getLocationInfo().getFilePath(),
+			   String longestCommonFilePathPrefix = PrefixSuffixUtils_RENAMED.longestCommonPrefix(ref.getOriginalAttribute().getLocationInfo().getFilePath(),
 					   ref.getMovedAttribute().getLocationInfo().getFilePath());
 			   int length = longestCommonFilePathPrefix.length();
 			   if(groupByLongestCommonSourceFilePath.containsKey(length)) {
@@ -1683,9 +1683,9 @@ public class UMLModelDiff {
 	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
-				before.add(PrefixSuffixUtils.normalize(mergedVariable));
+				before.add(PrefixSuffixUtils_RENAMED.normalize(mergedVariable));
 			}
-			String after = PrefixSuffixUtils.normalize(candidate.getNewVariable());
+			String after = PrefixSuffixUtils_RENAMED.normalize(candidate.getNewVariable());
 			MergeVariableReplacement merge = new MergeVariableReplacement(before, after);
 			if(mergeMap.containsKey(merge)) {
 				mergeMap.get(merge).add(candidate);
@@ -1700,8 +1700,8 @@ public class UMLModelDiff {
 
    private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
 	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
-		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+		 String before = PrefixSuffixUtils_RENAMED.normalize(candidate.getOriginalVariableName());
+		 String after = PrefixSuffixUtils_RENAMED.normalize(candidate.getRenamedVariableName());
 		 if(before.contains(".") && after.contains(".")) {
 				String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
 				String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);

@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-import org.refactoringminer.util.PrefixSuffixUtils;
+import org.refactoringminer.util.PrefixSuffixUtils_RENAMED;
 
 import gr.uom.java.xmi.UMLClass;
 
@@ -36,7 +36,7 @@ public class MovedClassToAnotherSourceFolder {
 	}
 
 	public RenamePattern getRenamePattern() {
-		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('/', originalPath, movedPath);
+		int separatorPos = PrefixSuffixUtils_RENAMED.separatorPosOfCommonSuffix('/', originalPath, movedPath);
 		if (separatorPos == -1) {
 			return new RenamePattern(originalPath, movedPath);
 		}

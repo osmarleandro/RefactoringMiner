@@ -10,7 +10,7 @@ import java.util.Set;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
-import org.refactoringminer.util.PrefixSuffixUtils;
+import org.refactoringminer.util.PrefixSuffixUtils_RENAMED;
 
 public class MoveClassRefactoring implements Refactoring {
 	private UMLClass originalClass;
@@ -31,7 +31,7 @@ public class MoveClassRefactoring implements Refactoring {
 	}
 
 	public RenamePattern getRenamePattern() {
-		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
+		int separatorPos = PrefixSuffixUtils_RENAMED.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
 		if (separatorPos == -1) {
 			return new RenamePattern(originalClass.getName(), movedClass.getName());
 		}

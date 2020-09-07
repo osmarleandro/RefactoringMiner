@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.util.PrefixSuffixUtils;
+import org.refactoringminer.util.PrefixSuffixUtils_RENAMED;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
@@ -387,7 +387,7 @@ public abstract class AbstractCodeMapping {
 		if(initializer.toString().equals(output)) {
 			return true;
 		}
-		String longestCommonSuffix = PrefixSuffixUtils.longestCommonSuffix(initializer.toString(), input);
+		String longestCommonSuffix = PrefixSuffixUtils_RENAMED.longestCommonSuffix(initializer.toString(), input);
 		if(!longestCommonSuffix.isEmpty() && longestCommonSuffix.startsWith(".")) {
 			String prefix1 = initializer.toString().substring(0, initializer.toString().indexOf(longestCommonSuffix));
 			String prefix2 = input.substring(0, input.indexOf(longestCommonSuffix));
@@ -396,7 +396,7 @@ public abstract class AbstractCodeMapping {
 				return true;
 			}
 		}
-		String longestCommonPrefix = PrefixSuffixUtils.longestCommonPrefix(initializer.toString(), input);
+		String longestCommonPrefix = PrefixSuffixUtils_RENAMED.longestCommonPrefix(initializer.toString(), input);
 		if(!longestCommonSuffix.isEmpty() && !longestCommonPrefix.isEmpty() &&
 				!longestCommonPrefix.equals(initializer.toString()) && !longestCommonPrefix.equals(input) &&
 				!longestCommonSuffix.equals(initializer.toString()) && !longestCommonSuffix.equals(input) &&
