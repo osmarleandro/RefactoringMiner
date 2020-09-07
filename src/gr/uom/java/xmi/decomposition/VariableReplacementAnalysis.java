@@ -25,7 +25,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
-import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
+import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
@@ -55,7 +55,7 @@ public class VariableReplacementAnalysis {
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
 	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
-	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+	private Set<CandidateMergeVariableRefactoring_RENAMED> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring_RENAMED>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 
 	public VariableReplacementAnalysis(UMLOperationBodyMapper mapper, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
@@ -150,7 +150,7 @@ public class VariableReplacementAnalysis {
 		return candidateAttributeRenames;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring_RENAMED> getCandidateAttributeMerges() {
 		return candidateAttributeMerges;
 	}
 
@@ -414,7 +414,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			else {
-				CandidateMergeVariableRefactoring candidate = new CandidateMergeVariableRefactoring(merge.getMergedVariables(), merge.getAfter(), operation1, operation2, mergeMap.get(merge));
+				CandidateMergeVariableRefactoring_RENAMED candidate = new CandidateMergeVariableRefactoring_RENAMED(merge.getMergedVariables(), merge.getAfter(), operation1, operation2, mergeMap.get(merge));
 				candidateAttributeMerges.add(candidate);
 			}
 		}

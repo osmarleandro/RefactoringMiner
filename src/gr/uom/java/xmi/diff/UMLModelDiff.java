@@ -1284,7 +1284,7 @@ public class UMLModelDiff {
       refactorings.addAll(getRenameClassRefactorings());
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
       Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
-      Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
+      Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
@@ -1343,7 +1343,7 @@ public class UMLModelDiff {
     			  }
     		  }
     		  UMLAttribute a2 = diff.findAttributeInNextClass(merge.getAfter());
-    		  Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
+    		  Set<CandidateMergeVariableRefactoring_RENAMED> set = mergeMap.get(merge);
     		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
     			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
@@ -1679,8 +1679,8 @@ public class UMLModelDiff {
 	   return mappers;
    }
 
-   private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
-	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
+   private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>> mergeMap) {
+	   for(CandidateMergeVariableRefactoring_RENAMED candidate : classDiff.getCandidateAttributeMerges()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
@@ -1691,7 +1691,7 @@ public class UMLModelDiff {
 				mergeMap.get(merge).add(candidate);
 			}
 			else {
-				Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+				Set<CandidateMergeVariableRefactoring_RENAMED> set = new LinkedHashSet<CandidateMergeVariableRefactoring_RENAMED>();
 				set.add(candidate);
 				mergeMap.put(merge, set);
 			}

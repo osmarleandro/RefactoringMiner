@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class CandidateMergeVariableRefactoring {
+public class CandidateMergeVariableRefactoring_RENAMED {
 	private Set<String> mergedVariables;
 	private String newVariable;
 	private UMLOperation operationBefore;
@@ -15,7 +15,7 @@ public class CandidateMergeVariableRefactoring {
 	private Set<UMLAttribute> mergedAttributes;
 	private UMLAttribute newAttribute;
 
-	public CandidateMergeVariableRefactoring(Set<String> mergedVariables, String newVariable,
+	public CandidateMergeVariableRefactoring_RENAMED(Set<String> mergedVariables, String newVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
@@ -91,7 +91,7 @@ public class CandidateMergeVariableRefactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CandidateMergeVariableRefactoring other = (CandidateMergeVariableRefactoring) obj;
+		CandidateMergeVariableRefactoring_RENAMED other = (CandidateMergeVariableRefactoring_RENAMED) obj;
 		if (mergedVariables == null) {
 			if (other.mergedVariables != null)
 				return false;

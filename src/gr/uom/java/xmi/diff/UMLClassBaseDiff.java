@@ -61,10 +61,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
-	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+	private Set<CandidateMergeVariableRefactoring_RENAMED> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring_RENAMED>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
-	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
+	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>>();
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
@@ -376,7 +376,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return candidateAttributeRenames;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
+	public Set<CandidateMergeVariableRefactoring_RENAMED> getCandidateAttributeMerges() {
 		return candidateAttributeMerges;
 	}
 
@@ -483,8 +483,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 			UMLAttribute a2 = findAttributeInNextClass(merge.getAfter());
-			Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
-			for(CandidateMergeVariableRefactoring candidate : set) {
+			Set<CandidateMergeVariableRefactoring_RENAMED> set = mergeMap.get(merge);
+			for(CandidateMergeVariableRefactoring_RENAMED candidate : set) {
 				if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
 					MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), set);
 					if(!refactorings.contains(ref)) {
@@ -627,7 +627,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		for(CandidateMergeVariableRefactoring candidate : mapper.getCandidateAttributeMerges()) {
+		for(CandidateMergeVariableRefactoring_RENAMED candidate : mapper.getCandidateAttributeMerges()) {
 			Set<String> before = new LinkedHashSet<String>();
 			for(String mergedVariable : candidate.getMergedVariables()) {
 				before.add(PrefixSuffixUtils.normalize(mergedVariable));
@@ -739,7 +739,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							UMLAttribute a2 = findAttributeInNextClass(renamedAttributeName);
 							if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring>());
+								MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), getOriginalClassName(), getNextClassName(), new LinkedHashSet<CandidateMergeVariableRefactoring_RENAMED>());
 								if(!refactorings.contains(ref)) {
 									newRefactorings.add(ref);
 								}
@@ -822,8 +822,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap,
-			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring candidate) {
+	private void processMerge(Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring_RENAMED>> mergeMap,
+			MergeVariableReplacement newMerge, CandidateMergeVariableRefactoring_RENAMED candidate) {
 		MergeVariableReplacement mergeToBeRemoved = null;
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
 			if(merge.subsumes(newMerge)) {
@@ -840,14 +840,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				mergedVariables.addAll(merge.getMergedVariables());
 				mergedVariables.addAll(newMerge.getMergedVariables());
 				MergeVariableReplacement replacement = new MergeVariableReplacement(mergedVariables, merge.getAfter());
-				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
+				Set<CandidateMergeVariableRefactoring_RENAMED> candidates = mergeMap.get(mergeToBeRemoved);
 				candidates.add(candidate);
 				mergeMap.put(replacement, candidates);
 				break;
 			}
 			else if(newMerge.subsumes(merge)) {
 				mergeToBeRemoved = merge;
-				Set<CandidateMergeVariableRefactoring> candidates = mergeMap.get(mergeToBeRemoved);
+				Set<CandidateMergeVariableRefactoring_RENAMED> candidates = mergeMap.get(mergeToBeRemoved);
 				candidates.add(candidate);
 				mergeMap.put(newMerge, candidates);
 				break;
@@ -857,7 +857,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			mergeMap.remove(mergeToBeRemoved);
 			return;
 		}
-		Set<CandidateMergeVariableRefactoring> set = new LinkedHashSet<CandidateMergeVariableRefactoring>();
+		Set<CandidateMergeVariableRefactoring_RENAMED> set = new LinkedHashSet<CandidateMergeVariableRefactoring_RENAMED>();
 		set.add(candidate);
 		mergeMap.put(newMerge, set);
 	}
