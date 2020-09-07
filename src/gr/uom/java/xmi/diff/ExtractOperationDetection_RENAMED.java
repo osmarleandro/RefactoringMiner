@@ -20,7 +20,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
-public class ExtractOperationDetection {
+public class ExtractOperationDetection_RENAMED {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> addedOperations;
 	private UMLClassBaseDiff classDiff;
@@ -28,7 +28,7 @@ public class ExtractOperationDetection {
 	private List<OperationInvocation> operationInvocations;
 	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
 
-	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
+	public ExtractOperationDetection_RENAMED(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
 		this.addedOperations = addedOperations;
 		this.classDiff = classDiff;
