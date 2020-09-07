@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition;
 
 import java.util.Comparator;
 
-public class UMLOperationBodyMapperComparator implements Comparator<UMLOperationBodyMapper> {
+public class UMLOperationBodyMapperComparator_RENAMED implements Comparator<UMLOperationBodyMapper> {
 
 	@Override
 	public int compare(UMLOperationBodyMapper o1, UMLOperationBodyMapper o2) {

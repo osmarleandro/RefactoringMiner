@@ -17,7 +17,7 @@ import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.UMLOperationBodyMapperComparator;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapperComparator_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
@@ -2092,7 +2092,7 @@ public class UMLModelDiff {
 	         }
 	         if(!operationBodyMapperMap.isEmpty()) {
 	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
-	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
+	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator_RENAMED());
 	            addedOperationIterator.remove();
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
 	            if(sameSourceAndTargetClass) {
@@ -2101,7 +2101,7 @@ public class UMLModelDiff {
 	            		set = new TreeSet<UMLOperationBodyMapper>();
 	            	}
 	            	else {
-	            		set = new TreeSet<UMLOperationBodyMapper>(new UMLOperationBodyMapperComparator());
+	            		set = new TreeSet<UMLOperationBodyMapper>(new UMLOperationBodyMapperComparator_RENAMED());
 	            	}
 	            	set.addAll(firstMappers);
 	            	UMLOperationBodyMapper bestMapper = set.first();
@@ -2177,7 +2177,7 @@ public class UMLModelDiff {
 	         }
 	         if(!operationBodyMapperMap.isEmpty()) {
 	            List<UMLOperationBodyMapper> firstMappers = firstMappers(operationBodyMapperMap);
-	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator());
+	            Collections.sort(firstMappers, new UMLOperationBodyMapperComparator_RENAMED());
 	            removedOperationIterator.remove();
 	            boolean sameSourceAndTargetClass = sameSourceAndTargetClass(firstMappers);
 	            if(sameSourceAndTargetClass) {
@@ -2186,7 +2186,7 @@ public class UMLModelDiff {
 	            		set = new TreeSet<UMLOperationBodyMapper>();
 	            	}
 	            	else {
-	            		set = new TreeSet<UMLOperationBodyMapper>(new UMLOperationBodyMapperComparator());
+	            		set = new TreeSet<UMLOperationBodyMapper>(new UMLOperationBodyMapperComparator_RENAMED());
 	            	}
 	            	set.addAll(firstMappers);
 	            	UMLOperationBodyMapper bestMapper = set.first();
