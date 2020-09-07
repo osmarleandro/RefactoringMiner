@@ -75,7 +75,7 @@ public class Visitor extends ASTVisitor {
 	private List<String> prefixExpressions = new ArrayList<String>();
 	private List<String> postfixExpressions = new ArrayList<String>();
 	private List<String> arguments = new ArrayList<String>();
-	private List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
+	private List<TernaryOperatorExpression_RENAMED> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression_RENAMED>();
 	private List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 	private Set<ASTNode> builderPatternChains = new LinkedHashSet<ASTNode>();
 	private DefaultMutableTreeNode root = new DefaultMutableTreeNode();
@@ -114,7 +114,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(ConditionalExpression node) {
-		TernaryOperatorExpression ternary = new TernaryOperatorExpression(cu, filePath, node);
+		TernaryOperatorExpression_RENAMED ternary = new TernaryOperatorExpression_RENAMED(cu, filePath, node);
 		ternaryOperatorExpressions.add(ternary);
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -848,7 +848,7 @@ public class Visitor extends ASTVisitor {
 		return this.arguments;
 	}
 
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+	public List<TernaryOperatorExpression_RENAMED> getTernaryOperatorExpressions() {
 		return ternaryOperatorExpressions;
 	}
 

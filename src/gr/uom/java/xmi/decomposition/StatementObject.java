@@ -39,7 +39,7 @@ public class StatementObject extends AbstractStatement {
 	private List<String> prefixExpressions;
 	private List<String> postfixExpressions;
 	private List<String> arguments;
-	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
+	private List<TernaryOperatorExpression_RENAMED> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
 	
 	public StatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
@@ -229,7 +229,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
+	public List<TernaryOperatorExpression_RENAMED> getTernaryOperatorExpressions() {
 		return ternaryOperatorExpressions;
 	}
 
