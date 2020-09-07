@@ -2,9 +2,9 @@ package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLClass;
 
-public class UMLClassMoveDiff extends UMLClassBaseDiff {
+public class UMLClassMoveDiff_RENAMED extends UMLClassBaseDiff {
 	
-	public UMLClassMoveDiff(UMLClass originalClass, UMLClass movedClass, UMLModelDiff modelDiff) {
+	public UMLClassMoveDiff_RENAMED(UMLClass originalClass, UMLClass movedClass, UMLModelDiff modelDiff) {
 		super(originalClass, movedClass, modelDiff);
 	}
 
@@ -27,8 +27,8 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
     		return true;
     	}
 		
-		if(o instanceof UMLClassMoveDiff) {
-			UMLClassMoveDiff classMoveDiff = (UMLClassMoveDiff)o;
+		if(o instanceof UMLClassMoveDiff_RENAMED) {
+			UMLClassMoveDiff_RENAMED classMoveDiff = (UMLClassMoveDiff_RENAMED)o;
 			return this.originalClass.equals(classMoveDiff.originalClass) && this.nextClass.equals(classMoveDiff.nextClass);
 		}
 		return false;
