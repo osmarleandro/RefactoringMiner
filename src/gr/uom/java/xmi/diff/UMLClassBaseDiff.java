@@ -565,7 +565,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				else if(candidate.getOriginalVariableDeclaration() != null) {
 					if(a2 != null) {
-						RenameVariableRefactoring ref = new RenameVariableRefactoring(
+						RenameVariableRefactoring_RENAMED ref = new RenameVariableRefactoring_RENAMED(
 								candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(),
 								candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 						if(!refactorings.contains(ref)) {
@@ -1573,8 +1573,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(mapper.getChildMappers().size() > 1) {
 			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
 			for(Refactoring r : refactorings) {
-				if(r instanceof RenameVariableRefactoring) {
-					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
+				if(r instanceof RenameVariableRefactoring_RENAMED) {
+					RenameVariableRefactoring_RENAMED rename = (RenameVariableRefactoring_RENAMED)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
 					for(AbstractCodeMapping reference : references) {
 						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {

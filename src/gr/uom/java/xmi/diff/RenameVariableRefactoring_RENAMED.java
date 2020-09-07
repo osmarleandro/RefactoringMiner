@@ -13,14 +13,14 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class RenameVariableRefactoring implements Refactoring {
+public class RenameVariableRefactoring_RENAMED implements Refactoring {
 	private VariableDeclaration originalVariable;
 	private VariableDeclaration renamedVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
-	public RenameVariableRefactoring(
+	public RenameVariableRefactoring_RENAMED(
 			VariableDeclaration originalVariable,
 			VariableDeclaration renamedVariable,
 			UMLOperation operationBefore,
@@ -98,7 +98,7 @@ public class RenameVariableRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RenameVariableRefactoring other = (RenameVariableRefactoring) obj;
+		RenameVariableRefactoring_RENAMED other = (RenameVariableRefactoring_RENAMED) obj;
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;

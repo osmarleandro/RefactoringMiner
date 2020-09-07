@@ -1408,7 +1408,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring_RENAMED ref = new RenameVariableRefactoring_RENAMED(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1445,7 +1445,7 @@ public class UMLModelDiff {
 							 }
 						 }
 						 else {
-							 RenameVariableRefactoring ref = new RenameVariableRefactoring(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
+							 RenameVariableRefactoring_RENAMED ref = new RenameVariableRefactoring_RENAMED(candidate.getOriginalVariableDeclaration(), a2.getVariableDeclaration(), candidate.getOperationBefore(), candidate.getOperationAfter(), candidate.getAttributeReferences());
 							 if(!refactorings.contains(ref)) {
 								 refactorings.add(ref);
 								 break;//it's not necessary to repeat the same process for all candidates in the set
@@ -1569,8 +1569,8 @@ public class UMLModelDiff {
    private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
 	   for(UMLOperationBodyMapper mapper : mappers) {
 		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
-			   if(refactoring instanceof RenameVariableRefactoring) {
-				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
+			   if(refactoring instanceof RenameVariableRefactoring_RENAMED) {
+				   RenameVariableRefactoring_RENAMED rename = (RenameVariableRefactoring_RENAMED)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
@@ -1588,7 +1588,7 @@ public class UMLModelDiff {
 					   }
 				   }
 				   if(matchingRemovedParameter != null && matchingAddedParameter != null) {
-					   RenameVariableRefactoring newRename = new RenameVariableRefactoring(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
+					   RenameVariableRefactoring_RENAMED newRename = new RenameVariableRefactoring_RENAMED(matchingRemovedParameter.getVariableDeclaration(), matchingAddedParameter.getVariableDeclaration(),
 							   operationSignatureDiff.getRemovedOperation(), operationSignatureDiff.getAddedOperation(), new LinkedHashSet<AbstractCodeMapping>());
 					   refactorings.add(newRename);
 				   }
