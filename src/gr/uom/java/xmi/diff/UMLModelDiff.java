@@ -1270,7 +1270,7 @@ public class UMLModelDiff {
       for(UMLClassRenameDiff classRenameDiff : classRenameDiffList) {
     	  Refactoring refactoring = null;
     	  if(classRenameDiff.samePackage())
-    		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
+    		  refactoring = new RenameClassRefactoring_RENAMED(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
     	  else
     		  refactoring = new MoveAndRenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
          refactorings.add(refactoring);
@@ -1319,7 +1319,7 @@ public class UMLModelDiff {
     			  classRenameDiffList.add(renameDiff);
     			  Refactoring refactoring = null;
     			  if(renameDiff.samePackage())
-    	    		  refactoring = new RenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
+    	    		  refactoring = new RenameClassRefactoring_RENAMED(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
     	    	  else
     	    		  refactoring = new MoveAndRenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
     			  refactorings.add(refactoring);
