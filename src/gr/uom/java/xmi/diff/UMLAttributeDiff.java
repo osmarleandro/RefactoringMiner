@@ -110,7 +110,7 @@ public class UMLAttributeDiff {
 			refactorings.add(refactoring);
 		}
 		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
+			RemoveAttributeAnnotationRefactoring_RENAMED refactoring = new RemoveAttributeAnnotationRefactoring_RENAMED(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {

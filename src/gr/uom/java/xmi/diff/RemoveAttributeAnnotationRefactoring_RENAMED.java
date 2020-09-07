@@ -12,12 +12,12 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
-public class RemoveAttributeAnnotationRefactoring implements Refactoring {
+public class RemoveAttributeAnnotationRefactoring_RENAMED implements Refactoring {
 	private UMLAnnotation annotation;
 	private UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
 
-	public RemoveAttributeAnnotationRefactoring(UMLAnnotation annotation, UMLAttribute attributeBefore,
+	public RemoveAttributeAnnotationRefactoring_RENAMED(UMLAnnotation annotation, UMLAttribute attributeBefore,
 			UMLAttribute attributeAfter) {
 		this.annotation = annotation;
 		this.attributeBefore = attributeBefore;
@@ -110,7 +110,7 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RemoveAttributeAnnotationRefactoring other = (RemoveAttributeAnnotationRefactoring) obj;
+		RemoveAttributeAnnotationRefactoring_RENAMED other = (RemoveAttributeAnnotationRefactoring_RENAMED) obj;
 		if (annotation == null) {
 			if (other.annotation != null)
 				return false;
