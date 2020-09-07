@@ -89,7 +89,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String expression1AfterReplacements = new String(expression1);
 			for(Replacement replacement : replacements) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					expression1AfterReplacements = ReplacementUtil.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
+					expression1AfterReplacements = ReplacementUtil_RENAMED.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
 				}
 			}
 			if(expression1AfterReplacements.equals(expression2)) {
@@ -427,7 +427,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		newCall.arguments = new ArrayList<String>();
 		for(String argument : this.arguments) {
 			newCall.arguments.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
+				ReplacementUtil_RENAMED.performReplacement(argument, oldExpression, newExpression));
 		}
 	}
 
