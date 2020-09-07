@@ -23,9 +23,9 @@ import org.refactoringminer.util.GitServiceImpl;
 public class ResultComparator {
 
     Set<String> groupIds = new LinkedHashSet<>();
-    Map<String, RefactoringSet> expectedMap = new LinkedHashMap<>();
-    Map<String, RefactoringSet> notExpectedMap = new LinkedHashMap<>();
-    Map<String, RefactoringSet> resultMap = new HashMap<>();
+    Map<String, RefactoringSet_RENAMED> expectedMap = new LinkedHashMap<>();
+    Map<String, RefactoringSet_RENAMED> notExpectedMap = new LinkedHashMap<>();
+    Map<String, RefactoringSet_RENAMED> resultMap = new HashMap<>();
 
     private boolean groupRefactorings;
     private boolean ignoreMethodParams;
@@ -43,22 +43,22 @@ public class ResultComparator {
         this(false, false);
     }
 
-    public ResultComparator expect(RefactoringSet ... sets) {
-        for (RefactoringSet set : sets) {
+    public ResultComparator expect(RefactoringSet_RENAMED ... sets) {
+        for (RefactoringSet_RENAMED set : sets) {
             expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator dontExpect(RefactoringSet ... sets) {
-        for (RefactoringSet set : sets) {
+    public ResultComparator dontExpect(RefactoringSet_RENAMED ... sets) {
+        for (RefactoringSet_RENAMED set : sets) {
             notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
-        for (RefactoringSet actual : actualArray) {
+    public ResultComparator compareWith(String groupId, RefactoringSet_RENAMED ... actualArray) {
+        for (RefactoringSet_RENAMED actual : actualArray) {
             groupIds.add(groupId);
             resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
         }
@@ -93,8 +93,8 @@ public class ResultComparator {
 
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         
-        for (RefactoringSet expected : expectedMap.values()) {
-            RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+        for (RefactoringSet_RENAMED expected : expectedMap.values()) {
+            RefactoringSet_RENAMED actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
             if (actual != null) {
                 Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
                 Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -147,7 +147,7 @@ public class ResultComparator {
         String[] labels = {"TN", "FP", "FN", "TP"};
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         boolean headerPrinted = false;
-        for (RefactoringSet expected : expectedMap.values()) {
+        for (RefactoringSet_RENAMED expected : expectedMap.values()) {
             Set<RefactoringRelationship> all = new HashSet<>();
             Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
             Set<RefactoringRelationship> expectedUnfiltered = expected.getRefactorings();
@@ -157,7 +157,7 @@ public class ResultComparator {
             for (String groupId : groupIds) {
                 header.append('\t');
                 header.append(groupId);
-                RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+                RefactoringSet_RENAMED actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
                 if (actual != null) {
                     all.addAll(actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings()); //
                 }
@@ -174,7 +174,7 @@ public class ResultComparator {
                 for (RefactoringRelationship r : allList) {
                     out.print(r.toString());
                     for (String groupId : groupIds) {
-                        RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+                        RefactoringSet_RENAMED actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
                         out.print('\t');
                         if (actual != null) {
                             Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -325,14 +325,14 @@ public class ResultComparator {
         }
     }
 
-    public static RefactoringSet collectRmResult(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
+    public static RefactoringSet_RENAMED collectRmResult(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
         GitService git = new GitServiceImpl();
         String tempDir = "tmp";
         String resultCacheDir = "tmpResult";
         String projectName = cloneUrl.substring(cloneUrl.lastIndexOf('/') + 1, cloneUrl.lastIndexOf('.'));
         File cachedResult = new File(resultCacheDir + "/" + rm.getConfigId() + "-" + projectName + "-" + commitId);
         if (cachedResult.exists()) {
-            RefactoringSet rs = new RefactoringSet(cloneUrl, commitId);
+            RefactoringSet_RENAMED rs = new RefactoringSet_RENAMED(cloneUrl, commitId);
             rs.readFromFile(cachedResult);
             return rs;
         } else {
@@ -343,14 +343,14 @@ public class ResultComparator {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            RefactoringSet rs = rc.assertAndGetResult();
+            RefactoringSet_RENAMED rs = rc.assertAndGetResult();
             rs.saveToFile(cachedResult);
             return rs;
         }
     }
 
-    public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
-        RefactoringSet[] result = new RefactoringSet[oracle.length];
+    public static RefactoringSet_RENAMED[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet_RENAMED[] oracle) {
+        RefactoringSet_RENAMED[] result = new RefactoringSet_RENAMED[oracle.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = collectRmResult(rm, oracle[i].getProject(), oracle[i].getRevision());
         }

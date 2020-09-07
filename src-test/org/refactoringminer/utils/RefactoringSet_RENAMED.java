@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
-public class RefactoringSet {
+public class RefactoringSet_RENAMED {
 
     private final String project;
     private final String revision;
     private final Set<RefactoringRelationship> refactorings;
     private final Map<RefactoringRelationship.GroupKey, Set<RefactoringRelationship>> refactoringGroups;
 
-    public RefactoringSet(String project, String revision) {
+    public RefactoringSet_RENAMED(String project, String revision) {
         super();
         this.project = project;
         this.revision = revision;
@@ -47,11 +47,11 @@ public class RefactoringSet {
         return refactoringGroups.keySet();
     }
 
-    public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
+    public RefactoringSet_RENAMED add(RefactoringType type, String entityBefore, String entityAfter) {
         return add(new RefactoringRelationship(type, entityBefore, entityAfter));
     }
 
-    public RefactoringSet add(RefactoringRelationship r) {
+    public RefactoringSet_RENAMED add(RefactoringRelationship r) {
         this.refactorings.add(r);
         GroupKey groupKey = r.getGroupKey();
         Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
@@ -63,25 +63,25 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
+    public RefactoringSet_RENAMED add(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
             this.add(r);
         }
         return this;
     }
 
-    public RefactoringSet ignoring(EnumSet<RefactoringType> refTypes) {
-        RefactoringSet newSet = new RefactoringSet(project, revision);
+    public RefactoringSet_RENAMED ignoring(EnumSet<RefactoringType> refTypes) {
+        RefactoringSet_RENAMED newSet = new RefactoringSet_RENAMED(project, revision);
         newSet.add(refactorings.stream()
             .filter(r -> !refTypes.contains(r.getRefactoringType()))
             .collect(Collectors.toList()));
         return newSet;
     }
-    public RefactoringSet ignoringMethodParameters(boolean active) {
+    public RefactoringSet_RENAMED ignoringMethodParameters(boolean active) {
         if (!active) {
             return this;
         }
-        RefactoringSet newSet = new RefactoringSet(project, revision);
+        RefactoringSet_RENAMED newSet = new RefactoringSet_RENAMED(project, revision);
         newSet.add(refactorings.stream()
             .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
             .collect(Collectors.toList()));

@@ -16,9 +16,9 @@ public class RefFinderResultReader {
 
     private static Map<String, Function<List<String>, RefactoringRelationship>> mappers = initMappings();
     
-    public static RefactoringSet read(String project, String revision, String folderPath) {
+    public static RefactoringSet_RENAMED read(String project, String revision, String folderPath) {
         try {
-            RefactoringSet result = new RefactoringSet(project, revision);
+            RefactoringSet_RENAMED result = new RefactoringSet_RENAMED(project, revision);
             for (RefactoringRelationship r : readFolder(folderPath)) {
                 result.add(r);
             }
