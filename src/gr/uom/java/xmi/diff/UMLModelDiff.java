@@ -1272,7 +1272,7 @@ public class UMLModelDiff {
     	  if(classRenameDiff.samePackage())
     		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
     	  else
-    		  refactoring = new MoveAndRenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
+    		  refactoring = new MoveAndRenameClassRefactoring_RENAMED(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
          refactorings.add(refactoring);
       }
       return refactorings;
@@ -1321,7 +1321,7 @@ public class UMLModelDiff {
     			  if(renameDiff.samePackage())
     	    		  refactoring = new RenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
     	    	  else
-    	    		  refactoring = new MoveAndRenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
+    	    		  refactoring = new MoveAndRenameClassRefactoring_RENAMED(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
     			  refactorings.add(refactoring);
     		  }
     	  }
