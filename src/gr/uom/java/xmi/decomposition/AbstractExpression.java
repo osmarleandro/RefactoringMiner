@@ -17,7 +17,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private CompositeStatementObject owner;
 	private List<String> variables;
 	private List<String> types;
-	private List<VariableDeclaration> variableDeclarations;
+	private List<VariableDeclaration_RENAMED> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
@@ -96,7 +96,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration_RENAMED> getVariableDeclarations() {
 		return variableDeclarations;
 	}
 
@@ -179,8 +179,8 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return locationInfo;
 	}
 
-	public VariableDeclaration searchVariableDeclaration(String variableName) {
-		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
+	public VariableDeclaration_RENAMED searchVariableDeclaration(String variableName) {
+		VariableDeclaration_RENAMED variableDeclaration = this.getVariableDeclaration(variableName);
 		if(variableDeclaration != null) {
 			return variableDeclaration;
 		}
@@ -190,9 +190,9 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return null;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
+	public VariableDeclaration_RENAMED getVariableDeclaration(String variableName) {
+		List<VariableDeclaration_RENAMED> variableDeclarations = getVariableDeclarations();
+		for(VariableDeclaration_RENAMED declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
 			}

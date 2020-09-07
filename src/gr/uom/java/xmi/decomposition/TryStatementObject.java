@@ -34,8 +34,8 @@ public class TryStatementObject extends CompositeStatementObject {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
-		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+	public List<VariableDeclaration_RENAMED> getVariableDeclarations() {
+		List<VariableDeclaration_RENAMED> variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
 		variableDeclarations.addAll(super.getVariableDeclarations());
 		for(CompositeStatementObject catchClause : catchClauses) {
 			variableDeclarations.addAll(catchClause.getVariableDeclarations());

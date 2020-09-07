@@ -11,17 +11,17 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration changedTypeVariable;
+	private VariableDeclaration_RENAMED originalVariable;
+	private VariableDeclaration_RENAMED changedTypeVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<Refactoring> relatedRefactorings;
 
-	public ChangeVariableTypeRefactoring(VariableDeclaration originalVariable, VariableDeclaration changedTypeVariable,
+	public ChangeVariableTypeRefactoring(VariableDeclaration_RENAMED originalVariable, VariableDeclaration_RENAMED changedTypeVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.originalVariable = originalVariable;
 		this.changedTypeVariable = changedTypeVariable;
@@ -49,11 +49,11 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getOriginalVariable() {
+	public VariableDeclaration_RENAMED getOriginalVariable() {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getChangedTypeVariable() {
+	public VariableDeclaration_RENAMED getChangedTypeVariable() {
 		return changedTypeVariable;
 	}
 

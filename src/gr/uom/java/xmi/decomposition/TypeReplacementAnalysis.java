@@ -28,10 +28,10 @@ public class TypeReplacementAnalysis {
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
-					List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
-					List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
-					for(VariableDeclaration declaration1 : declarations1) {
-						for(VariableDeclaration declaration2 : declarations2) {
+					List<VariableDeclaration_RENAMED> declarations1 = fragment1.getVariableDeclarations();
+					List<VariableDeclaration_RENAMED> declarations2 = fragment2.getVariableDeclarations();
+					for(VariableDeclaration_RENAMED declaration1 : declarations1) {
+						for(VariableDeclaration_RENAMED declaration2 : declarations2) {
 							if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
 									(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 									!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
@@ -46,10 +46,10 @@ public class TypeReplacementAnalysis {
 			}
 			if(fragment1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) &&
 					fragment2.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-				List<VariableDeclaration> declarations1 = fragment1.getVariableDeclarations();
-				List<VariableDeclaration> declarations2 = fragment2.getVariableDeclarations();
-				for(VariableDeclaration declaration1 : declarations1) {
-					for(VariableDeclaration declaration2 : declarations2) {
+				List<VariableDeclaration_RENAMED> declarations1 = fragment1.getVariableDeclarations();
+				List<VariableDeclaration_RENAMED> declarations2 = fragment2.getVariableDeclarations();
+				for(VariableDeclaration_RENAMED declaration1 : declarations1) {
+					for(VariableDeclaration_RENAMED declaration2 : declarations2) {
 						if(declaration1.getVariableName().equals(declaration2.getVariableName()) &&
 								(!declaration1.getType().equals(declaration2.getType()) || !declaration1.getType().equalsQualified(declaration2.getType())) &&
 								!containsVariableDeclarationWithSameNameAndType(declaration1, declarations2)) {
@@ -64,8 +64,8 @@ public class TypeReplacementAnalysis {
 		}
 	}
 
-	private boolean containsVariableDeclarationWithSameNameAndType(VariableDeclaration declaration, List<VariableDeclaration> declarations) {
-		for(VariableDeclaration d : declarations) {
+	private boolean containsVariableDeclarationWithSameNameAndType(VariableDeclaration_RENAMED declaration, List<VariableDeclaration_RENAMED> declarations) {
+		for(VariableDeclaration_RENAMED d : declarations) {
 			if(d.getVariableName().equals(declaration.getVariableName()) && d.getType().equals(declaration.getType()) && d.getType().equalsQualified(declaration.getType())) {
 				return true;
 			}

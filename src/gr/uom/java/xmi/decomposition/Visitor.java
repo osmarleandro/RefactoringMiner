@@ -62,7 +62,7 @@ public class Visitor extends ASTVisitor {
 	private List<String> variables = new ArrayList<String>();
 	private List<String> types = new ArrayList<String>();
 	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
-	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+	private List<VariableDeclaration_RENAMED> variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 	private List<String> stringLiterals = new ArrayList<String>();
 	private List<String> numberLiterals = new ArrayList<String>();
@@ -197,7 +197,7 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(VariableDeclarationFragment node) {
 		if(!(node.getParent() instanceof LambdaExpression)) {
-			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
+			VariableDeclaration_RENAMED variableDeclaration = new VariableDeclaration_RENAMED(cu, filePath, node);
 			variableDeclarations.add(variableDeclaration);
 			if(current.getUserObject() != null) {
 				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -208,7 +208,7 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(SingleVariableDeclaration node) {
-		VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
+		VariableDeclaration_RENAMED variableDeclaration = new VariableDeclaration_RENAMED(cu, filePath, node);
 		variableDeclarations.add(variableDeclaration);
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -792,7 +792,7 @@ public class Visitor extends ASTVisitor {
 		return this.methodInvocationMap;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration_RENAMED> getVariableDeclarations() {
 		return variableDeclarations;
 	}
 

@@ -18,7 +18,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
-	private List<VariableDeclaration> variableDeclarations;
+	private List<VariableDeclaration_RENAMED> variableDeclarations;
 	private LocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
@@ -27,7 +27,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
 		this.statementList = new ArrayList<AbstractStatement>();
 		this.expressionList = new ArrayList<AbstractExpression>();
-		this.variableDeclarations = new ArrayList<VariableDeclaration>();
+		this.variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
 	}
 
 	public void addStatement(AbstractStatement statement) {
@@ -52,7 +52,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return expressionList;
 	}
 
-	public void addVariableDeclaration(VariableDeclaration declaration) {
+	public void addVariableDeclaration(VariableDeclaration_RENAMED declaration) {
 		this.variableDeclarations.add(declaration);
 	}
 
@@ -123,8 +123,8 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
-		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+	public List<VariableDeclaration_RENAMED> getVariableDeclarations() {
+		List<VariableDeclaration_RENAMED> variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
 		//special handling for enhanced-for formal parameter
 		variableDeclarations.addAll(this.variableDeclarations);
 		for(AbstractExpression expression : expressionList) {
@@ -387,8 +387,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		return variables;
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
-		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
+	public List<VariableDeclaration_RENAMED> getAllVariableDeclarations() {
+		List<VariableDeclaration_RENAMED> variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
 		variableDeclarations.addAll(getVariableDeclarations());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
@@ -408,9 +408,9 @@ public class CompositeStatementObject extends AbstractStatement {
 		return variableDeclarations;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
-		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations()) {
+	public List<VariableDeclaration_RENAMED> getVariableDeclarationsInScope(LocationInfo location) {
+		List<VariableDeclaration_RENAMED> variableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
+		for(VariableDeclaration_RENAMED variableDeclaration : getAllVariableDeclarations()) {
 			if(variableDeclaration.getScope().subsumes(location)) {
 				variableDeclarations.add(variableDeclaration);
 			}
@@ -433,9 +433,9 @@ public class CompositeStatementObject extends AbstractStatement {
 		return locationInfo;
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getAllVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
+	public VariableDeclaration_RENAMED getVariableDeclaration(String variableName) {
+		List<VariableDeclaration_RENAMED> variableDeclarations = getAllVariableDeclarations();
+		for(VariableDeclaration_RENAMED declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
 			}
@@ -490,7 +490,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
-				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
+				for(VariableDeclaration_RENAMED declaration : innerNode.getVariableDeclarations()) {
 					if(declaration.getVariableName().equals(currentElementName)) {
 						currentElementNameMatched = true;
 						break;
@@ -518,7 +518,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				boolean currentElementNameMatched = false;
 				for(StatementObject statement : innerNode.getLeaves()) {
-					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
+					VariableDeclaration_RENAMED variableDeclaration = statement.getVariableDeclaration(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;
 						break;

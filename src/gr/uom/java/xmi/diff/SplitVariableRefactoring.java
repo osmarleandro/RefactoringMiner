@@ -11,16 +11,16 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class SplitVariableRefactoring implements Refactoring {
-	private Set<VariableDeclaration> splitVariables;
-	private VariableDeclaration oldVariable;
+	private Set<VariableDeclaration_RENAMED> splitVariables;
+	private VariableDeclaration_RENAMED oldVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
-	public SplitVariableRefactoring(VariableDeclaration oldVariable, Set<VariableDeclaration> splitVariables,
+	public SplitVariableRefactoring(VariableDeclaration_RENAMED oldVariable, Set<VariableDeclaration_RENAMED> splitVariables,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.splitVariables = splitVariables;
 		this.oldVariable = oldVariable;
@@ -29,11 +29,11 @@ public class SplitVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<VariableDeclaration> getSplitVariables() {
+	public Set<VariableDeclaration_RENAMED> getSplitVariables() {
 		return splitVariables;
 	}
 
-	public VariableDeclaration getOldVariable() {
+	public VariableDeclaration_RENAMED getOldVariable() {
 		return oldVariable;
 	}
 
@@ -50,7 +50,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	private boolean allVariablesAreParameters() {
-		for(VariableDeclaration declaration : splitVariables) {
+		for(VariableDeclaration_RENAMED declaration : splitVariables) {
 			if(!declaration.isParameter()) {
 				return false;
 			}
@@ -151,7 +151,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(VariableDeclaration splitVariable : splitVariables) {
+		for(VariableDeclaration_RENAMED splitVariable : splitVariables) {
 			ranges.add(splitVariable.codeRange()
 					.setDescription("split variable declaration")
 					.setCodeElement(splitVariable.toString()));

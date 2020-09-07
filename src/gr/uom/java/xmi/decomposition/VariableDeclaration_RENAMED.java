@@ -22,7 +22,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
+public class VariableDeclaration_RENAMED implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
@@ -33,7 +33,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private VariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
-	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
+	public VariableDeclaration_RENAMED(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
 		this.annotations = new ArrayList<UMLAnnotation>();
 		List<IExtendedModifier> extendedModifiers = null;
 		if(fragment.getParent() instanceof VariableDeclarationStatement) {
@@ -74,7 +74,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.scope = new VariableScope(cu, filePath, startOffset, endOffset);
 	}
 
-	public VariableDeclaration(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment) {
+	public VariableDeclaration_RENAMED(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment) {
 		this.annotations = new ArrayList<UMLAnnotation>();
 		List<IExtendedModifier> extendedModifiers = fragment.modifiers();
 		for(IExtendedModifier extendedModifier : extendedModifiers) {
@@ -94,7 +94,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.scope = new VariableScope(cu, filePath, startOffset, endOffset);
 	}
 
-	public VariableDeclaration(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment, boolean varargs) {
+	public VariableDeclaration_RENAMED(CompilationUnit cu, String filePath, SingleVariableDeclaration fragment, boolean varargs) {
 		this(cu, filePath, fragment);
 		this.varargsParameter = varargs;
 	}
@@ -156,7 +156,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VariableDeclaration other = (VariableDeclaration) obj;
+		VariableDeclaration_RENAMED other = (VariableDeclaration_RENAMED) obj;
 		if (scope == null) {
 			if (other.scope != null)
 				return false;
@@ -249,11 +249,11 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return returnedVariableType;
 	}
 
-	public boolean equalVariableDeclarationType(VariableDeclaration other) {
+	public boolean equalVariableDeclarationType(VariableDeclaration_RENAMED other) {
 		return this.locationInfo.getCodeElementType().equals(other.locationInfo.getCodeElementType());
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration_RENAMED getVariableDeclaration() {
 		return this;
 	}
 }

@@ -39,7 +39,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract String getString();
 	public abstract List<String> getVariables();
 	public abstract List<String> getTypes();
-	public abstract List<VariableDeclaration> getVariableDeclarations();
+	public abstract List<VariableDeclaration_RENAMED> getVariableDeclarations();
 	public abstract Map<String, List<OperationInvocation>> getMethodInvocationMap();
 	public abstract List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations();
 	public abstract List<String> getStringLiterals();
@@ -55,8 +55,8 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract List<String> getArguments();
 	public abstract List<TernaryOperatorExpression> getTernaryOperatorExpressions();
 	public abstract List<LambdaExpressionObject> getLambdas();
-	public abstract VariableDeclaration searchVariableDeclaration(String variableName);
-	public abstract VariableDeclaration getVariableDeclaration(String variableName);
+	public abstract VariableDeclaration_RENAMED searchVariableDeclaration(String variableName);
+	public abstract VariableDeclaration_RENAMED getVariableDeclaration(String variableName);
 	
 	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
 		String afterReplacements = getString();
@@ -246,7 +246,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration_RENAMED> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
 			if(expressions.contains(initializer)) {
@@ -257,7 +257,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	}
 
 	private boolean expressionIsTheInitializerOfVariableDeclaration(String expression) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
+		List<VariableDeclaration_RENAMED> variableDeclarations = getVariableDeclarations();
 		if(variableDeclarations.size() == 1 && variableDeclarations.get(0).getInitializer() != null) {
 			String initializer = variableDeclarations.get(0).getInitializer().toString();
 			if(initializer.equals(expression))

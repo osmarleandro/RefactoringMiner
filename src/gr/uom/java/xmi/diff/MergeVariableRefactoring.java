@@ -11,16 +11,16 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class MergeVariableRefactoring implements Refactoring {
-	private Set<VariableDeclaration> mergedVariables;
-	private VariableDeclaration newVariable;
+	private Set<VariableDeclaration_RENAMED> mergedVariables;
+	private VariableDeclaration_RENAMED newVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	
-	public MergeVariableRefactoring(Set<VariableDeclaration> mergedVariables, VariableDeclaration newVariable,
+	public MergeVariableRefactoring(Set<VariableDeclaration_RENAMED> mergedVariables, VariableDeclaration_RENAMED newVariable,
 			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
@@ -29,11 +29,11 @@ public class MergeVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<VariableDeclaration> getMergedVariables() {
+	public Set<VariableDeclaration_RENAMED> getMergedVariables() {
 		return mergedVariables;
 	}
 
-	public VariableDeclaration getNewVariable() {
+	public VariableDeclaration_RENAMED getNewVariable() {
 		return newVariable;
 	}
 
@@ -50,7 +50,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	private boolean allVariablesAreParameters() {
-		for(VariableDeclaration declaration : mergedVariables) {
+		for(VariableDeclaration_RENAMED declaration : mergedVariables) {
 			if(!declaration.isParameter()) {
 				return false;
 			}
@@ -138,7 +138,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(VariableDeclaration mergedVariable : mergedVariables) {
+		for(VariableDeclaration_RENAMED mergedVariable : mergedVariables) {
 			ranges.add(mergedVariable.codeRange()
 					.setDescription("merged variable declaration")
 					.setCodeElement(mergedVariable.toString()));

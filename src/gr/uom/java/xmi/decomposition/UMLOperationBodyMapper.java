@@ -530,8 +530,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(!parameterToArgumentMap.isEmpty()) {
 				//check for temporary variables that the argument might be assigned to
 				for(StatementObject leave2 : leaves2) {
-					List<VariableDeclaration> variableDeclarations = leave2.getVariableDeclarations();
-					for(VariableDeclaration variableDeclaration : variableDeclarations) {
+					List<VariableDeclaration_RENAMED> variableDeclarations = leave2.getVariableDeclarations();
+					for(VariableDeclaration_RENAMED variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
 							String argument = parameterToArgumentMap.get(parameter);
 							if(variableDeclaration.getInitializer() != null && argument.equals(variableDeclaration.getInitializer().toString())) {
@@ -1579,10 +1579,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private Set<Replacement> findReplacementsWithExactMatching(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
 			Map<String, String> parameterToArgumentMap, ReplacementInfo replacementInfo) throws RefactoringMinerTimedOutException {
-		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations());
-		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations());
-		VariableDeclaration variableDeclarationWithArrayInitializer1 = declarationWithArrayInitializer(variableDeclarations1);
-		VariableDeclaration variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
+		List<VariableDeclaration_RENAMED> variableDeclarations1 = new ArrayList<VariableDeclaration_RENAMED>(statement1.getVariableDeclarations());
+		List<VariableDeclaration_RENAMED> variableDeclarations2 = new ArrayList<VariableDeclaration_RENAMED>(statement2.getVariableDeclarations());
+		VariableDeclaration_RENAMED variableDeclarationWithArrayInitializer1 = declarationWithArrayInitializer(variableDeclarations1);
+		VariableDeclaration_RENAMED variableDeclarationWithArrayInitializer2 = declarationWithArrayInitializer(variableDeclarations2);
 		OperationInvocation invocationCoveringTheEntireStatement1 = statement1.invocationCoveringEntireFragment();
 		OperationInvocation invocationCoveringTheEntireStatement2 = statement2.invocationCoveringEntireFragment();
 		Set<String> variables1 = new LinkedHashSet<String>(statement1.getVariables());
@@ -1837,8 +1837,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 									replacement = new Replacement(suffix1, suffix2, ReplacementType.VARIABLE_NAME);
 								}
 							}
-							VariableDeclaration v1 = statement1.searchVariableDeclaration(s1);
-							VariableDeclaration v2 = statement2.searchVariableDeclaration(s2);
+							VariableDeclaration_RENAMED v1 = statement1.searchVariableDeclaration(s1);
+							VariableDeclaration_RENAMED v2 = statement2.searchVariableDeclaration(s2);
 							if(inconsistentVariableMappingCount(statement1, statement2, v1, v2) > 1 && operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
 								replacement = null;
 							}
@@ -2110,7 +2110,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						boolean expressionMatched = false;
 						Set<AbstractCodeFragment> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment>();
 						for(AbstractCodeFragment codeFragment : replacementInfo.statements2) {
-							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
+							VariableDeclaration_RENAMED variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
 							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
 							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
 								Replacement r = new Replacement(invocation1.getExpression(), variableDeclaration.getVariableName(), ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION);
@@ -2412,8 +2412,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		//check if array creation is replaced with data structure creation
 		if(creationCoveringTheEntireStatement1 != null && creationCoveringTheEntireStatement2 != null &&
 				variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
-			VariableDeclaration v1 = variableDeclarations1.get(0);
-			VariableDeclaration v2 = variableDeclarations2.get(0);
+			VariableDeclaration_RENAMED v1 = variableDeclarations1.get(0);
+			VariableDeclaration_RENAMED v2 = variableDeclarations2.get(0);
 			String initializer1 = v1.getInitializer() != null ? v1.getInitializer().getString() : null;
 			String initializer2 = v2.getInitializer() != null ? v2.getInitializer().getString() : null;
 			if(v1.getType().getArrayDimension() == 1 && v2.getType().containsTypeArgument(v1.getType().getClassType()) &&
@@ -2609,8 +2609,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
-		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations();
-		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations();
+		List<VariableDeclaration_RENAMED> variableDeclarations1 = statement1.getVariableDeclarations();
+		List<VariableDeclaration_RENAMED> variableDeclarations2 = statement2.getVariableDeclarations();
 		if(variableDeclarations1.size() == variableDeclarations2.size()) {
 			return true;
 		}
@@ -2945,8 +2945,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean variableDeclarationsWithEverythingReplaced(List<VariableDeclaration> variableDeclarations1,
-			List<VariableDeclaration> variableDeclarations2, ReplacementInfo replacementInfo) {
+	private boolean variableDeclarationsWithEverythingReplaced(List<VariableDeclaration_RENAMED> variableDeclarations1,
+			List<VariableDeclaration_RENAMED> variableDeclarations2, ReplacementInfo replacementInfo) {
 		if(variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
 			UMLType type1 = variableDeclarations1.get(0).getType();
@@ -3008,8 +3008,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
-		for(VariableDeclaration declaration : declarations) {
+	private VariableDeclaration_RENAMED declarationWithArrayInitializer(List<VariableDeclaration_RENAMED> declarations) {
+		for(VariableDeclaration_RENAMED declaration : declarations) {
 			AbstractExpression initializer = declaration.getInitializer();
 			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
 				return declaration;
@@ -3247,8 +3247,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 				}
-				List<VariableDeclaration> matchingVariableDeclarations = new ArrayList<VariableDeclaration>();
-				for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
+				List<VariableDeclaration_RENAMED> matchingVariableDeclarations = new ArrayList<VariableDeclaration_RENAMED>();
+				for(VariableDeclaration_RENAMED declaration : operation2.getAllVariableDeclarations()) {
 					if(diff2.contains(declaration.getVariableName())) {
 						matchingVariableDeclarations.add(declaration);
 					}
@@ -3277,7 +3277,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						splitVariables.add(matchingReplacement.getAfter());
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
+						for(VariableDeclaration_RENAMED declaration : matchingVariableDeclarations) {
 							splitVariables.add(declaration.getVariableName());
 							concat.append(declaration.getVariableName());
 							if(counter < matchingVariableDeclarations.size()-1) {
@@ -3296,7 +3296,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> addedVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
+						for(VariableDeclaration_RENAMED declaration : matchingVariableDeclarations) {
 							addedVariables.add(declaration.getVariableName());
 							concat.append(declaration.getVariableName());
 							if(counter < matchingVariableDeclarations.size()-1) {
@@ -3314,7 +3314,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> splitVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(VariableDeclaration declaration : matchingVariableDeclarations) {
+						for(VariableDeclaration_RENAMED declaration : matchingVariableDeclarations) {
 							splitVariables.add(declaration.getVariableName());
 							concat.append(declaration.getVariableName());
 							if(counter < matchingVariableDeclarations.size()-1) {
@@ -4021,12 +4021,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
+	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration_RENAMED v1, VariableDeclaration_RENAMED v2) {
 		int count = 0;
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {
-				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
-				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
+				List<VariableDeclaration_RENAMED> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
+				List<VariableDeclaration_RENAMED> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
 				if(variableDeclarations1.contains(v1) &&
 						variableDeclarations2.size() > 0 &&
 						!variableDeclarations2.contains(v2)) {

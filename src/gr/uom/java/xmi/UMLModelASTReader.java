@@ -49,7 +49,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.OperationBody;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class UMLModelASTReader {
 	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
@@ -465,7 +465,7 @@ public class UMLModelASTReader {
 			String parameterName = parameter.getName().getFullyQualifiedName();
 			UMLType type = UMLType.extractTypeObject(cu, sourceFile, parameterType, parameter.getExtraDimensions());
 			UMLParameter umlParameter = new UMLParameter(parameterName, type, "in", parameter.isVarargs());
-			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, parameter, parameter.isVarargs());
+			VariableDeclaration_RENAMED variableDeclaration = new VariableDeclaration_RENAMED(cu, sourceFile, parameter, parameter.isVarargs());
 			variableDeclaration.setParameter(true);
 			umlParameter.setVariableDeclaration(variableDeclaration);
 			umlOperation.addParameter(umlParameter);
@@ -484,7 +484,7 @@ public class UMLModelASTReader {
 			String fieldName = fragment.getName().getFullyQualifiedName();
 			LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
 			UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
-			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
+			VariableDeclaration_RENAMED variableDeclaration = new VariableDeclaration_RENAMED(cu, sourceFile, fragment);
 			variableDeclaration.setAttribute(true);
 			umlAttribute.setVariableDeclaration(variableDeclaration);
 			umlAttribute.setJavadoc(javadoc);

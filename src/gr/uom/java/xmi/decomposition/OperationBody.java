@@ -77,15 +77,15 @@ public class OperationBody {
 		return new ArrayList<String>(compositeStatement.getAllVariables());
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
-		return new ArrayList<VariableDeclaration>(compositeStatement.getAllVariableDeclarations());
+	public List<VariableDeclaration_RENAMED> getAllVariableDeclarations() {
+		return new ArrayList<VariableDeclaration_RENAMED>(compositeStatement.getAllVariableDeclarations());
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
-		return new ArrayList<VariableDeclaration>(compositeStatement.getVariableDeclarationsInScope(location));
+	public List<VariableDeclaration_RENAMED> getVariableDeclarationsInScope(LocationInfo location) {
+		return new ArrayList<VariableDeclaration_RENAMED>(compositeStatement.getVariableDeclarationsInScope(location));
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public VariableDeclaration_RENAMED getVariableDeclaration(String variableName) {
 		return compositeStatement.getVariableDeclaration(variableName);
 	}
 
@@ -136,7 +136,7 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, enhancedForStatement, parent.getDepth()+1, CodeElementType.ENHANCED_FOR_STATEMENT);
 			parent.addStatement(child);
 			SingleVariableDeclaration variableDeclaration = enhancedForStatement.getParameter();
-			VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
+			VariableDeclaration_RENAMED vd = new VariableDeclaration_RENAMED(cu, filePath, variableDeclaration);
 			child.addVariableDeclaration(vd);
 			AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.ENHANCED_FOR_STATEMENT_PARAMETER_NAME);
 			child.addExpression(variableDeclarationName);
@@ -234,7 +234,7 @@ public class OperationBody {
 				child.addCatchClause(catchClauseStatementObject);
 				parent.addStatement(catchClauseStatementObject);
 				SingleVariableDeclaration variableDeclaration = catchClause.getException();
-				VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
+				VariableDeclaration_RENAMED vd = new VariableDeclaration_RENAMED(cu, filePath, variableDeclaration);
 				catchClauseStatementObject.addVariableDeclaration(vd);
 				AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.CATCH_CLAUSE_EXCEPTION_NAME);
 				catchClauseStatementObject.addExpression(variableDeclarationName);

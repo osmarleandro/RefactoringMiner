@@ -11,18 +11,18 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class RenameVariableRefactoring implements Refactoring {
-	private VariableDeclaration originalVariable;
-	private VariableDeclaration renamedVariable;
+	private VariableDeclaration_RENAMED originalVariable;
+	private VariableDeclaration_RENAMED renamedVariable;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 
 	public RenameVariableRefactoring(
-			VariableDeclaration originalVariable,
-			VariableDeclaration renamedVariable,
+			VariableDeclaration_RENAMED originalVariable,
+			VariableDeclaration_RENAMED renamedVariable,
 			UMLOperation operationBefore,
 			UMLOperation operationAfter,
 			Set<AbstractCodeMapping> variableReferences) {
@@ -47,11 +47,11 @@ public class RenameVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getOriginalVariable() {
+	public VariableDeclaration_RENAMED getOriginalVariable() {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getRenamedVariable() {
+	public VariableDeclaration_RENAMED getRenamedVariable() {
 		return renamedVariable;
 	}
 

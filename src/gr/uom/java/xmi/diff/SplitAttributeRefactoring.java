@@ -9,16 +9,16 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class SplitAttributeRefactoring implements Refactoring {
-	private VariableDeclaration oldAttribute;
-	private Set<VariableDeclaration> splitAttributes;
+	private VariableDeclaration_RENAMED oldAttribute;
+	private Set<VariableDeclaration_RENAMED> splitAttributes;
 	private Set<CandidateSplitVariableRefactoring> attributeSplits;
 	private String classNameBefore;
 	private String classNameAfter;
 
-	public SplitAttributeRefactoring(VariableDeclaration oldAttribute, Set<VariableDeclaration> splitAttributes,
+	public SplitAttributeRefactoring(VariableDeclaration_RENAMED oldAttribute, Set<VariableDeclaration_RENAMED> splitAttributes,
 			String classNameBefore, String classNameAfter, Set<CandidateSplitVariableRefactoring> attributeSplits) {
 		this.oldAttribute = oldAttribute;
 		this.splitAttributes = splitAttributes;
@@ -27,11 +27,11 @@ public class SplitAttributeRefactoring implements Refactoring {
 		this.attributeSplits = attributeSplits;
 	}
 
-	public VariableDeclaration getOldAttribute() {
+	public VariableDeclaration_RENAMED getOldAttribute() {
 		return oldAttribute;
 	}
 
-	public Set<VariableDeclaration> getSplitAttributes() {
+	public Set<VariableDeclaration_RENAMED> getSplitAttributes() {
 		return splitAttributes;
 	}
 
@@ -120,7 +120,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(VariableDeclaration splitAttribute : this.splitAttributes) {
+		for(VariableDeclaration_RENAMED splitAttribute : this.splitAttributes) {
 			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().getFilePath(), getClassNameAfter()));
 		}
 		return pairs;
@@ -138,7 +138,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(VariableDeclaration splitAttribute : splitAttributes) {
+		for(VariableDeclaration_RENAMED splitAttribute : splitAttributes) {
 			ranges.add(splitAttribute.codeRange()
 					.setDescription("split attribute declaration")
 					.setCodeElement(splitAttribute.toString()));

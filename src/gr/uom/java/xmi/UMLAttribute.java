@@ -1,6 +1,6 @@
 package gr.uom.java.xmi;
 
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -16,7 +16,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	private String className;
 	private boolean isFinal;
 	private boolean isStatic;
-	private VariableDeclaration variableDeclaration;
+	private VariableDeclaration_RENAMED variableDeclaration;
 	private UMLJavadoc javadoc;
 
 	public UMLAttribute(String name, UMLType type, LocationInfo locationInfo) {
@@ -77,11 +77,11 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return name;
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration_RENAMED getVariableDeclaration() {
 		return variableDeclaration;
 	}
 
-	public void setVariableDeclaration(VariableDeclaration variableDeclaration) {
+	public void setVariableDeclaration(VariableDeclaration_RENAMED variableDeclaration) {
 		this.variableDeclaration = variableDeclaration;
 	}
 

@@ -25,7 +25,7 @@ public class StatementObject extends AbstractStatement {
 	private LocationInfo locationInfo;
 	private List<String> variables;
 	private List<String> types;
-	private List<VariableDeclaration> variableDeclarations;
+	private List<VariableDeclaration_RENAMED> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
 	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
 	private List<String> stringLiterals;
@@ -159,7 +159,7 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<VariableDeclaration> getVariableDeclarations() {
+	public List<VariableDeclaration_RENAMED> getVariableDeclarations() {
 		return variableDeclarations;
 	}
 
@@ -251,9 +251,9 @@ public class StatementObject extends AbstractStatement {
 		return locationInfo.codeRange();
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
-		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
-		for(VariableDeclaration declaration : variableDeclarations) {
+	public VariableDeclaration_RENAMED getVariableDeclaration(String variableName) {
+		List<VariableDeclaration_RENAMED> variableDeclarations = getVariableDeclarations();
+		for(VariableDeclaration_RENAMED declaration : variableDeclarations) {
 			if(declaration.getVariableName().equals(variableName)) {
 				return declaration;
 			}

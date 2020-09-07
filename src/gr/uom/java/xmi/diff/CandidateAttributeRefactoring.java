@@ -5,7 +5,7 @@ import java.util.Set;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class CandidateAttributeRefactoring {
 	private String originalVariableName;
@@ -13,8 +13,8 @@ public class CandidateAttributeRefactoring {
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> attributeReferences;
-	private VariableDeclaration originalVariableDeclaration;
-	private VariableDeclaration renamedVariableDeclaration;
+	private VariableDeclaration_RENAMED originalVariableDeclaration;
+	private VariableDeclaration_RENAMED renamedVariableDeclaration;
 	private UMLAttribute originalAttribute;
 	private UMLAttribute renamedAttribute;
 
@@ -55,19 +55,19 @@ public class CandidateAttributeRefactoring {
 		return attributeReferences.size();
 	}
 
-	public VariableDeclaration getOriginalVariableDeclaration() {
+	public VariableDeclaration_RENAMED getOriginalVariableDeclaration() {
 		return originalVariableDeclaration;
 	}
 
-	public void setOriginalVariableDeclaration(VariableDeclaration originalVariableDeclaration) {
+	public void setOriginalVariableDeclaration(VariableDeclaration_RENAMED originalVariableDeclaration) {
 		this.originalVariableDeclaration = originalVariableDeclaration;
 	}
 
-	public VariableDeclaration getRenamedVariableDeclaration() {
+	public VariableDeclaration_RENAMED getRenamedVariableDeclaration() {
 		return renamedVariableDeclaration;
 	}
 
-	public void setRenamedVariableDeclaration(VariableDeclaration renamedVariableDeclaration) {
+	public void setRenamedVariableDeclaration(VariableDeclaration_RENAMED renamedVariableDeclaration) {
 		this.renamedVariableDeclaration = renamedVariableDeclaration;
 	}
 

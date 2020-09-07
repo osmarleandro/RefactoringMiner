@@ -24,7 +24,7 @@ import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -474,7 +474,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		refactorings.addAll(inferAttributeMergesAndSplits(renameMap, refactorings));
 		for(MergeVariableReplacement merge : mergeMap.keySet()) {
 			Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
-			Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
+			Set<VariableDeclaration_RENAMED> mergedVariables = new LinkedHashSet<VariableDeclaration_RENAMED>();
 			for(String mergedVariable : merge.getMergedVariables()) {
 				UMLAttribute a1 = findAttributeInOriginalClass(mergedVariable);
 				if(a1 != null) {
@@ -501,7 +501,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		for(SplitVariableReplacement split : splitMap.keySet()) {
 			Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
-			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
+			Set<VariableDeclaration_RENAMED> splitVariables = new LinkedHashSet<VariableDeclaration_RENAMED>();
 			for(String splitVariable : split.getSplitVariables()) {
 				UMLAttribute a2 = findAttributeInNextClass(splitVariable);
 				if(a2 != null) {
@@ -654,7 +654,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
 					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
 					if(extractedInvocations.size() > 1) {
-						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
+						Set<VariableDeclaration_RENAMED> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration_RENAMED>();
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
 						for(OperationInvocation extractedInvocation : extractedInvocations) {
 							for(String argument : extractedInvocation.getArguments()) {
@@ -704,7 +704,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
+						for(VariableDeclaration_RENAMED variableDeclaration : merge.getMergedVariables()) {
 							if(originalAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
@@ -720,7 +720,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						}
 						if(matchingVariableName != null && renamedAttributeName.equals(merge.getNewVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> mergedAttributes = new LinkedHashSet<UMLAttribute>();
-							Set<VariableDeclaration> mergedVariables = new LinkedHashSet<VariableDeclaration>();
+							Set<VariableDeclaration_RENAMED> mergedVariables = new LinkedHashSet<VariableDeclaration_RENAMED>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
 							if(merge.getMergedVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);
@@ -750,7 +750,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						SplitVariableRefactoring split = (SplitVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {
+						for(VariableDeclaration_RENAMED variableDeclaration : split.getSplitVariables()) {
 							if(renamedAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
@@ -766,7 +766,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						}
 						if(matchingVariableName != null && originalAttributeName.equals(split.getOldVariable().getVariableName()) && nonMatchingVariableNames.size() > 0) {
 							Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
-							Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
+							Set<VariableDeclaration_RENAMED> splitVariables = new LinkedHashSet<VariableDeclaration_RENAMED>();
 							Set<String> allMatchingVariables = new LinkedHashSet<String>();
 							if(split.getSplitVariables().iterator().next().getVariableName().equals(matchingVariableName)) {
 								allMatchingVariables.add(matchingVariableName);

@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class UMLParameter implements Serializable, VariableDeclarationProvider {
 	private String name;
 	private UMLType type;
 	private String kind;
 	private boolean varargs;
-	private VariableDeclaration variableDeclaration;
+	private VariableDeclaration_RENAMED variableDeclaration;
 
 	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
 		this.name = name;
@@ -27,11 +27,11 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return type;
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration_RENAMED getVariableDeclaration() {
 		return variableDeclaration;
 	}
 
-	public void setVariableDeclaration(VariableDeclaration variableDeclaration) {
+	public void setVariableDeclaration(VariableDeclaration_RENAMED variableDeclaration) {
 		this.variableDeclaration = variableDeclaration;
 	}
 

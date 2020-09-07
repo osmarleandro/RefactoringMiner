@@ -7,7 +7,7 @@ import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -158,19 +158,19 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<String>();
 	}
 
-	public List<VariableDeclaration> getAllVariableDeclarations() {
+	public List<VariableDeclaration_RENAMED> getAllVariableDeclarations() {
 		if(operationBody != null)
 			return operationBody.getAllVariableDeclarations();
-		return new ArrayList<VariableDeclaration>();
+		return new ArrayList<VariableDeclaration_RENAMED>();
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration_RENAMED> getVariableDeclarationsInScope(LocationInfo location) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclarationsInScope(location);
-		return new ArrayList<VariableDeclaration>();
+		return new ArrayList<VariableDeclaration_RENAMED>();
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public VariableDeclaration_RENAMED getVariableDeclaration(String variableName) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclaration(variableName);
 		return null;
@@ -182,7 +182,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(!parameter.getKind().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
-		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
+		for(VariableDeclaration_RENAMED declaration : getAllVariableDeclarations()) {
 			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
 		}
 		return variableTypeMap;

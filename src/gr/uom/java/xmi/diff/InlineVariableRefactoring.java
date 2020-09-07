@@ -11,15 +11,15 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class InlineVariableRefactoring implements Refactoring {
-	private VariableDeclaration variableDeclaration;
+	private VariableDeclaration_RENAMED variableDeclaration;
 	private UMLOperation operationBefore;
 	private UMLOperation operationAfter;
 	private Set<AbstractCodeMapping> references;
 
-	public InlineVariableRefactoring(VariableDeclaration variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
+	public InlineVariableRefactoring(VariableDeclaration_RENAMED variableDeclaration, UMLOperation operationBefore, UMLOperation operationAfter) {
 		this.variableDeclaration = variableDeclaration;
 		this.operationBefore = operationBefore;
 		this.operationAfter = operationAfter;
@@ -38,7 +38,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public VariableDeclaration_RENAMED getVariableDeclaration() {
 		return variableDeclaration;
 	}
 

@@ -1,16 +1,16 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 
 public class VariableDeclarationReplacement extends Replacement {
 
-	private VariableDeclaration v1;
-	private VariableDeclaration v2;
+	private VariableDeclaration_RENAMED v1;
+	private VariableDeclaration_RENAMED v2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	
-	public VariableDeclarationReplacement(VariableDeclaration v1, VariableDeclaration v2,
+	public VariableDeclarationReplacement(VariableDeclaration_RENAMED v1, VariableDeclaration_RENAMED v2,
 			UMLOperation operation1, UMLOperation operation2) {
 		super(v1.toString() + " | " + v1.getScope(), v2.toString() + " | " + v2.getScope(), ReplacementType.VARIABLE_DECLARATION);
 		this.v1 = v1;
@@ -19,11 +19,11 @@ public class VariableDeclarationReplacement extends Replacement {
 		this.operation2 = operation2;
 	}
 
-	public VariableDeclaration getVariableDeclaration1() {
+	public VariableDeclaration_RENAMED getVariableDeclaration1() {
 		return v1;
 	}
 
-	public VariableDeclaration getVariableDeclaration2() {
+	public VariableDeclaration_RENAMED getVariableDeclaration2() {
 		return v2;
 	}
 

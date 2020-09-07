@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.VariableDeclaration_RENAMED;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -242,8 +242,8 @@ public class UMLOperationDiff {
 			}
 		}
 		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
-			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
-			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
+			VariableDeclaration_RENAMED originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
+			VariableDeclaration_RENAMED newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
 			RenameVariableRefactoring renameRefactoring = null;
 			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
@@ -273,7 +273,7 @@ public class UMLOperationDiff {
 		return refactorings;
 	}
 	
-	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
+	private boolean inconsistentReplacement(VariableDeclaration_RENAMED originalVariable, VariableDeclaration_RENAMED newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
