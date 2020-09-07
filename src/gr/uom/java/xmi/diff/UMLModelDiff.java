@@ -936,8 +936,8 @@ public class UMLModelDiff {
 	   return mappers;
    }
 
-   private List<ExtractClassRefactoring> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
-	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
+   private List<ExtractClassRefactoring_RENAMED> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
+	   List<ExtractClassRefactoring_RENAMED> refactorings = new ArrayList<ExtractClassRefactoring_RENAMED>();
 	   for(UMLClass addedClass : addedClasses) {
 		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
 		   UMLType addedClassSuperType = addedClass.getSuperclass();
@@ -962,7 +962,7 @@ public class UMLModelDiff {
 				   UMLAttribute attributeOfExtractedClassType = attributeOfExtractedClassType(addedClass, classDiff);
 				   boolean isTestClass =  addedClass.isTestClass() && classDiff.getOriginalClass().isTestClass();
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
-					   ExtractClassRefactoring refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
+					   ExtractClassRefactoring_RENAMED refactoring = atLeastOneCommonAttributeOrOperation(addedClass, classDiff, attributeOfExtractedClassType);
 					   if(refactoring != null) {
 						   CandidateExtractClassRefactoring candidate = new CandidateExtractClassRefactoring(classDiff, refactoring);
 						   candidates.add(candidate);
@@ -1005,7 +1005,7 @@ public class UMLModelDiff {
 	   return null;
    }
 
-   private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
+   private ExtractClassRefactoring_RENAMED atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
 	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
 		   if(!operation.isConstructor() && !operation.overridesObject()) {
@@ -1024,7 +1024,7 @@ public class UMLModelDiff {
 	   if(attributeOfExtractedClassType != null)
 		   threshold = 0;
 	   if(commonOperations.size() > threshold || commonAttributes.size() > threshold) {
-		   return new ExtractClassRefactoring(umlClass, classDiff, commonOperations, commonAttributes, attributeOfExtractedClassType);
+		   return new ExtractClassRefactoring_RENAMED(umlClass, classDiff, commonOperations, commonAttributes, attributeOfExtractedClassType);
 	   }
 	   return null;
    }
