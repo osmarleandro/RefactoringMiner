@@ -51,7 +51,7 @@ public class UMLModelDiff {
    private List<UMLGeneralizationDiff> generalizationDiffList;
    private List<UMLRealization> addedRealizations;
    private List<UMLRealization> removedRealizations;
-   private List<UMLRealizationDiff> realizationDiffList;
+   private List<UMLRealizationDiff_RENAMED> realizationDiffList;
    
    private List<UMLClassDiff> commonClassDiffList;
    private List<UMLClassMoveDiff> classMoveDiffList;
@@ -66,7 +66,7 @@ public class UMLModelDiff {
       this.addedGeneralizations = new ArrayList<UMLGeneralization>();
       this.removedGeneralizations = new ArrayList<UMLGeneralization>();
       this.generalizationDiffList = new ArrayList<UMLGeneralizationDiff>();
-      this.realizationDiffList = new ArrayList<UMLRealizationDiff>();
+      this.realizationDiffList = new ArrayList<UMLRealizationDiff_RENAMED>();
       this.addedRealizations = new ArrayList<UMLRealization>();
       this.removedRealizations = new ArrayList<UMLRealization>();
       this.commonClassDiffList = new ArrayList<UMLClassDiff>();
@@ -408,7 +408,7 @@ public class UMLModelDiff {
             //String movedParent = isMovedClass(removedRealization.getSupplier());
             if( (renamedChild != null && renamedChild.equals(addedRealization.getClient().getName())) ||
                   (movedChild != null && movedChild.equals(addedRealization.getClient().getName()))) {
-               UMLRealizationDiff realizationDiff = new UMLRealizationDiff(removedRealization, addedRealization);
+               UMLRealizationDiff_RENAMED realizationDiff = new UMLRealizationDiff_RENAMED(removedRealization, addedRealization);
                addedRealizationIterator.remove();
                removedRealizationIterator.remove();
                realizationDiffList.add(realizationDiff);
