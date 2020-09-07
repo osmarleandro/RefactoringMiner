@@ -1,10 +1,10 @@
 package gr.uom.java.xmi;
 
-public class CompositeType extends UMLType {
+public class CompositeType_RENAMED extends UMLType {
 	private UMLType leftType;
 	private LeafType rightType;
 
-	public CompositeType(UMLType leftType, LeafType rightType) {
+	public CompositeType_RENAMED(UMLType leftType, LeafType rightType) {
 		this.leftType = leftType;
 		this.rightType = rightType;
 	}
@@ -34,7 +34,7 @@ public class CompositeType extends UMLType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompositeType other = (CompositeType) obj;
+		CompositeType_RENAMED other = (CompositeType_RENAMED) obj;
 		if (leftType == null) {
 			if (other.leftType != null)
 				return false;

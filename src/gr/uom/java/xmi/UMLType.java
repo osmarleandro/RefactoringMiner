@@ -247,7 +247,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			for(Annotation annotation : annotations) {
 				rightType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
 			}
-			return new CompositeType(leftType, rightType);
+			return new CompositeType_RENAMED(leftType, rightType);
 		}
 		else if(type instanceof NameQualifiedType) {
 			NameQualifiedType nameQualified = (NameQualifiedType)type;
@@ -258,7 +258,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			for(Annotation annotation : annotations) {
 				rightType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
 			}
-			return new CompositeType(leftType, rightType);
+			return new CompositeType_RENAMED(leftType, rightType);
 		}
 		else if(type instanceof WildcardType) {
 			WildcardType wildcard = (WildcardType)type;
