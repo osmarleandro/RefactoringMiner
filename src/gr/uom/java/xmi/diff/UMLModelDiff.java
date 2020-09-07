@@ -1182,7 +1182,7 @@ public class UMLModelDiff {
 
    private List<Refactoring> getMoveClassRefactorings() {
 	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
-	   List<RenamePackageRefactoring> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring>();
+	   List<RenamePackageRefactoring_RENAMED> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring_RENAMED>();
 	   List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring>();
 	   for(UMLClassMoveDiff classMoveDiff : classMoveDiffList) {
 		   UMLClass originalClass = classMoveDiff.getOriginalClass();
@@ -1212,7 +1212,7 @@ public class UMLModelDiff {
 			   }
 			   else {
 				   boolean foundInMatchingRenamePackageRefactoring = false;
-				   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
+				   for(RenamePackageRefactoring_RENAMED renamePackageRefactoring : renamePackageRefactorings) {
 					   if(renamePackageRefactoring.getPattern().equals(renamePattern)) {
 						   renamePackageRefactoring.addMoveClassRefactoring(refactoring);
 						   foundInMatchingRenamePackageRefactoring = true;
@@ -1220,7 +1220,7 @@ public class UMLModelDiff {
 					   }
 				   }
 				   if(!foundInMatchingRenamePackageRefactoring) {
-					   renamePackageRefactorings.add(new RenamePackageRefactoring(refactoring));
+					   renamePackageRefactorings.add(new RenamePackageRefactoring_RENAMED(refactoring));
 				   }
 			   }
 		   } else if(!originalPathPrefix.equals(movedPathPrefix)) {
@@ -1239,7 +1239,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
+	   for(RenamePackageRefactoring_RENAMED renamePackageRefactoring : renamePackageRefactorings) {
 		   List<MoveClassRefactoring> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
 		   if(moveClassRefactorings.size() > 1 && isSourcePackageDeleted(renamePackageRefactoring)) {
 			   refactorings.add(renamePackageRefactoring);
@@ -1252,7 +1252,7 @@ public class UMLModelDiff {
 	   return refactorings;
    }
 
-   private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
+   private boolean isSourcePackageDeleted(RenamePackageRefactoring_RENAMED renamePackageRefactoring) {
 	   for(String deletedFolderPath : deletedFolderPaths) {
 		   String originalPath = renamePackageRefactoring.getPattern().getBefore();
 		   //remove last .

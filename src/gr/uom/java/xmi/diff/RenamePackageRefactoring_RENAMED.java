@@ -9,17 +9,17 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
-public class RenamePackageRefactoring implements Refactoring {
+public class RenamePackageRefactoring_RENAMED implements Refactoring {
 
 	private List<MoveClassRefactoring> moveClassRefactorings;
 	private RenamePattern pattern;
 	
-	public RenamePackageRefactoring(RenamePattern pattern) {
+	public RenamePackageRefactoring_RENAMED(RenamePattern pattern) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
 		this.pattern = pattern;
 	}
 
-	public RenamePackageRefactoring(MoveClassRefactoring moveClassRefactoring) {
+	public RenamePackageRefactoring_RENAMED(MoveClassRefactoring moveClassRefactoring) {
 		this.moveClassRefactorings = new ArrayList<MoveClassRefactoring>();
 		this.moveClassRefactorings.add(moveClassRefactoring);
 		this.pattern = moveClassRefactoring.getRenamePattern();
