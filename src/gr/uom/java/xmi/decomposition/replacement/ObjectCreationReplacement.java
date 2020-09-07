@@ -1,24 +1,24 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
-import gr.uom.java.xmi.decomposition.ObjectCreation;
+import gr.uom.java.xmi.decomposition.ObjectCreation_RENAMED;
 
 public class ObjectCreationReplacement extends Replacement {
-	private ObjectCreation createdObjectBefore;
-	private ObjectCreation createdObjectAfter;
+	private ObjectCreation_RENAMED createdObjectBefore;
+	private ObjectCreation_RENAMED createdObjectAfter;
 
 	public ObjectCreationReplacement(String before, String after,
-			ObjectCreation createdObjectBefore, ObjectCreation createdObjectAfter,
+			ObjectCreation_RENAMED createdObjectBefore, ObjectCreation_RENAMED createdObjectAfter,
 			ReplacementType type) {
 		super(before, after, type);
 		this.createdObjectBefore = createdObjectBefore;
 		this.createdObjectAfter = createdObjectAfter;
 	}
 
-	public ObjectCreation getCreatedObjectBefore() {
+	public ObjectCreation_RENAMED getCreatedObjectBefore() {
 		return createdObjectBefore;
 	}
 
-	public ObjectCreation getCreatedObjectAfter() {
+	public ObjectCreation_RENAMED getCreatedObjectAfter() {
 		return createdObjectAfter;
 	}
 

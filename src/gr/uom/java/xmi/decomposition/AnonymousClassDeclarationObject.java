@@ -27,7 +27,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private List<String> nullLiterals = new ArrayList<String>();
 	private List<String> booleanLiterals = new ArrayList<String>();
 	private List<String> typeLiterals = new ArrayList<String>();
-	private Map<String, List<ObjectCreation>> creationMap = new LinkedHashMap<String, List<ObjectCreation>>();
+	private Map<String, List<ObjectCreation_RENAMED>> creationMap = new LinkedHashMap<String, List<ObjectCreation_RENAMED>>();
 	private List<String> infixOperators = new ArrayList<String>();
 	private List<String> arrayAccesses = new ArrayList<String>();
 	private List<String> prefixExpressions = new ArrayList<String>();
@@ -94,7 +94,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return typeLiterals;
 	}
 
-	public Map<String, List<ObjectCreation>> getCreationMap() {
+	public Map<String, List<ObjectCreation_RENAMED>> getCreationMap() {
 		return creationMap;
 	}
 

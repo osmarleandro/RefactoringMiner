@@ -47,7 +47,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public abstract List<String> getNullLiterals();
 	public abstract List<String> getBooleanLiterals();
 	public abstract List<String> getTypeLiterals();
-	public abstract Map<String, List<ObjectCreation>> getCreationMap();
+	public abstract Map<String, List<ObjectCreation_RENAMED>> getCreationMap();
 	public abstract List<String> getInfixOperators();
 	public abstract List<String> getArrayAccesses();
 	public abstract List<String> getPrefixExpressions();
@@ -158,12 +158,12 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		this.codeFragmentAfterReplacingParametersWithArguments = getString();
 	}
 
-	public ObjectCreation creationCoveringEntireFragment() {
-		Map<String, List<ObjectCreation>> creationMap = getCreationMap();
+	public ObjectCreation_RENAMED creationCoveringEntireFragment() {
+		Map<String, List<ObjectCreation_RENAMED>> creationMap = getCreationMap();
 		String statement = getString();
 		for(String objectCreation : creationMap.keySet()) {
-			List<ObjectCreation> creations = creationMap.get(objectCreation);
-			for(ObjectCreation creation : creations) {
+			List<ObjectCreation_RENAMED> creations = creationMap.get(objectCreation);
+			for(ObjectCreation_RENAMED creation : creations) {
 				if((objectCreation + ";\n").equals(statement) || objectCreation.equals(statement)) {
 					creation.coverage = StatementCoverageType.ONLY_CALL;
 					return creation;

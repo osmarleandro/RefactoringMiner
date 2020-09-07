@@ -1731,8 +1731,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		replaceVariablesWithArguments(creationMap1, creations1, map);
 		
-		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
-		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
+		ObjectCreation_RENAMED creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
+		ObjectCreation_RENAMED creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
 		//remove objectCreation covering the entire statement
 		for(String objectCreation1 : creationMap1.keySet()) {
 			for(AbstractCall creation1 : creationMap1.get(objectCreation1)) {
@@ -1740,7 +1740,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement1.getLocationInfo().equals(creation1.getLocationInfo())) {
 					creations1.remove(objectCreation1);
 				}
-				if(((ObjectCreation)creation1).getAnonymousClassDeclaration() != null) {
+				if(((ObjectCreation_RENAMED)creation1).getAnonymousClassDeclaration() != null) {
 					creations1.remove(objectCreation1);
 				}
 			}
@@ -1751,7 +1751,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement2.getLocationInfo().equals(creation2.getLocationInfo())) {
 					creations2.remove(objectCreation2);
 				}
-				if(((ObjectCreation)creation2).getAnonymousClassDeclaration() != null) {
+				if(((ObjectCreation_RENAMED)creation2).getAnonymousClassDeclaration() != null) {
 					creations2.remove(objectCreation2);
 				}
 			}
@@ -2443,19 +2443,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					else if(objectCreation1.identicalWithDifferentNumberOfArguments(creationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)) {
 						Replacement replacement = new ObjectCreationReplacement(objectCreation1.getName(),
-								creationCoveringTheEntireStatement2.getName(), (ObjectCreation)objectCreation1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
+								creationCoveringTheEntireStatement2.getName(), (ObjectCreation_RENAMED)objectCreation1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
 						replacementInfo.addReplacement(replacement);
 						return replacementInfo.getReplacements();
 					}
 					//check if the argument lists are identical after replacements
 					if(objectCreation1.identicalName(creationCoveringTheEntireStatement2) &&
 							objectCreation1.identicalExpression(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
-						if(((ObjectCreation)objectCreation1).isArray() && creationCoveringTheEntireStatement2.isArray() &&
+						if(((ObjectCreation_RENAMED)objectCreation1).isArray() && creationCoveringTheEntireStatement2.isArray() &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).equals(s2.substring(s2.indexOf("[")+1, s2.lastIndexOf("]"))) &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).length() > 0) {
 							return replacementInfo.getReplacements();
 						}
-						if(!((ObjectCreation)objectCreation1).isArray() && !creationCoveringTheEntireStatement2.isArray() &&
+						if(!((ObjectCreation_RENAMED)objectCreation1).isArray() && !creationCoveringTheEntireStatement2.isArray() &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).equals(s2.substring(s2.indexOf("(")+1, s2.lastIndexOf(")"))) &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).length() > 0) {
 							return replacementInfo.getReplacements();
@@ -2525,7 +2525,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c2 : creationMap2.get(creation2)) {
 						for(String creation1 : creations1) {
 							for(AbstractCall c1 : creationMap1.get(creation1)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation_RENAMED)c1).getType().compatibleTypes(((ObjectCreation_RENAMED)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2562,7 +2562,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c1 : creationMap1.get(creation1)) {
 						for(String creation2 : creations2) {
 							for(AbstractCall c2 : creationMap2.get(creation2)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((ObjectCreation_RENAMED)c1).getType().compatibleTypes(((ObjectCreation_RENAMED)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2685,10 +2685,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap = statement.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap = statement.getCreationMap();
 			for(String key : creationMap.keySet()) {
-				List<ObjectCreation> objectCreations = creationMap.get(key);
-				for(ObjectCreation creation : objectCreations) {
+				List<ObjectCreation_RENAMED> objectCreations = creationMap.get(key);
+				for(ObjectCreation_RENAMED creation : objectCreations) {
 					if(creation.getAnonymousClassDeclaration() != null && creation.getAnonymousClassDeclaration().equals(anonymousClassDeclaration.toString()) &&
 							creation.getLocationInfo().subsumes(anonymousClassDeclaration.getLocationInfo())) {
 						return creation.actualString();
@@ -2749,16 +2749,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(7, string2.lastIndexOf(";\n"));
 			UMLType type1 = null, type2 = null;
-			ObjectCreation objectCreation1 = null, objectCreation2 = null;
+			ObjectCreation_RENAMED objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap1 = statement1.getCreationMap();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					objectCreation1 = creationMap1.get(creation1).get(0);
 					type1 = objectCreation1.getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap2 = statement2.getCreationMap();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					objectCreation2 = creationMap2.get(creation2).get(0);
@@ -2801,16 +2801,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String assignment1 = string1.substring(7, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
 			UMLType type1 = null, type2 = null;
-			ObjectCreation objectCreation1 = null, objectCreation2 = null;
+			ObjectCreation_RENAMED objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap1 = statement1.getCreationMap();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					objectCreation1 = creationMap1.get(creation1).get(0);
 					type1 = objectCreation1.getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap2 = statement2.getCreationMap();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					objectCreation2 = creationMap2.get(creation2).get(0);
@@ -2868,13 +2868,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
 			UMLType type1 = null, type2 = null;
-			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap1 = statement1.getCreationMap();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
 					type1 = creationMap1.get(creation1).get(0).getType();
 				}
 			}
-			Map<String, List<ObjectCreation>> creationMap2 = statement2.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> creationMap2 = statement2.getCreationMap();
 			for(String creation2 : creationMap2.keySet()) {
 				if(creation2.equals(assignment2)) {
 					type2 = creationMap2.get(creation2).get(0).getType();
@@ -2959,8 +2959,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			else if(initializer1 != null && initializer2 != null) {
 				nullInitializer = initializer1.getExpression().equals("null") && initializer2.getExpression().equals("null");
 				if(initializer1.getCreationMap().size() == 1 && initializer2.getCreationMap().size() == 1) {
-					ObjectCreation creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
-					ObjectCreation creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
+					ObjectCreation_RENAMED creation1 = initializer1.getCreationMap().values().iterator().next().get(0);
+					ObjectCreation_RENAMED creation2 = initializer2.getCreationMap().values().iterator().next().get(0);
 					if(creation1.getArguments().size() == 0 && creation2.getArguments().size() == 0) {
 						zeroArgumentClassInstantiation = true;
 					}

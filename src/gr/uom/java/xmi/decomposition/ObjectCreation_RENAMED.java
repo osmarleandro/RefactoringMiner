@@ -13,13 +13,13 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class ObjectCreation extends AbstractCall {
+public class ObjectCreation_RENAMED extends AbstractCall {
 	private UMLType type;
 	private String anonymousClassDeclaration;
 	private boolean isArray = false;
 	private volatile int hashCode = 0;
 	
-	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
+	public ObjectCreation_RENAMED(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.CLASS_INSTANCE_CREATION);
 		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
 		this.typeArguments = creation.arguments().size();
@@ -36,7 +36,7 @@ public class ObjectCreation extends AbstractCall {
 		}
 	}
 
-	public ObjectCreation(CompilationUnit cu, String filePath, ArrayCreation creation) {
+	public ObjectCreation_RENAMED(CompilationUnit cu, String filePath, ArrayCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.ARRAY_CREATION);
 		this.isArray = true;
 		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
@@ -67,12 +67,12 @@ public class ObjectCreation extends AbstractCall {
 		return anonymousClassDeclaration;
 	}
 
-	private ObjectCreation() {
+	private ObjectCreation_RENAMED() {
 		
 	}
 
-	public ObjectCreation update(String oldExpression, String newExpression) {
-		ObjectCreation newObjectCreation = new ObjectCreation();
+	public ObjectCreation_RENAMED update(String oldExpression, String newExpression) {
+		ObjectCreation_RENAMED newObjectCreation = new ObjectCreation_RENAMED();
 		newObjectCreation.type = this.type;
 		newObjectCreation.locationInfo = this.locationInfo;
 		update(newObjectCreation, oldExpression, newExpression);
@@ -83,8 +83,8 @@ public class ObjectCreation extends AbstractCall {
         if(this == o) {
             return true;
         }
-        if (o instanceof ObjectCreation) {
-        	ObjectCreation creation = (ObjectCreation)o;
+        if (o instanceof ObjectCreation_RENAMED) {
+        	ObjectCreation_RENAMED creation = (ObjectCreation_RENAMED)o;
             return type.equals(creation.type) && isArray == creation.isArray &&
                 typeArguments == creation.typeArguments;
         }
@@ -116,7 +116,7 @@ public class ObjectCreation extends AbstractCall {
     	return hashCode;
     }
 
-    public boolean identicalArrayInitializer(ObjectCreation other) {
+    public boolean identicalArrayInitializer(ObjectCreation_RENAMED other) {
     	if(this.isArray && other.isArray) {
     		if(this.anonymousClassDeclaration != null && other.anonymousClassDeclaration != null) {
     			return this.anonymousClassDeclaration.equals(other.anonymousClassDeclaration);
@@ -130,13 +130,13 @@ public class ObjectCreation extends AbstractCall {
 
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
-		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
+		String s2 = ((ObjectCreation_RENAMED)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
 
 	public boolean identicalName(AbstractCall call) {
-		return getType().equals(((ObjectCreation)call).getType());
+		return getType().equals(((ObjectCreation_RENAMED)call).getType());
 	}
 }

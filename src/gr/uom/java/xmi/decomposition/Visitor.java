@@ -69,7 +69,7 @@ public class Visitor extends ASTVisitor {
 	private List<String> nullLiterals = new ArrayList<String>();
 	private List<String> booleanLiterals = new ArrayList<String>();
 	private List<String> typeLiterals = new ArrayList<String>();
-	private Map<String, List<ObjectCreation>> creationMap = new LinkedHashMap<String, List<ObjectCreation>>();
+	private Map<String, List<ObjectCreation_RENAMED>> creationMap = new LinkedHashMap<String, List<ObjectCreation_RENAMED>>();
 	private List<String> infixOperators = new ArrayList<String>();
 	private List<String> arrayAccesses = new ArrayList<String>();
 	private List<String> prefixExpressions = new ArrayList<String>();
@@ -137,24 +137,24 @@ public class Visitor extends ASTVisitor {
 		for(Expression argument : arguments) {
 			processArgument(argument);
 		}
-		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
+		ObjectCreation_RENAMED creation = new ObjectCreation_RENAMED(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(creationMap.containsKey(nodeAsString)) {
 			creationMap.get(nodeAsString).add(creation);
 		}
 		else {
-			List<ObjectCreation> list = new ArrayList<ObjectCreation>();
+			List<ObjectCreation_RENAMED> list = new ArrayList<ObjectCreation_RENAMED>();
 			list.add(creation);
 			creationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> anonymousCreationMap = anonymous.getCreationMap();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
 			}
 			else {
-				List<ObjectCreation> list = new ArrayList<ObjectCreation>();
+				List<ObjectCreation_RENAMED> list = new ArrayList<ObjectCreation_RENAMED>();
 				list.add(creation);
 				anonymousCreationMap.put(nodeAsString, list);
 			}
@@ -163,24 +163,24 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(ArrayCreation node) {
-		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
+		ObjectCreation_RENAMED creation = new ObjectCreation_RENAMED(cu, filePath, node);
 		String nodeAsString = node.toString();
 		if(creationMap.containsKey(nodeAsString)) {
 			creationMap.get(nodeAsString).add(creation);
 		}
 		else {
-			List<ObjectCreation> list = new ArrayList<ObjectCreation>();
+			List<ObjectCreation_RENAMED> list = new ArrayList<ObjectCreation_RENAMED>();
 			list.add(creation);
 			creationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
+			Map<String, List<ObjectCreation_RENAMED>> anonymousCreationMap = anonymous.getCreationMap();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
 			}
 			else {
-				List<ObjectCreation> list = new ArrayList<ObjectCreation>();
+				List<ObjectCreation_RENAMED> list = new ArrayList<ObjectCreation_RENAMED>();
 				list.add(creation);
 				anonymousCreationMap.put(nodeAsString, list);
 			}
@@ -824,7 +824,7 @@ public class Visitor extends ASTVisitor {
 		return typeLiterals;
 	}
 
-	public Map<String, List<ObjectCreation>> getCreationMap() {
+	public Map<String, List<ObjectCreation_RENAMED>> getCreationMap() {
 		return creationMap;
 	}
 
