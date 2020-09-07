@@ -6,13 +6,13 @@ import java.util.List;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
-public class CallTreeNode {
+public class CallTreeNode_RENAMED {
 	private UMLOperation originalOperation;
 	private UMLOperation invokedOperation;
 	private OperationInvocation invocation;
-	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
+	private List<CallTreeNode_RENAMED> children = new ArrayList<CallTreeNode_RENAMED>();
 	
-	public CallTreeNode(UMLOperation originalOperation, UMLOperation invokedOperation,
+	public CallTreeNode_RENAMED(UMLOperation originalOperation, UMLOperation invokedOperation,
 			OperationInvocation invocation) {
 		this.originalOperation = originalOperation;
 		this.invokedOperation = invokedOperation;
@@ -31,11 +31,11 @@ public class CallTreeNode {
 		return invocation;
 	}
 
-	public void addChild(CallTreeNode node) {
+	public void addChild(CallTreeNode_RENAMED node) {
 		children.add(node);
 	}
 
-	public List<CallTreeNode> getChildren() {
+	public List<CallTreeNode_RENAMED> getChildren() {
 		return children;
 	}
 
@@ -57,7 +57,7 @@ public class CallTreeNode {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CallTreeNode other = (CallTreeNode) obj;
+		CallTreeNode_RENAMED other = (CallTreeNode_RENAMED) obj;
 		if (invocation == null) {
 			if (other.invocation != null)
 				return false;

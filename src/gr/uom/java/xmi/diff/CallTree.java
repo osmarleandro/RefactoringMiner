@@ -7,19 +7,19 @@ import java.util.List;
 import gr.uom.java.xmi.UMLOperation;
 
 public class CallTree {
-	private CallTreeNode root;
+	private CallTreeNode_RENAMED root;
 	
-	public CallTree(CallTreeNode root) {
+	public CallTree(CallTreeNode_RENAMED root) {
 		this.root = root;
 	}
 	
-	public List<CallTreeNode> getNodesInBreadthFirstOrder() {
-		List<CallTreeNode> nodes = new ArrayList<CallTreeNode>();
-		List<CallTreeNode> queue = new LinkedList<CallTreeNode>();
+	public List<CallTreeNode_RENAMED> getNodesInBreadthFirstOrder() {
+		List<CallTreeNode_RENAMED> nodes = new ArrayList<CallTreeNode_RENAMED>();
+		List<CallTreeNode_RENAMED> queue = new LinkedList<CallTreeNode_RENAMED>();
 		nodes.add(root);
 		queue.add(root);
 		while(!queue.isEmpty()) {
-			CallTreeNode node = queue.remove(0);
+			CallTreeNode_RENAMED node = queue.remove(0);
 			nodes.addAll(node.getChildren());
 			queue.addAll(node.getChildren());
 		}
@@ -27,7 +27,7 @@ public class CallTree {
 	}
 	
 	public boolean contains(UMLOperation invokedOperation) {
-		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
+		for(CallTreeNode_RENAMED node : getNodesInBreadthFirstOrder()) {
 			if(node.getInvokedOperation().equals(invokedOperation)) {
 				return true;
 			}

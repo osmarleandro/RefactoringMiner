@@ -26,7 +26,7 @@ public class ExtractOperationDetection {
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private List<OperationInvocation> operationInvocations;
-	private Map<CallTreeNode, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode, CallTree>();
+	private Map<CallTreeNode_RENAMED, CallTree> callTreeMap = new LinkedHashMap<CallTreeNode_RENAMED, CallTree>();
 
 	public ExtractOperationDetection(UMLOperationBodyMapper mapper, List<UMLOperation> addedOperations, UMLClassBaseDiff classDiff, UMLModelDiff modelDiff) {
 		this.mapper = mapper;
@@ -68,7 +68,7 @@ public class ExtractOperationDetection {
 			List<ExtractOperationRefactoring> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
-		CallTreeNode root = new CallTreeNode(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+		CallTreeNode_RENAMED root = new CallTreeNode_RENAMED(mapper.getOperation1(), addedOperation, addedOperationInvocation);
 		CallTree callTree = null;
 		if(callTreeMap.containsKey(root)) {
 			callTree = callTreeMap.get(root);
@@ -81,9 +81,9 @@ public class ExtractOperationDetection {
 		UMLOperationBodyMapper operationBodyMapper = createMapperForExtractedMethod(mapper, mapper.getOperation1(), addedOperation, addedOperationInvocation);
 		if(operationBodyMapper != null) {
 			List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
-			List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
+			List<CallTreeNode_RENAMED> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 			for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
-				CallTreeNode node = nodesInBreadthFirstOrder.get(i);
+				CallTreeNode_RENAMED node = nodesInBreadthFirstOrder.get(i);
 				if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation2().variableTypeMap()).size() == 0) {
 					UMLOperationBodyMapper nestedMapper = createMapperForExtractedMethod(mapper, node.getOriginalOperation(), node.getInvokedOperation(), node.getInvocation());
 					if(nestedMapper != null) {
@@ -185,13 +185,13 @@ public class ExtractOperationDetection {
 		return addedOperationInvocations;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(UMLOperation operation, CallTreeNode_RENAMED parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(addedOperation)) {
-						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
+						CallTreeNode_RENAMED node = new CallTreeNode_RENAMED(operation, addedOperation, invocation);
 						parent.addChild(node);
 						generateCallTree(addedOperation, node, callTree);
 					}
