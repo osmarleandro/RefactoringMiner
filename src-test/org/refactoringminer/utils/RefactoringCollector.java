@@ -12,7 +12,7 @@ import gr.uom.java.xmi.diff.MoveAttributeRefactoring;
 import gr.uom.java.xmi.diff.MoveClassRefactoring;
 import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.RenameClassRefactoring;
-import gr.uom.java.xmi.diff.RenameOperationRefactoring;
+import gr.uom.java.xmi.diff.RenameOperationRefactoring_RENAMED;
 
 public class RefactoringCollector extends RefactoringHandler {
   private final RefactoringSet rs;
@@ -37,8 +37,8 @@ public class RefactoringCollector extends RefactoringHandler {
       } else if (r instanceof MoveOperationRefactoring) {
         MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey()));
-      } else if (r instanceof RenameOperationRefactoring) {
-        RenameOperationRefactoring ref = (RenameOperationRefactoring) r;
+      } else if (r instanceof RenameOperationRefactoring_RENAMED) {
+        RenameOperationRefactoring_RENAMED ref = (RenameOperationRefactoring_RENAMED) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey()));
       } else if (r instanceof ExtractOperationRefactoring) {
         ExtractOperationRefactoring ref = (ExtractOperationRefactoring) r;

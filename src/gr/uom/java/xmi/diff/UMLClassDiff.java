@@ -149,7 +149,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 					refactorings.addAll(operationSignatureDiff.getRefactorings());
 					if(!removedOperation.getName().equals(addedOperation.getName()) &&
 							!(removedOperation.isConstructor() && addedOperation.isConstructor())) {
-						RenameOperationRefactoring rename = new RenameOperationRefactoring(operationBodyMapper);
+						RenameOperationRefactoring_RENAMED rename = new RenameOperationRefactoring_RENAMED(operationBodyMapper);
 						refactorings.add(rename);
 					}
 					this.addOperationBodyMapper(operationBodyMapper);

@@ -1531,7 +1531,7 @@ public class UMLModelDiff {
 				  if(!mappers.isEmpty()) {
 					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 					  if(operationSignatureDiff.isOperationRenamed()) {
-						  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+						  RenameOperationRefactoring_RENAMED refactoring = new RenameOperationRefactoring_RENAMED(removedOperation, addedOperation);
 						  refactorings.add(refactoring);
 					  }
 					  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
@@ -1551,7 +1551,7 @@ public class UMLModelDiff {
 					  if(!mappers.isEmpty()) {
 						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 						  if(operationSignatureDiff.isOperationRenamed()) {
-							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  RenameOperationRefactoring_RENAMED refactoring = new RenameOperationRefactoring_RENAMED(removedOperation, addedOperation);
 							  refactorings.add(refactoring);
 						  }
 						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
