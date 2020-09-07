@@ -610,7 +610,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public Set<Refactoring> getRefactorings() {
-		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
+		VariableReplacementAnalysis_RENAMED analysis = new VariableReplacementAnalysis_RENAMED(this, refactorings, classDiff);
 		refactorings.addAll(analysis.getVariableRenames());
 		refactorings.addAll(analysis.getVariableMerges());
 		refactorings.addAll(analysis.getVariableSplits());
@@ -3922,7 +3922,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return true;
 		}
 		for(String line : lines) {
-			line = VariableReplacementAnalysis.prepareLine(line);
+			line = VariableReplacementAnalysis_RENAMED.prepareLine(line);
 			if(Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches()) {
 				return true;
 			}
@@ -4045,7 +4045,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 					}
-					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
+					if(containsMapping && (VariableReplacementAnalysis_RENAMED.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis_RENAMED.bothFragmentsUseVariable(v2, mapping))) {
 						count++;
 					}
 				}
