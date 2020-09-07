@@ -10,25 +10,25 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 public class MoveSourceFolderRefactoring implements Refactoring {
-	private List<MovedClassToAnotherSourceFolder> movedClassesToAnotherSourceFolder;
+	private List<MovedClassToAnotherSourceFolder_RENAMED> movedClassesToAnotherSourceFolder;
 	private RenamePattern pattern;
 	
 	public MoveSourceFolderRefactoring(RenamePattern pattern) {
-		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
+		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder_RENAMED>();
 		this.pattern = pattern;
 	}
 
-	public MoveSourceFolderRefactoring(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
-		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder>();
+	public MoveSourceFolderRefactoring(MovedClassToAnotherSourceFolder_RENAMED movedClassToAnotherSourceFolder) {
+		this.movedClassesToAnotherSourceFolder = new ArrayList<MovedClassToAnotherSourceFolder_RENAMED>();
 		this.movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
 		this.pattern = movedClassToAnotherSourceFolder.getRenamePattern();
 	}
 
-	public void addMovedClassToAnotherSourceFolder(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
+	public void addMovedClassToAnotherSourceFolder(MovedClassToAnotherSourceFolder_RENAMED movedClassToAnotherSourceFolder) {
 		movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
 	}
 
-	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder() {
+	public List<MovedClassToAnotherSourceFolder_RENAMED> getMovedClassesToAnotherSourceFolder() {
 		return movedClassesToAnotherSourceFolder;
 	}
 
@@ -57,7 +57,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
+		for(MovedClassToAnotherSourceFolder_RENAMED ref : movedClassesToAnotherSourceFolder) {
 			pairs.add(new ImmutablePair<String, String>(ref.getOriginalClass().getLocationInfo().getFilePath(), ref.getOriginalClassName()));
 		}
 		return pairs;
@@ -65,7 +65,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
+		for(MovedClassToAnotherSourceFolder_RENAMED ref : movedClassesToAnotherSourceFolder) {
 			pairs.add(new ImmutablePair<String, String>(ref.getMovedClass().getLocationInfo().getFilePath(), ref.getMovedClassName()));
 		}
 		return pairs;
@@ -74,7 +74,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
+		for(MovedClassToAnotherSourceFolder_RENAMED ref : movedClassesToAnotherSourceFolder) {
 			ranges.add(ref.getOriginalClass().codeRange()
 					.setDescription("original type declaration")
 					.setCodeElement(ref.getOriginalClass().getName()));
@@ -85,7 +85,7 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
+		for(MovedClassToAnotherSourceFolder_RENAMED ref : movedClassesToAnotherSourceFolder) {
 			ranges.add(ref.getMovedClass().codeRange()
 					.setDescription("moved type declaration")
 					.setCodeElement(ref.getMovedClass().getName()));
