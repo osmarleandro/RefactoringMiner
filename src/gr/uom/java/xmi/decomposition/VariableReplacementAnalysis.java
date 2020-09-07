@@ -691,7 +691,7 @@ public class VariableReplacementAnalysis {
 			String[] lines1 = fragment1.getString().split("\\n");
 			for(String line : lines1) {
 				line = prepareLine(line);
-				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
+				if(!Visitor_RENAMED.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getBefore())) {
 					replacementBeforeNotFoundInMethodSignature = true;
 					break;
@@ -701,7 +701,7 @@ public class VariableReplacementAnalysis {
 			String[] lines2 = fragment2.getString().split("\\n");
 			for(String line : lines2) {
 				line = prepareLine(line);
-				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
+				if(!Visitor_RENAMED.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getAfter())) {
 					replacementAfterNotFoundInMethodSignature = true;
 					break;

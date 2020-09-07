@@ -54,7 +54,7 @@ import org.eclipse.jdt.core.dom.TypeLiteral;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.WildcardType;
 
-public class Visitor extends ASTVisitor {
+public class Visitor_RENAMED extends ASTVisitor {
 	public static final Pattern METHOD_INVOCATION_PATTERN = Pattern.compile("!(\\w|\\.)*@\\w*");
 	public static final Pattern METHOD_SIGNATURE_PATTERN = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
 	private CompilationUnit cu;
@@ -81,7 +81,7 @@ public class Visitor extends ASTVisitor {
 	private DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 	private DefaultMutableTreeNode current = root;
 
-	public Visitor(CompilationUnit cu, String filePath) {
+	public Visitor_RENAMED(CompilationUnit cu, String filePath) {
 		this.cu = cu;
 		this.filePath = filePath;
 	}

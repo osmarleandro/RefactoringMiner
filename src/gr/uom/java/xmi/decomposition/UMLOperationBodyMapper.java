@@ -3923,7 +3923,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		for(String line : lines) {
 			line = VariableReplacementAnalysis.prepareLine(line);
-			if(Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches()) {
+			if(Visitor_RENAMED.METHOD_SIGNATURE_PATTERN.matcher(line).matches()) {
 				return true;
 			}
 		}
