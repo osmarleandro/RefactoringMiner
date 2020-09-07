@@ -9,7 +9,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 
 public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafMapping> {
 
-	public LeafMapping(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	public LeafMapping(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2,
 			UMLOperation operation1, UMLOperation operation2) {
 		super(statement1, statement2, operation1, operation2);
 	}

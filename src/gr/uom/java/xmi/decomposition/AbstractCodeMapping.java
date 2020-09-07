@@ -20,15 +20,15 @@ import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
 public abstract class AbstractCodeMapping {
 
-	private AbstractCodeFragment fragment1;
-	private AbstractCodeFragment fragment2;
+	private AbstractCodeFragment_RENAMED fragment1;
+	private AbstractCodeFragment_RENAMED fragment2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<Replacement> replacements;
 	private boolean identicalWithExtractedVariable;
 	private boolean identicalWithInlinedVariable;
 	
-	public AbstractCodeMapping(AbstractCodeFragment fragment1, AbstractCodeFragment fragment2,
+	public AbstractCodeMapping(AbstractCodeFragment_RENAMED fragment1, AbstractCodeFragment_RENAMED fragment2,
 			UMLOperation operation1, UMLOperation operation2) {
 		this.fragment1 = fragment1;
 		this.fragment2 = fragment2;
@@ -37,11 +37,11 @@ public abstract class AbstractCodeMapping {
 		this.replacements = new LinkedHashSet<Replacement>();
 	}
 
-	public AbstractCodeFragment getFragment1() {
+	public AbstractCodeFragment_RENAMED getFragment1() {
 		return fragment1;
 	}
 
-	public AbstractCodeFragment getFragment2() {
+	public AbstractCodeFragment_RENAMED getFragment2() {
 		return fragment2;
 	}
 
@@ -153,8 +153,8 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void temporaryVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
+	public void temporaryVariableAssignment(AbstractCodeFragment_RENAMED statement,
+			List<? extends AbstractCodeFragment_RENAMED> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
 			AbstractExpression initializer = declaration.getInitializer();
@@ -236,8 +236,8 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void inlinedVariableAssignment(AbstractCodeFragment statement,
-			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	public void inlinedVariableAssignment(AbstractCodeFragment_RENAMED statement,
+			List<? extends AbstractCodeFragment_RENAMED> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
@@ -373,7 +373,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment_RENAMED> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
@@ -404,7 +404,7 @@ public abstract class AbstractCodeMapping {
 				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString().length()) {
 			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
 			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
-			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
+			for(AbstractCodeFragment_RENAMED statement : nonMappedLeavesT2) {
 				VariableDeclaration variable = statement.getVariableDeclaration(s2);
 				if(variable != null) {
 					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {

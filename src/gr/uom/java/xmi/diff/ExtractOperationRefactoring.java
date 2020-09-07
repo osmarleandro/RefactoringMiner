@@ -10,7 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -24,8 +24,8 @@ public class ExtractOperationRefactoring implements Refactoring {
 	private UMLOperation sourceOperationAfterExtraction;
 	private List<OperationInvocation> extractedOperationInvocations;
 	private Set<Replacement> replacements;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsFromSourceOperation;
-	private Set<AbstractCodeFragment> extractedCodeFragmentsToExtractedOperation;
+	private Set<AbstractCodeFragment_RENAMED> extractedCodeFragmentsFromSourceOperation;
+	private Set<AbstractCodeFragment_RENAMED> extractedCodeFragmentsToExtractedOperation;
 	private UMLOperationBodyMapper bodyMapper;
 
 	public ExtractOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation sourceOperationAfterExtraction, List<OperationInvocation> operationInvocations) {
@@ -35,8 +35,8 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.sourceOperationAfterExtraction = sourceOperationAfterExtraction;
 		this.extractedOperationInvocations = operationInvocations;
 		this.replacements = bodyMapper.getReplacements();
-		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
-		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
+		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
+		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
 			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
@@ -51,8 +51,8 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.sourceOperationAfterExtraction = sourceOperationAfterExtraction;
 		this.extractedOperationInvocations = operationInvocations;
 		this.replacements = bodyMapper.getReplacements();
-		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
-		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
+		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
+		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
 			this.extractedCodeFragmentsFromSourceOperation.add(mapping.getFragment1());
 			this.extractedCodeFragmentsToExtractedOperation.add(mapping.getFragment2());
@@ -107,11 +107,11 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return replacements;
 	}
 
-	public Set<AbstractCodeFragment> getExtractedCodeFragmentsFromSourceOperation() {
+	public Set<AbstractCodeFragment_RENAMED> getExtractedCodeFragmentsFromSourceOperation() {
 		return extractedCodeFragmentsFromSourceOperation;
 	}
 
-	public Set<AbstractCodeFragment> getExtractedCodeFragmentsToExtractedOperation() {
+	public Set<AbstractCodeFragment_RENAMED> getExtractedCodeFragmentsToExtractedOperation() {
 		return extractedCodeFragmentsToExtractedOperation;
 	}
 
@@ -190,7 +190,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
 				.setDescription("source method declaration before extraction")
 				.setCodeElement(sourceOperationBeforeExtraction.toString()));
-		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
+		for(AbstractCodeFragment_RENAMED extractedCodeFragment : extractedCodeFragmentsFromSourceOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code from source method declaration"));
 		}
 		/*
@@ -220,7 +220,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 				.setDescription("extracted method declaration")
 				.setCodeElement(extractedOperation.toString()));
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
-		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
+		for(AbstractCodeFragment_RENAMED extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
 		}
 		ranges.add(getSourceOperationCodeRangeAfterExtraction()

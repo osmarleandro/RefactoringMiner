@@ -10,7 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -24,8 +24,8 @@ public class InlineOperationRefactoring implements Refactoring {
 	private UMLOperation targetOperationBeforeInline;
 	private List<OperationInvocation> inlinedOperationInvocations;
 	private Set<Replacement> replacements;
-	private Set<AbstractCodeFragment> inlinedCodeFragmentsFromInlinedOperation;
-	private Set<AbstractCodeFragment> inlinedCodeFragmentsInTargetOperation;
+	private Set<AbstractCodeFragment_RENAMED> inlinedCodeFragmentsFromInlinedOperation;
+	private Set<AbstractCodeFragment_RENAMED> inlinedCodeFragmentsInTargetOperation;
 	private UMLOperationBodyMapper bodyMapper;
 	
 	public InlineOperationRefactoring(UMLOperationBodyMapper bodyMapper, UMLOperation targetOperationBeforeInline,
@@ -36,8 +36,8 @@ public class InlineOperationRefactoring implements Refactoring {
 		this.targetOperationBeforeInline = targetOperationBeforeInline;
 		this.inlinedOperationInvocations = operationInvocations;
 		this.replacements = bodyMapper.getReplacements();
-		this.inlinedCodeFragmentsFromInlinedOperation = new LinkedHashSet<AbstractCodeFragment>();
-		this.inlinedCodeFragmentsInTargetOperation = new LinkedHashSet<AbstractCodeFragment>();
+		this.inlinedCodeFragmentsFromInlinedOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
+		this.inlinedCodeFragmentsInTargetOperation = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
 			this.inlinedCodeFragmentsFromInlinedOperation.add(mapping.getFragment1());
 			this.inlinedCodeFragmentsInTargetOperation.add(mapping.getFragment2());
@@ -103,7 +103,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		return replacements;
 	}
 
-	public Set<AbstractCodeFragment> getInlinedCodeFragments() {
+	public Set<AbstractCodeFragment_RENAMED> getInlinedCodeFragments() {
 		return inlinedCodeFragmentsInTargetOperation;
 	}
 
@@ -173,7 +173,7 @@ public class InlineOperationRefactoring implements Refactoring {
 				.setDescription("inlined method declaration")
 				.setCodeElement(inlinedOperation.toString()));
 		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
+		for(AbstractCodeFragment_RENAMED inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
 		}
 		ranges.add(getTargetOperationCodeRangeBeforeInline()
@@ -201,7 +201,7 @@ public class InlineOperationRefactoring implements Refactoring {
 		ranges.add(getTargetOperationCodeRangeAfterInline()
 				.setDescription("target method declaration after inline")
 				.setCodeElement(targetOperationAfterInline.toString()));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
+		for(AbstractCodeFragment_RENAMED inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
 		}
 		/*

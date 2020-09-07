@@ -77,7 +77,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return innerNodes;
 	}
 
-	public boolean contains(AbstractCodeFragment fragment) {
+	public boolean contains(AbstractCodeFragment_RENAMED fragment) {
 		if(fragment instanceof StatementObject) {
 			return getLeaves().contains(fragment);
 		}

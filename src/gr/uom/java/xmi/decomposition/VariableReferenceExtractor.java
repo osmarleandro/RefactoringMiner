@@ -13,8 +13,8 @@ public class VariableReferenceExtractor {
 		VariableScope scope1 = declaration1.getScope();
 		VariableScope scope2 = declaration2.getScope();
 		for(AbstractCodeMapping mapping : mappings) {
-			AbstractCodeFragment fragment1 = mapping.getFragment1();
-			AbstractCodeFragment fragment2 = mapping.getFragment2();
+			AbstractCodeFragment_RENAMED fragment1 = mapping.getFragment1();
+			AbstractCodeFragment_RENAMED fragment2 = mapping.getFragment2();
 			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
 					usesVariable(fragment1, declaration1) && usesVariable(fragment2, declaration2)) {
 				references.add(mapping);
@@ -23,7 +23,7 @@ public class VariableReferenceExtractor {
 		return references;
 	}
 
-	private static boolean usesVariable(AbstractCodeFragment fragment, VariableDeclaration declaration) {
+	private static boolean usesVariable(AbstractCodeFragment_RENAMED fragment, VariableDeclaration declaration) {
 		List<String> variables = fragment.getVariables();
 		return variables.contains(declaration.getVariableName()) ||
 				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));

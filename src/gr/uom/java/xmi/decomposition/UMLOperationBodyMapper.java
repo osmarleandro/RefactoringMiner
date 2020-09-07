@@ -68,8 +68,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private UMLClassBaseDiff classDiff;
 	private UMLModelDiff modelDiff;
 	private UMLOperation callSiteOperation;
-	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
-	private Map<AbstractCodeFragment, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment, UMLOperation>();
+	private Map<AbstractCodeFragment_RENAMED, UMLOperation> codeFragmentOperationMap1 = new LinkedHashMap<AbstractCodeFragment_RENAMED, UMLOperation>();
+	private Map<AbstractCodeFragment_RENAMED, UMLOperation> codeFragmentOperationMap2 = new LinkedHashMap<AbstractCodeFragment_RENAMED, UMLOperation>();
 	
 	public UMLOperationBodyMapper(UMLOperation operation1, UMLOperation operation2, UMLClassBaseDiff classDiff) throws RefactoringMinerTimedOutException {
 		this.classDiff = classDiff;
@@ -222,8 +222,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return callSiteOperation;
 	}
 
-	private void resetNodes(List<? extends AbstractCodeFragment> nodes) {
-		for(AbstractCodeFragment node : nodes) {
+	private void resetNodes(List<? extends AbstractCodeFragment_RENAMED> nodes) {
+		for(AbstractCodeFragment_RENAMED node : nodes) {
 			node.resetArgumentization();
 		}
 	}
@@ -295,7 +295,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!returnWithVariableReplacement(mapping) && !nullLiteralReplacements(mapping) && (!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2()))) {
-					AbstractCodeFragment fragment = mapping.getFragment1();
+					AbstractCodeFragment_RENAMED fragment = mapping.getFragment1();
 					expandAnonymousAndLambdas(fragment, leaves1, innerNodes1, addedLeaves1, addedInnerNodes1, operationBodyMapper);
 				}
 			}
@@ -369,7 +369,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//adding innerNodes that were mapped with replacements
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2())) {
-					AbstractCodeFragment fragment = mapping.getFragment1();
+					AbstractCodeFragment_RENAMED fragment = mapping.getFragment1();
 					if(fragment instanceof CompositeStatementObject) {
 						CompositeStatementObject statement = (CompositeStatementObject)fragment;
 						if(!innerNodes1.contains(statement)) {
@@ -434,7 +434,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject> leaves1,
+	private void expandAnonymousAndLambdas(AbstractCodeFragment_RENAMED fragment, List<StatementObject> leaves1,
 			List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1,
 			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
 		if(fragment instanceof StatementObject) {
@@ -515,7 +515,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!returnWithVariableReplacement(mapping) && !nullLiteralReplacements(mapping) && (!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2()))) {
-					AbstractCodeFragment fragment = mapping.getFragment2();
+					AbstractCodeFragment_RENAMED fragment = mapping.getFragment2();
 					if(fragment instanceof StatementObject) {
 						StatementObject statement = (StatementObject)fragment;
 						if(!leaves2.contains(statement)) {
@@ -554,7 +554,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 				if(!mapping.getReplacements().isEmpty() || !mapping.getFragment1().equalFragment(mapping.getFragment2())) {
-					AbstractCodeFragment fragment = mapping.getFragment2();
+					AbstractCodeFragment_RENAMED fragment = mapping.getFragment2();
 					if(fragment instanceof CompositeStatementObject) {
 						CompositeStatementObject statement = (CompositeStatementObject)fragment;
 						if(!innerNodes2.contains(statement)) {
@@ -1106,16 +1106,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mapping;
 	}
 
-	public void processLeaves(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
+	public void processLeaves(List<? extends AbstractCodeFragment_RENAMED> leaves1, List<? extends AbstractCodeFragment_RENAMED> leaves2,
 			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
 		List<TreeSet<LeafMapping>> postponedMappingSets = new ArrayList<TreeSet<LeafMapping>>();
 		if(leaves1.size() <= leaves2.size()) {
 			//exact string+depth matching - leaf nodes
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
@@ -1132,11 +1132,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			
 			//exact string matching - leaf nodes - finds moves to another level
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
@@ -1153,18 +1153,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			
 			// exact matching with variable renames
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 					
 					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mapping.addReplacements(replacements);
-						for(AbstractCodeFragment leaf : leaves2) {
+						for(AbstractCodeFragment_RENAMED leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
 								break;
 							}
@@ -1174,7 +1174,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 						}
-						for(AbstractCodeFragment leaf : leaves1) {
+						for(AbstractCodeFragment_RENAMED leaf : leaves1) {
 							if(leaf.equals(leaf1)) {
 								break;
 							}
@@ -1209,11 +1209,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		else {
 			//exact string+depth matching - leaf nodes
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-				AbstractCodeFragment leaf2 = leafIterator2.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-					AbstractCodeFragment leaf1 = leafIterator1.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
@@ -1230,11 +1230,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			
 			//exact string matching - leaf nodes - finds moves to another level
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-				AbstractCodeFragment leaf2 = leafIterator2.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-					AbstractCodeFragment leaf1 = leafIterator1.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
 					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
@@ -1251,18 +1251,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			
 			// exact matching with variable renames
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-				AbstractCodeFragment leaf2 = leafIterator2.next();
+			for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+				AbstractCodeFragment_RENAMED leaf2 = leafIterator2.next();
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-					AbstractCodeFragment leaf1 = leafIterator1.next();
+				for(ListIterator<? extends AbstractCodeFragment_RENAMED> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+					AbstractCodeFragment_RENAMED leaf1 = leafIterator1.next();
 					
 					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mapping.addReplacements(replacements);
-						for(AbstractCodeFragment leaf : leaves2) {
+						for(AbstractCodeFragment_RENAMED leaf : leaves2) {
 							if(leaf.equals(leaf2)) {
 								break;
 							}
@@ -1272,7 +1272,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								break;
 							}
 						}
-						for(AbstractCodeFragment leaf : leaves1) {
+						for(AbstractCodeFragment_RENAMED leaf : leaves1) {
 							if(leaf.equals(leaf1)) {
 								break;
 							}
@@ -1336,11 +1336,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private ReplacementInfo initializeReplacementInfo(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2,
-			List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2) {
-		List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
+	private ReplacementInfo initializeReplacementInfo(AbstractCodeFragment_RENAMED leaf1, AbstractCodeFragment_RENAMED leaf2,
+			List<? extends AbstractCodeFragment_RENAMED> leaves1, List<? extends AbstractCodeFragment_RENAMED> leaves2) {
+		List<? extends AbstractCodeFragment_RENAMED> l1 = new ArrayList<AbstractCodeFragment_RENAMED>(leaves1);
 		l1.remove(leaf1);
-		List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(leaves2);
+		List<? extends AbstractCodeFragment_RENAMED> l2 = new ArrayList<AbstractCodeFragment_RENAMED>(leaves2);
 		l2.remove(leaf2);
 		ReplacementInfo replacementInfo = new ReplacementInfo(
 				preprocessInput1(leaf1, leaf2),
@@ -1397,8 +1397,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
 		AbstractCodeMapping currentSwitchCase = null;
 		for(AbstractCodeMapping mapping : this.mappings) {
-			AbstractCodeFragment fragment1 = mapping.getFragment1();
-			AbstractCodeFragment fragment2 = mapping.getFragment2();
+			AbstractCodeFragment_RENAMED fragment1 = mapping.getFragment1();
+			AbstractCodeFragment_RENAMED fragment2 = mapping.getFragment2();
 			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
 				AbstractStatement statement1 = (AbstractStatement)fragment1;
 				AbstractStatement statement2 = (AbstractStatement)fragment2;
@@ -1447,8 +1447,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		CompositeStatementObject switchParent2 = null;
 		if(mappingSet.size() > 1) {
 			for(LeafMapping mapping : mappingSet) {
-				AbstractCodeFragment fragment1 = mapping.getFragment1();
-				AbstractCodeFragment fragment2 = mapping.getFragment2();
+				AbstractCodeFragment_RENAMED fragment1 = mapping.getFragment1();
+				AbstractCodeFragment_RENAMED fragment2 = mapping.getFragment2();
 				if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
 					AbstractStatement statement1 = (AbstractStatement)fragment1;
 					AbstractStatement statement2 = (AbstractStatement)fragment2;
@@ -1476,7 +1476,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private LeafMapping createLeafMapping(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2, Map<String, String> parameterToArgumentMap) {
+	private LeafMapping createLeafMapping(AbstractCodeFragment_RENAMED leaf1, AbstractCodeFragment_RENAMED leaf2, Map<String, String> parameterToArgumentMap) {
 		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(leaf1) ? codeFragmentOperationMap1.get(leaf1) : this.operation1;
 		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(leaf2) ? codeFragmentOperationMap2.get(leaf2) : this.operation2;
 		LeafMapping mapping = new LeafMapping(leaf1, leaf2, operation1, operation2);
@@ -1489,15 +1489,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return mapping;
 	}
 
-	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	private String preprocessInput1(AbstractCodeFragment_RENAMED leaf1, AbstractCodeFragment_RENAMED leaf2) {
 		return preprocessInput(leaf1, leaf2);
 	}
 
-	private String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	private String preprocessInput2(AbstractCodeFragment_RENAMED leaf1, AbstractCodeFragment_RENAMED leaf2) {
 		return preprocessInput(leaf2, leaf1);
 	}
 
-	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
+	private String preprocessInput(AbstractCodeFragment_RENAMED leaf1, AbstractCodeFragment_RENAMED leaf2) {
 		String argumentizedString = new String(leaf1.getArgumentizedString());
 		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression) {
 			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
@@ -1513,11 +1513,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		private String argumentizedString2;
 		private int rawDistance;
 		private Set<Replacement> replacements;
-		private List<? extends AbstractCodeFragment> statements1;
-		private List<? extends AbstractCodeFragment> statements2;
+		private List<? extends AbstractCodeFragment_RENAMED> statements1;
+		private List<? extends AbstractCodeFragment_RENAMED> statements2;
 		
 		public ReplacementInfo(String argumentizedString1, String argumentizedString2,
-				List<? extends AbstractCodeFragment> statements1, List<? extends AbstractCodeFragment> statements2) {
+				List<? extends AbstractCodeFragment_RENAMED> statements1, List<? extends AbstractCodeFragment_RENAMED> statements2) {
 			this.argumentizedString1 = argumentizedString1;
 			this.argumentizedString2 = argumentizedString2;
 			this.statements1 = statements1;
@@ -1561,8 +1561,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private boolean nonMatchedStatementUsesVariableInArgument(List<? extends AbstractCodeFragment> statements, String variable, String otherArgument) {
-		for(AbstractCodeFragment statement : statements) {
+	private boolean nonMatchedStatementUsesVariableInArgument(List<? extends AbstractCodeFragment_RENAMED> statements, String variable, String otherArgument) {
+		for(AbstractCodeFragment_RENAMED statement : statements) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null) {
 				for(String argument : invocation.getArguments()) {
@@ -1577,7 +1577,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private Set<Replacement> findReplacementsWithExactMatching(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	private Set<Replacement> findReplacementsWithExactMatching(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2,
 			Map<String, String> parameterToArgumentMap, ReplacementInfo replacementInfo) throws RefactoringMinerTimedOutException {
 		List<VariableDeclaration> variableDeclarations1 = new ArrayList<VariableDeclaration>(statement1.getVariableDeclarations());
 		List<VariableDeclaration> variableDeclarations2 = new ArrayList<VariableDeclaration>(statement2.getVariableDeclarations());
@@ -2108,8 +2108,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					else if(invocation1.identicalName(invocationCoveringTheEntireStatement2) && invocation1.equalArguments(invocationCoveringTheEntireStatement2) &&
 							!assignmentInvocationCoveringTheEntireStatement1.getArguments().contains(key1) && invocationCoveringTheEntireStatement2.getExpression() != null) {
 						boolean expressionMatched = false;
-						Set<AbstractCodeFragment> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment>();
-						for(AbstractCodeFragment codeFragment : replacementInfo.statements2) {
+						Set<AbstractCodeFragment_RENAMED> additionallyMatchedStatements2 = new LinkedHashSet<AbstractCodeFragment_RENAMED>();
+						for(AbstractCodeFragment_RENAMED codeFragment : replacementInfo.statements2) {
 							VariableDeclaration variableDeclaration = codeFragment.getVariableDeclaration(invocationCoveringTheEntireStatement2.getExpression());
 							OperationInvocation invocationCoveringEntireCodeFragment = codeFragment.invocationCoveringEntireFragment();
 							if(variableDeclaration != null && variableDeclaration.getInitializer() != null && invocation1.getExpression() != null && invocation1.getExpression().equals(variableDeclaration.getInitializer().getString())) {
@@ -2125,7 +2125,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 						if(expressionMatched) {
 							if(additionallyMatchedStatements2.size() > 0) {
-								Replacement r = new CompositeReplacement(statement1.getString(), statement2.getString(), new LinkedHashSet<AbstractCodeFragment>(), additionallyMatchedStatements2);
+								Replacement r = new CompositeReplacement(statement1.getString(), statement2.getString(), new LinkedHashSet<AbstractCodeFragment_RENAMED>(), additionallyMatchedStatements2);
 								replacementInfo.getReplacements().add(r);
 							}
 							return replacementInfo.getReplacements();
@@ -2608,7 +2608,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
+	private boolean validStatementForConcatComparison(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2) {
 		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations();
 		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations();
 		if(variableDeclarations1.size() == variableDeclarations2.size()) {
@@ -2663,7 +2663,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private String statementWithoutAnonymous(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
+	private String statementWithoutAnonymous(AbstractCodeFragment_RENAMED statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
 		int index = statement.getString().indexOf(anonymousClassDeclaration.toString());
 		if(index != -1) {
 			return statement.getString().substring(0, index);
@@ -2734,7 +2734,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean classInstanceCreationWithEverythingReplaced(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	private boolean classInstanceCreationWithEverythingReplaced(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2,
 			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
@@ -2851,7 +2851,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private boolean variableAssignmentWithEverythingReplaced(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+	private boolean variableAssignmentWithEverythingReplaced(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2,
 			ReplacementInfo replacementInfo) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
@@ -4021,7 +4021,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
+	private int inconsistentVariableMappingCount(AbstractCodeFragment_RENAMED statement1, AbstractCodeFragment_RENAMED statement2, VariableDeclaration v1, VariableDeclaration v2) {
 		int count = 0;
 		if(v1 != null && v2 != null) {
 			for(AbstractCodeMapping mapping : mappings) {

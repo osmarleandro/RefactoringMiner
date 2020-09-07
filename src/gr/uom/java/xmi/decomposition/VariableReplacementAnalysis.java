@@ -682,8 +682,8 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
-		AbstractCodeFragment fragment1 = mapping.getFragment1();
-		AbstractCodeFragment fragment2 = mapping.getFragment2();
+		AbstractCodeFragment_RENAMED fragment1 = mapping.getFragment1();
+		AbstractCodeFragment_RENAMED fragment2 = mapping.getFragment2();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations();
 		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0) {
@@ -765,8 +765,8 @@ public class VariableReplacementAnalysis {
 		Set<VariableDeclaration> allVariableDeclarations1 = new LinkedHashSet<VariableDeclaration>();
 		Set<VariableDeclaration> allVariableDeclarations2 = new LinkedHashSet<VariableDeclaration>();
 		for(AbstractCodeMapping referenceMapping : set) {
-			AbstractCodeFragment statement1 = referenceMapping.getFragment1();
-			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
+			AbstractCodeFragment_RENAMED statement1 = referenceMapping.getFragment1();
+			AbstractCodeFragment_RENAMED statement2 = referenceMapping.getFragment2();
 			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
@@ -856,8 +856,8 @@ public class VariableReplacementAnalysis {
 				}
 				if(mapping.isExact()) {
 					for(AbstractCodeMapping referenceMapping : set) {
-						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
-						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
+						AbstractCodeFragment_RENAMED statement1 = referenceMapping.getFragment1();
+						AbstractCodeFragment_RENAMED statement2 = referenceMapping.getFragment2();
 						boolean containsMapping = true;
 						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {

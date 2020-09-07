@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.util.BufferRecyclers;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment_RENAMED;
 
 public class CodeRange {
 	private String filePath;
@@ -78,9 +78,9 @@ public class CodeRange {
 				this.endLine >= other.endLine;
 	}
 
-	public boolean subsumes(List<? extends AbstractCodeFragment> statements) {
+	public boolean subsumes(List<? extends AbstractCodeFragment_RENAMED> statements) {
 		int subsumedStatements = 0;
-		for(AbstractCodeFragment statement : statements) {
+		for(AbstractCodeFragment_RENAMED statement : statements) {
 			if(subsumes(statement.codeRange())) {
 				subsumedStatements++;
 			}
@@ -133,14 +133,14 @@ public class CodeRange {
 			sb.append(",").append("\n");
 	}
 
-	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
+	public static CodeRange computeRange(Set<AbstractCodeFragment_RENAMED> codeFragments) {
 		String filePath = null;
 		int minStartLine = 0;
 		int maxEndLine = 0;
 		int startColumn = 0;
 		int endColumn = 0;
 		
-		for(AbstractCodeFragment fragment : codeFragments) {
+		for(AbstractCodeFragment_RENAMED fragment : codeFragments) {
 			LocationInfo info = fragment.getLocationInfo();
 			filePath = info.getFilePath();
 			if(minStartLine == 0 || info.getStartLine() < minStartLine) {
