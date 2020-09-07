@@ -27,7 +27,7 @@ import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 import gr.uom.java.xmi.diff.UMLOperationDiff;
-import gr.uom.java.xmi.diff.UMLParameterDiff;
+import gr.uom.java.xmi.diff.UMLParameterDiff_RENAMED;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -3101,7 +3101,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					Replacement matchingReplacement = null;
 					for(Replacement replacement : replacementInfo.getReplacements()) {
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+							for(UMLParameterDiff_RENAMED parameterDiff : operationDiff.getParameterDiffList()) {
 								if(parameterDiff.isNameChanged() &&
 										replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
 										replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {

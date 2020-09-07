@@ -2,14 +2,14 @@ package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLParameter;
 
-public class UMLParameterDiff {
+public class UMLParameterDiff_RENAMED {
 	private UMLParameter removedParameter;
 	private UMLParameter addedParameter;
 	private boolean typeChanged;
 	private boolean qualifiedTypeChanged;
 	private boolean nameChanged;
 	
-	public UMLParameterDiff(UMLParameter removedParameter, UMLParameter addedParameter) {
+	public UMLParameterDiff_RENAMED(UMLParameter removedParameter, UMLParameter addedParameter) {
 		this.removedParameter = removedParameter;
 		this.addedParameter = addedParameter;
 		this.typeChanged = false;

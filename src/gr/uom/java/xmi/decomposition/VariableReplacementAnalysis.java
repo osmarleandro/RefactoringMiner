@@ -36,7 +36,7 @@ import gr.uom.java.xmi.diff.RenameVariableRefactoring;
 import gr.uom.java.xmi.diff.SplitVariableRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLOperationDiff;
-import gr.uom.java.xmi.diff.UMLParameterDiff;
+import gr.uom.java.xmi.diff.UMLParameterDiff_RENAMED;
 
 public class VariableReplacementAnalysis {
 	private Set<AbstractCodeMapping> mappings;
@@ -627,14 +627,14 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		if(operationDiff != null) {
-			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+			List<UMLParameterDiff_RENAMED> allParameterDiffs = new ArrayList<UMLParameterDiff_RENAMED>();
+			for(UMLParameterDiff_RENAMED parameterDiff : operationDiff.getParameterDiffList()) {
 				if(parameterDiff.isNameChanged()) {
 					allParameterDiffs.add(parameterDiff);
 				}
 			}
-			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
-			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
+			List<UMLParameterDiff_RENAMED> matchedParameterDiffs = new ArrayList<UMLParameterDiff_RENAMED>();
+			for(UMLParameterDiff_RENAMED parameterDiff : allParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
@@ -645,7 +645,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
-			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
+			for(UMLParameterDiff_RENAMED parameterDiff : matchedParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
@@ -1103,7 +1103,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingParameterRenameInOperationDiff(MergeVariableRefactoring ref) {
 		if(operationDiff != null) {
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+			for(UMLParameterDiff_RENAMED parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
 						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
@@ -1116,7 +1116,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingParameterRenameInOperationDiff(SplitVariableRefactoring ref) {
 		if(operationDiff != null) {
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+			for(UMLParameterDiff_RENAMED parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getSplitVariables().contains(parameterDiff.getAddedParameter().getVariableDeclaration()) &&
 						ref.getOldVariable().equals(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
 					return true;

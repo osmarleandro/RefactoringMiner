@@ -23,7 +23,7 @@ public class UMLOperationDiff {
 	private UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
 	private List<UMLParameter> removedParameters;
-	private List<UMLParameterDiff> parameterDiffList;
+	private List<UMLParameterDiff_RENAMED> parameterDiffList;
 	private boolean visibilityChanged;
 	private boolean abstractionChanged;
 	private boolean returnTypeChanged;
@@ -37,7 +37,7 @@ public class UMLOperationDiff {
 		this.addedOperation = addedOperation;
 		this.addedParameters = new ArrayList<UMLParameter>();
 		this.removedParameters = new ArrayList<UMLParameter>();
-		this.parameterDiffList = new ArrayList<UMLParameterDiff>();
+		this.parameterDiffList = new ArrayList<UMLParameterDiff_RENAMED>();
 		this.visibilityChanged = false;
 		this.abstractionChanged = false;
 		this.returnTypeChanged = false;
@@ -58,7 +58,7 @@ public class UMLOperationDiff {
 			UMLParameter parameter1 = matchedParameter.getKey();
 			UMLParameter parameter2 = matchedParameter.getValue();
 			if(!parameter1.equalsQualified(parameter2)) {
-				UMLParameterDiff parameterDiff = new UMLParameterDiff(parameter1, parameter2);
+				UMLParameterDiff_RENAMED parameterDiff = new UMLParameterDiff_RENAMED(parameter1, parameter2);
 				parameterDiffList.add(parameterDiff);
 			}
 		}
@@ -69,7 +69,7 @@ public class UMLOperationDiff {
 			for(Iterator<UMLParameter> addedParameterIterator = addedParameters.iterator(); addedParameterIterator.hasNext();) {
 				UMLParameter addedParameter = addedParameterIterator.next();
 				if(removedParameter.getName().equals(addedParameter.getName())) {
-					UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
+					UMLParameterDiff_RENAMED parameterDiff = new UMLParameterDiff_RENAMED(removedParameter, addedParameter);
 					parameterDiffList.add(parameterDiff);
 					addedParameterIterator.remove();
 					removedParameterIterator.remove();
@@ -84,7 +84,7 @@ public class UMLOperationDiff {
 				UMLParameter addedParameter = addedParameterIterator.next();
 				if(removedParameter.getType().equalsQualified(addedParameter.getType()) &&
 						!existsAnotherAddedParameterWithTheSameType(addedParameter)) {
-					UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
+					UMLParameterDiff_RENAMED parameterDiff = new UMLParameterDiff_RENAMED(removedParameter, addedParameter);
 					parameterDiffList.add(parameterDiff);
 					addedParameterIterator.remove();
 					removedParameterIterator.remove();
@@ -103,7 +103,7 @@ public class UMLOperationDiff {
 					UMLParameter addedParameter = addedParameterIterator.next();
 					int indexOfAddedParameter = addedParametersWithoutReturnType.indexOf(addedParameter);
 					if(indexOfRemovedParameter == indexOfAddedParameter) {
-						UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
+						UMLParameterDiff_RENAMED parameterDiff = new UMLParameterDiff_RENAMED(removedParameter, addedParameter);
 						parameterDiffList.add(parameterDiff);
 						addedParameterIterator.remove();
 						removedParameterIterator.remove();
@@ -166,7 +166,7 @@ public class UMLOperationDiff {
 		return matchedParameters;
 	}
 
-	public List<UMLParameterDiff> getParameterDiffList() {
+	public List<UMLParameterDiff_RENAMED> getParameterDiffList() {
 		return parameterDiffList;
 	}
 
@@ -214,7 +214,7 @@ public class UMLOperationDiff {
 		for(UMLParameter umlParameter : addedParameters) {
 			sb.append("\t").append("parameter " + umlParameter + " added").append("\n");
 		}
-		for(UMLParameterDiff parameterDiff : parameterDiffList) {
+		for(UMLParameterDiff_RENAMED parameterDiff : parameterDiffList) {
 			sb.append(parameterDiff);
 		}
 		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
@@ -241,7 +241,7 @@ public class UMLOperationDiff {
 				refactorings.add(refactoring);
 			}
 		}
-		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
+		for(UMLParameterDiff_RENAMED parameterDiff : getParameterDiffList()) {
 			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
 			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
