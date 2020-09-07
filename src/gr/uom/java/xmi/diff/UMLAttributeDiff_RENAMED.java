@@ -11,7 +11,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
-public class UMLAttributeDiff {
+public class UMLAttributeDiff_RENAMED {
 	private UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
@@ -23,7 +23,7 @@ public class UMLAttributeDiff {
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
 	private UMLAnnotationListDiff annotationListDiff;
 
-	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
+	public UMLAttributeDiff_RENAMED(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;
 		this.addedAttribute = addedAttribute;
 		this.operationBodyMapperList = operationBodyMapperList;

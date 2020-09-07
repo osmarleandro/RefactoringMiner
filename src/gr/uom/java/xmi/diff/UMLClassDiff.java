@@ -45,7 +45,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			this.reportRemovedAttribute(attribute);
     		}
     		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, getOperationBodyMapperList());
+    			UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(attribute, matchingAttribute, getOperationBodyMapperList());
     			if(!attributeDiff.isEmpty()) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 	    			this.attributeDiffList.add(attributeDiff);
@@ -58,7 +58,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			this.reportAddedAttribute(attribute);
     		}
     		else {
-    			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, getOperationBodyMapperList());
+    			UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(matchingAttribute, attribute, getOperationBodyMapperList());
     			if(!attributeDiff.isEmpty()) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
@@ -168,7 +168,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
 				UMLAttribute addedAttribute = addedAttributeIterator.next();
 				if(removedAttribute.getName().equals(addedAttribute.getName())) {
-					UMLAttributeDiff attributeDiff = new UMLAttributeDiff(removedAttribute, addedAttribute, getOperationBodyMapperList());
+					UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(removedAttribute, addedAttribute, getOperationBodyMapperList());
 					refactorings.addAll(attributeDiff.getRefactorings());
 					addedAttributeIterator.remove();
 					removedAttributeIterator.remove();

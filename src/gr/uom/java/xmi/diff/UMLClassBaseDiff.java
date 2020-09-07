@@ -57,7 +57,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLAnonymousClass> addedAnonymousClasses;
 	private List<UMLAnonymousClass> removedAnonymousClasses;
 	private List<UMLOperationDiff> operationDiffList;
-	protected List<UMLAttributeDiff> attributeDiffList;
+	protected List<UMLAttributeDiff_RENAMED> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
@@ -84,7 +84,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.addedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.removedAnonymousClasses = new ArrayList<UMLAnonymousClass>();
 		this.operationDiffList = new ArrayList<UMLOperationDiff>();
-		this.attributeDiffList = new ArrayList<UMLAttributeDiff>();
+		this.attributeDiffList = new ArrayList<UMLAttributeDiff_RENAMED>();
 		this.refactorings = new ArrayList<Refactoring>();
 		this.modelDiff = modelDiff;
 	}
@@ -160,7 +160,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     			this.removedAttributes.add(attribute);
     		}
 			else if(!attributeDiffListContainsAttribute(attribute, attributeWithTheSameName)) {
-				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, attributeWithTheSameName, operationBodyMapperList);
+				UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(attribute, attributeWithTheSameName, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
@@ -173,7 +173,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     			this.addedAttributes.add(attribute);
     		}
 			else if(!attributeDiffListContainsAttribute(attributeWithTheSameName, attribute)) {
-				UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attributeWithTheSameName, attribute, operationBodyMapperList);
+				UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(attributeWithTheSameName, attribute, operationBodyMapperList);
 				if(!attributeDiff.isEmpty()) {
 					refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
@@ -206,7 +206,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
-		for(UMLAttributeDiff diff : attributeDiffList) {
+		for(UMLAttributeDiff_RENAMED diff : attributeDiffList) {
 			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
 				return true;
 		}
@@ -545,7 +545,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								(!nextClass.containsAttributeWithName(pattern.getBefore()) || cyclicRename(renameMap, pattern)) &&
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
-							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
+							UMLAttributeDiff_RENAMED attributeDiff = new UMLAttributeDiff_RENAMED(a1, a2, operationBodyMapperList);
 							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
 							if(!refactorings.containsAll(attributeDiffRefactorings)) {
 								refactorings.addAll(attributeDiffRefactorings);
@@ -1641,7 +1641,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperationDiff operationDiff : operationDiffList) {
 			sb.append(operationDiff);
 		}
-		for(UMLAttributeDiff attributeDiff : attributeDiffList) {
+		for(UMLAttributeDiff_RENAMED attributeDiff : attributeDiffList) {
 			sb.append(attributeDiff);
 		}
 		Collections.sort(operationBodyMapperList);
