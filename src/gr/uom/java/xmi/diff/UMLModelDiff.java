@@ -1499,8 +1499,8 @@ public class UMLModelDiff {
     			  typeRenamePatternMap.put(pattern, 1);
     		  }
     	  }
-    	  else if(ref instanceof ChangeAttributeTypeRefactoring) {
-    		  ChangeAttributeTypeRefactoring refactoring = (ChangeAttributeTypeRefactoring)ref;
+    	  else if(ref instanceof ChangeAttributeTypeRefactoring_RENAMED) {
+    		  ChangeAttributeTypeRefactoring_RENAMED refactoring = (ChangeAttributeTypeRefactoring_RENAMED)ref;
     		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalAttribute().getType().toString(), refactoring.getChangedTypeAttribute().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);

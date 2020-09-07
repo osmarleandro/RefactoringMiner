@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class ChangeAttributeTypeRefactoring implements Refactoring {
+public class ChangeAttributeTypeRefactoring_RENAMED implements Refactoring {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration changedTypeAttribute;
 	private String classNameBefore;
@@ -20,7 +20,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	private Set<AbstractCodeMapping> attributeReferences;
 	private Set<Refactoring> relatedRefactorings;
 	
-	public ChangeAttributeTypeRefactoring(VariableDeclaration originalAttribute,
+	public ChangeAttributeTypeRefactoring_RENAMED(VariableDeclaration originalAttribute,
 			VariableDeclaration changedTypeAttribute, String classNameBefore, String classNameAfter, Set<AbstractCodeMapping> attributeReferences) {
 		this.originalAttribute = originalAttribute;
 		this.changedTypeAttribute = changedTypeAttribute;
@@ -98,7 +98,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChangeAttributeTypeRefactoring other = (ChangeAttributeTypeRefactoring) obj;
+		ChangeAttributeTypeRefactoring_RENAMED other = (ChangeAttributeTypeRefactoring_RENAMED) obj;
 		if (changedTypeAttribute == null) {
 			if (other.changedTypeAttribute != null)
 				return false;
