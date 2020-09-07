@@ -31,8 +31,8 @@ public class InlineOperationDetection {
 		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
 	}
 
-	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
-		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
+	public List<InlineOperationRefactoring_RENAMED> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
+		List<InlineOperationRefactoring_RENAMED> refactorings = new ArrayList<InlineOperationRefactoring_RENAMED>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
 			List<OperationInvocation> removedOperationInvocations = matchingInvocations(removedOperation, operationInvocations, mapper.getOperation1().variableTypeMap());
@@ -58,14 +58,14 @@ public class InlineOperationDetection {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(inlineMatchCondition(nestedMapper)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
-							InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
+							InlineOperationRefactoring_RENAMED nestedRefactoring = new InlineOperationRefactoring_RENAMED(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);
 						}
 					}
 				}
 				if(inlineMatchCondition(operationBodyMapper)) {
-					InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
+					InlineOperationRefactoring_RENAMED inlineOperationRefactoring =	new InlineOperationRefactoring_RENAMED(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 					refactorings.add(inlineOperationRefactoring);
 				}
 			}

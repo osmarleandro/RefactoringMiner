@@ -905,8 +905,8 @@ public class UMLModelDiff {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
-        	 if(ref instanceof InlineOperationRefactoring) {
-        		 InlineOperationRefactoring extractRef = (InlineOperationRefactoring)ref;
+        	 if(ref instanceof InlineOperationRefactoring_RENAMED) {
+        		 InlineOperationRefactoring_RENAMED extractRef = (InlineOperationRefactoring_RENAMED)ref;
         		 removedOperations.add(extractRef.getInlinedOperation());
         	 }
          }
@@ -1746,7 +1746,7 @@ public class UMLModelDiff {
 						}
 						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, getUMLClassDiff(removedOperation.getClassName()));
 						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
-							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
+							InlineOperationRefactoring_RENAMED inlineOperationRefactoring =	new InlineOperationRefactoring_RENAMED(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
 							refactorings.add(inlineOperationRefactoring);
 							deleteRemovedOperation(removedOperation);
 						}
