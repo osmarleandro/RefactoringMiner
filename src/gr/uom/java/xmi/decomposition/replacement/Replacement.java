@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
-import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.StringDistance_RENAMED;
 
 public class Replacement {
 	private String before;
@@ -55,7 +55,7 @@ public class Replacement {
 	public double normalizedEditDistance() {
 		String s1 = getBefore();
 		String s2 = getAfter();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance_RENAMED.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

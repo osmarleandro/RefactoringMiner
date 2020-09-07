@@ -9,7 +9,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
-import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.StringDistance_RENAMED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -657,7 +657,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public double normalizedNameDistance(UMLOperation operation) {
 		String s1 = getName().toLowerCase();
 		String s2 = operation.getName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance_RENAMED.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

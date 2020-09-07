@@ -2,7 +2,7 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.diff.CodeRange;
-import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.StringDistance_RENAMED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	public double normalizedNameDistance(UMLAttribute attribute) {
 		String s1 = getName().toLowerCase();
 		String s2 = attribute.getName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = StringDistance_RENAMED.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

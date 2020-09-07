@@ -9,7 +9,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.RenamePattern;
-import gr.uom.java.xmi.diff.StringDistance;
+import gr.uom.java.xmi.diff.StringDistance_RENAMED;
 
 public abstract class UMLAbstractClass {
 	protected LocationInfo locationInfo;
@@ -76,10 +76,10 @@ public abstract class UMLAbstractClass {
 			return matchingOperations.get(0);
 		}
 		else if(matchingOperations.size() > 1) {
-			int minDistance = StringDistance.editDistance(matchingOperations.get(0).toString(), operation.toString());
+			int minDistance = StringDistance_RENAMED.editDistance(matchingOperations.get(0).toString(), operation.toString());
 			UMLOperation matchingOperation = matchingOperations.get(0);
 			for(int i=1; i<matchingOperations.size(); i++) {
-				int distance = StringDistance.editDistance(matchingOperations.get(i).toString(), operation.toString());
+				int distance = StringDistance_RENAMED.editDistance(matchingOperations.get(i).toString(), operation.toString());
 				if(distance < minDistance) {
 					minDistance = distance;
 					matchingOperation = matchingOperations.get(i);
