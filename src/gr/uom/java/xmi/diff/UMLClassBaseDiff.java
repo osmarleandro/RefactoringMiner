@@ -29,7 +29,7 @@ import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
-import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
@@ -65,7 +65,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
 	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
-	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
+	private Map<SplitVariableReplacement_RENAMED, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement_RENAMED, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
 
 	public UMLClassBaseDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
@@ -499,7 +499,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		for(SplitVariableReplacement split : splitMap.keySet()) {
+		for(SplitVariableReplacement_RENAMED split : splitMap.keySet()) {
 			Set<UMLAttribute> splitAttributes = new LinkedHashSet<UMLAttribute>();
 			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
 			for(String splitVariable : split.getSplitVariables()) {
@@ -642,7 +642,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				after.add(PrefixSuffixUtils.normalize(splitVariable));
 			}
 			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
-			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
+			SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(before, after);
 			processSplit(splitMap, split, candidate);
 		}
 	}
@@ -862,10 +862,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		mergeMap.put(newMerge, set);
 	}
 
-	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
-			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
-		SplitVariableReplacement splitToBeRemoved = null;
-		for(SplitVariableReplacement split : splitMap.keySet()) {
+	private void processSplit(Map<SplitVariableReplacement_RENAMED, Set<CandidateSplitVariableRefactoring>> splitMap,
+			SplitVariableReplacement_RENAMED newSplit, CandidateSplitVariableRefactoring candidate) {
+		SplitVariableReplacement_RENAMED splitToBeRemoved = null;
+		for(SplitVariableReplacement_RENAMED split : splitMap.keySet()) {
 			if(split.subsumes(newSplit)) {
 				splitMap.get(split).add(candidate);
 				return;
@@ -879,7 +879,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				Set<String> splitVariables = new LinkedHashSet<String>();
 				splitVariables.addAll(split.getSplitVariables());
 				splitVariables.addAll(newSplit.getSplitVariables());
-				SplitVariableReplacement replacement = new SplitVariableReplacement(split.getBefore(), splitVariables);
+				SplitVariableReplacement_RENAMED replacement = new SplitVariableReplacement_RENAMED(split.getBefore(), splitVariables);
 				Set<CandidateSplitVariableRefactoring> candidates = splitMap.get(splitToBeRemoved);
 				candidates.add(candidate);
 				splitMap.put(replacement, candidates);

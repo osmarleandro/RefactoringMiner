@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationWithClassInstanceCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
-import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
+import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation.Direction;
@@ -3127,7 +3127,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							counter++;
 						}
-						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+						SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(matchingReplacement.getBefore(), splitVariables);
 						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().remove(matchingReplacement);
 							replacementInfo.getReplacements().add(split);
@@ -3164,7 +3164,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							counter++;
 						}
-						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+						SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(diff1, splitVariables);
 						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().add(split);
 							return true;
@@ -3202,7 +3202,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								}
 								counter++;
 							}
-							SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+							SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(matchingReplacement.getBefore(), splitVariables);
 							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 								replacementInfo.getReplacements().remove(matchingReplacement);
 								replacementInfo.getReplacements().add(split);
@@ -3239,7 +3239,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								}
 								counter++;
 							}
-							SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+							SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(diff1, splitVariables);
 							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 								replacementInfo.getReplacements().add(split);
 								return true;
@@ -3285,7 +3285,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							counter++;
 						}
-						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
+						SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(matchingReplacement.getBefore(), splitVariables);
 						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().remove(matchingReplacement);
 							replacementInfo.getReplacements().add(split);
@@ -3322,7 +3322,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							}
 							counter++;
 						}
-						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
+						SplitVariableReplacement_RENAMED split = new SplitVariableReplacement_RENAMED(diff1, splitVariables);
 						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().add(split);
 							return true;

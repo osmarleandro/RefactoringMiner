@@ -3,10 +3,10 @@ package gr.uom.java.xmi.decomposition.replacement;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class SplitVariableReplacement extends Replacement {
+public class SplitVariableReplacement_RENAMED extends Replacement {
 	private Set<String> splitVariables;
 
-	public SplitVariableReplacement(String oldVariable, Set<String> newVariables) {
+	public SplitVariableReplacement_RENAMED(String oldVariable, Set<String> newVariables) {
 		super(oldVariable, newVariables.toString(), ReplacementType.SPLIT_VARIABLE);
 		this.splitVariables = newVariables;
 	}
@@ -15,19 +15,19 @@ public class SplitVariableReplacement extends Replacement {
 		return splitVariables;
 	}
 
-	public boolean equal(SplitVariableReplacement other) {
+	public boolean equal(SplitVariableReplacement_RENAMED other) {
 		return this.getBefore().equals(other.getBefore()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				other.splitVariables.containsAll(this.splitVariables);
 	}
 
-	public boolean commonBefore(SplitVariableReplacement other) {
+	public boolean commonBefore(SplitVariableReplacement_RENAMED other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.splitVariables);
 		interestion.retainAll(other.splitVariables);
 		return this.getBefore().equals(other.getBefore()) && interestion.size() == 0;
 	}
 
-	public boolean subsumes(SplitVariableReplacement other) {
+	public boolean subsumes(SplitVariableReplacement_RENAMED other) {
 		return this.getBefore().equals(other.getBefore()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
 				this.splitVariables.size() > other.splitVariables.size();
