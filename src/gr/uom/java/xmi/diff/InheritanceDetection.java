@@ -12,7 +12,7 @@ import java.util.Set;
 public class InheritanceDetection {
 	private Map<String, LinkedHashSet<String>> subclassMap;
 
-	public InheritanceDetection(UMLModelDiff modelDiff) {
+	public InheritanceDetection(UMLModelDiff_RENAMED modelDiff) {
 		this.subclassMap = new LinkedHashMap<String, LinkedHashSet<String>>();
 		generateNewInheritanceHierarchies(modelDiff);
 	}
@@ -29,7 +29,7 @@ public class InheritanceDetection {
 		}
 	}
 
-	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
+	private void generateNewInheritanceHierarchies(UMLModelDiff_RENAMED modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
 		for(UMLGeneralization generalization : addedGeneralizations) {
 			String superclass = generalization.getParent();

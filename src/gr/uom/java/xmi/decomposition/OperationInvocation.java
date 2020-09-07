@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
-import gr.uom.java.xmi.diff.UMLModelDiff;
+import gr.uom.java.xmi.diff.UMLModelDiff_RENAMED;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,7 +146,7 @@ public class OperationInvocation extends AbstractCall {
     	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
     }
 
-    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
+    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff_RENAMED modelDiff) {
     	List<UMLType> inferredArgumentTypes = new ArrayList<UMLType>();
     	for(String arg : arguments) {
     		int indexOfOpeningParenthesis = arg.indexOf("(");
@@ -232,7 +232,7 @@ public class OperationInvocation extends AbstractCall {
     	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
     }
 
-    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff_RENAMED modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))

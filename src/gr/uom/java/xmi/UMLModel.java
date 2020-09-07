@@ -1,7 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.UMLClassDiff;
-import gr.uom.java.xmi.diff.UMLModelDiff;
+import gr.uom.java.xmi.diff.UMLModelDiff_RENAMED;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,12 +107,12 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
+    public UMLModelDiff_RENAMED diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
     }
 
-	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
-    	UMLModelDiff modelDiff = new UMLModelDiff();
+	public UMLModelDiff_RENAMED diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
+    	UMLModelDiff_RENAMED modelDiff = new UMLModelDiff_RENAMED();
     	for(UMLClass umlClass : classList) {
     		if(!umlModel.classList.contains(umlClass))
     			modelDiff.reportRemovedClass(umlClass);

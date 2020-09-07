@@ -41,7 +41,7 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class UMLModelDiff {
+public class UMLModelDiff_RENAMED {
    private static final int MAXIMUM_NUMBER_OF_COMPARED_METHODS = 100;
    private List<UMLClass> addedClasses;
    private List<UMLClass> removedClasses;
@@ -60,7 +60,7 @@ public class UMLModelDiff {
    private List<Refactoring> refactorings;
    private Set<String> deletedFolderPaths;
    
-   public UMLModelDiff() {
+   public UMLModelDiff_RENAMED() {
       this.addedClasses = new ArrayList<UMLClass>();
       this.removedClasses = new ArrayList<UMLClass>();
       this.addedGeneralizations = new ArrayList<UMLGeneralization>();

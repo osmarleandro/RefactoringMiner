@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassRenameDiff extends UMLClassBaseDiff {
 	
-	public UMLClassRenameDiff(UMLClass originalClass, UMLClass renamedClass, UMLModelDiff modelDiff) {
+	public UMLClassRenameDiff(UMLClass originalClass, UMLClass renamedClass, UMLModelDiff_RENAMED modelDiff) {
 		super(originalClass, renamedClass, modelDiff);
 	}
 
