@@ -8,7 +8,7 @@ import java.util.Set;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.diff.CodeRange;
-import gr.uom.java.xmi.diff.RenamePattern;
+import gr.uom.java.xmi.diff.RenamePattern_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLAbstractClass {
@@ -110,7 +110,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
+	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern_RENAMED pattern) {
 		if(pattern == null)
 			return false;
 		for(UMLOperation originalOperation : operations) {
@@ -148,7 +148,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
+	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern_RENAMED pattern) {
 		if(pattern == null)
 			return false;
 		for(UMLAttribute originalAttribute : attributes) {
@@ -218,7 +218,7 @@ public abstract class UMLAbstractClass {
 	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
-		RenamePattern pattern = null;
+		RenamePattern_RENAMED pattern = null;
 		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
 			int beginIndexS1 = this.name.indexOf(commonPrefix) + commonPrefix.length();
 			int endIndexS1 = this.name.lastIndexOf(commonSuffix);
@@ -226,7 +226,7 @@ public abstract class UMLAbstractClass {
 			int beginIndexS2 = umlClass.name.indexOf(commonPrefix) + commonPrefix.length();
 			int endIndexS2 = umlClass.name.lastIndexOf(commonSuffix);
 			String diff2 = beginIndexS2 > endIndexS2 ? "" :	umlClass.name.substring(beginIndexS2, endIndexS2);
-			pattern = new RenamePattern(diff1, diff2);
+			pattern = new RenamePattern_RENAMED(diff1, diff2);
 		}
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;

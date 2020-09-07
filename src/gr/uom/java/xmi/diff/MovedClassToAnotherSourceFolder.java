@@ -35,13 +35,13 @@ public class MovedClassToAnotherSourceFolder {
 		return movedClass;
 	}
 
-	public RenamePattern getRenamePattern() {
+	public RenamePattern_RENAMED getRenamePattern() {
 		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('/', originalPath, movedPath);
 		if (separatorPos == -1) {
-			return new RenamePattern(originalPath, movedPath);
+			return new RenamePattern_RENAMED(originalPath, movedPath);
 		}
 		String original = originalPath.substring(0, originalPath.length() - separatorPos);
 		String moved = movedPath.substring(0, movedPath.length() - separatorPos);
-		return new RenamePattern(original, moved);
+		return new RenamePattern_RENAMED(original, moved);
 	}
 }

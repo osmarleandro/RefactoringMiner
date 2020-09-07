@@ -1,10 +1,10 @@
 package gr.uom.java.xmi.diff;
 
-public class RenamePattern {
+public class RenamePattern_RENAMED {
 	private String before;
 	private String after;
 	
-	public RenamePattern(String originalPath, String movedPath) {
+	public RenamePattern_RENAMED(String originalPath, String movedPath) {
 		this.before = originalPath;
 		this.after = movedPath;
 	}
@@ -25,8 +25,8 @@ public class RenamePattern {
 		if(this == o) {
     		return true;
     	}
-    	if(o instanceof RenamePattern) {
-    		RenamePattern pattern = (RenamePattern)o;
+    	if(o instanceof RenamePattern_RENAMED) {
+    		RenamePattern_RENAMED pattern = (RenamePattern_RENAMED)o;
     		return this.before.equals(pattern.before) && this.after.equals(pattern.after);
     	}
     	return false;
@@ -39,7 +39,7 @@ public class RenamePattern {
 		return result;
 	}
 	
-	public RenamePattern reverse() {
-		return new RenamePattern(after, before);
+	public RenamePattern_RENAMED reverse() {
+		return new RenamePattern_RENAMED(after, before);
 	}
 }

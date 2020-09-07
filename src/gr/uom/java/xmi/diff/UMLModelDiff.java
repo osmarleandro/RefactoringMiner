@@ -1203,7 +1203,7 @@ public class UMLModelDiff {
 		   
 		   if (!originalName.equals(movedName)) {
 			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   RenamePattern_RENAMED renamePattern = refactoring.getRenamePattern();
 			   //check if the the original path is a substring of the moved path and vice versa
 			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
 					   renamePattern.getAfter().contains(renamePattern.getBefore()) ||
@@ -1225,7 +1225,7 @@ public class UMLModelDiff {
 			   }
 		   } else if(!originalPathPrefix.equals(movedPathPrefix)) {
 			   MovedClassToAnotherSourceFolder refactoring = new MovedClassToAnotherSourceFolder(originalClass, movedClass, originalPathPrefix, movedPathPrefix);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   RenamePattern_RENAMED renamePattern = refactoring.getRenamePattern();
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
 			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
 				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
@@ -1305,8 +1305,8 @@ public class UMLModelDiff {
          extractMergePatterns(classDiff, mergeMap);
 		 extractRenamePatterns(classDiff, renameMap);
       }
-      Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
-      for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
+      Map<RenamePattern_RENAMED, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
+      for(RenamePattern_RENAMED pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
@@ -1486,12 +1486,12 @@ public class UMLModelDiff {
       return new ArrayList<Refactoring>(refactorings);
    }
 
-   private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
-	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
+   private Map<RenamePattern_RENAMED, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
+	  Map<RenamePattern_RENAMED, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern_RENAMED, Integer>();
 	  for(Refactoring ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
     		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
+    		  RenamePattern_RENAMED pattern = new RenamePattern_RENAMED(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
@@ -1501,7 +1501,7 @@ public class UMLModelDiff {
     	  }
     	  else if(ref instanceof ChangeAttributeTypeRefactoring) {
     		  ChangeAttributeTypeRefactoring refactoring = (ChangeAttributeTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalAttribute().getType().toString(), refactoring.getChangedTypeAttribute().getType().toString());
+    		  RenamePattern_RENAMED pattern = new RenamePattern_RENAMED(refactoring.getOriginalAttribute().getType().toString(), refactoring.getChangedTypeAttribute().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
@@ -1511,7 +1511,7 @@ public class UMLModelDiff {
     	  }
     	  else if(ref instanceof ChangeReturnTypeRefactoring) {
     		  ChangeReturnTypeRefactoring refactoring = (ChangeReturnTypeRefactoring)ref;
-    		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalType().toString(), refactoring.getChangedType().toString());
+    		  RenamePattern_RENAMED pattern = new RenamePattern_RENAMED(refactoring.getOriginalType().toString(), refactoring.getChangedType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
     		  }
