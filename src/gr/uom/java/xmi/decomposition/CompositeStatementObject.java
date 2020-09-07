@@ -10,8 +10,8 @@ import java.util.Set;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class CompositeStatementObject extends AbstractStatement {
@@ -19,12 +19,12 @@ public class CompositeStatementObject extends AbstractStatement {
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	private LocationInfo_RENAMED locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
 		this.setDepth(depth);
-		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, statement, codeElementType);
 		this.statementList = new ArrayList<AbstractStatement>();
 		this.expressionList = new ArrayList<AbstractExpression>();
 		this.variableDeclarations = new ArrayList<VariableDeclaration>();
@@ -408,7 +408,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return variableDeclarations;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo_RENAMED location) {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations()) {
 			if(variableDeclaration.getScope().subsumes(location)) {
@@ -429,7 +429,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return count;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

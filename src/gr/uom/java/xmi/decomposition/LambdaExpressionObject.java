@@ -5,18 +5,18 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.LambdaExpression;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
 public class LambdaExpressionObject implements LocationInfoProvider {
-	private LocationInfo locationInfo;
+	private LocationInfo_RENAMED locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;
 	
 	public LambdaExpressionObject(CompilationUnit cu, String filePath, LambdaExpression lambda) {
-		this.locationInfo = new LocationInfo(cu, filePath, lambda, CodeElementType.LAMBDA_EXPRESSION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, lambda, CodeElementType.LAMBDA_EXPRESSION);
 		if(lambda.getBody() instanceof Block) {
 			this.body = new OperationBody(cu, filePath, (Block)lambda.getBody());
 		}
@@ -34,7 +34,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	}
 
 	@Override
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

@@ -14,8 +14,8 @@ import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
@@ -27,7 +27,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
-	private LocationInfo locationInfo;
+	private LocationInfo_RENAMED locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
@@ -56,7 +56,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 				}
 			}
 		}
-		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
@@ -83,7 +83,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 				this.annotations.add(new UMLAnnotation(cu, filePath, annotation));
 			}
 		}
-		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
@@ -188,7 +188,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
         return sb.toString();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

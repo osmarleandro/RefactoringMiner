@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UMLAnonymousClass>, Serializable, LocationInfoProvider {
 	private String codePath;
 	
-	public UMLAnonymousClass(String packageName, String name, String codePath, LocationInfo locationInfo) {
+	public UMLAnonymousClass(String packageName, String name, String codePath, LocationInfo_RENAMED locationInfo) {
     	super();
 		this.packageName = packageName;
         this.name = name;

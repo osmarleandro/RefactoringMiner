@@ -33,8 +33,8 @@ import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 
 public class OperationBody {
 
@@ -81,7 +81,7 @@ public class OperationBody {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getAllVariableDeclarations());
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo_RENAMED location) {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getVariableDeclarationsInScope(location));
 	}
 

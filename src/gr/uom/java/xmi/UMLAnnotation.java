@@ -11,19 +11,19 @@ import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
-	private LocationInfo locationInfo;
+	private LocationInfo_RENAMED locationInfo;
 	private String typeName;
 	private AbstractExpression value;
 	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
-		this.locationInfo = new LocationInfo(cu, filePath, annotation, CodeElementType.ANNOTATION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, annotation, CodeElementType.ANNOTATION);
 		if(annotation instanceof SingleMemberAnnotation) {
 			SingleMemberAnnotation singleMemberAnnotation = (SingleMemberAnnotation)annotation;
 			this.value = new AbstractExpression(cu, filePath, singleMemberAnnotation.getValue(), CodeElementType.SINGLE_MEMBER_ANNOTATION_VALUE);
@@ -85,7 +85,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	}
 
 	@Override
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

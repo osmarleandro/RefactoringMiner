@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class LocationInfo {
+public class LocationInfo_RENAMED {
 	private String filePath;
 	private int startOffset;
 	private int endOffset; 
@@ -16,7 +16,7 @@ public class LocationInfo {
 	private int endColumn;
 	private CodeElementType codeElementType;
 	
-	public LocationInfo(CompilationUnit cu, String filePath, ASTNode node, CodeElementType codeElementType) {
+	public LocationInfo_RENAMED(CompilationUnit cu, String filePath, ASTNode node, CodeElementType codeElementType) {
 		this.filePath = filePath;
 		this.codeElementType = codeElementType;
 		this.startOffset = node.getStartPosition();
@@ -81,7 +81,7 @@ public class LocationInfo {
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}
 
-	public boolean subsumes(LocationInfo other) {
+	public boolean subsumes(LocationInfo_RENAMED other) {
 		return this.filePath.equals(other.filePath) &&
 				this.startOffset <= other.startOffset &&
 				this.endOffset >= other.endOffset;
@@ -110,7 +110,7 @@ public class LocationInfo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LocationInfo other = (LocationInfo) obj;
+		LocationInfo_RENAMED other = (LocationInfo_RENAMED) obj;
 		if (endColumn != other.endColumn)
 			return false;
 		if (endLine != other.endLine)

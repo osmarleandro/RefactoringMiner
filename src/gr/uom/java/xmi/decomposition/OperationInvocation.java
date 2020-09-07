@@ -1,7 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -31,7 +31,7 @@ public class OperationInvocation extends AbstractCall {
 	private volatile int hashCode = 0;
 	
 	public OperationInvocation(CompilationUnit cu, String filePath, MethodInvocation invocation) {
-		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.METHOD_INVOCATION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, invocation, CodeElementType.METHOD_INVOCATION);
 		this.methodName = invocation.getName().getIdentifier();
 		this.typeArguments = invocation.arguments().size();
 		this.arguments = new ArrayList<String>();
@@ -75,7 +75,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public OperationInvocation(CompilationUnit cu, String filePath, SuperMethodInvocation invocation) {
-		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.SUPER_METHOD_INVOCATION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, invocation, CodeElementType.SUPER_METHOD_INVOCATION);
 		this.methodName = invocation.getName().getIdentifier();
 		this.typeArguments = invocation.arguments().size();
 		this.arguments = new ArrayList<String>();
@@ -88,7 +88,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public OperationInvocation(CompilationUnit cu, String filePath, SuperConstructorInvocation invocation) {
-		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.SUPER_CONSTRUCTOR_INVOCATION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, invocation, CodeElementType.SUPER_CONSTRUCTOR_INVOCATION);
 		this.methodName = "super";
 		this.typeArguments = invocation.arguments().size();
 		this.arguments = new ArrayList<String>();
@@ -103,7 +103,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public OperationInvocation(CompilationUnit cu, String filePath, ConstructorInvocation invocation) {
-		this.locationInfo = new LocationInfo(cu, filePath, invocation, CodeElementType.CONSTRUCTOR_INVOCATION);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, invocation, CodeElementType.CONSTRUCTOR_INVOCATION);
 		this.methodName = "this";
 		this.typeArguments = invocation.arguments().size();
 		this.arguments = new ArrayList<String>();

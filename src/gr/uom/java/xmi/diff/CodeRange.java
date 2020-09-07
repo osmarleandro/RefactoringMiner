@@ -6,8 +6,8 @@ import java.util.Set;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.core.util.BufferRecyclers;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 
 public class CodeRange {
@@ -141,7 +141,7 @@ public class CodeRange {
 		int endColumn = 0;
 		
 		for(AbstractCodeFragment fragment : codeFragments) {
-			LocationInfo info = fragment.getLocationInfo();
+			LocationInfo_RENAMED info = fragment.getLocationInfo();
 			filePath = info.getFilePath();
 			if(minStartLine == 0 || info.getStartLine() < minStartLine) {
 				minStartLine = info.getStartLine();

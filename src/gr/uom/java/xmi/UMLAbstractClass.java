@@ -12,7 +12,7 @@ import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public abstract class UMLAbstractClass {
-	protected LocationInfo locationInfo;
+	protected LocationInfo_RENAMED locationInfo;
 	protected String packageName;
 	protected String name;
 	protected List<UMLOperation> operations;
@@ -23,7 +23,7 @@ public abstract class UMLAbstractClass {
         this.attributes = new ArrayList<UMLAttribute>();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

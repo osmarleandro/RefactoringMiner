@@ -15,14 +15,14 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import gr.uom.java.xmi.LocationInfo;
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class StatementObject extends AbstractStatement {
 	
 	private String statement;
-	private LocationInfo locationInfo;
+	private LocationInfo_RENAMED locationInfo;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -44,7 +44,7 @@ public class StatementObject extends AbstractStatement {
 	
 	public StatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
-		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
+		this.locationInfo = new LocationInfo_RENAMED(cu, filePath, statement, codeElementType);
 		Visitor visitor = new Visitor(cu, filePath);
 		statement.accept(visitor);
 		this.variables = visitor.getVariables();
@@ -243,7 +243,7 @@ public class StatementObject extends AbstractStatement {
 		return 1;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public LocationInfo_RENAMED getLocationInfo() {
 		return locationInfo;
 	}
 

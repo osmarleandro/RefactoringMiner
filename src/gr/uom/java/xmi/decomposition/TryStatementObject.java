@@ -6,7 +6,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
-import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.LocationInfo_RENAMED.CodeElementType;
 
 public class TryStatementObject extends CompositeStatementObject {
 	private List<CompositeStatementObject> catchClauses;
