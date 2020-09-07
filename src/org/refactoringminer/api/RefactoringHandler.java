@@ -3,7 +3,7 @@ package org.refactoringminer.api;
 import java.util.List;
 
 /**
- * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner}.
+ * Handler object that works in conjunction with {@link org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED}.
  * 
  */
 public abstract class RefactoringHandler {

@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Assert;
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
@@ -25,7 +25,7 @@ public class TestBuilder {
 
 	private final String tempDir;
 	private final Map<String, ProjectMatcher> map;
-	private final GitHistoryRefactoringMiner refactoringDetector;
+	private final GitHistoryRefactoringMiner_RENAMED refactoringDetector;
 	private boolean verbose;
 	private boolean aggregate;
 	private int commitsCount;
@@ -40,7 +40,7 @@ public class TestBuilder {
 
 	private BigInteger refactoringFilter;
 
-	public TestBuilder(GitHistoryRefactoringMiner detector, String tempDir) {
+	public TestBuilder(GitHistoryRefactoringMiner_RENAMED detector, String tempDir) {
 		this.map = new HashMap<String, ProjectMatcher>();
 		this.refactoringDetector = detector;
 		this.tempDir = tempDir;
@@ -48,7 +48,7 @@ public class TestBuilder {
 		this.aggregate = false;
 	}
 
-	public TestBuilder(GitHistoryRefactoringMiner detector, String tempDir, BigInteger refactorings) {
+	public TestBuilder(GitHistoryRefactoringMiner_RENAMED detector, String tempDir, BigInteger refactorings) {
 		this(detector, tempDir);
 
 		this.refactoringFilter = refactorings;

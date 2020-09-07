@@ -3,7 +3,7 @@ package org.refactoringminer;
 import java.util.List;
 
 import org.eclipse.jgit.lib.Repository;
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
@@ -53,7 +53,7 @@ public class RefactoringMiner {
 		GitService gitService = new GitServiceImpl();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
-			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
 			detector.detectAll(repo, branch, new RefactoringHandler() {
@@ -94,7 +94,7 @@ public class RefactoringMiner {
 		GitService gitService = new GitServiceImpl();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
-			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
 			detector.detectBetweenCommits(repo, startCommit, endCommit, new RefactoringHandler() {
@@ -135,7 +135,7 @@ public class RefactoringMiner {
 		GitService gitService = new GitServiceImpl();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
-			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
 			detector.detectBetweenTags(repo, startTag, endTag, new RefactoringHandler() {
@@ -175,7 +175,7 @@ public class RefactoringMiner {
 		GitService gitService = new GitServiceImpl();
 		try (Repository repo = gitService.openRepository(folder)) {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
-			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
 			startJSON(sb);
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
@@ -202,7 +202,7 @@ public class RefactoringMiner {
 		String gitURL = args[1];
 		String commitId = args[2];
 		int timeout = Integer.parseInt(args[3]);
-		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+		GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
 		startJSON(sb);
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
@@ -228,7 +228,7 @@ public class RefactoringMiner {
 		String gitURL = args[1];
 		int pullId = Integer.parseInt(args[2]);
 		int timeout = Integer.parseInt(args[3]);
-		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
+		GitHistoryRefactoringMiner_RENAMED detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
 		startJSON(sb);
 		detector.detectAtPullRequest(gitURL, pullId, new RefactoringHandler() {

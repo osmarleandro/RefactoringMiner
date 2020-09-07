@@ -16,7 +16,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
@@ -56,7 +56,7 @@ public class RefactoringMinerHttpServer {
 			int timeout = Integer.parseInt(queryToMap.get("timeout"));
 			List<Refactoring> detectedRefactorings = new ArrayList<Refactoring>();
 
-			GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED miner = new GitHistoryRefactoringMinerImpl();
 			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {

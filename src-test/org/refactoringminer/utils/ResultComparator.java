@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jgit.lib.Repository;
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
@@ -325,7 +325,7 @@ public class ResultComparator {
         }
     }
 
-    public static RefactoringSet collectRmResult(GitHistoryRefactoringMiner rm, String cloneUrl, String commitId) {
+    public static RefactoringSet collectRmResult(GitHistoryRefactoringMiner_RENAMED rm, String cloneUrl, String commitId) {
         GitService git = new GitServiceImpl();
         String tempDir = "tmp";
         String resultCacheDir = "tmpResult";
@@ -349,7 +349,7 @@ public class ResultComparator {
         }
     }
 
-    public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
+    public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner_RENAMED rm, RefactoringSet[] oracle) {
         RefactoringSet[] result = new RefactoringSet[oracle.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = collectRmResult(rm, oracle[i].getProject(), oracle[i].getRevision());

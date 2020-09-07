@@ -53,7 +53,7 @@ import org.kohsuke.github.GHTreeEntry;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterable;
 import org.refactoringminer.api.Churn;
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
@@ -63,7 +63,7 @@ import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
+public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner_RENAMED {
 
 	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;

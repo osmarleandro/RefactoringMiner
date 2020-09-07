@@ -23,7 +23,7 @@ import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.TrustManagerFactory;
 
-import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.GitHistoryRefactoringMiner_RENAMED;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
@@ -105,7 +105,7 @@ public class RefactoringMinerHttpsServer {
 			int timeout = Integer.parseInt(queryToMap.get("timeout"));
 			List<Refactoring> detectedRefactorings = new ArrayList<Refactoring>();
 
-			GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
+			GitHistoryRefactoringMiner_RENAMED miner = new GitHistoryRefactoringMinerImpl();
 			miner.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
