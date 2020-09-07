@@ -36,8 +36,8 @@ public class ExtractOperationDetection {
 		this.operationInvocations = getInvocationsInSourceOperationAfterExtraction(mapper);
 	}
 
-	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
-		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
+	public List<ExtractOperationRefactoring_RENAMED> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
+		List<ExtractOperationRefactoring_RENAMED> refactorings = new ArrayList<ExtractOperationRefactoring_RENAMED>();
 		if(!mapper.getNonMappedLeavesT1().isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
 			List<OperationInvocation> addedOperationInvocations = matchingInvocations(addedOperation, operationInvocations, mapper.getOperation2().variableTypeMap());
@@ -65,7 +65,7 @@ public class ExtractOperationDetection {
 	}
 
 	private void processAddedOperation(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
-			List<ExtractOperationRefactoring> refactorings,
+			List<ExtractOperationRefactoring_RENAMED> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)
 			throws RefactoringMinerTimedOutException {
 		CallTreeNode root = new CallTreeNode(mapper.getOperation1(), addedOperation, addedOperationInvocation);
@@ -90,7 +90,7 @@ public class ExtractOperationDetection {
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(extractMatchCondition(nestedMapper, new ArrayList<AbstractCodeMapping>()) && extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
-							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
+							ExtractOperationRefactoring_RENAMED nestedRefactoring = new ExtractOperationRefactoring_RENAMED(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
 							operationBodyMapper.addChildMapper(nestedMapper);
 						}
@@ -116,10 +116,10 @@ public class ExtractOperationDetection {
 			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
 			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
-					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
+					refactorings.add(new ExtractOperationRefactoring_RENAMED(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
 				}
 				else {
-					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, addedOperation,
+					refactorings.add(new ExtractOperationRefactoring_RENAMED(operationBodyMapper, addedOperation,
 							mapper.getOperation1(), mapper.getOperation2(), addedOperationInvocations));
 				}
 			}

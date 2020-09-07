@@ -649,8 +649,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
+			if(refactoring instanceof ExtractOperationRefactoring_RENAMED) {
+				ExtractOperationRefactoring_RENAMED extractRefactoring = (ExtractOperationRefactoring_RENAMED)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
 					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
 					if(extractedInvocations.size() > 1) {
@@ -1555,8 +1555,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLOperation addedOperation = addedOperationIterator.next();
 			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
-				List<ExtractOperationRefactoring> refs = detection.check(addedOperation);
-				for(ExtractOperationRefactoring refactoring : refs) {
+				List<ExtractOperationRefactoring_RENAMED> refs = detection.check(addedOperation);
+				for(ExtractOperationRefactoring_RENAMED refactoring : refs) {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
 					processMapperRefactorings(operationBodyMapper, refactorings);
@@ -1657,8 +1657,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
 		for(Refactoring ref : refactorings) {
-			if(ref instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
+			if(ref instanceof ExtractOperationRefactoring_RENAMED) {
+				ExtractOperationRefactoring_RENAMED extractRef = (ExtractOperationRefactoring_RENAMED)ref;
 				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
 						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
 					return true;
