@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLClassMatcher;
 import gr.uom.java.xmi.UMLGeneralization;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLParameter_RENAMED;
 import gr.uom.java.xmi.UMLRealization;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -1571,16 +1571,16 @@ public class UMLModelDiff {
 		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
-				   UMLParameter matchingRemovedParameter = null;
-				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
+				   UMLParameter_RENAMED matchingRemovedParameter = null;
+				   for(UMLParameter_RENAMED parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
 							   parameter.getType().equals(rename.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
 					   }
 				   }
-				   UMLParameter matchingAddedParameter = null;
-				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
+				   UMLParameter_RENAMED matchingAddedParameter = null;
+				   for(UMLParameter_RENAMED parameter : operationSignatureDiff.getAddedParameters()) {
 					   if(parameter.getName().equals(rename.getRenamedVariable().getVariableName()) &&
 							   parameter.getType().equals(rename.getRenamedVariable().getType())) {
 						   matchingAddedParameter = parameter;
@@ -1595,16 +1595,16 @@ public class UMLModelDiff {
 			   }
 			   else if(refactoring instanceof ChangeVariableTypeRefactoring) {
 				   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
-				   UMLParameter matchingRemovedParameter = null;
-				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
+				   UMLParameter_RENAMED matchingRemovedParameter = null;
+				   for(UMLParameter_RENAMED parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
 							   parameter.getType().equals(changeType.getOriginalVariable().getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
 					   }
 				   }
-				   UMLParameter matchingAddedParameter = null;
-				   for(UMLParameter parameter : operationSignatureDiff.getAddedParameters()) {
+				   UMLParameter_RENAMED matchingAddedParameter = null;
+				   for(UMLParameter_RENAMED parameter : operationSignatureDiff.getAddedParameters()) {
 					   if(parameter.getName().equals(changeType.getChangedTypeVariable().getVariableName()) &&
 							   parameter.getType().equals(changeType.getChangedTypeVariable().getType())) {
 						   matchingAddedParameter = parameter;
@@ -2407,9 +2407,9 @@ public class UMLModelDiff {
 		   }
 		   else {
 			   // ignore parameters of types sourceClass and targetClass
-			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
+			   List<UMLParameter_RENAMED> oldParameters = new ArrayList<UMLParameter_RENAMED>();
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
+			   for (UMLParameter_RENAMED oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
@@ -2417,9 +2417,9 @@ public class UMLModelDiff {
 					   oldParameterNames.add(oldParameter.getName());
 				   }
 			   }
-			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
+			   List<UMLParameter_RENAMED> newParameters = new ArrayList<UMLParameter_RENAMED>();
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter newParameter : addedOperation.getParameters()) {
+			   for (UMLParameter_RENAMED newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
@@ -2448,9 +2448,9 @@ public class UMLModelDiff {
 		   }
 		   else {
 			   // ignore parameters of types sourceClass and targetClass
-			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
+			   List<UMLParameter_RENAMED> oldParameters = new ArrayList<UMLParameter_RENAMED>();
 			   Set<String> oldParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
+			   for (UMLParameter_RENAMED oldParameter : removedOperation.getParameters()) {
 				   if (!oldParameter.getKind().equals("return")
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
 						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
@@ -2458,9 +2458,9 @@ public class UMLModelDiff {
 					   oldParameterNames.add(oldParameter.getName());
 				   }
 			   }
-			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
+			   List<UMLParameter_RENAMED> newParameters = new ArrayList<UMLParameter_RENAMED>();
 			   Set<String> newParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter newParameter : addedOperation.getParameters()) {
+			   for (UMLParameter_RENAMED newParameter : addedOperation.getParameters()) {
 				   if (!newParameter.getKind().equals("return") &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
 						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {

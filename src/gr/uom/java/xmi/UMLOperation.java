@@ -26,7 +26,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
-	private List<UMLParameter> parameters;
+	private List<UMLParameter_RENAMED> parameters;
 	private String className;
 	private boolean isConstructor;
 	private boolean isFinal;
@@ -41,7 +41,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public UMLOperation(String name, LocationInfo locationInfo) {
 		this.locationInfo = locationInfo;
         this.name = name;
-        this.parameters = new ArrayList<UMLParameter>();
+        this.parameters = new ArrayList<UMLParameter_RENAMED>();
         this.anonymousClassList = new ArrayList<UMLAnonymousClass>();
         this.typeParameters = new ArrayList<UMLTypeParameter>();
         this.annotations = new ArrayList<UMLAnnotation>();
@@ -178,7 +178,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public Map<String, UMLType> variableTypeMap() {
 		Map<String, UMLType> variableTypeMap = new LinkedHashMap<String, UMLType>();
-		for(UMLParameter parameter : parameters) {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
@@ -210,11 +210,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.className = className;
 	}
 
-	public void addParameter(UMLParameter parameter) {
+	public void addParameter(UMLParameter_RENAMED parameter) {
 		this.parameters.add(parameter);
 	}
 
-	public List<UMLParameter> getParameters() {
+	public List<UMLParameter_RENAMED> getParameters() {
 		return parameters;
 	}
 
@@ -226,8 +226,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return anonymousClassList;
 	}
 
-	public UMLParameter getReturnParameter() {
-		for(UMLParameter parameter : parameters) {
+	public UMLParameter_RENAMED getReturnParameter() {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(parameter.getKind().equals("return"))
 				return parameter;
 		}
@@ -235,8 +235,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalReturnParameter(UMLOperation operation) {
-		UMLParameter thisReturnParameter = this.getReturnParameter();
-		UMLParameter otherReturnParameter = operation.getReturnParameter();
+		UMLParameter_RENAMED thisReturnParameter = this.getReturnParameter();
+		UMLParameter_RENAMED otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
 			return thisReturnParameter.equals(otherReturnParameter);
 		else if(thisReturnParameter == null && otherReturnParameter == null)
@@ -246,8 +246,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalQualifiedReturnParameter(UMLOperation operation) {
-		UMLParameter thisReturnParameter = this.getReturnParameter();
-		UMLParameter otherReturnParameter = operation.getReturnParameter();
+		UMLParameter_RENAMED thisReturnParameter = this.getReturnParameter();
+		UMLParameter_RENAMED otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
 			return thisReturnParameter.equalsQualified(otherReturnParameter);
 		else if(thisReturnParameter == null && otherReturnParameter == null)
@@ -308,8 +308,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		if(!equalTypeParameters(operation))
 			return false;
 		int i=0;
-		for(UMLParameter thisParameter : this.parameters) {
-			UMLParameter otherParameter = operation.parameters.get(i);
+		for(UMLParameter_RENAMED thisParameter : this.parameters) {
+			UMLParameter_RENAMED otherParameter = operation.parameters.get(i);
 			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
 				return false;
 			i++;
@@ -331,8 +331,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		if(!equalTypeParameters(operation))
 			return false;
 		int i=0;
-		for(UMLParameter thisParameter : this.parameters) {
-			UMLParameter otherParameter = operation.parameters.get(i);
+		for(UMLParameter_RENAMED thisParameter : this.parameters) {
+			UMLParameter_RENAMED otherParameter = operation.parameters.get(i);
 			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
 				return false;
 			i++;
@@ -354,9 +354,9 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public List<UMLParameter> getParametersWithoutReturnType() {
-		List<UMLParameter> params = new ArrayList<UMLParameter>();
-		for(UMLParameter parameter : parameters) {
+	public List<UMLParameter_RENAMED> getParametersWithoutReturnType() {
+		List<UMLParameter_RENAMED> params = new ArrayList<UMLParameter_RENAMED>();
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
 				params.add(parameter);
 		}
@@ -380,7 +380,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public List<UMLType> getParameterTypeList() {
 		List<UMLType> parameterTypeList = new ArrayList<UMLType>();
-		for(UMLParameter parameter : parameters) {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
 				parameterTypeList.add(parameter.getType());
 		}
@@ -389,7 +389,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public List<String> getParameterNameList() {
 		List<String> parameterNameList = new ArrayList<String>();
-		for(UMLParameter parameter : parameters) {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return"))
 				parameterNameList.add(parameter.getName());
 		}
@@ -398,7 +398,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public int getNumberOfNonVarargsParameters() {
 		int counter = 0;
-		for(UMLParameter parameter : parameters) {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return") && !parameter.isVarargs()) {
 				counter++;
 			}
@@ -407,7 +407,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean hasVarargsParameter() {
-		for(UMLParameter parameter : parameters) {
+		for(UMLParameter_RENAMED parameter : parameters) {
 			if(!parameter.getKind().equals("return") && parameter.isVarargs()) {
 				return true;
 			}
@@ -437,7 +437,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public boolean isGetter() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
-			List<UMLParameter> parameters = getParametersWithoutReturnType();
+			List<UMLParameter_RENAMED> parameters = getParametersWithoutReturnType();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
 				StatementObject statement = (StatementObject)statements.get(0);
 				if(statement.getString().startsWith("return ")) {
@@ -452,7 +452,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 							return true;
 						}
 					}
-					UMLParameter returnParameter = getReturnParameter();
+					UMLParameter_RENAMED returnParameter = getReturnParameter();
 					if((name.startsWith("is") || name.startsWith("has")) && parameters.size() == 0 &&
 							returnParameter != null && returnParameter.getType().getClassType().equals("boolean")) {
 						return true;
@@ -533,8 +533,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.visibility.equals(operation.visibility) &&
 				this.isAbstract == operation.isAbstract &&
 				equalTypeParameters(operation)) {
-			UMLParameter thisReturnParameter = this.getReturnParameter();
-			UMLParameter otherReturnParameter = operation.getReturnParameter();
+			UMLParameter_RENAMED thisReturnParameter = this.getReturnParameter();
+			UMLParameter_RENAMED otherReturnParameter = operation.getReturnParameter();
 			if(thisReturnParameter != null && otherReturnParameter != null) {
 				if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
 					return false;
@@ -580,12 +580,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			sb.append(" ");
 		}
 		sb.append(name);
-		UMLParameter returnParameter = getReturnParameter();
-		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
+		UMLParameter_RENAMED returnParameter = getReturnParameter();
+		List<UMLParameter_RENAMED> parameters = new ArrayList<UMLParameter_RENAMED>(this.parameters);
 		parameters.remove(returnParameter);
 		sb.append("(");
 		for(int i=0; i<parameters.size(); i++) {
-			UMLParameter parameter = parameters.get(i);
+			UMLParameter_RENAMED parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
 				sb.append(parameter);
 				if(i < parameters.size()-1)
@@ -609,12 +609,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			sb.append(" ");
 		}
 		sb.append(name);
-		UMLParameter returnParameter = getReturnParameter();
-		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
+		UMLParameter_RENAMED returnParameter = getReturnParameter();
+		List<UMLParameter_RENAMED> parameters = new ArrayList<UMLParameter_RENAMED>(this.parameters);
 		parameters.remove(returnParameter);
 		sb.append("(");
 		for(int i=0; i<parameters.size(); i++) {
-			UMLParameter parameter = parameters.get(i);
+			UMLParameter_RENAMED parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
 				sb.append(parameter.toQualifiedString());
 				if(i < parameters.size()-1)
@@ -634,12 +634,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		sb.append(className);
 		sb.append('#');
 		sb.append(name);
-		UMLParameter returnParameter = getReturnParameter();
-		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
+		UMLParameter_RENAMED returnParameter = getReturnParameter();
+		List<UMLParameter_RENAMED> parameters = new ArrayList<UMLParameter_RENAMED>(this.parameters);
 		parameters.remove(returnParameter);
 		sb.append("(");
 		for (int i = 0; i < parameters.size(); i++) {
-			UMLParameter parameter = parameters.get(i);
+			UMLParameter_RENAMED parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
 				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
 				if(i < parameters.size() - 1)

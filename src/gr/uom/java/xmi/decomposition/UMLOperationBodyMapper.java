@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLParameter_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
@@ -93,18 +93,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			UMLOperationDiff operationDiff = new UMLOperationDiff(operation1, operation2);
 			Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
 			Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
-			List<UMLParameter> addedParameters = operationDiff.getAddedParameters();
+			List<UMLParameter_RENAMED> addedParameters = operationDiff.getAddedParameters();
 			if(addedParameters.size() == 1) {
-				UMLParameter addedParameter = addedParameters.get(0);
+				UMLParameter_RENAMED addedParameter = addedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(addedParameter.getType().getClassType(), operation1.getClassName())) {
 					parameterToArgumentMap1.put("this.", "");
 					//replace "parameterName." with ""
 					parameterToArgumentMap2.put(addedParameter.getName() + ".", "");
 				}
 			}
-			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters();
+			List<UMLParameter_RENAMED> removedParameters = operationDiff.getRemovedParameters();
 			if(removedParameters.size() == 1) {
-				UMLParameter removedParameter = removedParameters.get(0);
+				UMLParameter_RENAMED removedParameter = removedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(removedParameter.getType().getClassType(), operation2.getClassName())) {
 					parameterToArgumentMap1.put(removedParameter.getName() + ".", "");
 					parameterToArgumentMap2.put("this.", "");
@@ -3091,8 +3091,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(diff1.isEmpty() ||
 					(operation1.getParameterNameList().contains(diff1) && !operation2.getParameterNameList().contains(diff1) && !containsMethodSignatureOfAnonymousClass(diff2)) ||
 					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
-				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
-				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
+				List<UMLParameter_RENAMED> matchingAddedParameters = new ArrayList<UMLParameter_RENAMED>();
+				for(UMLParameter_RENAMED addedParameter : operationDiff.getAddedParameters()) {
 					if(diff2.contains(addedParameter.getName())) {
 						matchingAddedParameters.add(addedParameter);
 					}
@@ -3119,7 +3119,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						splitVariables.add(matchingReplacement.getAfter());
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(UMLParameter_RENAMED addedParameter : matchingAddedParameters) {
 							splitVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {
@@ -3138,7 +3138,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> addedVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(UMLParameter_RENAMED addedParameter : matchingAddedParameters) {
 							addedVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {
@@ -3156,7 +3156,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> splitVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(UMLParameter_RENAMED addedParameter : matchingAddedParameters) {
 							splitVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {

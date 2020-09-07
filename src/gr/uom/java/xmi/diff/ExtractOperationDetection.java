@@ -9,7 +9,7 @@ import java.util.Map;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLParameter_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -202,10 +202,10 @@ public class ExtractOperationDetection {
 
 	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
 			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
-		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
-		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
+		List<UMLParameter_RENAMED> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
+		Map<UMLParameter_RENAMED, UMLParameter_RENAMED> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter_RENAMED, UMLParameter_RENAMED>();
 		List<String> arguments = addedOperationInvocation.getArguments();
-		List<UMLParameter> parameters = addedOperation.getParametersWithoutReturnType();
+		List<UMLParameter_RENAMED> parameters = addedOperation.getParametersWithoutReturnType();
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
 		int size = Math.min(arguments.size(), parameters.size());
@@ -213,7 +213,7 @@ public class ExtractOperationDetection {
 			String argumentName = arguments.get(i);
 			String parameterName = parameters.get(i).getName();
 			parameterToArgumentMap.put(parameterName, argumentName);
-			for(UMLParameter originalMethodParameter : originalMethodParameters) {
+			for(UMLParameter_RENAMED originalMethodParameter : originalMethodParameters) {
 				if(originalMethodParameter.getName().equals(argumentName)) {
 					originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.put(originalMethodParameter, parameters.get(i));
 				}
@@ -286,9 +286,9 @@ public class ExtractOperationDetection {
 		return null;
 	}
 
-	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
-		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
-			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
+	private boolean parameterTypesMatch(Map<UMLParameter_RENAMED, UMLParameter_RENAMED> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
+		for(UMLParameter_RENAMED key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
+			UMLParameter_RENAMED value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
 			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
 					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
 				return false;

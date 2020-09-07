@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
-import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.UMLParameter_RENAMED;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -218,7 +218,7 @@ public class OperationInvocation extends AbstractCall {
     		}
     	}
     	int i=0;
-    	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
+    	for(UMLParameter_RENAMED parameter : operation.getParametersWithoutReturnType()) {
     		UMLType parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -232,7 +232,7 @@ public class OperationInvocation extends AbstractCall {
     	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
     }
 
-    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+    private boolean compatibleTypes(UMLParameter_RENAMED parameter, UMLType type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
@@ -439,7 +439,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
-		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
+		List<UMLParameter_RENAMED> parameters = operationToBeMatched.getParametersWithoutReturnType();
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters
 			if(getArguments().size() < parameters.size()) {
@@ -456,7 +456,7 @@ public class OperationInvocation extends AbstractCall {
 			}
 			else {
 				int i = 0;
-				for(UMLParameter parameter : parameters) {
+				for(UMLParameter_RENAMED parameter : parameters) {
 					String argument = getArguments().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);

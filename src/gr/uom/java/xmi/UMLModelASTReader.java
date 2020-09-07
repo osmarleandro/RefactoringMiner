@@ -456,7 +456,7 @@ public class UMLModelASTReader {
 		Type returnType = methodDeclaration.getReturnType2();
 		if(returnType != null) {
 			UMLType type = UMLType.extractTypeObject(cu, sourceFile, returnType, methodDeclaration.getExtraDimensions());
-			UMLParameter returnParameter = new UMLParameter("return", type, "return", false);
+			UMLParameter_RENAMED returnParameter = new UMLParameter_RENAMED("return", type, "return", false);
 			umlOperation.addParameter(returnParameter);
 		}
 		List<SingleVariableDeclaration> parameters = methodDeclaration.parameters();
@@ -464,7 +464,7 @@ public class UMLModelASTReader {
 			Type parameterType = parameter.getType();
 			String parameterName = parameter.getName().getFullyQualifiedName();
 			UMLType type = UMLType.extractTypeObject(cu, sourceFile, parameterType, parameter.getExtraDimensions());
-			UMLParameter umlParameter = new UMLParameter(parameterName, type, "in", parameter.isVarargs());
+			UMLParameter_RENAMED umlParameter = new UMLParameter_RENAMED(parameterName, type, "in", parameter.isVarargs());
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, parameter, parameter.isVarargs());
 			variableDeclaration.setParameter(true);
 			umlParameter.setVariableDeclaration(variableDeclaration);

@@ -6,14 +6,14 @@ import java.util.List;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class UMLParameter implements Serializable, VariableDeclarationProvider {
+public class UMLParameter_RENAMED implements Serializable, VariableDeclarationProvider {
 	private String name;
 	private UMLType type;
 	private String kind;
 	private boolean varargs;
 	private VariableDeclaration variableDeclaration;
 
-	public UMLParameter(String name, UMLType type, String kind, boolean varargs) {
+	public UMLParameter_RENAMED(String name, UMLType type, String kind, boolean varargs) {
 		this.name = name;
 		this.type = type;
 		this.kind = kind;
@@ -51,12 +51,12 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return variableDeclaration.getAnnotations();
 	}
 
-	public boolean equalsExcludingType(UMLParameter parameter) {
+	public boolean equalsExcludingType(UMLParameter_RENAMED parameter) {
 		return this.name.equals(parameter.name) &&
 				this.kind.equals(parameter.kind);
 	}
 
-	public boolean equalsIncludingName(UMLParameter parameter) {
+	public boolean equalsIncludingName(UMLParameter_RENAMED parameter) {
 		return this.name.equals(parameter.name) &&
 				this.type.equals(parameter.type) &&
 				this.kind.equals(parameter.kind);
@@ -67,8 +67,8 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
             return true;
         }
 		
-		if(o instanceof UMLParameter) {
-			UMLParameter parameter = (UMLParameter)o;
+		if(o instanceof UMLParameter_RENAMED) {
+			UMLParameter_RENAMED parameter = (UMLParameter_RENAMED)o;
 			return this.type.equals(parameter.type) &&
 				this.kind.equals(parameter.kind) &&
 				this.varargs == parameter.varargs;
@@ -76,7 +76,7 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return false;
 	}
 
-	public boolean equalsQualified(UMLParameter parameter) {
+	public boolean equalsQualified(UMLParameter_RENAMED parameter) {
 		return this.type.equalsQualified(parameter.type) &&
 				this.kind.equals(parameter.kind) &&
 				this.varargs == parameter.varargs;
