@@ -63,7 +63,7 @@ public class Visitor extends ASTVisitor {
 	private List<String> types = new ArrayList<String>();
 	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
 	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+	private List<AnonymousClassDeclarationObject_RENAMED> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject_RENAMED>();
 	private List<String> stringLiterals = new ArrayList<String>();
 	private List<String> numberLiterals = new ArrayList<String>();
 	private List<String> nullLiterals = new ArrayList<String>();
@@ -89,7 +89,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ArrayAccess node) {
 		arrayAccesses.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getArrayAccesses().add(node.toString());
 		}
 		return super.visit(node);
@@ -98,7 +98,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(PrefixExpression node) {
 		prefixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getPrefixExpressions().add(node.toString());
 		}
 		return super.visit(node);
@@ -107,7 +107,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(PostfixExpression node) {
 		postfixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getPostfixExpressions().add(node.toString());
 		}
 		return super.visit(node);
@@ -117,7 +117,7 @@ public class Visitor extends ASTVisitor {
 		TernaryOperatorExpression ternary = new TernaryOperatorExpression(cu, filePath, node);
 		ternaryOperatorExpressions.add(ternary);
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTernaryOperatorExpressions().add(ternary);
 		}
 		return super.visit(node);
@@ -126,7 +126,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(InfixExpression node) {
 		infixOperators.add(node.getOperator().toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getInfixOperators().add(node.getOperator().toString());
 		}
 		return super.visit(node);
@@ -148,7 +148,7 @@ public class Visitor extends ASTVisitor {
 			creationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
@@ -174,7 +174,7 @@ public class Visitor extends ASTVisitor {
 			creationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
 			if(anonymousCreationMap.containsKey(nodeAsString)) {
 				anonymousCreationMap.get(nodeAsString).add(creation);
@@ -200,7 +200,7 @@ public class Visitor extends ASTVisitor {
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 			variableDeclarations.add(variableDeclaration);
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariableDeclarations().add(variableDeclaration);
 			}
 		}
@@ -211,7 +211,7 @@ public class Visitor extends ASTVisitor {
 		VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 		variableDeclarations.add(variableDeclaration);
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getVariableDeclarations().add(variableDeclaration);
 		}
 		return super.visit(node);
@@ -219,9 +219,9 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode childNode = insertNode(node);
-		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
+		AnonymousClassDeclarationObject_RENAMED childAnonymous = (AnonymousClassDeclarationObject_RENAMED)childNode.getUserObject();
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED currentAnonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			currentAnonymous.getAnonymousClassDeclarations().add(childAnonymous);
 		}
 		anonymousClassDeclarations.add(childAnonymous);
@@ -247,7 +247,7 @@ public class Visitor extends ASTVisitor {
 
 	private void removeAnonymousData() {
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			this.variables.removeAll(anonymous.getVariables());
 			this.types.removeAll(anonymous.getTypes());
 			for(String key : anonymous.getMethodInvocationMap().keySet()) {
@@ -276,27 +276,27 @@ public class Visitor extends ASTVisitor {
 		DefaultMutableTreeNode parentNode = root;
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED currentAnonymous = (AnonymousClassDeclarationObject_RENAMED)currentNode.getUserObject();
 			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
 				parentNode = currentNode;
 				break;
 			}
 		}
 		parentNode.remove(childNode);
-		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
+		AnonymousClassDeclarationObject_RENAMED childAnonymousObject = (AnonymousClassDeclarationObject_RENAMED)childNode.getUserObject();
 		childAnonymousObject.setAstNode(null);
 		return parentNode;
 	}
 
 	private DefaultMutableTreeNode insertNode(AnonymousClassDeclaration childAnonymous) {
 		Enumeration enumeration = root.postorderEnumeration();
-		AnonymousClassDeclarationObject anonymousObject = new AnonymousClassDeclarationObject(cu, filePath, childAnonymous);
+		AnonymousClassDeclarationObject_RENAMED anonymousObject = new AnonymousClassDeclarationObject_RENAMED(cu, filePath, childAnonymous);
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(anonymousObject);
 		
 		DefaultMutableTreeNode parentNode = root;
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED currentAnonymous = (AnonymousClassDeclarationObject_RENAMED)currentNode.getUserObject();
 			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
 				parentNode = currentNode;
 				break;
@@ -311,7 +311,7 @@ public class Visitor extends ASTVisitor {
 		
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED currentAnonymous = (AnonymousClassDeclarationObject_RENAMED)currentNode.getUserObject();
 			if(currentAnonymous != null && currentAnonymous.getAstNode().equals(anonymous)) {
 				return currentNode;
 			}
@@ -332,7 +332,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(StringLiteral node) {
 		stringLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getStringLiterals().add(node.toString());
 		}
 		return super.visit(node);
@@ -341,7 +341,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(NumberLiteral node) {
 		numberLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getNumberLiterals().add(node.toString());
 		}
 		return super.visit(node);
@@ -350,7 +350,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(NullLiteral node) {
 		nullLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getNullLiterals().add(node.toString());
 		}
 		return super.visit(node);
@@ -359,7 +359,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(BooleanLiteral node) {
 		booleanLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getBooleanLiterals().add(node.toString());
 		}
 		return super.visit(node);
@@ -368,7 +368,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(TypeLiteral node) {
 		typeLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypeLiterals().add(node.toString());
 		}
 		return super.visit(node);
@@ -378,7 +378,7 @@ public class Visitor extends ASTVisitor {
 		if(!(node.getParent() instanceof FieldAccess)) {
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariables().add(node.toString());
 			}
 		}
@@ -390,7 +390,7 @@ public class Visitor extends ASTVisitor {
 			FieldAccess fieldAccess = (FieldAccess)node.getParent();
 			variables.add(fieldAccess.toString());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariables().add(fieldAccess.toString());
 			}
 		}
@@ -431,7 +431,7 @@ public class Visitor extends ASTVisitor {
 		else {
 			variables.add(node.getIdentifier());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariables().add(node.getIdentifier());
 			}
 		}
@@ -441,7 +441,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ArrayType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
 		return false;
@@ -450,7 +450,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ParameterizedType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
 		return false;
@@ -459,7 +459,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(WildcardType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
 		return false;
@@ -468,7 +468,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(QualifiedType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
 		return false;
@@ -477,7 +477,7 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(PrimitiveType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
 		return false;
@@ -487,7 +487,7 @@ public class Visitor extends ASTVisitor {
 		Name name = node.getName();
 		types.add(name.getFullyQualifiedName());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getTypes().add(name.getFullyQualifiedName());
 		}
 		return false;
@@ -534,7 +534,7 @@ public class Visitor extends ASTVisitor {
 			methodInvocationMap.put(methodInvocation, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(methodInvocation)) {
 				anonymousMethodInvocationMap.get(methodInvocation).add(invocation);
@@ -597,7 +597,7 @@ public class Visitor extends ASTVisitor {
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
@@ -627,7 +627,7 @@ public class Visitor extends ASTVisitor {
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
@@ -657,7 +657,7 @@ public class Visitor extends ASTVisitor {
 			methodInvocationMap.put(nodeAsString, list);
 		}
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
 			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
 				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
@@ -682,7 +682,7 @@ public class Visitor extends ASTVisitor {
 			return;
 		this.arguments.add(argument.toString());
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getArguments().add(argument.toString());
 		}
 	}
@@ -692,12 +692,12 @@ public class Visitor extends ASTVisitor {
 		if(Character.isUpperCase(qualifier.getFullyQualifiedName().charAt(0))) {
 			types.add(qualifier.getFullyQualifiedName());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getTypes().add(qualifier.getFullyQualifiedName());
 			}
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariables().add(node.toString());
 			}
 		}
@@ -705,7 +705,7 @@ public class Visitor extends ASTVisitor {
 			if(node.getName().getIdentifier().equals("length")) {
 				variables.add(node.toString());
 				if(current.getUserObject() != null) {
-					AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+					AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 					anonymous.getVariables().add(node.toString());
 				}
 			}
@@ -724,7 +724,7 @@ public class Visitor extends ASTVisitor {
 					if(qualifierIsParameter) {
 						variables.add(node.toString());
 						if(current.getUserObject() != null) {
-							AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+							AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 							anonymous.getVariables().add(node.toString());
 						}
 					}
@@ -734,7 +734,7 @@ public class Visitor extends ASTVisitor {
 					if(enhancedFor.getParameter().getName().getIdentifier().equals(qualifierIdentifier)) {
 						variables.add(node.toString());
 						if(current.getUserObject() != null) {
-							AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+							AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 							anonymous.getVariables().add(node.toString());
 						}
 					}
@@ -771,7 +771,7 @@ public class Visitor extends ASTVisitor {
 		if(castExpression instanceof SimpleName) {
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 				anonymous.getVariables().add(node.toString());
 			}
 		}
@@ -782,7 +782,7 @@ public class Visitor extends ASTVisitor {
 		LambdaExpressionObject lambda = new LambdaExpressionObject(cu, filePath, node);
 		lambdas.add(lambda);
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			AnonymousClassDeclarationObject_RENAMED anonymous = (AnonymousClassDeclarationObject_RENAMED)current.getUserObject();
 			anonymous.getLambdas().add(lambda);
 		}
 		return false;
@@ -800,7 +800,7 @@ public class Visitor extends ASTVisitor {
 		return types;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject_RENAMED> getAnonymousClassDeclarations() {
 		return anonymousClassDeclarations;
 	}
 

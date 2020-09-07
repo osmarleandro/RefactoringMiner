@@ -19,7 +19,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
 	private Map<String, List<OperationInvocation>> methodInvocationMap;
-	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations;
+	private List<AnonymousClassDeclarationObject_RENAMED> anonymousClassDeclarations;
 	private List<String> stringLiterals;
 	private List<String> numberLiterals;
 	private List<String> nullLiterals;
@@ -106,7 +106,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	}
 
 	@Override
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject_RENAMED> getAnonymousClassDeclarations() {
 		return anonymousClassDeclarations;
 	}
 

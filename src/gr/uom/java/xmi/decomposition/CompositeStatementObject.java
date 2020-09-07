@@ -153,8 +153,8 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+	public List<AnonymousClassDeclarationObject_RENAMED> getAnonymousClassDeclarations() {
+		List<AnonymousClassDeclarationObject_RENAMED> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject_RENAMED>();
 		for(AbstractExpression expression : expressionList) {
 			anonymousClassDeclarations.addAll(expression.getAnonymousClassDeclarations());
 		}
@@ -339,8 +339,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		return map;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
-		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+	public List<AnonymousClassDeclarationObject_RENAMED> getAllAnonymousClassDeclarations() {
+		List<AnonymousClassDeclarationObject_RENAMED> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject_RENAMED>();
 		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {

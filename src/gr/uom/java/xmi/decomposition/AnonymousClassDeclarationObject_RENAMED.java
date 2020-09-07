@@ -13,7 +13,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
-public class AnonymousClassDeclarationObject implements LocationInfoProvider {
+public class AnonymousClassDeclarationObject_RENAMED implements LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private AnonymousClassDeclaration astNode;
 	private String astNodeString;
@@ -21,7 +21,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private List<String> types = new ArrayList<String>();
 	private Map<String, List<OperationInvocation>> methodInvocationMap = new LinkedHashMap<String, List<OperationInvocation>>();
 	private List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
-	private List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
+	private List<AnonymousClassDeclarationObject_RENAMED> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject_RENAMED>();
 	private List<String> stringLiterals = new ArrayList<String>();
 	private List<String> numberLiterals = new ArrayList<String>();
 	private List<String> nullLiterals = new ArrayList<String>();
@@ -36,7 +36,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
 	private List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 	
-	public AnonymousClassDeclarationObject(CompilationUnit cu, String filePath, AnonymousClassDeclaration anonymous) {
+	public AnonymousClassDeclarationObject_RENAMED(CompilationUnit cu, String filePath, AnonymousClassDeclaration anonymous) {
 		this.locationInfo = new LocationInfo(cu, filePath, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
 		this.astNode = anonymous;
 		this.astNodeString = anonymous.toString();
@@ -70,7 +70,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return types;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
+	public List<AnonymousClassDeclarationObject_RENAMED> getAnonymousClassDeclarations() {
 		return anonymousClassDeclarations;
 	}
 

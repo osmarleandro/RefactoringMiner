@@ -56,8 +56,8 @@ public class OperationBody {
 		return compositeStatement;
 	}
 
-	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
-		return new ArrayList<AnonymousClassDeclarationObject>(compositeStatement.getAllAnonymousClassDeclarations());
+	public List<AnonymousClassDeclarationObject_RENAMED> getAllAnonymousClassDeclarations() {
+		return new ArrayList<AnonymousClassDeclarationObject_RENAMED>(compositeStatement.getAllAnonymousClassDeclarations());
 	}
 
 	public List<OperationInvocation> getAllOperationInvocations() {
