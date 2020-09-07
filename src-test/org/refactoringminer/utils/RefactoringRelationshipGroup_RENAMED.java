@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringRelationshipGroup {
+public class RefactoringRelationshipGroup_RENAMED {
 
   private List<RefactoringRelationship> refactoringRelationships = new ArrayList<>();
 
-  public RefactoringRelationshipGroup(RefactoringRelationship refactoringRelationship) {
+  public RefactoringRelationshipGroup_RENAMED(RefactoringRelationship refactoringRelationship) {
     refactoringRelationships.add(refactoringRelationship);
   }
 
@@ -30,8 +30,8 @@ public class RefactoringRelationshipGroup {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj instanceof RefactoringRelationshipGroup) {
-      RefactoringRelationshipGroup other = (RefactoringRelationshipGroup) obj;
+    if (obj instanceof RefactoringRelationshipGroup_RENAMED) {
+      RefactoringRelationshipGroup_RENAMED other = (RefactoringRelationshipGroup_RENAMED) obj;
       return other.getRefactoringType().equals(this.getRefactoringType()) && other.getMainEntity().equals(this.getMainEntity());
     }
     return false;
