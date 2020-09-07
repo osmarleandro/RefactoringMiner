@@ -6,7 +6,7 @@ import org.refactoringminer.test.RefactoringPopulator.Systems;
 
 import org.junit.Test;
 
-public class TestAllRefactorings {
+public class TestAllRefactorings_RENAMED {
 
 	@Test
 	public void testAllRefactorings() throws Exception {
