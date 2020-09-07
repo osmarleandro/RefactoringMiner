@@ -75,14 +75,14 @@ public class MoveOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeBeforeMove() {
+	public CodeRange_RENAMED getSourceOperationCodeRangeBeforeMove() {
 		return originalOperation.codeRange();
 	}
 
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeAfterMove() {
+	public CodeRange_RENAMED getTargetOperationCodeRangeAfterMove() {
 		return movedOperation.codeRange();
 	}
 
@@ -110,8 +110,8 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(originalOperation.codeRange()
 				.setDescription("original method declaration")
 				.setCodeElement(originalOperation.toString()));
@@ -119,8 +119,8 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(movedOperation.codeRange()
 				.setDescription("moved method declaration")
 				.setCodeElement(movedOperation.toString()));

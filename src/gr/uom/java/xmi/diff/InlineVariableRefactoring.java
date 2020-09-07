@@ -68,7 +68,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the inlined variable declaration in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedVariableDeclarationCodeRange() {
+	public CodeRange_RENAMED getInlinedVariableDeclarationCodeRange() {
 		return variableDeclaration.codeRange();
 	}
 
@@ -116,8 +116,8 @@ public class InlineVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("inlined variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
@@ -128,8 +128,8 @@ public class InlineVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		for(AbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the initializer of the inlined variable"));
 		}

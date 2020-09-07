@@ -31,8 +31,8 @@ public class PullUpAttributeRefactoring extends MoveAttributeRefactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("pulled up attribute declaration")
 				.setCodeElement(movedAttribute.toString()));

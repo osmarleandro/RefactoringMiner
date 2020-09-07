@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 
 public class LocationInfo {
 	private String filePath;
@@ -75,8 +75,8 @@ public class LocationInfo {
 		return codeElementType;
 	}
 
-	public CodeRange codeRange() {
-		return new CodeRange(getFilePath(),
+	public CodeRange_RENAMED codeRange() {
+		return new CodeRange_RENAMED(getFilePath(),
 				getStartLine(), getEndLine(),
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}

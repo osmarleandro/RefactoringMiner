@@ -10,7 +10,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 import gr.uom.java.xmi.LocationInfoProvider;
 
 public class AnonymousClassDeclarationObject implements LocationInfoProvider {
@@ -130,7 +130,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return lambdas;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 }

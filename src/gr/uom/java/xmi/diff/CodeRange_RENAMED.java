@@ -10,7 +10,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 
-public class CodeRange {
+public class CodeRange_RENAMED {
 	private String filePath;
 	private int startLine;
 	private int endLine;
@@ -20,7 +20,7 @@ public class CodeRange {
 	private String description;
 	private String codeElement;
 
-	public CodeRange(String filePath, int startLine, int endLine,
+	public CodeRange_RENAMED(String filePath, int startLine, int endLine,
 			int startColumn, int endColumn, CodeElementType codeElementType) {
 		this.filePath = filePath;
 		this.startLine = startLine;
@@ -58,7 +58,7 @@ public class CodeRange {
 		return description;
 	}
 
-	public CodeRange setDescription(String description) {
+	public CodeRange_RENAMED setDescription(String description) {
 		this.description = description;
 		return this;
 	}
@@ -67,12 +67,12 @@ public class CodeRange {
 		return codeElement;
 	}
 
-	public CodeRange setCodeElement(String codeElement) {
+	public CodeRange_RENAMED setCodeElement(String codeElement) {
 		this.codeElement = codeElement;
 		return this;
 	}
 
-	public boolean subsumes(CodeRange other) {
+	public boolean subsumes(CodeRange_RENAMED other) {
 		return this.filePath.equals(other.filePath) &&
 				this.startLine <= other.startLine &&
 				this.endLine >= other.endLine;
@@ -133,7 +133,7 @@ public class CodeRange {
 			sb.append(",").append("\n");
 	}
 
-	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
+	public static CodeRange_RENAMED computeRange(Set<AbstractCodeFragment> codeFragments) {
 		String filePath = null;
 		int minStartLine = 0;
 		int maxEndLine = 0;
@@ -152,6 +152,6 @@ public class CodeRange {
 				endColumn = info.getEndColumn();
 			}
 		}
-		return new CodeRange(filePath, minStartLine, maxEndLine, startColumn, endColumn, CodeElementType.LIST_OF_STATEMENTS);
+		return new CodeRange_RENAMED(filePath, minStartLine, maxEndLine, startColumn, endColumn, CodeElementType.LIST_OF_STATEMENTS);
 	}
 }

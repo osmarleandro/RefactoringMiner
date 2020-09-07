@@ -12,7 +12,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 
 public class CompositeStatementObject extends AbstractStatement {
 
@@ -475,7 +475,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return map;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -333,7 +333,7 @@ public abstract class UMLAbstractClass {
 		return locationInfo.getFilePath();
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 }

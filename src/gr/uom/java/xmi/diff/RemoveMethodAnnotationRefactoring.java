@@ -37,8 +37,8 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(annotation.codeRange()
 				.setDescription("deleted annotation")
 				.setCodeElement(annotation.toString()));
@@ -49,8 +49,8 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(operationAfter.codeRange()
 				.setDescription("method declaration with removed annotation")
 				.setCodeElement(operationAfter.toString()));

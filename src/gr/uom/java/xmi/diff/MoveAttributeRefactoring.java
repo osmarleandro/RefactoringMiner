@@ -61,14 +61,14 @@ public class MoveAttributeRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source attribute in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceAttributeCodeRangeBeforeMove() {
+	public CodeRange_RENAMED getSourceAttributeCodeRangeBeforeMove() {
 		return originalAttribute.codeRange();
 	}
 
 	/**
 	 * @return the code range of the target attribute in the <b>child</b> commit
 	 */
-	public CodeRange getTargetAttributeCodeRangeAfterMove() {
+	public CodeRange_RENAMED getTargetAttributeCodeRangeAfterMove() {
 		return movedAttribute.codeRange();
 	}
 
@@ -112,8 +112,8 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(originalAttribute.codeRange()
 				.setDescription("original attribute declaration")
 				.setCodeElement(originalAttribute.toString()));
@@ -121,8 +121,8 @@ public class MoveAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(movedAttribute.codeRange()
 				.setDescription("moved attribute declaration")
 				.setCodeElement(movedAttribute.toString()));

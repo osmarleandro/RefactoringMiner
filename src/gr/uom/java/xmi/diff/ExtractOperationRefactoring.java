@@ -118,43 +118,43 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeBeforeExtraction() {
+	public CodeRange_RENAMED getSourceOperationCodeRangeBeforeExtraction() {
 		return sourceOperationBeforeExtraction.codeRange();
 	}
 
 	/**
 	 * @return the code range of the source method in the <b>child</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeAfterExtraction() {
+	public CodeRange_RENAMED getSourceOperationCodeRangeAfterExtraction() {
 		return sourceOperationAfterExtraction.codeRange();
 	}
 
 	/**
 	 * @return the code range of the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedOperationCodeRange() {
+	public CodeRange_RENAMED getExtractedOperationCodeRange() {
 		return extractedOperation.codeRange();
 	}
 
 	/**
 	 * @return the code range of the extracted code fragment from the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getExtractedCodeRangeFromSourceOperation() {
-		return CodeRange.computeRange(extractedCodeFragmentsFromSourceOperation);
+	public CodeRange_RENAMED getExtractedCodeRangeFromSourceOperation() {
+		return CodeRange_RENAMED.computeRange(extractedCodeFragmentsFromSourceOperation);
 	}
 
 	/**
 	 * @return the code range of the extracted code fragment to the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedCodeRangeToExtractedOperation() {
-		return CodeRange.computeRange(extractedCodeFragmentsToExtractedOperation);
+	public CodeRange_RENAMED getExtractedCodeRangeToExtractedOperation() {
+		return CodeRange_RENAMED.computeRange(extractedCodeFragmentsToExtractedOperation);
 	}
 
 	/**
 	 * @return the code range(s) of the invocation(s) to the extracted method inside the source method in the <b>child</b> commit
 	 */
-	public Set<CodeRange> getExtractedOperationInvocationCodeRanges() {
-		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
+	public Set<CodeRange_RENAMED> getExtractedOperationInvocationCodeRanges() {
+		Set<CodeRange_RENAMED> codeRanges = new LinkedHashSet<CodeRange_RENAMED>();
 		for(OperationInvocation invocation : extractedOperationInvocations) {
 			codeRanges.add(invocation.codeRange());
 		}
@@ -185,8 +185,8 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(getSourceOperationCodeRangeBeforeExtraction()
 				.setDescription("source method declaration before extraction")
 				.setCodeElement(sourceOperationBeforeExtraction.toString()));
@@ -214,8 +214,8 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(getExtractedOperationCodeRange()
 				.setDescription("extracted method declaration")
 				.setCodeElement(extractedOperation.toString()));

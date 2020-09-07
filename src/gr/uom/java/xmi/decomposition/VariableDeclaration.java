@@ -20,7 +20,7 @@ import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
@@ -192,7 +192,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return locationInfo;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 

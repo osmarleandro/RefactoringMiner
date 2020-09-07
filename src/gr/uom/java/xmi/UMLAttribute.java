@@ -1,7 +1,7 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -115,7 +115,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return false;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
 	}

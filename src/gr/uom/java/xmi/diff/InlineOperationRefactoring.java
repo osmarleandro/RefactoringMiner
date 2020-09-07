@@ -110,43 +110,43 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>parent</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeBeforeInline() {
+	public CodeRange_RENAMED getTargetOperationCodeRangeBeforeInline() {
 		return targetOperationBeforeInline.codeRange();
 	}
 
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeAfterInline() {
+	public CodeRange_RENAMED getTargetOperationCodeRangeAfterInline() {
 		return targetOperationAfterInline.codeRange();
 	}
 
 	/**
 	 * @return the code range of the inlined method in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedOperationCodeRange() {
+	public CodeRange_RENAMED getInlinedOperationCodeRange() {
 		return inlinedOperation.codeRange();
 	}
 
 	/**
 	 * @return the code range of the inlined code fragment from the inlined method in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedCodeRangeFromInlinedOperation() {
-		return CodeRange.computeRange(inlinedCodeFragmentsFromInlinedOperation);
+	public CodeRange_RENAMED getInlinedCodeRangeFromInlinedOperation() {
+		return CodeRange_RENAMED.computeRange(inlinedCodeFragmentsFromInlinedOperation);
 	}
 
 	/**
 	 * @return the code range of the inlined code fragment in the target method in the <b>child</b> commit
 	 */
-	public CodeRange getInlinedCodeRangeInTargetOperation() {
-		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
+	public CodeRange_RENAMED getInlinedCodeRangeInTargetOperation() {
+		return CodeRange_RENAMED.computeRange(inlinedCodeFragmentsInTargetOperation);
 	}
 
 	/**
 	 * @return the code range(s) of the invocation(s) to the inlined method inside the target method in the <b>parent</b> commit
 	 */
-	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
-		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
+	public Set<CodeRange_RENAMED> getInlinedOperationInvocationCodeRanges() {
+		Set<CodeRange_RENAMED> codeRanges = new LinkedHashSet<CodeRange_RENAMED>();
 		for(OperationInvocation invocation : inlinedOperationInvocations) {
 			codeRanges.add(invocation.codeRange());
 		}
@@ -167,8 +167,8 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(getInlinedOperationCodeRange()
 				.setDescription("inlined method declaration")
 				.setCodeElement(inlinedOperation.toString()));
@@ -196,8 +196,8 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(getTargetOperationCodeRangeAfterInline()
 				.setDescription("target method declaration after inline")
 				.setCodeElement(targetOperationAfterInline.toString()));

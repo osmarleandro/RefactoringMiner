@@ -67,8 +67,8 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> leftSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(originalClass.codeRange()
 				.setDescription("original type declaration")
 				.setCodeElement(originalClass.getName()));
@@ -76,8 +76,8 @@ public class MoveAndRenameClassRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
+	public List<CodeRange_RENAMED> rightSide() {
+		List<CodeRange_RENAMED> ranges = new ArrayList<CodeRange_RENAMED>();
 		ranges.add(renamedClass.codeRange()
 				.setDescription("moved and renamed type declaration")
 				.setCodeElement(renamedClass.getName()));

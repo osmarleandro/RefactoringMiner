@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 
 public class StatementObject extends AbstractStatement {
 	
@@ -247,7 +247,7 @@ public class StatementObject extends AbstractStatement {
 		return locationInfo;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 

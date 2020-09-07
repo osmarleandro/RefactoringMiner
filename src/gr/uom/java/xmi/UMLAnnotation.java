@@ -13,7 +13,7 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
@@ -90,7 +90,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	}
 
 	@Override
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 

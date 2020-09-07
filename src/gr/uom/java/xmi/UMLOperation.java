@@ -8,7 +8,7 @@ import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
-import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.CodeRange_RENAMED;
 import gr.uom.java.xmi.diff.StringDistance;
 
 import java.io.Serializable;
@@ -761,7 +761,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return operationsInsideAnonymousClass;
 	}
 
-	public CodeRange codeRange() {
+	public CodeRange_RENAMED codeRange() {
 		return locationInfo.codeRange();
 	}
 
