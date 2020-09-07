@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.refactoringminer.util.AstUtils;
 
-public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
+public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider_RENAMED {
 	private LocationInfo locationInfo;
 	private String name;
 	private String visibility;

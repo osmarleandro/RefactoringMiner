@@ -16,13 +16,13 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.LocationInfoProvider_RENAMED;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
+public class VariableDeclaration implements LocationInfoProvider_RENAMED, VariableDeclarationProvider {
 	private String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;

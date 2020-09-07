@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.LocationInfoProvider_RENAMED;
 import gr.uom.java.xmi.decomposition.AbstractCall.StatementCoverageType;
 
-public abstract class AbstractCodeFragment implements LocationInfoProvider {
+public abstract class AbstractCodeFragment implements LocationInfoProvider_RENAMED {
 	private int depth;
 	private int index;
 	private String codeFragmentAfterReplacingParametersWithArguments;

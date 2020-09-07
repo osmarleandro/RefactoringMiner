@@ -11,9 +11,9 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
-import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.LocationInfoProvider_RENAMED;
 
-public class AnonymousClassDeclarationObject implements LocationInfoProvider {
+public class AnonymousClassDeclarationObject implements LocationInfoProvider_RENAMED {
 	private LocationInfo locationInfo;
 	private AnonymousClassDeclaration astNode;
 	private String astNodeString;

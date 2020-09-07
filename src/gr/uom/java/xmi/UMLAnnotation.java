@@ -15,7 +15,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class UMLAnnotation implements Serializable, LocationInfoProvider {
+public class UMLAnnotation implements Serializable, LocationInfoProvider_RENAMED {
 	private LocationInfo locationInfo;
 	private String typeName;
 	private AbstractExpression value;

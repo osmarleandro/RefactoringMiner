@@ -8,9 +8,9 @@ import org.eclipse.jdt.core.dom.LambdaExpression;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
-import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.LocationInfoProvider_RENAMED;
 
-public class LambdaExpressionObject implements LocationInfoProvider {
+public class LambdaExpressionObject implements LocationInfoProvider_RENAMED {
 	private LocationInfo locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;

@@ -21,7 +21,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public abstract class UMLType implements Serializable, LocationInfoProvider {
+public abstract class UMLType implements Serializable, LocationInfoProvider_RENAMED {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
