@@ -173,9 +173,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		this.nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>();
 		
 		if(lambda1.getExpression() != null && lambda2.getExpression() != null) {
-			List<AbstractExpression> leaves1 = new ArrayList<AbstractExpression>();
+			List<AbstractExpression_RENAMED> leaves1 = new ArrayList<AbstractExpression_RENAMED>();
 			leaves1.add(lambda1.getExpression());
-			List<AbstractExpression> leaves2 = new ArrayList<AbstractExpression>();
+			List<AbstractExpression_RENAMED> leaves2 = new ArrayList<AbstractExpression_RENAMED>();
 			leaves2.add(lambda2.getExpression());
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 		}
@@ -399,9 +399,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap2);
 			
 			//match expressions in inner nodes from T1 with leaves from T2
-			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
+			List<AbstractExpression_RENAMED> expressionsT1 = new ArrayList<AbstractExpression_RENAMED>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
-				for(AbstractExpression expression : composite.getExpressions()) {
+				for(AbstractExpression_RENAMED expression : composite.getExpressions()) {
 					expression.replaceParametersWithArguments(parameterToArgumentMap1);
 					expressionsT1.add(expression);
 				}
@@ -575,9 +575,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap);
 			
 			//match expressions in inner nodes from T2 with leaves from T1
-			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
+			List<AbstractExpression_RENAMED> expressionsT2 = new ArrayList<AbstractExpression_RENAMED>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
-				for(AbstractExpression expression : composite.getExpressions()) {
+				for(AbstractExpression_RENAMED expression : composite.getExpressions()) {
 					expressionsT2.add(expression);
 				}
 			}
@@ -1499,7 +1499,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		String argumentizedString = new String(leaf1.getArgumentizedString());
-		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression) {
+		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression_RENAMED) {
 			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
 				argumentizedString = argumentizedString.substring("return ".length(),
 						argumentizedString.lastIndexOf(";\n"));
@@ -2951,8 +2951,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
 			UMLType type1 = variableDeclarations1.get(0).getType();
 			UMLType type2 = variableDeclarations2.get(0).getType();
-			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
-			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
+			AbstractExpression_RENAMED initializer1 = variableDeclarations1.get(0).getInitializer();
+			AbstractExpression_RENAMED initializer2 = variableDeclarations2.get(0).getInitializer();
 			if(initializer1 == null && initializer2 == null) {
 				nullInitializer = true;
 			}
@@ -3010,7 +3010,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
 		for(VariableDeclaration declaration : declarations) {
-			AbstractExpression initializer = declaration.getInitializer();
+			AbstractExpression_RENAMED initializer = declaration.getInitializer();
 			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
 				return declaration;
 			}

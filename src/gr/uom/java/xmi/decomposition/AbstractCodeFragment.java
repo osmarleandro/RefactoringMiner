@@ -293,7 +293,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	public boolean countableStatement() {
 		String statement = getString();
 		//covers the cases of lambda expressions having an expression as their body
-		if(this instanceof AbstractExpression) {
+		if(this instanceof AbstractExpression_RENAMED) {
 			return true;
 		}
 		//covers the cases of methods with only one statement in their body

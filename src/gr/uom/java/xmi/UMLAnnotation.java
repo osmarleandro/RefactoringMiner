@@ -12,27 +12,27 @@ import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.AbstractExpression_RENAMED;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
-	private AbstractExpression value;
-	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
+	private AbstractExpression_RENAMED value;
+	private Map<String, AbstractExpression_RENAMED> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
 		this.typeName = annotation.getTypeName().getFullyQualifiedName();
 		this.locationInfo = new LocationInfo(cu, filePath, annotation, CodeElementType.ANNOTATION);
 		if(annotation instanceof SingleMemberAnnotation) {
 			SingleMemberAnnotation singleMemberAnnotation = (SingleMemberAnnotation)annotation;
-			this.value = new AbstractExpression(cu, filePath, singleMemberAnnotation.getValue(), CodeElementType.SINGLE_MEMBER_ANNOTATION_VALUE);
+			this.value = new AbstractExpression_RENAMED(cu, filePath, singleMemberAnnotation.getValue(), CodeElementType.SINGLE_MEMBER_ANNOTATION_VALUE);
 		}
 		else if(annotation instanceof NormalAnnotation) {
 			NormalAnnotation normalAnnotation = (NormalAnnotation)annotation;
 			List<MemberValuePair> pairs = normalAnnotation.values();
 			for(MemberValuePair pair : pairs) {
-				AbstractExpression value = new AbstractExpression(cu, filePath, pair.getValue(), CodeElementType.NORMAL_ANNOTATION_MEMBER_VALUE_PAIR);
+				AbstractExpression_RENAMED value = new AbstractExpression_RENAMED(cu, filePath, pair.getValue(), CodeElementType.NORMAL_ANNOTATION_MEMBER_VALUE_PAIR);
 				memberValuePairs.put(pair.getName().getIdentifier(), value);
 			}
 		}
@@ -42,11 +42,11 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return typeName;
 	}
 
-	public AbstractExpression getValue() {
+	public AbstractExpression_RENAMED getValue() {
 		return value;
 	}
 
-	public Map<String, AbstractExpression> getMemberValuePairs() {
+	public Map<String, AbstractExpression_RENAMED> getMemberValuePairs() {
 		return memberValuePairs;
 	}
 
@@ -132,15 +132,15 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	}
 
 	private boolean memberValuePairsEquals(UMLAnnotation other) {
-		Map<String, AbstractExpression> m = other.memberValuePairs;
+		Map<String, AbstractExpression_RENAMED> m = other.memberValuePairs;
 		int thisSize = this.memberValuePairs.size();
 		int otherSize = other.memberValuePairs.size();
 		if(thisSize != otherSize) {
 			return false;
 		}
-		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet()) {
+		for (Map.Entry<String, AbstractExpression_RENAMED> entry : memberValuePairs.entrySet()) {
 			String thisKey = entry.getKey();
-			AbstractExpression thisValue = entry.getValue();
+			AbstractExpression_RENAMED thisValue = entry.getValue();
 			if (thisValue == null) {
 				if (!(m.get(thisKey) == null && m.containsKey(thisKey)))
 					return false;
@@ -154,7 +154,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 
 	private int memberValuePairsHashCode() {
 		int h = 0;
-		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet())
+		for (Map.Entry<String, AbstractExpression_RENAMED> entry : memberValuePairs.entrySet())
 			h += (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^ (entry.getValue() == null ? 0 : entry.getValue().getExpression().hashCode());
 		return h;
 	}

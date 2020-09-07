@@ -10,7 +10,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class AbstractExpression extends AbstractCodeFragment {
+public class AbstractExpression_RENAMED extends AbstractCodeFragment {
 	
 	private String expression;
 	private LocationInfo locationInfo;
@@ -34,7 +34,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	private List<TernaryOperatorExpression> ternaryOperatorExpressions;
 	private List<LambdaExpressionObject> lambdas;
     
-    public AbstractExpression(CompilationUnit cu, String filePath, Expression expression, CodeElementType codeElementType) {
+    public AbstractExpression_RENAMED(CompilationUnit cu, String filePath, Expression expression, CodeElementType codeElementType) {
     	this.locationInfo = new LocationInfo(cu, filePath, expression, codeElementType);
     	Visitor visitor = new Visitor(cu, filePath);
     	expression.accept(visitor);

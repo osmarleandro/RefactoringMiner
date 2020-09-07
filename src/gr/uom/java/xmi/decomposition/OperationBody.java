@@ -103,7 +103,7 @@ public class OperationBody {
 			IfStatement ifStatement = (IfStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, ifStatement, parent.getDepth()+1, CodeElementType.IF_STATEMENT);
 			parent.addStatement(child);
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, ifStatement.getExpression(), CodeElementType.IF_STATEMENT_CONDITION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, ifStatement.getExpression(), CodeElementType.IF_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
 			processStatement(cu, filePath, child, ifStatement.getThenStatement());
 			if(ifStatement.getElseStatement() != null) {
@@ -116,17 +116,17 @@ public class OperationBody {
 			parent.addStatement(child);
 			List<Expression> initializers = forStatement.initializers();
 			for(Expression initializer : initializers) {
-				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, initializer, CodeElementType.FOR_STATEMENT_INITIALIZER);
+				AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, initializer, CodeElementType.FOR_STATEMENT_INITIALIZER);
 				child.addExpression(abstractExpression);
 			}
 			Expression expression = forStatement.getExpression();
 			if(expression != null) {
-				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, expression, CodeElementType.FOR_STATEMENT_CONDITION);
+				AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, expression, CodeElementType.FOR_STATEMENT_CONDITION);
 				child.addExpression(abstractExpression);
 			}
 			List<Expression> updaters = forStatement.updaters();
 			for(Expression updater : updaters) {
-				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, updater, CodeElementType.FOR_STATEMENT_UPDATER);
+				AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, updater, CodeElementType.FOR_STATEMENT_UPDATER);
 				child.addExpression(abstractExpression);
 			}
 			processStatement(cu, filePath, child, forStatement.getBody());
@@ -138,13 +138,13 @@ public class OperationBody {
 			SingleVariableDeclaration variableDeclaration = enhancedForStatement.getParameter();
 			VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
 			child.addVariableDeclaration(vd);
-			AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.ENHANCED_FOR_STATEMENT_PARAMETER_NAME);
+			AbstractExpression_RENAMED variableDeclarationName = new AbstractExpression_RENAMED(cu, filePath, variableDeclaration.getName(), CodeElementType.ENHANCED_FOR_STATEMENT_PARAMETER_NAME);
 			child.addExpression(variableDeclarationName);
 			if(variableDeclaration.getInitializer() != null) {
-				AbstractExpression variableDeclarationInitializer = new AbstractExpression(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
+				AbstractExpression_RENAMED variableDeclarationInitializer = new AbstractExpression_RENAMED(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
 				child.addExpression(variableDeclarationInitializer);
 			}
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, enhancedForStatement.getExpression(), CodeElementType.ENHANCED_FOR_STATEMENT_EXPRESSION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, enhancedForStatement.getExpression(), CodeElementType.ENHANCED_FOR_STATEMENT_EXPRESSION);
 			child.addExpression(abstractExpression);
 			processStatement(cu, filePath, child, enhancedForStatement.getBody());
 		}
@@ -152,7 +152,7 @@ public class OperationBody {
 			WhileStatement whileStatement = (WhileStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, whileStatement, parent.getDepth()+1, CodeElementType.WHILE_STATEMENT);
 			parent.addStatement(child);
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, whileStatement.getExpression(), CodeElementType.WHILE_STATEMENT_CONDITION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, whileStatement.getExpression(), CodeElementType.WHILE_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
 			processStatement(cu, filePath, child, whileStatement.getBody());
 		}
@@ -160,7 +160,7 @@ public class OperationBody {
 			DoStatement doStatement = (DoStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, doStatement, parent.getDepth()+1, CodeElementType.DO_STATEMENT);
 			parent.addStatement(child);
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, doStatement.getExpression(), CodeElementType.DO_STATEMENT_CONDITION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, doStatement.getExpression(), CodeElementType.DO_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
 			processStatement(cu, filePath, child, doStatement.getBody());
 		}
@@ -173,7 +173,7 @@ public class OperationBody {
 			SwitchStatement switchStatement = (SwitchStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, switchStatement, parent.getDepth()+1, CodeElementType.SWITCH_STATEMENT);
 			parent.addStatement(child);
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, switchStatement.getExpression(), CodeElementType.SWITCH_STATEMENT_CONDITION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, switchStatement.getExpression(), CodeElementType.SWITCH_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
 			List<Statement> switchStatements = switchStatement.statements();
 			for(Statement switchStatement2 : switchStatements)
@@ -205,7 +205,7 @@ public class OperationBody {
 			SynchronizedStatement synchronizedStatement = (SynchronizedStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, synchronizedStatement, parent.getDepth()+1, CodeElementType.SYNCHRONIZED_STATEMENT);
 			parent.addStatement(child);
-			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, synchronizedStatement.getExpression(), CodeElementType.SYNCHRONIZED_STATEMENT_EXPRESSION);
+			AbstractExpression_RENAMED abstractExpression = new AbstractExpression_RENAMED(cu, filePath, synchronizedStatement.getExpression(), CodeElementType.SYNCHRONIZED_STATEMENT_EXPRESSION);
 			child.addExpression(abstractExpression);
 			processStatement(cu, filePath, child, synchronizedStatement.getBody());
 		}
@@ -220,7 +220,7 @@ public class OperationBody {
 			parent.addStatement(child);
 			List<Expression> resources = tryStatement.resources();
 			for(Expression resource : resources) {
-				AbstractExpression expression = new AbstractExpression(cu, filePath, resource, CodeElementType.TRY_STATEMENT_RESOURCE);
+				AbstractExpression_RENAMED expression = new AbstractExpression_RENAMED(cu, filePath, resource, CodeElementType.TRY_STATEMENT_RESOURCE);
 				child.addExpression(expression);
 			}
 			List<Statement> tryStatements = tryStatement.getBody().statements();
@@ -236,10 +236,10 @@ public class OperationBody {
 				SingleVariableDeclaration variableDeclaration = catchClause.getException();
 				VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
 				catchClauseStatementObject.addVariableDeclaration(vd);
-				AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.CATCH_CLAUSE_EXCEPTION_NAME);
+				AbstractExpression_RENAMED variableDeclarationName = new AbstractExpression_RENAMED(cu, filePath, variableDeclaration.getName(), CodeElementType.CATCH_CLAUSE_EXCEPTION_NAME);
 				catchClauseStatementObject.addExpression(variableDeclarationName);
 				if(variableDeclaration.getInitializer() != null) {
-					AbstractExpression variableDeclarationInitializer = new AbstractExpression(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
+					AbstractExpression_RENAMED variableDeclarationInitializer = new AbstractExpression_RENAMED(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
 					catchClauseStatementObject.addExpression(variableDeclarationInitializer);
 				}
 				List<Statement> blockStatements = catchClauseBody.statements();

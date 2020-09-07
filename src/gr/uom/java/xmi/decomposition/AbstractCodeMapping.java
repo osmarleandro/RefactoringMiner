@@ -133,7 +133,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
-		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
+		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression_RENAMED
 				&& getFragment2() instanceof StatementObject) {
 			StatementObject statement = (StatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
@@ -157,7 +157,7 @@ public abstract class AbstractCodeMapping {
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
-			AbstractExpression initializer = declaration.getInitializer();
+			AbstractExpression_RENAMED initializer = declaration.getInitializer();
 			for(Replacement replacement : getReplacements()) {
 				if(replacement.getAfter().startsWith(variableName + ".")) {
 					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
@@ -241,7 +241,7 @@ public abstract class AbstractCodeMapping {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
-				AbstractExpression initializer = declaration.getInitializer();
+				AbstractExpression_RENAMED initializer = declaration.getInitializer();
 				if(replacement.getBefore().startsWith(variableName + ".")) {
 					String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
 					if(replacement.getAfter().endsWith(suffixBefore)) {
@@ -302,7 +302,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+	private boolean ternaryMatch(AbstractExpression_RENAMED initializer, String replacedExpression) {
 		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
 		for(TernaryOperatorExpression ternary : ternaryList) {
 			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
@@ -323,7 +323,7 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
+	private boolean reservedTokenMatch(AbstractExpression_RENAMED initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
 		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
@@ -373,7 +373,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	private boolean overlappingExtractVariable(AbstractExpression_RENAMED initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import gr.uom.java.xmi.UMLAnnotation;
-import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.AbstractExpression_RENAMED;
 
 public class UMLAnnotationDiff {
 	private UMLAnnotation removedAnnotation;
@@ -16,23 +16,23 @@ public class UMLAnnotationDiff {
 	private boolean valueChanged = false;
 	private boolean valueRemoved = false;
 	private boolean valueAdded = false;
-	private List<SimpleEntry<String, AbstractExpression>> removedMemberValuePairs;
-	private List<SimpleEntry<String, AbstractExpression>> addedMemberValuePairs;
-	private Map<SimpleEntry<String, AbstractExpression>, SimpleEntry<String, AbstractExpression>> matchedMemberValuePairsWithDifferentExpressions;
+	private List<SimpleEntry<String, AbstractExpression_RENAMED>> removedMemberValuePairs;
+	private List<SimpleEntry<String, AbstractExpression_RENAMED>> addedMemberValuePairs;
+	private Map<SimpleEntry<String, AbstractExpression_RENAMED>, SimpleEntry<String, AbstractExpression_RENAMED>> matchedMemberValuePairsWithDifferentExpressions;
 	
 	public UMLAnnotationDiff(UMLAnnotation removedAnnotation, UMLAnnotation addedAnnotation) {
 		this.removedAnnotation = removedAnnotation;
 		this.addedAnnotation = addedAnnotation;
-		this.removedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression>>();
-		this.addedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression>>();
-		this.matchedMemberValuePairsWithDifferentExpressions = new LinkedHashMap<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>>();
-		Map<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>> matchedMemberValuePairs =
-				new LinkedHashMap<SimpleEntry<String,AbstractExpression>, SimpleEntry<String,AbstractExpression>>();
+		this.removedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression_RENAMED>>();
+		this.addedMemberValuePairs = new ArrayList<SimpleEntry<String,AbstractExpression_RENAMED>>();
+		this.matchedMemberValuePairsWithDifferentExpressions = new LinkedHashMap<SimpleEntry<String,AbstractExpression_RENAMED>, SimpleEntry<String,AbstractExpression_RENAMED>>();
+		Map<SimpleEntry<String,AbstractExpression_RENAMED>, SimpleEntry<String,AbstractExpression_RENAMED>> matchedMemberValuePairs =
+				new LinkedHashMap<SimpleEntry<String,AbstractExpression_RENAMED>, SimpleEntry<String,AbstractExpression_RENAMED>>();
 		if(!removedAnnotation.getTypeName().equals(addedAnnotation.getTypeName())) {
 			typeNameChanged = true;
 		}
-		AbstractExpression value1 = removedAnnotation.getValue();
-		AbstractExpression value2 = addedAnnotation.getValue();
+		AbstractExpression_RENAMED value1 = removedAnnotation.getValue();
+		AbstractExpression_RENAMED value2 = addedAnnotation.getValue();
 		if(value1 != null && value2 != null) {
 			if(!value1.getExpression().equals(value2.getExpression())) {
 				valueChanged = true;
@@ -44,8 +44,8 @@ public class UMLAnnotationDiff {
 		else if(value1 == null && value2 != null) {
 			valueAdded  = true;
 		}
-		Map<String, AbstractExpression> memberValuePairs1 = removedAnnotation.getMemberValuePairs();
-		Map<String, AbstractExpression> memberValuePairs2 = addedAnnotation.getMemberValuePairs();
+		Map<String, AbstractExpression_RENAMED> memberValuePairs1 = removedAnnotation.getMemberValuePairs();
+		Map<String, AbstractExpression_RENAMED> memberValuePairs2 = addedAnnotation.getMemberValuePairs();
 		if(!memberValuePairs1.isEmpty() || !memberValuePairs2.isEmpty()) {
 			for(String key1 : memberValuePairs1.keySet()) {
 				if(memberValuePairs2.containsKey(key1)) {
@@ -64,8 +64,8 @@ public class UMLAnnotationDiff {
 				}
 			}
 		}
-		for(SimpleEntry<String, AbstractExpression> key : matchedMemberValuePairs.keySet()) {
-			SimpleEntry<String, AbstractExpression> value = matchedMemberValuePairs.get(key);
+		for(SimpleEntry<String, AbstractExpression_RENAMED> key : matchedMemberValuePairs.keySet()) {
+			SimpleEntry<String, AbstractExpression_RENAMED> value = matchedMemberValuePairs.get(key);
 			if(!key.getValue().getExpression().equals(value.getValue().getExpression())) {
 				matchedMemberValuePairsWithDifferentExpressions.put(key, value);
 			}

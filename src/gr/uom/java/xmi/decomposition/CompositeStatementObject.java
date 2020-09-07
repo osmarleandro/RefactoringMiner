@@ -17,7 +17,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class CompositeStatementObject extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
-	private List<AbstractExpression> expressionList;
+	private List<AbstractExpression_RENAMED> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
@@ -26,7 +26,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		this.setDepth(depth);
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
 		this.statementList = new ArrayList<AbstractStatement>();
-		this.expressionList = new ArrayList<AbstractExpression>();
+		this.expressionList = new ArrayList<AbstractExpression_RENAMED>();
 		this.variableDeclarations = new ArrayList<VariableDeclaration>();
 	}
 
@@ -40,7 +40,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return statementList;
 	}
 
-	public void addExpression(AbstractExpression expression) {
+	public void addExpression(AbstractExpression_RENAMED expression) {
 		//an expression has the same index and depth as the composite statement it belong to
 		expression.setDepth(this.getDepth());
 		expression.setIndex(this.getIndex());
@@ -48,7 +48,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		expression.setOwner(this);
 	}
 
-	public List<AbstractExpression> getExpressions() {
+	public List<AbstractExpression_RENAMED> getExpressions() {
 		return expressionList;
 	}
 
@@ -84,7 +84,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		else if(fragment instanceof CompositeStatementObject) {
 			return getInnerNodes().contains(fragment);
 		}
-		else if(fragment instanceof AbstractExpression) {
+		else if(fragment instanceof AbstractExpression_RENAMED) {
 			return getExpressions().contains(fragment);
 		}
 		return false;
@@ -107,7 +107,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getVariables() {
 		List<String> variables = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			variables.addAll(expression.getVariables());
 		}
 		return variables;
@@ -116,7 +116,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getTypes() {
 		List<String> types = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			types.addAll(expression.getTypes());
 		}
 		return types;
@@ -127,7 +127,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		//special handling for enhanced-for formal parameter
 		variableDeclarations.addAll(this.variableDeclarations);
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			variableDeclarations.addAll(expression.getVariableDeclarations());
 		}
 		return variableDeclarations;
@@ -136,7 +136,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			Map<String, List<OperationInvocation>> expressionMap = expression.getMethodInvocationMap();
 			for(String key : expressionMap.keySet()) {
 				if(map.containsKey(key)) {
@@ -155,7 +155,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			anonymousClassDeclarations.addAll(expression.getAnonymousClassDeclarations());
 		}
 		return anonymousClassDeclarations;
@@ -164,7 +164,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getStringLiterals() {
 		List<String> stringLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			stringLiterals.addAll(expression.getStringLiterals());
 		}
 		return stringLiterals;
@@ -173,7 +173,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getNumberLiterals() {
 		List<String> numberLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			numberLiterals.addAll(expression.getNumberLiterals());
 		}
 		return numberLiterals;
@@ -182,7 +182,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getNullLiterals() {
 		List<String> nullLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			nullLiterals.addAll(expression.getNullLiterals());
 		}
 		return nullLiterals;
@@ -191,7 +191,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getBooleanLiterals() {
 		List<String> booleanLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			booleanLiterals.addAll(expression.getBooleanLiterals());
 		}
 		return booleanLiterals;
@@ -200,7 +200,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getTypeLiterals() {
 		List<String> typeLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			typeLiterals.addAll(expression.getTypeLiterals());
 		}
 		return typeLiterals;
@@ -209,7 +209,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getInfixOperators() {
 		List<String> infixOperators = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			infixOperators.addAll(expression.getInfixOperators());
 		}
 		return infixOperators;
@@ -218,7 +218,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getArrayAccesses() {
 		List<String> arrayAccesses = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			arrayAccesses.addAll(expression.getArrayAccesses());
 		}
 		return arrayAccesses;
@@ -227,7 +227,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getPrefixExpressions() {
 		List<String> prefixExpressions = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			prefixExpressions.addAll(expression.getPrefixExpressions());
 		}
 		return prefixExpressions;
@@ -236,7 +236,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getPostfixExpressions() {
 		List<String> postfixExpressions = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			postfixExpressions.addAll(expression.getPostfixExpressions());
 		}
 		return postfixExpressions;
@@ -245,7 +245,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<String> getArguments() {
 		List<String> arguments = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			arguments.addAll(expression.getArguments());
 		}
 		return arguments;
@@ -254,7 +254,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			ternaryOperatorExpressions.addAll(expression.getTernaryOperatorExpressions());
 		}
 		return ternaryOperatorExpressions;
@@ -263,7 +263,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<LambdaExpressionObject> getLambdas() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			lambdas.addAll(expression.getLambdas());
 		}
 		return lambdas;
@@ -272,7 +272,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
 		Map<String, List<ObjectCreation>> map = new LinkedHashMap<String, List<ObjectCreation>>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression_RENAMED expression : expressionList) {
 			Map<String, List<ObjectCreation>> expressionMap = expression.getCreationMap();
 			for(String key : expressionMap.keySet()) {
 				if(map.containsKey(key)) {
@@ -497,7 +497,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression_RENAMED expression : innerNode.getExpressions()) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;
@@ -510,7 +510,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
 					innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.WHILE_STATEMENT)) {
 				boolean collectionNameMatched = false;
-				for(AbstractExpression expression : innerNode.getExpressions()) {
+				for(AbstractExpression_RENAMED expression : innerNode.getExpressions()) {
 					if(expression.getVariables().contains(collectionName)) {
 						collectionNameMatched = true;
 						break;

@@ -106,7 +106,7 @@ public class VariableReplacementAnalysis {
 	private void findParametersWrappedInLocalVariables() {
 		for(StatementObject statement : nonMappedLeavesT2) {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-				AbstractExpression initializer = declaration.getInitializer();
+				AbstractExpression_RENAMED initializer = declaration.getInitializer();
 				if(initializer != null) {
 					for(String key : initializer.getCreationMap().keySet()) {
 						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
@@ -182,7 +182,7 @@ public class VariableReplacementAnalysis {
 					for(StatementObject statement : nonMappedLeavesT1) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
-							AbstractExpression initializer = variableDeclaration.getInitializer();
+							AbstractExpression_RENAMED initializer = variableDeclaration.getInitializer();
 							if(initializer != null) {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
@@ -199,7 +199,7 @@ public class VariableReplacementAnalysis {
 			for(String parameterName : operation2.getParameterNameList()) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
-					AbstractExpression initializer = variableDeclaration.getInitializer();
+					AbstractExpression_RENAMED initializer = variableDeclaration.getInitializer();
 					if(initializer != null) {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {
@@ -310,7 +310,7 @@ public class VariableReplacementAnalysis {
 					for(StatementObject statement : nonMappedLeavesT2) {
 						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
 						if(variableDeclaration != null) {
-							AbstractExpression initializer = variableDeclaration.getInitializer();
+							AbstractExpression_RENAMED initializer = variableDeclaration.getInitializer();
 							if(initializer != null) {
 								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 								if(invocation != null) {
@@ -354,7 +354,7 @@ public class VariableReplacementAnalysis {
 			for(String parameterName : operation1.getParameterNameList()) {
 				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
 				if(variableDeclaration != null) {
-					AbstractExpression initializer = variableDeclaration.getInitializer();
+					AbstractExpression_RENAMED initializer = variableDeclaration.getInitializer();
 					if(initializer != null) {
 						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 						if(invocation != null) {

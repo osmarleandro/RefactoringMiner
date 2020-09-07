@@ -24,7 +24,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 
 public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
 	private String variableName;
-	private AbstractExpression initializer;
+	private AbstractExpression_RENAMED initializer;
 	private UMLType type;
 	private boolean varargsParameter;
 	private LocationInfo locationInfo;
@@ -58,7 +58,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		}
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
-		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
+		this.initializer = fragment.getInitializer() != null ? new AbstractExpression_RENAMED(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		ASTNode scopeNode = getScopeNode(fragment);
@@ -85,7 +85,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		}
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
-		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
+		this.initializer = fragment.getInitializer() != null ? new AbstractExpression_RENAMED(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
 		Type astType = extractType(fragment);
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		int startOffset = fragment.getStartPosition();
@@ -103,7 +103,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return variableName;
 	}
 
-	public AbstractExpression getInitializer() {
+	public AbstractExpression_RENAMED getInitializer() {
 		return initializer;
 	}
 
