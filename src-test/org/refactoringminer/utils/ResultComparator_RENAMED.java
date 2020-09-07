@@ -20,7 +20,7 @@ import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
 
-public class ResultComparator {
+public class ResultComparator_RENAMED {
 
     Set<String> groupIds = new LinkedHashSet<>();
     Map<String, RefactoringSet> expectedMap = new LinkedHashMap<>();
@@ -34,30 +34,30 @@ public class ResultComparator {
     private boolean ignoreMoveToMovedType = false;
     private boolean ignoreMoveToRenamedType = false;
 
-    public ResultComparator(boolean groupRefactorings, boolean ignoreMethodParams) {
+    public ResultComparator_RENAMED(boolean groupRefactorings, boolean ignoreMethodParams) {
         this.groupRefactorings = groupRefactorings;
         this.ignoreMethodParams = ignoreMethodParams;
     }
 
-    public ResultComparator() {
+    public ResultComparator_RENAMED() {
         this(false, false);
     }
 
-    public ResultComparator expect(RefactoringSet ... sets) {
+    public ResultComparator_RENAMED expect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator dontExpect(RefactoringSet ... sets) {
+    public ResultComparator_RENAMED dontExpect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
+    public ResultComparator_RENAMED compareWith(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
             resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
@@ -138,8 +138,8 @@ public class ResultComparator {
     }
 
     private static double getF1(int tp, int fp, int fn) {
-        double precision = ResultComparator.getPrecision(tp, fp, fn);
-        double recall = ResultComparator.getRecall(tp, fp, fn);
+        double precision = ResultComparator_RENAMED.getPrecision(tp, fp, fn);
+        double recall = ResultComparator_RENAMED.getRecall(tp, fp, fn);
         return tp == 0 ? 0.0 : 2.0 * precision * recall / (precision + recall);
     }
 
@@ -295,21 +295,21 @@ public class ResultComparator {
             int tp = this.truePositives.size();
             int fp = this.falsePositives.size();
             int fn = this.falseNegatives.size();
-            return ResultComparator.getPrecision(tp, fp, fn);
+            return ResultComparator_RENAMED.getPrecision(tp, fp, fn);
         }
         
         public double getRecall() {
             int tp = this.truePositives.size();
             int fp = this.falsePositives.size();
             int fn = this.falseNegatives.size();
-            return ResultComparator.getRecall(tp, fp, fn);
+            return ResultComparator_RENAMED.getRecall(tp, fp, fn);
         }
         
         public double getF1() {
             int tp = this.truePositives.size();
             int fp = this.falsePositives.size();
             int fn = this.falseNegatives.size();
-            return ResultComparator.getF1(tp, fp, fn);
+            return ResultComparator_RENAMED.getF1(tp, fp, fn);
         }
 
         public int getTPCount(RefactoringType rt) {
