@@ -26,7 +26,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
-import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
@@ -59,7 +59,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private List<UMLOperationDiff> operationDiffList;
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
-	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
+	private Set<MethodInvocationReplacement_RENAMED> consistentMethodInvocationRenames;
 	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
@@ -1071,11 +1071,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
-		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+	private Set<MethodInvocationReplacement_RENAMED> findConsistentMethodInvocationRenames() {
+		Set<MethodInvocationReplacement_RENAMED> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement_RENAMED>();
+		Set<MethodInvocationReplacement_RENAMED> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement_RENAMED>();
 		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
-			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
+			Set<MethodInvocationReplacement_RENAMED> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
 			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
 					methodInvocationRenames);
 		}
@@ -1109,7 +1109,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		else {
-			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
+			for(MethodInvocationReplacement_RENAMED replacement : consistentMethodInvocationRenames) {
 				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
 						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
 					mapperSet.add(operationBodyMapper);
@@ -1320,8 +1320,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return bestMapper;
 	}
 
-	private boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
-		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
+	private boolean matchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement_RENAMED> consistentMethodInvocationRenames) {
+		for(MethodInvocationReplacement_RENAMED rename : consistentMethodInvocationRenames) {
 			if(mapper.getOperation1().getName().equals(rename.getBefore()) && mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
 			}
@@ -1329,8 +1329,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement> consistentMethodInvocationRenames) {
-		for(MethodInvocationReplacement rename : consistentMethodInvocationRenames) {
+	private boolean mismatchesConsistentMethodInvocationRename(UMLOperationBodyMapper mapper, Set<MethodInvocationReplacement_RENAMED> consistentMethodInvocationRenames) {
+		for(MethodInvocationReplacement_RENAMED rename : consistentMethodInvocationRenames) {
 			if(mapper.getOperation1().getName().equals(rename.getBefore()) && !mapper.getOperation2().getName().equals(rename.getAfter())) {
 				return true;
 			}

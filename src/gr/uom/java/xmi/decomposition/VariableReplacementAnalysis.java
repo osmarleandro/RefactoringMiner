@@ -17,7 +17,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
-import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
+import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement_RENAMED;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.VariableDeclarationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
@@ -571,7 +571,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 				else if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION)) {
-					MethodInvocationReplacement methodInvocationReplacement = (MethodInvocationReplacement)replacement;
+					MethodInvocationReplacement_RENAMED methodInvocationReplacement = (MethodInvocationReplacement_RENAMED)replacement;
 					OperationInvocation invocation1 = methodInvocationReplacement.getInvokedOperationBefore();
 					OperationInvocation invocation2 = methodInvocationReplacement.getInvokedOperationAfter();
 					if(invocation1.getName().equals(invocation2.getName()) && invocation1.getArguments().size() == invocation2.getArguments().size()) {
@@ -672,8 +672,8 @@ public class VariableReplacementAnalysis {
 
 	private boolean containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(Set<Replacement> replacements) {
 		for(Replacement replacement : replacements) {
-			if(replacement instanceof MethodInvocationReplacement) {
-				MethodInvocationReplacement r = (MethodInvocationReplacement)replacement;
+			if(replacement instanceof MethodInvocationReplacement_RENAMED) {
+				MethodInvocationReplacement_RENAMED r = (MethodInvocationReplacement_RENAMED)replacement;
 				if(r.differentExpressionNameAndArguments())
 					return true;
 			}
