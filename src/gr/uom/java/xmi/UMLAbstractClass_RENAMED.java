@@ -11,14 +11,14 @@ import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public abstract class UMLAbstractClass {
+public abstract class UMLAbstractClass_RENAMED {
 	protected LocationInfo locationInfo;
 	protected String packageName;
 	protected String name;
 	protected List<UMLOperation> operations;
 	protected List<UMLAttribute> attributes;
 
-	public UMLAbstractClass() {
+	public UMLAbstractClass_RENAMED() {
         this.operations = new ArrayList<UMLOperation>();
         this.attributes = new ArrayList<UMLAttribute>();
 	}
@@ -170,7 +170,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
+	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass_RENAMED umlClass) {
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
 		for(UMLOperation operation : operations) {
@@ -215,7 +215,7 @@ public abstract class UMLAbstractClass {
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 
-	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
+	public boolean hasCommonAttributesAndOperations(UMLAbstractClass_RENAMED umlClass) {
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
 		RenamePattern pattern = null;
@@ -277,7 +277,7 @@ public abstract class UMLAbstractClass {
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
 	}
 
-	public boolean hasSameAttributesAndOperations(UMLAbstractClass umlClass) {
+	public boolean hasSameAttributesAndOperations(UMLAbstractClass_RENAMED umlClass) {
 		if(this.attributes.size() != umlClass.attributes.size())
 			return false;
 		if(this.operations.size() != umlClass.operations.size())

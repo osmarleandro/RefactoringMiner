@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
+public class UMLClass extends UMLAbstractClass_RENAMED implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
 	private String qualifiedName;
     private String sourceFile;
     private String sourceFolder;
