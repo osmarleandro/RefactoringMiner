@@ -14,7 +14,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 	
 	private String expression;
 	private LocationInfo locationInfo;
-	private CompositeStatementObject owner;
+	private CompositeStatementObject_RENAMED owner;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -60,16 +60,16 @@ public class AbstractExpression extends AbstractCodeFragment {
     	this.owner = null;
     }
 
-    public void setOwner(CompositeStatementObject owner) {
+    public void setOwner(CompositeStatementObject_RENAMED owner) {
     	this.owner = owner;
     }
 
-    public CompositeStatementObject getOwner() {
+    public CompositeStatementObject_RENAMED getOwner() {
     	return this.owner;
     }
 
 	@Override
-	public CompositeStatementObject getParent() {
+	public CompositeStatementObject_RENAMED getParent() {
 		return getOwner();
 	}
 

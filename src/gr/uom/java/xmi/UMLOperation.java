@@ -2,7 +2,7 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -827,7 +827,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new LinkedHashMap<String, Set<String>>();
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public CompositeStatementObject_RENAMED loopWithVariables(String currentElementName, String collectionName) {
 		if(operationBody != null) {
 			return operationBody.loopWithVariables(currentElementName, collectionName);
 		}

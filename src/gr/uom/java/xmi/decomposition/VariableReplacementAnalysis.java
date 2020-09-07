@@ -42,8 +42,8 @@ public class VariableReplacementAnalysis {
 	private Set<AbstractCodeMapping> mappings;
 	private List<StatementObject> nonMappedLeavesT1;
 	private List<StatementObject> nonMappedLeavesT2;
-	private List<CompositeStatementObject> nonMappedInnerNodesT1;
-	private List<CompositeStatementObject> nonMappedInnerNodesT2;
+	private List<CompositeStatementObject_RENAMED> nonMappedInnerNodesT1;
+	private List<CompositeStatementObject_RENAMED> nonMappedInnerNodesT2;
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private List<UMLOperationBodyMapper> childMappers;
@@ -767,10 +767,10 @@ public class VariableReplacementAnalysis {
 		for(AbstractCodeMapping referenceMapping : set) {
 			AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
-			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
+			if(statement1 instanceof CompositeStatementObject_RENAMED && statement2 instanceof CompositeStatementObject_RENAMED &&
 					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-				CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+				CompositeStatementObject_RENAMED comp1 = (CompositeStatementObject_RENAMED)statement1;
+				CompositeStatementObject_RENAMED comp2 = (CompositeStatementObject_RENAMED)statement2;
 				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations());
 				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations());
 			}
@@ -859,10 +859,10 @@ public class VariableReplacementAnalysis {
 						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 						boolean containsMapping = true;
-						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
+						if(statement1 instanceof CompositeStatementObject_RENAMED && statement2 instanceof CompositeStatementObject_RENAMED &&
 								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+							CompositeStatementObject_RENAMED comp1 = (CompositeStatementObject_RENAMED)statement1;
+							CompositeStatementObject_RENAMED comp2 = (CompositeStatementObject_RENAMED)statement2;
 							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 						}
 						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
@@ -1082,8 +1082,8 @@ public class VariableReplacementAnalysis {
 					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
 						for(AbstractCodeMapping mapping : mapper.getMappings()) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
-								if(mapping.getFragment1() instanceof CompositeStatementObject) {
-									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();
+								if(mapping.getFragment1() instanceof CompositeStatementObject_RENAMED) {
+									CompositeStatementObject_RENAMED composite1 = (CompositeStatementObject_RENAMED)mapping.getFragment1();
 									List<StatementObject> leaves1 = composite1.getLeaves();
 									for(StatementObject leaf1 : leaves1) {
 										VariableDeclaration variableDeclaration1 = leaf1.getVariableDeclaration(variableDeclaration2.getVariableName());

@@ -38,10 +38,10 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class OperationBody {
 
-	private CompositeStatementObject compositeStatement;
+	private CompositeStatementObject_RENAMED compositeStatement;
 
 	public OperationBody(CompilationUnit cu, String filePath, Block methodBody) {
-		this.compositeStatement = new CompositeStatementObject(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
+		this.compositeStatement = new CompositeStatementObject_RENAMED(cu, filePath, methodBody, 0, CodeElementType.BLOCK);
 		List<Statement> statements = methodBody.statements();
 		for(Statement statement : statements) {
 			processStatement(cu, filePath, compositeStatement, statement);
@@ -52,7 +52,7 @@ public class OperationBody {
 		return compositeStatement.statementCount();
 	}
 
-	public CompositeStatementObject getCompositeStatement() {
+	public CompositeStatementObject_RENAMED getCompositeStatement() {
 		return compositeStatement;
 	}
 
@@ -89,11 +89,11 @@ public class OperationBody {
 		return compositeStatement.getVariableDeclaration(variableName);
 	}
 
-	private void processStatement(CompilationUnit cu, String filePath, CompositeStatementObject parent, Statement statement) {
+	private void processStatement(CompilationUnit cu, String filePath, CompositeStatementObject_RENAMED parent, Statement statement) {
 		if(statement instanceof Block) {
 			Block block = (Block)statement;
 			List<Statement> blockStatements = block.statements();
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, block, parent.getDepth()+1, CodeElementType.BLOCK);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, block, parent.getDepth()+1, CodeElementType.BLOCK);
 			parent.addStatement(child);
 			for(Statement blockStatement : blockStatements) {
 				processStatement(cu, filePath, child, blockStatement);
@@ -101,7 +101,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof IfStatement) {
 			IfStatement ifStatement = (IfStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, ifStatement, parent.getDepth()+1, CodeElementType.IF_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, ifStatement, parent.getDepth()+1, CodeElementType.IF_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, ifStatement.getExpression(), CodeElementType.IF_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
@@ -112,7 +112,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof ForStatement) {
 			ForStatement forStatement = (ForStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, forStatement, parent.getDepth()+1, CodeElementType.FOR_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, forStatement, parent.getDepth()+1, CodeElementType.FOR_STATEMENT);
 			parent.addStatement(child);
 			List<Expression> initializers = forStatement.initializers();
 			for(Expression initializer : initializers) {
@@ -133,7 +133,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof EnhancedForStatement) {
 			EnhancedForStatement enhancedForStatement = (EnhancedForStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, enhancedForStatement, parent.getDepth()+1, CodeElementType.ENHANCED_FOR_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, enhancedForStatement, parent.getDepth()+1, CodeElementType.ENHANCED_FOR_STATEMENT);
 			parent.addStatement(child);
 			SingleVariableDeclaration variableDeclaration = enhancedForStatement.getParameter();
 			VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
@@ -150,7 +150,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof WhileStatement) {
 			WhileStatement whileStatement = (WhileStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, whileStatement, parent.getDepth()+1, CodeElementType.WHILE_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, whileStatement, parent.getDepth()+1, CodeElementType.WHILE_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, whileStatement.getExpression(), CodeElementType.WHILE_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
@@ -158,7 +158,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof DoStatement) {
 			DoStatement doStatement = (DoStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, doStatement, parent.getDepth()+1, CodeElementType.DO_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, doStatement, parent.getDepth()+1, CodeElementType.DO_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, doStatement.getExpression(), CodeElementType.DO_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
@@ -171,7 +171,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof SwitchStatement) {
 			SwitchStatement switchStatement = (SwitchStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, switchStatement, parent.getDepth()+1, CodeElementType.SWITCH_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, switchStatement, parent.getDepth()+1, CodeElementType.SWITCH_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, switchStatement.getExpression(), CodeElementType.SWITCH_STATEMENT_CONDITION);
 			child.addExpression(abstractExpression);
@@ -192,7 +192,7 @@ public class OperationBody {
 		else if(statement instanceof LabeledStatement) {
 			LabeledStatement labeledStatement = (LabeledStatement)statement;
 			SimpleName label = labeledStatement.getLabel();
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, labeledStatement, parent.getDepth()+1, CodeElementType.LABELED_STATEMENT.setName(label.getIdentifier()));
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, labeledStatement, parent.getDepth()+1, CodeElementType.LABELED_STATEMENT.setName(label.getIdentifier()));
 			parent.addStatement(child);
 			processStatement(cu, filePath, child, labeledStatement.getBody());
 		}
@@ -203,7 +203,7 @@ public class OperationBody {
 		}
 		else if(statement instanceof SynchronizedStatement) {
 			SynchronizedStatement synchronizedStatement = (SynchronizedStatement)statement;
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, synchronizedStatement, parent.getDepth()+1, CodeElementType.SYNCHRONIZED_STATEMENT);
+			CompositeStatementObject_RENAMED child = new CompositeStatementObject_RENAMED(cu, filePath, synchronizedStatement, parent.getDepth()+1, CodeElementType.SYNCHRONIZED_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, synchronizedStatement.getExpression(), CodeElementType.SYNCHRONIZED_STATEMENT_EXPRESSION);
 			child.addExpression(abstractExpression);
@@ -230,7 +230,7 @@ public class OperationBody {
 			List<CatchClause> catchClauses = tryStatement.catchClauses();
 			for(CatchClause catchClause : catchClauses) {
 				Block catchClauseBody = catchClause.getBody();
-				CompositeStatementObject catchClauseStatementObject = new CompositeStatementObject(cu, filePath, catchClauseBody, parent.getDepth()+1, CodeElementType.CATCH_CLAUSE);
+				CompositeStatementObject_RENAMED catchClauseStatementObject = new CompositeStatementObject_RENAMED(cu, filePath, catchClauseBody, parent.getDepth()+1, CodeElementType.CATCH_CLAUSE);
 				child.addCatchClause(catchClauseStatementObject);
 				parent.addStatement(catchClauseStatementObject);
 				SingleVariableDeclaration variableDeclaration = catchClause.getException();
@@ -249,7 +249,7 @@ public class OperationBody {
 			}
 			Block finallyBlock = tryStatement.getFinally();
 			if(finallyBlock != null) {
-				CompositeStatementObject finallyClauseStatementObject = new CompositeStatementObject(cu, filePath, finallyBlock, parent.getDepth()+1, CodeElementType.FINALLY_BLOCK);
+				CompositeStatementObject_RENAMED finallyClauseStatementObject = new CompositeStatementObject_RENAMED(cu, filePath, finallyBlock, parent.getDepth()+1, CodeElementType.FINALLY_BLOCK);
 				child.setFinallyClause(finallyClauseStatementObject);
 				parent.addStatement(finallyClauseStatementObject);
 				List<Statement> blockStatements = finallyBlock.statements();
@@ -294,7 +294,7 @@ public class OperationBody {
 		return compositeStatement.aliasedAttributes();
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public CompositeStatementObject_RENAMED loopWithVariables(String currentElementName, String collectionName) {
 		return compositeStatement.loopWithVariables(currentElementName, collectionName);
 	}
 }

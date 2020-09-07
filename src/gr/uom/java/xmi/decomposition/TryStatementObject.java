@@ -8,28 +8,28 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class TryStatementObject extends CompositeStatementObject {
-	private List<CompositeStatementObject> catchClauses;
-	private CompositeStatementObject finallyClause;
+public class TryStatementObject extends CompositeStatementObject_RENAMED {
+	private List<CompositeStatementObject_RENAMED> catchClauses;
+	private CompositeStatementObject_RENAMED finallyClause;
 
 	public TryStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth) {
 		super(cu, filePath, statement, depth, CodeElementType.TRY_STATEMENT);
-		this.catchClauses = new ArrayList<CompositeStatementObject>();
+		this.catchClauses = new ArrayList<CompositeStatementObject_RENAMED>();
 	}
 
-	public void addCatchClause(CompositeStatementObject catchClause) {
+	public void addCatchClause(CompositeStatementObject_RENAMED catchClause) {
 		catchClauses.add(catchClause);
 	}
 
-	public List<CompositeStatementObject> getCatchClauses() {
+	public List<CompositeStatementObject_RENAMED> getCatchClauses() {
 		return catchClauses;
 	}
 
-	public void setFinallyClause(CompositeStatementObject finallyClause) {
+	public void setFinallyClause(CompositeStatementObject_RENAMED finallyClause) {
 		this.finallyClause = finallyClause;
 	}
 
-	public CompositeStatementObject getFinallyClause() {
+	public CompositeStatementObject_RENAMED getFinallyClause() {
 		return finallyClause;
 	}
 
@@ -37,7 +37,7 @@ public class TryStatementObject extends CompositeStatementObject {
 	public List<VariableDeclaration> getVariableDeclarations() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		variableDeclarations.addAll(super.getVariableDeclarations());
-		for(CompositeStatementObject catchClause : catchClauses) {
+		for(CompositeStatementObject_RENAMED catchClause : catchClauses) {
 			variableDeclarations.addAll(catchClause.getVariableDeclarations());
 		}
 		return variableDeclarations;

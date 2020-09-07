@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -235,7 +235,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 			ranges.add(statement.codeRange().
 					setDescription("added statement in extracted method declaration"));
 		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
+		for(CompositeStatementObject_RENAMED statement : bodyMapper.getNonMappedInnerNodesT2()) {
 			ranges.add(statement.codeRange().
 					setDescription("added statement in extracted method declaration"));
 		}

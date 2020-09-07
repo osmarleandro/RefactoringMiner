@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.CompositeStatementObject_RENAMED;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -103,9 +103,9 @@ public class ExtractOperationDetection {
 										mapper.getNonMappedLeavesT1().add((StatementObject)fragment1);
 									}
 								}
-								else if(fragment1 instanceof CompositeStatementObject) {
+								else if(fragment1 instanceof CompositeStatementObject_RENAMED) {
 									if(!mapper.getNonMappedInnerNodesT1().contains(fragment1)) {
-										mapper.getNonMappedInnerNodesT1().add((CompositeStatementObject)fragment1);
+										mapper.getNonMappedInnerNodesT1().add((CompositeStatementObject_RENAMED)fragment1);
 									}
 								}
 							}
@@ -261,8 +261,8 @@ public class ExtractOperationDetection {
 
 	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
-		List<CompositeStatementObject> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject>(operationBodyMapper.getNonMappedInnerNodesT2());
-		ListIterator<CompositeStatementObject> iterator = nonMappedInnerNodesT2.listIterator();
+		List<CompositeStatementObject_RENAMED> nonMappedInnerNodesT2 = new ArrayList<CompositeStatementObject_RENAMED>(operationBodyMapper.getNonMappedInnerNodesT2());
+		ListIterator<CompositeStatementObject_RENAMED> iterator = nonMappedInnerNodesT2.listIterator();
 		while(iterator.hasNext()) {
 			if(iterator.next().toString().equals("{")) {
 				iterator.remove();

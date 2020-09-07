@@ -3,13 +3,13 @@ package gr.uom.java.xmi.decomposition;
 import java.util.List;
 
 public abstract class AbstractStatement extends AbstractCodeFragment {
-	private CompositeStatementObject parent;
+	private CompositeStatementObject_RENAMED parent;
 	
-	public void setParent(CompositeStatementObject parent) {
+	public void setParent(CompositeStatementObject_RENAMED parent) {
     	this.parent = parent;
     }
 
-    public CompositeStatementObject getParent() {
+    public CompositeStatementObject_RENAMED getParent() {
     	return this.parent;
     }
 

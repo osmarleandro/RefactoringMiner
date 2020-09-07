@@ -14,14 +14,14 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class CompositeStatementObject extends AbstractStatement {
+public class CompositeStatementObject_RENAMED extends AbstractStatement {
 
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
 	private LocationInfo locationInfo;
 
-	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
+	public CompositeStatementObject_RENAMED(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
 		this.setDepth(depth);
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
@@ -65,11 +65,11 @@ public class CompositeStatementObject extends AbstractStatement {
 		return leaves;
 	}
 
-	public List<CompositeStatementObject> getInnerNodes() {
-		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
+	public List<CompositeStatementObject_RENAMED> getInnerNodes() {
+		List<CompositeStatementObject_RENAMED> innerNodes = new ArrayList<CompositeStatementObject_RENAMED>();
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				innerNodes.addAll(composite.getInnerNodes());
 			}
 		}
@@ -81,7 +81,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		if(fragment instanceof StatementObject) {
 			return getLeaves().contains(fragment);
 		}
-		else if(fragment instanceof CompositeStatementObject) {
+		else if(fragment instanceof CompositeStatementObject_RENAMED) {
 			return getInnerNodes().contains(fragment);
 		}
 		else if(fragment instanceof AbstractExpression) {
@@ -292,8 +292,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
 		map.putAll(getMethodInvocationMap());
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
 				for(String key : compositeMap.keySet()) {
 					if(map.containsKey(key)) {
@@ -343,8 +343,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
@@ -359,8 +359,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 		lambdas.addAll(getLambdas());
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				lambdas.addAll(composite.getAllLambdas());
 			}
 			else if(statement instanceof StatementObject) {
@@ -375,8 +375,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<String> variables = new ArrayList<String>();
 		variables.addAll(getVariables());
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				variables.addAll(composite.getAllVariables());
 			}
 			else if(statement instanceof StatementObject) {
@@ -391,8 +391,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		variableDeclarations.addAll(getVariableDeclarations());
 		for(AbstractStatement statement : statementList) {
-			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+			if(statement instanceof CompositeStatementObject_RENAMED) {
+				CompositeStatementObject_RENAMED composite = (CompositeStatementObject_RENAMED)statement;
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
@@ -486,8 +486,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		for(CompositeStatementObject innerNode : getInnerNodes()) {
+	public CompositeStatementObject_RENAMED loopWithVariables(String currentElementName, String collectionName) {
+		for(CompositeStatementObject_RENAMED innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
