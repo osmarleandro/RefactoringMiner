@@ -60,10 +60,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	protected List<UMLAttributeDiff> attributeDiffList;
 	protected List<Refactoring> refactorings;
 	private Set<MethodInvocationReplacement> consistentMethodInvocationRenames;
-	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
+	private Set<CandidateAttributeRefactoring_RENAMED> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring_RENAMED>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
-	private Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
+	private Map<Replacement, Set<CandidateAttributeRefactoring_RENAMED>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring_RENAMED>>();
 	private Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
 	private Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>>();
 	private UMLModelDiff modelDiff;
@@ -372,7 +372,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return removedAnonymousClasses;
 	}
 
-	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
+	public Set<CandidateAttributeRefactoring_RENAMED> getCandidateAttributeRenames() {
 		return candidateAttributeRenames;
 	}
 
@@ -537,8 +537,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(Replacement pattern : allConsistentRenames) {
 			UMLAttribute a1 = findAttributeInOriginalClass(pattern.getBefore());
 			UMLAttribute a2 = findAttributeInNextClass(pattern.getAfter());
-			Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
-			for(CandidateAttributeRefactoring candidate : set) {
+			Set<CandidateAttributeRefactoring_RENAMED> set = renameMap.get(pattern);
+			for(CandidateAttributeRefactoring_RENAMED candidate : set) {
 				if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
 					if(a1 != null && a2 != null) {
 						if((!originalClass.containsAttributeWithName(pattern.getAfter()) || cyclicRename(renameMap, pattern)) &&
@@ -604,7 +604,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				refactorings.add(refactoring);
 			}
 		}
-		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
+		for(CandidateAttributeRefactoring_RENAMED candidate : mapper.getCandidateAttributeRenames()) {
 			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
 				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 				String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
@@ -621,7 +621,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					renameMap.get(renamePattern).add(candidate);
 				}
 				else {
-					Set<CandidateAttributeRefactoring> set = new LinkedHashSet<CandidateAttributeRefactoring>();
+					Set<CandidateAttributeRefactoring_RENAMED> set = new LinkedHashSet<CandidateAttributeRefactoring_RENAMED>();
 					set.add(candidate);
 					renameMap.put(renamePattern, set);
 				}
@@ -647,7 +647,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
+	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring_RENAMED candidate, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
@@ -679,11 +679,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
+	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring_RENAMED>> map, List<Refactoring> refactorings) {
 		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
 		for(Replacement replacement : map.keySet()) {
-			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
-			for(CandidateAttributeRefactoring candidate : candidates) {
+			Set<CandidateAttributeRefactoring_RENAMED> candidates = map.get(replacement);
+			for(CandidateAttributeRefactoring_RENAMED candidate : candidates) {
 				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 				String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
 				UMLOperationBodyMapper candidateMapper = null;
@@ -964,7 +964,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
+	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring_RENAMED>> renames, Replacement rename) {
 		for(Replacement r : renames.keySet()) {
 			if((rename.getAfter().equals(r.getBefore()) || rename.getBefore().equals(r.getAfter())) &&
 					(totalOccurrences(renames.get(rename)) > 1 || totalOccurrences(renames.get(r)) > 1))
@@ -973,9 +973,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return false;
 	}
 
-	private static int totalOccurrences(Set<CandidateAttributeRefactoring> candidates) {
+	private static int totalOccurrences(Set<CandidateAttributeRefactoring_RENAMED> candidates) {
 		int totalCount = 0;
-		for(CandidateAttributeRefactoring candidate : candidates) {
+		for(CandidateAttributeRefactoring_RENAMED candidate : candidates) {
 			totalCount += candidate.getOccurrences();
 		}
 		return totalCount;

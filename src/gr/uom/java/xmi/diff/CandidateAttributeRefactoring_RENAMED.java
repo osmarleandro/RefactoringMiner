@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class CandidateAttributeRefactoring {
+public class CandidateAttributeRefactoring_RENAMED {
 	private String originalVariableName;
 	private String renamedVariableName;
 	private UMLOperation operationBefore;
@@ -18,7 +18,7 @@ public class CandidateAttributeRefactoring {
 	private UMLAttribute originalAttribute;
 	private UMLAttribute renamedAttribute;
 
-	public CandidateAttributeRefactoring(
+	public CandidateAttributeRefactoring_RENAMED(
 			String originalVariableName,
 			String renamedVariableName,
 			UMLOperation operationBefore,
@@ -118,7 +118,7 @@ public class CandidateAttributeRefactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CandidateAttributeRefactoring other = (CandidateAttributeRefactoring) obj;
+		CandidateAttributeRefactoring_RENAMED other = (CandidateAttributeRefactoring_RENAMED) obj;
 		if (operationAfter == null) {
 			if (other.operationAfter != null)
 				return false;

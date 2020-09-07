@@ -14,12 +14,12 @@ import gr.uom.java.xmi.decomposition.VariableDeclaration;
 public class RenameAttributeRefactoring implements Refactoring {
 	private VariableDeclaration originalAttribute;
 	private VariableDeclaration renamedAttribute;
-	private Set<CandidateAttributeRefactoring> attributeRenames;
+	private Set<CandidateAttributeRefactoring_RENAMED> attributeRenames;
 	private String classNameBefore;
 	private String classNameAfter;
 
 	public RenameAttributeRefactoring(VariableDeclaration originalAttribute, VariableDeclaration renamedAttribute,
-			String classNameBefore, String classNameAfter, Set<CandidateAttributeRefactoring> attributeRenames) {
+			String classNameBefore, String classNameAfter, Set<CandidateAttributeRefactoring_RENAMED> attributeRenames) {
 		this.originalAttribute = originalAttribute;
 		this.renamedAttribute = renamedAttribute;
 		this.classNameBefore = classNameBefore;
@@ -35,7 +35,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return renamedAttribute;
 	}
 
-	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
+	public Set<CandidateAttributeRefactoring_RENAMED> getAttributeRenames() {
 		return attributeRenames;
 	}
 

@@ -24,7 +24,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation.Direction;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
-import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
+import gr.uom.java.xmi.diff.CandidateAttributeRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
@@ -54,7 +54,7 @@ public class VariableReplacementAnalysis {
 	private Set<RenameVariableRefactoring> variableRenames = new LinkedHashSet<RenameVariableRefactoring>();
 	private Set<MergeVariableRefactoring> variableMerges = new LinkedHashSet<MergeVariableRefactoring>();
 	private Set<SplitVariableRefactoring> variableSplits = new LinkedHashSet<SplitVariableRefactoring>();
-	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
+	private Set<CandidateAttributeRefactoring_RENAMED> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring_RENAMED>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 
@@ -146,7 +146,7 @@ public class VariableReplacementAnalysis {
 		return variableSplits;
 	}
 
-	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
+	public Set<CandidateAttributeRefactoring_RENAMED> getCandidateAttributeRenames() {
 		return candidateAttributeRenames;
 	}
 
@@ -484,7 +484,7 @@ public class VariableReplacementAnalysis {
 					(!operation2.getAllVariables().contains(replacement.getBefore()) || cyclicRename(finalConsistentRenames.keySet(), replacement)) &&
 					!fieldAssignmentWithPreviouslyExistingParameter(replacementOccurrenceMap.get(replacement)) &&
 					!fieldAssignmentToPreviouslyExistingAttribute(replacementOccurrenceMap.get(replacement))) {
-				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
+				CandidateAttributeRefactoring_RENAMED candidate = new CandidateAttributeRefactoring_RENAMED(
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
 						replacementOccurrenceMap.get(replacement));
 				if(v1 != null)

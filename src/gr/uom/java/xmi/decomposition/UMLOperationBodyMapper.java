@@ -19,7 +19,7 @@ import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation.Direction;
-import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
+import gr.uom.java.xmi.diff.CandidateAttributeRefactoring_RENAMED;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
@@ -57,7 +57,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private List<CompositeStatementObject> nonMappedInnerNodesT1;
 	private List<CompositeStatementObject> nonMappedInnerNodesT2;
 	private Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-	private Set<CandidateAttributeRefactoring> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring>();
+	private Set<CandidateAttributeRefactoring_RENAMED> candidateAttributeRenames = new LinkedHashSet<CandidateAttributeRefactoring_RENAMED>();
 	private Set<CandidateMergeVariableRefactoring> candidateAttributeMerges = new LinkedHashSet<CandidateMergeVariableRefactoring>();
 	private Set<CandidateSplitVariableRefactoring> candidateAttributeSplits = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 	private List<UMLOperationBodyMapper> childMappers = new ArrayList<UMLOperationBodyMapper>();
@@ -626,7 +626,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return refactorings;
 	}
 
-	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
+	public Set<CandidateAttributeRefactoring_RENAMED> getCandidateAttributeRenames() {
 		return candidateAttributeRenames;
 	}
 

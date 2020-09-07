@@ -1283,7 +1283,7 @@ public class UMLModelDiff {
       refactorings.addAll(getMoveClassRefactorings());
       refactorings.addAll(getRenameClassRefactorings());
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
-      Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
+      Map<Replacement, Set<CandidateAttributeRefactoring_RENAMED>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring_RENAMED>>();
       Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
@@ -1358,8 +1358,8 @@ public class UMLModelDiff {
       }
 	  for(Replacement pattern : renameMap.keySet()) {
 		 UMLClassBaseDiff diff = getUMLClassDiffWithAttribute(pattern);
-		 Set<CandidateAttributeRefactoring> set = renameMap.get(pattern);
-		 for(CandidateAttributeRefactoring candidate : set) {
+		 Set<CandidateAttributeRefactoring_RENAMED> set = renameMap.get(pattern);
+		 for(CandidateAttributeRefactoring_RENAMED candidate : set) {
 			 if(candidate.getOriginalVariableDeclaration() == null && candidate.getRenamedVariableDeclaration() == null) {
 				 if(diff != null) {
 					 UMLAttribute a1 = diff.findAttributeInOriginalClass(pattern.getBefore());
@@ -1698,8 +1698,8 @@ public class UMLModelDiff {
 		}
    }
 
-   private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
-	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
+   private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring_RENAMED>> map) {
+	  for(CandidateAttributeRefactoring_RENAMED candidate : classDiff.getCandidateAttributeRenames()) {
 		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
 		 if(before.contains(".") && after.contains(".")) {
@@ -1715,7 +1715,7 @@ public class UMLModelDiff {
 			 map.get(renamePattern).add(candidate);
 		 }
 		 else {
-			 Set<CandidateAttributeRefactoring> set = new LinkedHashSet<CandidateAttributeRefactoring>();
+			 Set<CandidateAttributeRefactoring_RENAMED> set = new LinkedHashSet<CandidateAttributeRefactoring_RENAMED>();
 			 set.add(candidate);
 			 map.put(renamePattern, set);
 		 }
