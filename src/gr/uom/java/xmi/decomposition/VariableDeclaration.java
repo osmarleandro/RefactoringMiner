@@ -19,10 +19,10 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.VariableDeclarationProvider;
+import gr.uom.java.xmi.VariableDeclarationProvider_RENAMED;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
+public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider_RENAMED {
 	private String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
