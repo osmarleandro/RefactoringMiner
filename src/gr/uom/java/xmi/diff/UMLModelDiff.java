@@ -1089,7 +1089,7 @@ public class UMLModelDiff {
 			   classDiff.getRemovedOperations().remove(removedOperation);
 			   Refactoring ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
-				   ref = new PullUpOperationRefactoring(removedOperation, addedOperation);
+				   ref = new PullUpOperationRefactoring_RENAMED(removedOperation, addedOperation);
 			   }
 			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
 				   ref = new MoveOperationRefactoring(removedOperation, addedOperation);
@@ -2124,7 +2124,7 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
-	                  refactoring = new PullUpOperationRefactoring(firstMapper);
+	                  refactoring = new PullUpOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
@@ -2209,7 +2209,7 @@ public class UMLModelDiff {
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(removedOperation.getClassName(), addedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
-	                  refactoring = new PullUpOperationRefactoring(firstMapper);
+	                  refactoring = new PullUpOperationRefactoring_RENAMED(firstMapper);
 	               }
 	               else if(removedOperation.isConstructor() == addedOperation.isConstructor() &&
 	            		   isSubclassOf(addedOperation.getClassName(), removedOperation.getClassName()) && addedOperation.compatibleSignature(removedOperation)) {
