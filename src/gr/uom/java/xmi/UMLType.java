@@ -262,13 +262,13 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		else if(type instanceof WildcardType) {
 			WildcardType wildcard = (WildcardType)type;
-			gr.uom.java.xmi.WildcardType myWildcardType = null;
+			gr.uom.java.xmi.WildcardType_RENAMED myWildcardType = null;
 			if(wildcard.getBound() != null) {
 				UMLType bound = extractTypeObject(cu, filePath, wildcard.getBound());
-				myWildcardType = new gr.uom.java.xmi.WildcardType(bound, wildcard.isUpperBound());
+				myWildcardType = new gr.uom.java.xmi.WildcardType_RENAMED(bound, wildcard.isUpperBound());
 			}
 			else {
-				myWildcardType = new gr.uom.java.xmi.WildcardType(null, false);
+				myWildcardType = new gr.uom.java.xmi.WildcardType_RENAMED(null, false);
 			}
 			AnnotatableType annotatableType = (AnnotatableType)wildcard;
 			List<Annotation> annotations = annotatableType.annotations();

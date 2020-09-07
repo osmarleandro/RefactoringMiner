@@ -1,10 +1,10 @@
 package gr.uom.java.xmi;
 
-public class WildcardType extends UMLType {
+public class WildcardType_RENAMED extends UMLType {
 	private UMLType bound;
 	private boolean upperBound;
 	
-	public WildcardType(UMLType bound, boolean upperBound) {
+	public WildcardType_RENAMED(UMLType bound, boolean upperBound) {
 		this.bound = bound;
 		this.upperBound = upperBound;
 	}
@@ -26,7 +26,7 @@ public class WildcardType extends UMLType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		WildcardType other = (WildcardType) obj;
+		WildcardType_RENAMED other = (WildcardType_RENAMED) obj;
 		if (bound == null) {
 			if (other.bound != null)
 				return false;
