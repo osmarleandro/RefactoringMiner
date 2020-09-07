@@ -1345,7 +1345,7 @@ public class UMLModelDiff {
     		  UMLAttribute a2 = diff.findAttributeInNextClass(merge.getAfter());
     		  Set<CandidateMergeVariableRefactoring> set = mergeMap.get(merge);
     		  if(mergedVariables.size() > 1 && mergedVariables.size() == merge.getMergedVariables().size() && a2 != null) {
-    			  MergeAttributeRefactoring ref = new MergeAttributeRefactoring(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
+    			  MergeAttributeRefactoring_RENAMED ref = new MergeAttributeRefactoring_RENAMED(mergedVariables, a2.getVariableDeclaration(), diff.getOriginalClassName(), diff.getNextClassName(), set);
     			  if(!refactorings.contains(ref)) {
     				  refactorings.add(ref);
     				  Refactoring conflictingRefactoring = attributeRenamed(mergedVariables, a2.getVariableDeclaration(), refactorings);
@@ -2491,8 +2491,8 @@ public class UMLModelDiff {
 
 	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
-			if(refactoring instanceof MergeAttributeRefactoring) {
-				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
+			if(refactoring instanceof MergeAttributeRefactoring_RENAMED) {
+				MergeAttributeRefactoring_RENAMED merge = (MergeAttributeRefactoring_RENAMED)refactoring;
 				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
 					return true;
 				}

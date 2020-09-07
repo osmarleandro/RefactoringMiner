@@ -11,14 +11,14 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class MergeAttributeRefactoring implements Refactoring {
+public class MergeAttributeRefactoring_RENAMED implements Refactoring {
 	private Set<VariableDeclaration> mergedAttributes;
 	private VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;
 	private String classNameBefore;
 	private String classNameAfter;
 	
-	public MergeAttributeRefactoring(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
+	public MergeAttributeRefactoring_RENAMED(Set<VariableDeclaration> mergedAttributes, VariableDeclaration newAttribute,
 			String classNameBefore, String classNameAfter, Set<CandidateMergeVariableRefactoring> attributeMerges) {
 		this.mergedAttributes = mergedAttributes;
 		this.newAttribute = newAttribute;
@@ -84,7 +84,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MergeAttributeRefactoring other = (MergeAttributeRefactoring) obj;
+		MergeAttributeRefactoring_RENAMED other = (MergeAttributeRefactoring_RENAMED) obj;
 		if (classNameAfter == null) {
 			if (other.classNameAfter != null)
 				return false;
