@@ -1400,7 +1400,7 @@ public class UMLModelDiff {
 					 if(a2 != null) {
 						 if(candidate.getOriginalVariableDeclaration().isAttribute()) {
 							 if(originalClassDiff != null && originalClassDiff.removedAttributes.contains(candidate.getOriginalAttribute())) {
-								 ReplaceAttributeRefactoring ref = new ReplaceAttributeRefactoring(candidate.getOriginalAttribute(), a2, set);
+								 ReplaceAttributeRefactoring_RENAMED ref = new ReplaceAttributeRefactoring_RENAMED(candidate.getOriginalAttribute(), a2, set);
 								 if(!refactorings.contains(ref)) {
 									 refactorings.add(ref);
 									 break;//it's not necessary to repeat the same process for all candidates in the set
