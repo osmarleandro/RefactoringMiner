@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RefactoringPopulator {
+public class RefactoringPopulator_RENAMED {
 
 	public enum Systems {
 		FSE(1), All(2);
