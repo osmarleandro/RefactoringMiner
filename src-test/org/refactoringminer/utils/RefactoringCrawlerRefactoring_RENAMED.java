@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringCrawlerRefactoring {
+public class RefactoringCrawlerRefactoring_RENAMED {
 
   private static final Map<String, RefactoringType> TYPE_MAP;
   static {
@@ -23,7 +23,7 @@ public class RefactoringCrawlerRefactoring {
   private String newElement;
   private String oldElement;
   
-  public RefactoringCrawlerRefactoring(String type, String newElement, String oldElement) {
+  public RefactoringCrawlerRefactoring_RENAMED(String type, String newElement, String oldElement) {
     this.type = type.trim();
     this.newElement = newElement.trim();
     this.oldElement = oldElement.trim();

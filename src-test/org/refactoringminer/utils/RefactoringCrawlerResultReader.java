@@ -17,7 +17,7 @@ public class RefactoringCrawlerResultReader {
 //    List<RefactoringCrawlerRefactoring> list = readFolder("D:\\Danilo\\Workspaces\\phd-rmdataset\\results\\atmosphere-cc2b3f1");
     try {
       RefactoringSet result = new RefactoringSet(project, revision);
-      for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
+      for (RefactoringCrawlerRefactoring_RENAMED r : readFolder(folderPath)) {
         result.add(r.toRefactoringRelationship());
       }
       return result;
@@ -26,8 +26,8 @@ public class RefactoringCrawlerResultReader {
     }
   }
 
-  private static List<RefactoringCrawlerRefactoring> readFolder(String path) throws Exception {
-    List<RefactoringCrawlerRefactoring> result = new ArrayList<>();
+  private static List<RefactoringCrawlerRefactoring_RENAMED> readFolder(String path) throws Exception {
+    List<RefactoringCrawlerRefactoring_RENAMED> result = new ArrayList<>();
     File folder = new File(path);
     for (File f : folder.listFiles()) {
       if (f.isFile()) {
@@ -37,12 +37,12 @@ public class RefactoringCrawlerResultReader {
     return result;
   }
 
-  public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
+  public static void readXml(String path, List<RefactoringCrawlerRefactoring_RENAMED> result) throws Exception {
     String content = readFile(path, StandardCharsets.UTF_8);
     Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
     Matcher m = p.matcher(content);
     while (m.find()) {
-      result.add(new RefactoringCrawlerRefactoring(m.group(1), m.group(2), m.group(3)));
+      result.add(new RefactoringCrawlerRefactoring_RENAMED(m.group(1), m.group(2), m.group(3)));
     }
   }
   
