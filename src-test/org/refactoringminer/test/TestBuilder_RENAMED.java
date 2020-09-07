@@ -21,7 +21,7 @@ import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
 import org.refactoringminer.util.GitServiceImpl;
 
-public class TestBuilder {
+public class TestBuilder_RENAMED {
 
 	private final String tempDir;
 	private final Map<String, ProjectMatcher> map;
@@ -40,7 +40,7 @@ public class TestBuilder {
 
 	private BigInteger refactoringFilter;
 
-	public TestBuilder(GitHistoryRefactoringMiner detector, String tempDir) {
+	public TestBuilder_RENAMED(GitHistoryRefactoringMiner detector, String tempDir) {
 		this.map = new HashMap<String, ProjectMatcher>();
 		this.refactoringDetector = detector;
 		this.tempDir = tempDir;
@@ -48,18 +48,18 @@ public class TestBuilder {
 		this.aggregate = false;
 	}
 
-	public TestBuilder(GitHistoryRefactoringMiner detector, String tempDir, BigInteger refactorings) {
+	public TestBuilder_RENAMED(GitHistoryRefactoringMiner detector, String tempDir, BigInteger refactorings) {
 		this(detector, tempDir);
 
 		this.refactoringFilter = refactorings;
 	}
 
-	public TestBuilder verbose() {
+	public TestBuilder_RENAMED verbose() {
 		this.verbose = true;
 		return this;
 	}
 
-	public TestBuilder withAggregation() {
+	public TestBuilder_RENAMED withAggregation() {
 		this.aggregate = true;
 		return this;
 	}
@@ -87,7 +87,7 @@ public class TestBuilder {
 		return counter.c[type];
 	}
 
-	public TestBuilder() {
+	public TestBuilder_RENAMED() {
 		this(new GitHistoryRefactoringMinerImpl(), "tmp");
 	}
 
