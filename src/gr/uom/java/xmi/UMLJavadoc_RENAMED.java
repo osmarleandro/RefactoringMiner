@@ -3,10 +3,10 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UMLJavadoc {
+public class UMLJavadoc_RENAMED {
 	private List<UMLTagElement> tags;
 
-	public UMLJavadoc() {
+	public UMLJavadoc_RENAMED() {
 		this.tags = new ArrayList<UMLTagElement>();
 	}
 	
