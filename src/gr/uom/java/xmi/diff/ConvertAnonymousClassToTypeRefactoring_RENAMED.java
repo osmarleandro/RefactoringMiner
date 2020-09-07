@@ -12,11 +12,11 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
 
-public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
+public class ConvertAnonymousClassToTypeRefactoring_RENAMED implements Refactoring {
 	private UMLAnonymousClass anonymousClass;
 	private UMLClass addedClass;
 	
-	public ConvertAnonymousClassToTypeRefactoring(UMLAnonymousClass anonymousClass, UMLClass addedClass) {
+	public ConvertAnonymousClassToTypeRefactoring_RENAMED(UMLAnonymousClass anonymousClass, UMLClass addedClass) {
 		this.anonymousClass = anonymousClass;
 		this.addedClass = addedClass;
 	}
