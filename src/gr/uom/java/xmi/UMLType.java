@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.UnionType;
 import org.eclipse.jdt.core.dom.WildcardType;
 
-import gr.uom.java.xmi.ListCompositeType.Kind;
+import gr.uom.java.xmi.ListCompositeType_RENAMED.Kind;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -299,7 +299,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			for(Type unionType : types) {
 				umlTypes.add(extractTypeObject(cu, filePath, unionType));
 			}
-			return new ListCompositeType(umlTypes, Kind.UNION);
+			return new ListCompositeType_RENAMED(umlTypes, Kind.UNION);
 		}
 		else if(type instanceof IntersectionType) {
 			IntersectionType intersection = (IntersectionType)type;
@@ -308,7 +308,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			for(Type unionType : types) {
 				umlTypes.add(extractTypeObject(cu, filePath, unionType));
 			}
-			return new ListCompositeType(umlTypes, Kind.INTERSECTION);
+			return new ListCompositeType_RENAMED(umlTypes, Kind.INTERSECTION);
 		}
 		return null;
 	}

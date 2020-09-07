@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCompositeType extends UMLType {
+public class ListCompositeType_RENAMED extends UMLType {
 	public enum Kind {
 		UNION("|"), INTERSECTION("&");
 		private String operand;
@@ -14,7 +14,7 @@ public class ListCompositeType extends UMLType {
 	private List<UMLType> types = new ArrayList<UMLType>();
 	private Kind kind;
 
-	public ListCompositeType(List<UMLType> types, Kind kind) {
+	public ListCompositeType_RENAMED(List<UMLType> types, Kind kind) {
 		this.types = types;
 		this.kind = kind;
 	}
@@ -44,7 +44,7 @@ public class ListCompositeType extends UMLType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ListCompositeType other = (ListCompositeType) obj;
+		ListCompositeType_RENAMED other = (ListCompositeType_RENAMED) obj;
 		if (kind != other.kind)
 			return false;
 		if (types == null) {
