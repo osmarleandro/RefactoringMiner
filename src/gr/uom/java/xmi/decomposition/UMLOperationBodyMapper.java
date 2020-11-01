@@ -1461,10 +1461,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.BREAK_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+							if(leafMapping.getFragment1().index > currentSwitchCase.getFragment1().index &&
+									leafMapping.getFragment2().index > currentSwitchCase.getFragment2().index &&
+									leafMapping.getFragment1().index < mapping.getFragment1().index &&
+									leafMapping.getFragment2().index < mapping.getFragment2().index) {
 								return leafMapping;
 							}
 						}
@@ -1475,10 +1475,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
 					if(currentSwitchCase != null) {
 						for(LeafMapping leafMapping : mappingSet) {
-							if(leafMapping.getFragment1().getIndex() > currentSwitchCase.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() > currentSwitchCase.getFragment2().getIndex() &&
-									leafMapping.getFragment1().getIndex() < mapping.getFragment1().getIndex() &&
-									leafMapping.getFragment2().getIndex() < mapping.getFragment2().getIndex()) {
+							if(leafMapping.getFragment1().index > currentSwitchCase.getFragment1().index &&
+									leafMapping.getFragment2().index > currentSwitchCase.getFragment2().index &&
+									leafMapping.getFragment1().index < mapping.getFragment1().index &&
+									leafMapping.getFragment2().index < mapping.getFragment2().index) {
 								return leafMapping;
 							}
 						}
