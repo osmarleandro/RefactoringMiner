@@ -29,15 +29,6 @@ public class ExtractClassRefactoring implements Refactoring {
 		this.attributeOfExtractedClassTypeInOriginalClass = attributeOfExtractedClassType;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(extractedClass);
-		sb.append(" from class ");
-		sb.append(classDiff.getOriginalClass());
-		return sb.toString();
-	}
-
 	public RefactoringType getRefactoringType() {
 		if(extractedClass.isSubTypeOf(classDiff.getOriginalClass()) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
 			return RefactoringType.EXTRACT_SUBCLASS;
