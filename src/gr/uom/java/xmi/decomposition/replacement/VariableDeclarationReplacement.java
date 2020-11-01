@@ -47,26 +47,4 @@ public class VariableDeclarationReplacement extends Replacement {
 		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
 		return result;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VariableDeclarationReplacement other = (VariableDeclarationReplacement) obj;
-		if (v1 == null) {
-			if (other.v1 != null)
-				return false;
-		} else if (!v1.equals(other.v1))
-			return false;
-		if (v2 == null) {
-			if (other.v2 != null)
-				return false;
-		} else if (!v2.equals(other.v2))
-			return false;
-		return true;
-	}
 }
