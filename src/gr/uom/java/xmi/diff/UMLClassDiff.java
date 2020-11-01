@@ -94,7 +94,33 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 			for(UMLOperation nextOperation : nextClass.getOperations()) {
 				if(originalOperation.equalsQualified(nextOperation)) {
 					if(getModelDiff() != null) {
-						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
+						UMLModelDiff r = getModelDiff();
+						List<UMLOperationBodyMapper> mappers1 = new ArrayList<UMLOperationBodyMapper>();
+						   for(UMLClassDiff classDiff : r.commonClassDiffList) {
+							   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(nextOperation);
+							   if(mapper != null) {
+								   mappers1.add(mapper);
+							   }
+						   }
+						   for(UMLClassMoveDiff classDiff : r.classMoveDiffList) {
+							   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(nextOperation);
+							   if(mapper != null) {
+								   mappers1.add(mapper);
+							   }
+						   }
+						   for(UMLClassMoveDiff classDiff : r.innerClassMoveDiffList) {
+							   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(nextOperation);
+							   if(mapper != null) {
+								   mappers1.add(mapper);
+							   }
+						   }
+						   for(UMLClassRenameDiff classDiff : r.classRenameDiffList) {
+							   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(nextOperation);
+							   if(mapper != null) {
+								   mappers1.add(mapper);
+							   }
+						   }
+						List<UMLOperationBodyMapper> mappers = mappers1;
 						if(mappers.size() > 0) {
 							UMLOperation operation1 = mappers.get(0).getOperation1();
 							if(!operation1.equalSignature(originalOperation) &&
