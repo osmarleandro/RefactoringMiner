@@ -108,7 +108,47 @@ public class UMLModel {
     }
 
     public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
-    	return this.diff(umlModel, Collections.<String, String>emptyMap());
+    	Map<String, String> renamedFileHints = Collections.<String, String>emptyMap();
+		UMLModelDiff modelDiff = new UMLModelDiff();
+		for(UMLClass umlClass : this.classList) {
+			if(!umlModel.classList.contains(umlClass))
+				modelDiff.reportRemovedClass(umlClass);
+		}
+		for(UMLClass umlClass : umlModel.classList) {
+			if(!this.classList.contains(umlClass))
+				modelDiff.reportAddedClass(umlClass);
+		}
+		modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.Move());
+		modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
+		for(UMLGeneralization umlGeneralization : this.generalizationList) {
+			if(!umlModel.generalizationList.contains(umlGeneralization))
+				modelDiff.reportRemovedGeneralization(umlGeneralization);
+		}
+		for(UMLGeneralization umlGeneralization : umlModel.generalizationList) {
+			if(!this.generalizationList.contains(umlGeneralization))
+				modelDiff.reportAddedGeneralization(umlGeneralization);
+		}
+		modelDiff.checkForGeneralizationChanges();
+		for(UMLRealization umlRealization : this.realizationList) {
+			if(!umlModel.realizationList.contains(umlRealization))
+				modelDiff.reportRemovedRealization(umlRealization);
+		}
+		for(UMLRealization umlRealization : umlModel.realizationList) {
+			if(!this.realizationList.contains(umlRealization))
+				modelDiff.reportAddedRealization(umlRealization);
+		}
+		modelDiff.checkForRealizationChanges();
+		for(UMLClass umlClass : this.classList) {
+			if(umlModel.classList.contains(umlClass)) {
+				UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
+				classDiff.process();
+				if(!classDiff.isEmpty())
+					modelDiff.addUMLClassDiff(classDiff);
+			}
+		}
+		modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.RelaxedMove());
+		modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
+		return modelDiff;
     }
 
 	public UMLModelDiff diff(UMLModel umlModel, Map<String, String> renamedFileHints) throws RefactoringMinerTimedOutException {
