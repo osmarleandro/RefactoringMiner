@@ -44,6 +44,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
@@ -912,7 +913,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
 			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
 			if(!s1.equals(s2)) {
-				count += StringDistance.editDistance(s1, s2);
+				count += new LevenshteinDistance().apply(s1, s2);
 			}
 		}
 		return count;
@@ -928,7 +929,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
 			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
 			if(!s1.equals(s2)) {
-				editDistance += StringDistance.editDistance(s1, s2);
+				editDistance += new LevenshteinDistance().apply(s1, s2);
 				maxLength += Math.max(s1.length(), s2.length());
 			}
 		}
@@ -936,7 +937,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public int operationNameEditDistance() {
-		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
+		String a = this.operation1.getName();
+		String b = this.operation2.getName();
+		return new LevenshteinDistance().apply(a, b);
 	}
 
 	public Set<Replacement> getReplacements() {
@@ -1569,7 +1572,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			this.argumentizedString2 = argumentizedString2;
 			this.statements1 = statements1;
 			this.statements2 = statements2;
-			this.rawDistance = StringDistance.editDistance(argumentizedString1, argumentizedString2);
+			this.rawDistance = new LevenshteinDistance().apply(argumentizedString1, argumentizedString2);
 			this.replacements = new LinkedHashSet<Replacement>();
 		}
 		public String getArgumentizedString1() {
@@ -1580,7 +1583,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		public void setArgumentizedString1(String string) {
 			this.argumentizedString1 = string;
-			this.rawDistance = StringDistance.editDistance(this.argumentizedString1, this.argumentizedString2);
+			this.rawDistance = new LevenshteinDistance().apply(this.argumentizedString1, this.argumentizedString2);
 		}
 		public int getRawDistance() {
 			return rawDistance;
@@ -1867,7 +1870,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2(), minDistance);
 					boolean multipleInstances = ReplacementUtil.countInstances(temp, s2) > 1;
 					if(distanceRaw == -1 && multipleInstances) {
-						distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+						String b = replacementInfo.getArgumentizedString2();
+						distanceRaw = new LevenshteinDistance().apply(temp, b);
 					}
 					boolean multipleInstanceRule = multipleInstances && Math.abs(s1.length() - s2.length()) == Math.abs(distanceRaw - minDistance) && !s1.equals(s2);
 					if(distanceRaw >= 0 && (distanceRaw < replacementInfo.getRawDistance() || multipleInstanceRule)) {
@@ -3783,7 +3787,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+					String b = replacementInfo.getArgumentizedString2();
+					int distanceRaw = new LevenshteinDistance().apply(temp, b);
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
 						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());
@@ -3832,7 +3837,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						continue;
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+					String b = replacementInfo.getArgumentizedString2();
+					int distanceRaw = new LevenshteinDistance().apply(temp, b);
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
 						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());

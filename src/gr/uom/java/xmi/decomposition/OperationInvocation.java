@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ConstructorInvocation;
@@ -394,7 +395,7 @@ public class OperationInvocation extends AbstractCall {
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
 		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = new LevenshteinDistance().apply(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

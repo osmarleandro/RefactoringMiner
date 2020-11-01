@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.jdt.core.dom.AnnotatableType;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.ArrayType;
@@ -164,7 +165,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	public double normalizedNameDistance(UMLType type) {
 		String s1 = this.toString();
 		String s2 = type.toString();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = new LevenshteinDistance().apply(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, LocationInfoProvider, VariableDeclarationProvider {
 	private LocationInfo locationInfo;
 	private String name;
@@ -167,7 +169,7 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 	public double normalizedNameDistance(UMLAttribute attribute) {
 		String s1 = getName().toLowerCase();
 		String s2 = attribute.getName().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = new LevenshteinDistance().apply(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

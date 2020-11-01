@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class Replacement {
@@ -55,7 +57,7 @@ public class Replacement {
 	public double normalizedEditDistance() {
 		String s1 = getBefore();
 		String s2 = getAfter();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = new LevenshteinDistance().apply(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}

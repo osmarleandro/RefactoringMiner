@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.diff.CodeRange;
@@ -76,10 +77,14 @@ public abstract class UMLAbstractClass {
 			return matchingOperations.get(0);
 		}
 		else if(matchingOperations.size() > 1) {
-			int minDistance = StringDistance.editDistance(matchingOperations.get(0).toString(), operation.toString());
+			String a = matchingOperations.get(0).toString();
+			String b = operation.toString();
+			int minDistance = new LevenshteinDistance().apply(a, b);
 			UMLOperation matchingOperation = matchingOperations.get(0);
 			for(int i=1; i<matchingOperations.size(); i++) {
-				int distance = StringDistance.editDistance(matchingOperations.get(i).toString(), operation.toString());
+				String a1 = matchingOperations.get(i).toString();
+				String b1 = operation.toString();
+				int distance = new LevenshteinDistance().apply(a1, b1);
 				if(distance < minDistance) {
 					minDistance = distance;
 					matchingOperation = matchingOperations.get(i);

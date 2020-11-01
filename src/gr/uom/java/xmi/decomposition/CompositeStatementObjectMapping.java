@@ -1,5 +1,7 @@
 package gr.uom.java.xmi.decomposition;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -23,7 +25,7 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		else {
 			String s1 = this.getFragment1().getString().toLowerCase();
 			String s2 = this.getFragment2().getString().toLowerCase();
-			int distance = StringDistance.editDistance(s1, s2);
+			int distance = new LevenshteinDistance().apply(s1, s2);
 			distance1 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		
@@ -33,7 +35,7 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 		else {
 			String s1 = o.getFragment1().getString().toLowerCase();
 			String s2 = o.getFragment2().getString().toLowerCase();
-			int distance = StringDistance.editDistance(s1, s2);
+			int distance = new LevenshteinDistance().apply(s1, s2);
 			distance2 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		

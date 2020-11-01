@@ -3,6 +3,7 @@ package gr.uom.java.xmi.decomposition;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -131,7 +132,7 @@ public class ObjectCreation extends AbstractCall {
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
-		int distance = StringDistance.editDistance(s1, s2);
+		int distance = new LevenshteinDistance().apply(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
 	}
