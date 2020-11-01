@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
@@ -235,7 +236,14 @@ public class UMLOperationDiff {
 			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
 			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
-				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
+				Set<AbstractCodeMapping> references1 = new LinkedHashSet<AbstractCodeMapping>();
+				for(AbstractCodeMapping mapping : mappings) {
+					if(mapping.getFragment1().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT) &&
+							mapping.getFragment2().getLocationInfo().getCodeElementType().equals(CodeElementType.RETURN_STATEMENT)) {
+						references1.add(mapping);
+					}
+				}
+				Set<AbstractCodeMapping> references = references1;
 				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
 						removedOperation, addedOperation, references);
 				refactorings.add(refactoring);
