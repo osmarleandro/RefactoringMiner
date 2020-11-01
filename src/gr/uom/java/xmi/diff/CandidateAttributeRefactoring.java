@@ -110,36 +110,4 @@ public class CandidateAttributeRefactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CandidateAttributeRefactoring other = (CandidateAttributeRefactoring) obj;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (originalVariableName == null) {
-			if (other.originalVariableName != null)
-				return false;
-		} else if (!originalVariableName.equals(other.originalVariableName))
-			return false;
-		if (renamedVariableName == null) {
-			if (other.renamedVariableName != null)
-				return false;
-		} else if (!renamedVariableName.equals(other.renamedVariableName))
-			return false;
-		return true;
-	}
-
 }
