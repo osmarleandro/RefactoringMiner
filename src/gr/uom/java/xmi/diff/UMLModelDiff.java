@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -2341,9 +2342,15 @@ public class UMLModelDiff {
 		}
 		int nonMappedLoopsIteratingOverSameVariable = 0;
 		for(CompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
-			if(c1.isLoop()) {
+			if(c1.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+			c1.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+			c1.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
+			c1.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT)) {
 				for(CompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
-					if(c2.isLoop()) {
+					if(c2.locationInfo.getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT) ||
+					c2.locationInfo.getCodeElementType().equals(CodeElementType.FOR_STATEMENT) ||
+					c2.locationInfo.getCodeElementType().equals(CodeElementType.WHILE_STATEMENT) ||
+					c2.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT)) {
 						Set<String> intersection = new LinkedHashSet<String>(c1.getVariables());
 						intersection.retainAll(c2.getVariables());
 						if(!intersection.isEmpty()) {
