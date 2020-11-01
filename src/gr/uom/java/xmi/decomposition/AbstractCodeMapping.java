@@ -49,10 +49,6 @@ public abstract class AbstractCodeMapping {
 		return operation1;
 	}
 
-	public UMLOperation getOperation2() {
-		return operation2;
-	}
-
 	public boolean isIdenticalWithExtractedVariable() {
 		return identicalWithExtractedVariable;
 	}
