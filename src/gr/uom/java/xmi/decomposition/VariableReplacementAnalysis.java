@@ -487,8 +487,10 @@ public class VariableReplacementAnalysis {
 				CandidateAttributeRefactoring candidate = new CandidateAttributeRefactoring(
 						replacement.getBefore(), replacement.getAfter(), operation1, operation2,
 						replacementOccurrenceMap.get(replacement));
-				if(v1 != null)
-					candidate.setOriginalVariableDeclaration(v1.getKey());
+				if(v1 != null) {
+					VariableDeclaration originalVariableDeclaration = v1.getKey();
+					candidate.originalVariableDeclaration = originalVariableDeclaration;
+				}
 				if(v2 != null)
 					candidate.setRenamedVariableDeclaration(v2.getKey());
 				this.candidateAttributeRenames.add(candidate);
