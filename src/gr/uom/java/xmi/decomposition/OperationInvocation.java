@@ -411,19 +411,6 @@ public class OperationInvocation extends AbstractCall {
         return false;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(methodName);
-        sb.append("(");
-        if(typeArguments > 0) {
-            for(int i=0; i<typeArguments-1; i++)
-                sb.append("arg" + i).append(", ");
-            sb.append("arg" + (typeArguments-1));
-        }
-        sb.append(")");
-        return sb.toString();
-    }
-
     public int hashCode() {
     	if(hashCode == 0) {
     		int result = 17;
