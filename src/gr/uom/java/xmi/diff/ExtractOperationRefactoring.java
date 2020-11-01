@@ -99,10 +99,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return sourceOperationAfterExtraction;
 	}
 
-	public List<OperationInvocation> getExtractedOperationInvocations() {
-		return extractedOperationInvocations;
-	}
-
 	public Set<Replacement> getReplacements() {
 		return replacements;
 	}
