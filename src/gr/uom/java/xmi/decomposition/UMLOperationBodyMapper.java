@@ -910,7 +910,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				continue;
 			}
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
-			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
+			AbstractCodeFragment leaf1 = mapping.getFragment1();
+			AbstractCodeFragment leaf2 = mapping.getFragment2();
+			String s2 = preprocessInput(leaf2, leaf1);
 			if(!s1.equals(s2)) {
 				count += StringDistance.editDistance(s1, s2);
 			}
@@ -926,7 +928,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				continue;
 			}
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
-			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
+			AbstractCodeFragment leaf1 = mapping.getFragment1();
+			AbstractCodeFragment leaf2 = mapping.getFragment2();
+			String s2 = preprocessInput(leaf2, leaf1);
 			if(!s1.equals(s2)) {
 				editDistance += StringDistance.editDistance(s1, s2);
 				maxLength += Math.max(s1.length(), s2.length());
@@ -1164,7 +1168,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
 					AbstractCodeFragment leaf2 = leafIterator2.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput(leaf2, leaf1);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
@@ -1185,7 +1189,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
 					AbstractCodeFragment leaf2 = leafIterator2.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput(leaf2, leaf1);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
@@ -1262,7 +1266,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
 					AbstractCodeFragment leaf1 = leafIterator1.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput(leaf2, leaf1);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
@@ -1283,7 +1287,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
 					AbstractCodeFragment leaf1 = leafIterator1.next();
 					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput(leaf2, leaf1);
 					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
 						mappingSet.add(mapping);
@@ -1391,7 +1395,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		l2.remove(leaf2);
 		ReplacementInfo replacementInfo = new ReplacementInfo(
 				preprocessInput1(leaf1, leaf2),
-				preprocessInput2(leaf1, leaf2),
+				preprocessInput(leaf2, leaf1),
 				l1, l2);
 		return replacementInfo;
 	}
@@ -1538,10 +1542,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		return preprocessInput(leaf1, leaf2);
-	}
-
-	private String preprocessInput2(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
-		return preprocessInput(leaf2, leaf1);
 	}
 
 	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
@@ -1980,7 +1980,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		
 		String s1 = preprocessInput1(statement1, statement2);
-		String s2 = preprocessInput2(statement1, statement2);
+		String s2 = preprocessInput(statement2, statement1);
 		replacementsToBeRemoved = new LinkedHashSet<Replacement>();
 		replacementsToBeAdded = new LinkedHashSet<Replacement>();
 		for(Replacement replacement : replacementInfo.getReplacements()) {
