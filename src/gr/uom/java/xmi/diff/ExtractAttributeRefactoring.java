@@ -55,13 +55,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	/**
-	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
-	 */
-	public CodeRange getExtractedVariableDeclarationCodeRange() {
-		return attributeDeclaration.codeRange();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
