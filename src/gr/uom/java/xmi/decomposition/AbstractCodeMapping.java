@@ -99,10 +99,6 @@ public abstract class AbstractCodeMapping {
 		return false;
 	}
 
-	public void addReplacement(Replacement replacement) {
-		this.replacements.add(replacement);
-	}
-
 	public void addReplacements(Set<Replacement> replacements) {
 		this.replacements.addAll(replacements);
 	}
