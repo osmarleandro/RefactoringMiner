@@ -51,10 +51,6 @@ public class UMLAttributeDiff {
 		return removedAttribute;
 	}
 
-	public UMLAttribute getAddedAttribute() {
-		return addedAttribute;
-	}
-
 	public boolean isRenamed() {
 		return renamed;
 	}
