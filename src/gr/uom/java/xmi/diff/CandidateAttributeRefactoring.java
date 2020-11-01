@@ -39,10 +39,6 @@ public class CandidateAttributeRefactoring {
 		return renamedVariableName;
 	}
 
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
-	}
-
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
 	}
