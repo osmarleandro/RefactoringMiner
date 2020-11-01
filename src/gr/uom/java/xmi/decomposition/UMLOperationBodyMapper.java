@@ -22,6 +22,7 @@ import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodIn
 import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
+import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -4103,7 +4104,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean containsExtractOperationRefactoring(UMLOperation extractedOperation) {
 		if(classDiff != null) {
-			return classDiff.containsExtractOperationRefactoring(operation1, extractedOperation);
+			for(Refactoring ref : classDiff.refactorings) {
+				if(ref instanceof ExtractOperationRefactoring) {
+					ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
+					if(extractRef.getSourceOperationBeforeExtraction().equals(operation1) &&
+							extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 		return false;
 	}
