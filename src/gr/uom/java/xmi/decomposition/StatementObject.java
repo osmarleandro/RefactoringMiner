@@ -219,11 +219,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getPostfixExpressions() {
-		return postfixExpressions;
-	}
-
-	@Override
 	public List<String> getArguments() {
 		return arguments;
 	}
