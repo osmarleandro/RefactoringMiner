@@ -2772,7 +2772,55 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		String s1AfterReplacements = new String(s1);
 		for(Replacement replacement : replacements) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) || replacement.getType().equals(ReplacementType.TYPE)) {
-				s1AfterReplacements = ReplacementUtil.performReplacement(s1AfterReplacements, s2, replacement.getBefore(), replacement.getAfter());
+				String subString1 = replacement.getBefore();
+				String subString2 = replacement.getAfter();
+				String temp = new String(s1AfterReplacements);
+				boolean replacementOccurred = false;
+				for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+					if(temp.contains(subString1 + character) && s2.contains(subString2 + character)) {
+						StringBuffer sb = new StringBuffer();
+						Pattern p1 = Pattern.compile(Pattern.quote(subString1 + character));
+						Matcher m1 = p1.matcher(temp);
+						Pattern p2 = Pattern.compile(Pattern.quote(subString2 + character));
+						Matcher m2 = p2.matcher(s2);
+						while(m1.find() && m2.find()) {
+							int start1 = m1.start();
+							int start2 = m2.start();
+							String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp.charAt(start1 - 1));
+							String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(s2.charAt(start2 - 1));
+							if(ReplacementUtil.compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
+								m1.appendReplacement(sb, Matcher.quoteReplacement(subString2 + character));
+								replacementOccurred = true;
+							}
+						}
+						m1.appendTail(sb);
+						temp = sb.toString();
+					}
+				}
+				if(!replacementOccurred && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(s1AfterReplacements) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(s2)) {
+					for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+						if(temp.contains(character + subString1) && s2.contains(character + subString2)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p1 = Pattern.compile(Pattern.quote(character + subString1));
+							Matcher m1 = p1.matcher(temp);
+							Pattern p2 = Pattern.compile(Pattern.quote(character + subString2));
+							Matcher m2 = p2.matcher(s2);
+							while(m1.find() && m2.find()) {
+								int end1 = m1.end();
+								int end2 = m2.end();
+								String characterAfterMatch1 = end1 == temp.length() ? "" : String.valueOf(temp.charAt(end1));
+								String characterAfterMatch2 = end2 == s2.length() ? "" : String.valueOf(s2.charAt(end2));
+								if(ReplacementUtil.compatibleCharacterAfterMatch(characterAfterMatch1, characterAfterMatch2)) {
+									m1.appendReplacement(sb, Matcher.quoteReplacement(character + subString2));
+									replacementOccurred = true;
+								}
+							}
+							m1.appendTail(sb);
+							temp = sb.toString();
+						}
+					}
+				}
+				s1AfterReplacements = temp;
 			}
 		}
 		if(s1AfterReplacements.equals(s2)) {
@@ -3782,7 +3830,55 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
 						continue;
 					}
-					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
+					String completeString1 = replacementInfo.getArgumentizedString1();
+					String completeString2 = replacementInfo.getArgumentizedString2();
+					String temp1 = new String(completeString1);
+					boolean replacementOccurred = false;
+					for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+						if(temp1.contains(s1 + character) && completeString2.contains(s2 + character)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p1 = Pattern.compile(Pattern.quote(s1 + character));
+							Matcher m1 = p1.matcher(temp1);
+							Pattern p2 = Pattern.compile(Pattern.quote(s2 + character));
+							Matcher m2 = p2.matcher(completeString2);
+							while(m1.find() && m2.find()) {
+								int start1 = m1.start();
+								int start2 = m2.start();
+								String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp1.charAt(start1 - 1));
+								String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(completeString2.charAt(start2 - 1));
+								if(ReplacementUtil.compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
+									m1.appendReplacement(sb, Matcher.quoteReplacement(s2 + character));
+									replacementOccurred = true;
+								}
+							}
+							m1.appendTail(sb);
+							temp1 = sb.toString();
+						}
+					}
+					if(!replacementOccurred && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(completeString1) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(completeString2)) {
+						for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+							if(temp1.contains(character + s1) && completeString2.contains(character + s2)) {
+								StringBuffer sb = new StringBuffer();
+								Pattern p1 = Pattern.compile(Pattern.quote(character + s1));
+								Matcher m1 = p1.matcher(temp1);
+								Pattern p2 = Pattern.compile(Pattern.quote(character + s2));
+								Matcher m2 = p2.matcher(completeString2);
+								while(m1.find() && m2.find()) {
+									int end1 = m1.end();
+									int end2 = m2.end();
+									String characterAfterMatch1 = end1 == temp1.length() ? "" : String.valueOf(temp1.charAt(end1));
+									String characterAfterMatch2 = end2 == completeString2.length() ? "" : String.valueOf(completeString2.charAt(end2));
+									if(ReplacementUtil.compatibleCharacterAfterMatch(characterAfterMatch1, characterAfterMatch2)) {
+										m1.appendReplacement(sb, Matcher.quoteReplacement(character + s2));
+										replacementOccurred = true;
+									}
+								}
+								m1.appendTail(sb);
+								temp1 = sb.toString();
+							}
+						}
+					}
+					String temp = temp1;
 					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
@@ -3831,7 +3927,55 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
 						continue;
 					}
-					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
+					String completeString1 = replacementInfo.getArgumentizedString1();
+					String completeString2 = replacementInfo.getArgumentizedString2();
+					String temp1 = new String(completeString1);
+					boolean replacementOccurred = false;
+					for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+						if(temp1.contains(s1 + character) && completeString2.contains(s2 + character)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p1 = Pattern.compile(Pattern.quote(s1 + character));
+							Matcher m1 = p1.matcher(temp1);
+							Pattern p2 = Pattern.compile(Pattern.quote(s2 + character));
+							Matcher m2 = p2.matcher(completeString2);
+							while(m1.find() && m2.find()) {
+								int start1 = m1.start();
+								int start2 = m2.start();
+								String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp1.charAt(start1 - 1));
+								String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(completeString2.charAt(start2 - 1));
+								if(ReplacementUtil.compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
+									m1.appendReplacement(sb, Matcher.quoteReplacement(s2 + character));
+									replacementOccurred = true;
+								}
+							}
+							m1.appendTail(sb);
+							temp1 = sb.toString();
+						}
+					}
+					if(!replacementOccurred && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(completeString1) && !UMLOperationBodyMapper.containsMethodSignatureOfAnonymousClass(completeString2)) {
+						for(String character : ReplacementUtil.SPECIAL_CHARACTERS) {
+							if(temp1.contains(character + s1) && completeString2.contains(character + s2)) {
+								StringBuffer sb = new StringBuffer();
+								Pattern p1 = Pattern.compile(Pattern.quote(character + s1));
+								Matcher m1 = p1.matcher(temp1);
+								Pattern p2 = Pattern.compile(Pattern.quote(character + s2));
+								Matcher m2 = p2.matcher(completeString2);
+								while(m1.find() && m2.find()) {
+									int end1 = m1.end();
+									int end2 = m2.end();
+									String characterAfterMatch1 = end1 == temp1.length() ? "" : String.valueOf(temp1.charAt(end1));
+									String characterAfterMatch2 = end2 == completeString2.length() ? "" : String.valueOf(completeString2.charAt(end2));
+									if(ReplacementUtil.compatibleCharacterAfterMatch(characterAfterMatch1, characterAfterMatch2)) {
+										m1.appendReplacement(sb, Matcher.quoteReplacement(character + s2));
+										replacementOccurred = true;
+									}
+								}
+								m1.appendTail(sb);
+								temp1 = sb.toString();
+							}
+						}
+					}
+					String temp = temp1;
 					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
 					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
 						Replacement replacement = new Replacement(s1, s2, type);
