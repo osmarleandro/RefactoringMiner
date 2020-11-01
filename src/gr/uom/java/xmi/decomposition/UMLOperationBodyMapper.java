@@ -44,6 +44,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
@@ -1864,7 +1865,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						throw new RefactoringMinerTimedOutException();
 					}
 					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2(), minDistance);
+					String b = replacementInfo.getArgumentizedString2();
+					int distanceRaw = new LevenshteinDistance(minDistance).apply(temp, b);
 					boolean multipleInstances = ReplacementUtil.countInstances(temp, s2) > 1;
 					if(distanceRaw == -1 && multipleInstances) {
 						distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
