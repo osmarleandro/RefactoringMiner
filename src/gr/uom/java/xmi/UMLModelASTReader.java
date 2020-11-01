@@ -76,7 +76,29 @@ public class UMLModelASTReader {
 				return;
 			}
 			CompilationUnit compilationUnit = (CompilationUnit)parser.createAST(null);
-			processCompilationUnit(filePath, compilationUnit);
+			PackageDeclaration packageDeclaration = compilationUnit.getPackage();
+			String packageName = null;
+			if(packageDeclaration != null)
+				packageName = packageDeclaration.getName().getFullyQualifiedName();
+			else
+				packageName = "";
+			
+			List<ImportDeclaration> imports = compilationUnit.imports();
+			List<String> importedTypes = new ArrayList<String>();
+			for(ImportDeclaration importDeclaration : imports) {
+				importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
+			}
+			List<AbstractTypeDeclaration> topLevelTypeDeclarations = compilationUnit.types();
+			for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
+				if(abstractTypeDeclaration instanceof TypeDeclaration) {
+					TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
+					processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, filePath, importedTypes);
+				}
+				else if(abstractTypeDeclaration instanceof EnumDeclaration) {
+					EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
+					processEnumDeclaration(compilationUnit, enumDeclaration, packageName, filePath, importedTypes);
+				}
+			}
 		}
 	}
 
@@ -125,7 +147,29 @@ public class UMLModelASTReader {
 			@Override
 			public void acceptAST(String sourceFilePath, CompilationUnit ast) {
 				String relativePath = sourceFilePath.substring(projectRoot.length() + 1).replaceAll(systemFileSeparator, "/");
-				processCompilationUnit(relativePath, ast);
+				PackageDeclaration packageDeclaration = ast.getPackage();
+				String packageName = null;
+				if(packageDeclaration != null)
+					packageName = packageDeclaration.getName().getFullyQualifiedName();
+				else
+					packageName = "";
+				
+				List<ImportDeclaration> imports = ast.imports();
+				List<String> importedTypes = new ArrayList<String>();
+				for(ImportDeclaration importDeclaration : imports) {
+					importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
+				}
+				List<AbstractTypeDeclaration> topLevelTypeDeclarations = ast.types();
+				for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
+					if(abstractTypeDeclaration instanceof TypeDeclaration) {
+						TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
+						processTypeDeclaration(ast, topLevelTypeDeclaration, packageName, relativePath, importedTypes);
+					}
+					else if(abstractTypeDeclaration instanceof EnumDeclaration) {
+						EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
+						processEnumDeclaration(ast, enumDeclaration, packageName, relativePath, importedTypes);
+					}
+				}
 			}
 		};
 		this.parser.createASTs((String[]) filesArray, null, emptyArray, fileASTRequestor, null);
@@ -144,32 +188,6 @@ public class UMLModelASTReader {
 
 	public UMLModel getUmlModel() {
 		return this.umlModel;
-	}
-
-	protected void processCompilationUnit(String sourceFilePath, CompilationUnit compilationUnit) {
-		PackageDeclaration packageDeclaration = compilationUnit.getPackage();
-		String packageName = null;
-		if(packageDeclaration != null)
-			packageName = packageDeclaration.getName().getFullyQualifiedName();
-		else
-			packageName = "";
-		
-		List<ImportDeclaration> imports = compilationUnit.imports();
-		List<String> importedTypes = new ArrayList<String>();
-		for(ImportDeclaration importDeclaration : imports) {
-			importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
-		}
-		List<AbstractTypeDeclaration> topLevelTypeDeclarations = compilationUnit.types();
-        for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
-        	if(abstractTypeDeclaration instanceof TypeDeclaration) {
-        		TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
-        		processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
-        	}
-        	else if(abstractTypeDeclaration instanceof EnumDeclaration) {
-        		EnumDeclaration enumDeclaration = (EnumDeclaration)abstractTypeDeclaration;
-        		processEnumDeclaration(compilationUnit, enumDeclaration, packageName, sourceFilePath, importedTypes);
-        	}
-        }
 	}
 
 	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
