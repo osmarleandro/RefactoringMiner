@@ -18,10 +18,6 @@ public class PullUpOperationRefactoring extends MoveOperationRefactoring {
 		super(originalOperation, movedOperation);
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.PULL_UP_OPERATION;
-	}
-
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
