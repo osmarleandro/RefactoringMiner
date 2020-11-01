@@ -38,10 +38,6 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		}
 	}
 
-	public String getTypeName() {
-		return typeName;
-	}
-
 	public AbstractExpression getValue() {
 		return value;
 	}
