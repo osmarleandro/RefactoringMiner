@@ -981,12 +981,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return totalCount;
 	}
 
-	private int computeAbsoluteDifferenceInPositionWithinClass(UMLOperation removedOperation, UMLOperation addedOperation) {
-		int index1 = originalClass.getOperations().indexOf(removedOperation);
-		int index2 = nextClass.getOperations().indexOf(addedOperation);
-		return Math.abs(index1-index2);
-	}
-
 	private void checkForOperationSignatureChanges() throws RefactoringMinerTimedOutException {
 		consistentMethodInvocationRenames = findConsistentMethodInvocationRenames();
 		if(removedOperations.size() <= addedOperations.size()) {
@@ -1088,7 +1082,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int index1 = originalClass.getOperations().indexOf(removedOperation);
+			int index2 = nextClass.getOperations().indexOf(addedOperation);
+			int absoluteDifferenceInPosition = Math.abs(index1-index2);
 			if(exactMappings(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
@@ -1118,7 +1114,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		if(totalMappings.size() > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int index1 = originalClass.getOperations().indexOf(removedOperation);
+			int index2 = nextClass.getOperations().indexOf(addedOperation);
+			int absoluteDifferenceInPosition = Math.abs(index1-index2);
 			if(singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
@@ -1131,7 +1129,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+			int index1 = originalClass.getOperations().indexOf(removedOperation);
+			int index2 = nextClass.getOperations().indexOf(addedOperation);
+			int absoluteDifferenceInPosition = Math.abs(index1-index2);
 			if(exactMappings(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
 			}
