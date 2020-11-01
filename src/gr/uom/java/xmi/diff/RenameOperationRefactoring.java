@@ -91,13 +91,6 @@ public class RenameOperationRefactoring implements Refactoring {
 		return originalOperation.codeRange();
 	}
 
-	/**
-	 * @return the code range of the target method in the <b>child</b> commit
-	 */
-	public CodeRange getTargetOperationCodeRangeAfterRename() {
-		return renamedOperation.codeRange();
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalOperation().getLocationInfo().getFilePath(), getOriginalOperation().getClassName()));
