@@ -73,10 +73,6 @@ public class OperationBody {
 		return new ArrayList<LambdaExpressionObject>(compositeStatement.getAllLambdas());
 	}
 
-	public List<String> getAllVariables() {
-		return new ArrayList<String>(compositeStatement.getAllVariables());
-	}
-
 	public List<VariableDeclaration> getAllVariableDeclarations() {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getAllVariableDeclarations());
 	}
