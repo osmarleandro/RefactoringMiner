@@ -46,7 +46,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     		}
     		else {
     			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(attribute, matchingAttribute, getOperationBodyMapperList());
-    			if(!attributeDiff.isEmpty()) {
+    			if(!(!attributeDiff.visibilityChanged && !attributeDiff.typeChanged && !attributeDiff.renamed && !attributeDiff.qualifiedTypeChanged && attributeDiff.annotationListDiff.isEmpty())) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 	    			this.attributeDiffList.add(attributeDiff);
     			}
@@ -59,7 +59,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     		}
     		else {
     			UMLAttributeDiff attributeDiff = new UMLAttributeDiff(matchingAttribute, attribute, getOperationBodyMapperList());
-    			if(!attributeDiff.isEmpty()) {
+    			if(!(!attributeDiff.visibilityChanged && !attributeDiff.typeChanged && !attributeDiff.renamed && !attributeDiff.qualifiedTypeChanged && attributeDiff.annotationListDiff.isEmpty())) {
 	    			refactorings.addAll(attributeDiff.getRefactorings());
 					this.attributeDiffList.add(attributeDiff);
     			}
