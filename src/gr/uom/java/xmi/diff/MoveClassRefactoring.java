@@ -56,17 +56,13 @@ public class MoveClassRefactoring implements Refactoring {
 		return movedClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
-		return originalClass;
-	}
-
 	public UMLClass getMovedClass() {
 		return movedClass;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(originalClass.getLocationInfo().getFilePath(), originalClass.getName()));
 		return pairs;
 	}
 
