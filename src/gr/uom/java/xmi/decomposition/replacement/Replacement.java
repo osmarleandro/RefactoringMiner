@@ -17,10 +17,6 @@ public class Replacement {
 		return before;
 	}
 
-	public String getAfter() {
-		return after;
-	}
-
 	public ReplacementType getType() {
 		return type;
 	}
@@ -54,7 +50,7 @@ public class Replacement {
 
 	public double normalizedEditDistance() {
 		String s1 = getBefore();
-		String s2 = getAfter();
+		String s2 = after;
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;

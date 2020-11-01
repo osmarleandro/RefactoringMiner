@@ -16,7 +16,7 @@ public class MergeVariableReplacement extends Replacement {
 	}
 
 	public boolean equal(MergeVariableReplacement other) {
-		return this.getAfter().equals(other.getAfter()) &&
+		return this.after.equals(other.after) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				other.mergedVariables.containsAll(this.mergedVariables);
 	}
@@ -24,11 +24,11 @@ public class MergeVariableReplacement extends Replacement {
 	public boolean commonAfter(MergeVariableReplacement other) {
 		Set<String> interestion = new LinkedHashSet<String>(this.mergedVariables);
 		interestion.retainAll(other.mergedVariables);
-		return this.getAfter().equals(other.getAfter()) && interestion.size() == 0;
+		return this.after.equals(other.after) && interestion.size() == 0;
 	}
 
 	public boolean subsumes(MergeVariableReplacement other) {
-		return this.getAfter().equals(other.getAfter()) &&
+		return this.after.equals(other.after) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
 				this.mergedVariables.size() > other.mergedVariables.size();
 	}
