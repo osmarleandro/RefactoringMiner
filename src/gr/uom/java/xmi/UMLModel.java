@@ -29,10 +29,6 @@ public class UMLModel {
         classList.add(umlClass);
     }
 
-    public void addGeneralization(UMLGeneralization umlGeneralization) {
-        generalizationList.add(umlGeneralization);
-    }
-
     public void addRealization(UMLRealization umlRealization) {
     	realizationList.add(umlRealization);
     }
