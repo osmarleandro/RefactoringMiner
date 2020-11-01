@@ -195,40 +195,6 @@ public class UMLOperationDiff {
 		!visibilityChanged && !abstractionChanged && !returnTypeChanged && !operationRenamed && annotationListDiff.isEmpty();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append("\t").append(removedOperation).append("\n");
-		if(operationRenamed)
-			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
-		if(visibilityChanged)
-			sb.append("\t").append("visibility changed from " + removedOperation.getVisibility() + " to " + addedOperation.getVisibility()).append("\n");
-		if(abstractionChanged)
-			sb.append("\t").append("abstraction changed from " + (removedOperation.isAbstract() ? "abstract" : "concrete") + " to " +
-					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
-		if(returnTypeChanged || qualifiedReturnTypeChanged)
-			sb.append("\t").append("return type changed from " + removedOperation.getReturnParameter() + " to " + addedOperation.getReturnParameter()).append("\n");
-		for(UMLParameter umlParameter : removedParameters) {
-			sb.append("\t").append("parameter " + umlParameter + " removed").append("\n");
-		}
-		for(UMLParameter umlParameter : addedParameters) {
-			sb.append("\t").append("parameter " + umlParameter + " added").append("\n");
-		}
-		for(UMLParameterDiff parameterDiff : parameterDiffList) {
-			sb.append(parameterDiff);
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " added").append("\n");
-		}
-		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
-		}
-		return sb.toString();
-	}
-
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(returnTypeChanged || qualifiedReturnTypeChanged) {
