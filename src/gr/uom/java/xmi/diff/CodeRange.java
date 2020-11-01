@@ -34,10 +34,6 @@ public class CodeRange {
 		return filePath;
 	}
 
-	public int getStartLine() {
-		return startLine;
-	}
-
 	public int getEndLine() {
 		return endLine;
 	}
