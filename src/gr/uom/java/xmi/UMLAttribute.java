@@ -49,10 +49,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return isFinal;
 	}
 
-	public void setFinal(boolean isFinal) {
-		this.isFinal = isFinal;
-	}
-
 	public boolean isStatic() {
 		return isStatic;
 	}
