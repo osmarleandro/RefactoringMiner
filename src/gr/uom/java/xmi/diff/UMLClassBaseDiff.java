@@ -1651,10 +1651,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return sb.toString();
 	}
 
-	public int compareTo(UMLClassBaseDiff other) {
-		return this.originalClass.getName().compareTo(other.originalClass.getName());
-	}
-
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
