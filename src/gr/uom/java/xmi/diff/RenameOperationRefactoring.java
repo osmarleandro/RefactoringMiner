@@ -32,16 +32,6 @@ public class RenameOperationRefactoring implements Refactoring {
 		this.replacements = new LinkedHashSet<Replacement>();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalOperation);
-		sb.append(" renamed to ");
-		sb.append(renamedOperation);
-		sb.append(" in class ").append(getClassName());
-		return sb.toString();
-	}
-
 	private String getClassName() {
 		String sourceClassName = originalOperation.getClassName();
 		String targetClassName = renamedOperation.getClassName();
