@@ -131,10 +131,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.isAttribute = isAttribute;
 	}
 
-	public boolean isVarargsParameter() {
-		return varargsParameter;
-	}
-
 	public List<UMLAnnotation> getAnnotations() {
 		return annotations;
 	}
