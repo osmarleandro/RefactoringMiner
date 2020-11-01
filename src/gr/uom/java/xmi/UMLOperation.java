@@ -310,7 +310,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
 			UMLParameter otherParameter = operation.parameters.get(i);
-			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
+			if(!thisParameter.equals(otherParameter) && !(thisParameter.name.equals(otherParameter.name) &&
+			thisParameter.kind.equals(otherParameter.kind)))
 				return false;
 			i++;
 		}
@@ -333,7 +334,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
 			UMLParameter otherParameter = operation.parameters.get(i);
-			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
+			if(!thisParameter.equals(otherParameter) && !(thisParameter.name.equals(otherParameter.name) &&
+			thisParameter.kind.equals(otherParameter.kind)))
 				return false;
 			i++;
 		}
