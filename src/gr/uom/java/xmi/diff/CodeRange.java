@@ -50,10 +50,6 @@ public class CodeRange {
 		return endColumn;
 	}
 
-	public CodeElementType getCodeElementType() {
-		return codeElementType;
-	}
-
 	public String getDescription() {
 		return description;
 	}
