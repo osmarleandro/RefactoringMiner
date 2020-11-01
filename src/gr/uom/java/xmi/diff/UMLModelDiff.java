@@ -99,10 +99,6 @@ public class UMLModelDiff {
       this.addedRealizations.add(umlRealization);
    }
 
-   public void reportRemovedRealization(UMLRealization umlRealization) {
-      this.removedRealizations.add(umlRealization);
-   }
-
    public void addUMLClassDiff(UMLClassDiff classDiff) {
       this.commonClassDiffList.add(classDiff);
    }
