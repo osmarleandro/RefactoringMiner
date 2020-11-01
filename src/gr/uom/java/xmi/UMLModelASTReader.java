@@ -342,7 +342,51 @@ public class UMLModelASTReader {
     		if(node.getUserObject() != null) {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
     			String anonymousBinaryName = getAnonymousBinaryName(node);
-    			String anonymousCodePath = getAnonymousCodePath(node);
+				AnonymousClassDeclaration anonymous1 = (AnonymousClassDeclaration)node.getUserObject();
+				String name = "";
+				ASTNode parent = anonymous1.getParent();
+				while(parent != null) {
+					if(parent instanceof MethodDeclaration) {
+						String methodName = ((MethodDeclaration)parent).getName().getIdentifier();
+						if(name.isEmpty()) {
+							name = methodName;
+						}
+						else {
+							name = methodName + "." + name;
+						}
+					}
+					else if(parent instanceof VariableDeclarationFragment &&
+							(parent.getParent() instanceof FieldDeclaration ||
+							parent.getParent() instanceof VariableDeclarationStatement)) {
+						String fieldName = ((VariableDeclarationFragment)parent).getName().getIdentifier();
+						if(name.isEmpty()) {
+							name = fieldName;
+						}
+						else {
+							name = fieldName + "." + name;
+						}
+					}
+					else if(parent instanceof MethodInvocation) {
+						String invocationName = ((MethodInvocation)parent).getName().getIdentifier();
+						if(name.isEmpty()) {
+							name = invocationName;
+						}
+						else {
+							name = invocationName + "." + name;
+						}
+					}
+					else if(parent instanceof SuperMethodInvocation) {
+						String invocationName = ((SuperMethodInvocation)parent).getName().getIdentifier();
+						if(name.isEmpty()) {
+							name = invocationName;
+						}
+						else {
+							name = invocationName + "." + name;
+						}
+					}
+					parent = parent.getParent();
+				}
+    			String anonymousCodePath = name.toString();
     			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
@@ -551,54 +595,6 @@ public class UMLModelASTReader {
 			}
 		}
 		parentNode.add(childNode);
-	}
-
-	private String getAnonymousCodePath(DefaultMutableTreeNode node) {
-		AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
-		String name = "";
-		ASTNode parent = anonymous.getParent();
-		while(parent != null) {
-			if(parent instanceof MethodDeclaration) {
-				String methodName = ((MethodDeclaration)parent).getName().getIdentifier();
-				if(name.isEmpty()) {
-					name = methodName;
-				}
-				else {
-					name = methodName + "." + name;
-				}
-			}
-			else if(parent instanceof VariableDeclarationFragment &&
-					(parent.getParent() instanceof FieldDeclaration ||
-					parent.getParent() instanceof VariableDeclarationStatement)) {
-				String fieldName = ((VariableDeclarationFragment)parent).getName().getIdentifier();
-				if(name.isEmpty()) {
-					name = fieldName;
-				}
-				else {
-					name = fieldName + "." + name;
-				}
-			}
-			else if(parent instanceof MethodInvocation) {
-				String invocationName = ((MethodInvocation)parent).getName().getIdentifier();
-				if(name.isEmpty()) {
-					name = invocationName;
-				}
-				else {
-					name = invocationName + "." + name;
-				}
-			}
-			else if(parent instanceof SuperMethodInvocation) {
-				String invocationName = ((SuperMethodInvocation)parent).getName().getIdentifier();
-				if(name.isEmpty()) {
-					name = invocationName;
-				}
-				else {
-					name = invocationName + "." + name;
-				}
-			}
-			parent = parent.getParent();
-		}
-		return name.toString();
 	}
 
 	private String getAnonymousBinaryName(DefaultMutableTreeNode node) {
