@@ -351,7 +351,7 @@ public class Visitor extends ASTVisitor {
 		nullLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getNullLiterals().add(node.toString());
+			anonymous.nullLiterals.add(node.toString());
 		}
 		return super.visit(node);
 	}
