@@ -31,10 +31,6 @@ public class VariableDeclarationReplacement extends Replacement {
 		return operation1;
 	}
 
-	public UMLOperation getOperation2() {
-		return operation2;
-	}
-
 	public Replacement getVariableNameReplacement() {
 		return new Replacement(v1.getVariableName(), v2.getVariableName(), ReplacementType.VARIABLE_NAME);
 	}
