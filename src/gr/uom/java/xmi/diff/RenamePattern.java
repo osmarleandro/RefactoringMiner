@@ -38,8 +38,4 @@ public class RenamePattern {
 		result = prime * result + ((before == null) ? 0 : before.hashCode());
 		return result;
 	}
-	
-	public RenamePattern reverse() {
-		return new RenamePattern(after, before);
-	}
 }
