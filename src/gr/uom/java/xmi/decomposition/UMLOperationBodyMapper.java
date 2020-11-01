@@ -301,7 +301,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
 						for(UMLAnonymousClass anonymous : anonymousList) {
 							if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
-								for(UMLOperation anonymousOperation : anonymous.getOperations()) {
+								for(UMLOperation anonymousOperation : anonymous.operations) {
 									List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
 									for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 										if(!leaves1.contains(anonymousLeaf)) {
@@ -359,7 +359,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
 							for(UMLAnonymousClass anonymous : anonymousList) {
 								if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
-									for(UMLOperation anonymousOperation : anonymous.getOperations()) {
+									for(UMLOperation anonymousOperation : anonymous.operations) {
 										List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
 										for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 											if(!leaves1.contains(anonymousLeaf)) {
@@ -414,7 +414,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
-							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
+							for(UMLOperation anonymousOperation : anonymous.operations) {
 								List<StatementObject> anonymousClassLeaves = anonymousOperation.getBody().getCompositeStatement().getLeaves();
 								for(StatementObject anonymousLeaf : anonymousClassLeaves) {
 									if(!leaves2.contains(anonymousLeaf)) {
@@ -2084,8 +2084,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						UMLAnonymousClass anonymousClass1 = findAnonymousClass(anonymousClassDeclaration1, operation1);
 						UMLAnonymousClass anonymousClass2 = findAnonymousClass(anonymousClassDeclaration2, operation2);
 						int matchedOperations = 0;
-						for(UMLOperation operation1 : anonymousClass1.getOperations()) {
-							for(UMLOperation operation2 : anonymousClass2.getOperations()) {
+						for(UMLOperation operation1 : anonymousClass1.operations) {
+							for(UMLOperation operation2 : anonymousClass2.operations) {
 								if(operation1.equals(operation2) || operation1.equalSignature(operation2) || operation1.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation2)) {	
 									UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(operation1, operation2, classDiff);
 									int mappings = mapper.mappingsWithoutBlocks();
@@ -2746,7 +2746,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations()) {
 				for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
 					if(anonymousClass.getLocationInfo().equals(anonymousObject.getLocationInfo())) {
-						anonymousOperations.addAll(anonymousClass.getOperations());
+						anonymousOperations.addAll(anonymousClass.operations);
 					}
 				}
 			}
