@@ -17,10 +17,6 @@ public class TryStatementObject extends CompositeStatementObject {
 		this.catchClauses = new ArrayList<CompositeStatementObject>();
 	}
 
-	public void addCatchClause(CompositeStatementObject catchClause) {
-		catchClauses.add(catchClause);
-	}
-
 	public List<CompositeStatementObject> getCatchClauses() {
 		return catchClauses;
 	}
