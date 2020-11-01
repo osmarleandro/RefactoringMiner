@@ -34,7 +34,11 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.sourceOperationBeforeExtraction = bodyMapper.getOperation1();
 		this.sourceOperationAfterExtraction = sourceOperationAfterExtraction;
 		this.extractedOperationInvocations = operationInvocations;
-		this.replacements = bodyMapper.getReplacements();
+		Set<Replacement> replacements1 = new LinkedHashSet<Replacement>();
+		for(AbstractCodeMapping mapping1 : bodyMapper.getMappings()) {
+			replacements1.addAll(mapping1.getReplacements());
+		}
+		this.replacements = replacements1;
 		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
@@ -50,7 +54,11 @@ public class ExtractOperationRefactoring implements Refactoring {
 		this.sourceOperationBeforeExtraction = sourceOperationBeforeExtraction;
 		this.sourceOperationAfterExtraction = sourceOperationAfterExtraction;
 		this.extractedOperationInvocations = operationInvocations;
-		this.replacements = bodyMapper.getReplacements();
+		Set<Replacement> replacements1 = new LinkedHashSet<Replacement>();
+		for(AbstractCodeMapping mapping1 : bodyMapper.getMappings()) {
+			replacements1.addAll(mapping1.getReplacements());
+		}
+		this.replacements = replacements1;
 		this.extractedCodeFragmentsFromSourceOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.extractedCodeFragmentsToExtractedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {

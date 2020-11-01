@@ -35,7 +35,11 @@ public class InlineOperationRefactoring implements Refactoring {
 		this.targetOperationAfterInline = bodyMapper.getOperation2();
 		this.targetOperationBeforeInline = targetOperationBeforeInline;
 		this.inlinedOperationInvocations = operationInvocations;
-		this.replacements = bodyMapper.getReplacements();
+		Set<Replacement> replacements1 = new LinkedHashSet<Replacement>();
+		for(AbstractCodeMapping mapping1 : bodyMapper.getMappings()) {
+			replacements1.addAll(mapping1.getReplacements());
+		}
+		this.replacements = replacements1;
 		this.inlinedCodeFragmentsFromInlinedOperation = new LinkedHashSet<AbstractCodeFragment>();
 		this.inlinedCodeFragmentsInTargetOperation = new LinkedHashSet<AbstractCodeFragment>();
 		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {

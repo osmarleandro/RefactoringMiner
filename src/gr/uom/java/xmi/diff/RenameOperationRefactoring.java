@@ -10,6 +10,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
@@ -23,7 +24,11 @@ public class RenameOperationRefactoring implements Refactoring {
 		this.bodyMapper = bodyMapper;
 		this.originalOperation = bodyMapper.getOperation1();
 		this.renamedOperation = bodyMapper.getOperation2();
-		this.replacements = bodyMapper.getReplacements();
+		Set<Replacement> replacements1 = new LinkedHashSet<Replacement>();
+		for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
+			replacements1.addAll(mapping.getReplacements());
+		}
+		this.replacements = replacements1;
 	}
 
 	public RenameOperationRefactoring(UMLOperation originalOperation, UMLOperation renamedOperation) {
