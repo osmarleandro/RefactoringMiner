@@ -210,10 +210,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		//which are less similar than the mappings of the mapper passed as parameter
 	}
 
-	public List<UMLOperationBodyMapper> getChildMappers() {
-		return childMappers;
-	}
-
 	public UMLOperationBodyMapper getParentMapper() {
 		return parentMapper;
 	}
