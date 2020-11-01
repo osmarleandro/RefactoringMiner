@@ -99,10 +99,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.varargsParameter = varargs;
 	}
 
-	public String getVariableName() {
-		return variableName;
-	}
-
 	public AbstractExpression getInitializer() {
 		return initializer;
 	}
