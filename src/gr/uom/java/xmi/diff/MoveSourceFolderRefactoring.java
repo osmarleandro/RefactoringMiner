@@ -32,10 +32,6 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		return movedClassesToAnotherSourceFolder;
 	}
 
-	public RenamePattern getPattern() {
-		return pattern;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
