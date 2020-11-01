@@ -800,7 +800,22 @@ public class UMLModelDiff {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
 	   }
 	   if(removedClass != null) {
-		   return removedClass.importsType(targetClassName);
+		   if(targetClassName.startsWith(removedClass.getPackageName()))
+			return true;
+		for(String importedType : removedClass.getImportedTypes()) {
+			//importedType.startsWith(targetClass) -> special handling for import static
+			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
+			if(importedType.equals(targetClassName) || importedType.startsWith(targetClassName)) {
+				return true;
+			}
+			if(targetClassName.contains(".")) {
+				String targetClassPackage = targetClassName.substring(0, targetClassName.lastIndexOf("."));
+				if(importedType.equals(targetClassPackage)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	   }
 	   return false;
    }
@@ -818,7 +833,22 @@ public class UMLModelDiff {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
 	   }
 	   if(addedClass != null) {
-		   return addedClass.importsType(sourceClassName);
+		   if(sourceClassName.startsWith(addedClass.getPackageName()))
+			return true;
+		for(String importedType : addedClass.getImportedTypes()) {
+			//importedType.startsWith(targetClass) -> special handling for import static
+			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
+			if(importedType.equals(sourceClassName) || importedType.startsWith(sourceClassName)) {
+				return true;
+			}
+			if(sourceClassName.contains(".")) {
+				String targetClassPackage = sourceClassName.substring(0, sourceClassName.lastIndexOf("."));
+				if(importedType.equals(targetClassPackage)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	   }
 	   return false;
    }

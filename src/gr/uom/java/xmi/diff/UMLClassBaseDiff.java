@@ -275,11 +275,41 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public boolean nextClassImportsType(String targetClass) {
-		return nextClass.importsType(targetClass);
+		if(targetClass.startsWith(nextClass.getPackageName()))
+			return true;
+		for(String importedType : nextClass.getImportedTypes()) {
+			//importedType.startsWith(targetClass) -> special handling for import static
+			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
+			if(importedType.equals(targetClass) || importedType.startsWith(targetClass)) {
+				return true;
+			}
+			if(targetClass.contains(".")) {
+				String targetClassPackage = targetClass.substring(0, targetClass.lastIndexOf("."));
+				if(importedType.equals(targetClassPackage)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean originalClassImportsType(String targetClass) {
-		return originalClass.importsType(targetClass);
+		if(targetClass.startsWith(originalClass.getPackageName()))
+			return true;
+		for(String importedType : originalClass.getImportedTypes()) {
+			//importedType.startsWith(targetClass) -> special handling for import static
+			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
+			if(importedType.equals(targetClass) || importedType.startsWith(targetClass)) {
+				return true;
+			}
+			if(targetClass.contains(".")) {
+				String targetClassPackage = targetClass.substring(0, targetClass.lastIndexOf("."));
+				if(importedType.equals(targetClassPackage)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public List<UMLAttribute> nextClassAttributesOfType(String targetClass) {
