@@ -329,15 +329,6 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 
-	public boolean visit(StringLiteral node) {
-		stringLiterals.add(node.toString());
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getStringLiterals().add(node.toString());
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(NumberLiteral node) {
 		numberLiterals.add(node.toString());
 		if(current.getUserObject() != null) {
