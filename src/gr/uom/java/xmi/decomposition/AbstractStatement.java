@@ -5,11 +5,7 @@ import java.util.List;
 public abstract class AbstractStatement extends AbstractCodeFragment {
 	private CompositeStatementObject parent;
 	
-	public void setParent(CompositeStatementObject parent) {
-    	this.parent = parent;
-    }
-
-    public CompositeStatementObject getParent() {
+	public CompositeStatementObject getParent() {
     	return this.parent;
     }
 

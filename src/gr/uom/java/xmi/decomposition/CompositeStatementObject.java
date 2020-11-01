@@ -33,7 +33,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public void addStatement(AbstractStatement statement) {
 		statement.setIndex(statementList.size());
 		statementList.add(statement);
-		statement.setParent(this);
+		statement.parent = this;
 	}
 
 	public List<AbstractStatement> getStatements() {
