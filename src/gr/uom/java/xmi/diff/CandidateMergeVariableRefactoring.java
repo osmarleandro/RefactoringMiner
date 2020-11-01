@@ -40,10 +40,6 @@ public class CandidateMergeVariableRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	public Set<UMLAttribute> getMergedAttributes() {
 		return mergedAttributes;
 	}
