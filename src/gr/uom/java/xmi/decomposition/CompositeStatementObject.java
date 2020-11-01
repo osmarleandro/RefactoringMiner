@@ -216,15 +216,6 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArrayAccesses() {
-		List<String> arrayAccesses = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			arrayAccesses.addAll(expression.getArrayAccesses());
-		}
-		return arrayAccesses;
-	}
-
-	@Override
 	public List<String> getPrefixExpressions() {
 		List<String> prefixExpressions = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
