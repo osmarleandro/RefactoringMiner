@@ -2,9 +2,11 @@ package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.UMLClassDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
+import gr.uom.java.xmi.diff.UMLRealizationDiff;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -140,7 +142,24 @@ public class UMLModel {
     		if(!this.realizationList.contains(umlRealization))
     			modelDiff.reportAddedRealization(umlRealization);
     	}
-    	modelDiff.checkForRealizationChanges();
+    	for(Iterator<UMLRealization> removedRealizationIterator = modelDiff.removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
+		     UMLRealization removedRealization = removedRealizationIterator.next();
+		     for(Iterator<UMLRealization> addedRealizationIterator = modelDiff.addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
+		        UMLRealization addedRealization = addedRealizationIterator.next();
+		        String renamedChild = modelDiff.isRenamedClass(removedRealization.getClient());
+		        String movedChild = modelDiff.isMovedClass(removedRealization.getClient());
+		        //String renamedParent = isRenamedClass(removedRealization.getSupplier());
+		        //String movedParent = isMovedClass(removedRealization.getSupplier());
+		        if( (renamedChild != null && renamedChild.equals(addedRealization.getClient().getName())) ||
+		              (movedChild != null && movedChild.equals(addedRealization.getClient().getName()))) {
+		           UMLRealizationDiff realizationDiff = new UMLRealizationDiff(removedRealization, addedRealization);
+		           addedRealizationIterator.remove();
+		           removedRealizationIterator.remove();
+		           modelDiff.realizationDiffList.add(realizationDiff);
+		           break;
+		        }
+		     }
+		  }
     	for(UMLClass umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
     			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);

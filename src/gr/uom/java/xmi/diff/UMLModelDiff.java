@@ -397,27 +397,6 @@ public class UMLModelDiff {
       }
    }
 
-   public void checkForRealizationChanges() {
-      for(Iterator<UMLRealization> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
-         UMLRealization removedRealization = removedRealizationIterator.next();
-         for(Iterator<UMLRealization> addedRealizationIterator = addedRealizations.iterator(); addedRealizationIterator.hasNext();) {
-            UMLRealization addedRealization = addedRealizationIterator.next();
-            String renamedChild = isRenamedClass(removedRealization.getClient());
-            String movedChild = isMovedClass(removedRealization.getClient());
-            //String renamedParent = isRenamedClass(removedRealization.getSupplier());
-            //String movedParent = isMovedClass(removedRealization.getSupplier());
-            if( (renamedChild != null && renamedChild.equals(addedRealization.getClient().getName())) ||
-                  (movedChild != null && movedChild.equals(addedRealization.getClient().getName()))) {
-               UMLRealizationDiff realizationDiff = new UMLRealizationDiff(removedRealization, addedRealization);
-               addedRealizationIterator.remove();
-               removedRealizationIterator.remove();
-               realizationDiffList.add(realizationDiff);
-               break;
-            }
-         }
-      }
-   }
-
    public void checkForMovedClasses(Map<String, String> renamedFileHints, Set<String> repositoryDirectories, UMLClassMatcher matcher) throws RefactoringMinerTimedOutException {
 	   for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();) {
 		   UMLClass removedClass = removedClassIterator.next();
