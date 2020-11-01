@@ -438,7 +438,7 @@ public class UMLModelASTReader {
 					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
 				}
 			}
-			umlOperation.addTypeParameter(umlTypeParameter);
+			umlOperation.typeParameters.add(umlTypeParameter);
 		}
 		
 		Block block = methodDeclaration.getBody();
