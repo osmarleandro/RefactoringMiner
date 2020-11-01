@@ -73,16 +73,12 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return getOwner();
 	}
 
-    public String getExpression() {
-    	return expression;
-    }
-
-	public String getString() {
+    public String getString() {
     	return toString();
     }
   
 	public String toString() {
-		return getExpression().toString();
+		return expression.toString();
 	}
 
 	@Override
