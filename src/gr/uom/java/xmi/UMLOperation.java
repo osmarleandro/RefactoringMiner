@@ -91,10 +91,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return isConstructor;
 	}
 
-	public void setConstructor(boolean isConstructor) {
-		this.isConstructor = isConstructor;
-	}
-
 	public boolean isFinal() {
 		return isFinal;
 	}
