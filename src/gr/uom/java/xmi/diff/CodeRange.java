@@ -54,10 +54,6 @@ public class CodeRange {
 		return codeElementType;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
 	public CodeRange setDescription(String description) {
 		this.description = description;
 		return this;
