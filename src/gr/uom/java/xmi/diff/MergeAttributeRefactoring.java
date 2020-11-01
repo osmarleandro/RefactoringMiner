@@ -108,14 +108,6 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return true;
 	}
 
-	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
-		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		for(VariableDeclaration mergedAttribute : this.mergedAttributes) {
-			pairs.add(new ImmutablePair<String, String>(mergedAttribute.getLocationInfo().getFilePath(), getClassNameBefore()));
-		}
-		return pairs;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getNewAttribute().getLocationInfo().getFilePath(), getClassNameAfter()));
