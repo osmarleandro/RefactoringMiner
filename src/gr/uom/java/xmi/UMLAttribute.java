@@ -134,12 +134,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     	return false;
 	}
 
-	public boolean equalsQualified(UMLAttribute umlAttribute) {
-		return this.name.equals(umlAttribute.name) &&
-				this.visibility.equals(umlAttribute.visibility) &&
-				this.type.equalsQualified(umlAttribute.type);
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
