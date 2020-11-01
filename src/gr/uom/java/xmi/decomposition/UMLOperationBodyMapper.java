@@ -857,32 +857,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
 	}
 
-	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
-		boolean removedOperationCalled = false;
-		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
-			for(UMLOperation operation : removedOperations) {
-				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-					removedOperationCalled = true;
-					break;
-				}
-			}
-			if(removedOperationCalled)
-				break;
-		}
-		boolean addedOperationCalled = false;
-		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
-			for(UMLOperation operation : addedOperations) {
-				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
-					addedOperationCalled = true;
-					break;
-				}
-			}
-			if(addedOperationCalled)
-				break;
-		}
-		return removedOperationCalled && addedOperationCalled;
-	}
-
 	public int exactMatches() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
