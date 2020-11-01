@@ -78,23 +78,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ExtractAttributeRefactoring other = (ExtractAttributeRefactoring) obj;
-		if (attributeDeclaration == null) {
-			if (other.attributeDeclaration != null)
-				return false;
-		} else if (!attributeDeclaration.equals(other.attributeDeclaration))
-			return false;
-		return true;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
