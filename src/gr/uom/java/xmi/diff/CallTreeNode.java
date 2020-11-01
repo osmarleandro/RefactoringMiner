@@ -31,10 +31,6 @@ public class CallTreeNode {
 		return invocation;
 	}
 
-	public void addChild(CallTreeNode node) {
-		children.add(node);
-	}
-
 	public List<CallTreeNode> getChildren() {
 		return children;
 	}
