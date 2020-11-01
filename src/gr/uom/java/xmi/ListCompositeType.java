@@ -19,10 +19,6 @@ public class ListCompositeType extends UMLType {
 		this.kind = kind;
 	}
 
-	public List<UMLType> getTypes() {
-		return types;
-	}
-
 	public Kind getKind() {
 		return kind;
 	}
