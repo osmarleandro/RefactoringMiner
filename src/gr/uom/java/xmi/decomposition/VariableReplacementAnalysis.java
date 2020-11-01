@@ -674,7 +674,7 @@ public class VariableReplacementAnalysis {
 		for(Replacement replacement : replacements) {
 			if(replacement instanceof MethodInvocationReplacement) {
 				MethodInvocationReplacement r = (MethodInvocationReplacement)replacement;
-				if(r.differentExpressionNameAndArguments())
+				if(r.invokedOperationBefore.differentExpressionNameAndArguments(r.invokedOperationAfter))
 					return true;
 			}
 		}
