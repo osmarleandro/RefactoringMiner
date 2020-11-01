@@ -26,10 +26,6 @@ public class PushDownAttributeRefactoring extends MoveAttributeRefactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.PUSH_DOWN_ATTRIBUTE;
-	}
-
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
