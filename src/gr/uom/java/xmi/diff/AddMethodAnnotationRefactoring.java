@@ -81,17 +81,6 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotation);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" from class ");
-		sb.append(operationAfter.getClassName());
-		return sb.toString();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
