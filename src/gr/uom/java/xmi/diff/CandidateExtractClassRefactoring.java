@@ -16,8 +16,4 @@ public class CandidateExtractClassRefactoring {
 	public UMLClassBaseDiff getClassDiff() {
 		return classDiff;
 	}
-
-	public ExtractClassRefactoring getRefactoring() {
-		return refactoring;
-	}
 }
