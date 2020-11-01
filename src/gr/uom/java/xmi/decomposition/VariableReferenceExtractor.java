@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class VariableReferenceExtractor {
@@ -15,7 +16,13 @@ public class VariableReferenceExtractor {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
-			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
+			LocationInfo other = fragment1.getLocationInfo();
+			LocationInfo other1 = fragment2.getLocationInfo();
+			if(scope1.filePath.equals(other.getFilePath()) &&
+			scope1.startOffset <= other.getStartOffset() &&
+			scope1.endOffset >= other.getEndOffset() && scope2.filePath.equals(other1.getFilePath()) &&
+			scope2.startOffset <= other1.getStartOffset() &&
+			scope2.endOffset >= other1.getEndOffset() &&
 					usesVariable(fragment1, declaration1) && usesVariable(fragment2, declaration2)) {
 				references.add(mapping);
 			}

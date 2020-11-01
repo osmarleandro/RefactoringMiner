@@ -411,7 +411,10 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations()) {
-			if(variableDeclaration.getScope().subsumes(location)) {
+			VariableScope r = variableDeclaration.getScope();
+			if(r.filePath.equals(location.getFilePath()) &&
+			r.startOffset <= location.getStartOffset() &&
+			r.endOffset >= location.getEndOffset()) {
 				variableDeclarations.add(variableDeclaration);
 			}
 		}

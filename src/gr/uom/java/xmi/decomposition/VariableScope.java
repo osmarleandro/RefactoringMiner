@@ -87,10 +87,4 @@ public class VariableScope {
 		sb.append(endLine).append(":").append(endColumn);
 		return sb.toString();
 	}
-
-	public boolean subsumes(LocationInfo other) {
-		return this.filePath.equals(other.getFilePath()) &&
-				this.startOffset <= other.getStartOffset() &&
-				this.endOffset >= other.getEndOffset();
-	}
 }
