@@ -429,22 +429,22 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				setNewAbstraction(nextClass.isAbstract());
 			}
 		}
-		if(originalClass.getSuperclass() != null && nextClass.getSuperclass() != null) {
-			if(!originalClass.getSuperclass().equals(nextClass.getSuperclass())) {
+		if(originalClass.superclass != null && nextClass.superclass != null) {
+			if(!originalClass.superclass.equals(nextClass.superclass)) {
 				setSuperclassChanged(true);
 			}
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.superclass);
+			setNewSuperclass(nextClass.superclass);
 		}
-		else if(originalClass.getSuperclass() != null && nextClass.getSuperclass() == null) {
+		else if(originalClass.superclass != null && nextClass.superclass == null) {
 			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.superclass);
+			setNewSuperclass(nextClass.superclass);
 		}
-		else if(originalClass.getSuperclass() == null && nextClass.getSuperclass() != null) {
+		else if(originalClass.superclass == null && nextClass.superclass != null) {
 			setSuperclassChanged(true);
-			setOldSuperclass(originalClass.getSuperclass());
-			setNewSuperclass(nextClass.getSuperclass());
+			setOldSuperclass(originalClass.superclass);
+			setNewSuperclass(nextClass.superclass);
 		}
 		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
 			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))

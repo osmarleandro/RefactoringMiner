@@ -160,11 +160,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.isAbstract = isAbstract;
 	}
 
-    public UMLType getSuperclass() {
-		return superclass;
-	}
-
-	public void setSuperclass(UMLType superclass) {
+    public void setSuperclass(UMLType superclass) {
 		this.superclass = superclass;
 	}
 
