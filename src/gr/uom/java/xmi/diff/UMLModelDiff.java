@@ -87,10 +87,6 @@ public class UMLModelDiff {
 		   this.removedClasses.add(umlClass);
    }
 
-   public void reportAddedGeneralization(UMLGeneralization umlGeneralization) {
-      this.addedGeneralizations.add(umlGeneralization);
-   }
-
    public void reportRemovedGeneralization(UMLGeneralization umlGeneralization) {
       this.removedGeneralizations.add(umlGeneralization);
    }
