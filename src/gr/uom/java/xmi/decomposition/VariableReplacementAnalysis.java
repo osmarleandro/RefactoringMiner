@@ -421,7 +421,65 @@ public class VariableReplacementAnalysis {
 	}
 
 	private void findConsistentVariableRenames() {
-		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
+		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
+		for(AbstractCodeMapping mapping : mappings) {
+			for(Replacement replacement3 : mapping.getReplacements()) {
+				if(replacement3.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement3) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement3)) {
+					SimpleEntry<VariableDeclaration, UMLOperation> v11 = getVariableDeclaration1(replacement3, mapping);
+					SimpleEntry<VariableDeclaration, UMLOperation> v21 = getVariableDeclaration2(replacement3, mapping);
+					if(v11 != null && v21 != null) {
+						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v11.getKey(), v21.getKey(), v11.getValue(), v21.getValue());
+						if(map.containsKey(r)) {
+							map.get(r).add(mapping);
+						}
+						else {
+							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+							list.add(mapping);
+							map.put(r, list);
+						}
+					}
+				}
+			}
+		}
+		if(operationDiff != null) {
+			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
+			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+				if(parameterDiff.isNameChanged()) {
+					allParameterDiffs.add(parameterDiff);
+				}
+			}
+			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
+			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
+				for(Replacement replacement2 : map.keySet()) {
+					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement2;
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						matchedParameterDiffs.add(parameterDiff);
+						break;
+					}
+				}
+			}
+			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
+			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
+				for(Replacement replacement1 : map.keySet()) {
+					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement1;
+					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						keysToBeRemoved.add(vdR);
+					}
+					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
+							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
+						keysToBeRemoved.add(vdR);
+					}
+				}
+			}
+			for(VariableDeclarationReplacement key : keysToBeRemoved) {
+				map.remove(key);
+			}
+		}
+		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = map;
 		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
@@ -598,68 +656,6 @@ public class VariableReplacementAnalysis {
 						}
 					}
 				}
-			}
-		}
-		return map;
-	}
-
-	private Map<Replacement, Set<AbstractCodeMapping>> getVariableDeclarationReplacementOccurrenceMap() {
-		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
-		for(AbstractCodeMapping mapping : mappings) {
-			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
-						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
-					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
-					if(v1 != null && v2 != null) {
-						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
-						if(map.containsKey(r)) {
-							map.get(r).add(mapping);
-						}
-						else {
-							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
-							list.add(mapping);
-							map.put(r, list);
-						}
-					}
-				}
-			}
-		}
-		if(operationDiff != null) {
-			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
-				if(parameterDiff.isNameChanged()) {
-					allParameterDiffs.add(parameterDiff);
-				}
-			}
-			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
-			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
-				for(Replacement replacement : map.keySet()) {
-					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
-						matchedParameterDiffs.add(parameterDiff);
-						break;
-					}
-				}
-			}
-			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
-			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
-				for(Replacement replacement : map.keySet()) {
-					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
-					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							!parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
-						keysToBeRemoved.add(vdR);
-					}
-					else if(!parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
-							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
-						keysToBeRemoved.add(vdR);
-					}
-				}
-			}
-			for(VariableDeclarationReplacement key : keysToBeRemoved) {
-				map.remove(key);
 			}
 		}
 		return map;
