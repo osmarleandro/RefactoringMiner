@@ -245,7 +245,7 @@ public class ExtractOperationDetection {
 					exceptionHandlingExactMatch = true;
 				}
 			}
-			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
+			if(mapping.getFragment1().getString().startsWith("throw new ") && mapping.getFragment2().getString().startsWith("throw new ")) {
 				throwsNewExceptionExactMatch = true;
 			}
 		}
