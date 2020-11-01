@@ -46,18 +46,6 @@ public class AddMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(annotation.codeRange()
-				.setDescription("added annotation")
-				.setCodeElement(annotation.toString()));
-		ranges.add(operationAfter.codeRange()
-				.setDescription("method declaration with added annotation")
-				.setCodeElement(operationAfter.toString()));
-		return ranges;
-	}
-
-	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.ADD_METHOD_ANNOTATION;
 	}
