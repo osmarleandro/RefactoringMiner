@@ -3546,8 +3546,36 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private boolean commonConditional(String s1, String s2, ReplacementInfo info) {
 		if(!containsMethodSignatureOfAnonymousClass(s1) && !containsMethodSignatureOfAnonymousClass(s2)) {
 			if((s1.contains("||") || s1.contains("&&") || s2.contains("||") || s2.contains("&&"))) {
-				String conditional1 = prepareConditional(s1);
-				String conditional2 = prepareConditional(s2);
+				String conditional = s1;
+				if(s1.startsWith("if(") && s1.endsWith(")")) {
+					conditional = s1.substring(3, s1.length()-1);
+				}
+				if(s1.startsWith("while(") && s1.endsWith(")")) {
+					conditional = s1.substring(6, s1.length()-1);
+				}
+				if(s1.startsWith("return ") && s1.endsWith(";\n")) {
+					conditional = s1.substring(7, s1.length()-2);
+				}
+				int indexOfEquals = s1.indexOf("=");
+				if(indexOfEquals > -1 && s1.charAt(indexOfEquals+1) != '=' && s1.charAt(indexOfEquals-1) != '!' && s1.endsWith(";\n")) {
+					conditional = s1.substring(indexOfEquals+1, s1.length()-2);
+				}
+				String conditional1 = conditional;
+				String conditional = s2;
+				if(s2.startsWith("if(") && s2.endsWith(")")) {
+					conditional = s2.substring(3, s2.length()-1);
+				}
+				if(s2.startsWith("while(") && s2.endsWith(")")) {
+					conditional = s2.substring(6, s2.length()-1);
+				}
+				if(s2.startsWith("return ") && s2.endsWith(";\n")) {
+					conditional = s2.substring(7, s2.length()-2);
+				}
+				int indexOfEquals = s2.indexOf("=");
+				if(indexOfEquals > -1 && s2.charAt(indexOfEquals+1) != '=' && s2.charAt(indexOfEquals-1) != '!' && s2.endsWith(";\n")) {
+					conditional = s2.substring(indexOfEquals+1, s2.length()-2);
+				}
+				String conditional2 = conditional;
 				String[] subConditions1 = SPLIT_CONDITIONAL_PATTERN.split(conditional1);
 				String[] subConditions2 = SPLIT_CONDITIONAL_PATTERN.split(conditional2);
 				List<String> subConditionsAsList1 = new ArrayList<String>();
@@ -3677,24 +3705,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			j++;
 		}
 		return null;
-	}
-
-	private String prepareConditional(String s) {
-		String conditional = s;
-		if(s.startsWith("if(") && s.endsWith(")")) {
-			conditional = s.substring(3, s.length()-1);
-		}
-		if(s.startsWith("while(") && s.endsWith(")")) {
-			conditional = s.substring(6, s.length()-1);
-		}
-		if(s.startsWith("return ") && s.endsWith(";\n")) {
-			conditional = s.substring(7, s.length()-2);
-		}
-		int indexOfEquals = s.indexOf("=");
-		if(indexOfEquals > -1 && s.charAt(indexOfEquals+1) != '=' && s.charAt(indexOfEquals-1) != '!' && s.endsWith(";\n")) {
-			conditional = s.substring(indexOfEquals+1, s.length()-2);
-		}
-		return conditional;
 	}
 
 	private void replaceVariablesWithArguments(Set<String> variables, Map<String, String> parameterToArgumentMap) {
