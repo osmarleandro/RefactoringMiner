@@ -231,7 +231,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 					.setDescription("extracted method invocation")
 					.setCodeElement(invocation.actualString()));
 		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
+		for(StatementObject statement : bodyMapper.nonMappedLeavesT2) {
 			ranges.add(statement.codeRange().
 					setDescription("added statement in extracted method declaration"));
 		}
