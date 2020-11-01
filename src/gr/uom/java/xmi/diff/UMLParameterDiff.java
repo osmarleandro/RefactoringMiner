@@ -38,10 +38,6 @@ public class UMLParameterDiff {
 		return qualifiedTypeChanged;
 	}
 
-	public boolean isNameChanged() {
-		return nameChanged;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if(typeChanged || nameChanged || qualifiedTypeChanged)
