@@ -1770,7 +1770,27 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		Set<String> types1 = new LinkedHashSet<String>(statement1.getTypes());
 		Set<String> types2 = new LinkedHashSet<String>(statement2.getTypes());
-		removeCommonTypes(types1, types2, statement1.getTypes(), statement2.getTypes());
+		List<String> types11 = statement1.getTypes();
+		List<String> types21 = statement2.getTypes();
+		if(types11.size() == types21.size()) {
+			Set<String> removeFromIntersection = new LinkedHashSet<String>();
+			for(int i1=0; i1<types11.size(); i1++) {
+				String type1 = types11.get(i1);
+				String type2 = types21.get(i1);
+				if(!type1.equals(type2)) {
+					removeFromIntersection.add(type1);
+					removeFromIntersection.add(type2);
+				}
+			}
+			Set<String> intersection = new LinkedHashSet<String>(types1);
+			intersection.retainAll(types2);
+			intersection.removeAll(removeFromIntersection);
+			types1.removeAll(intersection);
+			types2.removeAll(intersection);
+		}
+		else {
+			removeCommonElements(types1, types2);
+		}
 		
 		// replace variables with the corresponding arguments in object creations
 		replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);
@@ -2677,28 +2697,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		intersection.retainAll(strings2);
 		strings1.removeAll(intersection);
 		strings2.removeAll(intersection);
-	}
-
-	private void removeCommonTypes(Set<String> strings1, Set<String> strings2, List<String> types1, List<String> types2) {
-		if(types1.size() == types2.size()) {
-			Set<String> removeFromIntersection = new LinkedHashSet<String>();
-			for(int i=0; i<types1.size(); i++) {
-				String type1 = types1.get(i);
-				String type2 = types2.get(i);
-				if(!type1.equals(type2)) {
-					removeFromIntersection.add(type1);
-					removeFromIntersection.add(type2);
-				}
-			}
-			Set<String> intersection = new LinkedHashSet<String>(strings1);
-			intersection.retainAll(strings2);
-			intersection.removeAll(removeFromIntersection);
-			strings1.removeAll(intersection);
-			strings2.removeAll(intersection);
-		}
-		else {
-			removeCommonElements(strings1, strings2);
-		}
 	}
 
 	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
