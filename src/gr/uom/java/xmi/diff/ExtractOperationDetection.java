@@ -36,34 +36,6 @@ public class ExtractOperationDetection {
 		this.operationInvocations = getInvocationsInSourceOperationAfterExtraction(mapper);
 	}
 
-	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
-		List<ExtractOperationRefactoring> refactorings = new ArrayList<ExtractOperationRefactoring>();
-		if(!mapper.getNonMappedLeavesT1().isEmpty() || !mapper.getNonMappedInnerNodesT1().isEmpty() ||
-			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-			List<OperationInvocation> addedOperationInvocations = matchingInvocations(addedOperation, operationInvocations, mapper.getOperation2().variableTypeMap());
-			if(addedOperationInvocations.size() > 0) {
-				int otherAddedMethodsCalled = 0;
-				for(UMLOperation addedOperation2 : this.addedOperations) {
-					if(!addedOperation.equals(addedOperation2)) {
-						List<OperationInvocation> addedOperationInvocations2 = matchingInvocations(addedOperation2, operationInvocations, mapper.getOperation2().variableTypeMap());
-						if(addedOperationInvocations2.size() > 0) {
-							otherAddedMethodsCalled++;
-						}
-					}
-				}
-				if(otherAddedMethodsCalled == 0) {
-					for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
-						processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocation);
-					}
-				}
-				else {
-					processAddedOperation(mapper, addedOperation, refactorings, addedOperationInvocations, addedOperationInvocations.get(0));
-				}
-			}
-		}
-		return refactorings;
-	}
-
 	private void processAddedOperation(UMLOperationBodyMapper mapper, UMLOperation addedOperation,
 			List<ExtractOperationRefactoring> refactorings,
 			List<OperationInvocation> addedOperationInvocations, OperationInvocation addedOperationInvocation)

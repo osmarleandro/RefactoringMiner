@@ -1137,7 +1137,31 @@ public class UMLModelDiff {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
 				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
-				   List<ExtractOperationRefactoring> refs = detection.check(operation);
+				List<ExtractOperationRefactoring> refactorings1 = new ArrayList<ExtractOperationRefactoring>();
+				if(!detection.mapper.getNonMappedLeavesT1().isEmpty() || !detection.mapper.getNonMappedInnerNodesT1().isEmpty() ||
+					!detection.mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+					List<OperationInvocation> addedOperationInvocations = detection.matchingInvocations(operation, detection.operationInvocations, detection.mapper.getOperation2().variableTypeMap());
+					if(addedOperationInvocations.size() > 0) {
+						int otherAddedMethodsCalled = 0;
+						for(UMLOperation addedOperation2 : detection.addedOperations) {
+							if(!operation.equals(addedOperation2)) {
+								List<OperationInvocation> addedOperationInvocations2 = detection.matchingInvocations(addedOperation2, detection.operationInvocations, detection.mapper.getOperation2().variableTypeMap());
+								if(addedOperationInvocations2.size() > 0) {
+									otherAddedMethodsCalled++;
+								}
+							}
+						}
+						if(otherAddedMethodsCalled == 0) {
+							for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
+								detection.processAddedOperation(detection.mapper, operation, refactorings1, addedOperationInvocations, addedOperationInvocation);
+							}
+						}
+						else {
+							detection.processAddedOperation(detection.mapper, operation, refactorings1, addedOperationInvocations, addedOperationInvocations.get(0));
+						}
+					}
+				}
+				   List<ExtractOperationRefactoring> refs = refactorings1;
 				   this.refactorings.addAll(refs);
 			   }
 		   }

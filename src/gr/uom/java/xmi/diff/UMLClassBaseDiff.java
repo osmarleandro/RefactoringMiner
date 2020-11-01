@@ -1555,7 +1555,31 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLOperation addedOperation = addedOperationIterator.next();
 			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
-				List<ExtractOperationRefactoring> refs = detection.check(addedOperation);
+				List<ExtractOperationRefactoring> refactorings1 = new ArrayList<ExtractOperationRefactoring>();
+				if(!detection.mapper.getNonMappedLeavesT1().isEmpty() || !detection.mapper.getNonMappedInnerNodesT1().isEmpty() ||
+					!detection.mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+					List<OperationInvocation> addedOperationInvocations = detection.matchingInvocations(addedOperation, detection.operationInvocations, detection.mapper.getOperation2().variableTypeMap());
+					if(addedOperationInvocations.size() > 0) {
+						int otherAddedMethodsCalled = 0;
+						for(UMLOperation addedOperation2 : detection.addedOperations) {
+							if(!addedOperation.equals(addedOperation2)) {
+								List<OperationInvocation> addedOperationInvocations2 = detection.matchingInvocations(addedOperation2, detection.operationInvocations, detection.mapper.getOperation2().variableTypeMap());
+								if(addedOperationInvocations2.size() > 0) {
+									otherAddedMethodsCalled++;
+								}
+							}
+						}
+						if(otherAddedMethodsCalled == 0) {
+							for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
+								detection.processAddedOperation(detection.mapper, addedOperation, refactorings1, addedOperationInvocations, addedOperationInvocation);
+							}
+						}
+						else {
+							detection.processAddedOperation(detection.mapper, addedOperation, refactorings1, addedOperationInvocations, addedOperationInvocations.get(0));
+						}
+					}
+				}
+				List<ExtractOperationRefactoring> refs = refactorings1;
 				for(ExtractOperationRefactoring refactoring : refs) {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
