@@ -52,10 +52,6 @@ public class CompositeStatementObject extends AbstractStatement {
 		return expressionList;
 	}
 
-	public void addVariableDeclaration(VariableDeclaration declaration) {
-		this.variableDeclarations.add(declaration);
-	}
-
 	@Override
 	public List<StatementObject> getLeaves() {
 		List<StatementObject> leaves = new ArrayList<StatementObject>();
