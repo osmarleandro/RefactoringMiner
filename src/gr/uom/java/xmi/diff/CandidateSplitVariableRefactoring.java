@@ -40,10 +40,6 @@ public class CandidateSplitVariableRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	public Set<UMLAttribute> getSplitAttributes() {
 		return splitAttributes;
 	}
