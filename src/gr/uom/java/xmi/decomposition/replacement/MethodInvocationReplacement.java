@@ -18,10 +18,6 @@ public class MethodInvocationReplacement extends Replacement {
 		return invokedOperationBefore;
 	}
 
-	public OperationInvocation getInvokedOperationAfter() {
-		return invokedOperationAfter;
-	}
-
 	public boolean differentExpressionNameAndArguments() {
 		return invokedOperationBefore.differentExpressionNameAndArguments(invokedOperationAfter);
 	}
