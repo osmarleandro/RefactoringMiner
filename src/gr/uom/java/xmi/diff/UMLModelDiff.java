@@ -450,7 +450,15 @@ public class UMLModelDiff {
 		   }
 		   if(!diffSet.isEmpty()) {
 			   UMLClassMoveDiff minClassMoveDiff = diffSet.first();
-			   minClassMoveDiff.process();
+			   minClassMoveDiff.processInheritance();
+			minClassMoveDiff.processOperations();
+			minClassMoveDiff.createBodyMappers();
+			minClassMoveDiff.processAttributes();
+			minClassMoveDiff.checkForAttributeChanges();
+			minClassMoveDiff.processAnonymousClasses();
+			minClassMoveDiff.checkForOperationSignatureChanges();
+			minClassMoveDiff.checkForInlinedOperations();
+			minClassMoveDiff.checkForExtractedOperations();
 			   classMoveDiffList.add(minClassMoveDiff);
 			   addedClasses.remove(minClassMoveDiff.getMovedClass());
 			   removedClassIterator.remove();
@@ -503,7 +511,15 @@ public class UMLModelDiff {
          }
          if(!diffSet.isEmpty()) {
             UMLClassRenameDiff minClassRenameDiff = diffSet.first();
-            minClassRenameDiff.process();
+            minClassRenameDiff.processInheritance();
+			minClassRenameDiff.processOperations();
+			minClassRenameDiff.createBodyMappers();
+			minClassRenameDiff.processAttributes();
+			minClassRenameDiff.checkForAttributeChanges();
+			minClassRenameDiff.processAnonymousClasses();
+			minClassRenameDiff.checkForOperationSignatureChanges();
+			minClassRenameDiff.checkForInlinedOperations();
+			minClassRenameDiff.checkForExtractedOperations();
             classRenameDiffList.add(minClassRenameDiff);
             addedClasses.remove(minClassRenameDiff.getRenamedClass());
             removedClassIterator.remove();
@@ -1312,7 +1328,15 @@ public class UMLModelDiff {
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
     		  if(removedClass != null && addedClass != null) {
     			  UMLClassRenameDiff renameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
-    			  renameDiff.process();
+    			  renameDiff.processInheritance();
+				renameDiff.processOperations();
+				renameDiff.createBodyMappers();
+				renameDiff.processAttributes();
+				renameDiff.checkForAttributeChanges();
+				renameDiff.processAnonymousClasses();
+				renameDiff.checkForOperationSignatureChanges();
+				renameDiff.checkForInlinedOperations();
+				renameDiff.checkForExtractedOperations();
     			  refactorings.addAll(renameDiff.getRefactorings());
     			  extractMergePatterns(renameDiff, mergeMap);
     			  extractRenamePatterns(renameDiff, renameMap);

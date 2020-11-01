@@ -144,7 +144,15 @@ public class UMLModel {
     	for(UMLClass umlClass : classList) {
     		if(umlModel.classList.contains(umlClass)) {
     			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
-    			classDiff.process();
+    			classDiff.processInheritance();
+				classDiff.processOperations();
+				classDiff.createBodyMappers();
+				classDiff.processAttributes();
+				classDiff.checkForAttributeChanges();
+				classDiff.processAnonymousClasses();
+				classDiff.checkForOperationSignatureChanges();
+				classDiff.checkForInlinedOperations();
+				classDiff.checkForExtractedOperations();
     			if(!classDiff.isEmpty())
     				modelDiff.addUMLClassDiff(classDiff);
     		}

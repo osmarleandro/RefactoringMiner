@@ -89,18 +89,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.modelDiff = modelDiff;
 	}
 
-	public void process() throws RefactoringMinerTimedOutException {
-		processInheritance();
-		processOperations();
-		createBodyMappers();
-		processAttributes();
-		checkForAttributeChanges();
-		processAnonymousClasses();
-		checkForOperationSignatureChanges();
-		checkForInlinedOperations();
-		checkForExtractedOperations();
-	}
-
 	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
 		for(UMLOperationDiff diff : operationDiffList) {
 			if(diff.getRemovedOperation().equals(operation1) && diff.getAddedOperation().equals(operation2)) {
