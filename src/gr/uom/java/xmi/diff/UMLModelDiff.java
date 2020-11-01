@@ -2381,7 +2381,20 @@ public class UMLModelDiff {
 			   exactLeafMappings++;
 		   }
 	   }
-	   double normalizedEditDistance = mapper.normalizedEditDistance();
+	double editDistance = 0;
+	double maxLength = 0;
+	for(AbstractCodeMapping mapping1 : mapper.getMappings()) {
+		if(mapping1.isIdenticalWithExtractedVariable() || mapping1.isIdenticalWithInlinedVariable()) {
+			continue;
+		}
+		String s1 = mapper.preprocessInput1(mapping1.getFragment1(), mapping1.getFragment2());
+		String s2 = mapper.preprocessInput2(mapping1.getFragment1(), mapping1.getFragment2());
+		if(!s1.equals(s2)) {
+			editDistance += StringDistance.editDistance(s1, s2);
+			maxLength += Math.max(s1.length(), s2.length());
+		}
+	}
+	   double normalizedEditDistance = editDistance/maxLength;
 	   if(exactLeafMappings == 0 && normalizedEditDistance > 0.24) {
 		   return false;
 	   }
