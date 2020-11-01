@@ -18,8 +18,4 @@ public class CompositeReplacement extends Replacement {
 	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements1() {
 		return additionallyMatchedStatements1;
 	}
-
-	public Set<AbstractCodeFragment> getAdditionallyMatchedStatements2() {
-		return additionallyMatchedStatements2;
-	}
 }
