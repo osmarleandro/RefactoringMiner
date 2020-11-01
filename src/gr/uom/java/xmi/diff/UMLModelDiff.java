@@ -834,7 +834,7 @@ public class UMLModelDiff {
    private List<UMLAttribute> getRemovedAttributesInCommonClasses() {
       List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         removedAttributes.addAll(classDiff.getRemovedAttributes());
+         removedAttributes.addAll(classDiff.removedAttributes);
       }
       return removedAttributes;
    }
@@ -1015,7 +1015,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
-	   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
+	   for(UMLAttribute attribute : classDiff.removedAttributes) {
 		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
 			   commonAttributes.add(attribute);
 		   }
@@ -1107,7 +1107,7 @@ public class UMLModelDiff {
 	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
 		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
 		   if(removedAttribute != null) {
-			   classDiff.getRemovedAttributes().remove(removedAttribute);
+			   classDiff.removedAttributes.remove(removedAttribute);
 			   Refactoring ref = null;
 			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
 				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
