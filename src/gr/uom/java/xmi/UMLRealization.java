@@ -13,11 +13,7 @@ public class UMLRealization implements Comparable<UMLRealization> {
         return supplier;
     }
 
-	public UMLClass getClient() {
-        return client;
-    }
-
-    public boolean equals(Object o) {
+	public boolean equals(Object o) {
     	if(this == o) {
     		return true;
     	}
