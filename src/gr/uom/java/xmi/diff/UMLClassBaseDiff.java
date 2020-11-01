@@ -98,7 +98,23 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		processAnonymousClasses();
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
-		checkForExtractedOperations();
+		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
+		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
+			UMLOperation addedOperation = addedOperationIterator.next();
+			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
+				List<ExtractOperationRefactoring> refs = detection.check(addedOperation);
+				for(ExtractOperationRefactoring refactoring : refs) {
+					refactorings.add(refactoring);
+					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
+					processMapperRefactorings(operationBodyMapper, refactorings);
+					mapper.addChildMapper(operationBodyMapper);
+					operationsToBeRemoved.add(addedOperation);
+				}
+				checkForInconsistentVariableRenames(mapper);
+			}
+		}
+		addedOperations.removeAll(operationsToBeRemoved);
 	}
 
 	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
@@ -1547,26 +1563,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		removedOperations.removeAll(operationsToBeRemoved);
-	}
-
-	private void checkForExtractedOperations() throws RefactoringMinerTimedOutException {
-		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
-		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
-			UMLOperation addedOperation = addedOperationIterator.next();
-			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
-				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
-				List<ExtractOperationRefactoring> refs = detection.check(addedOperation);
-				for(ExtractOperationRefactoring refactoring : refs) {
-					refactorings.add(refactoring);
-					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
-					processMapperRefactorings(operationBodyMapper, refactorings);
-					mapper.addChildMapper(operationBodyMapper);
-					operationsToBeRemoved.add(addedOperation);
-				}
-				checkForInconsistentVariableRenames(mapper);
-			}
-		}
-		addedOperations.removeAll(operationsToBeRemoved);
 	}
 
 	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
