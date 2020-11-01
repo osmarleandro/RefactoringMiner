@@ -146,10 +146,6 @@ public class VariableReplacementAnalysis {
 		return variableSplits;
 	}
 
-	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
-		return candidateAttributeRenames;
-	}
-
 	public Set<CandidateMergeVariableRefactoring> getCandidateAttributeMerges() {
 		return candidateAttributeMerges;
 	}
