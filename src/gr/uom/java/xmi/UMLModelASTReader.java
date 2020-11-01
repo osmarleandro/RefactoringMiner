@@ -343,7 +343,28 @@ public class UMLModelASTReader {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
     			String anonymousBinaryName = getAnonymousBinaryName(node);
     			String anonymousCodePath = getAnonymousCodePath(node);
-    			UMLAnonymousClass anonymousClass = processAnonymousClassDeclaration(cu, anonymous, packageName + "." + className, anonymousBinaryName, anonymousCodePath, sourceFile);
+				String packageName1 = packageName + "." + className;
+				List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
+				LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
+				UMLAnonymousClass anonymousClass1 = new UMLAnonymousClass(packageName1, anonymousBinaryName, anonymousCodePath, locationInfo);
+				
+				for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
+					if(bodyDeclaration instanceof FieldDeclaration) {
+						FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
+						List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
+						for(UMLAttribute attribute : attributes) {
+							attribute.setClassName(anonymousClass1.getCodePath());
+							anonymousClass1.addAttribute(attribute);
+						}
+					}
+					else if(bodyDeclaration instanceof MethodDeclaration) {
+						MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
+						UMLOperation operation1 = processMethodDeclaration(cu, methodDeclaration, packageName1, false, sourceFile);
+						operation1.setClassName(anonymousClass1.getCodePath());
+						anonymousClass1.addOperation(operation1);
+					}
+				}
+    			UMLAnonymousClass anonymousClass = anonymousClass1;
     			umlClass.addAnonymousClass(anonymousClass);
     			for(UMLOperation operation : umlClass.getOperations()) {
     				if(operation.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
@@ -510,31 +531,6 @@ public class UMLModelASTReader {
 			attributes.add(umlAttribute);
 		}
 		return attributes;
-	}
-	
-	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
-		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
-		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
-		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
-		
-		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
-			if(bodyDeclaration instanceof FieldDeclaration) {
-				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
-	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(anonymousClass.getCodePath());
-	    			anonymousClass.addAttribute(attribute);
-	    		}
-			}
-			else if(bodyDeclaration instanceof MethodDeclaration) {
-				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
-				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, false, sourceFile);
-				operation.setClassName(anonymousClass.getCodePath());
-				anonymousClass.addOperation(operation);
-			}
-		}
-		
-		return anonymousClass;
 	}
 	
 	private void insertNode(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
