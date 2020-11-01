@@ -2078,7 +2078,13 @@ public class UMLModelDiff {
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
 	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
 	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
-	               int exactMatches = operationBodyMapper.exactMatches();
+	               int count = 0;
+					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+						if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+								!mapping.getFragment1().getString().equals("try"))
+							count++;
+					}
+				int exactMatches = count;
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
 	                  List<UMLOperationBodyMapper> mapperList = operationBodyMapperMap.get(exactMatches);
 	                  mapperList.add(operationBodyMapper);
@@ -2163,7 +2169,13 @@ public class UMLModelDiff {
 	            UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, null);
 	            int mappings = operationBodyMapper.mappingsWithoutBlocks();
 	            if(mappings > 0 && mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper)) {
-	               int exactMatches = operationBodyMapper.exactMatches();
+	               int count = 0;
+					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+						if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+								!mapping.getFragment1().getString().equals("try"))
+							count++;
+					}
+				int exactMatches = count;
 	               if(operationBodyMapperMap.containsKey(exactMatches)) {
 	                  List<UMLOperationBodyMapper> mapperList = operationBodyMapperMap.get(exactMatches);
 	                  mapperList.add(operationBodyMapper);
