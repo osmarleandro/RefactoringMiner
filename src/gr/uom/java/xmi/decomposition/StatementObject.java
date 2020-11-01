@@ -189,11 +189,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getBooleanLiterals() {
-		return booleanLiterals;
-	}
-
-	@Override
 	public List<String> getTypeLiterals() {
 		return typeLiterals;
 	}
