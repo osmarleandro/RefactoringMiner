@@ -99,14 +99,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(UMLModelDiff.looksLikeSameType(addedParameter.getType().getClassType(), operation1.getClassName())) {
 					parameterToArgumentMap1.put("this.", "");
 					//replace "parameterName." with ""
-					parameterToArgumentMap2.put(addedParameter.getName() + ".", "");
+					parameterToArgumentMap2.put(addedParameter.name + ".", "");
 				}
 			}
 			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters();
 			if(removedParameters.size() == 1) {
 				UMLParameter removedParameter = removedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(removedParameter.getType().getClassType(), operation2.getClassName())) {
-					parameterToArgumentMap1.put(removedParameter.getName() + ".", "");
+					parameterToArgumentMap1.put(removedParameter.name + ".", "");
 					parameterToArgumentMap2.put("this.", "");
 				}
 			}
@@ -3140,7 +3140,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					(classDiff != null && classDiff.getOriginalClass().containsAttributeWithName(diff1) && !classDiff.getNextClass().containsAttributeWithName(diff1) && !containsMethodSignatureOfAnonymousClass(diff2))) {
 				List<UMLParameter> matchingAddedParameters = new ArrayList<UMLParameter>();
 				for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
-					if(diff2.contains(addedParameter.getName())) {
+					if(diff2.contains(addedParameter.name)) {
 						matchingAddedParameters.add(addedParameter);
 					}
 				}
@@ -3150,8 +3150,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 								if(parameterDiff.isNameChanged() &&
-										replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
-										replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {
+										replacement.getBefore().equals(parameterDiff.getRemovedParameter().name) &&
+										replacement.getAfter().equals(parameterDiff.getAddedParameter().name)) {
 									matchingReplacement = replacement;
 									break;
 								}
@@ -3167,8 +3167,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(UMLParameter addedParameter : matchingAddedParameters) {
-							splitVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
+							splitVariables.add(addedParameter.name);
+							concat.append(addedParameter.name);
 							if(counter < matchingAddedParameters.size()-1) {
 								concat.append(",");
 							}
@@ -3186,8 +3186,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(UMLParameter addedParameter : matchingAddedParameters) {
-							addedVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
+							addedVariables.add(addedParameter.name);
+							concat.append(addedParameter.name);
 							if(counter < matchingAddedParameters.size()-1) {
 								concat.append(",");
 							}
@@ -3204,8 +3204,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
 						for(UMLParameter addedParameter : matchingAddedParameters) {
-							splitVariables.add(addedParameter.getName());
-							concat.append(addedParameter.getName());
+							splitVariables.add(addedParameter.name);
+							concat.append(addedParameter.name);
 							if(counter < matchingAddedParameters.size()-1) {
 								concat.append(",");
 							}
