@@ -1005,7 +1005,29 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
-						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
+						int mappings = operationBodyMapper.mappingsWithoutBlocks();
+						if(mappings > 0) {
+							int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+							if(exactMappings(operationBodyMapper)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									isPartOfMethodExtracted(removedOperation, addedOperation)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									isPartOfMethodInlined(removedOperation, addedOperation)) {
+								mapperSet.add(operationBodyMapper);
+							}
+						}
 					}
 				}
 				if(!mapperSet.isEmpty()) {
@@ -1045,7 +1067,29 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
 					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
-						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
+						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
+						int mappings = operationBodyMapper.mappingsWithoutBlocks();
+						if(mappings > 0) {
+							int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
+							if(exactMappings(operationBodyMapper)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									isPartOfMethodExtracted(removedOperation, addedOperation)) {
+								mapperSet.add(operationBodyMapper);
+							}
+							else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
+									absoluteDifferenceInPosition <= maxDifferenceInPosition &&
+									isPartOfMethodInlined(removedOperation, addedOperation)) {
+								mapperSet.add(operationBodyMapper);
+							}
+						}
 					}
 				}
 				if(!mapperSet.isEmpty()) {
@@ -1122,32 +1166,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			if(singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
 					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
-				mapperSet.add(operationBodyMapper);
-			}
-		}
-	}
-
-	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation operationInsideAnonymousClass, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
-		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
-			if(exactMappings(operationBodyMapper)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodExtracted(removedOperation, addedOperation)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodInlined(removedOperation, addedOperation)) {
 				mapperSet.add(operationBodyMapper);
 			}
 		}
