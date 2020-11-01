@@ -54,17 +54,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return references;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(variableDeclaration);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" from class ");
-		sb.append(operationAfter.getClassName());
-		return sb.toString();
-	}
-
 	/**
 	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
 	 */
