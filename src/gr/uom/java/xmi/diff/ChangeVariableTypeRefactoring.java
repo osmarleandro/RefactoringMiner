@@ -65,10 +65,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalVariable.getType().equals(changedTypeVariable.getType()) && !originalVariable.getType().equalsQualified(changedTypeVariable.getType());
