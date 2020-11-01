@@ -105,17 +105,6 @@ public class ObjectCreation extends AbstractCall {
         return sb.toString();
     }
 
-    public int hashCode() {
-    	if(hashCode == 0) {
-    		int result = 17;
-    		result = 37*result + type.hashCode();
-    		result = 37*result + (isArray ? 1 : 0);
-    		result = 37*result + typeArguments;
-    		hashCode = result;
-    	}
-    	return hashCode;
-    }
-
     public boolean identicalArrayInitializer(ObjectCreation other) {
     	if(this.isArray && other.isArray) {
     		if(this.anonymousClassDeclaration != null && other.anonymousClassDeclaration != null) {
