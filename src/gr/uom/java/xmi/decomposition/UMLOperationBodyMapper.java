@@ -152,7 +152,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping : getMappings()) {
+					UMLClassBaseDiff classDiff1 = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
+					mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff1);
+				}
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -196,7 +199,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping : getMappings()) {
+					UMLClassBaseDiff classDiff1 = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
+					mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff1);
+				}
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -532,7 +538,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping1 : getMappings()) {
+					UMLClassBaseDiff classDiff1 = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
+					mapping1.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff1);
+				}
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -640,7 +649,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			nonMappedInnerNodesT2.addAll(innerNodes2);
 			
 			for(StatementObject statement : getNonMappedLeavesT2()) {
-				temporaryVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping1 : getMappings()) {
+					UMLClassBaseDiff classDiff1 = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
+					mapping1.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff1);
+				}
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
@@ -775,13 +787,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
-		}
-	}
-
-	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
-		for(AbstractCodeMapping mapping : getMappings()) {
-			UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-			mapping.temporaryVariableAssignment(statement, nonMappedLeavesT2, refactorings, classDiff);
 		}
 	}
 
