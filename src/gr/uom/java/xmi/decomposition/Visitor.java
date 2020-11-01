@@ -113,16 +113,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ConditionalExpression node) {
-		TernaryOperatorExpression ternary = new TernaryOperatorExpression(cu, filePath, node);
-		ternaryOperatorExpressions.add(ternary);
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getTernaryOperatorExpressions().add(ternary);
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(InfixExpression node) {
 		infixOperators.add(node.getOperator().toString());
 		if(current.getUserObject() != null) {
