@@ -27,10 +27,6 @@ public class CallTreeNode {
 		return invokedOperation;
 	}
 
-	public OperationInvocation getInvocation() {
-		return invocation;
-	}
-
 	public void addChild(CallTreeNode node) {
 		children.add(node);
 	}
