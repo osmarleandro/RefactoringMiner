@@ -1807,7 +1807,11 @@ public class UMLModelDiff {
     	  UMLOperation addedOperation = addedOperationIterator.next();
     	  for(UMLOperationBodyMapper mapper : mappers) {
     		  if((mapper.nonMappedElementsT1() > 0 || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) && !mapper.containsExtractOperationRefactoring(addedOperation)) {
-               List<OperationInvocation> operationInvocations = ExtractOperationDetection.getInvocationsInSourceOperationAfterExtraction(mapper);
+               List<OperationInvocation> operationInvocations1 = mapper.getOperation2().getAllOperationInvocations();
+				for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
+					ExtractOperationDetection.addStatementInvocations(operationInvocations1, statement);
+				}
+			List<OperationInvocation> operationInvocations = operationInvocations1;
                List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
                for(OperationInvocation invocation : operationInvocations) {
                   if(invocation.matchesOperation(addedOperation, mapper.getOperation2().variableTypeMap(), this)) {

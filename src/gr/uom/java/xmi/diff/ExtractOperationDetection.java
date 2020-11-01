@@ -33,7 +33,11 @@ public class ExtractOperationDetection {
 		this.addedOperations = addedOperations;
 		this.classDiff = classDiff;
 		this.modelDiff = modelDiff;
-		this.operationInvocations = getInvocationsInSourceOperationAfterExtraction(mapper);
+		List<OperationInvocation> operationInvocations1 = mapper.getOperation2().getAllOperationInvocations();
+		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
+			addStatementInvocations(operationInvocations1, statement);
+		}
+		this.operationInvocations = operationInvocations1;
 	}
 
 	public List<ExtractOperationRefactoring> check(UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
@@ -124,14 +128,6 @@ public class ExtractOperationDetection {
 				}
 			}
 		}
-	}
-
-	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
-		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
-			addStatementInvocations(operationInvocations, statement);
-		}
-		return operationInvocations;
 	}
 
 	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject statement) {
