@@ -56,10 +56,6 @@ public class ExtractClassRefactoring implements Refactoring {
 		return classDiff.getOriginalClass();
 	}
 
-	public Set<UMLOperation> getExtractedOperations() {
-		return extractedOperations;
-	}
-
 	public Set<UMLAttribute> getExtractedAttributes() {
 		return extractedAttributes;
 	}
