@@ -17,32 +17,36 @@ public class InheritanceDetection {
 		generateNewInheritanceHierarchies(modelDiff);
 	}
 
-	private void addSubclassToSuperclass(String superclass, String subclass) {
-		if(subclassMap.containsKey(superclass)) {
-			LinkedHashSet<String> subclasses = subclassMap.get(superclass);
-			subclasses.add(subclass);
-		}
-		else {
-			LinkedHashSet<String> subclasses = new LinkedHashSet<String>();
-			subclasses.add(subclass);
-			subclassMap.put(superclass, subclasses);
-		}
-	}
-
 	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
 		for(UMLGeneralization generalization : addedGeneralizations) {
 			String superclass = generalization.getParent();
 			String subclass = generalization.getChild().getName();
 			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
-				addSubclassToSuperclass(superclass, subclass);
+				if(subclassMap.containsKey(superclass)) {
+					LinkedHashSet<String> subclasses = subclassMap.get(superclass);
+					subclasses.add(subclass);
+				}
+				else {
+					LinkedHashSet<String> subclasses = new LinkedHashSet<String>();
+					subclasses.add(subclass);
+					subclassMap.put(superclass, subclasses);
+				}
 		}
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
 		for(UMLRealization realization : addedRealizations) {
 			String supplier = realization.getSupplier();
 			String client = realization.getClient().getName();
 			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
-				addSubclassToSuperclass(supplier, client);
+				if(subclassMap.containsKey(supplier)) {
+					LinkedHashSet<String> subclasses = subclassMap.get(supplier);
+					subclasses.add(client);
+				}
+				else {
+					LinkedHashSet<String> subclasses = new LinkedHashSet<String>();
+					subclasses.add(client);
+					subclassMap.put(supplier, subclasses);
+				}
 		}
 	}
 
