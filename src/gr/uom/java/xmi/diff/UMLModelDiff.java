@@ -1045,7 +1045,7 @@ public class UMLModelDiff {
         	 }
          }
          for(UMLRealization addedRealization : addedRealizations) {
-            String supplier = addedRealization.getSupplier();
+            String supplier = addedRealization.supplier;
 			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());
                int implementedInterfaceOperations = 0;

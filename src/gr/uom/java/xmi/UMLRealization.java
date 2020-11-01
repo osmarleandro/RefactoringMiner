@@ -9,11 +9,7 @@ public class UMLRealization implements Comparable<UMLRealization> {
         this.client = client;
     }
 
-    public String getSupplier() {
-        return supplier;
-    }
-
-	public UMLClass getClient() {
+    public UMLClass getClient() {
         return client;
     }
 
