@@ -238,11 +238,6 @@ public class StatementObject extends AbstractStatement {
 		return lambdas;
 	}
 
-	@Override
-	public int statementCount() {
-		return 1;
-	}
-
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
 	}
