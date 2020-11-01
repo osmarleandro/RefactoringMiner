@@ -1134,7 +1134,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private double computeScore(CompositeStatementObject statement1, CompositeStatementObject statement2,
 			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		if(statement1 instanceof TryStatementObject && statement2 instanceof TryStatementObject) {
-			return compositeChildMatchingScore((TryStatementObject)statement1, (TryStatementObject)statement2, mappings, removedOperations, addedOperations);
+			TryStatementObject try1 = (TryStatementObject)statement1;
+			TryStatementObject try2 = (TryStatementObject)statement2;
+			double score = compositeChildMatchingScore((CompositeStatementObject)try1, (CompositeStatementObject)try2, mappings, removedOperations, addedOperations);
+			List<CompositeStatementObject> catchClauses1 = try1.getCatchClauses();
+			List<CompositeStatementObject> catchClauses2 = try2.getCatchClauses();
+			if(catchClauses1.size() == catchClauses2.size()) {
+				for(int i=0; i<catchClauses1.size(); i++) {
+					double tmpScore = compositeChildMatchingScore(catchClauses1.get(i), catchClauses2.get(i), mappings, removedOperations, addedOperations);
+					if(tmpScore == 1) {
+						score += tmpScore;
+					}
+				}
+			}
+			if(try1.getFinallyClause() != null && try2.getFinallyClause() != null) {
+				double tmpScore = compositeChildMatchingScore(try1.getFinallyClause(), try2.getFinallyClause(), mappings, removedOperations, addedOperations);
+				if(tmpScore == 1) {
+					score += tmpScore;
+				}
+			}
+			return score;
 		}
 		return compositeChildMatchingScore(statement1, statement2, mappings, removedOperations, addedOperations);
 	}
@@ -4179,28 +4198,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return (double)mappedChildrenSize/(double)max;
 	}
 	
-	private double compositeChildMatchingScore(TryStatementObject try1, TryStatementObject try2, Set<AbstractCodeMapping> mappings,
-			List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
-		double score = compositeChildMatchingScore((CompositeStatementObject)try1, (CompositeStatementObject)try2, mappings, removedOperations, addedOperations);
-		List<CompositeStatementObject> catchClauses1 = try1.getCatchClauses();
-		List<CompositeStatementObject> catchClauses2 = try2.getCatchClauses();
-		if(catchClauses1.size() == catchClauses2.size()) {
-			for(int i=0; i<catchClauses1.size(); i++) {
-				double tmpScore = compositeChildMatchingScore(catchClauses1.get(i), catchClauses2.get(i), mappings, removedOperations, addedOperations);
-				if(tmpScore == 1) {
-					score += tmpScore;
-				}
-			}
-		}
-		if(try1.getFinallyClause() != null && try2.getFinallyClause() != null) {
-			double tmpScore = compositeChildMatchingScore(try1.getFinallyClause(), try2.getFinallyClause(), mappings, removedOperations, addedOperations);
-			if(tmpScore == 1) {
-				score += tmpScore;
-			}
-		}
-		return score;
-	}
-
 	private boolean matchesOperation(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
 		for(UMLOperation operation : operations) {
 			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff))
