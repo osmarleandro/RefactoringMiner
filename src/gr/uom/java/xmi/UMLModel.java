@@ -51,10 +51,6 @@ public class UMLModel {
         return this.classList;
     }
 
-    public List<UMLGeneralization> getGeneralizationList() {
-        return this.generalizationList;
-    }
-
     public List<UMLRealization> getRealizationList() {
 		return realizationList;
 	}
