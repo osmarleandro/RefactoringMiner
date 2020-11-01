@@ -31,10 +31,6 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		return index;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
-	}
-	
 	public abstract CompositeStatementObject getParent();
 	public abstract String getString();
 	public abstract List<String> getVariables();
