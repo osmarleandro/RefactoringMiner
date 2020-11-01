@@ -836,10 +836,6 @@ public class Visitor extends ASTVisitor {
 		return arrayAccesses;
 	}
 
-	public List<String> getPrefixExpressions() {
-		return prefixExpressions;
-	}
-
 	public List<String> getPostfixExpressions() {
 		return postfixExpressions;
 	}
