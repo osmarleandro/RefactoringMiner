@@ -174,10 +174,6 @@ public class UMLOperationDiff {
 		return removedOperation;
 	}
 
-	public UMLOperation getAddedOperation() {
-		return addedOperation;
-	}
-
 	public List<UMLParameter> getAddedParameters() {
 		return addedParameters;
 	}
