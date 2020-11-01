@@ -67,17 +67,6 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     	}
 	}
 
-	protected void processOperations() {
-		for(UMLOperation operation : originalClass.getOperations()) {
-    		if(!nextClass.getOperations().contains(operation))
-    			this.reportRemovedOperation(operation);
-    	}
-    	for(UMLOperation operation : nextClass.getOperations()) {
-    		if(!originalClass.getOperations().contains(operation))
-    			this.reportAddedOperation(operation);
-    	}
-	}
-
 	protected void processAnonymousClasses() {
 		for(UMLAnonymousClass umlAnonymousClass : originalClass.getAnonymousClassList()) {
     		if(!nextClass.getAnonymousClassList().contains(umlAnonymousClass))
