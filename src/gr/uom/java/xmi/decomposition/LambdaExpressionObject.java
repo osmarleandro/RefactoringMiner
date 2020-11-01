@@ -29,10 +29,6 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 		return body;
 	}
 
-	public AbstractExpression getExpression() {
-		return expression;
-	}
-
 	@Override
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
