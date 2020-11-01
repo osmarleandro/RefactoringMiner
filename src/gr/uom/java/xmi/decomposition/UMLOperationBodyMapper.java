@@ -155,7 +155,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping : getMappings()) {
+					mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+				}
 			}
 		}
 	}
@@ -199,7 +201,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping : getMappings()) {
+					mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+				}
 			}
 		}
 	}
@@ -535,7 +539,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping1 : getMappings()) {
+					mapping1.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+				}
 			}
 		}
 	}
@@ -643,7 +649,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				temporaryVariableAssignment(statement, nonMappedLeavesT2);
 			}
 			for(StatementObject statement : getNonMappedLeavesT1()) {
-				inlinedVariableAssignment(statement, nonMappedLeavesT2);
+				for(AbstractCodeMapping mapping1 : getMappings()) {
+					mapping1.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+				}
 			}
 		}
 	}
@@ -770,12 +778,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
-		for(AbstractCodeMapping mapping : getMappings()) {
-			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
-		}
 	}
 
 	private void temporaryVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
