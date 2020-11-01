@@ -99,10 +99,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean equalArguments(AbstractCall call) {
-		return getArguments().equals(call.getArguments());
-	}
-
 	public boolean identicalOrReplacedArguments(AbstractCall call, Set<Replacement> replacements) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
@@ -214,12 +210,12 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
 				!identicalName(call) &&
-				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
+				(getArguments().equals(call.getArguments()) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
 	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
-				equalArguments(call) && this.arguments.size() > 0 &&
+				getArguments().equals(call.getArguments()) && this.arguments.size() > 0 &&
 				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
 	}
 
@@ -234,7 +230,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return getExpression() == null && call.getExpression() == null &&
 				!identicalName(call) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
-				equalArguments(call);
+				getArguments().equals(call.getArguments());
 	}
 
 	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
@@ -248,14 +244,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
-				!equalArguments(call) &&
+				!getArguments().equals(call.getArguments()) &&
 				getArguments().size() != call.getArguments().size();
 	}
 
 	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
-				!equalArguments(call) &&
+				!getArguments().equals(call.getArguments()) &&
 				getArguments().size() != call.getArguments().size();
 	}
 
@@ -317,7 +313,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
-				equalArguments(call);
+				getArguments().equals(call.getArguments());
 	}
 
 	public Set<String> argumentIntersection(AbstractCall call) {
