@@ -60,10 +60,6 @@ public class AbstractExpression extends AbstractCodeFragment {
     	this.owner = null;
     }
 
-    public void setOwner(CompositeStatementObject owner) {
-    	this.owner = owner;
-    }
-
     public CompositeStatementObject getOwner() {
     	return this.owner;
     }
