@@ -39,10 +39,6 @@ public abstract class UMLAbstractClass {
 		return operations;
 	}
 
-	public List<UMLAttribute> getAttributes() {
-		return attributes;
-	}
-
 	public UMLOperation operationWithTheSameSignature(UMLOperation operation) {
 		for(UMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
