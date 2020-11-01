@@ -247,10 +247,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return nextClass;
 	}
 
-	public List<UMLOperationBodyMapper> getOperationBodyMapperList() {
-		return operationBodyMapperList;
-	}
-
 	public List<UMLOperation> getAddedOperations() {
 		return addedOperations;
 	}
@@ -1534,7 +1530,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
 		for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
 			UMLOperation removedOperation = removedOperationIterator.next();
-			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+			for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 				InlineOperationDetection detection = new InlineOperationDetection(mapper, removedOperations, this, modelDiff);
 				List<InlineOperationRefactoring> refs = detection.check(removedOperation);
 				for(InlineOperationRefactoring refactoring : refs) {
@@ -1553,7 +1549,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
 		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
 			UMLOperation addedOperation = addedOperationIterator.next();
-			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+			for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
 				List<ExtractOperationRefactoring> refs = detection.check(addedOperation);
 				for(ExtractOperationRefactoring refactoring : refs) {
