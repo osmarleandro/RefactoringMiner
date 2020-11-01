@@ -204,40 +204,35 @@ public class UMLModelASTReader {
 		umlClass.setEnum(true);
 		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
 		
-		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
-		
-		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
-		
-		this.getUmlModel().addClass(umlClass);
-	}
-
-	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
-			String sourceFile, List<String> importedTypes, UMLClass umlClass) {
-		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
+		List<BodyDeclaration> bodyDeclarations = enumDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
-	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(umlClass.getName());
-	    			umlClass.addAttribute(attribute);
-	    		}
+				for(UMLAttribute attribute : attributes) {
+					attribute.setClassName(umlClass.getName());
+					umlClass.addAttribute(attribute);
+				}
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
-	    		operation.setClassName(umlClass.getName());
-	    		umlClass.addOperation(operation);
+				operation.setClassName(umlClass.getName());
+				umlClass.addOperation(operation);
 			}
 			else if(bodyDeclaration instanceof TypeDeclaration) {
 				TypeDeclaration typeDeclaration = (TypeDeclaration)bodyDeclaration;
 				processTypeDeclaration(cu, typeDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 			else if(bodyDeclaration instanceof EnumDeclaration) {
-				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				EnumDeclaration enumDeclaration1 = (EnumDeclaration)bodyDeclaration;
+				processEnumDeclaration(cu, enumDeclaration1, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
+		
+		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
+		
+		this.getUmlModel().addClass(umlClass);
 	}
 
 	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
