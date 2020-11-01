@@ -119,8 +119,18 @@ public class UMLClassDiff extends UMLClassBaseDiff {
     			int lastIndex = nextClass.getOperations().lastIndexOf(operation);
     			int finalIndex = index;
     			if(index != lastIndex) {
-    				double d1 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getOperations().get(index).getReturnParameter().getType());
-    				double d2 = operation.getReturnParameter().getType().normalizedNameDistance(nextClass.getOperations().get(lastIndex).getReturnParameter().getType());
+    				UMLType type = nextClass.getOperations().get(index).getReturnParameter().getType();
+					String s1 = operation.getReturnParameter().getType().toString();
+					String s2 = type.toString();
+					int distance = StringDistance.editDistance(s1, s2);
+					double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+					double d1 = normalized;
+					UMLType type1 = nextClass.getOperations().get(lastIndex).getReturnParameter().getType();
+					String s1 = operation.getReturnParameter().getType().toString();
+					String s2 = type1.toString();
+					int distance = StringDistance.editDistance(s1, s2);
+					double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
+    				double d2 = normalized;
     				if(d2 < d1) {
     					finalIndex = lastIndex;
     				}
