@@ -17,10 +17,6 @@ public class RenamePattern {
 		return after;
 	}
 
-	public String toString() {
-		return before + "\t->\t" + after;
-	}
-	
 	public boolean equals(Object o) {
 		if(this == o) {
     		return true;
