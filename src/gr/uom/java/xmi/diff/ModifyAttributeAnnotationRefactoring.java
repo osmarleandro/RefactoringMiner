@@ -38,10 +38,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		return attributeBefore;
 	}
 
-	public UMLAttribute getAttributeAfter() {
-		return attributeAfter;
-	}
-
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
@@ -86,7 +82,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeAfter().getLocationInfo().getFilePath(), getAttributeAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(attributeAfter.getLocationInfo().getFilePath(), attributeAfter.getClassName()));
 		return pairs;
 	}
 
