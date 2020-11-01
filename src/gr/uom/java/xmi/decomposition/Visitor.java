@@ -86,15 +86,6 @@ public class Visitor extends ASTVisitor {
 		this.filePath = filePath;
 	}
 
-	public boolean visit(ArrayAccess node) {
-		arrayAccesses.add(node.toString());
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getArrayAccesses().add(node.toString());
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(PrefixExpression node) {
 		prefixExpressions.add(node.toString());
 		if(current.getUserObject() != null) {
