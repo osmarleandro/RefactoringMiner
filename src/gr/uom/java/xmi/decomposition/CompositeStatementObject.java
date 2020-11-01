@@ -320,8 +320,8 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
-					if(lambda.getBody() != null) {
-						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
+					if(lambda.body != null) {
+						Map<String, List<OperationInvocation>> lambdaMap = lambda.body.getCompositeStatement().getAllMethodInvocations();
 						for(String key : lambdaMap.keySet()) {
 							if(map.containsKey(key)) {
 								map.get(key).addAll(lambdaMap.get(key));
@@ -399,8 +399,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				StatementObject statementObject = (StatementObject)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
-					if(lambda.getBody() != null) {
-						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
+					if(lambda.body != null) {
+						variableDeclarations.addAll(lambda.body.getAllVariableDeclarations());
 					}
 				}
 			}
