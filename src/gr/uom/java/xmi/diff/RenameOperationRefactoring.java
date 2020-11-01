@@ -68,10 +68,6 @@ public class RenameOperationRefactoring implements Refactoring {
 		return RefactoringType.RENAME_METHOD;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
-		return bodyMapper;
-	}
-
 	public UMLOperation getOriginalOperation() {
 		return originalOperation;
 	}
