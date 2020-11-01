@@ -314,10 +314,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.oldVisibility = oldVisibility;
 	}
 
-	private void setNewVisibility(String newVisibility) {
-		this.newVisibility = newVisibility;
-	}
-
 	private void setAbstractionChanged(boolean abstractionChanged) {
 		this.abstractionChanged = abstractionChanged;
 	}
@@ -420,7 +416,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(!originalClass.getVisibility().equals(nextClass.getVisibility())) {
 			setVisibilityChanged(true);
 			setOldVisibility(originalClass.getVisibility());
-			setNewVisibility(nextClass.getVisibility());
+			String newVisibility = nextClass.getVisibility();
+			this.newVisibility = newVisibility;
 		}
 		if(!originalClass.isInterface() && !nextClass.isInterface()) {
 			if(originalClass.isAbstract() != nextClass.isAbstract()) {
