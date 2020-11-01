@@ -54,10 +54,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return classNameAfter;
 	}
 
-	public Set<AbstractCodeMapping> getAttributeReferences() {
-		return attributeReferences;
-	}
-
 	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.CHANGE_ATTRIBUTE_TYPE;
