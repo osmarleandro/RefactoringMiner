@@ -20,10 +20,6 @@ public class UMLTagElement {
 		return tagName;
 	}
 
-	public List<String> getFragments() {
-		return fragments;
-	}
-
 	public boolean contains(String s) {
 		for(String fragment : fragments) {
 			if(fragment.contains(s)) {
