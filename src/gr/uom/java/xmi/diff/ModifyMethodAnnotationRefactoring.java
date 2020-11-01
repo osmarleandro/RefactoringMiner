@@ -30,10 +30,6 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		return annotationBefore;
 	}
 
-	public UMLAnnotation getAnnotationAfter() {
-		return annotationAfter;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
