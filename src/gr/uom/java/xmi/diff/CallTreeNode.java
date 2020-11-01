@@ -19,10 +19,6 @@ public class CallTreeNode {
 		this.invocation = invocation;
 	}
 
-	public UMLOperation getOriginalOperation() {
-		return originalOperation;
-	}
-
 	public UMLOperation getInvokedOperation() {
 		return invokedOperation;
 	}
