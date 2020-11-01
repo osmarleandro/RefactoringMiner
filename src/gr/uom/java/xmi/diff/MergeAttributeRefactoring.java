@@ -132,13 +132,4 @@ public class MergeAttributeRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(newAttribute.codeRange()
-				.setDescription("new attribute declaration")
-				.setCodeElement(newAttribute.toString()));
-		return ranges;
-	}
 }
