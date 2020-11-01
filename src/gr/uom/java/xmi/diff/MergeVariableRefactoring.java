@@ -33,10 +33,6 @@ public class MergeVariableRefactoring implements Refactoring {
 		return mergedVariables;
 	}
 
-	public VariableDeclaration getNewVariable() {
-		return newVariable;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
