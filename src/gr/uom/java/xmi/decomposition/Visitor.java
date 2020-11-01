@@ -447,15 +447,6 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(ParameterizedType node) {
-		types.add(node.toString());
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getTypes().add(node.toString());
-		}
-		return false;
-	}
-	
 	public boolean visit(WildcardType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
