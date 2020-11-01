@@ -988,7 +988,15 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void checkForOperationSignatureChanges() throws RefactoringMinerTimedOutException {
-		consistentMethodInvocationRenames = findConsistentMethodInvocationRenames();
+		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
+		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
+			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
+			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
+					methodInvocationRenames);
+		}
+		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
+		consistentMethodInvocationRenames = allConsistentMethodInvocationRenames;
 		if(removedOperations.size() <= addedOperations.size()) {
 			for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
 				UMLOperation removedOperation = removedOperationIterator.next();
@@ -1069,18 +1077,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-	}
-
-	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
-		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
-			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
-			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
-					methodInvocationRenames);
-		}
-		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
-		return allConsistentMethodInvocationRenames;
 	}
 
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
