@@ -26,6 +26,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -1778,7 +1779,8 @@ public class UMLModelDiff {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
+			UMLOperation operation = operationBodyMapper.getOperation1();
+			if(invocation != null && invocation.matchesOperation(operation, new HashMap<String, UMLType>(), null)) {
 				delegateStatements++;
 			}
 		}

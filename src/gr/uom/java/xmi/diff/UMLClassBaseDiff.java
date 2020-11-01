@@ -2,6 +2,7 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -1110,8 +1111,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		else {
 			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
-				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
-						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
+				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation, new HashMap<String, UMLType>(), null) &&
+						replacement.getInvokedOperationAfter().matchesOperation(addedOperation, new HashMap<String, UMLType>(), null)) {
 					mapperSet.add(operationBodyMapper);
 					break;
 				}

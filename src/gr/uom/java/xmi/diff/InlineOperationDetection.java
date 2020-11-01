@@ -1,6 +1,7 @@
 package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,7 +136,8 @@ public class InlineOperationDetection {
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
 			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
+			UMLOperation operation = operationBodyMapper.getOperation1();
+			if(invocation != null && invocation.matchesOperation(operation, new HashMap<String, UMLType>(), null)) {
 				delegateStatements++;
 			}
 		}
