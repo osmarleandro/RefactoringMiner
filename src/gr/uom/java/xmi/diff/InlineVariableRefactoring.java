@@ -65,13 +65,6 @@ public class InlineVariableRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	/**
-	 * @return the code range of the inlined variable declaration in the <b>parent</b> commit
-	 */
-	public CodeRange getInlinedVariableDeclarationCodeRange() {
-		return variableDeclaration.codeRange();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
