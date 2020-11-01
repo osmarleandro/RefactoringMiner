@@ -28,7 +28,22 @@ public class InlineOperationDetection {
 		this.removedOperations = removedOperations;
 		this.classDiff = classDiff;
 		this.modelDiff = modelDiff;
-		this.operationInvocations = getInvocationsInTargetOperationBeforeInline(mapper);
+		List<OperationInvocation> operationInvocations1 = mapper.getOperation1().getAllOperationInvocations();
+		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
+			ExtractOperationDetection.addStatementInvocations(operationInvocations1, statement);
+			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
+				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
+						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
+							if(!ExtractOperationDetection.containsInvocation(operationInvocations1, anonymousInvocation)) {
+								operationInvocations1.add(anonymousInvocation);
+							}
+						}
+					}
+				}
+			}
+		}
+		this.operationInvocations = operationInvocations1;
 	}
 
 	public List<InlineOperationRefactoring> check(UMLOperation removedOperation) throws RefactoringMinerTimedOutException {
@@ -110,25 +125,6 @@ public class InlineOperationDetection {
 				}
 			}
 		}
-	}
-
-	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
-		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
-			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
-			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
-				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
-					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
-						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
-							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
-								operationInvocations.add(anonymousInvocation);
-							}
-						}
-					}
-				}
-			}
-		}
-		return operationInvocations;
 	}
 
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
