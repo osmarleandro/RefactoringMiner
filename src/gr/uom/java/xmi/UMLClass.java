@@ -172,10 +172,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		this.implementedInterfaces.add(implementedInterface);
 	}
 
-	public List<UMLType> getImplementedInterfaces() {
-		return implementedInterfaces;
-	}
-
 	public List<String> getImportedTypes() {
 		return importedTypes;
 	}

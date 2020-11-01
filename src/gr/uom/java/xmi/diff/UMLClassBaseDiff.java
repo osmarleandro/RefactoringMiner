@@ -129,8 +129,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public Set<UMLType> nextClassCommonInterfaces(UMLClassBaseDiff other) {
-		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.getImplementedInterfaces());
-		common.retainAll(other.nextClass.getImplementedInterfaces());
+		Set<UMLType> common = new LinkedHashSet<UMLType>(nextClass.implementedInterfaces);
+		common.retainAll(other.nextClass.implementedInterfaces);
 		return common;
 	}
 
@@ -446,12 +446,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			setOldSuperclass(originalClass.getSuperclass());
 			setNewSuperclass(nextClass.getSuperclass());
 		}
-		for(UMLType implementedInterface : originalClass.getImplementedInterfaces()) {
-			if(!nextClass.getImplementedInterfaces().contains(implementedInterface))
+		for(UMLType implementedInterface : originalClass.implementedInterfaces) {
+			if(!nextClass.implementedInterfaces.contains(implementedInterface))
 				reportRemovedImplementedInterface(implementedInterface);
 		}
-		for(UMLType implementedInterface : nextClass.getImplementedInterfaces()) {
-			if(!originalClass.getImplementedInterfaces().contains(implementedInterface))
+		for(UMLType implementedInterface : nextClass.implementedInterfaces) {
+			if(!originalClass.implementedInterfaces.contains(implementedInterface))
 				reportAddedImplementedInterface(implementedInterface);
 		}
 	}
