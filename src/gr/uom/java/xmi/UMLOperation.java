@@ -71,10 +71,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return name;
 	}
 
-	public String getVisibility() {
-		return visibility;
-	}
-
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
 	}
