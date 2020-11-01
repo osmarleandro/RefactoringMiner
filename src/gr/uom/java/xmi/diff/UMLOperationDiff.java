@@ -170,10 +170,6 @@ public class UMLOperationDiff {
 		return parameterDiffList;
 	}
 
-	public UMLOperation getRemovedOperation() {
-		return removedOperation;
-	}
-
 	public UMLOperation getAddedOperation() {
 		return addedOperation;
 	}
