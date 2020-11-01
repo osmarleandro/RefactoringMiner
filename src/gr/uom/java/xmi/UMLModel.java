@@ -1,14 +1,19 @@
 package gr.uom.java.xmi;
 
+import gr.uom.java.xmi.diff.ClassRenameComparator;
 import gr.uom.java.xmi.diff.UMLClassDiff;
+import gr.uom.java.xmi.diff.UMLClassMoveDiff;
+import gr.uom.java.xmi.diff.UMLClassRenameDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
@@ -122,7 +127,40 @@ public class UMLModel {
     			modelDiff.reportAddedClass(umlClass);
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.Move());
-    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
+		UMLClassMatcher matcher = new UMLClassMatcher.Rename();
+    	for(Iterator<UMLClass> removedClassIterator = modelDiff.removedClasses.iterator(); removedClassIterator.hasNext();) {
+		     UMLClass removedClass = removedClassIterator.next();
+		     TreeSet<UMLClassRenameDiff> diffSet = new TreeSet<UMLClassRenameDiff>(new ClassRenameComparator());
+		     for(Iterator<UMLClass> addedClassIterator = modelDiff.addedClasses.iterator(); addedClassIterator.hasNext();) {
+		        UMLClass addedClass = addedClassIterator.next();
+		        String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
+		        if(matcher.match(removedClass, addedClass, renamedFile)) {
+		           if(!modelDiff.conflictingMoveOfTopLevelClass(removedClass, addedClass) && !modelDiff.innerClassWithTheSameName(removedClass, addedClass)) {
+		        	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, modelDiff);
+		        	   diffSet.add(classRenameDiff);
+		           }
+		        }
+		     }
+		     if(!diffSet.isEmpty()) {
+		        UMLClassRenameDiff minClassRenameDiff = diffSet.first();
+		        minClassRenameDiff.process();
+		        modelDiff.classRenameDiffList.add(minClassRenameDiff);
+		        modelDiff.addedClasses.remove(minClassRenameDiff.getRenamedClass());
+		        removedClassIterator.remove();
+		     }
+		  }
+		
+		  List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(modelDiff.classMoveDiffList);
+		  Collections.sort(allClassMoves);
+		
+		  for(UMLClassRenameDiff classRename : modelDiff.classRenameDiffList) {
+		     for(UMLClassMoveDiff classMove : allClassMoves) {
+		        if(classRename.isInnerClassMove(classMove)) {
+		           modelDiff.innerClassMoveDiffList.add(classMove);
+		        }
+		     }
+		  }
+		  modelDiff.classMoveDiffList.removeAll(modelDiff.innerClassMoveDiffList);
     	for(UMLGeneralization umlGeneralization : generalizationList) {
     		if(!umlModel.generalizationList.contains(umlGeneralization))
     			modelDiff.reportRemovedGeneralization(umlGeneralization);
@@ -150,7 +188,40 @@ public class UMLModel {
     		}
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.RelaxedMove());
-    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
+		UMLClassMatcher matcher1 = new UMLClassMatcher.RelaxedRename();
+    	for(Iterator<UMLClass> removedClassIterator = modelDiff.removedClasses.iterator(); removedClassIterator.hasNext();) {
+		     UMLClass removedClass = removedClassIterator.next();
+		     TreeSet<UMLClassRenameDiff> diffSet = new TreeSet<UMLClassRenameDiff>(new ClassRenameComparator());
+		     for(Iterator<UMLClass> addedClassIterator = modelDiff.addedClasses.iterator(); addedClassIterator.hasNext();) {
+		        UMLClass addedClass = addedClassIterator.next();
+		        String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
+		        if(matcher1.match(removedClass, addedClass, renamedFile)) {
+		           if(!modelDiff.conflictingMoveOfTopLevelClass(removedClass, addedClass) && !modelDiff.innerClassWithTheSameName(removedClass, addedClass)) {
+		        	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, modelDiff);
+		        	   diffSet.add(classRenameDiff);
+		           }
+		        }
+		     }
+		     if(!diffSet.isEmpty()) {
+		        UMLClassRenameDiff minClassRenameDiff = diffSet.first();
+		        minClassRenameDiff.process();
+		        modelDiff.classRenameDiffList.add(minClassRenameDiff);
+		        modelDiff.addedClasses.remove(minClassRenameDiff.getRenamedClass());
+		        removedClassIterator.remove();
+		     }
+		  }
+		
+		  List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(modelDiff.classMoveDiffList);
+		  Collections.sort(allClassMoves);
+		
+		  for(UMLClassRenameDiff classRename : modelDiff.classRenameDiffList) {
+		     for(UMLClassMoveDiff classMove : allClassMoves) {
+		        if(classRename.isInnerClassMove(classMove)) {
+		           modelDiff.innerClassMoveDiffList.add(classMove);
+		        }
+		     }
+		  }
+		  modelDiff.classMoveDiffList.removeAll(modelDiff.innerClassMoveDiffList);
     	return modelDiff;
     }
 }

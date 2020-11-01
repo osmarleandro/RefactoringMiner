@@ -487,42 +487,6 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   public void checkForRenamedClasses(Map<String, String> renamedFileHints, UMLClassMatcher matcher) throws RefactoringMinerTimedOutException {
-      for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();) {
-         UMLClass removedClass = removedClassIterator.next();
-         TreeSet<UMLClassRenameDiff> diffSet = new TreeSet<UMLClassRenameDiff>(new ClassRenameComparator());
-         for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
-            UMLClass addedClass = addedClassIterator.next();
-            String renamedFile =  renamedFileHints.get(removedClass.getSourceFile());
-            if(matcher.match(removedClass, addedClass, renamedFile)) {
-               if(!conflictingMoveOfTopLevelClass(removedClass, addedClass) && !innerClassWithTheSameName(removedClass, addedClass)) {
-            	   UMLClassRenameDiff classRenameDiff = new UMLClassRenameDiff(removedClass, addedClass, this);
-            	   diffSet.add(classRenameDiff);
-               }
-            }
-         }
-         if(!diffSet.isEmpty()) {
-            UMLClassRenameDiff minClassRenameDiff = diffSet.first();
-            minClassRenameDiff.process();
-            classRenameDiffList.add(minClassRenameDiff);
-            addedClasses.remove(minClassRenameDiff.getRenamedClass());
-            removedClassIterator.remove();
-         }
-      }
-      
-      List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(this.classMoveDiffList);
-      Collections.sort(allClassMoves);
-      
-      for(UMLClassRenameDiff classRename : classRenameDiffList) {
-         for(UMLClassMoveDiff classMove : allClassMoves) {
-            if(classRename.isInnerClassMove(classMove)) {
-               innerClassMoveDiffList.add(classMove);
-            }
-         }
-      }
-      this.classMoveDiffList.removeAll(innerClassMoveDiffList);
-   }
-
    private boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   String removedClassName = removedClass.getName();
