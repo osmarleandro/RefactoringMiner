@@ -30,10 +30,6 @@ public class UMLTypeParameter {
 		return annotations;
 	}
 
-	public void addAnnotation(UMLAnnotation annotation) {
-		annotations.add(annotation);
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
