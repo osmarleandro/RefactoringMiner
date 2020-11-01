@@ -57,10 +57,6 @@ public abstract class AbstractCodeMapping {
 		return identicalWithExtractedVariable;
 	}
 
-	public boolean isIdenticalWithInlinedVariable() {
-		return identicalWithInlinedVariable;
-	}
-
 	public boolean isExact() {
 		return (fragment1.getArgumentizedString().equals(fragment2.getArgumentizedString()) ||
 				fragment1.getString().equals(fragment2.getString()) || isExactAfterAbstraction() || containsIdenticalOrCompositeReplacement()) && !isKeyword();
