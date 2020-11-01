@@ -64,7 +64,7 @@ public class StatementObject extends AbstractStatement {
 		this.postfixExpressions = visitor.getPostfixExpressions();
 		this.arguments = visitor.getArguments();
 		this.ternaryOperatorExpressions = visitor.getTernaryOperatorExpressions();
-		this.lambdas = visitor.getLambdas();
+		this.lambdas = visitor.lambdas;
 		setDepth(depth);
 		if(Visitor.METHOD_INVOCATION_PATTERN.matcher(statement.toString()).matches()) {
 			if(statement instanceof VariableDeclarationStatement) {

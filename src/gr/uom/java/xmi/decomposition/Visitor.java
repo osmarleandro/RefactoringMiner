@@ -856,10 +856,6 @@ public class Visitor extends ASTVisitor {
 		return variables;
 	}
 
-	public List<LambdaExpressionObject> getLambdas() {
-		return lambdas;
-	}
-
 	private static boolean invalidArrayAccess(ArrayAccess e) {
 		return e.getArray() instanceof SimpleName && simpleNameOrNumberLiteral(e.getIndex());
 	}
