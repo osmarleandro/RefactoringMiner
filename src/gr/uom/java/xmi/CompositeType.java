@@ -13,10 +13,6 @@ public class CompositeType extends UMLType {
 		return leftType;
 	}
 
-	public LeafType getRightType() {
-		return rightType;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
