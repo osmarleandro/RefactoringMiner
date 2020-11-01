@@ -43,10 +43,6 @@ public class CandidateAttributeRefactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
-	}
-
 	public Set<AbstractCodeMapping> getAttributeReferences() {
 		return attributeReferences;
 	}
