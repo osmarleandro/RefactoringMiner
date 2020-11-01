@@ -12,10 +12,6 @@ public class UMLTagElement {
 		this.fragments = new ArrayList<String>();
 	}
 	
-	public void addFragment(String fragment) {
-		fragments.add(fragment);
-	}
-
 	public String getTagName() {
 		return tagName;
 	}
