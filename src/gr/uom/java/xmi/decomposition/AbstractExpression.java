@@ -199,8 +199,4 @@ public class AbstractExpression extends AbstractCodeFragment {
 		}
 		return null;
 	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
-	}
 }
