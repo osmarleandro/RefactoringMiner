@@ -11,6 +11,7 @@ import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -115,7 +116,34 @@ public class InlineOperationDetection {
 	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
-			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
+			Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
+			for(String key : statementMethodInvocationMap.keySet()) {
+				for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
+					if(!ExtractOperationDetection.containsInvocation(operationInvocations, statementInvocation)) {
+						operationInvocations.add(statementInvocation);
+					}
+				}
+			}
+			List<LambdaExpressionObject> lambdas = statement.getLambdas();
+			for(LambdaExpressionObject lambda : lambdas) {
+				if(lambda.getBody() != null) {
+					for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
+						if(!ExtractOperationDetection.containsInvocation(operationInvocations, statementInvocation)) {
+							operationInvocations.add(statementInvocation);
+						}
+					}
+				}
+				if(lambda.getExpression() != null) {
+					Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
+					for(String key : methodInvocationMap.keySet()) {
+						for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
+							if(!ExtractOperationDetection.containsInvocation(operationInvocations, statementInvocation)) {
+								operationInvocations.add(statementInvocation);
+							}
+						}
+					}
+				}
+			}
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
 					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {

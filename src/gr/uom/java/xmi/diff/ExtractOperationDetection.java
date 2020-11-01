@@ -129,40 +129,36 @@ public class ExtractOperationDetection {
 	public static List<OperationInvocation> getInvocationsInSourceOperationAfterExtraction(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation2().getAllOperationInvocations();
 		for(StatementObject statement : mapper.getNonMappedLeavesT2()) {
-			addStatementInvocations(operationInvocations, statement);
-		}
-		return operationInvocations;
-	}
-
-	public static void addStatementInvocations(List<OperationInvocation> operationInvocations, StatementObject statement) {
-		Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
-		for(String key : statementMethodInvocationMap.keySet()) {
-			for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
-				if(!containsInvocation(operationInvocations, statementInvocation)) {
-					operationInvocations.add(statementInvocation);
-				}
-			}
-		}
-		List<LambdaExpressionObject> lambdas = statement.getLambdas();
-		for(LambdaExpressionObject lambda : lambdas) {
-			if(lambda.getBody() != null) {
-				for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
+			Map<String, List<OperationInvocation>> statementMethodInvocationMap = statement.getMethodInvocationMap();
+			for(String key : statementMethodInvocationMap.keySet()) {
+				for(OperationInvocation statementInvocation : statementMethodInvocationMap.get(key)) {
 					if(!containsInvocation(operationInvocations, statementInvocation)) {
 						operationInvocations.add(statementInvocation);
 					}
 				}
 			}
-			if(lambda.getExpression() != null) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
+			List<LambdaExpressionObject> lambdas = statement.getLambdas();
+			for(LambdaExpressionObject lambda : lambdas) {
+				if(lambda.getBody() != null) {
+					for(OperationInvocation statementInvocation : lambda.getBody().getAllOperationInvocations()) {
 						if(!containsInvocation(operationInvocations, statementInvocation)) {
 							operationInvocations.add(statementInvocation);
 						}
 					}
 				}
+				if(lambda.getExpression() != null) {
+					Map<String, List<OperationInvocation>> methodInvocationMap = lambda.getExpression().getMethodInvocationMap();
+					for(String key : methodInvocationMap.keySet()) {
+						for(OperationInvocation statementInvocation : methodInvocationMap.get(key)) {
+							if(!containsInvocation(operationInvocations, statementInvocation)) {
+								operationInvocations.add(statementInvocation);
+							}
+						}
+					}
+				}
 			}
 		}
+		return operationInvocations;
 	}
 
 	public static boolean containsInvocation(List<OperationInvocation> operationInvocations, OperationInvocation invocation) {
