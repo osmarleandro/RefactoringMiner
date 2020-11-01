@@ -51,10 +51,6 @@ public class CandidateAttributeRefactoring {
 		return attributeReferences;
 	}
 
-	public int getOccurrences() {
-		return attributeReferences.size();
-	}
-
 	public VariableDeclaration getOriginalVariableDeclaration() {
 		return originalVariableDeclaration;
 	}
