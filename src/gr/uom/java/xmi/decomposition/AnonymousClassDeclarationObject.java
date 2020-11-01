@@ -102,10 +102,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return infixOperators;
 	}
 
-	public List<String> getArrayAccesses() {
-		return arrayAccesses;
-	}
-
 	public List<String> getPrefixExpressions() {
 		return prefixExpressions;
 	}
