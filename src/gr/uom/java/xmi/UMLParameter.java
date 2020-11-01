@@ -31,10 +31,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return variableDeclaration;
 	}
 
-	public void setVariableDeclaration(VariableDeclaration variableDeclaration) {
-		this.variableDeclaration = variableDeclaration;
-	}
-
 	public String getName() {
 		return name;
 	}
