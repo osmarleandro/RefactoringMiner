@@ -59,7 +59,27 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
-		Type astType = extractType(fragment);
+		Type returnedVariableType = null;
+		if(fragment instanceof SingleVariableDeclaration) {
+			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)fragment;
+			returnedVariableType = singleVariableDeclaration.getType();
+		}
+		else if(fragment instanceof VariableDeclarationFragment) {
+			VariableDeclarationFragment fragment1 = (VariableDeclarationFragment)fragment;
+			if(fragment1.getParent() instanceof VariableDeclarationStatement) {
+				VariableDeclarationStatement variableDeclarationStatement = (VariableDeclarationStatement)fragment1.getParent();
+				returnedVariableType = variableDeclarationStatement.getType();
+			}
+			else if(fragment1.getParent() instanceof VariableDeclarationExpression) {
+				VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression)fragment1.getParent();
+				returnedVariableType = variableDeclarationExpression.getType();
+			}
+			else if(fragment1.getParent() instanceof FieldDeclaration) {
+				FieldDeclaration fieldDeclaration = (FieldDeclaration)fragment1.getParent();
+				returnedVariableType = fieldDeclaration.getType();
+			}
+		}
+		Type astType = returnedVariableType;
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		ASTNode scopeNode = getScopeNode(fragment);
 		int startOffset = 0;
@@ -86,7 +106,27 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		this.locationInfo = new LocationInfo(cu, filePath, fragment, extractVariableDeclarationType(fragment));
 		this.variableName = fragment.getName().getIdentifier();
 		this.initializer = fragment.getInitializer() != null ? new AbstractExpression(cu, filePath, fragment.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER) : null;
-		Type astType = extractType(fragment);
+		Type returnedVariableType = null;
+		if(fragment instanceof SingleVariableDeclaration) {
+			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)fragment;
+			returnedVariableType = singleVariableDeclaration.getType();
+		}
+		else if(fragment instanceof VariableDeclarationFragment) {
+			VariableDeclarationFragment fragment1 = (VariableDeclarationFragment)fragment;
+			if(fragment1.getParent() instanceof VariableDeclarationStatement) {
+				VariableDeclarationStatement variableDeclarationStatement = (VariableDeclarationStatement)fragment1.getParent();
+				returnedVariableType = variableDeclarationStatement.getType();
+			}
+			else if(fragment1.getParent() instanceof VariableDeclarationExpression) {
+				VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression)fragment1.getParent();
+				returnedVariableType = variableDeclarationExpression.getType();
+			}
+			else if(fragment1.getParent() instanceof FieldDeclaration) {
+				FieldDeclaration fieldDeclaration = (FieldDeclaration)fragment1.getParent();
+				returnedVariableType = fieldDeclaration.getType();
+			}
+		}
+		Type astType = returnedVariableType;
 		this.type = UMLType.extractTypeObject(cu, filePath, astType, fragment.getExtraDimensions());
 		int startOffset = fragment.getStartPosition();
 		ASTNode scopeNode = getScopeNode(fragment);
@@ -223,30 +263,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 			}
 		}
 		return null;
-	}
-
-	private static Type extractType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
-		Type returnedVariableType = null;
-		if(variableDeclaration instanceof SingleVariableDeclaration) {
-			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)variableDeclaration;
-			returnedVariableType = singleVariableDeclaration.getType();
-		}
-		else if(variableDeclaration instanceof VariableDeclarationFragment) {
-			VariableDeclarationFragment fragment = (VariableDeclarationFragment)variableDeclaration;
-			if(fragment.getParent() instanceof VariableDeclarationStatement) {
-				VariableDeclarationStatement variableDeclarationStatement = (VariableDeclarationStatement)fragment.getParent();
-				returnedVariableType = variableDeclarationStatement.getType();
-			}
-			else if(fragment.getParent() instanceof VariableDeclarationExpression) {
-				VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression)fragment.getParent();
-				returnedVariableType = variableDeclarationExpression.getType();
-			}
-			else if(fragment.getParent() instanceof FieldDeclaration) {
-				FieldDeclaration fieldDeclaration = (FieldDeclaration)fragment.getParent();
-				returnedVariableType = fieldDeclaration.getType();
-			}
-		}
-		return returnedVariableType;
 	}
 
 	public boolean equalVariableDeclarationType(VariableDeclaration other) {
