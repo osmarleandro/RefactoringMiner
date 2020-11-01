@@ -39,10 +39,6 @@ public class LocationInfo {
 		}
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
-
 	public int getStartOffset() {
 		return startOffset;
 	}
@@ -76,7 +72,7 @@ public class LocationInfo {
 	}
 
 	public CodeRange codeRange() {
-		return new CodeRange(getFilePath(),
+		return new CodeRange(filePath,
 				getStartLine(), getEndLine(),
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}

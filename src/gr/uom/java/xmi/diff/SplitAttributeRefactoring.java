@@ -113,7 +113,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOldAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(getOldAttribute().getLocationInfo().filePath, getClassNameBefore()));
 		return pairs;
 	}
 
@@ -121,7 +121,7 @@ public class SplitAttributeRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration splitAttribute : this.splitAttributes) {
-			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().getFilePath(), getClassNameAfter()));
+			pairs.add(new ImmutablePair<String, String>(splitAttribute.getLocationInfo().filePath, getClassNameAfter()));
 		}
 		return pairs;
 	}
