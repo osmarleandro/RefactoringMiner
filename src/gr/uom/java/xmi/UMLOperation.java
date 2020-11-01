@@ -115,10 +115,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return emptyBody;
 	}
 
-	public void setEmptyBody(boolean emptyBody) {
-		this.emptyBody = emptyBody;
-	}
-
 	public OperationBody getBody() {
 		return operationBody;
 	}
