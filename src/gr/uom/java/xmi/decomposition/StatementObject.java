@@ -194,11 +194,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypeLiterals() {
-		return typeLiterals;
-	}
-
-	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
 		return creationMap;
 	}
