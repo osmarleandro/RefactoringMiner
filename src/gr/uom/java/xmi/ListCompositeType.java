@@ -23,10 +23,6 @@ public class ListCompositeType extends UMLType {
 		return types;
 	}
 
-	public Kind getKind() {
-		return kind;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
