@@ -255,10 +255,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return addedOperations;
 	}
 
-	public List<UMLOperation> getRemovedOperations() {
-		return removedOperations;
-	}
-
 	public List<UMLAttribute> getAddedAttributes() {
 		return addedAttributes;
 	}
