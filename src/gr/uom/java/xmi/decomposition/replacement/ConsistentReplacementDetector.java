@@ -37,25 +37,6 @@ public class ConsistentReplacementDetector {
 	}
 
 
-	public static <T extends Replacement> void updateRenames(
-			Set<T> allConsistentRenames,
-			Set<T> allInconsistentRenames,
-			Set<T> renames,
-			Map<String, Set<String>> aliasedAttributesInOriginalClass,
-			Map<String, Set<String>> aliasedAttributesInNextClass) {
-		for(T newRename : renames) {
-			Set<T> inconsistentRenames = inconsistentRenames(allConsistentRenames, newRename);
-			filter(inconsistentRenames, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass);
-			if(inconsistentRenames.isEmpty()) {
-				allConsistentRenames.add(newRename);
-			}
-			else {
-				allInconsistentRenames.addAll(inconsistentRenames);
-				allInconsistentRenames.add(newRename);
-			}
-		}
-	}
-	
 	private static <T extends Replacement> Set<T> filter(Set<T> inconsistentRenames,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
