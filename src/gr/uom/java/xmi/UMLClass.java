@@ -97,11 +97,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return annotations;
 	}
 
-    public void addAnnotation(UMLAnnotation annotation) {
-    	annotations.add(annotation);
-    }
-
-	public void addAnonymousClass(UMLAnonymousClass anonymousClass) {
+    public void addAnonymousClass(UMLAnonymousClass anonymousClass) {
     	anonymousClassList.add(anonymousClass);
     }
 
