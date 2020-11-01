@@ -15,11 +15,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	private int index;
 	private String codeFragmentAfterReplacingParametersWithArguments;
 
-	public String getArgumentizedString() {
-		return codeFragmentAfterReplacingParametersWithArguments != null ? codeFragmentAfterReplacingParametersWithArguments : getString();
-	}
-
-    public int getDepth() {
+	public int getDepth() {
 		return depth;
 	}
 
