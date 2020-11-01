@@ -298,7 +298,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						addedLeaves1.add(statement1);
 					}
 					if(!statement1.getAnonymousClassDeclarations().isEmpty()) {
-						List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+						List<UMLAnonymousClass> anonymousList = operationBodyMapper.operation1.getAnonymousClassList();
 						for(UMLAnonymousClass anonymous : anonymousList) {
 							if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 								for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -356,7 +356,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							addedLeaves1.add(statement1);
 						}
 						if(!statement1.getAnonymousClassDeclarations().isEmpty()) {
-							List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+							List<UMLAnonymousClass> anonymousList = operationBodyMapper.operation1.getAnonymousClassList();
 							for(UMLAnonymousClass anonymous : anonymousList) {
 								if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 									for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -646,10 +646,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				inlinedVariableAssignment(statement, nonMappedLeavesT2);
 			}
 		}
-	}
-
-	public UMLOperation getOperation1() {
-		return operation1;
 	}
 
 	public UMLOperation getOperation2() {
