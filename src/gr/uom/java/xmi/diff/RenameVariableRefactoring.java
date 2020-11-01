@@ -63,10 +63,6 @@ public class RenameVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
