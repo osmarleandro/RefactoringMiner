@@ -35,10 +35,6 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return renamedAttribute;
 	}
 
-	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
-		return attributeRenames;
-	}
-
 	public String getClassNameBefore() {
 		return classNameBefore;
 	}
