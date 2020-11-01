@@ -117,13 +117,4 @@ public class MoveOperationRefactoring implements Refactoring {
 				.setCodeElement(originalOperation.toString()));
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedOperation.codeRange()
-				.setDescription("moved method declaration")
-				.setCodeElement(movedOperation.toString()));
-		return ranges;
-	}
 }
