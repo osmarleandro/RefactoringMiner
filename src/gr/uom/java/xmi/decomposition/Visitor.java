@@ -828,10 +828,6 @@ public class Visitor extends ASTVisitor {
 		return creationMap;
 	}
 
-	public List<String> getInfixOperators() {
-		return infixOperators;
-	}
-
 	public List<String> getArrayAccesses() {
 		return arrayAccesses;
 	}
