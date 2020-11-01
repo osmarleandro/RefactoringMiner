@@ -40,16 +40,6 @@ public class ReplacementUtil {
 		return false;
 	}
 
-	public static String performArgumentReplacement(String completeString, String subString, String replacement) {
-		String temp = new String(completeString);
-		for(String character : SPECIAL_ARGUMENT_CHARACTERS) {
-			if(completeString.contains(subString + character)) {
-				temp = temp.replace(subString + character, replacement + character);
-			}
-		}
-		return temp;
-	}
-
 	public static String performReplacement(String completeString, String subString, String replacement) {
 		String temp = new String(completeString);
 		if(completeString.equals(subString)) {
