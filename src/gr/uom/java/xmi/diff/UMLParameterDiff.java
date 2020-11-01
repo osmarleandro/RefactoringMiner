@@ -26,10 +26,6 @@ public class UMLParameterDiff {
 		return removedParameter;
 	}
 
-	public UMLParameter getAddedParameter() {
-		return addedParameter;
-	}
-
 	public boolean isTypeChanged() {
 		return typeChanged;
 	}
