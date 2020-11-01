@@ -95,10 +95,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		return targetOperationBeforeInline;
 	}
 
-	public List<OperationInvocation> getInlinedOperationInvocations() {
-		return inlinedOperationInvocations;
-	}
-
 	public Set<Replacement> getReplacements() {
 		return replacements;
 	}
