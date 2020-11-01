@@ -1873,35 +1873,45 @@ public class UMLModelDiff {
                 		  ExtractOperationRefactoring extractOperationRefactoring =
    	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
    	                      refactorings.add(extractOperationRefactoring);
-   	                      deleteAddedOperation(addedOperation);
+   	                      UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                 	  else if(isSubclassOf(className, addedOperation.getClassName())) {
                 		  //extract and pull up method
                 		  ExtractOperationRefactoring extractOperationRefactoring =
    	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
    	                      refactorings.add(extractOperationRefactoring);
-   	                      deleteAddedOperation(addedOperation);
+   	                      UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                 	  else if(isSubclassOf(addedOperation.getClassName(), className)) {
                 		  //extract and push down method
                 		  ExtractOperationRefactoring extractOperationRefactoring =
    	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
    	                      refactorings.add(extractOperationRefactoring);
-   	                      deleteAddedOperation(addedOperation);
+   	                      UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                 	  else if(addedOperation.getClassName().startsWith(className + ".")) {
                 		  //extract and move to inner class
                 		  ExtractOperationRefactoring extractOperationRefactoring =
       	                       new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
       	                  refactorings.add(extractOperationRefactoring);
-      	                  deleteAddedOperation(addedOperation);
+      	                  UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                 	  else if(className.startsWith(addedOperation.getClassName() + ".")) {
                 		  //extract and move to outer class
                 		  ExtractOperationRefactoring extractOperationRefactoring =
       	                       new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
       	                  refactorings.add(extractOperationRefactoring);
-      	                  deleteAddedOperation(addedOperation);
+      	                  UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                 	  else if(sourceClassImportsTargetClass(className, addedOperation.getClassName()) ||
                 			  sourceClassImportsSuperclassOfTargetClass(className, addedOperation.getClassName()) ||
@@ -1910,7 +1920,9 @@ public class UMLModelDiff {
 	                      ExtractOperationRefactoring extractOperationRefactoring =
 	                           new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations);
 	                      refactorings.add(extractOperationRefactoring);
-	                      deleteAddedOperation(addedOperation);
+	                      UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+						  if(classDiff != null)
+							  classDiff.getAddedOperations().remove(addedOperation);
                 	  }
                   }
                }
@@ -2140,7 +2152,9 @@ public class UMLModelDiff {
 	               }
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
-	                  deleteAddedOperation(addedOperation);
+	                  UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+					  if(classDiff != null)
+						  classDiff.getAddedOperations().remove(addedOperation);
 	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
 	                  refactorings.add(refactoring);
@@ -2225,7 +2239,9 @@ public class UMLModelDiff {
 	               }
 	               if(refactoring != null) {
 	                  deleteRemovedOperation(removedOperation);
-	                  deleteAddedOperation(addedOperation);
+	                  UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
+					  if(classDiff != null)
+						  classDiff.getAddedOperations().remove(addedOperation);
 	                  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, firstMapper.getMappings());
 	                  refactorings.addAll(operationSignatureDiff.getRefactorings());
 	                  refactorings.add(refactoring);
@@ -2519,13 +2535,7 @@ public class UMLModelDiff {
     	  classDiff.getRemovedOperations().remove(operation);
    }
    
-   private void deleteAddedOperation(UMLOperation operation) {
-      UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
-      if(classDiff != null)
-    	  classDiff.getAddedOperations().remove(operation);
-   }
-
-	private static boolean isNumeric(String str) {
+   private static boolean isNumeric(String str) {
 		for(char c : str.toCharArray()) {
 			if(!Character.isDigit(c)) return false;
 		}
