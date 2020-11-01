@@ -72,10 +72,6 @@ public class UMLAnnotationDiff {
 		}
 	}
 	
-	public UMLAnnotation getRemovedAnnotation() {
-		return removedAnnotation;
-	}
-
 	public UMLAnnotation getAddedAnnotation() {
 		return addedAnnotation;
 	}
