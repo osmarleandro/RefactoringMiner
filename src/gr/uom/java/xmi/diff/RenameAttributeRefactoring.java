@@ -31,10 +31,6 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return originalAttribute;
 	}
 
-	public VariableDeclaration getRenamedAttribute() {
-		return renamedAttribute;
-	}
-
 	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
 		return attributeRenames;
 	}
@@ -116,7 +112,7 @@ public class RenameAttributeRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedAttribute().getLocationInfo().getFilePath(), getClassNameAfter()));
+		pairs.add(new ImmutablePair<String, String>(renamedAttribute.getLocationInfo().getFilePath(), getClassNameAfter()));
 		return pairs;
 	}
 
