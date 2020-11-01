@@ -18,8 +18,4 @@ public class ObjectCreationReplacement extends Replacement {
 		return createdObjectBefore;
 	}
 
-	public ObjectCreation getCreatedObjectAfter() {
-		return createdObjectAfter;
-	}
-
 }
