@@ -90,18 +90,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotationBefore);
-		sb.append(" to ");
-		sb.append(annotationAfter);
-		sb.append(" in attribute ");
-		sb.append(attributeAfter);
-		sb.append(" from class ");
-		sb.append(attributeAfter.getClassName());
-		return sb.toString();
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
