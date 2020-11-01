@@ -252,15 +252,11 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
-		return identicalExpression(call, replacements) &&
-				identicalName(call) &&
-				!equalArguments(call) &&
-				getArguments().size() != call.getArguments().size();
-	}
-
 	public boolean identicalWithMergedArguments(AbstractCall call, Set<Replacement> replacements) {
-		if(onlyArgumentsChanged(call, replacements)) {
+		if(identicalExpression(call, replacements) &&
+		identicalName(call) &&
+		!equalArguments(call) &&
+		getArguments().size() != call.getArguments().size()) {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
 			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
 			for(Replacement replacement : replacements) {
@@ -305,7 +301,10 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
-		if(onlyArgumentsChanged(call, replacements)) {
+		if(identicalExpression(call, replacements) &&
+		identicalName(call) &&
+		!equalArguments(call) &&
+		getArguments().size() != call.getArguments().size()) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
 			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
 				return true;
