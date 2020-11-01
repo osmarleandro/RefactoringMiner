@@ -96,7 +96,8 @@ public class ExtractOperationDetection {
 						}
 						//add back to mapper non-exact matches
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
-							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
+							if(!((mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+							mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword()) || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
 									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {

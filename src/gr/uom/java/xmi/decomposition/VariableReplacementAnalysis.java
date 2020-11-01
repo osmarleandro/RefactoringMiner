@@ -854,7 +854,8 @@ public class VariableReplacementAnalysis {
 						return true;
 					}
 				}
-				if(mapping.isExact()) {
+				if((mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+				mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword()) {
 					for(AbstractCodeMapping referenceMapping : set) {
 						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();

@@ -2366,7 +2366,9 @@ public class UMLModelDiff {
 	   }
 	   if((removedOperation.isGetter() || removedOperation.isSetter() || addedOperation.isGetter() || addedOperation.isSetter()) &&
 			   mapper.mappingsWithoutBlocks() == 1 && mapper.getMappings().size() == 1) {
-		   if(!mapper.getMappings().iterator().next().isExact()) {
+		   AbstractCodeMapping r = mapper.getMappings().iterator().next();
+		if(!((r.fragment1.getArgumentizedString().equals(r.fragment2.getArgumentizedString()) ||
+		r.fragment1.getString().equals(r.fragment2.getString()) || r.isExactAfterAbstraction() || r.containsIdenticalOrCompositeReplacement()) && !r.isKeyword())) {
 			   return false;
 		   }
 	   }
@@ -2377,7 +2379,8 @@ public class UMLModelDiff {
 	   }
 	   int exactLeafMappings = 0;
 	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
-		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
+		   if(mapping instanceof LeafMapping && (mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+		mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword() && !mapping.getFragment1().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
 	   }

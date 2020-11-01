@@ -1577,7 +1577,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
 					for(AbstractCodeMapping reference : references) {
-						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
+						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !((reference.fragment1.getArgumentizedString().equals(reference.fragment2.getArgumentizedString()) ||
+						reference.fragment1.getString().equals(reference.fragment2.getString()) || reference.isExactAfterAbstraction() || reference.containsIdenticalOrCompositeReplacement()) && !reference.isKeyword())) {
 							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
 							for(UMLOperationBodyMapper childMapper : mapper.getChildMappers()) {
 								for(AbstractCodeMapping mapping : childMapper.getMappings()) {
@@ -1589,7 +1590,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 							}
 							if(allMappingsForReference.size() > 1) {
 								for(AbstractCodeMapping mapping : allMappingsForReference) {
-									if(!mapping.equals(reference) && mapping.isExact()) {
+									if(!mapping.equals(reference) && (mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+									mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword()) {
 										refactoringsToBeRemoved.add(rename);
 										break;
 									}

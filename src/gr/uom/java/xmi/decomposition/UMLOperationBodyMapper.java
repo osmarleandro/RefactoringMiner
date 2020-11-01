@@ -886,7 +886,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public int exactMatches() {
 		int count = 0;
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+			if((mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+			mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
 					!mapping.getFragment1().getString().equals("try"))
 				count++;
 		}
@@ -896,7 +897,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public List<AbstractCodeMapping> getExactMatches() {
 		List<AbstractCodeMapping> exactMatches = new ArrayList<AbstractCodeMapping>();
 		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+			if((mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+			mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
 					!mapping.getFragment1().getString().equals("try"))
 				exactMatches.add(mapping);
 		}
@@ -1451,7 +1453,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				AbstractStatement statement2 = (AbstractStatement)fragment2;
 				CompositeStatementObject parent1 = statement1.getParent();
 				CompositeStatementObject parent2 = statement2.getParent();
-				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
+				if(parent1 == switchParent1 && parent2 == switchParent2 && (mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+				mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword() &&
 						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
 					currentSwitchCase = mapping;
@@ -4084,7 +4087,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						!variableDeclarations1.contains(v1)) {
 					count++;
 				}
-				if(mapping.isExact()) {
+				if((mapping.fragment1.getArgumentizedString().equals(mapping.fragment2.getArgumentizedString()) ||
+				mapping.fragment1.getString().equals(mapping.fragment2.getString()) || mapping.isExactAfterAbstraction() || mapping.containsIdenticalOrCompositeReplacement()) && !mapping.isKeyword()) {
 					boolean containsMapping = true;
 					if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 							statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
