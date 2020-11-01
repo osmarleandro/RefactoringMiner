@@ -83,30 +83,6 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
-    	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
-    	while(realizationIt.hasNext()) {
-    		UMLRealization realization = realizationIt.next();
-    		if(realization.getClient().equals(otherRealization.getClient())) {
-    			String thisSupplier = realization.getSupplier();
-    			String otherSupplier = otherRealization.getSupplier();
-    			String thisSupplierComparedString = null;
-    			if(thisSupplier.contains("."))
-    				thisSupplierComparedString = thisSupplier.substring(thisSupplier.lastIndexOf(".")+1);
-    			else
-    				thisSupplierComparedString = thisSupplier;
-    			String otherSupplierComparedString = null;
-    			if(otherSupplier.contains("."))
-    				otherSupplierComparedString = otherSupplier.substring(otherSupplier.lastIndexOf(".")+1);
-    			else
-    				otherSupplierComparedString = otherSupplier;
-    			if(thisSupplierComparedString.equals(otherSupplierComparedString))
-    				return realization;
-    		}
-    	}
-    	return null;
-    }
-
     public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
     }
