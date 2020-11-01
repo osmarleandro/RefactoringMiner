@@ -14,10 +14,6 @@ public class UMLJavadoc {
 		tags.add(tag);
 	}
 
-	public List<UMLTagElement> getTags() {
-		return tags;
-	}
-
 	public boolean contains(String s) {
 		for(UMLTagElement tag : tags) {
 			if(tag.contains(s)) {
