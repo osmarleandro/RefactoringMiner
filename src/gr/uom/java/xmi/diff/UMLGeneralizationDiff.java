@@ -37,12 +37,4 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 			sb.append("\t").append("parent changed from " + removedGeneralization.getParent() + " to " + addedGeneralization.getParent()).append("\n");
 		return sb.toString();
 	}
-
-	public int compareTo(UMLGeneralizationDiff generalizationDiff) {
-		int compare = this.removedGeneralization.compareTo(generalizationDiff.removedGeneralization);
-		if(compare == 0)
-			return this.addedGeneralization.compareTo(generalizationDiff.addedGeneralization);
-		else
-			return compare;
-	}
 }
