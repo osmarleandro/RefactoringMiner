@@ -489,8 +489,10 @@ public class VariableReplacementAnalysis {
 						replacementOccurrenceMap.get(replacement));
 				if(v1 != null)
 					candidate.setOriginalVariableDeclaration(v1.getKey());
-				if(v2 != null)
-					candidate.setRenamedVariableDeclaration(v2.getKey());
+				if(v2 != null) {
+					VariableDeclaration renamedVariableDeclaration = v2.getKey();
+					candidate.renamedVariableDeclaration = renamedVariableDeclaration;
+				}
 				this.candidateAttributeRenames.add(candidate);
 			}
 		}
