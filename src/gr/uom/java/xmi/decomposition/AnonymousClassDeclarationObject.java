@@ -129,8 +129,4 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 	public List<LambdaExpressionObject> getLambdas() {
 		return lambdas;
 	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
-	}
 }
