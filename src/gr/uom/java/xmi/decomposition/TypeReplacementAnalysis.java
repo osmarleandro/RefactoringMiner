@@ -15,14 +15,6 @@ public class TypeReplacementAnalysis {
 
 	public TypeReplacementAnalysis(Set<AbstractCodeMapping> mappings) {
 		this.mappings = mappings;
-		findTypeChanges();
-	}
-
-	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
-		return changedTypes;
-	}
-
-	private void findTypeChanges() {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
@@ -62,6 +54,10 @@ public class TypeReplacementAnalysis {
 				}
 			}
 		}
+	}
+
+	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
+		return changedTypes;
 	}
 
 	private boolean containsVariableDeclarationWithSameNameAndType(VariableDeclaration declaration, List<VariableDeclaration> declarations) {
