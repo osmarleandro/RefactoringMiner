@@ -430,17 +430,6 @@ public abstract class AbstractCodeMapping {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fragment1 == null) ? 0 : fragment1.hashCode());
-		result = prime * result + ((fragment2 == null) ? 0 : fragment2.hashCode());
-		result = prime * result + ((operation1 == null) ? 0 : operation1.hashCode());
-		result = prime * result + ((operation2 == null) ? 0 : operation2.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
