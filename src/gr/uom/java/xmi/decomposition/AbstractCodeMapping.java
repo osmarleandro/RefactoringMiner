@@ -37,10 +37,6 @@ public abstract class AbstractCodeMapping {
 		this.replacements = new LinkedHashSet<Replacement>();
 	}
 
-	public AbstractCodeFragment getFragment1() {
-		return fragment1;
-	}
-
 	public AbstractCodeFragment getFragment2() {
 		return fragment2;
 	}
@@ -133,7 +129,7 @@ public abstract class AbstractCodeMapping {
 	}
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
-		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
+		if(this instanceof LeafMapping && fragment1 instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
 			StatementObject statement = (StatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
@@ -197,7 +193,7 @@ public abstract class AbstractCodeMapping {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
+								if(fragment1.getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}
