@@ -249,7 +249,9 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
-			return thisReturnParameter.equalsQualified(otherReturnParameter);
+			return thisReturnParameter.type.equalsQualified(otherReturnParameter.type) &&
+			thisReturnParameter.kind.equals(otherReturnParameter.kind) &&
+			thisReturnParameter.varargs == otherReturnParameter.varargs;
 		else if(thisReturnParameter == null && otherReturnParameter == null)
 			return true;
 		else

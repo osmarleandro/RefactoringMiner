@@ -76,12 +76,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return false;
 	}
 
-	public boolean equalsQualified(UMLParameter parameter) {
-		return this.type.equalsQualified(parameter.type) &&
-				this.kind.equals(parameter.kind) &&
-				this.varargs == parameter.varargs;
-	}
-
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
