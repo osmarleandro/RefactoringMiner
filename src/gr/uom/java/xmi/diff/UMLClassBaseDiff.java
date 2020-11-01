@@ -546,7 +546,22 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								!inconsistentAttributeRename(pattern, aliasedAttributesInOriginalClass, aliasedAttributesInNextClass) &&
 								!attributeMerged(a1, a2, refactorings) && !attributeSplit(a1, a2, refactorings)) {
 							UMLAttributeDiff attributeDiff = new UMLAttributeDiff(a1, a2, operationBodyMapperList);
-							Set<Refactoring> attributeDiffRefactorings = attributeDiff.getRefactorings(set);
+							Set<Refactoring> refactorings1 = new LinkedHashSet<Refactoring>();
+							RenameAttributeRefactoring rename = null;
+							if(attributeDiff.isRenamed()) {
+								rename = new RenameAttributeRefactoring(attributeDiff.removedAttribute.getVariableDeclaration(), attributeDiff.addedAttribute.getVariableDeclaration(), attributeDiff.removedAttribute.getClassName(), attributeDiff.addedAttribute.getClassName(), set);
+								refactorings1.add(rename);
+							}
+							if(attributeDiff.isTypeChanged() || attributeDiff.isQualifiedTypeChanged()) {
+								ChangeAttributeTypeRefactoring ref = new ChangeAttributeTypeRefactoring(attributeDiff.removedAttribute.getVariableDeclaration(), attributeDiff.addedAttribute.getVariableDeclaration(), attributeDiff.removedAttribute.getClassName(), attributeDiff.addedAttribute.getClassName(),
+										VariableReferenceExtractor.findReferences(attributeDiff.removedAttribute.getVariableDeclaration(), attributeDiff.addedAttribute.getVariableDeclaration(), attributeDiff.operationBodyMapperList));
+								refactorings1.add(ref);
+								if(rename != null) {
+									ref.addRelatedRefactoring(rename);
+								}
+							}
+							refactorings1.addAll(attributeDiff.getAnnotationRefactorings());
+							Set<Refactoring> attributeDiffRefactorings = refactorings1;
 							if(!refactorings.containsAll(attributeDiffRefactorings)) {
 								refactorings.addAll(attributeDiffRefactorings);
 								break;//it's not necessary to repeat the same process for all candidates in the set
