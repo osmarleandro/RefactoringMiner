@@ -1410,7 +1410,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Set<LeafMapping> mappingsWithSameReplacementTypes = new LinkedHashSet<LeafMapping>();
 				for(LeafMapping mapping : variableDeclarationMappings) {
 					if(replacementTypes == null) {
-						replacementTypes = mapping.getReplacementTypes();
+						Set<ReplacementType> types = new LinkedHashSet<ReplacementType>();
+						for(Replacement replacement : mapping.replacements) {
+							types.add(replacement.getType());
+						}
+						replacementTypes = types;
 						mappingsWithSameReplacementTypes.add(mapping);
 					}
 					else if(mapping.getReplacementTypes().equals(replacementTypes)) {
