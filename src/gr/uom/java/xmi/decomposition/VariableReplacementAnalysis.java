@@ -690,7 +690,20 @@ public class VariableReplacementAnalysis {
 			boolean replacementBeforeNotFoundInMethodSignature = false;
 			String[] lines1 = fragment1.getString().split("\\n");
 			for(String line : lines1) {
-				line = prepareLine(line);
+				String line1 = line;
+				line1 = line1.trim();
+				if(line1.startsWith("@Nullable")) {
+					line1 = line1.substring(9, line1.length());
+					line1 = line1.trim();
+				}
+				if(line1.startsWith("@Override")) {
+					line1 = line1.substring(9, line1.length());
+					line1 = line1.trim();
+				}
+				if(line1.contains("throws ")) {
+					line1 = line1.substring(0, line1.indexOf("throws "));
+				}
+				line = line1;
 				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getBefore())) {
 					replacementBeforeNotFoundInMethodSignature = true;
@@ -700,7 +713,20 @@ public class VariableReplacementAnalysis {
 			boolean replacementAfterNotFoundInMethodSignature = false;
 			String[] lines2 = fragment2.getString().split("\\n");
 			for(String line : lines2) {
-				line = prepareLine(line);
+				String line1 = line;
+				line1 = line1.trim();
+				if(line1.startsWith("@Nullable")) {
+					line1 = line1.substring(9, line1.length());
+					line1 = line1.trim();
+				}
+				if(line1.startsWith("@Override")) {
+					line1 = line1.substring(9, line1.length());
+					line1 = line1.trim();
+				}
+				if(line1.contains("throws ")) {
+					line1 = line1.substring(0, line1.indexOf("throws "));
+				}
+				line = line1;
 				if(!Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches() &&
 						ReplacementUtil.contains(line, replacement.getAfter())) {
 					replacementAfterNotFoundInMethodSignature = true;
@@ -710,22 +736,6 @@ public class VariableReplacementAnalysis {
 			return replacementBeforeNotFoundInMethodSignature && replacementAfterNotFoundInMethodSignature;
 		}
 		return true;
-	}
-
-	public static String prepareLine(String line) {
-		line = line.trim();
-		if(line.startsWith("@Nullable")) {
-			line = line.substring(9, line.length());
-			line = line.trim();
-		}
-		if(line.startsWith("@Override")) {
-			line = line.substring(9, line.length());
-			line = line.trim();
-		}
-		if(line.contains("throws ")) {
-			line = line.substring(0, line.indexOf("throws "));
-		}
-		return line;
 	}
 
 	private static boolean cyclicRename(Set<Replacement> finalConsistentRenames, Replacement replacement) {
