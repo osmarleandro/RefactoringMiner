@@ -2205,7 +2205,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					replacementInfo.addReplacement(replacement);
 					return replacementInfo.getReplacements();
 				}
-				if(invocationCoveringTheEntireStatement1.numberOfSubExpressions() == invocationCoveringTheEntireStatement2.numberOfSubExpressions() &&
+				if(invocationCoveringTheEntireStatement1.subExpressions.size() == invocationCoveringTheEntireStatement2.subExpressions.size() &&
 						invocationCoveringTheEntireStatement1.getExpression().contains(".") == invocationCoveringTheEntireStatement2.getExpression().contains(".")) {
 					return replacementInfo.getReplacements();
 				}

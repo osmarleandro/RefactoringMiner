@@ -138,10 +138,6 @@ public class OperationInvocation extends AbstractCall {
 		return methodName;
 	}
 
-    public int numberOfSubExpressions() {
-    	return subExpressions.size();
-    }
-
     public boolean matchesOperation(UMLOperation operation) {
     	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
     }
