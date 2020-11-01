@@ -765,10 +765,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return locationInfo.codeRange();
 	}
 
-	public boolean overridesObject() {
-		return isEquals() || isHashCode() || isToString() || isClone() || isCompareTo();
-	}
-
 	private boolean isEquals() {
 		List<UMLType> parameterTypeList = getParameterTypeList();
 		return getName().equals("equals") && getReturnParameter().getType().getClassType().equals("boolean") &&
