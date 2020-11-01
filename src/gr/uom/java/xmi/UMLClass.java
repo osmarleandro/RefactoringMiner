@@ -184,10 +184,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return anonymousClassList;
 	}
 
-	public UMLJavadoc getJavadoc() {
-		return javadoc;
-	}
-
 	public void setJavadoc(UMLJavadoc javadoc) {
 		this.javadoc = javadoc;
 	}
