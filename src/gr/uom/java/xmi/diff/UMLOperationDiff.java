@@ -53,7 +53,38 @@ public class UMLOperationDiff {
 		else if(!removedOperation.equalQualifiedReturnParameter(addedOperation))
 			qualifiedReturnTypeChanged = true;
 		this.annotationListDiff = new UMLAnnotationListDiff(removedOperation.getAnnotations(), addedOperation.getAnnotations());
-		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = updateAddedRemovedParameters(removedOperation, addedOperation);
+		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters1 = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
+		for(UMLParameter parameter12 : removedOperation.getParameters()) {
+			if(!parameter12.getKind().equals("return")) {
+				boolean found = false;
+				for(UMLParameter parameter21 : addedOperation.getParameters()) {
+					if(parameter12.equalsIncludingName(parameter21)) {
+						matchedParameters1.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter12, parameter21));
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					this.removedParameters.add(parameter12);
+				}
+			}
+		}
+		for(UMLParameter parameter11 : addedOperation.getParameters()) {
+			if(!parameter11.getKind().equals("return")) {
+				boolean found = false;
+				for(UMLParameter parameter22 : removedOperation.getParameters()) {
+					if(parameter11.equalsIncludingName(parameter22)) {
+						matchedParameters1.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter22, parameter11));
+						found = true;
+						break;
+					}
+				}
+				if(!found) {
+					this.addedParameters.add(parameter11);
+				}
+			}
+		}
+		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = matchedParameters1;
 		for(SimpleEntry<UMLParameter, UMLParameter> matchedParameter : matchedParameters) {
 			UMLParameter parameter1 = matchedParameter.getKey();
 			UMLParameter parameter2 = matchedParameter.getValue();
@@ -129,41 +160,6 @@ public class UMLOperationDiff {
 			}
 		}
 		return false;
-	}
-
-	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation removedOperation, UMLOperation addedOperation) {
-		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
-		for(UMLParameter parameter1 : removedOperation.getParameters()) {
-			if(!parameter1.getKind().equals("return")) {
-				boolean found = false;
-				for(UMLParameter parameter2 : addedOperation.getParameters()) {
-					if(parameter1.equalsIncludingName(parameter2)) {
-						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter1, parameter2));
-						found = true;
-						break;
-					}
-				}
-				if(!found) {
-					this.removedParameters.add(parameter1);
-				}
-			}
-		}
-		for(UMLParameter parameter1 : addedOperation.getParameters()) {
-			if(!parameter1.getKind().equals("return")) {
-				boolean found = false;
-				for(UMLParameter parameter2 : removedOperation.getParameters()) {
-					if(parameter1.equalsIncludingName(parameter2)) {
-						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter2, parameter1));
-						found = true;
-						break;
-					}
-				}
-				if(!found) {
-					this.addedParameters.add(parameter1);
-				}
-			}
-		}
-		return matchedParameters;
 	}
 
 	public List<UMLParameterDiff> getParameterDiffList() {
