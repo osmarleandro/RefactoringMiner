@@ -87,18 +87,6 @@ public class CandidateAttributeRefactoring {
 		this.renamedAttribute = renamedAttribute;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Rename Attribute").append("\t");
-		sb.append(originalVariableName);
-		sb.append(" to ");
-		sb.append(renamedVariableName);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" in class ").append(operationAfter.getClassName());
-		return sb.toString();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
