@@ -842,7 +842,7 @@ public class UMLModelDiff {
    private List<UMLOperation> getAddedOperationsInCommonClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         addedOperations.addAll(classDiff.getAddedOperations());
+         addedOperations.addAll(classDiff.addedOperations);
       }
       return addedOperations;
    }
@@ -850,7 +850,7 @@ public class UMLModelDiff {
    private List<UMLOperation> getAddedAndExtractedOperationsInCommonClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
-         addedOperations.addAll(classDiff.getAddedOperations());
+         addedOperations.addAll(classDiff.addedOperations);
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof ExtractOperationRefactoring) {
         		 ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
@@ -864,13 +864,13 @@ public class UMLModelDiff {
    private List<UMLOperation> getAddedOperationsInMovedAndRenamedClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-         addedOperations.addAll(classDiff.getAddedOperations());
+         addedOperations.addAll(classDiff.addedOperations);
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-         addedOperations.addAll(classDiff.getAddedOperations());
+         addedOperations.addAll(classDiff.addedOperations);
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-         addedOperations.addAll(classDiff.getAddedOperations());
+         addedOperations.addAll(classDiff.addedOperations);
       }
       return addedOperations;
    }
@@ -1526,7 +1526,7 @@ public class UMLModelDiff {
    private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
 	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
-			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+			  for(UMLOperation addedOperation : classDiff.addedOperations) {
 				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
 				  if(!mappers.isEmpty()) {
 					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
@@ -1545,7 +1545,7 @@ public class UMLModelDiff {
 	  }
 	  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
-			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+			  for(UMLOperation addedOperation : classDiff.addedOperations) {
 				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
 					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
 					  if(!mappers.isEmpty()) {
@@ -2522,7 +2522,7 @@ public class UMLModelDiff {
    private void deleteAddedOperation(UMLOperation operation) {
       UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
       if(classDiff != null)
-    	  classDiff.getAddedOperations().remove(operation);
+    	  classDiff.addedOperations.remove(operation);
    }
 
 	private static boolean isNumeric(String str) {
