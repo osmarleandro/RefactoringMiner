@@ -24,10 +24,6 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		this.operationAfter = operationAfter;
 	}
 
-	public UMLAnnotation getAnnotation() {
-		return annotation;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
