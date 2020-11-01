@@ -162,39 +162,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ArrayCreation node) {
-		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
-		String nodeAsString = node.toString();
-		if(creationMap.containsKey(nodeAsString)) {
-			creationMap.get(nodeAsString).add(creation);
-		}
-		else {
-			List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-			list.add(creation);
-			creationMap.put(nodeAsString, list);
-		}
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
-			if(anonymousCreationMap.containsKey(nodeAsString)) {
-				anonymousCreationMap.get(nodeAsString).add(creation);
-			}
-			else {
-				List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-				list.add(creation);
-				anonymousCreationMap.put(nodeAsString, list);
-			}
-		}
-		ArrayInitializer initializer = node.getInitializer();
-		if(initializer != null) {
-			List<Expression> expressions = initializer.expressions();
-			if(expressions.size() > 10) {
-				return false;
-			}
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(VariableDeclarationFragment node) {
 		if(!(node.getParent() instanceof LambdaExpression)) {
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
