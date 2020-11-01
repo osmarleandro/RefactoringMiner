@@ -75,10 +75,6 @@ public class CandidateAttributeRefactoring {
 		return originalAttribute;
 	}
 
-	public void setOriginalAttribute(UMLAttribute originalAttribute) {
-		this.originalAttribute = originalAttribute;
-	}
-
 	public UMLAttribute getRenamedAttribute() {
 		return renamedAttribute;
 	}
