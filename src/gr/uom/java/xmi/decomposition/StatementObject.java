@@ -224,11 +224,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArguments() {
-		return arguments;
-	}
-
-	@Override
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		return ternaryOperatorExpressions;
 	}
