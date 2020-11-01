@@ -42,10 +42,6 @@ public class CodeRange {
 		return endLine;
 	}
 
-	public int getStartColumn() {
-		return startColumn;
-	}
-
 	public int getEndColumn() {
 		return endColumn;
 	}
