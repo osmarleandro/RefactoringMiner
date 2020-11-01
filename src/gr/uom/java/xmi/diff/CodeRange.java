@@ -118,15 +118,14 @@ public class CodeRange {
 			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + "\"" + value + "\"");
 		else
 			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
-		insertNewLine(sb, last);
+		if(last)
+			sb.append("\n");
+		else
+			sb.append(",").append("\n");
 	}
 
 	private void encodeIntProperty(StringBuilder sb, String propertyName, int value, boolean last) {
 		sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
-		insertNewLine(sb, last);
-	}
-
-	private void insertNewLine(StringBuilder sb, boolean last) {
 		if(last)
 			sb.append("\n");
 		else
