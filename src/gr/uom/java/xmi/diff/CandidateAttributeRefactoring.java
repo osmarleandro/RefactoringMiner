@@ -35,10 +35,6 @@ public class CandidateAttributeRefactoring {
 		return originalVariableName;
 	}
 
-	public String getRenamedVariableName() {
-		return renamedVariableName;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
