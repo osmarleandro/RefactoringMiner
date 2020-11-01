@@ -39,10 +39,6 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return attributeMerges;
 	}
 
-	public String getClassNameBefore() {
-		return classNameBefore;
-	}
-
 	public String getClassNameAfter() {
 		return classNameAfter;
 	}
@@ -111,7 +107,7 @@ public class MergeAttributeRefactoring implements Refactoring {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration mergedAttribute : this.mergedAttributes) {
-			pairs.add(new ImmutablePair<String, String>(mergedAttribute.getLocationInfo().getFilePath(), getClassNameBefore()));
+			pairs.add(new ImmutablePair<String, String>(mergedAttribute.getLocationInfo().getFilePath(), classNameBefore));
 		}
 		return pairs;
 	}
