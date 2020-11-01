@@ -119,7 +119,8 @@ public class UMLModel {
     	}
     	for(UMLClass umlClass : umlModel.classList) {
     		if(!this.classList.contains(umlClass))
-    			modelDiff.reportAddedClass(umlClass);
+				if(!modelDiff.addedClasses.contains(umlClass))
+					   modelDiff.addedClasses.add(umlClass);
     	}
     	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.Move());
     	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.Rename());
