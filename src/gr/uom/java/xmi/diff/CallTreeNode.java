@@ -35,10 +35,6 @@ public class CallTreeNode {
 		children.add(node);
 	}
 
-	public List<CallTreeNode> getChildren() {
-		return children;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
