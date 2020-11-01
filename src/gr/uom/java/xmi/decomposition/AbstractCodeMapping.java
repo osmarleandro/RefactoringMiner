@@ -89,7 +89,7 @@ public abstract class AbstractCodeMapping {
 	private boolean containsIdenticalOrCompositeReplacement() {
 		for(Replacement r : replacements) {
 			if(r.getType().equals(ReplacementType.ARRAY_INITIALIZER_REPLACED_WITH_METHOD_INVOCATION_ARGUMENTS) &&
-					r.getBefore().equals(r.getAfter())) {
+					r.before.equals(r.getAfter())) {
 				return true;
 			}
 			else if(r.getType().equals(ReplacementType.COMPOSITE)) {
@@ -161,8 +161,8 @@ public abstract class AbstractCodeMapping {
 			for(Replacement replacement : getReplacements()) {
 				if(replacement.getAfter().startsWith(variableName + ".")) {
 					String suffixAfter = replacement.getAfter().substring(variableName.length(), replacement.getAfter().length());
-					if(replacement.getBefore().endsWith(suffixAfter)) {
-						String prefixBefore = replacement.getBefore().substring(0, replacement.getBefore().indexOf(suffixAfter));
+					if(replacement.before.endsWith(suffixAfter)) {
+						String prefixBefore = replacement.before.substring(0, replacement.before.indexOf(suffixAfter));
 						if(initializer != null) {
 							if(initializer.toString().equals(prefixBefore) ||
 									overlappingExtractVariable(initializer, prefixBefore, nonMappedLeavesT2, refactorings)) {
@@ -176,11 +176,11 @@ public abstract class AbstractCodeMapping {
 					}
 				}
 				if(variableName.equals(replacement.getAfter()) && initializer != null) {
-					if(initializer.toString().equals(replacement.getBefore()) ||
-							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getBefore()) && !containsVariableNameReplacement(variableName)) ||
-							ternaryMatch(initializer, replacement.getBefore()) ||
-							reservedTokenMatch(initializer, replacement, replacement.getBefore()) ||
-							overlappingExtractVariable(initializer, replacement.getBefore(), nonMappedLeavesT2, refactorings)) {
+					if(initializer.toString().equals(replacement.before) ||
+							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.before) && !containsVariableNameReplacement(variableName)) ||
+							ternaryMatch(initializer, replacement.before) ||
+							reservedTokenMatch(initializer, replacement, replacement.before) ||
+							overlappingExtractVariable(initializer, replacement.before, nonMappedLeavesT2, refactorings)) {
 						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 						processExtractVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
@@ -220,7 +220,7 @@ public abstract class AbstractCodeMapping {
 				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
 			}
 			for(Replacement replacement : getReplacements()) {
-				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.getBefore())) {
+				if(variable.endsWith(replacement.getAfter()) &&	initializer.equals(replacement.before)) {
 					List<VariableDeclaration> variableDeclarations = operation2.getVariableDeclarationsInScope(fragment2.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
@@ -242,8 +242,8 @@ public abstract class AbstractCodeMapping {
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
 				AbstractExpression initializer = declaration.getInitializer();
-				if(replacement.getBefore().startsWith(variableName + ".")) {
-					String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
+				if(replacement.before.startsWith(variableName + ".")) {
+					String suffixBefore = replacement.before.substring(variableName.length(), replacement.before.length());
 					if(replacement.getAfter().endsWith(suffixBefore)) {
 						String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
 						if(initializer != null) {
@@ -258,7 +258,7 @@ public abstract class AbstractCodeMapping {
 						}
 					}
 				}
-				if(variableName.equals(replacement.getBefore()) && initializer != null) {
+				if(variableName.equals(replacement.before) && initializer != null) {
 					if(initializer.toString().equals(replacement.getAfter()) ||
 							(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !containsVariableNameReplacement(variableName)) ||
 							ternaryMatch(initializer, replacement.getAfter()) ||
@@ -286,7 +286,7 @@ public abstract class AbstractCodeMapping {
 				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
 			}
 			for(Replacement replacement : getReplacements()) {
-				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+				if(variable.endsWith(replacement.before) && initializer.equals(replacement.getAfter())) {
 					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
 					for(VariableDeclaration declaration : variableDeclarations) {
 						if(declaration.getVariableName().equals(variable)) {
@@ -315,7 +315,7 @@ public abstract class AbstractCodeMapping {
 	private boolean containsVariableNameReplacement(String variableName) {
 		for(Replacement replacement : getReplacements()) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-				if(replacement.getBefore().equals(variableName) || replacement.getAfter().equals(variableName)) {
+				if(replacement.before.equals(variableName) || replacement.getAfter().equals(variableName)) {
 					return true;
 				}
 			}
