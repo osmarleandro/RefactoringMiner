@@ -209,11 +209,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArrayAccesses() {
-		return arrayAccesses;
-	}
-
-	@Override
 	public List<String> getPrefixExpressions() {
 		return prefixExpressions;
 	}
