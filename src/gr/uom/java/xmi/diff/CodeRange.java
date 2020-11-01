@@ -63,10 +63,6 @@ public class CodeRange {
 		return this;
 	}
 
-	public String getCodeElement() {
-		return codeElement;
-	}
-
 	public CodeRange setCodeElement(String codeElement) {
 		this.codeElement = codeElement;
 		return this;
