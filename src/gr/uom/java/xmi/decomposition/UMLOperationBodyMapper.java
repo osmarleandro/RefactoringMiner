@@ -298,7 +298,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						addedLeaves1.add(statement1);
 					}
 					if(!statement1.getAnonymousClassDeclarations().isEmpty()) {
-						List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+						List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().anonymousClassList;
 						for(UMLAnonymousClass anonymous : anonymousList) {
 							if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 								for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -356,7 +356,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							addedLeaves1.add(statement1);
 						}
 						if(!statement1.getAnonymousClassDeclarations().isEmpty()) {
-							List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().getAnonymousClassList();
+							List<UMLAnonymousClass> anonymousList = operationBodyMapper.getOperation1().anonymousClassList;
 							for(UMLAnonymousClass anonymous : anonymousList) {
 								if(statement1.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 									for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -411,7 +411,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
 			for(StatementObject statement : leaves2) {
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
-					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
+					List<UMLAnonymousClass> anonymousList = operation2.anonymousClassList;
 					for(UMLAnonymousClass anonymous : anonymousList) {
 						if(anonymous.isDirectlyNested() && statement.getLocationInfo().subsumes(anonymous.getLocationInfo())) {
 							for(UMLOperation anonymousOperation : anonymous.getOperations()) {
@@ -2702,7 +2702,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
-		for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+		for(UMLAnonymousClass anonymousClass : operation.anonymousClassList) {
 			if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration1.getLocationInfo())) {
 				return anonymousClass;
 			}
@@ -2744,7 +2744,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			List<UMLOperation> anonymousOperations = new ArrayList<UMLOperation>();
 			for(AnonymousClassDeclarationObject anonymousObject : statement.getAnonymousClassDeclarations()) {
-				for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
+				for(UMLAnonymousClass anonymousClass : operation.anonymousClassList) {
 					if(anonymousClass.getLocationInfo().equals(anonymousObject.getLocationInfo())) {
 						anonymousOperations.addAll(anonymousClass.getOperations());
 					}
