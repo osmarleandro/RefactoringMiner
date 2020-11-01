@@ -47,10 +47,6 @@ public class CandidateAttributeRefactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getAttributeReferences() {
-		return attributeReferences;
-	}
-
 	public int getOccurrences() {
 		return attributeReferences.size();
 	}
