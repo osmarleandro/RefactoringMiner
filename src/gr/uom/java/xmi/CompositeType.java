@@ -9,10 +9,6 @@ public class CompositeType extends UMLType {
 		this.rightType = rightType;
 	}
 
-	public UMLType getLeftType() {
-		return leftType;
-	}
-
 	public LeafType getRightType() {
 		return rightType;
 	}
