@@ -52,10 +52,6 @@ public class OperationBody {
 		return compositeStatement.statementCount();
 	}
 
-	public CompositeStatementObject getCompositeStatement() {
-		return compositeStatement;
-	}
-
 	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
 		return new ArrayList<AnonymousClassDeclarationObject>(compositeStatement.getAllAnonymousClassDeclarations());
 	}
