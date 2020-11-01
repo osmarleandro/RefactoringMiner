@@ -21,15 +21,6 @@ public class MoveClassRefactoring implements Refactoring {
 		this.movedClass = movedClass;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
-		sb.append(" moved to ");
-		sb.append(movedClass.getName());
-		return sb.toString();
-	}
-
 	public RenamePattern getRenamePattern() {
 		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('.', originalClass.getName(), movedClass.getName());
 		if (separatorPos == -1) {
