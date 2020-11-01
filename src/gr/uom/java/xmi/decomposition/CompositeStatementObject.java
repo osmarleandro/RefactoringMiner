@@ -23,7 +23,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
-		this.setDepth(depth);
+		this.depth = depth;
 		this.locationInfo = new LocationInfo(cu, filePath, statement, codeElementType);
 		this.statementList = new ArrayList<AbstractStatement>();
 		this.expressionList = new ArrayList<AbstractExpression>();
@@ -42,7 +42,8 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public void addExpression(AbstractExpression expression) {
 		//an expression has the same index and depth as the composite statement it belong to
-		expression.setDepth(this.getDepth());
+		int depth = this.getDepth();
+		expression.depth = depth;
 		expression.setIndex(this.getIndex());
 		expressionList.add(expression);
 		expression.setOwner(this);
