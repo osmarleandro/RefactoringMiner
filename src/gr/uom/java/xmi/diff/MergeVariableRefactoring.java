@@ -145,13 +145,4 @@ public class MergeVariableRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(newVariable.codeRange()
-				.setDescription("new variable declaration")
-				.setCodeElement(newVariable.toString()));
-		return ranges;
-	}
 }
