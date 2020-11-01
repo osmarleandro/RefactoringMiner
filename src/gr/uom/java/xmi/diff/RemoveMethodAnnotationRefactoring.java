@@ -49,15 +49,6 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(operationAfter.codeRange()
-				.setDescription("method declaration with removed annotation")
-				.setCodeElement(operationAfter.toString()));
-		return ranges;
-	}
-
-	@Override
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.REMOVE_METHOD_ANNOTATION;
 	}
