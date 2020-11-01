@@ -385,59 +385,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(SimpleName node) {
-		if(node.getParent() instanceof FieldAccess && ((FieldAccess)node.getParent()).getExpression() instanceof ThisExpression) {
-			FieldAccess fieldAccess = (FieldAccess)node.getParent();
-			variables.add(fieldAccess.toString());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(fieldAccess.toString());
-			}
-		}
-		else if(node.getParent() instanceof MethodInvocation &&
-				((MethodInvocation)node.getParent()).getName().equals(node)) {
-			// skip method invocation names
-		}
-		else if(node.getParent() instanceof SuperMethodInvocation &&
-				((SuperMethodInvocation)node.getParent()).getName().equals(node)) {
-			// skip super method invocation names
-		}
-		else if(node.getParent() instanceof Type) {
-			// skip type names
-		}
-		else if(node.getParent() instanceof MarkerAnnotation &&
-				((MarkerAnnotation)node.getParent()).getTypeName().equals(node)) {
-			// skip marker annotation names
-		}
-		else if(node.getParent() instanceof MethodDeclaration &&
-				((MethodDeclaration)node.getParent()).getName().equals(node)) {
-			// skip method declaration names
-		}
-		else if(node.getParent() instanceof SingleVariableDeclaration &&
-				node.getParent().getParent() instanceof MethodDeclaration) {
-			// skip method parameter names
-		}
-		else if(node.getParent() instanceof SingleVariableDeclaration &&
-				node.getParent().getParent() instanceof CatchClause) {
-			// skip catch clause formal parameter names
-		}
-		else if(node.getParent() instanceof QualifiedName &&
-				(node.getParent().getParent() instanceof QualifiedName ||
-				node.getParent().getParent() instanceof MethodInvocation ||
-				node.getParent().getParent() instanceof SuperMethodInvocation ||
-				node.getParent().getParent() instanceof ClassInstanceCreation)) {
-			// skip names being part of qualified names
-		}
-		else {
-			variables.add(node.getIdentifier());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(node.getIdentifier());
-			}
-		}
-		return super.visit(node);
-	}
-	
 	public boolean visit(ArrayType node) {
 		types.add(node.toString());
 		if(current.getUserObject() != null) {
