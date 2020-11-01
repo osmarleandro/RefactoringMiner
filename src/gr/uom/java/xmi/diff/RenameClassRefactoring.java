@@ -74,13 +74,4 @@ public class RenameClassRefactoring implements Refactoring {
 				.setCodeElement(originalClass.getName()));
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(renamedClass.codeRange()
-				.setDescription("renamed type declaration")
-				.setCodeElement(renamedClass.getName()));
-		return ranges;
-	}
 }
