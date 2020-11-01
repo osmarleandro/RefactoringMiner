@@ -13,8 +13,4 @@ public class AnonymousClassDeclarationVisitor extends ASTVisitor {
 		anonymousClassDeclarations.add(node);
 		return super.visit(node);
 	}
-
-	public Set<AnonymousClassDeclaration> getAnonymousClassDeclarations() {
-		return anonymousClassDeclarations;
-	}
 }
