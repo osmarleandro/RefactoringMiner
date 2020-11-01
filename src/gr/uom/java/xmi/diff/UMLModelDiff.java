@@ -2021,34 +2021,6 @@ public class UMLModelDiff {
       }
    }
 
-   private void checkForOperationMovesBetweenRemovedAndAddedClasses() throws RefactoringMinerTimedOutException {
-	   Set<UMLType> interfacesImplementedByAddedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass addedClass : addedClasses) {
-		   interfacesImplementedByAddedClasses.addAll(addedClass.getImplementedInterfaces());
-	   }
-	   Set<UMLType> interfacesImplementedByRemovedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass removedClass : removedClasses) {
-		   interfacesImplementedByRemovedClasses.addAll(removedClass.getImplementedInterfaces());
-	   }
-	   Set<UMLType> interfaceIntersection = new LinkedHashSet<UMLType>(interfacesImplementedByAddedClasses);
-	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
-	   List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
-	   for(UMLClass addedClass : addedClasses) {
-		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
-			   addedOperations.addAll(addedClass.getOperations());
-		   }
-	   }
-	   List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-	   for(UMLClass removedClass : removedClasses) {
-		   if(!removedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(removedClass)) {
-			   removedOperations.addAll(removedClass.getOperations());
-		   }
-	   }
-	   if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-		   checkForOperationMoves(addedOperations, removedOperations);
-	   }
-   }
-
    private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
 	   if(!umlClass.isTopLevel()) {
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
