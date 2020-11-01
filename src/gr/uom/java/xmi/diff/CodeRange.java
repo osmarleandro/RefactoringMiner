@@ -30,10 +30,6 @@ public class CodeRange {
 		this.codeElementType = codeElementType;
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
-
 	public int getStartLine() {
 		return startLine;
 	}
