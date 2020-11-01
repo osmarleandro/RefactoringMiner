@@ -1136,7 +1136,73 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(statement1 instanceof TryStatementObject && statement2 instanceof TryStatementObject) {
 			return compositeChildMatchingScore((TryStatementObject)statement1, (TryStatementObject)statement2, mappings, removedOperations, addedOperations);
 		}
-		return compositeChildMatchingScore(statement1, statement2, mappings, removedOperations, addedOperations);
+		List<AbstractStatement> compStatements1 = statement1.getStatements();
+		List<AbstractStatement> compStatements2 = statement2.getStatements();
+		int childrenSize1 = compStatements1.size();
+		int childrenSize2 = compStatements2.size();
+		
+		if(parentMapper != null && statement1.getLocationInfo().getCodeElementType().equals(statement2.getLocationInfo().getCodeElementType()) &&
+				childrenSize1 == 1 && childrenSize2 == 1 && !statement1.getString().equals("{") && !statement2.getString().equals("{")) {
+			if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
+				CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);
+				compStatements1.addAll(block.getStatements());
+			}
+			if(!compStatements1.get(0).getString().equals("{") && compStatements2.get(0).getString().equals("{")) {
+				CompositeStatementObject block = (CompositeStatementObject)compStatements2.get(0);
+				compStatements2.addAll(block.getStatements());
+			}
+		}
+		int mappedChildrenSize = 0;
+		for(AbstractCodeMapping mapping : mappings) {
+			if(compStatements1.contains(mapping.getFragment1()) && compStatements2.contains(mapping.getFragment2())) {
+				mappedChildrenSize++;
+			}
+		}
+		if(mappedChildrenSize == 0) {
+			List<StatementObject> leaves1 = statement1.getLeaves();
+			List<StatementObject> leaves2 = statement2.getLeaves();
+			int leaveSize1 = leaves1.size();
+			int leaveSize2 = leaves2.size();
+			int mappedLeavesSize = 0;
+			for(AbstractCodeMapping mapping : mappings) {
+				if(leaves1.contains(mapping.getFragment1()) && leaves2.contains(mapping.getFragment2())) {
+					mappedLeavesSize++;
+				}
+			}
+			if(mappedLeavesSize == 0) {
+				//check for possible extract or inline
+				if(leaveSize2 <= 2) {
+					for(StatementObject leaf2 : leaves2) {
+						OperationInvocation invocation = leaf2.invocationCoveringEntireFragment();
+						if(invocation != null && matchesOperation(invocation, addedOperations, operation2.variableTypeMap())) {
+							mappedLeavesSize++;
+						}
+					}
+				}
+				else if(leaveSize1 <= 2) {
+					for(StatementObject leaf1 : leaves1) {
+						OperationInvocation invocation = leaf1.invocationCoveringEntireFragment();
+						if(invocation != null && matchesOperation(invocation, removedOperations, operation1.variableTypeMap())) {
+							mappedLeavesSize++;
+						}
+					}
+				}
+				if(leaveSize1 == 1 && leaveSize2 == 1 && leaves1.get(0).getString().equals("continue;\n") && leaves2.get(0).getString().equals("return null;\n")) {
+					mappedLeavesSize++;
+				}
+			}
+			int max = Math.max(leaveSize1, leaveSize2);
+			if(max == 0)
+				return 0;
+			else
+				return (double)mappedLeavesSize/(double)max;
+		}
+		
+		int max = Math.max(childrenSize1, childrenSize2);
+		if(max == 0)
+			return 0;
+		else
+			return (double)mappedChildrenSize/(double)max;
 	}
 
 	private CompositeStatementObjectMapping createCompositeMapping(CompositeStatementObject statement1,
