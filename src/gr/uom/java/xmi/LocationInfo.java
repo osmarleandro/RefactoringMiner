@@ -51,10 +51,6 @@ public class LocationInfo {
 		return endOffset;
 	}
 
-	public int getLength() {
-		return length;
-	}
-
 	public int getStartLine() {
 		return startLine;
 	}
