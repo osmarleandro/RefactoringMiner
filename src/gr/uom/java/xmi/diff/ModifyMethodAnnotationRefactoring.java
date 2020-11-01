@@ -26,10 +26,6 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		this.operationAfter = operationAfter;
 	}
 
-	public UMLAnnotation getAnnotationBefore() {
-		return annotationBefore;
-	}
-
 	public UMLAnnotation getAnnotationAfter() {
 		return annotationAfter;
 	}
