@@ -75,12 +75,4 @@ public class CallTreeNode {
 			return false;
 		return true;
 	}
-	
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(invokedOperation);
-		sb.append(" called from ");
-		sb.append(originalOperation);
-		return sb.toString();
-	}
 }
