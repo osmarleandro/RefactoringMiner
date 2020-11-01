@@ -820,10 +820,6 @@ public class Visitor extends ASTVisitor {
 		return booleanLiterals;
 	}
 
-	public List<String> getTypeLiterals() {
-		return typeLiterals;
-	}
-
 	public Map<String, List<ObjectCreation>> getCreationMap() {
 		return creationMap;
 	}
