@@ -17,19 +17,6 @@ public class UMLRealization implements Comparable<UMLRealization> {
         return client;
     }
 
-    public boolean equals(Object o) {
-    	if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLRealization) {
-    		UMLRealization umlRealization = (UMLRealization)o;
-    		return this.client.equals(umlRealization.client) &&
-    			this.supplier.equals(umlRealization.supplier);
-    	}
-    	return false;
-    }
-
     public String toString() {
     	return client + "->" + supplier;
     }
