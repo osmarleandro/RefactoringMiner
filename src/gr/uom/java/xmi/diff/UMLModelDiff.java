@@ -1527,7 +1527,32 @@ public class UMLModelDiff {
 	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+				  List<UMLOperationBodyMapper> mappers1 = new ArrayList<UMLOperationBodyMapper>();
+				   for(UMLClassDiff classDiff1 : commonClassDiffList) {
+					   UMLOperationBodyMapper mapper = classDiff1.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+					   if(mapper != null) {
+						   mappers1.add(mapper);
+					   }
+				   }
+				   for(UMLClassMoveDiff classDiff2 : classMoveDiffList) {
+					   UMLOperationBodyMapper mapper = classDiff2.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+					   if(mapper != null) {
+						   mappers1.add(mapper);
+					   }
+				   }
+				   for(UMLClassMoveDiff classDiff3 : innerClassMoveDiffList) {
+					   UMLOperationBodyMapper mapper = classDiff3.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+					   if(mapper != null) {
+						   mappers1.add(mapper);
+					   }
+				   }
+				   for(UMLClassRenameDiff classDiff4 : classRenameDiffList) {
+					   UMLOperationBodyMapper mapper = classDiff4.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+					   if(mapper != null) {
+						   mappers1.add(mapper);
+					   }
+				   }
+				List<UMLOperationBodyMapper> mappers = mappers1;
 				  if(!mappers.isEmpty()) {
 					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 					  if(operationSignatureDiff.isOperationRenamed()) {
@@ -1547,7 +1572,32 @@ public class UMLModelDiff {
 		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
 			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
 				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
-					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  List<UMLOperationBodyMapper> mappers1 = new ArrayList<UMLOperationBodyMapper>();
+					   for(UMLClassDiff classDiff1 : commonClassDiffList) {
+						   UMLOperationBodyMapper mapper = classDiff1.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+						   if(mapper != null) {
+							   mappers1.add(mapper);
+						   }
+					   }
+					   for(UMLClassMoveDiff classDiff2 : classMoveDiffList) {
+						   UMLOperationBodyMapper mapper = classDiff2.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+						   if(mapper != null) {
+							   mappers1.add(mapper);
+						   }
+					   }
+					   for(UMLClassMoveDiff classDiff3 : innerClassMoveDiffList) {
+						   UMLOperationBodyMapper mapper = classDiff3.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+						   if(mapper != null) {
+							   mappers1.add(mapper);
+						   }
+					   }
+					   for(UMLClassRenameDiff classDiff4 : classRenameDiffList) {
+						   UMLOperationBodyMapper mapper = classDiff4.findMapperWithMatchingSignatures(removedOperation, addedOperation);
+						   if(mapper != null) {
+							   mappers1.add(mapper);
+						   }
+					   }
+					List<UMLOperationBodyMapper> mappers = mappers1;
 					  if(!mappers.isEmpty()) {
 						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
 						  if(operationSignatureDiff.isOperationRenamed()) {
@@ -1619,35 +1669,6 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-   }
-
-   private List<UMLOperationBodyMapper> findMappersWithMatchingSignatures(UMLOperation operation1, UMLOperation operation2) {
-	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignatures(operation1, operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
-	   return mappers;
    }
 
    public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2(UMLOperation operation2) {
