@@ -698,7 +698,7 @@ public class UMLModelDiff {
    }
 
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
-	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
+	   if(addedAttribute.name.equals(removedAttribute.name) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
 		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
 			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
@@ -1831,7 +1831,7 @@ public class UMLModelDiff {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
             		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
-            			  if(anonymous.getName().equals(className)) {
+            			  if(anonymous.name.equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
             				  break;
             			  }
@@ -1857,7 +1857,7 @@ public class UMLModelDiff {
             	  }
             	  Map<String, String> parameterToArgumentMap1 = new LinkedHashMap<String, String>();
             	  for(UMLAttribute attribute : attributes) {
-            		  parameterToArgumentMap1.put(attribute.getName() + ".", "");
+            		  parameterToArgumentMap1.put(attribute.name + ".", "");
             		  parameterToArgumentMap2.put("this.", "");
             	  }
             	  if(addedOperationInvocation.getExpression() != null) {
@@ -2326,9 +2326,9 @@ public class UMLModelDiff {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
 						String variableInitializer = v1.getInitializer().getString();
 						if(attributeInitializer.equals(variableInitializer) && attribute.getType().equals(v1.getType()) &&
-								(attribute.getName().equals(v1.getVariableName()) ||
-								attribute.getName().toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
-								v1.getVariableName().toLowerCase().contains(attribute.getName().toLowerCase()))) {
+								(attribute.name.equals(v1.getVariableName()) ||
+								attribute.name.toLowerCase().contains(v1.getVariableName().toLowerCase()) ||
+								v1.getVariableName().toLowerCase().contains(attribute.name.toLowerCase()))) {
 							nonMappedStatementsDeclaringSameVariable++;
 							leafIterator1.remove();
 							LeafMapping mapping = new LeafMapping(v1.getInitializer(), attributeDeclaration.getInitializer(), operationBodyMapper.getOperation1(), operationBodyMapper.getOperation2());
