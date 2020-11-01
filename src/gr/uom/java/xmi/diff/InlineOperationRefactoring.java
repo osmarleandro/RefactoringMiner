@@ -142,17 +142,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
 	}
 
-	/**
-	 * @return the code range(s) of the invocation(s) to the inlined method inside the target method in the <b>parent</b> commit
-	 */
-	public Set<CodeRange> getInlinedOperationInvocationCodeRanges() {
-		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
-		for(OperationInvocation invocation : inlinedOperationInvocations) {
-			codeRanges.add(invocation.codeRange());
-		}
-		return codeRanges;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getInlinedOperation().getLocationInfo().getFilePath(), getInlinedOperation().getClassName()));
