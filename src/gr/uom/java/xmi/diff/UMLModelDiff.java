@@ -2116,7 +2116,7 @@ public class UMLModelDiff {
 	
 	               Refactoring refactoring = null;
 	               if(removedOperation.getClassName().equals(addedOperation.getClassName())) {
-	            	  if (addedOperation.equalParameters(removedOperation)) {
+	            	  if (addedOperation.equalReturnParameter(removedOperation) && addedOperation.getParameters().equals(removedOperation.getParameters())) {
 	            		  //refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 	            	  } else {
 	            		  // Methods in the same class with similar body but different signature
@@ -2201,7 +2201,7 @@ public class UMLModelDiff {
 
 	               Refactoring refactoring = null;
 	               if(removedOperation.getClassName().equals(addedOperation.getClassName())) {
-	            	  if (addedOperation.equalParameters(removedOperation)) {
+	            	  if (addedOperation.equalReturnParameter(removedOperation) && addedOperation.getParameters().equals(removedOperation.getParameters())) {
 	            		  //refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
 	            	  } else {
 	            		  // Methods in the same class with similar body but different signature
