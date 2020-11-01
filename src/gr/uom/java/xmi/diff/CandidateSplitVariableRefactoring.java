@@ -36,10 +36,6 @@ public class CandidateSplitVariableRefactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
-	}
-
 	public Set<AbstractCodeMapping> getVariableReferences() {
 		return variableReferences;
 	}
