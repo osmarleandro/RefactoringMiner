@@ -1975,7 +1975,17 @@ public class UMLModelDiff {
 	   }
 	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
 	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
+	int nonMappedInnerNodeCount = 0;
+	for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
+		if(composite.countableStatement())
+			nonMappedInnerNodeCount++;
+	}
+	int nonMappedLeafCount = 0;
+	for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
+		if(statement.countableStatement() && !operationBodyMapper.isTemporaryVariableAssignment(statement))
+			nonMappedLeafCount++;
+	}
+	   int nonMappedElementsT2 = nonMappedLeafCount + nonMappedInnerNodeCount;
 	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 	   int exactMatches = exactMatchList.size();
 	   return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
