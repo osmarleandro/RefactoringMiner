@@ -220,7 +220,7 @@ public class UMLModelASTReader {
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(umlClass.getName());
-	    			umlClass.addAttribute(attribute);
+	    			umlClass.attributes.add(attribute);
 	    		}
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
@@ -295,7 +295,7 @@ public class UMLModelASTReader {
     		List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
     		for(UMLAttribute attribute : attributes) {
     			attribute.setClassName(umlClass.getName());
-    			umlClass.addAttribute(attribute);
+    			umlClass.attributes.add(attribute);
     		}
     	}
     	
@@ -523,7 +523,7 @@ public class UMLModelASTReader {
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(anonymousClass.getCodePath());
-	    			anonymousClass.addAttribute(attribute);
+	    			anonymousClass.attributes.add(attribute);
 	    		}
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {

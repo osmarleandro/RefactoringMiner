@@ -31,10 +31,6 @@ public abstract class UMLAbstractClass {
 		this.operations.add(operation);
 	}
 
-	public void addAttribute(UMLAttribute attribute) {
-		this.attributes.add(attribute);
-	}
-
 	public List<UMLOperation> getOperations() {
 		return operations;
 	}
