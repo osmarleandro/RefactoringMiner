@@ -1784,7 +1784,13 @@ public class UMLModelDiff {
 		}
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
-		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
+		List<AbstractCodeMapping> exactMatches1 = new ArrayList<AbstractCodeMapping>();
+		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+			if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+					!mapping.getFragment1().getString().equals("try"))
+				exactMatches1.add(mapping);
+		}
+		List<AbstractCodeMapping> exactMatchList = exactMatches1;
 		int exactMatches = exactMatchList.size();
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
 				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
@@ -1976,7 +1982,13 @@ public class UMLModelDiff {
 	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
 	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
+	List<AbstractCodeMapping> exactMatches1 = new ArrayList<AbstractCodeMapping>();
+	for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+		if(mapping.isExact() && mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement() &&
+				!mapping.getFragment1().getString().equals("try"))
+			exactMatches1.add(mapping);
+	}
+	   List<AbstractCodeMapping> exactMatchList = exactMatches1;
 	   int exactMatches = exactMatchList.size();
 	   return mappings > 0 && (mappings > nonMappedElementsT2 || (mappings > 1 && mappings >= nonMappedElementsT2) ||
 			   (exactMatches == mappings && nonMappedElementsT1 == 0) ||
