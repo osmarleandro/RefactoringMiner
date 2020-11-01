@@ -103,10 +103,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		return replacements;
 	}
 
-	public Set<AbstractCodeFragment> getInlinedCodeFragments() {
-		return inlinedCodeFragmentsInTargetOperation;
-	}
-
 	/**
 	 * @return the code range of the target method in the <b>parent</b> commit
 	 */
