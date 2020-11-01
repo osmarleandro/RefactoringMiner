@@ -18,22 +18,22 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 	public int compareTo(LeafMapping o) {
 		double distance1;
 		double distance2;
-		if(this.getFragment1().getString().equals(this.getFragment2().getString())) {
+		if(this.getFragment1().getString().equals(this.fragment2.getString())) {
 			distance1 = 0;
 		}
 		else {
 			String s1 = this.getFragment1().getString().toLowerCase();
-			String s2 = this.getFragment2().getString().toLowerCase();
+			String s2 = this.fragment2.getString().toLowerCase();
 			int distance = StringDistance.editDistance(s1, s2);
 			distance1 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
 		
-		if(o.getFragment1().getString().equals(o.getFragment2().getString())) {
+		if(o.getFragment1().getString().equals(o.fragment2.getString())) {
 			distance2 = 0;
 		}
 		else {
 			String s1 = o.getFragment1().getString().toLowerCase();
-			String s2 = o.getFragment2().getString().toLowerCase();
+			String s2 = o.fragment2.getString().toLowerCase();
 			int distance = StringDistance.editDistance(s1, s2);
 			distance2 = (double)distance/(double)Math.max(s1.length(), s2.length());
 		}
@@ -54,15 +54,15 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			return Double.compare(distance1, distance2);
 		}
 		else {
-			int depthDiff1 = Math.abs(this.getFragment1().getDepth() - this.getFragment2().getDepth());
-			int depthDiff2 = Math.abs(o.getFragment1().getDepth() - o.getFragment2().getDepth());
+			int depthDiff1 = Math.abs(this.getFragment1().getDepth() - this.fragment2.getDepth());
+			int depthDiff2 = Math.abs(o.getFragment1().getDepth() - o.fragment2.getDepth());
 
 			if(depthDiff1 != depthDiff2) {
 				return Integer.valueOf(depthDiff1).compareTo(Integer.valueOf(depthDiff2));
 			}
 			else {
-				int indexDiff1 = Math.abs(this.getFragment1().getIndex() - this.getFragment2().getIndex());
-				int indexDiff2 = Math.abs(o.getFragment1().getIndex() - o.getFragment2().getIndex());
+				int indexDiff1 = Math.abs(this.getFragment1().getIndex() - this.fragment2.getIndex());
+				int indexDiff2 = Math.abs(o.getFragment1().getIndex() - o.fragment2.getIndex());
 				if(indexDiff1 != indexDiff2) {
 					return Integer.valueOf(indexDiff1).compareTo(Integer.valueOf(indexDiff2));
 				}
@@ -80,7 +80,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		while(parent1 != null && parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
 			parent1 = parent1.getParent();
 		}
-		CompositeStatementObject parent2 = getFragment2().getParent();
+		CompositeStatementObject parent2 = fragment2.getParent();
 		while(parent2 != null && parent2.getLocationInfo().getCodeElementType().equals(CodeElementType.BLOCK)) {
 			parent2 = parent2.getParent();
 		}
@@ -109,7 +109,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 
 	public Set<String> callChainIntersection() {
 		OperationInvocation invocation1 = this.getFragment1().invocationCoveringEntireFragment();
-		OperationInvocation invocation2 = this.getFragment2().invocationCoveringEntireFragment();
+		OperationInvocation invocation2 = this.fragment2.invocationCoveringEntireFragment();
 		if(invocation1 != null && invocation2 != null) {
 			return invocation1.callChainIntersection(invocation2);
 		}

@@ -41,10 +41,6 @@ public abstract class AbstractCodeMapping {
 		return fragment1;
 	}
 
-	public AbstractCodeFragment getFragment2() {
-		return fragment2;
-	}
-
 	public UMLOperation getOperation1() {
 		return operation1;
 	}
@@ -134,8 +130,8 @@ public abstract class AbstractCodeMapping {
 
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
-				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
+				&& fragment2 instanceof StatementObject) {
+			StatementObject statement = (StatementObject) fragment2;
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {
@@ -197,7 +193,7 @@ public abstract class AbstractCodeMapping {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
-								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {
+								if(getFragment1().getString().contains(initializerBeforeRename) && fragment2.getString().contains(variableName)) {
 									ExtractVariableRefactoring ref = new ExtractVariableRefactoring(declaration, operation1, operation2);
 									processExtractVariableRefactoring(ref, refactorings);
 								}
