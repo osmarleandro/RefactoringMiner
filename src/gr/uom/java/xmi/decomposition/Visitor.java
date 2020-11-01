@@ -844,10 +844,6 @@ public class Visitor extends ASTVisitor {
 		return postfixExpressions;
 	}
 
-	public List<String> getArguments() {
-		return this.arguments;
-	}
-
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		return ternaryOperatorExpressions;
 	}
