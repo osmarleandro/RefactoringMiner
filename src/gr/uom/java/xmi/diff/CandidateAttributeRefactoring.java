@@ -55,10 +55,6 @@ public class CandidateAttributeRefactoring {
 		return attributeReferences.size();
 	}
 
-	public VariableDeclaration getOriginalVariableDeclaration() {
-		return originalVariableDeclaration;
-	}
-
 	public void setOriginalVariableDeclaration(VariableDeclaration originalVariableDeclaration) {
 		this.originalVariableDeclaration = originalVariableDeclaration;
 	}
