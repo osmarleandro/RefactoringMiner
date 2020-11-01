@@ -29,10 +29,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return locationInfo;
 	}
 
-	public UMLType getType() {
-		return type;
-	}
-
 	public void setType(UMLType type) {
 		this.type = type;
 	}
