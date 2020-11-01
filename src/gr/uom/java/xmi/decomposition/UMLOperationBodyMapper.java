@@ -1694,7 +1694,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		Set<String> arguments1 = new LinkedHashSet<String>(statement1.getArguments());
 		Set<String> arguments2 = new LinkedHashSet<String>(statement2.getArguments());
-		removeCommonElements(arguments1, arguments2);
+		Set<String> intersection = new LinkedHashSet<String>(arguments1);
+		intersection.retainAll(arguments2);
+		arguments1.removeAll(intersection);
+		arguments2.removeAll(intersection);
 		
 		if(!argumentsWithIdenticalMethodCalls(arguments1, arguments2, variables1, variables2)) {
 			findReplacements(arguments1, variables2, replacementInfo, ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE);
@@ -1811,27 +1814,45 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		Set<String> stringLiterals1 = new LinkedHashSet<String>(statement1.getStringLiterals());
 		Set<String> stringLiterals2 = new LinkedHashSet<String>(statement2.getStringLiterals());
-		removeCommonElements(stringLiterals1, stringLiterals2);
+		Set<String> intersection = new LinkedHashSet<String>(stringLiterals1);
+		intersection.retainAll(stringLiterals2);
+		stringLiterals1.removeAll(intersection);
+		stringLiterals2.removeAll(intersection);
 		
 		Set<String> numberLiterals1 = new LinkedHashSet<String>(statement1.getNumberLiterals());
 		Set<String> numberLiterals2 = new LinkedHashSet<String>(statement2.getNumberLiterals());
-		removeCommonElements(numberLiterals1, numberLiterals2);
+		Set<String> intersection = new LinkedHashSet<String>(numberLiterals1);
+		intersection.retainAll(numberLiterals2);
+		numberLiterals1.removeAll(intersection);
+		numberLiterals2.removeAll(intersection);
 		
 		Set<String> booleanLiterals1 = new LinkedHashSet<String>(statement1.getBooleanLiterals());
 		Set<String> booleanLiterals2 = new LinkedHashSet<String>(statement2.getBooleanLiterals());
-		removeCommonElements(booleanLiterals1, booleanLiterals2);
+		Set<String> intersection = new LinkedHashSet<String>(booleanLiterals1);
+		intersection.retainAll(booleanLiterals2);
+		booleanLiterals1.removeAll(intersection);
+		booleanLiterals2.removeAll(intersection);
 		
 		Set<String> infixOperators1 = new LinkedHashSet<String>(statement1.getInfixOperators());
 		Set<String> infixOperators2 = new LinkedHashSet<String>(statement2.getInfixOperators());
-		removeCommonElements(infixOperators1, infixOperators2);
+		Set<String> intersection = new LinkedHashSet<String>(infixOperators1);
+		intersection.retainAll(infixOperators2);
+		infixOperators1.removeAll(intersection);
+		infixOperators2.removeAll(intersection);
 		
 		Set<String> arrayAccesses1 = new LinkedHashSet<String>(statement1.getArrayAccesses());
 		Set<String> arrayAccesses2 = new LinkedHashSet<String>(statement2.getArrayAccesses());
-		removeCommonElements(arrayAccesses1, arrayAccesses2);
+		Set<String> intersection = new LinkedHashSet<String>(arrayAccesses1);
+		intersection.retainAll(arrayAccesses2);
+		arrayAccesses1.removeAll(intersection);
+		arrayAccesses2.removeAll(intersection);
 		
 		Set<String> prefixExpressions1 = new LinkedHashSet<String>(statement1.getPrefixExpressions());
 		Set<String> prefixExpressions2 = new LinkedHashSet<String>(statement2.getPrefixExpressions());
-		removeCommonElements(prefixExpressions1, prefixExpressions2);
+		Set<String> intersection = new LinkedHashSet<String>(prefixExpressions1);
+		intersection.retainAll(prefixExpressions2);
+		prefixExpressions1.removeAll(intersection);
+		prefixExpressions2.removeAll(intersection);
 		
 		//perform type replacements
 		findReplacements(types1, types2, replacementInfo, ReplacementType.TYPE);
@@ -2672,13 +2693,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return false;
 	}
 
-	private void removeCommonElements(Set<String> strings1, Set<String> strings2) {
-		Set<String> intersection = new LinkedHashSet<String>(strings1);
-		intersection.retainAll(strings2);
-		strings1.removeAll(intersection);
-		strings2.removeAll(intersection);
-	}
-
 	private void removeCommonTypes(Set<String> strings1, Set<String> strings2, List<String> types1, List<String> types2) {
 		if(types1.size() == types2.size()) {
 			Set<String> removeFromIntersection = new LinkedHashSet<String>();
@@ -2697,7 +2711,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			strings2.removeAll(intersection);
 		}
 		else {
-			removeCommonElements(strings1, strings2);
+			Set<String> intersection = new LinkedHashSet<String>(strings1);
+			intersection.retainAll(strings2);
+			strings1.removeAll(intersection);
+			strings2.removeAll(intersection);
 		}
 	}
 
