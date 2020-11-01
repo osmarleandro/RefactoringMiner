@@ -11,10 +11,6 @@ public class MergeVariableReplacement extends Replacement {
 		this.mergedVariables = mergedVariables;
 	}
 
-	public Set<String> getMergedVariables() {
-		return mergedVariables;
-	}
-
 	public boolean equal(MergeVariableReplacement other) {
 		return this.getAfter().equals(other.getAfter()) &&
 				this.mergedVariables.containsAll(other.mergedVariables) &&
