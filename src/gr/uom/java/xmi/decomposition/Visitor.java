@@ -581,36 +581,6 @@ public class Visitor extends ASTVisitor {
 		return sb.toString();
 	}
 	
-	public boolean visit(SuperMethodInvocation node) {
-		List<Expression> arguments = node.arguments();
-		for(Expression argument : arguments) {
-			processArgument(argument);
-		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
-		String nodeAsString = node.toString();
-		if(methodInvocationMap.containsKey(nodeAsString)) {
-			methodInvocationMap.get(nodeAsString).add(invocation);
-		}
-		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-			list.add(invocation);
-			methodInvocationMap.put(nodeAsString, list);
-		}
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
-			if(anonymousMethodInvocationMap.containsKey(nodeAsString)) {
-				anonymousMethodInvocationMap.get(nodeAsString).add(invocation);
-			}
-			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-				list.add(invocation);
-				anonymousMethodInvocationMap.put(nodeAsString, list);
-			}
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(SuperConstructorInvocation node) {
 		List<Expression> arguments = node.arguments();
 		for(Expression argument : arguments) {
