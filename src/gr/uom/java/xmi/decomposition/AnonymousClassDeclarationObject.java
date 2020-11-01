@@ -46,10 +46,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return locationInfo;
 	}
 
-	public AnonymousClassDeclaration getAstNode() {
-		return astNode;
-	}
-
 	public void setAstNode(AnonymousClassDeclaration node) {
 		this.astNode = node;
 	}
