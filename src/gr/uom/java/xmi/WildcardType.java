@@ -64,12 +64,4 @@ public class WildcardType extends UMLType {
 		}
 		return sb.toString();
 	}
-
-	@Override
-	public String getClassType() {
-		if(bound != null) {
-			return bound.getClassType();
-		}
-		return "Object";
-	}
 }
