@@ -1536,7 +1536,45 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			UMLOperation removedOperation = removedOperationIterator.next();
 			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 				InlineOperationDetection detection = new InlineOperationDetection(mapper, removedOperations, this, modelDiff);
-				List<InlineOperationRefactoring> refs = detection.check(removedOperation);
+				List<InlineOperationRefactoring> refactorings1 = new ArrayList<InlineOperationRefactoring>();
+				if(!detection.mapper.getNonMappedLeavesT2().isEmpty() || !detection.mapper.getNonMappedInnerNodesT2().isEmpty() ||
+					!detection.mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+					List<OperationInvocation> removedOperationInvocations = detection.matchingInvocations(removedOperation, detection.operationInvocations, detection.mapper.getOperation1().variableTypeMap());
+					if(removedOperationInvocations.size() > 0 && !detection.invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), detection.mapper.getOperation1().variableTypeMap(), detection.mapper.getOperation2().getAllOperationInvocations())) {
+						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
+						CallTreeNode root = new CallTreeNode(detection.mapper.getOperation1(), removedOperation, removedOperationInvocation);
+						CallTree callTree = null;
+						if(detection.callTreeMap.containsKey(root)) {
+							callTree = detection.callTreeMap.get(root);
+						}
+						else {
+							callTree = new CallTree(root);
+							detection.generateCallTree(removedOperation, root, callTree);
+							detection.callTreeMap.put(root, callTree);
+						}
+						UMLOperationBodyMapper operationBodyMapper1 = detection.createMapperForInlinedMethod(detection.mapper, removedOperation, removedOperationInvocation);
+						List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
+						List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
+						for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
+							CallTreeNode node = nodesInBreadthFirstOrder.get(i);
+							if(detection.matchingInvocations(node.getInvokedOperation(), detection.operationInvocations, detection.mapper.getOperation1().variableTypeMap()).size() == 0) {
+								UMLOperationBodyMapper nestedMapper = detection.createMapperForInlinedMethod(detection.mapper, node.getInvokedOperation(), node.getInvocation());
+								additionalExactMatches.addAll(nestedMapper.getExactMatches());
+								if(detection.inlineMatchCondition(nestedMapper)) {
+									List<OperationInvocation> nestedMatchingInvocations = detection.matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
+									InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, detection.mapper.getOperation1(), nestedMatchingInvocations);
+									refactorings1.add(nestedRefactoring);
+									operationBodyMapper1.addChildMapper(nestedMapper);
+								}
+							}
+						}
+						if(detection.inlineMatchCondition(operationBodyMapper1)) {
+							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper1, detection.mapper.getOperation1(), removedOperationInvocations);
+							refactorings1.add(inlineOperationRefactoring);
+						}
+					}
+				}
+				List<InlineOperationRefactoring> refs = refactorings1;
 				for(InlineOperationRefactoring refactoring : refs) {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
