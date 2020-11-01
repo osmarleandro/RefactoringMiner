@@ -79,14 +79,14 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeBefore().getLocationInfo().getFilePath(), getAttributeBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getAttributeBefore().getLocationInfo().getFilePath(), getAttributeBefore().className));
 		return pairs;
 	}
 
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeAfter().getLocationInfo().getFilePath(), getAttributeAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(getAttributeAfter().getLocationInfo().getFilePath(), getAttributeAfter().className));
 		return pairs;
 	}
 
@@ -99,7 +99,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		sb.append(" in attribute ");
 		sb.append(attributeAfter);
 		sb.append(" from class ");
-		sb.append(attributeAfter.getClassName());
+		sb.append(attributeAfter.className);
 		return sb.toString();
 	}
 	@Override
