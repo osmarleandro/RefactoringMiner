@@ -6,6 +6,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper.ReplacementInfo;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
@@ -1029,8 +1030,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
 					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(innerNodes1);
+					l1.remove(statement1);
+					List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(innerNodes2);
+					l2.remove(statement2);
+					ReplacementInfo replacementInfo1 = new ReplacementInfo(
+							preprocessInput1(statement1, statement2),
+							preprocessInput2(statement1, statement2),
+							l1, l2);
 					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+					ReplacementInfo replacementInfo = replacementInfo1;
 					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
 					
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
@@ -1104,8 +1113,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
 				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
 					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(innerNodes1);
+					l1.remove(statement1);
+					List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(innerNodes2);
+					l2.remove(statement2);
+					ReplacementInfo replacementInfo1 = new ReplacementInfo(
+							preprocessInput1(statement1, statement2),
+							preprocessInput2(statement1, statement2),
+							l1, l2);
 					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+					ReplacementInfo replacementInfo = replacementInfo1;
 					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
 					
 					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
@@ -1205,8 +1222,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
 					AbstractCodeFragment leaf2 = leafIterator2.next();
+					List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
+					l1.remove(leaf1);
+					List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(leaves2);
+					l2.remove(leaf2);
+					ReplacementInfo replacementInfo1 = new ReplacementInfo(
+							preprocessInput1(leaf1, leaf2),
+							preprocessInput2(leaf1, leaf2),
+							l1, l2);
 					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
+					ReplacementInfo replacementInfo = replacementInfo1;
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
@@ -1303,8 +1328,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
 				for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
 					AbstractCodeFragment leaf1 = leafIterator1.next();
+					List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
+					l1.remove(leaf1);
+					List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(leaves2);
+					l2.remove(leaf2);
+					ReplacementInfo replacementInfo1 = new ReplacementInfo(
+							preprocessInput1(leaf1, leaf2),
+							preprocessInput2(leaf1, leaf2),
+							l1, l2);
 					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
+					ReplacementInfo replacementInfo = replacementInfo1;
 					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
 					if (replacements != null) {
 						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
@@ -1381,19 +1414,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				leaves2.remove(minStatementMapping.getFragment2());
 			}
 		}
-	}
-
-	private ReplacementInfo initializeReplacementInfo(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2,
-			List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2) {
-		List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
-		l1.remove(leaf1);
-		List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(leaves2);
-		l2.remove(leaf2);
-		ReplacementInfo replacementInfo = new ReplacementInfo(
-				preprocessInput1(leaf1, leaf2),
-				preprocessInput2(leaf1, leaf2),
-				l1, l2);
-		return replacementInfo;
 	}
 
 	private boolean variableDeclarationMappingsWithSameReplacementTypes(Set<LeafMapping> mappingSet) {
