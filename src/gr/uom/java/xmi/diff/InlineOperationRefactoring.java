@@ -32,7 +32,7 @@ public class InlineOperationRefactoring implements Refactoring {
 			List<OperationInvocation> operationInvocations) {
 		this.bodyMapper = bodyMapper;
 		this.inlinedOperation = bodyMapper.getOperation1();
-		this.targetOperationAfterInline = bodyMapper.getOperation2();
+		this.targetOperationAfterInline = bodyMapper.operation2;
 		this.targetOperationBeforeInline = targetOperationBeforeInline;
 		this.inlinedOperationInvocations = operationInvocations;
 		this.replacements = bodyMapper.getReplacements();

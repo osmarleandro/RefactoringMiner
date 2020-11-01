@@ -652,10 +652,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return operation1;
 	}
 
-	public UMLOperation getOperation2() {
-		return operation2;
-	}
-
 	public Set<Refactoring> getRefactorings() {
 		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
 		refactorings.addAll(analysis.getVariableRenames());
