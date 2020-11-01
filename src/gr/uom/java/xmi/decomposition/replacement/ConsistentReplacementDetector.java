@@ -23,23 +23,6 @@ public class ConsistentReplacementDetector {
 	public static <T extends Replacement> void updateRenames(
 			Set<T> allConsistentRenames,
 			Set<T> allInconsistentRenames,
-			Set<T> renames) {
-		for(T newRename : renames) {
-			Set<T> inconsistentRenames = inconsistentRenames(allConsistentRenames, newRename);
-			if(inconsistentRenames.isEmpty()) {
-				allConsistentRenames.add(newRename);
-			}
-			else {
-				allInconsistentRenames.addAll(inconsistentRenames);
-				allInconsistentRenames.add(newRename);
-			}
-		}
-	}
-
-
-	public static <T extends Replacement> void updateRenames(
-			Set<T> allConsistentRenames,
-			Set<T> allInconsistentRenames,
 			Set<T> renames,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {

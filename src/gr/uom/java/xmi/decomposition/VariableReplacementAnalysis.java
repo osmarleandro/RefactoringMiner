@@ -742,7 +742,16 @@ public class VariableReplacementAnalysis {
 		Set<Replacement> renames = replacementOccurrenceMap.keySet();
 		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
 		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
+		for(Replacement newRename : renames) {
+			Set<Replacement> inconsistentRenames = ConsistentReplacementDetector.inconsistentRenames(allConsistentRenames, newRename);
+			if(inconsistentRenames.isEmpty()) {
+				allConsistentRenames.add(newRename);
+			}
+			else {
+				allInconsistentRenames.addAll(inconsistentRenames);
+				allInconsistentRenames.add(newRename);
+			}
+		}
 		allConsistentRenames.removeAll(allInconsistentRenames);
 		return allConsistentRenames;
 	}
