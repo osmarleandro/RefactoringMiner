@@ -28,10 +28,6 @@ public class CandidateSplitVariableRefactoring {
 		return oldVariable;
 	}
 
-	public Set<String> getSplitVariables() {
-		return splitVariables;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
