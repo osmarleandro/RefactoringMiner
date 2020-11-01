@@ -41,10 +41,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return visibility;
 	}
 
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
-
 	public boolean isFinal() {
 		return isFinal;
 	}
