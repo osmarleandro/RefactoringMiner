@@ -97,7 +97,22 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		checkForAttributeChanges();
 		processAnonymousClasses();
 		checkForOperationSignatureChanges();
-		checkForInlinedOperations();
+		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
+		for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
+			UMLOperation removedOperation = removedOperationIterator.next();
+			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+				InlineOperationDetection detection = new InlineOperationDetection(mapper, removedOperations, this, modelDiff);
+				List<InlineOperationRefactoring> refs = detection.check(removedOperation);
+				for(InlineOperationRefactoring refactoring : refs) {
+					refactorings.add(refactoring);
+					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
+					processMapperRefactorings(operationBodyMapper, refactorings);
+					mapper.addChildMapper(operationBodyMapper);
+					operationsToBeRemoved.add(removedOperation);
+				}
+			}
+		}
+		removedOperations.removeAll(operationsToBeRemoved);
 		checkForExtractedOperations();
 	}
 
@@ -1528,25 +1543,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		
 		return operationsBeforeMatch || operationsAfterMatch;
-	}
-
-	private void checkForInlinedOperations() throws RefactoringMinerTimedOutException {
-		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
-		for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
-			UMLOperation removedOperation = removedOperationIterator.next();
-			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
-				InlineOperationDetection detection = new InlineOperationDetection(mapper, removedOperations, this, modelDiff);
-				List<InlineOperationRefactoring> refs = detection.check(removedOperation);
-				for(InlineOperationRefactoring refactoring : refs) {
-					refactorings.add(refactoring);
-					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
-					processMapperRefactorings(operationBodyMapper, refactorings);
-					mapper.addChildMapper(operationBodyMapper);
-					operationsToBeRemoved.add(removedOperation);
-				}
-			}
-		}
-		removedOperations.removeAll(operationsToBeRemoved);
 	}
 
 	private void checkForExtractedOperations() throws RefactoringMinerTimedOutException {
