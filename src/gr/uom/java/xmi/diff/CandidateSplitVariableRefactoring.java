@@ -24,10 +24,6 @@ public class CandidateSplitVariableRefactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public String getOldVariable() {
-		return oldVariable;
-	}
-
 	public Set<String> getSplitVariables() {
 		return splitVariables;
 	}
