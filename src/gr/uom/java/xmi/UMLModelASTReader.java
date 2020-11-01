@@ -262,7 +262,8 @@ public class UMLModelASTReader {
 			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
 			List<Type> typeBounds = typeParameter.typeBounds();
 			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
+				UMLType type1 = UMLType.extractTypeObject(cu, sourceFile, type, 0);
+				umlTypeParameter.typeBounds.add(type1);
 			}
 			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
@@ -429,7 +430,8 @@ public class UMLModelASTReader {
 			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
 			List<Type> typeBounds = typeParameter.typeBounds();
 			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
+				UMLType type1 = UMLType.extractTypeObject(cu, sourceFile, type, 0);
+				umlTypeParameter.typeBounds.add(type1);
 			}
 			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
 			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {

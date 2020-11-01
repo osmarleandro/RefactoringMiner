@@ -22,10 +22,6 @@ public class UMLTypeParameter {
 		return typeBounds;
 	}
 
-	public void addTypeBound(UMLType type) {
-		typeBounds.add(type);
-	}
-
 	public List<UMLAnnotation> getAnnotations() {
 		return annotations;
 	}
