@@ -43,10 +43,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		return kind;
 	}
 
-	public boolean isVarargs() {
-		return varargs;
-	}
-
 	public List<UMLAnnotation> getAnnotations() {
 		return variableDeclaration.getAnnotations();
 	}
