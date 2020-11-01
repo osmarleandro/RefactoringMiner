@@ -46,10 +46,6 @@ public class CodeRange {
 		return startColumn;
 	}
 
-	public int getEndColumn() {
-		return endColumn;
-	}
-
 	public CodeElementType getCodeElementType() {
 		return codeElementType;
 	}
