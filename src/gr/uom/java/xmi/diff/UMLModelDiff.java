@@ -1035,13 +1035,29 @@ public class UMLModelDiff {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
          for(UMLGeneralization addedGeneralization : addedGeneralizations) {
-        	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
+        	 String parent = addedGeneralization.getParent();
+			   UMLClass subclass = addedGeneralization.getChild();
+			   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
+				   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
+				   if(subclassDiff != null) {
+					   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
+				   }
+				   subclassSet.add(subclass);
+			   }
          }
          for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
         	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
         	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
-        		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
+        		 String parent = addedGeneralization.getParent();
+				   UMLClass subclass = addedGeneralization.getChild();
+				   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
+					   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
+					   if(subclassDiff != null) {
+						   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
+					   }
+					   subclassSet.add(subclass);
+				   }
         	 }
          }
          for(UMLRealization addedRealization : addedRealizations) {
@@ -1068,18 +1084,6 @@ public class UMLModelDiff {
          }
       }
       return refactorings;
-   }
-
-   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
-	   String parent = addedGeneralization.getParent();
-	   UMLClass subclass = addedGeneralization.getChild();
-	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
-		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
-		   if(subclassDiff != null) {
-			   detectSubRefactorings(subclassDiff, addedClass, RefactoringType.EXTRACT_SUPERCLASS);
-		   }
-		   subclassSet.add(subclass);
-	   }
    }
 
    private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
