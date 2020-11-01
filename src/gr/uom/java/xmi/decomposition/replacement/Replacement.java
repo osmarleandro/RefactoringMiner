@@ -21,10 +21,6 @@ public class Replacement {
 		return after;
 	}
 
-	public ReplacementType getType() {
-		return type;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
