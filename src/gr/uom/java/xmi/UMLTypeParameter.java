@@ -14,10 +14,6 @@ public class UMLTypeParameter {
 		this.annotations = new ArrayList<UMLAnnotation>();
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public List<UMLType> getTypeBounds() {
 		return typeBounds;
 	}
