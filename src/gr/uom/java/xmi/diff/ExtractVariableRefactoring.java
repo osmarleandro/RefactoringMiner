@@ -65,13 +65,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	/**
-	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
-	 */
-	public CodeRange getExtractedVariableDeclarationCodeRange() {
-		return variableDeclaration.codeRange();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
