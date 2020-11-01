@@ -14,10 +14,6 @@ public class MethodInvocationWithClassInstanceCreationReplacement extends Replac
 		this.objectCreationAfter = objectCreationAfter;
 	}
 
-	public OperationInvocation getInvokedOperationBefore() {
-		return invokedOperationBefore;
-	}
-
 	public ObjectCreation getObjectCreationAfter() {
 		return objectCreationAfter;
 	}
