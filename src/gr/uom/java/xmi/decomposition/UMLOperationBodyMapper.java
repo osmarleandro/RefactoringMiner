@@ -1956,7 +1956,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nullLiterals1.add("null");
 				Set<String> ternaryExpressions2 = new LinkedHashSet<String>();
 				for(TernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions()) {
-					ternaryExpressions2.add(ternary.getExpression());	
+					ternaryExpressions2.add(ternary.expression);	
 				}
 				findReplacements(nullLiterals1, ternaryExpressions2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
 			}
@@ -1967,7 +1967,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nullLiterals2.add("null");
 				Set<String> ternaryExpressions1 = new LinkedHashSet<String>();
 				for(TernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions()) {
-					ternaryExpressions1.add(ternary.getExpression());	
+					ternaryExpressions1.add(ternary.expression);	
 				}
 				findReplacements(ternaryExpressions1, nullLiterals2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
 			}
