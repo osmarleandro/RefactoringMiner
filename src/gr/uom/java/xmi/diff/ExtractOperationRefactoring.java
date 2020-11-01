@@ -111,10 +111,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedCodeFragmentsFromSourceOperation;
 	}
 
-	public Set<AbstractCodeFragment> getExtractedCodeFragmentsToExtractedOperation() {
-		return extractedCodeFragmentsToExtractedOperation;
-	}
-
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
