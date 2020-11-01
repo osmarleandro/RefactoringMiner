@@ -81,15 +81,4 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(MovedClassToAnotherSourceFolder ref : movedClassesToAnotherSourceFolder) {
-			ranges.add(ref.getMovedClass().codeRange()
-					.setDescription("moved type declaration")
-					.setCodeElement(ref.getMovedClass().getName()));
-		}
-		return ranges;
-	}
 }
