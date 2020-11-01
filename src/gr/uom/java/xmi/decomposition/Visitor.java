@@ -493,61 +493,6 @@ public class Visitor extends ASTVisitor {
 		return false;
 	}
 	
-	public boolean visit(MethodInvocation node) {
-		List<Expression> arguments = node.arguments();
-		for(Expression argument : arguments) {
-			processArgument(argument);
-		}
-		String methodInvocation = null;
-		if(METHOD_INVOCATION_PATTERN.matcher(node.toString()).matches()) {
-			methodInvocation = processMethodInvocation(node);
-		}
-		else {
-			methodInvocation = node.toString();
-		}
-		if(methodInvocationMap.isEmpty() && node.getExpression() instanceof MethodInvocation &&
-				!(node.getName().getIdentifier().equals("length") && node.arguments().size() == 0)) {
-			builderPatternChains.add(node);
-		}
-		boolean builderPatternChain = false;
-		for(String key : methodInvocationMap.keySet()) {
-			List<OperationInvocation> invocations = methodInvocationMap.get(key);
-			OperationInvocation invocation = invocations.get(0);
-			if(key.startsWith(methodInvocation) && invocation.numberOfSubExpressions() > 0 &&
-					!(invocation.getName().equals("length") && invocation.getArguments().size() == 0)) {
-				builderPatternChains.add(node);
-			}
-			if(key.startsWith(methodInvocation) && complexInvocation(invocation)) {
-				builderPatternChain = true;
-			}
-		}
-		if(builderPatternChain) {
-			return false;
-		}
-		OperationInvocation invocation = new OperationInvocation(cu, filePath, node);
-		if(methodInvocationMap.containsKey(methodInvocation)) {
-			methodInvocationMap.get(methodInvocation).add(invocation);
-		}
-		else {
-			List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-			list.add(invocation);
-			methodInvocationMap.put(methodInvocation, list);
-		}
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<OperationInvocation>> anonymousMethodInvocationMap = anonymous.getMethodInvocationMap();
-			if(anonymousMethodInvocationMap.containsKey(methodInvocation)) {
-				anonymousMethodInvocationMap.get(methodInvocation).add(invocation);
-			}
-			else {
-				List<OperationInvocation> list = new ArrayList<OperationInvocation>();
-				list.add(invocation);
-				anonymousMethodInvocationMap.put(methodInvocation, list);
-			}
-		}
-		return super.visit(node);
-	}
-
 	private boolean complexInvocation(OperationInvocation invocation) {
 		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
 				invocation.numberOfSubExpressions() > 15;
