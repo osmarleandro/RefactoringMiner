@@ -1265,7 +1265,39 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean mappedElementsMoreThanNonMappedT1(int mappings, UMLOperationBodyMapper operationBodyMapper) {
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
-		int nonMappedElementsT1CallingRemovedOperation = operationBodyMapper.nonMappedElementsT1CallingRemovedOperation(removedOperations);
+		int nonMappedInnerNodeCount = 0;
+		for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
+			if(composite.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : removedOperations) {
+							if(invocation.matchesOperation(operation, operationBodyMapper.operation1.variableTypeMap(), operationBodyMapper.modelDiff)) {
+								nonMappedInnerNodeCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		int nonMappedLeafCount = 0;
+		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+			if(statement.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : removedOperations) {
+							if(invocation.matchesOperation(operation, operationBodyMapper.operation1.variableTypeMap(), operationBodyMapper.modelDiff)) {
+								nonMappedLeafCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		int nonMappedElementsT1CallingRemovedOperation = nonMappedLeafCount + nonMappedInnerNodeCount;
 		int nonMappedElementsT1WithoutThoseCallingRemovedOperation = nonMappedElementsT1 - nonMappedElementsT1CallingRemovedOperation;
 		return mappings > nonMappedElementsT1 || (mappings >= nonMappedElementsT1WithoutThoseCallingRemovedOperation &&
 				nonMappedElementsT1CallingRemovedOperation >= nonMappedElementsT1WithoutThoseCallingRemovedOperation);

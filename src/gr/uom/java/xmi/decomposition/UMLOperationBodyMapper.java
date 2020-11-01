@@ -821,42 +821,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
 	}
 
-	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
-		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
-			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-								nonMappedInnerNodeCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		int nonMappedLeafCount = 0;
-		for(StatementObject statement : getNonMappedLeavesT1()) {
-			if(statement.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-								nonMappedLeafCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		return nonMappedLeafCount + nonMappedInnerNodeCount;
-	}
-
 	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		boolean removedOperationCalled = false;
 		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
