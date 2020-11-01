@@ -38,10 +38,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public UMLAttribute getVariableDeclaration() {
-		return attributeDeclaration;
-	}
-
 	public Set<AbstractCodeMapping> getReferences() {
 		return references;
 	}
