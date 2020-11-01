@@ -35,10 +35,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return locationInfo;
 	}
 
-	public StatementCoverageType getCoverage() {
-		return coverage;
-	}
-
 	public abstract boolean identicalName(AbstractCall call);
 	public abstract String getName();
 	public abstract double normalizedNameDistance(AbstractCall call);
