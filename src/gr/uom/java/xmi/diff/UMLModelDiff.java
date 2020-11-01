@@ -597,7 +597,25 @@ public class UMLModelDiff {
 					   candidates.add(candidate);
 				   }
 			   }
-			   processCandidates(candidates, refactorings);
+			   if(candidates.size() > 1) {
+				   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
+				   for(MoveAttributeRefactoring candidate : candidates) {
+					   int compatibility = computeCompatibility(candidate);
+					   if(map.containsKey(compatibility)) {
+						   map.get(compatibility).add(candidate);
+					   }
+					   else {
+						   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
+						   refs.add(candidate);
+						   map.put(compatibility, refs);
+					   }
+				   }
+				   int maxCompatibility = map.lastKey();
+				   refactorings.addAll(map.get(maxCompatibility));
+			   }
+			   else if(candidates.size() == 1) {
+				   refactorings.addAll(candidates);
+			   }
 		   }
 	   }
 	   else {
@@ -609,7 +627,25 @@ public class UMLModelDiff {
 					   candidates.add(candidate);
 				   }
 			   }
-			   processCandidates(candidates, refactorings);
+			   if(candidates.size() > 1) {
+				   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
+				   for(MoveAttributeRefactoring candidate : candidates) {
+					   int compatibility = computeCompatibility(candidate);
+					   if(map.containsKey(compatibility)) {
+						   map.get(compatibility).add(candidate);
+					   }
+					   else {
+						   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
+						   refs.add(candidate);
+						   map.put(compatibility, refs);
+					   }
+				   }
+				   int maxCompatibility = map.lastKey();
+				   refactorings.addAll(map.get(maxCompatibility));
+			   }
+			   else if(candidates.size() == 1) {
+				   refactorings.addAll(candidates);
+			   }
 		   }
 	   }
 	   return filterOutDuplicateRefactorings(refactorings);
@@ -673,28 +709,6 @@ public class UMLModelDiff {
 		   filtered.addAll(groupByLongestCommonSourceFilePath.lastEntry().getValue());
 	   }
 	   return filtered;
-   }
-
-   private void processCandidates(List<MoveAttributeRefactoring> candidates, List<MoveAttributeRefactoring> refactorings) {
-	   if(candidates.size() > 1) {
-		   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
-		   for(MoveAttributeRefactoring candidate : candidates) {
-			   int compatibility = computeCompatibility(candidate);
-			   if(map.containsKey(compatibility)) {
-				   map.get(compatibility).add(candidate);
-			   }
-			   else {
-				   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
-				   refs.add(candidate);
-				   map.put(compatibility, refs);
-			   }
-		   }
-		   int maxCompatibility = map.lastKey();
-		   refactorings.addAll(map.get(maxCompatibility));
-	   }
-	   else if(candidates.size() == 1) {
-		   refactorings.addAll(candidates);
-	   }
    }
 
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
