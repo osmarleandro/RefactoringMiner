@@ -188,7 +188,7 @@ public class InlineOperationRefactoring implements Refactoring {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
+		for(CompositeStatementObject statement : bodyMapper.nonMappedInnerNodesT1) {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}
