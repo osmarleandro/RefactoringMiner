@@ -360,13 +360,13 @@ public abstract class AbstractCodeMapping {
 
 	private void processExtractVariableRefactoring(ExtractVariableRefactoring ref, Set<Refactoring> refactorings) {
 		if(!refactorings.contains(ref)) {
-			ref.addReference(this);
+			ref.references.add(this);
 			refactorings.add(ref);
 		}
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((ExtractVariableRefactoring)refactoring).addReference(this);
+					((ExtractVariableRefactoring)refactoring).references.add(this);
 					break;
 				}
 			}

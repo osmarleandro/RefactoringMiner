@@ -26,10 +26,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 		this.references = new LinkedHashSet<AbstractCodeMapping>();
 	}
 
-	public void addReference(AbstractCodeMapping mapping) {
-		references.add(mapping);
-	}
-
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.EXTRACT_VARIABLE;
 	}
