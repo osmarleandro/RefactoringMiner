@@ -154,11 +154,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getTypes() {
-		return types;
-	}
-
-	@Override
 	public List<VariableDeclaration> getVariableDeclarations() {
 		return variableDeclarations;
 	}
