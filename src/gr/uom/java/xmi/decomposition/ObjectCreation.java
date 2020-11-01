@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.Type;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
@@ -21,7 +22,11 @@ public class ObjectCreation extends AbstractCall {
 	
 	public ObjectCreation(CompilationUnit cu, String filePath, ClassInstanceCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.CLASS_INSTANCE_CREATION);
-		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
+		Type type1 = creation.getType();
+		UMLType umlType = UMLType.extractTypeObject(cu, filePath, type1);
+		umlType.locationInfo = new LocationInfo(cu, filePath, type1, CodeElementType.TYPE);
+		umlType.arrayDimension += 0;
+		this.type = umlType;
 		this.typeArguments = creation.arguments().size();
 		this.arguments = new ArrayList<String>();
 		List<Expression> args = creation.arguments();
@@ -39,7 +44,11 @@ public class ObjectCreation extends AbstractCall {
 	public ObjectCreation(CompilationUnit cu, String filePath, ArrayCreation creation) {
 		this.locationInfo = new LocationInfo(cu, filePath, creation, CodeElementType.ARRAY_CREATION);
 		this.isArray = true;
-		this.type = UMLType.extractTypeObject(cu, filePath, creation.getType(), 0);
+		Type type1 = creation.getType();
+		UMLType umlType = UMLType.extractTypeObject(cu, filePath, type1);
+		umlType.locationInfo = new LocationInfo(cu, filePath, type1, CodeElementType.TYPE);
+		umlType.arrayDimension += 0;
+		this.type = umlType;
 		this.typeArguments = creation.dimensions().size();
 		this.arguments = new ArrayList<String>();
 		List<Expression> args = creation.dimensions();
