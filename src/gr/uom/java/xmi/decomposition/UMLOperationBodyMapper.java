@@ -1715,10 +1715,67 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementInfo.getReplacements().addAll(replacementsToBeAdded);
 		
 		// replace variables with the corresponding arguments in method invocations
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(methodInvocationMap2, methodInvocations2, parameterToArgumentMap);
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call1 : methodInvocations1) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call1, parameter, argument);
+					if(!call1.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = methodInvocationMap1.get(call1);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						methodInvocationMap1.put(afterReplacement, newCalls);
+					}
+				}
+				methodInvocations1.addAll(toBeAdded);
+			}
+		}
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call2 : methodInvocations2) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call2, parameter, argument);
+					if(!call2.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = methodInvocationMap2.get(call2);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						methodInvocationMap2.put(afterReplacement, newCalls);
+					}
+				}
+				methodInvocations2.addAll(toBeAdded);
+			}
+		}
 		
-		replaceVariablesWithArguments(methodInvocationMap1, methodInvocations1, map);
+		for(String parameter : map.keySet()) {
+			String argument = map.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call3 : methodInvocations1) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call3, parameter, argument);
+					if(!call3.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = methodInvocationMap1.get(call3);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						methodInvocationMap1.put(afterReplacement, newCalls);
+					}
+				}
+				methodInvocations1.addAll(toBeAdded);
+			}
+		}
 		
 		//remove methodInvocation covering the entire statement
 		if(invocationCoveringTheEntireStatement1 != null) {
@@ -1773,10 +1830,67 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		removeCommonTypes(types1, types2, statement1.getTypes(), statement2.getTypes());
 		
 		// replace variables with the corresponding arguments in object creations
-		replaceVariablesWithArguments(creationMap1, creations1, parameterToArgumentMap);
-		replaceVariablesWithArguments(creationMap2, creations2, parameterToArgumentMap);
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call : creations1) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+					if(!call.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = creationMap1.get(call);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						creationMap1.put(afterReplacement, newCalls);
+					}
+				}
+				creations1.addAll(toBeAdded);
+			}
+		}
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call : creations2) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+					if(!call.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = creationMap2.get(call);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						creationMap2.put(afterReplacement, newCalls);
+					}
+				}
+				creations2.addAll(toBeAdded);
+			}
+		}
 		
-		replaceVariablesWithArguments(creationMap1, creations1, map);
+		for(String parameter : map.keySet()) {
+			String argument = map.get(parameter);
+			if(!parameter.equals(argument)) {
+				Set<String> toBeAdded = new LinkedHashSet<String>();
+				for(String call : creations1) {
+					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+					if(!call.equals(afterReplacement)) {
+						toBeAdded.add(afterReplacement);
+						List<? extends AbstractCall> oldCalls = creationMap1.get(call);
+						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+						for(AbstractCall oldCall : oldCalls) {
+							AbstractCall newCall = oldCall.update(parameter, argument);
+							newCalls.add(newCall);
+						}
+						creationMap1.put(afterReplacement, newCalls);
+					}
+				}
+				creations1.addAll(toBeAdded);
+			}
+		}
 		
 		ObjectCreation creationCoveringTheEntireStatement1 = statement1.creationCoveringEntireFragment();
 		ObjectCreation creationCoveringTheEntireStatement2 = statement2.creationCoveringEntireFragment();
@@ -3740,30 +3854,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
-	}
-
-	private void replaceVariablesWithArguments(Map<String, List<? extends AbstractCall>> callMap,
-			Set<String> calls, Map<String, String> parameterToArgumentMap) {
-		for(String parameter : parameterToArgumentMap.keySet()) {
-			String argument = parameterToArgumentMap.get(parameter);
-			if(!parameter.equals(argument)) {
-				Set<String> toBeAdded = new LinkedHashSet<String>();
-				for(String call : calls) {
-					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
-					if(!call.equals(afterReplacement)) {
-						toBeAdded.add(afterReplacement);
-						List<? extends AbstractCall> oldCalls = callMap.get(call);
-						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
-						for(AbstractCall oldCall : oldCalls) {
-							AbstractCall newCall = oldCall.update(parameter, argument);
-							newCalls.add(newCall);
-						}
-						callMap.put(afterReplacement, newCalls);
-					}
-				}
-				calls.addAll(toBeAdded);
-			}
-		}
 	}
 
 	private void findReplacements(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo, ReplacementType type) throws RefactoringMinerTimedOutException {
