@@ -37,10 +37,6 @@ public class MergeVariableRefactoring implements Refactoring {
 		return newVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
-		return operationBefore;
-	}
-
 	public UMLOperation getOperationAfter() {
 		return operationAfter;
 	}
@@ -70,7 +66,7 @@ public class MergeVariableRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(operationBefore.getLocationInfo().getFilePath(), operationBefore.getClassName()));
 		return pairs;
 	}
 
