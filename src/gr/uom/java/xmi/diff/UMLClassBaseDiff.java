@@ -1094,7 +1094,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					(addedOperation.compatibleSignature(removedOperation) ||
+					(
+					(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
+					!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
+					(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
+					))) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
@@ -1121,7 +1126,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
 			if(singleUnmatchedStatementCallsAddedOperation(operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					(addedOperation.compatibleSignature(removedOperation) ||
+					(
+					(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
+					!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
+					(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
+					))) {
 				mapperSet.add(operationBodyMapper);
 			}
 		}
@@ -1137,7 +1147,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
 					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
+					(addedOperation.compatibleSignature(removedOperation) ||
+					(
+					(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
+					!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
+					(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
+					))) {
 				mapperSet.add(operationBodyMapper);
 			}
 			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
@@ -1464,15 +1479,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			return true;
 		}
 		return false;
-	}
-
-	private boolean compatibleSignatures(UMLOperation removedOperation, UMLOperation addedOperation, int absoluteDifferenceInPosition) {
-		return addedOperation.compatibleSignature(removedOperation) ||
-		(
-		(absoluteDifferenceInPosition == 0 || operationsBeforeAndAfterMatch(removedOperation, addedOperation)) &&
-		!gettersWithDifferentReturnType(removedOperation, addedOperation) &&
-		(addedOperation.getParameterTypeList().equals(removedOperation.getParameterTypeList()) || addedOperation.normalizedNameDistance(removedOperation) <= MAX_OPERATION_NAME_DISTANCE)
-		);
 	}
 
 	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
