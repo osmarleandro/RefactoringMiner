@@ -12,10 +12,6 @@ public class VariableReplacementWithMethodInvocation extends Replacement {
 		this.direction = direction;
 	}
 
-	public OperationInvocation getInvokedOperation() {
-		return invokedOperation;
-	}
-
 	public Direction getDirection() {
 		return direction;
 	}
