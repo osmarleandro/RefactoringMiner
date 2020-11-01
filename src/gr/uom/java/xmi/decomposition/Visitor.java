@@ -824,10 +824,6 @@ public class Visitor extends ASTVisitor {
 		return typeLiterals;
 	}
 
-	public Map<String, List<ObjectCreation>> getCreationMap() {
-		return creationMap;
-	}
-
 	public List<String> getInfixOperators() {
 		return infixOperators;
 	}
