@@ -30,10 +30,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		return annotationBefore;
 	}
 
-	public UMLAnnotation getAnnotationAfter() {
-		return annotationAfter;
-	}
-
 	public UMLAttribute getAttributeBefore() {
 		return attributeBefore;
 	}
