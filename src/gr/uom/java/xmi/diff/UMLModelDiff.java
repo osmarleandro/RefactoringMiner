@@ -875,14 +875,6 @@ public class UMLModelDiff {
       return addedOperations;
    }
 
-   private List<UMLOperation> getRemovedOperationsInCommonClasses() {
-      List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
-         removedOperations.addAll(classDiff.getRemovedOperations());
-      }
-      return removedOperations;
-   }
-
    private List<UMLOperation> getRemovedOperationsInCommonMovedRenamedClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
       for(UMLClassDiff classDiff : commonClassDiffList) {
@@ -1987,10 +1979,14 @@ public class UMLModelDiff {
 
    private void checkForOperationMovesIncludingRemovedClasses() throws RefactoringMinerTimedOutException {
       List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
+	List<UMLOperation> removedOperations1 = new ArrayList<UMLOperation>();
+	  for(UMLClassDiff classDiff : commonClassDiffList) {
+	     removedOperations1.addAll(classDiff.getRemovedOperations());
+	  }
       /*for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }*/
-      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
+      List<UMLOperation> removedOperations = removedOperations1;
       for(UMLClass removedClass : removedClasses) {
     	  removedOperations.addAll(removedClass.getOperations());
       }
@@ -2004,7 +2000,11 @@ public class UMLModelDiff {
       for(UMLClass addedClass : addedClasses) {
     	  addedOperations.addAll(addedClass.getOperations());
       }
-      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
+	List<UMLOperation> removedOperations1 = new ArrayList<UMLOperation>();
+	  for(UMLClassDiff classDiff : commonClassDiffList) {
+	     removedOperations1.addAll(classDiff.getRemovedOperations());
+	  }
+      List<UMLOperation> removedOperations = removedOperations1;
       /*for(UMLClass removedClass : removedClasses) {
     	  removedOperations.addAll(removedClass.getOperations());
       }*/
