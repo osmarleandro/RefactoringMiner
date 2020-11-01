@@ -33,10 +33,6 @@ public class UMLModel {
         generalizationList.add(umlGeneralization);
     }
 
-    public void addRealization(UMLRealization umlRealization) {
-    	realizationList.add(umlRealization);
-    }
-
     public UMLClass getClass(UMLClass umlClassFromOtherModel) {
     	ListIterator<UMLClass> it = classList.listIterator();
         while(it.hasNext()) {
