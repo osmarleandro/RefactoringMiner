@@ -42,10 +42,6 @@ public class RenameClassRefactoring implements Refactoring {
 		return originalClass.getName();
 	}
 
-	public String getRenamedClassName() {
-		return renamedClass.getName();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
