@@ -376,17 +376,17 @@ public class UMLModelDiff {
          UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
          for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
             UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
-            String renamedChild = isRenamedClass(removedGeneralization.getChild());
-            String movedChild = isMovedClass(removedGeneralization.getChild());
-            if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
+            String renamedChild = isRenamedClass(removedGeneralization.child);
+            String movedChild = isMovedClass(removedGeneralization.child);
+            if(removedGeneralization.child.equals(addedGeneralization.child)) {
                UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
                addedGeneralizationIterator.remove();
                removedGeneralizationIterator.remove();
                generalizationDiffList.add(generalizationDiff);
                break;
             }
-            if( (renamedChild != null && renamedChild.equals(addedGeneralization.getChild().getName())) ||
-                  (movedChild != null && movedChild.equals(addedGeneralization.getChild().getName()))) {
+            if( (renamedChild != null && renamedChild.equals(addedGeneralization.child.getName())) ||
+                  (movedChild != null && movedChild.equals(addedGeneralization.child.getName()))) {
                UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
                addedGeneralizationIterator.remove();
                removedGeneralizationIterator.remove();
@@ -1072,7 +1072,7 @@ public class UMLModelDiff {
 
    private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
-	   UMLClass subclass = addedGeneralization.getChild();
+	   UMLClass subclass = addedGeneralization.child;
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
 		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass.getName());
 		   if(subclassDiff != null) {
