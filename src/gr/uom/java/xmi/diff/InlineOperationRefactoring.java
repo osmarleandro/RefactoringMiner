@@ -74,17 +74,13 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if (!getTargetOperationBeforeInline().getClassName().equals(getInlinedOperation().getClassName()))
+		if (!getTargetOperationBeforeInline().getClassName().equals(inlinedOperation.getClassName()))
 			return RefactoringType.MOVE_AND_INLINE_OPERATION;
 		return RefactoringType.INLINE_OPERATION;
 	}
 
 	public UMLOperationBodyMapper getBodyMapper() {
 		return bodyMapper;
-	}
-
-	public UMLOperation getInlinedOperation() {
-		return inlinedOperation;
 	}
 
 	public UMLOperation getTargetOperationAfterInline() {
@@ -155,7 +151,7 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getInlinedOperation().getLocationInfo().getFilePath(), getInlinedOperation().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(inlinedOperation.getLocationInfo().getFilePath(), inlinedOperation.getClassName()));
 		pairs.add(new ImmutablePair<String, String>(getTargetOperationBeforeInline().getLocationInfo().getFilePath(), getTargetOperationBeforeInline().getClassName()));
 		return pairs;
 	}
