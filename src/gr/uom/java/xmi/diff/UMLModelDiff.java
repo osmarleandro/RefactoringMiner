@@ -238,11 +238,8 @@ public class UMLModelDiff {
    }
 
    public boolean isSubclassOf(String subclass, String finalSuperclass) {
-	   return isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>());
-   }
-
-   private boolean isSubclassOf(String subclass, String finalSuperclass, Set<String> visitedClasses) {
-	   if(visitedClasses.contains(subclass)) {
+	   Set<String> visitedClasses = new LinkedHashSet<String>();
+	if(visitedClasses.contains(subclass)) {
 		   return false;
 	   }
 	   else {
@@ -317,8 +314,79 @@ public class UMLModelDiff {
    private boolean checkInheritanceRelationship(UMLType superclass, String finalSuperclass, Set<String> visitedClasses) {
 	   if(looksLikeSameType(superclass.getClassType(), finalSuperclass))
 		   return true;
-	   else
-		   return isSubclassOf(superclass.getClassType(), finalSuperclass, visitedClasses);
+	else {
+		String subclass = superclass.getClassType();
+		if(visitedClasses.contains(subclass)) {
+			   return false;
+		   }
+		   else {
+			   visitedClasses.add(subclass);
+		   }
+		   UMLClassBaseDiff subclassDiff = getUMLClassDiff(subclass);
+		   if(subclassDiff == null) {
+			   subclassDiff = getUMLClassDiff(UMLType.extractTypeObject(subclass));
+		   }
+		   if(subclassDiff != null) {
+			   UMLType superclass1 = subclassDiff.getSuperclass();
+			   if(superclass1 != null) {
+				   if(checkInheritanceRelationship(superclass1, finalSuperclass, visitedClasses)) {
+					   return true;
+				   }
+			   }
+			   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
+					   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
+				   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+				   if(addedClass.getSuperclass() != null) {
+					   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
+				   }
+			   }
+			   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
+				   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+				   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
+			   }
+			   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
+				   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
+					   return true;
+				   }
+			   }
+			   for(UMLType implementedInterface : subclassDiff.getNextClass().getImplementedInterfaces()) {
+				   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
+					   return true;
+				   }
+			   }
+		   }
+		   UMLClass addedClass = getAddedClass(subclass);
+		   if(addedClass == null) {
+			   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
+		   }
+		   if(addedClass != null) {
+			   UMLType superclass2 = addedClass.getSuperclass();
+			   if(superclass2 != null) {
+				   return checkInheritanceRelationship(superclass2, finalSuperclass, visitedClasses);
+			   }
+			   for(UMLType implementedInterface : addedClass.getImplementedInterfaces()) {
+				   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
+					   return true;
+				   }
+			   }
+		   }
+		   UMLClass removedClass = getRemovedClass(subclass);
+		   if(removedClass == null) {
+			   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
+		   }
+		   if(removedClass != null) {
+			   UMLType superclass3 = removedClass.getSuperclass();
+			   if(superclass3 != null) {
+				   return checkInheritanceRelationship(superclass3, finalSuperclass, visitedClasses);
+			   }
+			   for(UMLType implementedInterface : removedClass.getImplementedInterfaces()) {
+				   if(checkInheritanceRelationship(implementedInterface, finalSuperclass, visitedClasses)) {
+					   return true;
+				   }
+			   }
+		   }
+		   return false;
+	}
    }
 
    private UMLClass looksLikeAddedClass(UMLType type) {
