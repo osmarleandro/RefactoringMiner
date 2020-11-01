@@ -397,15 +397,15 @@ public class UMLModelASTReader {
 		
 		int methodModifiers = methodDeclaration.getModifiers();
 		if((methodModifiers & Modifier.PUBLIC) != 0)
-			umlOperation.setVisibility("public");
+			umlOperation.visibility = "public";
 		else if((methodModifiers & Modifier.PROTECTED) != 0)
-			umlOperation.setVisibility("protected");
+			umlOperation.visibility = "protected";
 		else if((methodModifiers & Modifier.PRIVATE) != 0)
-			umlOperation.setVisibility("private");
+			umlOperation.visibility = "private";
 		else if(isInterfaceMethod)
-			umlOperation.setVisibility("public");
+			umlOperation.visibility = "public";
 		else
-			umlOperation.setVisibility("package");
+			umlOperation.visibility = "package";
 		
 		if((methodModifiers & Modifier.ABSTRACT) != 0)
 			umlOperation.setAbstract(true);
