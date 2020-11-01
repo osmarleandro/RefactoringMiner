@@ -229,11 +229,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
-		return ternaryOperatorExpressions;
-	}
-
-	@Override
 	public List<LambdaExpressionObject> getLambdas() {
 		return lambdas;
 	}
