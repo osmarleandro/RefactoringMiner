@@ -104,38 +104,6 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MergeVariableRefactoring other = (MergeVariableRefactoring) obj;
-		if (mergedVariables == null) {
-			if (other.mergedVariables != null)
-				return false;
-		} else if (!mergedVariables.equals(other.mergedVariables))
-			return false;
-		if (newVariable == null) {
-			if (other.newVariable != null)
-				return false;
-		} else if (!newVariable.equals(other.newVariable))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		return true;
-	}
-
-	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		for(VariableDeclaration mergedVariable : mergedVariables) {
