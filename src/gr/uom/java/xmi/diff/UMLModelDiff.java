@@ -1462,7 +1462,17 @@ public class UMLModelDiff {
       refactorings.addAll(identifyExtractClassRefactorings(innerClassMoveDiffList));
       refactorings.addAll(identifyExtractClassRefactorings(classRenameDiffList));
       checkForOperationMovesBetweenCommonClasses();
-      checkForOperationMovesIncludingAddedClasses();
+      List<UMLOperation> addedOperations = getAddedOperationsInCommonClasses();
+	  for(UMLClass addedClass : addedClasses) {
+		  addedOperations.addAll(addedClass.getOperations());
+	  }
+	  List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
+	  /*for(UMLClass removedClass : removedClasses) {
+		  removedOperations.addAll(removedClass.getOperations());
+	  }*/
+	  if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
+		  checkForOperationMoves(addedOperations, removedOperations);
+	  }
       checkForOperationMovesIncludingRemovedClasses();
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
       checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
@@ -1994,20 +2004,6 @@ public class UMLModelDiff {
       for(UMLClass removedClass : removedClasses) {
     	  removedOperations.addAll(removedClass.getOperations());
       }
-      if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
-    	  checkForOperationMoves(addedOperations, removedOperations);
-      }
-   }
-
-   private void checkForOperationMovesIncludingAddedClasses() throws RefactoringMinerTimedOutException {
-      List<UMLOperation> addedOperations = getAddedOperationsInCommonClasses();
-      for(UMLClass addedClass : addedClasses) {
-    	  addedOperations.addAll(addedClass.getOperations());
-      }
-      List<UMLOperation> removedOperations = getRemovedOperationsInCommonClasses();
-      /*for(UMLClass removedClass : removedClasses) {
-    	  removedOperations.addAll(removedClass.getOperations());
-      }*/
       if(removedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS || addedOperations.size() <= MAXIMUM_NUMBER_OF_COMPARED_METHODS) {
     	  checkForOperationMoves(addedOperations, removedOperations);
       }
