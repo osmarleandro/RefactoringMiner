@@ -104,7 +104,11 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, ifStatement, parent.getDepth()+1, CodeElementType.IF_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, ifStatement.getExpression(), CodeElementType.IF_STATEMENT_CONDITION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			processStatement(cu, filePath, child, ifStatement.getThenStatement());
 			if(ifStatement.getElseStatement() != null) {
 				processStatement(cu, filePath, child, ifStatement.getElseStatement());
@@ -117,17 +121,29 @@ public class OperationBody {
 			List<Expression> initializers = forStatement.initializers();
 			for(Expression initializer : initializers) {
 				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, initializer, CodeElementType.FOR_STATEMENT_INITIALIZER);
-				child.addExpression(abstractExpression);
+				//an expression has the same index and depth as the composite statement it belong to
+				abstractExpression.setDepth(child.getDepth());
+				abstractExpression.setIndex(child.getIndex());
+				child.expressionList.add(abstractExpression);
+				abstractExpression.setOwner(child);
 			}
 			Expression expression = forStatement.getExpression();
 			if(expression != null) {
 				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, expression, CodeElementType.FOR_STATEMENT_CONDITION);
-				child.addExpression(abstractExpression);
+				//an expression has the same index and depth as the composite statement it belong to
+				abstractExpression.setDepth(child.getDepth());
+				abstractExpression.setIndex(child.getIndex());
+				child.expressionList.add(abstractExpression);
+				abstractExpression.setOwner(child);
 			}
 			List<Expression> updaters = forStatement.updaters();
 			for(Expression updater : updaters) {
 				AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, updater, CodeElementType.FOR_STATEMENT_UPDATER);
-				child.addExpression(abstractExpression);
+				//an expression has the same index and depth as the composite statement it belong to
+				abstractExpression.setDepth(child.getDepth());
+				abstractExpression.setIndex(child.getIndex());
+				child.expressionList.add(abstractExpression);
+				abstractExpression.setOwner(child);
 			}
 			processStatement(cu, filePath, child, forStatement.getBody());
 		}
@@ -139,13 +155,25 @@ public class OperationBody {
 			VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
 			child.addVariableDeclaration(vd);
 			AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.ENHANCED_FOR_STATEMENT_PARAMETER_NAME);
-			child.addExpression(variableDeclarationName);
+			//an expression has the same index and depth as the composite statement it belong to
+			variableDeclarationName.setDepth(child.getDepth());
+			variableDeclarationName.setIndex(child.getIndex());
+			child.expressionList.add(variableDeclarationName);
+			variableDeclarationName.setOwner(child);
 			if(variableDeclaration.getInitializer() != null) {
 				AbstractExpression variableDeclarationInitializer = new AbstractExpression(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
-				child.addExpression(variableDeclarationInitializer);
+				//an expression has the same index and depth as the composite statement it belong to
+				variableDeclarationInitializer.setDepth(child.getDepth());
+				variableDeclarationInitializer.setIndex(child.getIndex());
+				child.expressionList.add(variableDeclarationInitializer);
+				variableDeclarationInitializer.setOwner(child);
 			}
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, enhancedForStatement.getExpression(), CodeElementType.ENHANCED_FOR_STATEMENT_EXPRESSION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			processStatement(cu, filePath, child, enhancedForStatement.getBody());
 		}
 		else if(statement instanceof WhileStatement) {
@@ -153,7 +181,11 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, whileStatement, parent.getDepth()+1, CodeElementType.WHILE_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, whileStatement.getExpression(), CodeElementType.WHILE_STATEMENT_CONDITION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			processStatement(cu, filePath, child, whileStatement.getBody());
 		}
 		else if(statement instanceof DoStatement) {
@@ -161,7 +193,11 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, doStatement, parent.getDepth()+1, CodeElementType.DO_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, doStatement.getExpression(), CodeElementType.DO_STATEMENT_CONDITION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			processStatement(cu, filePath, child, doStatement.getBody());
 		}
 		else if(statement instanceof ExpressionStatement) {
@@ -174,7 +210,11 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, switchStatement, parent.getDepth()+1, CodeElementType.SWITCH_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, switchStatement.getExpression(), CodeElementType.SWITCH_STATEMENT_CONDITION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			List<Statement> switchStatements = switchStatement.statements();
 			for(Statement switchStatement2 : switchStatements)
 				processStatement(cu, filePath, child, switchStatement2);
@@ -206,7 +246,11 @@ public class OperationBody {
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, synchronizedStatement, parent.getDepth()+1, CodeElementType.SYNCHRONIZED_STATEMENT);
 			parent.addStatement(child);
 			AbstractExpression abstractExpression = new AbstractExpression(cu, filePath, synchronizedStatement.getExpression(), CodeElementType.SYNCHRONIZED_STATEMENT_EXPRESSION);
-			child.addExpression(abstractExpression);
+			//an expression has the same index and depth as the composite statement it belong to
+			abstractExpression.setDepth(child.getDepth());
+			abstractExpression.setIndex(child.getIndex());
+			child.expressionList.add(abstractExpression);
+			abstractExpression.setOwner(child);
 			processStatement(cu, filePath, child, synchronizedStatement.getBody());
 		}
 		else if(statement instanceof ThrowStatement) {
@@ -221,7 +265,11 @@ public class OperationBody {
 			List<Expression> resources = tryStatement.resources();
 			for(Expression resource : resources) {
 				AbstractExpression expression = new AbstractExpression(cu, filePath, resource, CodeElementType.TRY_STATEMENT_RESOURCE);
-				child.addExpression(expression);
+				//an expression has the same index and depth as the composite statement it belong to
+				expression.setDepth(child.getDepth());
+				expression.setIndex(child.getIndex());
+				child.expressionList.add(expression);
+				expression.setOwner(child);
 			}
 			List<Statement> tryStatements = tryStatement.getBody().statements();
 			for(Statement blockStatement : tryStatements) {
@@ -237,10 +285,18 @@ public class OperationBody {
 				VariableDeclaration vd = new VariableDeclaration(cu, filePath, variableDeclaration);
 				catchClauseStatementObject.addVariableDeclaration(vd);
 				AbstractExpression variableDeclarationName = new AbstractExpression(cu, filePath, variableDeclaration.getName(), CodeElementType.CATCH_CLAUSE_EXCEPTION_NAME);
-				catchClauseStatementObject.addExpression(variableDeclarationName);
+				//an expression has the same index and depth as the composite statement it belong to
+				variableDeclarationName.setDepth(catchClauseStatementObject.getDepth());
+				variableDeclarationName.setIndex(catchClauseStatementObject.getIndex());
+				catchClauseStatementObject.expressionList.add(variableDeclarationName);
+				variableDeclarationName.setOwner(catchClauseStatementObject);
 				if(variableDeclaration.getInitializer() != null) {
 					AbstractExpression variableDeclarationInitializer = new AbstractExpression(cu, filePath, variableDeclaration.getInitializer(), CodeElementType.VARIABLE_DECLARATION_INITIALIZER);
-					catchClauseStatementObject.addExpression(variableDeclarationInitializer);
+					//an expression has the same index and depth as the composite statement it belong to
+					variableDeclarationInitializer.setDepth(catchClauseStatementObject.getDepth());
+					variableDeclarationInitializer.setIndex(catchClauseStatementObject.getIndex());
+					catchClauseStatementObject.expressionList.add(variableDeclarationInitializer);
+					variableDeclarationInitializer.setOwner(catchClauseStatementObject);
 				}
 				List<Statement> blockStatements = catchClauseBody.statements();
 				for(Statement blockStatement : blockStatements) {
