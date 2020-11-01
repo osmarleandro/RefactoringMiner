@@ -808,10 +808,6 @@ public class Visitor extends ASTVisitor {
 		return stringLiterals;
 	}
 
-	public List<String> getNumberLiterals() {
-		return numberLiterals;
-	}
-
 	public List<String> getNullLiterals() {
 		return nullLiterals;
 	}
