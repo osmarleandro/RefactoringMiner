@@ -1472,16 +1472,172 @@ public class UMLModelDiff {
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
       refactorings.addAll(this.refactorings);
       for(UMLClassDiff classDiff : commonClassDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  if(!mappers.isEmpty()) {
+						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+						  if(operationSignatureDiff.isOperationRenamed()) {
+							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  refactorings.add(refactoring);
+						  }
+						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  refactorings.addAll(signatureRefactorings);
+						  if(signatureRefactorings.isEmpty()) {
+							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  }
+					  }
+				  }
+			  }
+		  }
+		  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+						  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+						  if(!mappers.isEmpty()) {
+							  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+							  if(operationSignatureDiff.isOperationRenamed()) {
+								  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+								  refactorings.add(refactoring);
+							  }
+							  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+							  refactorings.addAll(signatureRefactorings);
+							  if(signatureRefactorings.isEmpty()) {
+								  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
       }
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  if(!mappers.isEmpty()) {
+						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+						  if(operationSignatureDiff.isOperationRenamed()) {
+							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  refactorings.add(refactoring);
+						  }
+						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  refactorings.addAll(signatureRefactorings);
+						  if(signatureRefactorings.isEmpty()) {
+							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  }
+					  }
+				  }
+			  }
+		  }
+		  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+						  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+						  if(!mappers.isEmpty()) {
+							  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+							  if(operationSignatureDiff.isOperationRenamed()) {
+								  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+								  refactorings.add(refactoring);
+							  }
+							  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+							  refactorings.addAll(signatureRefactorings);
+							  if(signatureRefactorings.isEmpty()) {
+								  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  if(!mappers.isEmpty()) {
+						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+						  if(operationSignatureDiff.isOperationRenamed()) {
+							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  refactorings.add(refactoring);
+						  }
+						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  refactorings.addAll(signatureRefactorings);
+						  if(signatureRefactorings.isEmpty()) {
+							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  }
+					  }
+				  }
+			  }
+		  }
+		  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+						  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+						  if(!mappers.isEmpty()) {
+							  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+							  if(operationSignatureDiff.isOperationRenamed()) {
+								  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+								  refactorings.add(refactoring);
+							  }
+							  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+							  refactorings.addAll(signatureRefactorings);
+							  if(signatureRefactorings.isEmpty()) {
+								  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
       }
       for(UMLClassRenameDiff classDiff : classRenameDiffList) {
-    	  inferMethodSignatureRelatedRefactorings(classDiff, refactorings);
+    	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+					  if(!mappers.isEmpty()) {
+						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+						  if(operationSignatureDiff.isOperationRenamed()) {
+							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+							  refactorings.add(refactoring);
+						  }
+						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+						  refactorings.addAll(signatureRefactorings);
+						  if(signatureRefactorings.isEmpty()) {
+							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+						  }
+					  }
+				  }
+			  }
+		  }
+		  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
+			  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
+				  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+					  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
+						  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
+						  if(!mappers.isEmpty()) {
+							  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
+							  if(operationSignatureDiff.isOperationRenamed()) {
+								  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
+								  refactorings.add(refactoring);
+							  }
+							  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
+							  refactorings.addAll(signatureRefactorings);
+							  if(signatureRefactorings.isEmpty()) {
+								  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
       }
       return new ArrayList<Refactoring>(refactorings);
    }
@@ -1521,49 +1677,6 @@ public class UMLModelDiff {
     	  }
 	  }
 	  return typeRenamePatternMap;
-   }
-
-   private void inferMethodSignatureRelatedRefactorings(UMLClassBaseDiff classDiff, Set<Refactoring> refactorings) {
-	  if(classDiff.getOriginalClass().isInterface() && classDiff.getNextClass().isInterface()) {
-		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
-			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
-				  if(!mappers.isEmpty()) {
-					  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
-					  if(operationSignatureDiff.isOperationRenamed()) {
-						  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
-						  refactorings.add(refactoring);
-					  }
-					  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
-					  refactorings.addAll(signatureRefactorings);
-					  if(signatureRefactorings.isEmpty()) {
-						  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
-					  }
-				  }
-			  }
-		  }
-	  }
-	  else if(classDiff.getOriginalClass().isAbstract() && classDiff.getNextClass().isAbstract()) {
-		  for(UMLOperation removedOperation : classDiff.getRemovedOperations()) {
-			  for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
-				  if(removedOperation.isAbstract() && addedOperation.isAbstract()) {
-					  List<UMLOperationBodyMapper> mappers = findMappersWithMatchingSignatures(removedOperation, addedOperation);
-					  if(!mappers.isEmpty()) {
-						  UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation);
-						  if(operationSignatureDiff.isOperationRenamed()) {
-							  RenameOperationRefactoring refactoring = new RenameOperationRefactoring(removedOperation, addedOperation);
-							  refactorings.add(refactoring);
-						  }
-						  Set<Refactoring> signatureRefactorings = operationSignatureDiff.getRefactorings();
-						  refactorings.addAll(signatureRefactorings);
-						  if(signatureRefactorings.isEmpty()) {
-							  inferRefactoringsFromMatchingMappers(mappers, operationSignatureDiff, refactorings);
-						  }
-					  }
-				  }
-			  }
-		  }
-	  }
    }
 
    private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
