@@ -19,10 +19,6 @@ public class VariableDeclarationReplacement extends Replacement {
 		this.operation2 = operation2;
 	}
 
-	public VariableDeclaration getVariableDeclaration1() {
-		return v1;
-	}
-
 	public VariableDeclaration getVariableDeclaration2() {
 		return v2;
 	}
