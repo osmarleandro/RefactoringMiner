@@ -101,31 +101,4 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
 		return result;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RemoveMethodAnnotationRefactoring other = (RemoveMethodAnnotationRefactoring) obj;
-		if (annotation == null) {
-			if (other.annotation != null)
-				return false;
-		} else if (!annotation.equals(other.annotation))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		return true;
-	}
 }
