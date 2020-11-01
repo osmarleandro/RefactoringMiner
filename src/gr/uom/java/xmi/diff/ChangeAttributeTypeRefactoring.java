@@ -46,10 +46,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		return changedTypeAttribute;
 	}
 
-	public String getClassNameBefore() {
-		return classNameBefore;
-	}
-
 	public String getClassNameAfter() {
 		return classNameAfter;
 	}
@@ -125,7 +121,7 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), classNameBefore));
 		return pairs;
 	}
 
