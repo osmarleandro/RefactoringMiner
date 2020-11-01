@@ -199,11 +199,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public Map<String, List<ObjectCreation>> getCreationMap() {
-		return creationMap;
-	}
-
-	@Override
 	public List<String> getInfixOperators() {
 		return infixOperators;
 	}
