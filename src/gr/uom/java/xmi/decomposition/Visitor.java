@@ -238,35 +238,31 @@ public class Visitor extends ASTVisitor {
 		DefaultMutableTreeNode parentNode = deleteNode(node);
 		for(ASTNode parent : builderPatternChains) {
 			if(isParent(node, parent) || isParent(parent, node)) {
-				removeAnonymousData();
+				if(current.getUserObject() != null) {
+					AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+					this.variables.removeAll(anonymous.getVariables());
+					this.types.removeAll(anonymous.getTypes());
+					for(String key : anonymous.getMethodInvocationMap().keySet()) {
+						this.methodInvocationMap.remove(key, anonymous.getMethodInvocationMap().get(key));
+					}
+					for(String key : anonymous.getCreationMap().keySet()) {
+						this.creationMap.remove(key, anonymous.getCreationMap().get(key));
+					}
+					this.variableDeclarations.removeAll(anonymous.getVariableDeclarations());
+					this.stringLiterals.removeAll(anonymous.getStringLiterals());
+					this.booleanLiterals.removeAll(anonymous.getBooleanLiterals());
+					this.typeLiterals.removeAll(anonymous.getTypeLiterals());
+					this.numberLiterals.removeAll(anonymous.getNumberLiterals());
+					this.infixOperators.removeAll(anonymous.getInfixOperators());
+					this.arguments.removeAll(anonymous.getArguments());
+					this.ternaryOperatorExpressions.removeAll(anonymous.getTernaryOperatorExpressions());
+					this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());
+					this.lambdas.removeAll(anonymous.getLambdas());
+				}
 				break;
 			}
 		}
 		this.current = parentNode;
-	}
-
-	private void removeAnonymousData() {
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			this.variables.removeAll(anonymous.getVariables());
-			this.types.removeAll(anonymous.getTypes());
-			for(String key : anonymous.getMethodInvocationMap().keySet()) {
-				this.methodInvocationMap.remove(key, anonymous.getMethodInvocationMap().get(key));
-			}
-			for(String key : anonymous.getCreationMap().keySet()) {
-				this.creationMap.remove(key, anonymous.getCreationMap().get(key));
-			}
-			this.variableDeclarations.removeAll(anonymous.getVariableDeclarations());
-			this.stringLiterals.removeAll(anonymous.getStringLiterals());
-			this.booleanLiterals.removeAll(anonymous.getBooleanLiterals());
-			this.typeLiterals.removeAll(anonymous.getTypeLiterals());
-			this.numberLiterals.removeAll(anonymous.getNumberLiterals());
-			this.infixOperators.removeAll(anonymous.getInfixOperators());
-			this.arguments.removeAll(anonymous.getArguments());
-			this.ternaryOperatorExpressions.removeAll(anonymous.getTernaryOperatorExpressions());
-			this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());
-			this.lambdas.removeAll(anonymous.getLambdas());
-		}
 	}
 
 	private DefaultMutableTreeNode deleteNode(AnonymousClassDeclaration childAnonymous) {
