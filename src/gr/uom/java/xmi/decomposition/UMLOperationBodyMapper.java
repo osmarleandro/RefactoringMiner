@@ -23,6 +23,7 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
@@ -774,7 +775,68 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private void inlinedVariableAssignment(StatementObject statement, List<StatementObject> nonMappedLeavesT2) {
 		for(AbstractCodeMapping mapping : getMappings()) {
-			mapping.inlinedVariableAssignment(statement, nonMappedLeavesT2, refactorings);
+			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					String variableName = declaration.getVariableName();
+					AbstractExpression initializer = declaration.getInitializer();
+					if(replacement.getBefore().startsWith(variableName + ".")) {
+						String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
+						if(replacement.getAfter().endsWith(suffixBefore)) {
+							String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
+							if(initializer != null) {
+								if(initializer.toString().equals(prefixAfter) ||
+										mapping.overlappingExtractVariable(initializer, prefixAfter, nonMappedLeavesT2, refactorings)) {
+									InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+									mapping.processInlineVariableRefactoring(ref, refactorings);
+									if(mapping.getReplacements().size() == 1) {
+										mapping.identicalWithInlinedVariable = true;
+									}
+								}
+							}
+						}
+					}
+					if(variableName.equals(replacement.getBefore()) && initializer != null) {
+						if(initializer.toString().equals(replacement.getAfter()) ||
+								(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !mapping.containsVariableNameReplacement(variableName)) ||
+								mapping.ternaryMatch(initializer, replacement.getAfter()) ||
+								mapping.reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+								mapping.overlappingExtractVariable(initializer, replacement.getAfter(), nonMappedLeavesT2, refactorings)) {
+							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+							mapping.processInlineVariableRefactoring(ref, refactorings);
+							if(mapping.getReplacements().size() == 1) {
+								mapping.identicalWithInlinedVariable = true;
+							}
+						}
+					}
+				}
+			}
+			String argumentizedString = statement.getArgumentizedString();
+			if(argumentizedString.contains("=")) {
+				String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+				String[] tokens = beforeAssignment.split("\\s");
+				String variable = tokens[tokens.length-1];
+				String initializer = null;
+				if(argumentizedString.endsWith(";\n")) {
+					initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+				}
+				else {
+					initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+				}
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+						List<VariableDeclaration> variableDeclarations = mapping.operation1.getVariableDeclarationsInScope(mapping.fragment1.getLocationInfo());
+						for(VariableDeclaration declaration : variableDeclarations) {
+							if(declaration.getVariableName().equals(variable)) {
+								InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+								mapping.processInlineVariableRefactoring(ref, refactorings);
+								if(mapping.getReplacements().size() == 1) {
+									mapping.identicalWithInlinedVariable = true;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -1225,7 +1287,68 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							if(leaf.equals(leaf1)) {
 								break;
 							}
-							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
+							for(VariableDeclaration declaration : leaf.getVariableDeclarations()) {
+								for(Replacement replacement : mapping.getReplacements()) {
+									String variableName = declaration.getVariableName();
+									AbstractExpression initializer = declaration.getInitializer();
+									if(replacement.getBefore().startsWith(variableName + ".")) {
+										String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
+										if(replacement.getAfter().endsWith(suffixBefore)) {
+											String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
+											if(initializer != null) {
+												if(initializer.toString().equals(prefixAfter) ||
+														mapping.overlappingExtractVariable(initializer, prefixAfter, leaves2, refactorings)) {
+													InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+													mapping.processInlineVariableRefactoring(ref, refactorings);
+													if(mapping.getReplacements().size() == 1) {
+														mapping.identicalWithInlinedVariable = true;
+													}
+												}
+											}
+										}
+									}
+									if(variableName.equals(replacement.getBefore()) && initializer != null) {
+										if(initializer.toString().equals(replacement.getAfter()) ||
+												(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !mapping.containsVariableNameReplacement(variableName)) ||
+												mapping.ternaryMatch(initializer, replacement.getAfter()) ||
+												mapping.reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+												mapping.overlappingExtractVariable(initializer, replacement.getAfter(), leaves2, refactorings)) {
+											InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+											mapping.processInlineVariableRefactoring(ref, refactorings);
+											if(mapping.getReplacements().size() == 1) {
+												mapping.identicalWithInlinedVariable = true;
+											}
+										}
+									}
+								}
+							}
+							String argumentizedString = leaf.getArgumentizedString();
+							if(argumentizedString.contains("=")) {
+								String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+								String[] tokens = beforeAssignment.split("\\s");
+								String variable = tokens[tokens.length-1];
+								String initializer = null;
+								if(argumentizedString.endsWith(";\n")) {
+									initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+								}
+								else {
+									initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+								}
+								for(Replacement replacement : mapping.getReplacements()) {
+									if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+										List<VariableDeclaration> variableDeclarations = mapping.operation1.getVariableDeclarationsInScope(mapping.fragment1.getLocationInfo());
+										for(VariableDeclaration declaration : variableDeclarations) {
+											if(declaration.getVariableName().equals(variable)) {
+												InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+												mapping.processInlineVariableRefactoring(ref, refactorings);
+												if(mapping.getReplacements().size() == 1) {
+													mapping.identicalWithInlinedVariable = true;
+												}
+											}
+										}
+									}
+								}
+							}
 							if(mapping.isIdenticalWithInlinedVariable()) {
 								break;
 							}
@@ -1323,7 +1446,68 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							if(leaf.equals(leaf1)) {
 								break;
 							}
-							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
+							for(VariableDeclaration declaration : leaf.getVariableDeclarations()) {
+								for(Replacement replacement : mapping.getReplacements()) {
+									String variableName = declaration.getVariableName();
+									AbstractExpression initializer = declaration.getInitializer();
+									if(replacement.getBefore().startsWith(variableName + ".")) {
+										String suffixBefore = replacement.getBefore().substring(variableName.length(), replacement.getBefore().length());
+										if(replacement.getAfter().endsWith(suffixBefore)) {
+											String prefixAfter = replacement.getAfter().substring(0, replacement.getAfter().indexOf(suffixBefore));
+											if(initializer != null) {
+												if(initializer.toString().equals(prefixAfter) ||
+														mapping.overlappingExtractVariable(initializer, prefixAfter, leaves2, refactorings)) {
+													InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+													mapping.processInlineVariableRefactoring(ref, refactorings);
+													if(mapping.getReplacements().size() == 1) {
+														mapping.identicalWithInlinedVariable = true;
+													}
+												}
+											}
+										}
+									}
+									if(variableName.equals(replacement.getBefore()) && initializer != null) {
+										if(initializer.toString().equals(replacement.getAfter()) ||
+												(initializer.toString().equals("(" + declaration.getType() + ")" + replacement.getAfter()) && !mapping.containsVariableNameReplacement(variableName)) ||
+												mapping.ternaryMatch(initializer, replacement.getAfter()) ||
+												mapping.reservedTokenMatch(initializer, replacement, replacement.getAfter()) ||
+												mapping.overlappingExtractVariable(initializer, replacement.getAfter(), leaves2, refactorings)) {
+											InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+											mapping.processInlineVariableRefactoring(ref, refactorings);
+											if(mapping.getReplacements().size() == 1) {
+												mapping.identicalWithInlinedVariable = true;
+											}
+										}
+									}
+								}
+							}
+							String argumentizedString = leaf.getArgumentizedString();
+							if(argumentizedString.contains("=")) {
+								String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+								String[] tokens = beforeAssignment.split("\\s");
+								String variable = tokens[tokens.length-1];
+								String initializer = null;
+								if(argumentizedString.endsWith(";\n")) {
+									initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+								}
+								else {
+									initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+								}
+								for(Replacement replacement : mapping.getReplacements()) {
+									if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+										List<VariableDeclaration> variableDeclarations = mapping.operation1.getVariableDeclarationsInScope(mapping.fragment1.getLocationInfo());
+										for(VariableDeclaration declaration : variableDeclarations) {
+											if(declaration.getVariableName().equals(variable)) {
+												InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, mapping.operation1, mapping.operation2);
+												mapping.processInlineVariableRefactoring(ref, refactorings);
+												if(mapping.getReplacements().size() == 1) {
+													mapping.identicalWithInlinedVariable = true;
+												}
+											}
+										}
+									}
+								}
+							}
 							if(mapping.isIdenticalWithInlinedVariable()) {
 								break;
 							}
