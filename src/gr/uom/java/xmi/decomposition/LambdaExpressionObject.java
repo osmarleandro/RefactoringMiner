@@ -37,8 +37,4 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	public LocationInfo getLocationInfo() {
 		return locationInfo;
 	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
-	}
 }
