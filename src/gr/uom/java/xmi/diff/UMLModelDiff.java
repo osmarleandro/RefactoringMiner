@@ -1466,7 +1466,39 @@ public class UMLModelDiff {
       checkForOperationMovesIncludingRemovedClasses();
       checkForExtractedAndMovedOperations(getOperationBodyMappersInCommonClasses(), getAddedAndExtractedOperationsInCommonClasses());
       checkForExtractedAndMovedOperations(getOperationBodyMappersInMovedAndRenamedClasses(), getAddedOperationsInMovedAndRenamedClasses());
-      checkForMovedAndInlinedOperations(getOperationBodyMappersInCommonClasses(), getRemovedAndInlinedOperationsInCommonClasses());
+	List<UMLOperationBodyMapper> mappers = getOperationBodyMappersInCommonClasses();
+	List<UMLOperation> removedOperations = getRemovedAndInlinedOperationsInCommonClasses();
+      for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
+		   UMLOperation removedOperation = removedOperationIterator.next();
+		   for(UMLOperationBodyMapper mapper : mappers) {
+			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
+				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
+				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
+				   for(OperationInvocation invocation : operationInvocations) {
+					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().variableTypeMap(), this)) {
+						   removedOperationInvocations.add(invocation);
+					   }
+				   }
+				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
+						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
+						List<String> arguments = removedOperationInvocation.getArguments();
+						List<String> parameters = removedOperation.getParameterNameList();
+						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+						//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
+						int size = Math.min(arguments.size(), parameters.size());
+						for(int i=0; i<size; i++) {
+							parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
+						}
+						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, getUMLClassDiff(removedOperation.getClassName()));
+						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
+							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
+							refactorings.add(inlineOperationRefactoring);
+							deleteRemovedOperation(removedOperation);
+						}
+				   }
+			   }
+		   }
+	   }
       refactorings.addAll(checkForAttributeMovesBetweenCommonClasses());
       refactorings.addAll(checkForAttributeMovesIncludingAddedClasses());
       refactorings.addAll(checkForAttributeMovesIncludingRemovedClasses());
@@ -1722,41 +1754,7 @@ public class UMLModelDiff {
 	  }
    }
 
-   private void checkForMovedAndInlinedOperations(List<UMLOperationBodyMapper> mappers, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
-	   for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
-		   UMLOperation removedOperation = removedOperationIterator.next();
-		   for(UMLOperationBodyMapper mapper : mappers) {
-			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-				   List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-				   List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
-				   for(OperationInvocation invocation : operationInvocations) {
-					   if(invocation.matchesOperation(removedOperation, mapper.getOperation1().variableTypeMap(), this)) {
-						   removedOperationInvocations.add(invocation);
-					   }
-				   }
-				   if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
-						OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
-						List<String> arguments = removedOperationInvocation.getArguments();
-						List<String> parameters = removedOperation.getParameterNameList();
-						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
-						//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
-						int size = Math.min(arguments.size(), parameters.size());
-						for(int i=0; i<size; i++) {
-							parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
-						}
-						UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, getUMLClassDiff(removedOperation.getClassName()));
-						if(moveAndInlineMatchCondition(operationBodyMapper, mapper)) {
-							InlineOperationRefactoring inlineOperationRefactoring =	new InlineOperationRefactoring(operationBodyMapper, mapper.getOperation1(), removedOperationInvocations);
-							refactorings.add(inlineOperationRefactoring);
-							deleteRemovedOperation(removedOperation);
-						}
-				   }
-			   }
-		   }
-	   }
-   }
-
-	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
+   private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
