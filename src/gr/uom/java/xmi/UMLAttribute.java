@@ -69,10 +69,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return className;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
 	public String getName() {
 		return name;
 	}

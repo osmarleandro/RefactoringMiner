@@ -219,7 +219,8 @@ public class UMLModelASTReader {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(umlClass.getName());
+	    			String className = umlClass.getName();
+					attribute.className = className;
 	    			umlClass.addAttribute(attribute);
 	    		}
 			}
@@ -294,7 +295,8 @@ public class UMLModelASTReader {
     	for(FieldDeclaration fieldDeclaration : fieldDeclarations) {
     		List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
     		for(UMLAttribute attribute : attributes) {
-    			attribute.setClassName(umlClass.getName());
+    			String className1 = umlClass.getName();
+				attribute.className = className1;
     			umlClass.addAttribute(attribute);
     		}
     	}
@@ -522,7 +524,8 @@ public class UMLModelASTReader {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(anonymousClass.getCodePath());
+	    			String className = anonymousClass.getCodePath();
+					attribute.className = className;
 	    			anonymousClass.addAttribute(attribute);
 	    		}
 			}
