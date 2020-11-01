@@ -218,10 +218,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return parentMapper;
 	}
 
-	public UMLOperation getCallSiteOperation() {
-		return callSiteOperation;
-	}
-
 	private void resetNodes(List<? extends AbstractCodeFragment> nodes) {
 		for(AbstractCodeFragment node : nodes) {
 			node.resetArgumentization();
