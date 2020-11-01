@@ -259,15 +259,15 @@ public class UMLModelDiff {
 				   return true;
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
-				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.newSuperclass != null &&
+				   !subclassDiff.getOldSuperclass().equals(subclassDiff.newSuperclass) && looksLikeAddedClass(subclassDiff.newSuperclass) != null) {
+			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.newSuperclass);
 			   if(addedClass.getSuperclass() != null) {
 				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
 			   }
 		   }
-		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.newSuperclass != null && looksLikeAddedClass(subclassDiff.newSuperclass) != null) {
+			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.newSuperclass);
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
 		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
@@ -943,7 +943,7 @@ public class UMLModelDiff {
 		   UMLType addedClassSuperType = addedClass.getSuperclass();
 		   if(!addedClass.isInterface()) {
 			   for(UMLClassBaseDiff classDiff : classDiffs) {
-				   UMLType classDiffSuperType = classDiff.getNewSuperclass();
+				   UMLType classDiffSuperType = classDiff.newSuperclass;
 				   boolean commonSuperType = addedClassSuperType != null && classDiffSuperType != null &&
 						   addedClassSuperType.getClassType().equals(classDiffSuperType.getClassType());
 				   boolean commonInterface = false;
@@ -957,8 +957,8 @@ public class UMLModelDiff {
 					   if(commonInterface)
 						   break;
 				   }
-				   boolean extendsAddedClass = classDiff.getNewSuperclass() != null &&
-						   addedClass.getName().endsWith("." + classDiff.getNewSuperclass().getClassType());
+				   boolean extendsAddedClass = classDiff.newSuperclass != null &&
+						   addedClass.getName().endsWith("." + classDiff.newSuperclass.getClassType());
 				   UMLAttribute attributeOfExtractedClassType = attributeOfExtractedClassType(addedClass, classDiff);
 				   boolean isTestClass =  addedClass.isTestClass() && classDiff.getOriginalClass().isTestClass();
 				   if((!commonSuperType && !commonInterface && !extendsAddedClass) || attributeOfExtractedClassType != null || isTestClass) {
@@ -1925,8 +1925,8 @@ public class UMLModelDiff {
 		   UMLType type = variableTypeMap.get(expression);
 		   UMLClassBaseDiff classDiff = getUMLClassDiff(addedOperation.getClassName());
 		   boolean superclassRelationship = false;
-		   if(classDiff != null && classDiff.getNewSuperclass() != null &&
-				   classDiff.getNewSuperclass().equals(type)) {
+		   if(classDiff != null && classDiff.newSuperclass != null &&
+				   classDiff.newSuperclass.equals(type)) {
 			   superclassRelationship = true;
 		   }
 		   if(!addedOperation.getNonQualifiedClassName().equals(type.getClassType()) && !superclassRelationship) {
