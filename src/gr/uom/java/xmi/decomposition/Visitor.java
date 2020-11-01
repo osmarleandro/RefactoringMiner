@@ -672,12 +672,13 @@ public class Visitor extends ASTVisitor {
 	}
 
 	private void processArgument(Expression argument) {
+		ArrayAccess e = (ArrayAccess)argument;
 		if(argument instanceof SuperMethodInvocation ||
 				argument instanceof Name ||
 				argument instanceof StringLiteral ||
 				argument instanceof BooleanLiteral ||
 				(argument instanceof FieldAccess && ((FieldAccess)argument).getExpression() instanceof ThisExpression) ||
-				(argument instanceof ArrayAccess && invalidArrayAccess((ArrayAccess)argument)) ||
+				(argument instanceof ArrayAccess && e.getArray() instanceof SimpleName && simpleNameOrNumberLiteral(e.getIndex())) ||
 				(argument instanceof InfixExpression && invalidInfix((InfixExpression)argument)))
 			return;
 		this.arguments.add(argument.toString());
@@ -858,10 +859,6 @@ public class Visitor extends ASTVisitor {
 
 	public List<LambdaExpressionObject> getLambdas() {
 		return lambdas;
-	}
-
-	private static boolean invalidArrayAccess(ArrayAccess e) {
-		return e.getArray() instanceof SimpleName && simpleNameOrNumberLiteral(e.getIndex());
 	}
 
 	private static boolean invalidInfix(InfixExpression e) {
