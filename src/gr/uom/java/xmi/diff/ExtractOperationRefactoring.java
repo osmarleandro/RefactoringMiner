@@ -150,17 +150,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return CodeRange.computeRange(extractedCodeFragmentsToExtractedOperation);
 	}
 
-	/**
-	 * @return the code range(s) of the invocation(s) to the extracted method inside the source method in the <b>child</b> commit
-	 */
-	public Set<CodeRange> getExtractedOperationInvocationCodeRanges() {
-		Set<CodeRange> codeRanges = new LinkedHashSet<CodeRange>();
-		for(OperationInvocation invocation : extractedOperationInvocations) {
-			codeRanges.add(invocation.codeRange());
-		}
-		return codeRanges;
-	}
-
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
