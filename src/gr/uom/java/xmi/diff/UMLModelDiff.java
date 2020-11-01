@@ -1782,7 +1782,12 @@ public class UMLModelDiff {
 				delegateStatements++;
 			}
 		}
-		int mappings = operationBodyMapper.mappingsWithoutBlocks();
+		int count = 0;
+		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+			if(mapping.getFragment1().countableStatement() && mapping.getFragment2().countableStatement())
+				count++;
+		}
+		int mappings = count;
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 		int exactMatches = exactMatchList.size();
