@@ -88,21 +88,6 @@ public class CodeRange {
 		return subsumedStatements == statements.size();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{").append("\n");
-		encodeStringProperty(sb, "filePath", filePath, false);
-		encodeIntProperty(sb, "startLine", startLine, false);
-		encodeIntProperty(sb, "endLine", endLine, false);
-		encodeIntProperty(sb, "startColumn", startColumn, false);
-		encodeIntProperty(sb, "endColumn", endColumn, false);
-		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
-		encodeStringProperty(sb, "description", description, false);
-		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
-		sb.append("}");
-		return sb.toString();
-	}
-
 	private String escapeQuotes(String s) {
 		if(s != null) {
 			StringBuilder sb = new StringBuilder();
