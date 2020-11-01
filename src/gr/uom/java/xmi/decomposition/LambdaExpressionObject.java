@@ -33,11 +33,6 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 		return expression;
 	}
 
-	@Override
-	public LocationInfo getLocationInfo() {
-		return locationInfo;
-	}
-
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
