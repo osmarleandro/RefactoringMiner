@@ -53,10 +53,6 @@ public abstract class AbstractCodeMapping {
 		return operation2;
 	}
 
-	public boolean isIdenticalWithExtractedVariable() {
-		return identicalWithExtractedVariable;
-	}
-
 	public boolean isIdenticalWithInlinedVariable() {
 		return identicalWithInlinedVariable;
 	}

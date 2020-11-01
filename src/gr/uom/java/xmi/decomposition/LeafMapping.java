@@ -39,10 +39,10 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		}
 		
 		if(distance1 != distance2) {
-			if(this.isIdenticalWithExtractedVariable() && !o.isIdenticalWithExtractedVariable()) {
+			if(this.identicalWithExtractedVariable && !o.identicalWithExtractedVariable) {
 				return -1;
 			}
-			else if(!this.isIdenticalWithExtractedVariable() && o.isIdenticalWithExtractedVariable()) {
+			else if(!this.identicalWithExtractedVariable && o.identicalWithExtractedVariable) {
 				return 1;
 			}
 			if(this.isIdenticalWithInlinedVariable() && !o.isIdenticalWithInlinedVariable()) {
