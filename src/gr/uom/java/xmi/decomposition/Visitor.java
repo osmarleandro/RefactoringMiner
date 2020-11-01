@@ -861,14 +861,13 @@ public class Visitor extends ASTVisitor {
 	}
 
 	private static boolean invalidArrayAccess(ArrayAccess e) {
-		return e.getArray() instanceof SimpleName && simpleNameOrNumberLiteral(e.getIndex());
+		Expression e1 = e.getIndex();
+		return e.getArray() instanceof SimpleName && (e1 instanceof SimpleName || e1 instanceof NumberLiteral);
 	}
 
 	private static boolean invalidInfix(InfixExpression e) {
-		return simpleNameOrNumberLiteral(e.getLeftOperand()) && simpleNameOrNumberLiteral(e.getRightOperand());
-	}
-
-	private static boolean simpleNameOrNumberLiteral(Expression e) {
-		return e instanceof SimpleName || e instanceof NumberLiteral;
+		Expression e1 = e.getLeftOperand();
+		Expression e2 = e.getRightOperand();
+		return (e1 instanceof SimpleName || e1 instanceof NumberLiteral) && (e2 instanceof SimpleName || e2 instanceof NumberLiteral);
 	}
 }
