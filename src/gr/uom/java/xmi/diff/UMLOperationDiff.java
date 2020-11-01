@@ -3,9 +3,11 @@ package gr.uom.java.xmi.diff;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
+import gr.uom.java.xmi.decomposition.VariableScope;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
@@ -244,7 +246,18 @@ public class UMLOperationDiff {
 		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
 			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
-			Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(originalVariable, newVariable, mappings);
+			Set<AbstractCodeMapping> references1 = new LinkedHashSet<AbstractCodeMapping>();
+			VariableScope scope1 = originalVariable.getScope();
+			VariableScope scope2 = newVariable.getScope();
+			for(AbstractCodeMapping mapping : mappings) {
+				AbstractCodeFragment fragment1 = mapping.getFragment1();
+				AbstractCodeFragment fragment2 = mapping.getFragment2();
+				if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
+						VariableReferenceExtractor.usesVariable(fragment1, originalVariable) && VariableReferenceExtractor.usesVariable(fragment2, newVariable)) {
+					references1.add(mapping);
+				}
+			}
+			Set<AbstractCodeMapping> references = references1;
 			RenameVariableRefactoring renameRefactoring = null;
 			if(parameterDiff.isNameChanged() && !inconsistentReplacement(originalVariable, newVariable)) {
 				renameRefactoring = new RenameVariableRefactoring(originalVariable, newVariable, removedOperation, addedOperation, references);
