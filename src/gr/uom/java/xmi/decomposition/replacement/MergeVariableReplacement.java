@@ -26,10 +26,4 @@ public class MergeVariableReplacement extends Replacement {
 		interestion.retainAll(other.mergedVariables);
 		return this.getAfter().equals(other.getAfter()) && interestion.size() == 0;
 	}
-
-	public boolean subsumes(MergeVariableReplacement other) {
-		return this.getAfter().equals(other.getAfter()) &&
-				this.mergedVariables.containsAll(other.mergedVariables) &&
-				this.mergedVariables.size() > other.mergedVariables.size();
-	}
 }
