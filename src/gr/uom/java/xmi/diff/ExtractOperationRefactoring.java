@@ -103,10 +103,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 		return extractedOperationInvocations;
 	}
 
-	public Set<Replacement> getReplacements() {
-		return replacements;
-	}
-
 	public Set<AbstractCodeFragment> getExtractedCodeFragmentsFromSourceOperation() {
 		return extractedCodeFragmentsFromSourceOperation;
 	}
