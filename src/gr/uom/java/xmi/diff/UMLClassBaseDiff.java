@@ -20,6 +20,7 @@ import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1003,7 +1004,18 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
-					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
+					List<UMLOperation> operationsInsideAnonymousClass1 = new ArrayList<UMLOperation>();
+					if(addedOperation.operationBody != null) {
+						List<AnonymousClassDeclarationObject> anonymousClassDeclarations = addedOperation.operationBody.getAllAnonymousClassDeclarations();
+						for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
+							for(UMLAnonymousClass anonymousClass : this.addedAnonymousClasses) {
+								if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+									operationsInsideAnonymousClass1.addAll(anonymousClass.getOperations());
+								}
+							}
+						}
+					}
+					List<UMLOperation> operationsInsideAnonymousClass = operationsInsideAnonymousClass1;
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}
@@ -1043,7 +1055,18 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						maxDifferenceInPosition = Math.max(removedOperations.size(), addedOperations.size());
 					}
 					updateMapperSet(mapperSet, removedOperation, addedOperation, maxDifferenceInPosition);
-					List<UMLOperation> operationsInsideAnonymousClass = addedOperation.getOperationsInsideAnonymousClass(this.addedAnonymousClasses);
+					List<UMLOperation> operationsInsideAnonymousClass1 = new ArrayList<UMLOperation>();
+					if(addedOperation.operationBody != null) {
+						List<AnonymousClassDeclarationObject> anonymousClassDeclarations = addedOperation.operationBody.getAllAnonymousClassDeclarations();
+						for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
+							for(UMLAnonymousClass anonymousClass : this.addedAnonymousClasses) {
+								if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration.getLocationInfo())) {
+									operationsInsideAnonymousClass1.addAll(anonymousClass.getOperations());
+								}
+							}
+						}
+					}
+					List<UMLOperation> operationsInsideAnonymousClass = operationsInsideAnonymousClass1;
 					for(UMLOperation operationInsideAnonymousClass : operationsInsideAnonymousClass) {
 						updateMapperSet(mapperSet, removedOperation, operationInsideAnonymousClass, addedOperation, maxDifferenceInPosition);
 					}
