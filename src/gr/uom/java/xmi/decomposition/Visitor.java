@@ -235,7 +235,22 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public void endVisit(AnonymousClassDeclaration node) {
-		DefaultMutableTreeNode parentNode = deleteNode(node);
+		Enumeration enumeration = root.postorderEnumeration();
+		DefaultMutableTreeNode childNode = findNode(node);
+		
+		DefaultMutableTreeNode parentNode1 = root;
+		while(enumeration.hasMoreElements()) {
+			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
+			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
+			if(currentAnonymous != null && isParent(node, currentAnonymous.getAstNode())) {
+				parentNode1 = currentNode;
+				break;
+			}
+		}
+		parentNode1.remove(childNode);
+		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
+		childAnonymousObject.setAstNode(null);
+		DefaultMutableTreeNode parentNode = parentNode1;
 		for(ASTNode parent : builderPatternChains) {
 			if(isParent(node, parent) || isParent(parent, node)) {
 				removeAnonymousData();
@@ -267,25 +282,6 @@ public class Visitor extends ASTVisitor {
 			this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());
 			this.lambdas.removeAll(anonymous.getLambdas());
 		}
-	}
-
-	private DefaultMutableTreeNode deleteNode(AnonymousClassDeclaration childAnonymous) {
-		Enumeration enumeration = root.postorderEnumeration();
-		DefaultMutableTreeNode childNode = findNode(childAnonymous);
-		
-		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
-				parentNode = currentNode;
-				break;
-			}
-		}
-		parentNode.remove(childNode);
-		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
-		childAnonymousObject.setAstNode(null);
-		return parentNode;
 	}
 
 	private DefaultMutableTreeNode insertNode(AnonymousClassDeclaration childAnonymous) {
