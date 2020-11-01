@@ -87,7 +87,17 @@ public class VariableReplacementAnalysis {
 		if(classDiff != null) {
 			for(AbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
-					if(replacement.involvesVariable()) {
+					if(replacement.type.equals(ReplacementType.VARIABLE_NAME) ||
+					replacement.type.equals(ReplacementType.BOOLEAN_REPLACED_WITH_VARIABLE) ||
+					replacement.type.equals(ReplacementType.TYPE_LITERAL_REPLACED_WITH_VARIABLE) ||
+					replacement.type.equals(ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_METHOD_INVOCATION) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_EXPRESSION_OF_METHOD_INVOCATION) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_ARRAY_ACCESS) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_PREFIX_EXPRESSION) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_STRING_LITERAL) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
+					replacement.type.equals(ReplacementType.VARIABLE_REPLACED_WITH_NUMBER_LITERAL)) {
 						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
 							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
 							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
