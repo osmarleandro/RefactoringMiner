@@ -50,10 +50,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
-		return references;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
