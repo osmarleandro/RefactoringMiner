@@ -81,10 +81,6 @@ public class OperationBody {
 		return new ArrayList<VariableDeclaration>(compositeStatement.getAllVariableDeclarations());
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
-		return new ArrayList<VariableDeclaration>(compositeStatement.getVariableDeclarationsInScope(location));
-	}
-
 	public VariableDeclaration getVariableDeclaration(String variableName) {
 		return compositeStatement.getVariableDeclaration(variableName);
 	}
