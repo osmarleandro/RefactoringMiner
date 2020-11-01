@@ -762,10 +762,12 @@ public class UMLModelDiff {
 			   }
 		   }
 		   List<UMLAttribute> originalAttributes = sourceClassDiff.originalClassAttributesOfType(candidate.getTargetClassName());
-		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClassAttributesOfType(candidate.getTargetClassName());
+		String targetClass = candidate.getTargetClassName();
+		   List<UMLAttribute> nextAttributes = sourceClassDiff.nextClass.attributesOfType(targetClass);
 		   if(targetSuperclass != null) {
 			   originalAttributes.addAll(sourceClassDiff.originalClassAttributesOfType(targetSuperclass.getClassType()));
-			   nextAttributes.addAll(sourceClassDiff.nextClassAttributesOfType(targetSuperclass.getClassType()));
+			String targetClass1 = targetSuperclass.getClassType();
+			   nextAttributes.addAll(sourceClassDiff.nextClass.attributesOfType(targetClass1));
 		   }
 		   Set<UMLAttribute> intersection = new LinkedHashSet<UMLAttribute>(originalAttributes);
 		   intersection.retainAll(nextAttributes);
