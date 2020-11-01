@@ -422,7 +422,12 @@ public class VariableReplacementAnalysis {
 
 	private void findConsistentVariableRenames() {
 		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
-		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
+		Set<Replacement> renames = variableDeclarationReplacementOccurrenceMap.keySet();
+		Set<Replacement> allConsistentRenames1 = new LinkedHashSet<Replacement>();
+		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
+		ConsistentReplacementDetector.updateRenames(allConsistentRenames1, allInconsistentRenames, renames);
+		allConsistentRenames1.removeAll(allInconsistentRenames);
+		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames1;
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
 			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
@@ -446,7 +451,12 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap = getReplacementOccurrenceMap(ReplacementType.VARIABLE_NAME);
-		Set<Replacement> allConsistentRenames = allConsistentRenames(replacementOccurrenceMap);
+		Set<Replacement> renames = replacementOccurrenceMap.keySet();
+		Set<Replacement> allConsistentRenames2 = new LinkedHashSet<Replacement>();
+		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
+		ConsistentReplacementDetector.updateRenames(allConsistentRenames2, allInconsistentRenames, renames);
+		allConsistentRenames2.removeAll(allInconsistentRenames);
+		Set<Replacement> allConsistentRenames = allConsistentRenames2;
 		Map<Replacement, Set<AbstractCodeMapping>> finalConsistentRenames = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
 		for(Replacement replacement : allConsistentRenames) {
 			SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement);
@@ -736,15 +746,6 @@ public class VariableReplacementAnalysis {
 				return true;
 		}
 		return false;
-	}
-
-	private Set<Replacement> allConsistentRenames(Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap) {
-		Set<Replacement> renames = replacementOccurrenceMap.keySet();
-		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
-		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
-		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
-		allConsistentRenames.removeAll(allInconsistentRenames);
-		return allConsistentRenames;
 	}
 
 	private boolean replacementInLocalVariableDeclaration(Replacement replacement, Set<AbstractCodeMapping> set) {
