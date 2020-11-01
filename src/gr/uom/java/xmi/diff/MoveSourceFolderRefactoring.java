@@ -28,10 +28,6 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
 	}
 
-	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder() {
-		return movedClassesToAnotherSourceFolder;
-	}
-
 	public RenamePattern getPattern() {
 		return pattern;
 	}
