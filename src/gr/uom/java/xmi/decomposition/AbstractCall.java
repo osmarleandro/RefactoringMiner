@@ -320,14 +320,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
-	public Set<String> argumentIntersection(AbstractCall call) {
-		List<String> args1 = preprocessArguments(getArguments());
-		List<String> args2 = preprocessArguments(call.getArguments());
-		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
-		argumentIntersection.retainAll(args2);
-		return argumentIntersection;
-	}
-
 	private List<String> preprocessArguments(List<String> arguments) {
 		List<String> args = new ArrayList<String>();
 		for(String arg : arguments) {
@@ -342,7 +334,11 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	}
 
 	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
-		Set<String> argumentIntersection = argumentIntersection(call);
+		List<String> args1 = preprocessArguments(getArguments());
+		List<String> args2 = preprocessArguments(call.getArguments());
+		Set<String> argumentIntersection1 = new LinkedHashSet<String>(args1);
+		argumentIntersection1.retainAll(args2);
+		Set<String> argumentIntersection = argumentIntersection1;
 		int argumentIntersectionSize = argumentIntersection.size();
 		for(String parameter : parameterToArgumentMap.keySet()) {
 			String argument = parameterToArgumentMap.get(parameter);
