@@ -92,10 +92,14 @@ public class CodeRange {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
 		encodeStringProperty(sb, "filePath", filePath, false);
-		encodeIntProperty(sb, "startLine", startLine, false);
-		encodeIntProperty(sb, "endLine", endLine, false);
-		encodeIntProperty(sb, "startColumn", startColumn, false);
-		encodeIntProperty(sb, "endColumn", endColumn, false);
+		sb.append("\t").append("\t").append("\"" + "startLine" + "\"" + ": " + startLine);
+		insertNewLine(sb, false);
+		sb.append("\t").append("\t").append("\"" + "endLine" + "\"" + ": " + endLine);
+		insertNewLine(sb, false);
+		sb.append("\t").append("\t").append("\"" + "startColumn" + "\"" + ": " + startColumn);
+		insertNewLine(sb, false);
+		sb.append("\t").append("\t").append("\"" + "endColumn" + "\"" + ": " + endColumn);
+		insertNewLine(sb, false);
 		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
 		encodeStringProperty(sb, "description", description, false);
 		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
@@ -118,11 +122,6 @@ public class CodeRange {
 			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + "\"" + value + "\"");
 		else
 			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
-		insertNewLine(sb, last);
-	}
-
-	private void encodeIntProperty(StringBuilder sb, String propertyName, int value, boolean last) {
-		sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
 		insertNewLine(sb, last);
 	}
 
