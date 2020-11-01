@@ -18,8 +18,4 @@ public class MethodInvocationWithClassInstanceCreationReplacement extends Replac
 		return invokedOperationBefore;
 	}
 
-	public ObjectCreation getObjectCreationAfter() {
-		return objectCreationAfter;
-	}
-
 }
