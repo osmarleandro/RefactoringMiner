@@ -132,10 +132,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return visibility;
 	}
 
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
-
 	public boolean isEnum() {
 		return isEnum;
 	}

@@ -368,13 +368,13 @@ public class UMLModelASTReader {
     		umlClass.setAbstract(true);
     	
     	if((modifiers & Modifier.PUBLIC) != 0)
-    		umlClass.setVisibility("public");
-    	else if((modifiers & Modifier.PROTECTED) != 0)
-    		umlClass.setVisibility("protected");
-    	else if((modifiers & Modifier.PRIVATE) != 0)
-    		umlClass.setVisibility("private");
-    	else
-    		umlClass.setVisibility("package");
+			umlClass.visibility = "public";
+		else if((modifiers & Modifier.PROTECTED) != 0)
+			umlClass.visibility = "protected";
+		else if((modifiers & Modifier.PRIVATE) != 0)
+			umlClass.visibility = "private";
+		else
+			umlClass.visibility = "package";
     	
     	List<IExtendedModifier> extendedModifiers = typeDeclaration.modifiers();
 		for(IExtendedModifier extendedModifier : extendedModifiers) {
