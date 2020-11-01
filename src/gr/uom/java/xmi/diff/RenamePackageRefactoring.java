@@ -45,17 +45,6 @@ public class RenamePackageRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		String originalPath = pattern.getBefore().endsWith(".") ? pattern.getBefore().substring(0, pattern.getBefore().length()-1) : pattern.getBefore();
-		sb.append(originalPath);
-		sb.append(" to ");
-		String movedPath = pattern.getAfter().endsWith(".") ? pattern.getAfter().substring(0, pattern.getAfter().length()-1) : pattern.getAfter();
-		sb.append(movedPath);
-		return sb.toString();
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(MoveClassRefactoring ref : moveClassRefactorings) {
