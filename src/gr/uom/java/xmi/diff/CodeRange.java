@@ -91,14 +91,32 @@ public class CodeRange {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
-		encodeStringProperty(sb, "filePath", filePath, false);
+		if(filePath != null)
+			sb.append("\t").append("\t").append("\"" + "filePath" + "\"" + ": " + "\"" + filePath + "\"");
+		else
+			sb.append("\t").append("\t").append("\"" + "filePath" + "\"" + ": " + filePath);
+		insertNewLine(sb, false);
 		encodeIntProperty(sb, "startLine", startLine, false);
 		encodeIntProperty(sb, "endLine", endLine, false);
 		encodeIntProperty(sb, "startColumn", startColumn, false);
 		encodeIntProperty(sb, "endColumn", endColumn, false);
-		encodeStringProperty(sb, "codeElementType", codeElementType.name(), false);
-		encodeStringProperty(sb, "description", description, false);
-		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
+		String value = codeElementType.name();
+		if(value != null)
+			sb.append("\t").append("\t").append("\"" + "codeElementType" + "\"" + ": " + "\"" + value + "\"");
+		else
+			sb.append("\t").append("\t").append("\"" + "codeElementType" + "\"" + ": " + value);
+		insertNewLine(sb, false);
+		if(description != null)
+			sb.append("\t").append("\t").append("\"" + "description" + "\"" + ": " + "\"" + description + "\"");
+		else
+			sb.append("\t").append("\t").append("\"" + "description" + "\"" + ": " + description);
+		insertNewLine(sb, false);
+		String value1 = escapeQuotes(codeElement);
+		if(value1 != null)
+			sb.append("\t").append("\t").append("\"" + "codeElement" + "\"" + ": " + "\"" + value1 + "\"");
+		else
+			sb.append("\t").append("\t").append("\"" + "codeElement" + "\"" + ": " + value1);
+		insertNewLine(sb, true);
 		sb.append("}");
 		return sb.toString();
 	}
@@ -111,14 +129,6 @@ public class CodeRange {
 			return sb.toString();
 		}
 		return s;
-	}
-
-	private void encodeStringProperty(StringBuilder sb, String propertyName, String value, boolean last) {
-		if(value != null)
-			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + "\"" + value + "\"");
-		else
-			sb.append("\t").append("\t").append("\"" + propertyName + "\"" + ": " + value);
-		insertNewLine(sb, last);
 	}
 
 	private void encodeIntProperty(StringBuilder sb, String propertyName, int value, boolean last) {
