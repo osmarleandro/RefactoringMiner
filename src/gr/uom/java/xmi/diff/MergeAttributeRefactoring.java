@@ -35,10 +35,6 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return newAttribute;
 	}
 
-	public Set<CandidateMergeVariableRefactoring> getAttributeMerges() {
-		return attributeMerges;
-	}
-
 	public String getClassNameBefore() {
 		return classNameBefore;
 	}
