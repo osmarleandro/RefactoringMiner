@@ -269,25 +269,6 @@ public class CompositeStatementObject extends AbstractStatement {
 		return lambdas;
 	}
 
-	@Override
-	public Map<String, List<ObjectCreation>> getCreationMap() {
-		Map<String, List<ObjectCreation>> map = new LinkedHashMap<String, List<ObjectCreation>>();
-		for(AbstractExpression expression : expressionList) {
-			Map<String, List<ObjectCreation>> expressionMap = expression.getCreationMap();
-			for(String key : expressionMap.keySet()) {
-				if(map.containsKey(key)) {
-					map.get(key).addAll(expressionMap.get(key));
-				}
-				else {
-					List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-					list.addAll(expressionMap.get(key));
-					map.put(key, list);
-				}
-			}
-		}
-		return map;
-	}
-
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
 		map.putAll(getMethodInvocationMap());
