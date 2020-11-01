@@ -53,10 +53,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getChangedTypeVariable() {
-		return changedTypeVariable;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
