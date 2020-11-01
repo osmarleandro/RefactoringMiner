@@ -38,10 +38,6 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
-		return variableDeclaration;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
