@@ -41,10 +41,6 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return originalType;
 	}
 
-	public UMLType getChangedType() {
-		return changedType;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
