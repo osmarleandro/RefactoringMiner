@@ -3175,7 +3175,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+						if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().remove(matchingReplacement);
 							replacementInfo.getReplacements().add(split);
 							return true;
@@ -3212,7 +3212,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+						if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().add(split);
 							return true;
 						}
@@ -3250,7 +3250,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								counter++;
 							}
 							SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+							if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 								replacementInfo.getReplacements().remove(matchingReplacement);
 								replacementInfo.getReplacements().add(split);
 								return true;
@@ -3287,7 +3287,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								counter++;
 							}
 							SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-							if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+							if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 								replacementInfo.getReplacements().add(split);
 								return true;
 							}
@@ -3333,7 +3333,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						SplitVariableReplacement split = new SplitVariableReplacement(matchingReplacement.getBefore(), splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+						if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().remove(matchingReplacement);
 							replacementInfo.getReplacements().add(split);
 							return true;
@@ -3370,7 +3370,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							counter++;
 						}
 						SplitVariableReplacement split = new SplitVariableReplacement(diff1, splitVariables);
-						if(!split.getSplitVariables().contains(split.getBefore()) && concat.toString().equals(diff2)) {
+						if(!split.splitVariables.contains(split.getBefore()) && concat.toString().equals(diff2)) {
 							replacementInfo.getReplacements().add(split);
 							return true;
 						}

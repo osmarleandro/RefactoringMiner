@@ -11,10 +11,6 @@ public class SplitVariableReplacement extends Replacement {
 		this.splitVariables = newVariables;
 	}
 
-	public Set<String> getSplitVariables() {
-		return splitVariables;
-	}
-
 	public boolean equal(SplitVariableReplacement other) {
 		return this.getBefore().equals(other.getBefore()) &&
 				this.splitVariables.containsAll(other.splitVariables) &&
