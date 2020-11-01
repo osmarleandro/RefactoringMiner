@@ -115,10 +115,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return scope;
 	}
 
-	public boolean isParameter() {
-		return isParameter;
-	}
-
 	public void setParameter(boolean isParameter) {
 		this.isParameter = isParameter;
 	}
