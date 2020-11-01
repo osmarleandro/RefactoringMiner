@@ -9,8 +9,4 @@ public class AddVariableReplacement extends Replacement {
 		super("", addedVariables.toString(), ReplacementType.ADD_VARIABLE);
 		this.addedVariables = addedVariables;
 	}
-
-	public Set<String> getAddedVariables() {
-		return addedVariables;
-	}
 }
