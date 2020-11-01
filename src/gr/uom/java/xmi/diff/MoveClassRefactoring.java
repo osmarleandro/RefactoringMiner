@@ -52,10 +52,6 @@ public class MoveClassRefactoring implements Refactoring {
 		return originalClass.getName();
 	}
 
-	public String getMovedClassName() {
-		return movedClass.getName();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
