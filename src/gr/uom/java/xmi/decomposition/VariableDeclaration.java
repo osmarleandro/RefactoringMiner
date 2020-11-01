@@ -103,10 +103,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return variableName;
 	}
 
-	public AbstractExpression getInitializer() {
-		return initializer;
-	}
-
 	public UMLType getType() {
 		return type;
 	}
