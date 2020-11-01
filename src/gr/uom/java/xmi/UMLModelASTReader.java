@@ -172,27 +172,23 @@ public class UMLModelASTReader {
         }
 	}
 
-	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
-		UMLJavadoc doc = null;
-		Javadoc javaDoc = bodyDeclaration.getJavadoc();
-		if(javaDoc != null) {
-			doc = new UMLJavadoc();
-			List<TagElement> tags = javaDoc.tags();
-			for(TagElement tag : tags) {
-				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
-				List fragments = tag.fragments();
-				for(Object docElement : fragments) {
-					tagElement.addFragment(docElement.toString());
-				}
-				doc.addTag(tagElement);
-			}
-		}
-		return doc;
-	}
-
 	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
+		UMLJavadoc doc = null;
+				Javadoc javaDoc = enumDeclaration.getJavadoc();
+				if(javaDoc != null) {
+					doc = new UMLJavadoc();
+					List<TagElement> tags = javaDoc.tags();
+					for(TagElement tag : tags) {
+						UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+						List fragments = tag.fragments();
+						for(Object docElement : fragments) {
+							tagElement.addFragment(docElement.toString());
+						}
+						doc.addTag(tagElement);
+					}
+				}
+		UMLJavadoc javadoc = doc;
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -242,7 +238,21 @@ public class UMLModelASTReader {
 
 	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
+		UMLJavadoc doc = null;
+				Javadoc javaDoc = typeDeclaration.getJavadoc();
+				if(javaDoc != null) {
+					doc = new UMLJavadoc();
+					List<TagElement> tags = javaDoc.tags();
+					for(TagElement tag : tags) {
+						UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+						List fragments = tag.fragments();
+						for(Object docElement : fragments) {
+							tagElement.addFragment(docElement.toString());
+						}
+						doc.addTag(tagElement);
+					}
+				}
+		UMLJavadoc javadoc = doc;
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -386,7 +396,21 @@ public class UMLModelASTReader {
 	}
 
 	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
+		UMLJavadoc doc = null;
+		Javadoc javaDoc = methodDeclaration.getJavadoc();
+		if(javaDoc != null) {
+			doc = new UMLJavadoc();
+			List<TagElement> tags = javaDoc.tags();
+			for(TagElement tag : tags) {
+				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+				List fragments = tag.fragments();
+				for(Object docElement : fragments) {
+					tagElement.addFragment(docElement.toString());
+				}
+				doc.addTag(tagElement);
+			}
+		}
+		UMLJavadoc javadoc = doc;
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
 		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
@@ -475,7 +499,21 @@ public class UMLModelASTReader {
 
 
 	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
+		UMLJavadoc doc = null;
+		Javadoc javaDoc = fieldDeclaration.getJavadoc();
+		if(javaDoc != null) {
+			doc = new UMLJavadoc();
+			List<TagElement> tags = javaDoc.tags();
+			for(TagElement tag : tags) {
+				UMLTagElement tagElement = new UMLTagElement(tag.getTagName());
+				List fragments1 = tag.fragments();
+				for(Object docElement : fragments1) {
+					tagElement.addFragment(docElement.toString());
+				}
+				doc.addTag(tagElement);
+			}
+		}
+		UMLJavadoc javadoc = doc;
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
 		Type fieldType = fieldDeclaration.getType();
 		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
