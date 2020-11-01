@@ -24,10 +24,6 @@ public class CandidateMergeVariableRefactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<String> getMergedVariables() {
-		return mergedVariables;
-	}
-
 	public String getNewVariable() {
 		return newVariable;
 	}
