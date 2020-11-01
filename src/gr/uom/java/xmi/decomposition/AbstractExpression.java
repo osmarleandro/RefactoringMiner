@@ -43,7 +43,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		this.variableDeclarations = visitor.getVariableDeclarations();
 		this.methodInvocationMap = visitor.getMethodInvocationMap();
 		this.anonymousClassDeclarations = visitor.getAnonymousClassDeclarations();
-		this.stringLiterals = visitor.getStringLiterals();
+		this.stringLiterals = visitor.stringLiterals;
 		this.numberLiterals = visitor.getNumberLiterals();
 		this.nullLiterals = visitor.getNullLiterals();
 		this.booleanLiterals = visitor.getBooleanLiterals();

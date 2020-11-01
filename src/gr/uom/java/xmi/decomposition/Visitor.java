@@ -804,10 +804,6 @@ public class Visitor extends ASTVisitor {
 		return anonymousClassDeclarations;
 	}
 
-	public List<String> getStringLiterals() {
-		return stringLiterals;
-	}
-
 	public List<String> getNumberLiterals() {
 		return numberLiterals;
 	}
