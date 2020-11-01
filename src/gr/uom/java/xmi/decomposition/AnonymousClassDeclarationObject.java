@@ -110,10 +110,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return prefixExpressions;
 	}
 
-	public List<String> getPostfixExpressions() {
-		return postfixExpressions;
-	}
-
 	public List<String> getArguments() {
 		return this.arguments;
 	}
