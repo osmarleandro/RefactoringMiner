@@ -1573,8 +1573,8 @@ public class UMLModelDiff {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
-					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
-							   parameter.getType().equals(rename.getOriginalVariable().getType())) {
+					   if(parameter.getName().equals(rename.originalVariable.getVariableName()) &&
+							   parameter.getType().equals(rename.originalVariable.getType())) {
 						   matchingRemovedParameter = parameter;
 						   break;
 					   }
