@@ -167,35 +167,6 @@ public class InlineOperationRefactoring implements Refactoring {
 	}
 
 	@Override
-	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getInlinedOperationCodeRange()
-				.setDescription("inlined method declaration")
-				.setCodeElement(inlinedOperation.toString()));
-		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
-		}
-		ranges.add(getTargetOperationCodeRangeBeforeInline()
-				.setDescription("target method declaration before inline")
-				.setCodeElement(targetOperationBeforeInline.toString()));
-		for(OperationInvocation invocation : inlinedOperationInvocations) {
-			ranges.add(invocation.codeRange()
-					.setDescription("inlined method invocation")
-					.setCodeElement(invocation.actualString()));
-		}
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT1()) {
-			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
-			ranges.add(statement.codeRange().
-					setDescription("deleted statement in inlined method declaration"));
-		}
-		return ranges;
-	}
-
-	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(getTargetOperationCodeRangeAfterInline()
