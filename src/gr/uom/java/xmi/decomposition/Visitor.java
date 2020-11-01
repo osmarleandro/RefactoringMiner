@@ -812,10 +812,6 @@ public class Visitor extends ASTVisitor {
 		return numberLiterals;
 	}
 
-	public List<String> getNullLiterals() {
-		return nullLiterals;
-	}
-
 	public List<String> getBooleanLiterals() {
 		return booleanLiterals;
 	}
