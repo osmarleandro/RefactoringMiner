@@ -13,10 +13,6 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
         this.codePath = codePath;
     }
 
-	public boolean isDirectlyNested() {
-		return !name.contains(".");
-	}
-
 	public String getCodePath() {
 		if(packageName.equals(""))
     		return codePath;
