@@ -76,10 +76,6 @@ public class UMLAnnotationDiff {
 		return removedAnnotation;
 	}
 
-	public UMLAnnotation getAddedAnnotation() {
-		return addedAnnotation;
-	}
-
 	public boolean isEmpty() {
 		return !typeNameChanged && !valueChanged && !valueAdded && !valueRemoved &&
 				removedMemberValuePairs.isEmpty() && addedMemberValuePairs.isEmpty() &&
