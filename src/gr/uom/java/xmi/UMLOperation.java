@@ -214,10 +214,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.parameters.add(parameter);
 	}
 
-	public List<UMLParameter> getParameters() {
-		return parameters;
-	}
-
 	public void addAnonymousClass(UMLAnonymousClass anonymous) {
 		this.anonymousClassList.add(anonymous);
 	}
@@ -663,7 +659,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalParameters(UMLOperation operation) {
-		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
+		return this.equalReturnParameter(operation) && this.parameters.equals(operation.parameters);
 	}
 
 	public boolean equalParameterTypes(UMLOperation operation) {
@@ -680,7 +676,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public boolean overloadedParameters(UMLOperation operation) {
 		return this.equalReturnParameter(operation) &&
-				(this.getParameters().containsAll(operation.getParameters()) || operation.getParameters().containsAll(this.getParameters()));
+				(this.parameters.containsAll(operation.parameters) || operation.parameters.containsAll(this.parameters));
 	}
 
 	public boolean overloadedParameterTypes(UMLOperation operation) {
