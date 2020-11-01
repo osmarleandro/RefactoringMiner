@@ -91,38 +91,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChangeAttributeTypeRefactoring other = (ChangeAttributeTypeRefactoring) obj;
-		if (changedTypeAttribute == null) {
-			if (other.changedTypeAttribute != null)
-				return false;
-		} else if (!changedTypeAttribute.equals(other.changedTypeAttribute))
-			return false;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (originalAttribute == null) {
-			if (other.originalAttribute != null)
-				return false;
-		} else if (!originalAttribute.equals(other.originalAttribute))
-			return false;
-		return true;
-	}
-
-	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
