@@ -42,10 +42,6 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return attributeDeclaration;
 	}
 
-	public Set<AbstractCodeMapping> getReferences() {
-		return references;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
