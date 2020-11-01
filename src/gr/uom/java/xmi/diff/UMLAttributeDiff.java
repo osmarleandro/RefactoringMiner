@@ -75,34 +75,6 @@ public class UMLAttributeDiff {
 		return !visibilityChanged && !typeChanged && !renamed && !qualifiedTypeChanged && annotationListDiff.isEmpty();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append("\t").append(removedAttribute).append("\n");
-		if(renamed)
-			sb.append("\t").append("renamed from " + removedAttribute.getName() + " to " + addedAttribute.getName()).append("\n");
-		if(visibilityChanged)
-			sb.append("\t").append("visibility changed from " + removedAttribute.getVisibility() + " to " + addedAttribute.getVisibility()).append("\n");
-		if(typeChanged || qualifiedTypeChanged)
-			sb.append("\t").append("type changed from " + removedAttribute.getType() + " to " + addedAttribute.getType()).append("\n");
-		if(staticChanged)
-			sb.append("\t").append("modifier changed from " + (removedAttribute.isStatic() ? "static" : "non-static") + " to " +
-					(addedAttribute.isStatic() ? "static" : "non-static")).append("\n");
-		if(finalChanged)
-			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
-					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
-		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			sb.append("\t").append("annotation " + annotation + " added").append("\n");
-		}
-		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
-			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
-		}
-		return sb.toString();
-	}
-
 	private Set<Refactoring> getAnnotationRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
