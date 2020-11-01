@@ -89,10 +89,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		return javadoc;
 	}
 
-	public void setJavadoc(UMLJavadoc javadoc) {
-		this.javadoc = javadoc;
-	}
-
 	public List<UMLAnnotation> getAnnotations() {
 		return variableDeclaration.getAnnotations();
 	}
