@@ -75,7 +75,18 @@ public class ObjectCreation extends AbstractCall {
 		ObjectCreation newObjectCreation = new ObjectCreation();
 		newObjectCreation.type = this.type;
 		newObjectCreation.locationInfo = this.locationInfo;
-		update(newObjectCreation, oldExpression, newExpression);
+		newObjectCreation.typeArguments = this.typeArguments;
+		if(this.expression != null && this.expression.equals(oldExpression)) {
+			newObjectCreation.expression = newExpression;
+		}
+		else {
+			newObjectCreation.expression = this.expression;
+		}
+		newObjectCreation.arguments = new ArrayList<String>();
+		for(String argument : this.arguments) {
+			newObjectCreation.arguments.add(
+				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
+		}
 		return newObjectCreation;
 	}
 

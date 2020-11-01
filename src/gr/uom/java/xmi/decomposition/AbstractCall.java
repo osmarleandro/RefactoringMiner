@@ -416,21 +416,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	protected void update(AbstractCall newCall, String oldExpression, String newExpression) {
-		newCall.typeArguments = this.typeArguments;
-		if(this.expression != null && this.expression.equals(oldExpression)) {
-			newCall.expression = newExpression;
-		}
-		else {
-			newCall.expression = this.expression;
-		}
-		newCall.arguments = new ArrayList<String>();
-		for(String argument : this.arguments) {
-			newCall.arguments.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
-		}
-	}
-
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
 		return info.codeRange();
