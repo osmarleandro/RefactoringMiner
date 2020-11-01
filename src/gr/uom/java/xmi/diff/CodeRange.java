@@ -78,16 +78,6 @@ public class CodeRange {
 				this.endLine >= other.endLine;
 	}
 
-	public boolean subsumes(List<? extends AbstractCodeFragment> statements) {
-		int subsumedStatements = 0;
-		for(AbstractCodeFragment statement : statements) {
-			if(subsumes(statement.codeRange())) {
-				subsumedStatements++;
-			}
-		}
-		return subsumedStatements == statements.size();
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{").append("\n");
