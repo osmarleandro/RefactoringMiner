@@ -55,16 +55,6 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalAttribute);
-		sb.append(" to ");
-		sb.append(renamedAttribute);
-		sb.append(" in class ").append(classNameAfter);
-		return sb.toString();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
