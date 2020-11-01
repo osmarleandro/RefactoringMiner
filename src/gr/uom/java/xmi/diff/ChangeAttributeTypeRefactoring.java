@@ -34,10 +34,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		this.relatedRefactorings.add(refactoring);
 	}
 
-	public Set<Refactoring> getRelatedRefactorings() {
-		return relatedRefactorings;
-	}
-
 	public VariableDeclaration getOriginalAttribute() {
 		return originalAttribute;
 	}
