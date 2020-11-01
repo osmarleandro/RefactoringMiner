@@ -358,7 +358,7 @@ public class UMLModelDiff {
    private String isRenamedClass(UMLClass umlClass) {
       for(UMLClassRenameDiff renameDiff : classRenameDiffList) {
          if(renameDiff.getOriginalClass().equals(umlClass))
-            return renameDiff.getRenamedClass().getName();
+            return renameDiff.nextClass.getName();
       }
       return null;
    }
@@ -505,7 +505,7 @@ public class UMLModelDiff {
             UMLClassRenameDiff minClassRenameDiff = diffSet.first();
             minClassRenameDiff.process();
             classRenameDiffList.add(minClassRenameDiff);
-            addedClasses.remove(minClassRenameDiff.getRenamedClass());
+            addedClasses.remove(minClassRenameDiff.nextClass);
             removedClassIterator.remove();
          }
       }
@@ -1270,9 +1270,9 @@ public class UMLModelDiff {
       for(UMLClassRenameDiff classRenameDiff : classRenameDiffList) {
     	  Refactoring refactoring = null;
     	  if(classRenameDiff.samePackage())
-    		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
+    		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.nextClass);
     	  else
-    		  refactoring = new MoveAndRenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
+    		  refactoring = new MoveAndRenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.nextClass);
          refactorings.add(refactoring);
       }
       return refactorings;
@@ -1319,9 +1319,9 @@ public class UMLModelDiff {
     			  classRenameDiffList.add(renameDiff);
     			  Refactoring refactoring = null;
     			  if(renameDiff.samePackage())
-    	    		  refactoring = new RenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
+    	    		  refactoring = new RenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.nextClass);
     	    	  else
-    	    		  refactoring = new MoveAndRenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.getRenamedClass());
+    	    		  refactoring = new MoveAndRenameClassRefactoring(renameDiff.getOriginalClass(), renameDiff.nextClass);
     			  refactorings.add(refactoring);
     		  }
     	  }
@@ -2059,7 +2059,7 @@ public class UMLModelDiff {
 		   }
 		   for(UMLClassRenameDiff diff : classRenameDiffList) {
 			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||
-					   diff.getRenamedClass().getName().equals(umlClass.getPackageName())) {
+					   diff.nextClass.getName().equals(umlClass.getPackageName())) {
 				   return true;
 			   }
 		   }

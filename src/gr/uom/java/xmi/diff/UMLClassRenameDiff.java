@@ -8,10 +8,6 @@ public class UMLClassRenameDiff extends UMLClassBaseDiff {
 		super(originalClass, renamedClass, modelDiff);
 	}
 
-	public UMLClass getRenamedClass() {
-		return nextClass;
-	}
-
 	public boolean samePackage() {
 		return originalClass.getPackageName().equals(nextClass.getPackageName());
 	}
