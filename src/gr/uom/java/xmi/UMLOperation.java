@@ -812,7 +812,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public Map<String, Set<String>> aliasedAttributes() {
 		if(operationBody != null && isConstructor) {
 			List<String> parameterNames = getParameterNameList();
-			Map<String, Set<String>> map = operationBody.aliasedAttributes();
+			Map<String, Set<String>> map = operationBody.compositeStatement.aliasedAttributes();
 			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
 			for(String key : map.keySet()) {
 				if(!parameterNames.contains(key)) {
