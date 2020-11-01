@@ -229,7 +229,9 @@ public class OperationInvocation extends AbstractCall {
     		}
     		i++;
     	}
-    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
+    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
+		//>=1 varargs arguments passed
+		(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters()));
     }
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
@@ -258,13 +260,6 @@ public class OperationInvocation extends AbstractCall {
     		return true;
     	}
     	return false;
-    }
-
-    private boolean varArgsMatch(UMLOperation operation) {
-    	//0 varargs arguments passed
-    	return this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
-    			//>=1 varargs arguments passed
-    			(operation.hasVarargsParameter() && this.typeArguments > operation.getNumberOfNonVarargsParameters());
     }
 
     public boolean compatibleExpression(OperationInvocation other) {
