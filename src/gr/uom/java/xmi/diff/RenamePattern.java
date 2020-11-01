@@ -9,10 +9,6 @@ public class RenamePattern {
 		this.after = movedPath;
 	}
 
-	public String getBefore() {
-		return before;
-	}
-
 	public String getAfter() {
 		return after;
 	}
