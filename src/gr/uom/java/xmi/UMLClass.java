@@ -176,10 +176,6 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return implementedInterfaces;
 	}
 
-	public List<String> getImportedTypes() {
-		return importedTypes;
-	}
-
 	public List<UMLAnonymousClass> getAnonymousClassList() {
 		return anonymousClassList;
 	}
@@ -358,7 +354,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	public boolean importsType(String targetClass) {
 		if(targetClass.startsWith(getPackageName()))
 			return true;
-		for(String importedType : getImportedTypes()) {
+		for(String importedType : importedTypes) {
 			//importedType.startsWith(targetClass) -> special handling for import static
 			//importedType.equals(targetClassPackage) -> special handling for import with asterisk (*) wildcard
 			if(importedType.equals(targetClass) || importedType.startsWith(targetClass)) {
