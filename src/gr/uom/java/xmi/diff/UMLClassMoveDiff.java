@@ -8,10 +8,6 @@ public class UMLClassMoveDiff extends UMLClassBaseDiff {
 		super(originalClass, movedClass, modelDiff);
 	}
 
-	public UMLClass getMovedClass() {
-		return nextClass;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ");
