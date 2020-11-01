@@ -21,15 +21,6 @@ public class RenameClassRefactoring implements Refactoring {
 		this.renamedClass = renamedClass;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
-		sb.append(" renamed to ");
-		sb.append(renamedClass.getName());
-		return sb.toString();
-	}
-
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
