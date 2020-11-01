@@ -25,10 +25,6 @@ public class TryStatementObject extends CompositeStatementObject {
 		return catchClauses;
 	}
 
-	public void setFinallyClause(CompositeStatementObject finallyClause) {
-		this.finallyClause = finallyClause;
-	}
-
 	public CompositeStatementObject getFinallyClause() {
 		return finallyClause;
 	}
