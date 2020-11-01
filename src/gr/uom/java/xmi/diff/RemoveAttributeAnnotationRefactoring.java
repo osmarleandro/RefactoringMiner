@@ -81,17 +81,6 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(annotation);
-		sb.append(" in attribute ");
-		sb.append(attributeBefore);
-		sb.append(" from class ");
-		sb.append(attributeBefore.getClassName());
-		return sb.toString();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
