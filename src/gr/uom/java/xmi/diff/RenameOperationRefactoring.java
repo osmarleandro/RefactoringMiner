@@ -118,13 +118,4 @@ public class RenameOperationRefactoring implements Refactoring {
 				.setCodeElement(originalOperation.toString()));
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(renamedOperation.codeRange()
-				.setDescription("renamed method declaration")
-				.setCodeElement(renamedOperation.toString()));
-		return ranges;
-	}
 }
