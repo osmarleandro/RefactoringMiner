@@ -59,10 +59,6 @@ public class UMLAttributeDiff {
 		return renamed;
 	}
 
-	public boolean isVisibilityChanged() {
-		return visibilityChanged;
-	}
-
 	public boolean isTypeChanged() {
 		return typeChanged;
 	}
