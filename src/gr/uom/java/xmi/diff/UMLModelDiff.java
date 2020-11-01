@@ -1974,7 +1974,17 @@ public class UMLModelDiff {
 		   }
 	   }
 	   int mappings = operationBodyMapper.mappingsWithoutBlocks();
-	   int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+	int nonMappedInnerNodeCount = 0;
+	for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
+		if(composite.countableStatement())
+			nonMappedInnerNodeCount++;
+	}
+	int nonMappedLeafCount = 0;
+	for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+		if(statement.countableStatement())
+			nonMappedLeafCount++;
+	}
+	   int nonMappedElementsT1 = nonMappedLeafCount + nonMappedInnerNodeCount;
 	   int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 	   List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
 	   int exactMatches = exactMatchList.size();
@@ -2303,7 +2313,17 @@ public class UMLModelDiff {
    }
 
    private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
-        int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
+        int nonMappedInnerNodeCount = 0;
+	for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
+		if(composite.countableStatement())
+			nonMappedInnerNodeCount++;
+	}
+	int nonMappedLeafCount = 0;
+	for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+		if(statement.countableStatement())
+			nonMappedLeafCount++;
+	}
+		int nonMappedElementsT1 = nonMappedLeafCount + nonMappedInnerNodeCount;
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
 		int nonMappedStatementsDeclaringSameVariable = 0;
