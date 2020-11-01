@@ -865,7 +865,9 @@ public class VariableReplacementAnalysis {
 							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 						}
-						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
+						if(containsMapping && (mapping.getFragment1().getVariables().contains(v1.getVariableName()) &&
+						mapping.getFragment2().getVariables().contains(v1.getVariableName()) || mapping.getFragment1().getVariables().contains(v2.getVariableName()) &&
+						mapping.getFragment2().getVariables().contains(v2.getVariableName())) &&
 								operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
 							return true;
 						}
@@ -874,11 +876,6 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return false;
-	}
-
-	public static boolean bothFragmentsUseVariable(VariableDeclaration v1, AbstractCodeMapping mapping) {
-		return mapping.getFragment1().getVariables().contains(v1.getVariableName()) &&
-				mapping.getFragment2().getVariables().contains(v1.getVariableName());
 	}
 
 	private static boolean containsVariableDeclarationWithName(Set<VariableDeclaration> variableDeclarations, String variableName) {

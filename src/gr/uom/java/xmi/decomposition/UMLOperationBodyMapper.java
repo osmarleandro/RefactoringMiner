@@ -4092,7 +4092,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
 						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 					}
-					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
+					if(containsMapping && (mapping.getFragment1().getVariables().contains(v1.getVariableName()) &&
+					mapping.getFragment2().getVariables().contains(v1.getVariableName()) || mapping.getFragment1().getVariables().contains(v2.getVariableName()) &&
+					mapping.getFragment2().getVariables().contains(v2.getVariableName()))) {
 						count++;
 					}
 				}
