@@ -68,12 +68,7 @@ public class AbstractExpression extends AbstractCodeFragment {
     	return this.owner;
     }
 
-	@Override
-	public CompositeStatementObject getParent() {
-		return getOwner();
-	}
-
-    public String getExpression() {
+	public String getExpression() {
     	return expression;
     }
 
