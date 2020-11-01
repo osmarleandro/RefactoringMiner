@@ -1075,7 +1075,16 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
-			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
+			Set<MethodInvocationReplacement> replacements = new LinkedHashSet<MethodInvocationReplacement>();
+			for(AbstractCodeMapping mapping : bodyMapper.getMappings()) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME) ||
+							replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME_AND_ARGUMENT)) {
+						replacements.add((MethodInvocationReplacement) replacement);
+					}
+				}
+			}
+			Set<MethodInvocationReplacement> methodInvocationRenames = replacements;
 			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
 					methodInvocationRenames);
 		}
