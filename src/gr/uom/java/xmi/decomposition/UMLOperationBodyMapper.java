@@ -936,7 +936,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public int operationNameEditDistance() {
-		return StringDistance.editDistance(this.operation1.getName(), this.operation2.getName());
+		return StringDistance.editDistance(this.operation1.name, this.operation2.name);
 	}
 
 	public Set<Replacement> getReplacements() {

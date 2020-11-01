@@ -1831,7 +1831,7 @@ public class UMLModelDiff {
             		  UMLClassBaseDiff umlClassDiff = getUMLClassDiff(className.substring(0, className.lastIndexOf(".")));
             		  attributes.addAll(umlClassDiff.originalClassAttributesOfType(addedOperation.getClassName()));
             		  for(UMLAnonymousClass anonymous : umlClassDiff.getOriginalClass().getAnonymousClassList()) {
-            			  if(anonymous.getName().equals(className)) {
+            			  if(anonymous.name.equals(className)) {
             				  attributes.addAll(anonymous.attributesOfType(addedOperation.getClassName()));
             				  break;
             			  }
@@ -2270,7 +2270,7 @@ public class UMLModelDiff {
 
 	private boolean allRenamedOperations(List<UMLOperationBodyMapper> mappers) {
 		for (UMLOperationBodyMapper mapper : mappers) {
-			if(mapper.getOperation1().getName().equals(mapper.getOperation2().getName())) {
+			if(mapper.getOperation1().name.equals(mapper.getOperation2().name)) {
 				return false;
 			}
 		}
@@ -2439,7 +2439,7 @@ public class UMLModelDiff {
    }
 
    private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
-	   if(addedOperation.getName().equals(removedOperation.getName()) &&
+	   if(addedOperation.name.equals(removedOperation.name) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
