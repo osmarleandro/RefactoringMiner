@@ -443,38 +443,6 @@ public class CompositeStatementObject extends AbstractStatement {
 		return null;
 	}
 
-	public Map<String, Set<String>> aliasedAttributes() {
-		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
-		for(StatementObject statement : getLeaves()) {
-			String s = statement.getString();
-			if(s.startsWith("this.") && s.endsWith(";\n")) {
-				String firstLine = s.substring(0, s.indexOf("\n"));
-				if(firstLine.contains("=")) {
-					String attribute = s.substring(5, s.indexOf("="));
-					String value = s.substring(s.indexOf("=")+1, s.indexOf(";\n"));
-					if(map.containsKey(value)) {
-						map.get(value).add(attribute);
-					}
-					else {
-						Set<String> set = new LinkedHashSet<String>();
-						set.add(attribute);
-						map.put(value, set);
-					}
-				}
-			}
-		}
-		Set<String> keysToBeRemoved = new LinkedHashSet<String>();
-		for(String key : map.keySet()) {
-			if(map.get(key).size() <= 1) {
-				keysToBeRemoved.add(key);
-			}
-		}
-		for(String key : keysToBeRemoved) {
-			map.remove(key);
-		}
-		return map;
-	}
-
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
