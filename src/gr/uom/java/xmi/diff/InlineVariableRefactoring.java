@@ -26,10 +26,6 @@ public class InlineVariableRefactoring implements Refactoring {
 		this.references = new LinkedHashSet<AbstractCodeMapping>();
 	}
 
-	public void addReference(AbstractCodeMapping mapping) {
-		references.add(mapping);
-	}
-
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.INLINE_VARIABLE;
 	}
