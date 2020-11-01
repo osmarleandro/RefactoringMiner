@@ -103,17 +103,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		return sb.toString();
 	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((annotationAfter == null) ? 0 : annotationAfter.hashCode());
-		result = prime * result + ((annotationBefore == null) ? 0 : annotationBefore.hashCode());
-		result = prime * result + ((attributeAfter == null) ? 0 : attributeAfter.hashCode());
-		result = prime * result + ((attributeBefore == null) ? 0 : attributeBefore.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
