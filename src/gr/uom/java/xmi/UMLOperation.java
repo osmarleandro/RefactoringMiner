@@ -107,10 +107,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return isStatic;
 	}
 
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
-	}
-
 	public boolean hasEmptyBody() {
 		return emptyBody;
 	}
