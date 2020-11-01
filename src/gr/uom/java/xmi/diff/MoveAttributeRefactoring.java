@@ -87,18 +87,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 		return false;
 	}
 
-	public int hashCode() {
-		if(hashCode == 0) {
-			int result = 17;
-			result = 37*result + originalAttribute.hashCode();
-			result = 37*result + movedAttribute.hashCode();
-			result = 37*result + getSourceClassName().hashCode();
-			result = 37*result + getTargetClassName().hashCode();
-			hashCode = result;
-		}
-		return hashCode;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getOriginalAttribute().getClassName()));
