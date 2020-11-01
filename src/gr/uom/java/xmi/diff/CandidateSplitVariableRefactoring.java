@@ -56,10 +56,6 @@ public class CandidateSplitVariableRefactoring {
 		return oldAttribute;
 	}
 
-	public void setOldAttribute(UMLAttribute oldAttribute) {
-		this.oldAttribute = oldAttribute;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Split Attribute").append("\t");
