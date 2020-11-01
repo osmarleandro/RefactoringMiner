@@ -99,10 +99,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		return inlinedOperationInvocations;
 	}
 
-	public Set<Replacement> getReplacements() {
-		return replacements;
-	}
-
 	public Set<AbstractCodeFragment> getInlinedCodeFragments() {
 		return inlinedCodeFragmentsInTargetOperation;
 	}
