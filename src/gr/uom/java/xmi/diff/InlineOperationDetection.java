@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
+import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
@@ -117,7 +118,11 @@ public class InlineOperationDetection {
 		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
-				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
+				LocationInfo other = anonymousClass.getLocationInfo();
+				LocationInfo r = statement.getLocationInfo();
+				if(r.filePath.equals(other.filePath) &&
+				r.startOffset <= other.startOffset &&
+				r.endOffset >= other.endOffset) {
 					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
 							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {

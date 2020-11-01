@@ -81,12 +81,6 @@ public class LocationInfo {
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}
 
-	public boolean subsumes(LocationInfo other) {
-		return this.filePath.equals(other.filePath) &&
-				this.startOffset <= other.startOffset &&
-				this.endOffset >= other.endOffset;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
