@@ -85,11 +85,6 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	}
 
 	@Override
-	public LocationInfo getLocationInfo() {
-		return locationInfo;
-	}
-
-	@Override
 	public CodeRange codeRange() {
 		return locationInfo.codeRange();
 	}
