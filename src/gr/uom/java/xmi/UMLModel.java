@@ -47,10 +47,6 @@ public class UMLModel {
         return null;
     }
 
-    public List<UMLClass> getClassList() {
-        return this.classList;
-    }
-
     public List<UMLGeneralization> getGeneralizationList() {
         return this.generalizationList;
     }
