@@ -67,10 +67,6 @@ public class LocationInfo {
 		return endLine;
 	}
 
-	public int getEndColumn() {
-		return endColumn;
-	}
-
 	public CodeElementType getCodeElementType() {
 		return codeElementType;
 	}
@@ -78,7 +74,7 @@ public class LocationInfo {
 	public CodeRange codeRange() {
 		return new CodeRange(getFilePath(),
 				getStartLine(), getEndLine(),
-				getStartColumn(), getEndColumn(), getCodeElementType());
+				getStartColumn(), endColumn, getCodeElementType());
 	}
 
 	public boolean subsumes(LocationInfo other) {

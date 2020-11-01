@@ -149,7 +149,7 @@ public class CodeRange {
 			}
 			if(info.getEndLine() > maxEndLine) {
 				maxEndLine = info.getEndLine();
-				endColumn = info.getEndColumn();
+				endColumn = info.endColumn;
 			}
 		}
 		return new CodeRange(filePath, minStartLine, maxEndLine, startColumn, endColumn, CodeElementType.LIST_OF_STATEMENTS);
