@@ -28,10 +28,6 @@ public class CandidateMergeVariableRefactoring {
 		return mergedVariables;
 	}
 
-	public String getNewVariable() {
-		return newVariable;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
