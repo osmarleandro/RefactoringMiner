@@ -37,25 +37,6 @@ public class ListCompositeType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ListCompositeType other = (ListCompositeType) obj;
-		if (kind != other.kind)
-			return false;
-		if (types == null) {
-			if (other.types != null)
-				return false;
-		} else if (!types.equals(other.types))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < types.size(); i++) {
