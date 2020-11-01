@@ -2,6 +2,7 @@ package gr.uom.java.xmi.diff;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -289,8 +290,10 @@ public class ExtractOperationDetection {
 	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
 		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
 			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
+			String subclass = key.getType().getClassType();
+			String finalSuperclass = value.getType().getClassType();
 			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
-					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
+					!modelDiff.isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>())) {
 				return false;
 			}
 		}

@@ -254,7 +254,9 @@ public class OperationInvocation extends AbstractCall {
     	if(parameter.getType().isParameterized() && type.isParameterized() &&
     			parameter.getType().getClassType().equals(type.getClassType()))
     		return true;
-    	if(modelDiff != null && modelDiff.isSubclassOf(type.getClassType(), parameter.getType().getClassType())) {
+		String subclass = type.getClassType();
+		String finalSuperclass = parameter.getType().getClassType();
+    	if(modelDiff != null && modelDiff.isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>())) {
     		return true;
     	}
     	return false;
