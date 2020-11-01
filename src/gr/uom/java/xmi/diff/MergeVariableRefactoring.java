@@ -80,18 +80,6 @@ public class MergeVariableRefactoring implements Refactoring {
 		return pairs;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(mergedVariables);
-		sb.append(" to ");
-		sb.append(newVariable);
-		sb.append(" in method ");
-		sb.append(operationAfter);
-		sb.append(" in class ").append(operationAfter.getClassName());
-		return sb.toString();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
