@@ -76,38 +76,6 @@ public class RenameAttributeRefactoring implements Refactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RenameAttributeRefactoring other = (RenameAttributeRefactoring) obj;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (originalAttribute == null) {
-			if (other.originalAttribute != null)
-				return false;
-		} else if (!originalAttribute.equals(other.originalAttribute))
-			return false;
-		if (renamedAttribute == null) {
-			if (other.renamedAttribute != null)
-				return false;
-		} else if (!renamedAttribute.equals(other.renamedAttribute))
-			return false;
-		return true;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOriginalAttribute().getLocationInfo().getFilePath(), getClassNameBefore()));
