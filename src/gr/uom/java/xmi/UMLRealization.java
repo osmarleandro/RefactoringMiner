@@ -33,8 +33,4 @@ public class UMLRealization implements Comparable<UMLRealization> {
     public String toString() {
     	return client + "->" + supplier;
     }
-
-	public int compareTo(UMLRealization realization) {
-		return this.toString().compareTo(realization.toString());
-	}
 }
