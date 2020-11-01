@@ -26,10 +26,6 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		this.attributeAfter = attributeAfter;
 	}
 
-	public UMLAnnotation getAnnotationBefore() {
-		return annotationBefore;
-	}
-
 	public UMLAnnotation getAnnotationAfter() {
 		return annotationAfter;
 	}
