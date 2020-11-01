@@ -1101,7 +1101,24 @@ public class UMLModelDiff {
 			   UMLOperationBodyMapper mapper = new UMLOperationBodyMapper(removedOperation, addedOperation, classDiff);
 			   UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(removedOperation, addedOperation, mapper.getMappings());
 			   refactorings.addAll(operationSignatureDiff.getRefactorings());
-			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
+			   UMLOperation removedOperation1 = mapper.getOperation1();
+			   UMLOperation addedOperation1 = mapper.getOperation2();
+			   List<OperationInvocation> removedInvocations = removedOperation1.getAllOperationInvocations();
+			   List<OperationInvocation> addedInvocations = addedOperation1.getAllOperationInvocations();
+			   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
+			   intersection.retainAll(addedInvocations);
+			   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
+			   newInvocations.removeAll(intersection);
+			   for(OperationInvocation newInvocation : newInvocations) {
+				   for(UMLOperation operation : addedClass.getOperations()) {
+					   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
+							   newInvocation.matchesOperation(operation, addedOperation1.variableTypeMap(), this)) {
+						   ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
+						   List<ExtractOperationRefactoring> refs = detection.check(operation);
+						   this.refactorings.addAll(refs);
+					   }
+				   }
+			   }
 		   }
 	   }
 	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
@@ -1119,27 +1136,6 @@ public class UMLModelDiff {
 				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   }
 			   this.refactorings.add(ref);
-		   }
-	   }
-   }
-
-   private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
-	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
-	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
-	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
-	   List<OperationInvocation> addedInvocations = addedOperation.getAllOperationInvocations();
-	   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
-	   intersection.retainAll(addedInvocations);
-	   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
-	   newInvocations.removeAll(intersection);
-	   for(OperationInvocation newInvocation : newInvocations) {
-		   for(UMLOperation operation : addedClass.getOperations()) {
-			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
-					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
-				   ExtractOperationDetection detection = new ExtractOperationDetection(movedMethodMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
-				   List<ExtractOperationRefactoring> refs = detection.check(operation);
-				   this.refactorings.addAll(refs);
-			   }
 		   }
 	   }
    }
@@ -2146,7 +2142,24 @@ public class UMLModelDiff {
 	                  refactorings.add(refactoring);
 	                  UMLClass addedClass = getAddedClass(addedOperation.getClassName());
 	                  if(addedClass != null) {
-	                	  checkForExtractedOperationsWithinMovedMethod(firstMapper, addedClass);
+	                	  UMLOperation removedOperation1 = firstMapper.getOperation1();
+						   UMLOperation addedOperation1 = firstMapper.getOperation2();
+						   List<OperationInvocation> removedInvocations = removedOperation1.getAllOperationInvocations();
+						   List<OperationInvocation> addedInvocations = addedOperation1.getAllOperationInvocations();
+						   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
+						   intersection.retainAll(addedInvocations);
+						   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
+						   newInvocations.removeAll(intersection);
+						   for(OperationInvocation newInvocation : newInvocations) {
+							   for(UMLOperation operation : addedClass.getOperations()) {
+								   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
+										   newInvocation.matchesOperation(operation, addedOperation1.variableTypeMap(), this)) {
+									   ExtractOperationDetection detection = new ExtractOperationDetection(firstMapper, addedClass.getOperations(), getUMLClassDiff(operation.getClassName()), this);
+									   List<ExtractOperationRefactoring> refs = detection.check(operation);
+									   this.refactorings.addAll(refs);
+								   }
+							   }
+						   }
 	                  }
 	               }
 	            }
