@@ -45,10 +45,6 @@ public class MergeVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	private boolean allVariablesAreParameters() {
 		for(VariableDeclaration declaration : mergedVariables) {
 			if(!declaration.isParameter()) {
