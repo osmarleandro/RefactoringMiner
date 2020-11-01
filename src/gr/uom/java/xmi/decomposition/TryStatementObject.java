@@ -29,10 +29,6 @@ public class TryStatementObject extends CompositeStatementObject {
 		this.finallyClause = finallyClause;
 	}
 
-	public CompositeStatementObject getFinallyClause() {
-		return finallyClause;
-	}
-
 	@Override
 	public List<VariableDeclaration> getVariableDeclarations() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
