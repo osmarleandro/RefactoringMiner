@@ -243,15 +243,6 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getArguments() {
-		List<String> arguments = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			arguments.addAll(expression.getArguments());
-		}
-		return arguments;
-	}
-
-	@Override
 	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
 		List<TernaryOperatorExpression> ternaryOperatorExpressions = new ArrayList<TernaryOperatorExpression>();
 		for(AbstractExpression expression : expressionList) {
