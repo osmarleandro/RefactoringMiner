@@ -24,10 +24,6 @@ public class MoveSourceFolderRefactoring implements Refactoring {
 		this.pattern = movedClassToAnotherSourceFolder.getRenamePattern();
 	}
 
-	public void addMovedClassToAnotherSourceFolder(MovedClassToAnotherSourceFolder movedClassToAnotherSourceFolder) {
-		movedClassesToAnotherSourceFolder.add(movedClassToAnotherSourceFolder);
-	}
-
 	public List<MovedClassToAnotherSourceFolder> getMovedClassesToAnotherSourceFolder() {
 		return movedClassesToAnotherSourceFolder;
 	}
