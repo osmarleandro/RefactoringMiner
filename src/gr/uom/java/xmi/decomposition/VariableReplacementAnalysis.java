@@ -79,31 +79,6 @@ public class VariableReplacementAnalysis {
 		findVariableSplits();
 		findVariableMerges();
 		findConsistentVariableRenames();
-		findParametersWrappedInLocalVariables();
-		findAttributeExtractions();
-	}
-
-	private void findAttributeExtractions() {
-		if(classDiff != null) {
-			for(AbstractCodeMapping mapping : mappings) {
-				for(Replacement replacement : mapping.getReplacements()) {
-					if(replacement.involvesVariable()) {
-						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
-							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
-							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
-									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
-								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
-								refactoring.addReference(mapping);
-								refactorings.add(refactoring);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private void findParametersWrappedInLocalVariables() {
 		for(StatementObject statement : nonMappedLeavesT2) {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 				AbstractExpression initializer = declaration.getInitializer();
@@ -126,6 +101,27 @@ public class VariableReplacementAnalysis {
 										}
 									}
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+		findAttributeExtractions();
+	}
+
+	private void findAttributeExtractions() {
+		if(classDiff != null) {
+			for(AbstractCodeMapping mapping : mappings) {
+				for(Replacement replacement : mapping.getReplacements()) {
+					if(replacement.involvesVariable()) {
+						for(UMLAttribute addedAttribute : classDiff.getAddedAttributes()) {
+							VariableDeclaration variableDeclaration = addedAttribute.getVariableDeclaration();
+							if(addedAttribute.getName().equals(replacement.getAfter()) && variableDeclaration.getInitializer() != null &&
+									variableDeclaration.getInitializer().getString().equals(replacement.getBefore())) {
+								ExtractAttributeRefactoring refactoring = new ExtractAttributeRefactoring(addedAttribute, classDiff.getOriginalClass(), classDiff.getNextClass());
+								refactoring.addReference(mapping);
+								refactorings.add(refactoring);
 							}
 						}
 					}
