@@ -332,8 +332,4 @@ public abstract class UMLAbstractClass {
 	public String getSourceFile() {
 		return locationInfo.getFilePath();
 	}
-
-	public CodeRange codeRange() {
-		return locationInfo.codeRange();
-	}
 }
