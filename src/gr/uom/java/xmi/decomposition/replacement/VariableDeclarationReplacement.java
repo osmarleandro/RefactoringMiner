@@ -23,10 +23,6 @@ public class VariableDeclarationReplacement extends Replacement {
 		return v1;
 	}
 
-	public VariableDeclaration getVariableDeclaration2() {
-		return v2;
-	}
-
 	public UMLOperation getOperation1() {
 		return operation1;
 	}
