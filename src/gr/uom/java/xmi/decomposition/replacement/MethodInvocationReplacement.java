@@ -14,10 +14,6 @@ public class MethodInvocationReplacement extends Replacement {
 		this.invokedOperationAfter = invokedOperationAfter;
 	}
 
-	public OperationInvocation getInvokedOperationBefore() {
-		return invokedOperationBefore;
-	}
-
 	public OperationInvocation getInvokedOperationAfter() {
 		return invokedOperationAfter;
 	}

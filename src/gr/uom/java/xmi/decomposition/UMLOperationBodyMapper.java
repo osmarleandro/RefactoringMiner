@@ -255,7 +255,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			else if(replacement instanceof MethodInvocationReplacement) {
 				MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
-				OperationInvocation invokedOperationBefore = invocationReplacement.getInvokedOperationBefore();
+				OperationInvocation invokedOperationBefore = invocationReplacement.invokedOperationBefore;
 				OperationInvocation invokedOperationAfter = invocationReplacement.getInvokedOperationAfter();
 				if(invokedOperationBefore.getName().equals(invokedOperationAfter.getName()) &&
 						invokedOperationBefore.getArguments().size() == invokedOperationAfter.getArguments().size()) {
@@ -3032,7 +3032,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					variableRename = true;
 				else if(replacement instanceof MethodInvocationReplacement) {
 					MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
-					if(initializer1 != null && invocationReplacement.getInvokedOperationBefore().actualString().equals(initializer1.getString()) &&
+					if(initializer1 != null && invocationReplacement.invokedOperationBefore.actualString().equals(initializer1.getString()) &&
 							initializer2 != null && invocationReplacement.getInvokedOperationAfter().actualString().equals(initializer2.getString())) {
 						methodInvocationReplacement = true;
 					}
