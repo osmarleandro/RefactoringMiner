@@ -93,10 +93,6 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 		this.javadoc = javadoc;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
-		return variableDeclaration.getAnnotations();
-	}
-
 	public boolean equalsIgnoringChangedType(UMLAttribute attribute) {
 		if(this.isStatic != attribute.isStatic)
 			return false;
