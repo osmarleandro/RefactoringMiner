@@ -408,7 +408,7 @@ public class UMLModelASTReader {
 			umlOperation.setVisibility("package");
 		
 		if((methodModifiers & Modifier.ABSTRACT) != 0)
-			umlOperation.setAbstract(true);
+			umlOperation.isAbstract = true;
 		
 		if((methodModifiers & Modifier.FINAL) != 0)
 			umlOperation.setFinal(true);
