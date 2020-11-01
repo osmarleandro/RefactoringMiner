@@ -40,16 +40,6 @@ public class CallTreeNode {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((invocation == null) ? 0 : invocation.hashCode());
-		result = prime * result + ((invokedOperation == null) ? 0 : invokedOperation.hashCode());
-		result = prime * result + ((originalOperation == null) ? 0 : originalOperation.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
