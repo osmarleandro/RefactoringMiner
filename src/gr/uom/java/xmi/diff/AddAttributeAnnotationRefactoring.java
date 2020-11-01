@@ -28,10 +28,6 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 		return annotation;
 	}
 
-	public UMLAttribute getAttributeBefore() {
-		return attributeBefore;
-	}
-
 	public UMLAttribute getAttributeAfter() {
 		return attributeAfter;
 	}
@@ -70,7 +66,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getAttributeBefore().getLocationInfo().getFilePath(), getAttributeBefore().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(attributeBefore.getLocationInfo().getFilePath(), attributeBefore.getClassName()));
 		return pairs;
 	}
 
