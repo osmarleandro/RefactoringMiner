@@ -30,10 +30,6 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 		this.relatedRefactorings = new LinkedHashSet<Refactoring>();
 	}
 
-	public void addRelatedRefactoring(Refactoring refactoring) {
-		this.relatedRefactorings.add(refactoring);
-	}
-
 	public Set<Refactoring> getRelatedRefactorings() {
 		return relatedRefactorings;
 	}
