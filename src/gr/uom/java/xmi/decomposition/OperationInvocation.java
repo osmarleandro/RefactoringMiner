@@ -117,19 +117,6 @@ public class OperationInvocation extends AbstractCall {
 		
 	}
 
-	public OperationInvocation update(String oldExpression, String newExpression) {
-		OperationInvocation newOperationInvocation = new OperationInvocation();
-		newOperationInvocation.methodName = this.methodName;
-		newOperationInvocation.locationInfo = this.locationInfo;
-		update(newOperationInvocation, oldExpression, newExpression);
-		newOperationInvocation.subExpressions = new ArrayList<String>();
-		for(String argument : this.subExpressions) {
-			newOperationInvocation.subExpressions.add(
-				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
-		}
-		return newOperationInvocation;
-	}
-
 	public String getName() {
 		return getMethodName();
 	}
