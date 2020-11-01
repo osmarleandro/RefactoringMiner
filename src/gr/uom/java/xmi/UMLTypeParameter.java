@@ -18,10 +18,6 @@ public class UMLTypeParameter {
 		return name;
 	}
 
-	public List<UMLType> getTypeBounds() {
-		return typeBounds;
-	}
-
 	public void addTypeBound(UMLType type) {
 		typeBounds.add(type);
 	}
