@@ -68,17 +68,6 @@ public class SplitAttributeRefactoring implements Refactoring {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((classNameAfter == null) ? 0 : classNameAfter.hashCode());
-		result = prime * result + ((classNameBefore == null) ? 0 : classNameBefore.hashCode());
-		result = prime * result + ((oldAttribute == null) ? 0 : oldAttribute.hashCode());
-		result = prime * result + ((splitAttributes == null) ? 0 : splitAttributes.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
