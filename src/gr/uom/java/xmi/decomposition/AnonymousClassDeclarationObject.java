@@ -122,10 +122,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return ternaryOperatorExpressions;
 	}
 
-	public List<String> getVariables() {
-		return variables;
-	}
-
 	public List<LambdaExpressionObject> getLambdas() {
 		return lambdas;
 	}
