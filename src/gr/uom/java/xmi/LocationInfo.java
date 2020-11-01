@@ -43,10 +43,6 @@ public class LocationInfo {
 		return filePath;
 	}
 
-	public int getStartOffset() {
-		return startOffset;
-	}
-
 	public int getEndOffset() {
 		return endOffset;
 	}
