@@ -135,10 +135,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return varargsParameter;
 	}
 
-	public List<UMLAnnotation> getAnnotations() {
-		return annotations;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
