@@ -766,18 +766,6 @@ public class Visitor extends ASTVisitor {
 		return null;
 	}
 
-	public boolean visit(CastExpression node) {
-		Expression castExpression = node.getExpression();
-		if(castExpression instanceof SimpleName) {
-			variables.add(node.toString());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(node.toString());
-			}
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(LambdaExpression node) {
 		LambdaExpressionObject lambda = new LambdaExpressionObject(cu, filePath, node);
 		lambdas.add(lambda);
