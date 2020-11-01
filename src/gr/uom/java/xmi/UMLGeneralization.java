@@ -13,10 +13,6 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
         return child;
     }
 
-	public String getParent() {
-        return parent;
-    }
-
 	public boolean equals(Object o) {
     	if(this == o) {
     		return true;
