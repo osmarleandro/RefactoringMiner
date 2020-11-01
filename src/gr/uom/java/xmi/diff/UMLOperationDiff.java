@@ -82,7 +82,7 @@ public class UMLOperationDiff {
 			UMLParameter removedParameter = removedParameterIterator.next();
 			for(Iterator<UMLParameter> addedParameterIterator = addedParameters.iterator(); addedParameterIterator.hasNext();) {
 				UMLParameter addedParameter = addedParameterIterator.next();
-				if(removedParameter.getType().equalsQualified(addedParameter.getType()) &&
+				if(removedParameter.type.equalsQualified(addedParameter.type) &&
 						!existsAnotherAddedParameterWithTheSameType(addedParameter)) {
 					UMLParameterDiff parameterDiff = new UMLParameterDiff(removedParameter, addedParameter);
 					parameterDiffList.add(parameterDiff);
@@ -124,7 +124,7 @@ public class UMLOperationDiff {
 		}
 		for(UMLParameter addedParameter : addedParameters) {
 			if(!addedParameter.getName().equals(parameter.getName()) &&
-					addedParameter.getType().equalsQualified(parameter.getType())) {
+					addedParameter.type.equalsQualified(parameter.type)) {
 				return true;
 			}
 		}
@@ -236,7 +236,7 @@ public class UMLOperationDiff {
 			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
 				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
-				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
+				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.type, addedOperationReturnParameter.type,
 						removedOperation, addedOperation, references);
 				refactorings.add(refactoring);
 			}

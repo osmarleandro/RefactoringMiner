@@ -23,10 +23,6 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
 		}
 	}
 
-	public UMLType getType() {
-		return type;
-	}
-
 	public VariableDeclaration getVariableDeclaration() {
 		return variableDeclaration;
 	}
