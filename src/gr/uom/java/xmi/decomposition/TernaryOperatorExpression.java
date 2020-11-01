@@ -21,10 +21,6 @@ public class TernaryOperatorExpression {
 		this.expression = expression.toString();
 	}
 
-	public AbstractExpression getCondition() {
-		return condition;
-	}
-
 	public AbstractExpression getThenExpression() {
 		return thenExpression;
 	}
