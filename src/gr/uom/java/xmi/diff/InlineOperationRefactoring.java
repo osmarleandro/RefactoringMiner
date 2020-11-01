@@ -79,10 +79,6 @@ public class InlineOperationRefactoring implements Refactoring {
 		return RefactoringType.INLINE_OPERATION;
 	}
 
-	public UMLOperationBodyMapper getBodyMapper() {
-		return bodyMapper;
-	}
-
 	public UMLOperation getInlinedOperation() {
 		return inlinedOperation;
 	}
