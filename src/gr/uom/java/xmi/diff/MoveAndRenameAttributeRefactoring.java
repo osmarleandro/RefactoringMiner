@@ -41,13 +41,4 @@ public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring 
 	public RefactoringType getRefactoringType() {
 		return RefactoringType.MOVE_RENAME_ATTRIBUTE;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(movedAttribute.codeRange()
-				.setDescription("moved and renamed attribute declaration")
-				.setCodeElement(movedAttribute.toString()));
-		return ranges;
-	}
 }
