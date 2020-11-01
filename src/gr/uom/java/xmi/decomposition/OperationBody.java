@@ -48,10 +48,6 @@ public class OperationBody {
 		}
 	}
 
-	public int statementCount() {
-		return compositeStatement.statementCount();
-	}
-
 	public CompositeStatementObject getCompositeStatement() {
 		return compositeStatement;
 	}
