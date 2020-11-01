@@ -23,10 +23,6 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 		return removedGeneralization;
 	}
 
-	public UMLGeneralization getAddedGeneralization() {
-		return addedGeneralization;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if(parentChanged || childChanged)
