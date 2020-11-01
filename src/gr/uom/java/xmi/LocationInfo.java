@@ -47,10 +47,6 @@ public class LocationInfo {
 		return startOffset;
 	}
 
-	public int getEndOffset() {
-		return endOffset;
-	}
-
 	public int getLength() {
 		return length;
 	}
