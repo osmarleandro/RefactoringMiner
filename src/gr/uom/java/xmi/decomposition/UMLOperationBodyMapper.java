@@ -1679,8 +1679,50 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		variables2.removeAll(variableIntersection);
 		
 		// replace variables with the corresponding arguments
-		replaceVariablesWithArguments(variables1, parameterToArgumentMap);
-		replaceVariablesWithArguments(variables2, parameterToArgumentMap);
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(variables1.contains(parameter)) {
+				variables1.add(argument);
+				if(argument.contains("(") && argument.contains(")")) {
+					int indexOfOpeningParenthesis = argument.indexOf("(");
+					int indexOfClosingParenthesis = argument.lastIndexOf(")");
+					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
+					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
+					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
+							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
+							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
+						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
+						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
+							variables1.add(arguments);
+						}
+					}
+				}
+			}
+		}
+		for(String parameter : parameterToArgumentMap.keySet()) {
+			String argument = parameterToArgumentMap.get(parameter);
+			if(variables2.contains(parameter)) {
+				variables2.add(argument);
+				if(argument.contains("(") && argument.contains(")")) {
+					int indexOfOpeningParenthesis = argument.indexOf("(");
+					int indexOfClosingParenthesis = argument.lastIndexOf(")");
+					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
+					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
+					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
+					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
+							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
+							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
+						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
+						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
+							variables2.add(arguments);
+						}
+					}
+				}
+			}
+		}
 		
 		Map<String, List<? extends AbstractCall>> methodInvocationMap1 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement1.getMethodInvocationMap());
 		Map<String, List<? extends AbstractCall>> methodInvocationMap2 = new LinkedHashMap<String, List<? extends AbstractCall>>(statement2.getMethodInvocationMap());
@@ -3695,31 +3737,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			conditional = s.substring(indexOfEquals+1, s.length()-2);
 		}
 		return conditional;
-	}
-
-	private void replaceVariablesWithArguments(Set<String> variables, Map<String, String> parameterToArgumentMap) {
-		for(String parameter : parameterToArgumentMap.keySet()) {
-			String argument = parameterToArgumentMap.get(parameter);
-			if(variables.contains(parameter)) {
-				variables.add(argument);
-				if(argument.contains("(") && argument.contains(")")) {
-					int indexOfOpeningParenthesis = argument.indexOf("(");
-					int indexOfClosingParenthesis = argument.lastIndexOf(")");
-					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
-					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
-					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
-							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
-							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
-						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
-						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
-							variables.add(arguments);
-						}
-					}
-				}
-			}
-		}
 	}
 
 	private static boolean isInsideSingleQuotes(String argument, int indexOfChar) {
