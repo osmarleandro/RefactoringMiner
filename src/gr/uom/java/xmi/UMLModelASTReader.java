@@ -217,7 +217,42 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
+				boolean isInterfaceField = umlClass.isInterface();
+				UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
+				List<UMLAttribute> attributes1 = new ArrayList<UMLAttribute>();
+				Type fieldType = fieldDeclaration.getType();
+				List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
+				for(VariableDeclarationFragment fragment : fragments) {
+					UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
+					String fieldName = fragment.getName().getFullyQualifiedName();
+					LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
+					UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
+					VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
+					variableDeclaration.setAttribute(true);
+					umlAttribute.setVariableDeclaration(variableDeclaration);
+					umlAttribute.setJavadoc(javadoc);
+					
+					int fieldModifiers = fieldDeclaration.getModifiers();
+					if((fieldModifiers & Modifier.PUBLIC) != 0)
+						umlAttribute.setVisibility("public");
+					else if((fieldModifiers & Modifier.PROTECTED) != 0)
+						umlAttribute.setVisibility("protected");
+					else if((fieldModifiers & Modifier.PRIVATE) != 0)
+						umlAttribute.setVisibility("private");
+					else if(isInterfaceField)
+						umlAttribute.setVisibility("public");
+					else
+						umlAttribute.setVisibility("package");
+					
+					if((fieldModifiers & Modifier.FINAL) != 0)
+						umlAttribute.setFinal(true);
+					
+					if((fieldModifiers & Modifier.STATIC) != 0)
+						umlAttribute.setStatic(true);
+					
+					attributes1.add(umlAttribute);
+				}
+				List<UMLAttribute> attributes = attributes1;
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(umlClass.getName());
 	    			umlClass.addAttribute(attribute);
@@ -292,7 +327,42 @@ public class UMLModelASTReader {
     	
     	FieldDeclaration[] fieldDeclarations = typeDeclaration.getFields();
     	for(FieldDeclaration fieldDeclaration : fieldDeclarations) {
-    		List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
+    		boolean isInterfaceField = umlClass.isInterface();
+			UMLJavadoc javadoc1 = generateJavadoc(fieldDeclaration);
+			List<UMLAttribute> attributes1 = new ArrayList<UMLAttribute>();
+			Type fieldType = fieldDeclaration.getType();
+			List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
+			for(VariableDeclarationFragment fragment : fragments) {
+				UMLType type1 = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
+				String fieldName = fragment.getName().getFullyQualifiedName();
+				LocationInfo locationInfo1 = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
+				UMLAttribute umlAttribute = new UMLAttribute(fieldName, type1, locationInfo1);
+				VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
+				variableDeclaration.setAttribute(true);
+				umlAttribute.setVariableDeclaration(variableDeclaration);
+				umlAttribute.setJavadoc(javadoc1);
+				
+				int fieldModifiers = fieldDeclaration.getModifiers();
+				if((fieldModifiers & Modifier.PUBLIC) != 0)
+					umlAttribute.setVisibility("public");
+				else if((fieldModifiers & Modifier.PROTECTED) != 0)
+					umlAttribute.setVisibility("protected");
+				else if((fieldModifiers & Modifier.PRIVATE) != 0)
+					umlAttribute.setVisibility("private");
+				else if(isInterfaceField)
+					umlAttribute.setVisibility("public");
+				else
+					umlAttribute.setVisibility("package");
+				
+				if((fieldModifiers & Modifier.FINAL) != 0)
+					umlAttribute.setFinal(true);
+				
+				if((fieldModifiers & Modifier.STATIC) != 0)
+					umlAttribute.setStatic(true);
+				
+				attributes1.add(umlAttribute);
+			}
+			List<UMLAttribute> attributes = attributes1;
     		for(UMLAttribute attribute : attributes) {
     			attribute.setClassName(umlClass.getName());
     			umlClass.addAttribute(attribute);
@@ -474,44 +544,6 @@ public class UMLModelASTReader {
 	}
 
 
-	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
-		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
-		Type fieldType = fieldDeclaration.getType();
-		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
-		for(VariableDeclarationFragment fragment : fragments) {
-			UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
-			String fieldName = fragment.getName().getFullyQualifiedName();
-			LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
-			UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo);
-			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
-			variableDeclaration.setAttribute(true);
-			umlAttribute.setVariableDeclaration(variableDeclaration);
-			umlAttribute.setJavadoc(javadoc);
-			
-			int fieldModifiers = fieldDeclaration.getModifiers();
-			if((fieldModifiers & Modifier.PUBLIC) != 0)
-				umlAttribute.setVisibility("public");
-			else if((fieldModifiers & Modifier.PROTECTED) != 0)
-				umlAttribute.setVisibility("protected");
-			else if((fieldModifiers & Modifier.PRIVATE) != 0)
-				umlAttribute.setVisibility("private");
-			else if(isInterfaceField)
-				umlAttribute.setVisibility("public");
-			else
-				umlAttribute.setVisibility("package");
-			
-			if((fieldModifiers & Modifier.FINAL) != 0)
-				umlAttribute.setFinal(true);
-			
-			if((fieldModifiers & Modifier.STATIC) != 0)
-				umlAttribute.setStatic(true);
-			
-			attributes.add(umlAttribute);
-		}
-		return attributes;
-	}
-	
 	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
 		List<BodyDeclaration> bodyDeclarations = anonymous.bodyDeclarations();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
@@ -520,7 +552,41 @@ public class UMLModelASTReader {
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
+				UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
+				List<UMLAttribute> attributes1 = new ArrayList<UMLAttribute>();
+				Type fieldType = fieldDeclaration.getType();
+				List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
+				for(VariableDeclarationFragment fragment : fragments) {
+					UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
+					String fieldName = fragment.getName().getFullyQualifiedName();
+					LocationInfo locationInfo1 = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
+					UMLAttribute umlAttribute = new UMLAttribute(fieldName, type, locationInfo1);
+					VariableDeclaration variableDeclaration = new VariableDeclaration(cu, sourceFile, fragment);
+					variableDeclaration.setAttribute(true);
+					umlAttribute.setVariableDeclaration(variableDeclaration);
+					umlAttribute.setJavadoc(javadoc);
+					
+					int fieldModifiers = fieldDeclaration.getModifiers();
+					if((fieldModifiers & Modifier.PUBLIC) != 0)
+						umlAttribute.setVisibility("public");
+					else if((fieldModifiers & Modifier.PROTECTED) != 0)
+						umlAttribute.setVisibility("protected");
+					else if((fieldModifiers & Modifier.PRIVATE) != 0)
+						umlAttribute.setVisibility("private");
+					else if(false)
+						umlAttribute.setVisibility("public");
+					else
+						umlAttribute.setVisibility("package");
+					
+					if((fieldModifiers & Modifier.FINAL) != 0)
+						umlAttribute.setFinal(true);
+					
+					if((fieldModifiers & Modifier.STATIC) != 0)
+						umlAttribute.setStatic(true);
+					
+					attributes1.add(umlAttribute);
+				}
+				List<UMLAttribute> attributes = attributes1;
 	    		for(UMLAttribute attribute : attributes) {
 	    			attribute.setClassName(anonymousClass.getCodePath());
 	    			anonymousClass.addAttribute(attribute);
