@@ -540,10 +540,6 @@ public class UMLModelDiff {
       return addedGeneralizations;
    }
 
-   public List<UMLRealization> getAddedRealizations() {
-      return addedRealizations;
-   }
-
    private List<MoveAttributeRefactoring> checkForAttributeMovesIncludingRemovedClasses() {
       List<UMLAttribute> addedAttributes = getAddedAttributesInCommonClasses();
       /*for(UMLClass addedClass : addedClasses) {
