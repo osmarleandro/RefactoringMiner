@@ -112,36 +112,4 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		result = prime * result + ((attributeBefore == null) ? 0 : attributeBefore.hashCode());
 		return result;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ModifyAttributeAnnotationRefactoring other = (ModifyAttributeAnnotationRefactoring) obj;
-		if (annotationAfter == null) {
-			if (other.annotationAfter != null)
-				return false;
-		} else if (!annotationAfter.equals(other.annotationAfter))
-			return false;
-		if (annotationBefore == null) {
-			if (other.annotationBefore != null)
-				return false;
-		} else if (!annotationBefore.equals(other.annotationBefore))
-			return false;
-		if (attributeAfter == null) {
-			if (other.attributeAfter != null)
-				return false;
-		} else if (!attributeAfter.equals(other.attributeAfter))
-			return false;
-		if (attributeBefore == null) {
-			if (other.attributeBefore != null)
-				return false;
-		} else if (!attributeBefore.equals(other.attributeBefore))
-			return false;
-		return true;
-	}
 }
