@@ -179,17 +179,6 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return locationInfo;
 	}
 
-	public VariableDeclaration searchVariableDeclaration(String variableName) {
-		VariableDeclaration variableDeclaration = this.getVariableDeclaration(variableName);
-		if(variableDeclaration != null) {
-			return variableDeclaration;
-		}
-		else if(owner != null) {
-			return owner.searchVariableDeclaration(variableName);
-		}
-		return null;
-	}
-
 	public VariableDeclaration getVariableDeclaration(String variableName) {
 		List<VariableDeclaration> variableDeclarations = getVariableDeclarations();
 		for(VariableDeclaration declaration : variableDeclarations) {
