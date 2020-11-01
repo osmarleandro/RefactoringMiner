@@ -38,10 +38,6 @@ public class CodeRange {
 		return startLine;
 	}
 
-	public int getEndLine() {
-		return endLine;
-	}
-
 	public int getStartColumn() {
 		return startColumn;
 	}
