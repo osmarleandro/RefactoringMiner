@@ -234,17 +234,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public void endVisit(AnonymousClassDeclaration node) {
-		DefaultMutableTreeNode parentNode = deleteNode(node);
-		for(ASTNode parent : builderPatternChains) {
-			if(isParent(node, parent) || isParent(parent, node)) {
-				removeAnonymousData();
-				break;
-			}
-		}
-		this.current = parentNode;
-	}
-
 	private void removeAnonymousData() {
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
