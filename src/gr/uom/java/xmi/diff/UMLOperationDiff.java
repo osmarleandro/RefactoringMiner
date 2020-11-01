@@ -137,7 +137,9 @@ public class UMLOperationDiff {
 			if(!parameter1.getKind().equals("return")) {
 				boolean found = false;
 				for(UMLParameter parameter2 : addedOperation.getParameters()) {
-					if(parameter1.equalsIncludingName(parameter2)) {
+					if(parameter1.name.equals(parameter2.name) &&
+					parameter1.type.equals(parameter2.type) &&
+					parameter1.kind.equals(parameter2.kind)) {
 						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter1, parameter2));
 						found = true;
 						break;
@@ -152,7 +154,9 @@ public class UMLOperationDiff {
 			if(!parameter1.getKind().equals("return")) {
 				boolean found = false;
 				for(UMLParameter parameter2 : removedOperation.getParameters()) {
-					if(parameter1.equalsIncludingName(parameter2)) {
+					if(parameter1.name.equals(parameter2.name) &&
+					parameter1.type.equals(parameter2.type) &&
+					parameter1.kind.equals(parameter2.kind)) {
 						matchedParameters.add(new SimpleEntry<UMLParameter, UMLParameter>(parameter2, parameter1));
 						found = true;
 						break;
