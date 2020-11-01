@@ -132,36 +132,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(ClassInstanceCreation node) {
-		List<Expression> arguments = node.arguments();
-		for(Expression argument : arguments) {
-			processArgument(argument);
-		}
-		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
-		String nodeAsString = node.toString();
-		if(creationMap.containsKey(nodeAsString)) {
-			creationMap.get(nodeAsString).add(creation);
-		}
-		else {
-			List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-			list.add(creation);
-			creationMap.put(nodeAsString, list);
-		}
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			Map<String, List<ObjectCreation>> anonymousCreationMap = anonymous.getCreationMap();
-			if(anonymousCreationMap.containsKey(nodeAsString)) {
-				anonymousCreationMap.get(nodeAsString).add(creation);
-			}
-			else {
-				List<ObjectCreation> list = new ArrayList<ObjectCreation>();
-				list.add(creation);
-				anonymousCreationMap.put(nodeAsString, list);
-			}
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(ArrayCreation node) {
 		ObjectCreation creation = new ObjectCreation(cu, filePath, node);
 		String nodeAsString = node.toString();
