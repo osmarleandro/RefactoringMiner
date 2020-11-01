@@ -66,10 +66,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return variableDeclarations;
 	}
 
-	public List<String> getTypes() {
-		return types;
-	}
-
 	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
 		return anonymousClassDeclarations;
 	}
