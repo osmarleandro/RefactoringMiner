@@ -202,7 +202,26 @@ public class UMLModelASTReader {
 		umlClass.setJavadoc(javadoc);
 		
 		umlClass.setEnum(true);
-		processModifiers(cu, sourceFile, enumDeclaration, umlClass);
+		int modifiers = enumDeclaration.getModifiers();
+		if((modifiers & Modifier.ABSTRACT) != 0)
+			umlClass.setAbstract(true);
+		
+		if((modifiers & Modifier.PUBLIC) != 0)
+			umlClass.setVisibility("public");
+		else if((modifiers & Modifier.PROTECTED) != 0)
+			umlClass.setVisibility("protected");
+		else if((modifiers & Modifier.PRIVATE) != 0)
+			umlClass.setVisibility("private");
+		else
+			umlClass.setVisibility("package");
+		
+		List<IExtendedModifier> extendedModifiers = enumDeclaration.modifiers();
+		for(IExtendedModifier extendedModifier : extendedModifiers) {
+			if(extendedModifier.isAnnotation()) {
+				Annotation annotation = (Annotation)extendedModifier;
+				umlClass.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+			}
+		}
 		
 		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
 		
@@ -255,7 +274,26 @@ public class UMLModelASTReader {
 			umlClass.setInterface(true);
     	}
     	
-    	processModifiers(cu, sourceFile, typeDeclaration, umlClass);
+    	int modifiers = typeDeclaration.getModifiers();
+		if((modifiers & Modifier.ABSTRACT) != 0)
+			umlClass.setAbstract(true);
+		
+		if((modifiers & Modifier.PUBLIC) != 0)
+			umlClass.setVisibility("public");
+		else if((modifiers & Modifier.PROTECTED) != 0)
+			umlClass.setVisibility("protected");
+		else if((modifiers & Modifier.PRIVATE) != 0)
+			umlClass.setVisibility("private");
+		else
+			umlClass.setVisibility("package");
+		
+		List<IExtendedModifier> extendedModifiers = typeDeclaration.modifiers();
+		for(IExtendedModifier extendedModifier1 : extendedModifiers) {
+			if(extendedModifier1.isAnnotation()) {
+				Annotation annotation1 = (Annotation)extendedModifier1;
+				umlClass.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation1));
+			}
+		}
 		
     	List<TypeParameter> typeParameters = typeDeclaration.typeParameters();
 		for(TypeParameter typeParameter : typeParameters) {
@@ -360,29 +398,6 @@ public class UMLModelASTReader {
     			createdAnonymousClasses.add(anonymousClass);
     		}
     	}
-	}
-
-	private void processModifiers(CompilationUnit cu, String sourceFile, AbstractTypeDeclaration typeDeclaration, UMLClass umlClass) {
-		int modifiers = typeDeclaration.getModifiers();
-    	if((modifiers & Modifier.ABSTRACT) != 0)
-    		umlClass.setAbstract(true);
-    	
-    	if((modifiers & Modifier.PUBLIC) != 0)
-    		umlClass.setVisibility("public");
-    	else if((modifiers & Modifier.PROTECTED) != 0)
-    		umlClass.setVisibility("protected");
-    	else if((modifiers & Modifier.PRIVATE) != 0)
-    		umlClass.setVisibility("private");
-    	else
-    		umlClass.setVisibility("package");
-    	
-    	List<IExtendedModifier> extendedModifiers = typeDeclaration.modifiers();
-		for(IExtendedModifier extendedModifier : extendedModifiers) {
-			if(extendedModifier.isAnnotation()) {
-				Annotation annotation = (Annotation)extendedModifier;
-				umlClass.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
-			}
-		}
 	}
 
 	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
