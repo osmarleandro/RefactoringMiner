@@ -31,8 +31,8 @@ public class UMLAnnotationDiff {
 		if(!removedAnnotation.getTypeName().equals(addedAnnotation.getTypeName())) {
 			typeNameChanged = true;
 		}
-		AbstractExpression value1 = removedAnnotation.getValue();
-		AbstractExpression value2 = addedAnnotation.getValue();
+		AbstractExpression value1 = removedAnnotation.value;
+		AbstractExpression value2 = addedAnnotation.value;
 		if(value1 != null && value2 != null) {
 			if(!value1.getExpression().equals(value2.getExpression())) {
 				valueChanged = true;
