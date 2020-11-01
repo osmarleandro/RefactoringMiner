@@ -40,7 +40,9 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return new CodeRange(locationInfo.getFilePath(),
+		locationInfo.getStartLine(), locationInfo.getEndLine(),
+		locationInfo.getStartColumn(), locationInfo.getEndColumn(), locationInfo.getCodeElementType());
 	}
 
 	public void setVarargs() {

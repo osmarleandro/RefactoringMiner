@@ -117,7 +117,9 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
-		return info.codeRange();
+		return new CodeRange(info.getFilePath(),
+		info.getStartLine(), info.getEndLine(),
+		info.getStartColumn(), info.getEndColumn(), info.getCodeElementType());
 	}
 
 	public boolean equals(Object o) {

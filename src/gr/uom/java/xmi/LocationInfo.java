@@ -75,12 +75,6 @@ public class LocationInfo {
 		return codeElementType;
 	}
 
-	public CodeRange codeRange() {
-		return new CodeRange(getFilePath(),
-				getStartLine(), getEndLine(),
-				getStartColumn(), getEndColumn(), getCodeElementType());
-	}
-
 	public boolean subsumes(LocationInfo other) {
 		return this.filePath.equals(other.filePath) &&
 				this.startOffset <= other.startOffset &&

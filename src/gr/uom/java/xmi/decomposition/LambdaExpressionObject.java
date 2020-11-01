@@ -39,6 +39,8 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	}
 
 	public CodeRange codeRange() {
-		return locationInfo.codeRange();
+		return new CodeRange(locationInfo.getFilePath(),
+		locationInfo.getStartLine(), locationInfo.getEndLine(),
+		locationInfo.getStartColumn(), locationInfo.getEndColumn(), locationInfo.getCodeElementType());
 	}
 }

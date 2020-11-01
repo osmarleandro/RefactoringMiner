@@ -433,7 +433,9 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public CodeRange codeRange() {
 		LocationInfo info = getLocationInfo();
-		return info.codeRange();
+		return new CodeRange(info.getFilePath(),
+		info.getStartLine(), info.getEndLine(),
+		info.getStartColumn(), info.getEndColumn(), info.getCodeElementType());
 	}
 
 	public enum StatementCoverageType {
