@@ -79,7 +79,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 			return getSourceOperationBeforeExtraction().getClassName();
 		}
 		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
-		String targetClassName = getSourceOperationAfterExtraction().getClassName();
+		String targetClassName = sourceOperationAfterExtraction.getClassName();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
 
@@ -93,10 +93,6 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public UMLOperation getSourceOperationBeforeExtraction() {
 		return sourceOperationBeforeExtraction;
-	}
-
-	public UMLOperation getSourceOperationAfterExtraction() {
-		return sourceOperationAfterExtraction;
 	}
 
 	public List<OperationInvocation> getExtractedOperationInvocations() {
@@ -166,7 +162,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 	}
 
 	public RefactoringType getRefactoringType() {
-		if(!getSourceOperationAfterExtraction().getClassName().equals(getExtractedOperation().getClassName()))
+		if(!sourceOperationAfterExtraction.getClassName().equals(getExtractedOperation().getClassName()))
 			return RefactoringType.EXTRACT_AND_MOVE_OPERATION;
 		return RefactoringType.EXTRACT_OPERATION;
 	}
@@ -179,7 +175,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getSourceOperationAfterExtraction().getLocationInfo().getFilePath(), getSourceOperationAfterExtraction().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(sourceOperationAfterExtraction.getLocationInfo().getFilePath(), sourceOperationAfterExtraction.getClassName()));
 		pairs.add(new ImmutablePair<String, String>(getExtractedOperation().getLocationInfo().getFilePath(), getExtractedOperation().getClassName()));
 		return pairs;
 	}
