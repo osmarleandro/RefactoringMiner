@@ -444,13 +444,13 @@ public class UMLModelASTReader {
 		Block block = methodDeclaration.getBody();
 		if(block != null) {
 			OperationBody body = new OperationBody(cu, sourceFile, block);
-			umlOperation.setBody(body);
+			umlOperation.operationBody = body;
 			if(block.statements().size() == 0) {
 				umlOperation.setEmptyBody(true);
 			}
 		}
 		else {
-			umlOperation.setBody(null);
+			umlOperation.operationBody = null;
 		}
 		
 		Type returnType = methodDeclaration.getReturnType2();

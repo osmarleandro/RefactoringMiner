@@ -194,10 +194,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return 0;
 	}
 
-	public void setBody(OperationBody body) {
-		this.operationBody = body;
-	}
-
 	public String getNonQualifiedClassName() {
 		return className.contains(".") ? className.substring(className.lastIndexOf(".")+1, className.length()) : className;
 	}
