@@ -38,20 +38,6 @@ public class WildcardType extends UMLType {
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("?");
-		if(bound != null) {
-			if(upperBound)
-				sb.append(" extends ");
-			else
-				sb.append(" super ");
-			sb.append(bound.toString());
-		}
-		return sb.toString();
-	}
-
-	@Override
 	public String toQualifiedString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("?");
