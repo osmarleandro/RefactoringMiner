@@ -35,10 +35,6 @@ public class SplitAttributeRefactoring implements Refactoring {
 		return splitAttributes;
 	}
 
-	public Set<CandidateSplitVariableRefactoring> getAttributeSplits() {
-		return attributeSplits;
-	}
-
 	public String getClassNameBefore() {
 		return classNameBefore;
 	}
