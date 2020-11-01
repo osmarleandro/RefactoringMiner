@@ -162,15 +162,6 @@ public class CompositeStatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getStringLiterals() {
-		List<String> stringLiterals = new ArrayList<String>();
-		for(AbstractExpression expression : expressionList) {
-			stringLiterals.addAll(expression.getStringLiterals());
-		}
-		return stringLiterals;
-	}
-
-	@Override
 	public List<String> getNumberLiterals() {
 		List<String> numberLiterals = new ArrayList<String>();
 		for(AbstractExpression expression : expressionList) {
