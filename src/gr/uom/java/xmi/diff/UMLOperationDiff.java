@@ -182,10 +182,6 @@ public class UMLOperationDiff {
 		return addedParameters;
 	}
 
-	public List<UMLParameter> getRemovedParameters() {
-		return removedParameters;
-	}
-
 	public boolean isOperationRenamed() {
 		return operationRenamed;
 	}
