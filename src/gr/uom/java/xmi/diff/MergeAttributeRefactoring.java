@@ -76,38 +76,6 @@ public class MergeAttributeRefactoring implements Refactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MergeAttributeRefactoring other = (MergeAttributeRefactoring) obj;
-		if (classNameAfter == null) {
-			if (other.classNameAfter != null)
-				return false;
-		} else if (!classNameAfter.equals(other.classNameAfter))
-			return false;
-		if (classNameBefore == null) {
-			if (other.classNameBefore != null)
-				return false;
-		} else if (!classNameBefore.equals(other.classNameBefore))
-			return false;
-		if (mergedAttributes == null) {
-			if (other.mergedAttributes != null)
-				return false;
-		} else if (!mergedAttributes.equals(other.mergedAttributes))
-			return false;
-		if (newAttribute == null) {
-			if (other.newAttribute != null)
-				return false;
-		} else if (!newAttribute.equals(other.newAttribute))
-			return false;
-		return true;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(VariableDeclaration mergedAttribute : this.mergedAttributes) {
