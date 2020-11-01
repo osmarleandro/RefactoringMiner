@@ -68,10 +68,6 @@ public class MoveOperationRefactoring implements Refactoring {
 		return movedOperation;
 	}
 
-	public Set<Replacement> getReplacements() {
-		return replacements;
-	}
-
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
