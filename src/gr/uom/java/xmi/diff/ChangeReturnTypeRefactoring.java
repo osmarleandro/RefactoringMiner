@@ -53,10 +53,6 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getReturnReferences() {
-		return returnReferences;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		boolean qualified = originalType.equals(changedType) && !originalType.equalsQualified(changedType);
