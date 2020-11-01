@@ -30,7 +30,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 		sb.append(" to ");
 		sb.append(getMovedAttribute().toQualifiedString());
 		sb.append(" from class ");
-		sb.append(getTargetClassName());
+		sb.append(movedAttribute.getClassName());
 		return sb.toString();
 	}
 
@@ -52,10 +52,6 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public String getSourceClassName() {
 		return originalAttribute.getClassName();
-	}
-
-	public String getTargetClassName() {
-		return movedAttribute.getClassName();
 	}
 
 	/**
@@ -82,7 +78,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 			return this.originalAttribute.equals(other.originalAttribute) &&
 				this.movedAttribute.equals(other.movedAttribute) &&
 				this.getSourceClassName().equals(other.getSourceClassName()) &&
-				this.getTargetClassName().equals(other.getTargetClassName());
+				this.movedAttribute.getClassName().equals(other.movedAttribute.getClassName());
 		}
 		return false;
 	}
@@ -93,7 +89,7 @@ public class MoveAttributeRefactoring implements Refactoring {
 			result = 37*result + originalAttribute.hashCode();
 			result = 37*result + movedAttribute.hashCode();
 			result = 37*result + getSourceClassName().hashCode();
-			result = 37*result + getTargetClassName().hashCode();
+			result = 37*result + movedAttribute.getClassName().hashCode();
 			hashCode = result;
 		}
 		return hashCode;
