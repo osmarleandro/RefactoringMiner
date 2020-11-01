@@ -51,10 +51,6 @@ public class RenameVariableRefactoring implements Refactoring {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getRenamedVariable() {
-		return renamedVariable;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
