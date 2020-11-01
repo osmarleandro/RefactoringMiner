@@ -78,10 +78,6 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		return stringLiterals;
 	}
 
-	public List<String> getNumberLiterals() {
-		return numberLiterals;
-	}
-
 	public List<String> getNullLiterals() {
 		return nullLiterals;
 	}
