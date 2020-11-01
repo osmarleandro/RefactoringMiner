@@ -21,19 +21,6 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		return attributeRenames;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(originalAttribute.toQualifiedString());
-		sb.append(" from class ");
-		sb.append(getSourceClassName());
-		sb.append(" with ");
-		sb.append(movedAttribute.toQualifiedString());
-		sb.append(" from class ");
-		sb.append(getTargetClassName());
-		return sb.toString();
-	}
-
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
