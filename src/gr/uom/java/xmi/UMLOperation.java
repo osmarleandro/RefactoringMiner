@@ -132,10 +132,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public UMLJavadoc getJavadoc() {
-		return javadoc;
-	}
-
 	public void setJavadoc(UMLJavadoc javadoc) {
 		this.javadoc = javadoc;
 	}
