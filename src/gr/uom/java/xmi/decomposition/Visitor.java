@@ -796,10 +796,6 @@ public class Visitor extends ASTVisitor {
 		return variableDeclarations;
 	}
 
-	public List<String> getTypes() {
-		return types;
-	}
-
 	public List<AnonymousClassDeclarationObject> getAnonymousClassDeclarations() {
 		return anonymousClassDeclarations;
 	}
