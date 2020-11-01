@@ -48,13 +48,33 @@ public class InlineOperationDetection {
 					generateCallTree(removedOperation, root, callTree);
 					callTreeMap.put(root, callTree);
 				}
-				UMLOperationBodyMapper operationBodyMapper = createMapperForInlinedMethod(mapper, removedOperation, removedOperationInvocation);
+				List<String> arguments = removedOperationInvocation.getArguments();
+				List<String> parameters = removedOperation.getParameterNameList();
+				Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+				//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
+				int size = Math.min(arguments.size(), parameters.size());
+				for(int i1=0; i1<size; i1++) {
+					parameterToArgumentMap.put(parameters.get(i1), arguments.get(i1));
+				}
+				UMLOperationBodyMapper operationBodyMapper1 = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, classDiff);
+				UMLOperationBodyMapper operationBodyMapper = operationBodyMapper1;
 				List<AbstractCodeMapping> additionalExactMatches = new ArrayList<AbstractCodeMapping>();
 				List<CallTreeNode> nodesInBreadthFirstOrder = callTree.getNodesInBreadthFirstOrder();
 				for(int i=1; i<nodesInBreadthFirstOrder.size(); i++) {
 					CallTreeNode node = nodesInBreadthFirstOrder.get(i);
 					if(matchingInvocations(node.getInvokedOperation(), operationInvocations, mapper.getOperation1().variableTypeMap()).size() == 0) {
-						UMLOperationBodyMapper nestedMapper = createMapperForInlinedMethod(mapper, node.getInvokedOperation(), node.getInvocation());
+						UMLOperation removedOperation1 = node.getInvokedOperation();
+						OperationInvocation removedOperationInvocation1 = node.getInvocation();
+						List<String> arguments = removedOperationInvocation1.getArguments();
+						List<String> parameters = removedOperation1.getParameterNameList();
+						Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+						//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
+						int size = Math.min(arguments.size(), parameters.size());
+						for(int i2=0; i2<size; i2++) {
+							parameterToArgumentMap.put(parameters.get(i2), arguments.get(i2));
+						}
+						UMLOperationBodyMapper operationBodyMapper2 = new UMLOperationBodyMapper(removedOperation1, mapper, parameterToArgumentMap, classDiff);
+						UMLOperationBodyMapper nestedMapper = operationBodyMapper2;
 						additionalExactMatches.addAll(nestedMapper.getExactMatches());
 						if(inlineMatchCondition(nestedMapper)) {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
@@ -81,20 +101,6 @@ public class InlineOperationDetection {
 			}
 		}
 		return removedOperationInvocations;
-	}
-
-	private UMLOperationBodyMapper createMapperForInlinedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation removedOperation, OperationInvocation removedOperationInvocation) throws RefactoringMinerTimedOutException {
-		List<String> arguments = removedOperationInvocation.getArguments();
-		List<String> parameters = removedOperation.getParameterNameList();
-		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
-		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
-		int size = Math.min(arguments.size(), parameters.size());
-		for(int i=0; i<size; i++) {
-			parameterToArgumentMap.put(parameters.get(i), arguments.get(i));
-		}
-		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, mapper, parameterToArgumentMap, classDiff);
-		return operationBodyMapper;
 	}
 
 	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
