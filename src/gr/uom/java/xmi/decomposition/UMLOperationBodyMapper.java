@@ -3999,18 +3999,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				getNonMappedLeavesT2().isEmpty() && getNonMappedInnerNodesT2().isEmpty();
 	}
 
-	public boolean equals(Object o) {
-		if(this == o) {
-    		return true;
-    	}
-    	
-    	if(o instanceof UMLOperationBodyMapper) {
-    		UMLOperationBodyMapper other = (UMLOperationBodyMapper)o;
-    		return this.operation1.equals(other.operation1) && this.operation2.equals(other.operation2);
-    	}
-    	return false;
-	}
-
 	public String toString() {
 		return operation1.toString() + " -> " + operation2.toString();
 	}
