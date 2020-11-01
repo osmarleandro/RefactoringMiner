@@ -870,7 +870,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				splitMap.get(split).add(candidate);
 				return;
 			}
-			else if(split.equal(newSplit)) {
+			else if(split.getBefore().equals(newSplit.getBefore()) &&
+			split.splitVariables.containsAll(newSplit.splitVariables) &&
+			newSplit.splitVariables.containsAll(split.splitVariables)) {
 				splitMap.get(split).add(candidate);
 				return;
 			}
