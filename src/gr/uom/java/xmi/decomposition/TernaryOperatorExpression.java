@@ -29,16 +29,12 @@ public class TernaryOperatorExpression {
 		return thenExpression;
 	}
 
-	public AbstractExpression getElseExpression() {
-		return elseExpression;
-	}
-
 	public String getExpression() {
 		return expression;
 	}
 
 	public Replacement makeReplacementWithTernaryOnTheRight(String statement) {
-		if(getElseExpression().getString().equals(statement)) {
+		if(elseExpression.getString().equals(statement)) {
 			return new Replacement(statement, getExpression(), ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
 		if(getThenExpression().getString().equals(statement)) {
@@ -48,7 +44,7 @@ public class TernaryOperatorExpression {
 	}
 
 	public Replacement makeReplacementWithTernaryOnTheLeft(String statement) {
-		if(getElseExpression().getString().equals(statement)) {
+		if(elseExpression.getString().equals(statement)) {
 			return new Replacement(getExpression(), statement, ReplacementType.EXPRESSION_REPLACED_WITH_TERNARY_ELSE);
 		}
 		if(getThenExpression().getString().equals(statement)) {
