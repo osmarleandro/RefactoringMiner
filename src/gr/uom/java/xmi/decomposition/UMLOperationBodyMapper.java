@@ -6,6 +6,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper.ReplacementInfo;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
@@ -144,7 +145,159 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
 				}
 			}
-			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
+			Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+			List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
+			List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
+			if(innerNodes1.size() <= innerNodes2.size()) {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping.addReplacements(replacements);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+			}
+			else {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping.addReplacements(replacements);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+			}
 			
 			nonMappedLeavesT1.addAll(leaves1);
 			nonMappedLeavesT2.addAll(leaves2);
@@ -188,7 +341,159 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			List<CompositeStatementObject> innerNodes1 = composite1.getInnerNodes();
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
-			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
+			Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
+			List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
+			List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
+			if(innerNodes1.size() <= innerNodes2.size()) {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping.addReplacements(replacements);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+			}
+			else {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping.addReplacements(replacements);
+							mappingSet.add(mapping);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+			}
 			
 			nonMappedLeavesT1.addAll(leaves1);
 			nonMappedLeavesT2.addAll(leaves2);
@@ -502,7 +807,158 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
-			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap2);
+			List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
+			List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
+			if(innerNodes1.size() <= innerNodes2.size()) {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping2 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mappingSet.add(mapping2);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping4 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mappingSet.add(mapping4);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap2, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping1 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mapping1.addReplacements(replacements);
+							mappingSet.add(mapping1);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+			}
+			else {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping6 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mappingSet.add(mapping6);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping5 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mappingSet.add(mapping5);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap2, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping3 = createCompositeMapping(statement1, statement2, parameterToArgumentMap2, score);
+							mapping3.addReplacements(replacements);
+							mappingSet.add(mapping3);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+			}
 			
 			//match expressions in inner nodes from T1 with leaves from T2
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
@@ -619,7 +1075,158 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
-			processInnerNodes(innerNodes1, innerNodes2, parameterToArgumentMap);
+			List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
+			List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
+			if(innerNodes1.size() <= innerNodes2.size()) {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping2 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping2);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping4 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping4);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+					CompositeStatementObject statement1 = innerNodeIterator1.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+						CompositeStatementObject statement2 = innerNodeIterator2.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping1 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping1.addReplacements(replacements);
+							mappingSet.add(mapping1);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes2.remove(minStatementMapping.getFragment2());
+						innerNodeIterator1.remove();
+					}
+				}
+			}
+			else {
+				//exact string+depth matching - inner nodes
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								statement1.getDepth() == statement2.getDepth() &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping6 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping6);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				//exact string matching - inner nodes - finds moves to another level
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping5 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mappingSet.add(mapping5);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+				
+				// exact matching - inner nodes - with variable renames
+				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
+					CompositeStatementObject statement2 = innerNodeIterator2.next();
+					TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
+					for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
+						CompositeStatementObject statement1 = innerNodeIterator1.next();
+						
+						ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
+						Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
+						
+						double score = computeScore(statement1, statement2, removedOperations, addedOperations);
+						if(score == 0 && replacements != null && replacements.size() == 1 &&
+								(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
+							//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
+							score = 1;
+						}
+						if(replacements != null &&
+								(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
+							CompositeStatementObjectMapping mapping3 = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
+							mapping3.addReplacements(replacements);
+							mappingSet.add(mapping3);
+						}
+					}
+					if(!mappingSet.isEmpty()) {
+						CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						innerNodes1.remove(minStatementMapping.getFragment1());
+						innerNodeIterator2.remove();
+					}
+				}
+			}
 			
 			//match expressions in inner nodes from T2 with leaves from T1
 			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
@@ -973,162 +1580,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return replacements;
-	}
-
-	public void processInnerNodes(List<CompositeStatementObject> innerNodes1, List<CompositeStatementObject> innerNodes2,
-			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
-		List<UMLOperation> removedOperations = classDiff != null ? classDiff.getRemovedOperations() : new ArrayList<UMLOperation>();
-		List<UMLOperation> addedOperations = classDiff != null ? classDiff.getAddedOperations() : new ArrayList<UMLOperation>();
-		if(innerNodes1.size() <= innerNodes2.size()) {
-			//exact string+depth matching - inner nodes
-			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-					CompositeStatementObject statement2 = innerNodeIterator2.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
-							statement1.getDepth() == statement2.getDepth() &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes2.remove(minStatementMapping.getFragment2());
-					innerNodeIterator1.remove();
-				}
-			}
-			
-			//exact string matching - inner nodes - finds moves to another level
-			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-					CompositeStatementObject statement2 = innerNodeIterator2.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes2.remove(minStatementMapping.getFragment2());
-					innerNodeIterator1.remove();
-				}
-			}
-			
-			// exact matching - inner nodes - with variable renames
-			for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-				CompositeStatementObject statement1 = innerNodeIterator1.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-					CompositeStatementObject statement2 = innerNodeIterator2.next();
-					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
-					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
-					
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if(score == 0 && replacements != null && replacements.size() == 1 &&
-							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
-						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
-						score = 1;
-					}
-					if(replacements != null &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mapping.addReplacements(replacements);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes2.remove(minStatementMapping.getFragment2());
-					innerNodeIterator1.remove();
-				}
-			}
-		}
-		else {
-			//exact string+depth matching - inner nodes
-			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-					CompositeStatementObject statement1 = innerNodeIterator1.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
-							statement1.getDepth() == statement2.getDepth() &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes1.remove(minStatementMapping.getFragment1());
-					innerNodeIterator2.remove();
-				}
-			}
-			
-			//exact string matching - inner nodes - finds moves to another level
-			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-					CompositeStatementObject statement1 = innerNodeIterator1.next();
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if((statement1.getString().equals(statement2.getString()) || statement1.getArgumentizedString().equals(statement2.getArgumentizedString())) &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes1.remove(minStatementMapping.getFragment1());
-					innerNodeIterator2.remove();
-				}
-			}
-			
-			// exact matching - inner nodes - with variable renames
-			for(ListIterator<CompositeStatementObject> innerNodeIterator2 = innerNodes2.listIterator(); innerNodeIterator2.hasNext();) {
-				CompositeStatementObject statement2 = innerNodeIterator2.next();
-				TreeSet<CompositeStatementObjectMapping> mappingSet = new TreeSet<CompositeStatementObjectMapping>();
-				for(ListIterator<CompositeStatementObject> innerNodeIterator1 = innerNodes1.listIterator(); innerNodeIterator1.hasNext();) {
-					CompositeStatementObject statement1 = innerNodeIterator1.next();
-					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(statement1, statement2, innerNodes1, innerNodes2);
-					Set<Replacement> replacements = findReplacementsWithExactMatching(statement1, statement2, parameterToArgumentMap, replacementInfo);
-					
-					double score = computeScore(statement1, statement2, removedOperations, addedOperations);
-					if(score == 0 && replacements != null && replacements.size() == 1 &&
-							(replacements.iterator().next().getType().equals(ReplacementType.INFIX_OPERATOR) || replacements.iterator().next().getType().equals(ReplacementType.INVERT_CONDITIONAL))) {
-						//special handling when there is only an infix operator or invert conditional replacement, but no children mapped
-						score = 1;
-					}
-					if(replacements != null &&
-							(score > 0 || Math.max(statement1.getStatements().size(), statement2.getStatements().size()) == 0)) {
-						CompositeStatementObjectMapping mapping = createCompositeMapping(statement1, statement2, parameterToArgumentMap, score);
-						mapping.addReplacements(replacements);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					CompositeStatementObjectMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					innerNodes1.remove(minStatementMapping.getFragment1());
-					innerNodeIterator2.remove();
-				}
-			}
-		}
 	}
 
 	private double computeScore(CompositeStatementObject statement1, CompositeStatementObject statement2,
