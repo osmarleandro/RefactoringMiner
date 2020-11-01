@@ -27,10 +27,6 @@ public abstract class UMLAbstractClass {
 		return locationInfo;
 	}
 
-	public void addOperation(UMLOperation operation) {
-		this.operations.add(operation);
-	}
-
 	public void addAttribute(UMLAttribute attribute) {
 		this.attributes.add(attribute);
 	}
