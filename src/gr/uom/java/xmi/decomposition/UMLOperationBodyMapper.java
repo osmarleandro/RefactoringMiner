@@ -1985,8 +1985,42 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		replacementsToBeAdded = new LinkedHashSet<Replacement>();
 		for(Replacement replacement : replacementInfo.getReplacements()) {
 			s1 = ReplacementUtil.performReplacement(s1, s2, replacement.getBefore(), replacement.getAfter());
+			String s11 = replacement.getBefore();
+			String s21 = replacement.getAfter();
+			Direction direction = Direction.VARIABLE_TO_INVOCATION;
+			Set<Replacement> replacements = new LinkedHashSet<Replacement>();
+			for(String element1 : variables1) {
+				if(s11.contains(element1) && !s11.equals(element1) && !s11.equals("this." + element1) && !s11.equals("_" + element1)) {
+					int startIndex1 = s11.indexOf(element1);
+					String substringBeforeIndex1 = s11.substring(0, startIndex1);
+					String substringAfterIndex1 = s11.substring(startIndex1 + element1.length(), s11.length());
+					for(String element2 : methodInvocations2) {
+						if(element2.endsWith(substringAfterIndex1) && substringAfterIndex1.length() > 1) {
+							element2 = element2.substring(0, element2.indexOf(substringAfterIndex1));
+						}
+						if(s21.contains(element2) && !s21.equals(element2)) {
+							int startIndex2 = s21.indexOf(element2);
+							String substringBeforeIndex2 = s21.substring(0, startIndex2);
+							String substringAfterIndex2 = s21.substring(startIndex2 + element2.length(), s21.length());
+							List<? extends AbstractCall> methodInvocationList = null;
+							if(direction.equals(Direction.VARIABLE_TO_INVOCATION))
+								methodInvocationList = methodInvocationMap2.get(element2);
+							else if(direction.equals(Direction.INVOCATION_TO_VARIABLE))
+								methodInvocationList = methodInvocationMap2.get(element1);
+							if(substringBeforeIndex1.equals(substringBeforeIndex2) && !substringAfterIndex1.isEmpty() && !substringAfterIndex2.isEmpty() && methodInvocationList != null) {
+								Replacement r3 = new VariableReplacementWithMethodInvocation(element1, element2, (OperationInvocation)methodInvocationList.get(0), direction);
+								replacements.add(r3);
+							}
+							else if(substringAfterIndex1.equals(substringAfterIndex2) && !substringBeforeIndex1.isEmpty() && !substringBeforeIndex2.isEmpty() && methodInvocationList != null) {
+								Replacement r1 = new VariableReplacementWithMethodInvocation(element1, element2, (OperationInvocation)methodInvocationList.get(0), direction);
+								replacements.add(r1);
+							}
+						}
+					}
+				}
+			}
 			//find variable replacements within method invocation replacements
-			Set<Replacement> set = replacementsWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), variables1, methodInvocations2, methodInvocationMap2, Direction.VARIABLE_TO_INVOCATION);
+			Set<Replacement> set = replacements;
 			set.addAll(replacementsWithinMethodInvocations(replacement.getBefore(), replacement.getAfter(), methodInvocations1, variables2, methodInvocationMap1, Direction.INVOCATION_TO_VARIABLE));
 			if(!set.isEmpty()) {
 				replacementsToBeRemoved.add(replacement);
