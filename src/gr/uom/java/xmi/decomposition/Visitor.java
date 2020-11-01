@@ -218,7 +218,21 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(AnonymousClassDeclaration node) {
-		DefaultMutableTreeNode childNode = insertNode(node);
+		Enumeration enumeration = root.postorderEnumeration();
+		AnonymousClassDeclarationObject anonymousObject = new AnonymousClassDeclarationObject(cu, filePath, node);
+		DefaultMutableTreeNode childNode1 = new DefaultMutableTreeNode(anonymousObject);
+		
+		DefaultMutableTreeNode parentNode = root;
+		while(enumeration.hasMoreElements()) {
+			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
+			AnonymousClassDeclarationObject currentAnonymous1 = (AnonymousClassDeclarationObject)currentNode.getUserObject();
+			if(currentAnonymous1 != null && isParent(node, currentAnonymous1.getAstNode())) {
+				parentNode = currentNode;
+				break;
+			}
+		}
+		parentNode.add(childNode1);
+		DefaultMutableTreeNode childNode = childNode1;
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
 		if(current.getUserObject() != null) {
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
@@ -286,24 +300,6 @@ public class Visitor extends ASTVisitor {
 		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
 		childAnonymousObject.setAstNode(null);
 		return parentNode;
-	}
-
-	private DefaultMutableTreeNode insertNode(AnonymousClassDeclaration childAnonymous) {
-		Enumeration enumeration = root.postorderEnumeration();
-		AnonymousClassDeclarationObject anonymousObject = new AnonymousClassDeclarationObject(cu, filePath, childAnonymous);
-		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(anonymousObject);
-		
-		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
-				parentNode = currentNode;
-				break;
-			}
-		}
-		parentNode.add(childNode);
-		return childNode;
 	}
 
 	private DefaultMutableTreeNode findNode(AnonymousClassDeclaration anonymous) {
