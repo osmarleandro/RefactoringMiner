@@ -35,7 +35,14 @@ public class InlineOperationDetection {
 		List<InlineOperationRefactoring> refactorings = new ArrayList<InlineOperationRefactoring>();
 		if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() ||
 			!mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
-			List<OperationInvocation> removedOperationInvocations = matchingInvocations(removedOperation, operationInvocations, mapper.getOperation1().variableTypeMap());
+			Map<String, UMLType> variableTypeMap = mapper.getOperation1().variableTypeMap();
+				List<OperationInvocation> removedOperationInvocations1 = new ArrayList<OperationInvocation>();
+				for(OperationInvocation invocation : operationInvocations) {
+					if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
+						removedOperationInvocations1.add(invocation);
+					}
+				}
+			List<OperationInvocation> removedOperationInvocations = removedOperationInvocations1;
 			if(removedOperationInvocations.size() > 0 && !invocationMatchesWithAddedOperation(removedOperationInvocations.get(0), mapper.getOperation1().variableTypeMap(), mapper.getOperation2().getAllOperationInvocations())) {
 				OperationInvocation removedOperationInvocation = removedOperationInvocations.get(0);
 				CallTreeNode root = new CallTreeNode(mapper.getOperation1(), removedOperation, removedOperationInvocation);
