@@ -132,27 +132,6 @@ public abstract class AbstractCodeMapping {
 		return fragment1.toString() + fragment2.toString();
 	}
 
-	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
-		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
-				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
-			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
-			boolean validReplacements = true;
-			for(Replacement replacement : getReplacements()) {
-				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
-					validReplacements = false;
-					break;
-				}
-			}
-			if(variableDeclarations.size() == 1 && validReplacements) {
-				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
-				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
-				processExtractVariableRefactoring(ref, refactorings);
-				identicalWithExtractedVariable = true;
-			}
-		}
-	}
-
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {

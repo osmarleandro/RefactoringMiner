@@ -516,7 +516,25 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			processLeaves(expressionsT1, leaves2, parameterToArgumentMap2);
 			List<AbstractCodeMapping> mappings = new ArrayList<>(this.mappings);
 			for(int i = numberOfMappings; i < mappings.size(); i++) {
-				mappings.get(i).temporaryVariableAssignment(refactorings);
+				AbstractCodeMapping r = mappings.get(i);
+				if(r instanceof LeafMapping && r.getFragment1() instanceof AbstractExpression
+						&& r.getFragment2() instanceof StatementObject) {
+					StatementObject statement1 = (StatementObject) r.getFragment2();
+					List<VariableDeclaration> variableDeclarations = statement1.getVariableDeclarations();
+					boolean validReplacements = true;
+					for(Replacement replacement : r.getReplacements()) {
+						if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
+							validReplacements = false;
+							break;
+						}
+					}
+					if(variableDeclarations.size() == 1 && validReplacements) {
+						VariableDeclaration variableDeclaration = variableDeclarations.get(0);
+						ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, r.operation1, r.operation2);
+						r.processExtractVariableRefactoring(ref, refactorings);
+						r.identicalWithExtractedVariable = true;
+					}
+				}
 			}
 			// TODO remove non-mapped inner nodes from T1 corresponding to mapped expressions
 			
