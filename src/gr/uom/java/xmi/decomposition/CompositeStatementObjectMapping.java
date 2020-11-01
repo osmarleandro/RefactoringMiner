@@ -45,8 +45,8 @@ public class CompositeStatementObjectMapping extends AbstractCodeMapping impleme
 				return -Double.compare(this.compositeChildMatchingScore, o.compositeChildMatchingScore);
 			}
 			else {
-				int depthDiff1 = Math.abs(this.getFragment1().getDepth() - this.getFragment2().getDepth());
-				int depthDiff2 = Math.abs(o.getFragment1().getDepth() - o.getFragment2().getDepth());
+				int depthDiff1 = Math.abs(this.getFragment1().depth - this.getFragment2().depth);
+				int depthDiff2 = Math.abs(o.getFragment1().depth - o.getFragment2().depth);
 
 				if(depthDiff1 != depthDiff2) {
 					return Integer.valueOf(depthDiff1).compareTo(Integer.valueOf(depthDiff2));
