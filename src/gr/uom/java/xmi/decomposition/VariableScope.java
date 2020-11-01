@@ -80,14 +80,6 @@ public class VariableScope {
 		return true;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(startLine).append(":").append(startColumn);
-		sb.append("-");
-		sb.append(endLine).append(":").append(endColumn);
-		return sb.toString();
-	}
-
 	public boolean subsumes(LocationInfo other) {
 		return this.filePath.equals(other.getFilePath()) &&
 				this.startOffset <= other.getStartOffset() &&
