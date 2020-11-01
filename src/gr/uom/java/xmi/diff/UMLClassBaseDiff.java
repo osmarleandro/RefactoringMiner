@@ -1257,7 +1257,39 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean mappedElementsMoreThanNonMappedT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
-		int nonMappedElementsT2CallingAddedOperation = operationBodyMapper.nonMappedElementsT2CallingAddedOperation(addedOperations);
+		int nonMappedInnerNodeCount = 0;
+		for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
+			if(composite.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : addedOperations) {
+							if(invocation.matchesOperation(operation, operationBodyMapper.operation2.variableTypeMap(), operationBodyMapper.modelDiff)) {
+								nonMappedInnerNodeCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		int nonMappedLeafCount = 0;
+		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT2()) {
+			if(statement.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : addedOperations) {
+							if(invocation.matchesOperation(operation, operationBodyMapper.operation2.variableTypeMap(), operationBodyMapper.modelDiff)) {
+								nonMappedLeafCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		int nonMappedElementsT2CallingAddedOperation = nonMappedLeafCount + nonMappedInnerNodeCount;
 		int nonMappedElementsT2WithoutThoseCallingAddedOperation = nonMappedElementsT2 - nonMappedElementsT2CallingAddedOperation;
 		return mappings > nonMappedElementsT2 || (mappings >= nonMappedElementsT2WithoutThoseCallingAddedOperation &&
 				nonMappedElementsT2CallingAddedOperation >= nonMappedElementsT2WithoutThoseCallingAddedOperation);
