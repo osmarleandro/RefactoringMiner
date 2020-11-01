@@ -114,14 +114,84 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
+					String afterReplacements = leave1.getString();
+					for(String parameter : parameterToArgumentMap1.keySet()) {
+						String argument = parameterToArgumentMap1.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					leave1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
-					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
+					String afterReplacements = leave2.getString();
+					for(String parameter : parameterToArgumentMap2.keySet()) {
+						String argument = parameterToArgumentMap2.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					leave2.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
@@ -134,14 +204,84 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
+					String afterReplacements = innerNode1.getString();
+					for(String parameter : parameterToArgumentMap1.keySet()) {
+						String argument = parameterToArgumentMap1.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					innerNode1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			resetNodes(innerNodes2);
 			//replace parameters with arguments in innerNodes2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
-					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
+					String afterReplacements = innerNode2.getString();
+					for(String parameter : parameterToArgumentMap2.keySet()) {
+						String argument = parameterToArgumentMap2.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					innerNode2.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			processInnerNodes(innerNodes1, innerNodes2, new LinkedHashMap<String, String>());
@@ -459,14 +599,84 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
+					String afterReplacements = leave1.getString();
+					for(String parameter : parameterToArgumentMap1.keySet()) {
+						String argument = parameterToArgumentMap1.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					leave1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			resetNodes(leaves2);
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
-					leave2.replaceParametersWithArguments(parameterToArgumentMap2);
+					String afterReplacements = leave2.getString();
+					for(String parameter : parameterToArgumentMap2.keySet()) {
+						String argument = parameterToArgumentMap2.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					leave2.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			//compare leaves from T1 with leaves from T2
@@ -491,14 +701,84 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
+					String afterReplacements = innerNode1.getString();
+					for(String parameter : parameterToArgumentMap1.keySet()) {
+						String argument = parameterToArgumentMap1.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					innerNode1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			resetNodes(innerNodes2);
 			//replace parameters with arguments in innerNode2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
-					innerNode2.replaceParametersWithArguments(parameterToArgumentMap2);
+					String afterReplacements = innerNode2.getString();
+					for(String parameter : parameterToArgumentMap2.keySet()) {
+						String argument = parameterToArgumentMap2.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					innerNode2.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
@@ -508,7 +788,42 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
 			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
 				for(AbstractExpression expression : composite.getExpressions()) {
-					expression.replaceParametersWithArguments(parameterToArgumentMap1);
+					String afterReplacements = expression.getString();
+					for(String parameter : parameterToArgumentMap1.keySet()) {
+						String argument = parameterToArgumentMap1.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					expression.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 					expressionsT1.add(expression);
 				}
 			}
@@ -588,7 +903,42 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				for(StatementObject leave1 : leaves1) {
-					leave1.replaceParametersWithArguments(parameterToArgumentMap);
+					String afterReplacements = leave1.getString();
+					for(String parameter : parameterToArgumentMap.keySet()) {
+						String argument = parameterToArgumentMap.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					leave1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			//compare leaves from T1 with leaves from T2
@@ -615,7 +965,42 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
-					innerNode1.replaceParametersWithArguments(parameterToArgumentMap);
+					String afterReplacements = innerNode1.getString();
+					for(String parameter : parameterToArgumentMap.keySet()) {
+						String argument = parameterToArgumentMap.get(parameter);
+						if(!parameter.equals(argument)) {
+							StringBuffer sb = new StringBuffer();
+							Pattern p = Pattern.compile(Pattern.quote(parameter));
+							Matcher m = p.matcher(afterReplacements);
+							while(m.find()) {
+								//check if the matched string is an argument
+								//previous character should be "(" or "," or " " or there is no previous character
+								int start = m.start();
+								boolean isArgument = false;
+								boolean isInsideStringLiteral = false;
+								if(start >= 1) {
+									String previousChar = afterReplacements.substring(start-1, start);
+									if(previousChar.equals("(") || previousChar.equals(",") || previousChar.equals(" ") || previousChar.equals("=")) {
+										isArgument = true;
+									}
+									String beforeMatch = afterReplacements.substring(0, start);
+									String afterMatch = afterReplacements.substring(start+parameter.length(), afterReplacements.length());
+									if(AbstractCodeFragment.quoteBefore(beforeMatch) && AbstractCodeFragment.quoteAfter(afterMatch)) {
+										isInsideStringLiteral = true;
+									}
+								}
+								else if(start == 0 && !afterReplacements.startsWith("return ")) {
+									isArgument = true;
+								}
+								if(isArgument && !isInsideStringLiteral) {
+									m.appendReplacement(sb, Matcher.quoteReplacement(argument));
+								}
+							}
+							m.appendTail(sb);
+							afterReplacements = sb.toString();
+						}
+					}
+					innerNode1.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
 				}
 			}
 			//compare inner nodes from T1 with inner nodes from T2
