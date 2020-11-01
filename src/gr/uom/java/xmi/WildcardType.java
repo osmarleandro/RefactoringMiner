@@ -52,20 +52,6 @@ public class WildcardType extends UMLType {
 	}
 
 	@Override
-	public String toQualifiedString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("?");
-		if(bound != null) {
-			if(upperBound)
-				sb.append(" extends ");
-			else
-				sb.append(" super ");
-			sb.append(bound.toQualifiedString());
-		}
-		return sb.toString();
-	}
-
-	@Override
 	public String getClassType() {
 		if(bound != null) {
 			return bound.getClassType();
