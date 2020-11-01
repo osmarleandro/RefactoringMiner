@@ -194,33 +194,4 @@ public class InlineOperationRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getTargetOperationCodeRangeAfterInline()
-				.setDescription("target method declaration after inline")
-				.setCodeElement(targetOperationAfterInline.toString()));
-		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsInTargetOperation) {
-			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code in target method declaration"));
-		}
-		/*
-		CodeRange inlinedCodeRangeInTargetOperation = getInlinedCodeRangeInTargetOperation();
-		ranges.add(inlinedCodeRangeInTargetOperation.setDescription("inlined code in target method declaration"));
-		for(StatementObject statement : bodyMapper.getNonMappedLeavesT2()) {
-			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange())) {
-				ranges.add(statement.codeRange().
-						setDescription("added statement in target method declaration"));
-			}
-		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT2()) {
-			if(inlinedCodeRangeInTargetOperation.subsumes(statement.codeRange()) ||
-					inlinedCodeRangeInTargetOperation.subsumes(statement.getLeaves())) {
-				ranges.add(statement.codeRange().
-						setDescription("added statement in target method declaration"));
-			}
-		}
-		*/
-		return ranges;
-	}
 }
