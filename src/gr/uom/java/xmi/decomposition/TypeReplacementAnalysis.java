@@ -18,10 +18,6 @@ public class TypeReplacementAnalysis {
 		findTypeChanges();
 	}
 
-	public Set<ChangeVariableTypeRefactoring> getChangedTypes() {
-		return changedTypes;
-	}
-
 	private void findTypeChanges() {
 		for(AbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
