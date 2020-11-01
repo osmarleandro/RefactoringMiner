@@ -17,10 +17,6 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		this.attributeRenames = attributeRenames;
 	}
 
-	public Set<CandidateAttributeRefactoring> getAttributeRenames() {
-		return attributeRenames;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
