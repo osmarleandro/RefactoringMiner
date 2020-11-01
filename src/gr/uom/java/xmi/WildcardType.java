@@ -19,25 +19,6 @@ public class WildcardType extends UMLType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		WildcardType other = (WildcardType) obj;
-		if (bound == null) {
-			if (other.bound != null)
-				return false;
-		} else if (!bound.equals(other.bound))
-			return false;
-		if (upperBound != other.upperBound)
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("?");
