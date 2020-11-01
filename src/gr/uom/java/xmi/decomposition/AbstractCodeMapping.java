@@ -128,10 +128,6 @@ public abstract class AbstractCodeMapping {
 		return types;
 	}
 
-	public String toString() {
-		return fragment1.toString() + fragment2.toString();
-	}
-
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
