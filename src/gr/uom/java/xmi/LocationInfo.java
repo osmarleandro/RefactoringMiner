@@ -55,10 +55,6 @@ public class LocationInfo {
 		return length;
 	}
 
-	public int getStartLine() {
-		return startLine;
-	}
-
 	public int getStartColumn() {
 		return startColumn;
 	}
@@ -77,7 +73,7 @@ public class LocationInfo {
 
 	public CodeRange codeRange() {
 		return new CodeRange(getFilePath(),
-				getStartLine(), getEndLine(),
+				startLine, getEndLine(),
 				getStartColumn(), getEndColumn(), getCodeElementType());
 	}
 
