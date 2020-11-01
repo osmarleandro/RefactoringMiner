@@ -110,14 +110,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					parameterToArgumentMap2.put("this.", "");
 				}
 			}
-			resetNodes(leaves1);
+			for(AbstractCodeFragment node : leaves1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
 					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
-			resetNodes(leaves2);
+			for(AbstractCodeFragment node : leaves2) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
@@ -130,14 +134,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			innerNodes1.remove(composite1);
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
 			innerNodes2.remove(composite2);
-			resetNodes(innerNodes1);
+			for(AbstractCodeFragment node : innerNodes1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
 					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
-			resetNodes(innerNodes2);
+			for(AbstractCodeFragment node : innerNodes2) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in innerNodes2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
@@ -222,12 +230,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return callSiteOperation;
 	}
 
-	private void resetNodes(List<? extends AbstractCodeFragment> nodes) {
-		for(AbstractCodeFragment node : nodes) {
-			node.resetArgumentization();
-		}
-	}
-	
 	private boolean returnWithVariableReplacement(AbstractCodeMapping mapping) {
 		if(mapping.getReplacements().size() == 1) {
 			Replacement r = mapping.getReplacements().iterator().next();
@@ -455,14 +457,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 			leaves2.addAll(addedLeaves2);
-			resetNodes(leaves1);
+			for(AbstractCodeFragment node : leaves1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(StatementObject leave1 : leaves1) {
 					leave1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
-			resetNodes(leaves2);
+			for(AbstractCodeFragment node : leaves2) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in leaves2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(StatementObject leave2 : leaves2) {
@@ -487,14 +493,18 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			innerNodes2.remove(composite2);
 			innerNodes2.addAll(addedInnerNodes2);
-			resetNodes(innerNodes1);
+			for(AbstractCodeFragment node : innerNodes1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap1.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
 					innerNode1.replaceParametersWithArguments(parameterToArgumentMap1);
 				}
 			}
-			resetNodes(innerNodes2);
+			for(AbstractCodeFragment node : innerNodes2) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in innerNode2
 			if(!parameterToArgumentMap2.isEmpty()) {
 				for(CompositeStatementObject innerNode2 : innerNodes2) {
@@ -572,7 +582,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			resetNodes(leaves1);
+			for(AbstractCodeFragment node : leaves1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap.isEmpty()) {
 				//check for temporary variables that the argument might be assigned to
@@ -611,7 +623,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			resetNodes(innerNodes1);
+			for(AbstractCodeFragment node : innerNodes1) {
+				node.resetArgumentization();
+			}
 			//replace parameters with arguments in innerNodes1
 			if(!parameterToArgumentMap.isEmpty()) {
 				for(CompositeStatementObject innerNode1 : innerNodes1) {
