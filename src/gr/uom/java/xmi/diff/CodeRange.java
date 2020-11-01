@@ -132,26 +132,4 @@ public class CodeRange {
 		else
 			sb.append(",").append("\n");
 	}
-
-	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
-		String filePath = null;
-		int minStartLine = 0;
-		int maxEndLine = 0;
-		int startColumn = 0;
-		int endColumn = 0;
-		
-		for(AbstractCodeFragment fragment : codeFragments) {
-			LocationInfo info = fragment.getLocationInfo();
-			filePath = info.getFilePath();
-			if(minStartLine == 0 || info.getStartLine() < minStartLine) {
-				minStartLine = info.getStartLine();
-				startColumn = info.getStartColumn();
-			}
-			if(info.getEndLine() > maxEndLine) {
-				maxEndLine = info.getEndLine();
-				endColumn = info.getEndColumn();
-			}
-		}
-		return new CodeRange(filePath, minStartLine, maxEndLine, startColumn, endColumn, CodeElementType.LIST_OF_STATEMENTS);
-	}
 }
