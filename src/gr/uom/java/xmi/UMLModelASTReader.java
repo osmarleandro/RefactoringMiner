@@ -332,7 +332,19 @@ public class UMLModelASTReader {
     	
     	DefaultMutableTreeNode root = new DefaultMutableTreeNode();
     	for(AnonymousClassDeclaration anonymous : anonymousClassDeclarations) {
-    		insertNode(anonymous, root);
+    		Enumeration enumeration1 = root.postorderEnumeration();
+			DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(anonymous);
+			
+			DefaultMutableTreeNode parentNode = root;
+			while(enumeration1.hasMoreElements()) {
+				DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration1.nextElement();
+				AnonymousClassDeclaration currentAnonymous = (AnonymousClassDeclaration)currentNode.getUserObject();
+				if(currentAnonymous != null && isParent(anonymous, currentAnonymous)) {
+					parentNode = currentNode;
+					break;
+				}
+			}
+			parentNode.add(childNode);
     	}
     	
     	List<UMLAnonymousClass> createdAnonymousClasses = new ArrayList<UMLAnonymousClass>();
@@ -537,22 +549,6 @@ public class UMLModelASTReader {
 		return anonymousClass;
 	}
 	
-	private void insertNode(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
-		Enumeration enumeration = root.postorderEnumeration();
-		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(childAnonymous);
-		
-		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclaration currentAnonymous = (AnonymousClassDeclaration)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous)) {
-				parentNode = currentNode;
-				break;
-			}
-		}
-		parentNode.add(childNode);
-	}
-
 	private String getAnonymousCodePath(DefaultMutableTreeNode node) {
 		AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
 		String name = "";
