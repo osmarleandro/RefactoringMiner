@@ -973,7 +973,7 @@ public class UMLModelDiff {
 		   if(!candidates.isEmpty()) {
 			   boolean innerClassExtract = false;
 			   for(CandidateExtractClassRefactoring candidate : candidates) {
-				   if(candidate.innerClassExtract()) {
+				   if(candidate.refactoring.getExtractedClass().getName().startsWith(candidate.refactoring.getOriginalClass().getName() + ".")) {
 					   innerClassExtract = true;
 					   detectSubRefactorings(candidate.getClassDiff(),
 							   candidate.getRefactoring().getExtractedClass(),

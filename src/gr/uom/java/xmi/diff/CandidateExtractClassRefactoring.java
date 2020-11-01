@@ -9,10 +9,6 @@ public class CandidateExtractClassRefactoring {
 		this.refactoring = refactoring;
 	}
 	
-	public boolean innerClassExtract() {
-		return refactoring.getExtractedClass().getName().startsWith(refactoring.getOriginalClass().getName() + ".");
-	}
-
 	public UMLClassBaseDiff getClassDiff() {
 		return classDiff;
 	}
