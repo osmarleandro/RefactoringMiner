@@ -536,10 +536,6 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   public List<UMLGeneralization> getAddedGeneralizations() {
-      return addedGeneralizations;
-   }
-
    public List<UMLRealization> getAddedRealizations() {
       return addedRealizations;
    }
