@@ -32,10 +32,6 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
-	}
-
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
@@ -77,7 +73,7 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(operationAfter.getLocationInfo().getFilePath(), operationAfter.getClassName()));
 		return pairs;
 	}
 
