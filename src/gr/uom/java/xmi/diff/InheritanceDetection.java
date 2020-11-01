@@ -45,8 +45,4 @@ public class InheritanceDetection {
 				addSubclassToSuperclass(supplier, client);
 		}
 	}
-
-	public Set<String> getRoots() {
-		return subclassMap.keySet();
-	}
 }
