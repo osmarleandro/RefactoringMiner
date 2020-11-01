@@ -60,7 +60,9 @@ public class InlineOperationDetection {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							InlineOperationRefactoring nestedRefactoring = new InlineOperationRefactoring(nestedMapper, mapper.getOperation1(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
-							operationBodyMapper.addChildMapper(nestedMapper);
+							operationBodyMapper.childMappers.add(nestedMapper);
+							//TODO add logic to remove the mappings from "this" mapper,
+							//which are less similar than the mappings of the mapper passed as parameter
 						}
 					}
 				}

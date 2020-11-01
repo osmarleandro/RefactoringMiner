@@ -1541,7 +1541,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
 					processMapperRefactorings(operationBodyMapper, refactorings);
-					mapper.addChildMapper(operationBodyMapper);
+					mapper.childMappers.add(operationBodyMapper);
+					//TODO add logic to remove the mappings from "this" mapper,
+					//which are less similar than the mappings of the mapper passed as parameter
 					operationsToBeRemoved.add(removedOperation);
 				}
 			}
@@ -1560,7 +1562,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					refactorings.add(refactoring);
 					UMLOperationBodyMapper operationBodyMapper = refactoring.getBodyMapper();
 					processMapperRefactorings(operationBodyMapper, refactorings);
-					mapper.addChildMapper(operationBodyMapper);
+					mapper.childMappers.add(operationBodyMapper);
+					//TODO add logic to remove the mappings from "this" mapper,
+					//which are less similar than the mappings of the mapper passed as parameter
 					operationsToBeRemoved.add(addedOperation);
 				}
 				checkForInconsistentVariableRenames(mapper);

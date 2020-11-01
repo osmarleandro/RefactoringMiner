@@ -92,7 +92,9 @@ public class ExtractOperationDetection {
 							List<OperationInvocation> nestedMatchingInvocations = matchingInvocations(node.getInvokedOperation(), node.getOriginalOperation().getAllOperationInvocations(), node.getOriginalOperation().variableTypeMap());
 							ExtractOperationRefactoring nestedRefactoring = new ExtractOperationRefactoring(nestedMapper, mapper.getOperation2(), nestedMatchingInvocations);
 							refactorings.add(nestedRefactoring);
-							operationBodyMapper.addChildMapper(nestedMapper);
+							operationBodyMapper.childMappers.add(nestedMapper);
+							//TODO add logic to remove the mappings from "this" mapper,
+							//which are less similar than the mappings of the mapper passed as parameter
 						}
 						//add back to mapper non-exact matches
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
