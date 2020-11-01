@@ -848,10 +848,6 @@ public class Visitor extends ASTVisitor {
 		return this.arguments;
 	}
 
-	public List<TernaryOperatorExpression> getTernaryOperatorExpressions() {
-		return ternaryOperatorExpressions;
-	}
-
 	public List<String> getVariables() {
 		return variables;
 	}
