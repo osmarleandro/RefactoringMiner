@@ -368,10 +368,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return addedAnonymousClasses;
 	}
 
-	public List<UMLAnonymousClass> getRemovedAnonymousClasses() {
-		return removedAnonymousClasses;
-	}
-
 	public Set<CandidateAttributeRefactoring> getCandidateAttributeRenames() {
 		return candidateAttributeRenames;
 	}
