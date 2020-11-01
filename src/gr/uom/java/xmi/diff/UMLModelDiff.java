@@ -371,32 +371,6 @@ public class UMLModelDiff {
       return null;
    }
 
-   public void checkForGeneralizationChanges() {
-      for(Iterator<UMLGeneralization> removedGeneralizationIterator = removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();) {
-         UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
-         for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
-            UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
-            String renamedChild = isRenamedClass(removedGeneralization.getChild());
-            String movedChild = isMovedClass(removedGeneralization.getChild());
-            if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
-               UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
-               addedGeneralizationIterator.remove();
-               removedGeneralizationIterator.remove();
-               generalizationDiffList.add(generalizationDiff);
-               break;
-            }
-            if( (renamedChild != null && renamedChild.equals(addedGeneralization.getChild().getName())) ||
-                  (movedChild != null && movedChild.equals(addedGeneralization.getChild().getName()))) {
-               UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
-               addedGeneralizationIterator.remove();
-               removedGeneralizationIterator.remove();
-               generalizationDiffList.add(generalizationDiff);
-               break;
-            }
-         }
-      }
-   }
-
    public void checkForRealizationChanges() {
       for(Iterator<UMLRealization> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
          UMLRealization removedRealization = removedRealizationIterator.next();

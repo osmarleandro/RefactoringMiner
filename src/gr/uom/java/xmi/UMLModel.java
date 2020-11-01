@@ -1,10 +1,12 @@
 package gr.uom.java.xmi;
 
 import gr.uom.java.xmi.diff.UMLClassDiff;
+import gr.uom.java.xmi.diff.UMLGeneralizationDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -131,7 +133,29 @@ public class UMLModel {
     		if(!this.generalizationList.contains(umlGeneralization))
     			modelDiff.reportAddedGeneralization(umlGeneralization);
     	}
-    	modelDiff.checkForGeneralizationChanges();
+    	for(Iterator<UMLGeneralization> removedGeneralizationIterator = modelDiff.removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();) {
+		     UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
+		     for(Iterator<UMLGeneralization> addedGeneralizationIterator = modelDiff.addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
+		        UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
+		        String renamedChild = modelDiff.isRenamedClass(removedGeneralization.getChild());
+		        String movedChild = modelDiff.isMovedClass(removedGeneralization.getChild());
+		        if(removedGeneralization.getChild().equals(addedGeneralization.getChild())) {
+		           UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
+		           addedGeneralizationIterator.remove();
+		           removedGeneralizationIterator.remove();
+		           modelDiff.generalizationDiffList.add(generalizationDiff);
+		           break;
+		        }
+		        if( (renamedChild != null && renamedChild.equals(addedGeneralization.getChild().getName())) ||
+		              (movedChild != null && movedChild.equals(addedGeneralization.getChild().getName()))) {
+		           UMLGeneralizationDiff generalizationDiff = new UMLGeneralizationDiff(removedGeneralization, addedGeneralization);
+		           addedGeneralizationIterator.remove();
+		           removedGeneralizationIterator.remove();
+		           modelDiff.generalizationDiffList.add(generalizationDiff);
+		           break;
+		        }
+		     }
+		  }
     	for(UMLRealization umlRealization : realizationList) {
     		if(!umlModel.realizationList.contains(umlRealization))
     			modelDiff.reportRemovedRealization(umlRealization);
