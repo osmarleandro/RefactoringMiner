@@ -56,10 +56,6 @@ public class CandidateMergeVariableRefactoring {
 		return newAttribute;
 	}
 
-	public void setNewAttribute(UMLAttribute newAttribute) {
-		this.newAttribute = newAttribute;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Merge Attribute").append("\t");
