@@ -207,16 +207,6 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	public boolean visit(SingleVariableDeclaration node) {
-		VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
-		variableDeclarations.add(variableDeclaration);
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			anonymous.getVariableDeclarations().add(variableDeclaration);
-		}
-		return super.visit(node);
-	}
-
 	public boolean visit(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode childNode = insertNode(node);
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
