@@ -45,10 +45,6 @@ public abstract class AbstractCodeMapping {
 		return fragment2;
 	}
 
-	public UMLOperation getOperation1() {
-		return operation1;
-	}
-
 	public UMLOperation getOperation2() {
 		return operation2;
 	}
