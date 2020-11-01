@@ -290,10 +290,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		return originalClass.attributesOfType(targetClass);
 	}
 
-	private void reportAddedImplementedInterface(UMLType implementedInterface) {
-		this.addedImplementedInterfaces.add(implementedInterface);
-	}
-
 	private void reportRemovedImplementedInterface(UMLType implementedInterface) {
 		this.removedImplementedInterfaces.add(implementedInterface);
 	}
@@ -452,7 +448,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 		for(UMLType implementedInterface : nextClass.getImplementedInterfaces()) {
 			if(!originalClass.getImplementedInterfaces().contains(implementedInterface))
-				reportAddedImplementedInterface(implementedInterface);
+				this.addedImplementedInterfaces.add(implementedInterface);
 		}
 	}
 
