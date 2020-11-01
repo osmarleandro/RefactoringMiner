@@ -90,38 +90,6 @@ public class RenameVariableRefactoring implements Refactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RenameVariableRefactoring other = (RenameVariableRefactoring) obj;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (originalVariable == null) {
-			if (other.originalVariable != null)
-				return false;
-		} else if (!originalVariable.equals(other.originalVariable))
-			return false;
-		if (renamedVariable == null) {
-			if (other.renamedVariable != null)
-				return false;
-		} else if (!renamedVariable.equals(other.renamedVariable))
-			return false;
-		return true;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
