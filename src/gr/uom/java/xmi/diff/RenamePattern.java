@@ -13,10 +13,6 @@ public class RenamePattern {
 		return before;
 	}
 
-	public String getAfter() {
-		return after;
-	}
-
 	public String toString() {
 		return before + "\t->\t" + after;
 	}
