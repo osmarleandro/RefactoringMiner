@@ -31,10 +31,6 @@ public class CandidateAttributeRefactoring {
 		this.attributeReferences = attributeReferences;
 	}
 
-	public String getOriginalVariableName() {
-		return originalVariableName;
-	}
-
 	public String getRenamedVariableName() {
 		return renamedVariableName;
 	}
