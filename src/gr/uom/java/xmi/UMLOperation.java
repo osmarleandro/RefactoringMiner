@@ -295,7 +295,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	}
 
 	public boolean equalSignatureIgnoringChangedTypes(UMLOperation operation) {
-		if(!(this.isConstructor && operation.isConstructor || equivalentName(operation)))
+		if(!(this.isConstructor && operation.isConstructor || this.name.equals(operation.name) || equivalentNames(this, operation) || equivalentNames(operation, this)))
 			return false;
 		if(this.isAbstract != operation.isAbstract)
 			return false;
@@ -338,10 +338,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			i++;
 		}
 		return true;
-	}
-
-	private boolean equivalentName(UMLOperation operation) {
-		return this.name.equals(operation.name) || equivalentNames(this, operation) || equivalentNames(operation, this);
 	}
 
 	private static boolean equivalentNames(UMLOperation operation1, UMLOperation operation2) {
