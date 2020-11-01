@@ -83,10 +83,6 @@ public class CandidateAttributeRefactoring {
 		return renamedAttribute;
 	}
 
-	public void setRenamedAttribute(UMLAttribute renamedAttribute) {
-		this.renamedAttribute = renamedAttribute;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Rename Attribute").append("\t");
