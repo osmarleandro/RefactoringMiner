@@ -174,11 +174,6 @@ public class StatementObject extends AbstractStatement {
 	}
 
 	@Override
-	public List<String> getStringLiterals() {
-		return stringLiterals;
-	}
-
-	@Override
 	public List<String> getNumberLiterals() {
 		return numberLiterals;
 	}
