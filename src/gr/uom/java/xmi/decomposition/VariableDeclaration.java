@@ -107,10 +107,6 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return initializer;
 	}
 
-	public UMLType getType() {
-		return type;
-	}
-
 	public VariableScope getScope() {
 		return scope;
 	}
