@@ -35,10 +35,6 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		this.relatedRefactorings.add(refactoring);
 	}
 
-	public Set<Refactoring> getRelatedRefactorings() {
-		return relatedRefactorings;
-	}
-
 	public RefactoringType getRefactoringType() {
 		if(originalVariable.isParameter() && changedTypeVariable.isParameter())
 			return RefactoringType.CHANGE_PARAMETER_TYPE;
