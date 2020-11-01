@@ -76,7 +76,98 @@ public class VariableReplacementAnalysis {
 		this.callSiteOperation = mapper.getCallSiteOperation();
 		this.operationDiff = classDiff != null ? classDiff.getOperationDiff(operation1, operation2) : null;
 		this.classDiff = classDiff;
-		findVariableSplits();
+		Map<SplitVariableReplacement, Set<AbstractCodeMapping>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<AbstractCodeMapping>>();
+		Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap = new LinkedHashMap<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>>();
+		for(AbstractCodeMapping mapping : mappings) {
+			for(Replacement replacement : mapping.getReplacements()) {
+				if(replacement instanceof SplitVariableReplacement) {
+					SplitVariableReplacement split = (SplitVariableReplacement)replacement;
+					if(splitMap.containsKey(split)) {
+						splitMap.get(split).add(mapping);
+					}
+					else {
+						Set<AbstractCodeMapping> mappings1 = new LinkedHashSet<AbstractCodeMapping>();
+						mappings1.add(mapping);
+						splitMap.put(split, mappings1);
+					}
+				}
+				else if(replacement instanceof VariableReplacementWithMethodInvocation) {
+					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
+					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+				}
+				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+					for(StatementObject statement : nonMappedLeavesT1) {
+						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
+						if(variableDeclaration != null) {
+							AbstractExpression initializer = variableDeclaration.getInitializer();
+							if(initializer != null) {
+								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
+								if(invocation != null) {
+									VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), replacement.getAfter(), invocation, Direction.INVOCATION_TO_VARIABLE);
+									processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		for(StatementObject statement : nonMappedLeavesT1) {
+			for(String parameterName : operation2.getParameterNameList()) {
+				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
+				if(variableDeclaration != null) {
+					AbstractExpression initializer = variableDeclaration.getInitializer();
+					if(initializer != null) {
+						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
+						if(invocation != null) {
+							String expression = invocation.getExpression();
+							if(expression != null) {
+								VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), parameterName, invocation, Direction.INVOCATION_TO_VARIABLE);
+								processVariableReplacementWithMethodInvocation(variableReplacement, null, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
+							}
+						}
+					}
+				}
+			}
+		}
+		for(String key : variableInvocationExpressionMap.keySet()) {
+			Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(key);
+			Set<AbstractCodeMapping> mappings2 = new LinkedHashSet<AbstractCodeMapping>();
+			Set<String> splitVariables = new LinkedHashSet<String>();
+			for(VariableReplacementWithMethodInvocation replacement : map.keySet()) {
+				if(!PrefixSuffixUtils.normalize(key).equals(PrefixSuffixUtils.normalize(replacement.getAfter()))) {
+					splitVariables.add(replacement.getAfter());
+					mappings2.addAll(map.get(replacement));
+				}
+			}
+			if(splitVariables.size() > 0) {
+				SplitVariableReplacement split = new SplitVariableReplacement(key, splitVariables);
+				splitMap.put(split, mappings2);
+			}
+		}
+		for(SplitVariableReplacement split : splitMap.keySet()) {
+			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
+			Set<UMLOperation> splitVariableOperations = new LinkedHashSet<UMLOperation>();
+			for(String variableName : split.getSplitVariables()) {
+				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration2(split, variableName);
+				if(declaration != null) {
+					splitVariables.add(declaration.getKey());
+					splitVariableOperations.add(declaration.getValue());
+				}
+			}
+			SimpleEntry<VariableDeclaration,UMLOperation> oldVariable = getVariableDeclaration1(split);
+			if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && oldVariable != null) {
+				UMLOperation operationAfter = splitVariableOperations.iterator().next();
+				SplitVariableRefactoring refactoring = new SplitVariableRefactoring(oldVariable.getKey(), splitVariables, oldVariable.getValue(), operationAfter, splitMap.get(split));
+				if(!existsConflictingExtractVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
+					variableSplits.add(refactoring);
+				}
+			}
+			else {
+				CandidateSplitVariableRefactoring candidate = new CandidateSplitVariableRefactoring(split.getBefore(), split.getSplitVariables(), operation1, operation2, splitMap.get(split));
+				candidateAttributeSplits.add(candidate);
+			}
+		}
 		findVariableMerges();
 		findConsistentVariableRenames();
 		findParametersWrappedInLocalVariables();
@@ -156,101 +247,6 @@ public class VariableReplacementAnalysis {
 
 	public Set<CandidateSplitVariableRefactoring> getCandidateAttributeSplits() {
 		return candidateAttributeSplits;
-	}
-
-	private void findVariableSplits() {
-		Map<SplitVariableReplacement, Set<AbstractCodeMapping>> splitMap = new LinkedHashMap<SplitVariableReplacement, Set<AbstractCodeMapping>>();
-		Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap = new LinkedHashMap<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>>();
-		for(AbstractCodeMapping mapping : mappings) {
-			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement instanceof SplitVariableReplacement) {
-					SplitVariableReplacement split = (SplitVariableReplacement)replacement;
-					if(splitMap.containsKey(split)) {
-						splitMap.get(split).add(mapping);
-					}
-					else {
-						Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-						mappings.add(mapping);
-						splitMap.put(split, mappings);
-					}
-				}
-				else if(replacement instanceof VariableReplacementWithMethodInvocation) {
-					VariableReplacementWithMethodInvocation variableReplacement = (VariableReplacementWithMethodInvocation)replacement;
-					processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
-				}
-				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-					for(StatementObject statement : nonMappedLeavesT1) {
-						VariableDeclaration variableDeclaration = statement.getVariableDeclaration(replacement.getBefore());
-						if(variableDeclaration != null) {
-							AbstractExpression initializer = variableDeclaration.getInitializer();
-							if(initializer != null) {
-								OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
-								if(invocation != null) {
-									VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), replacement.getAfter(), invocation, Direction.INVOCATION_TO_VARIABLE);
-									processVariableReplacementWithMethodInvocation(variableReplacement, mapping, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		for(StatementObject statement : nonMappedLeavesT1) {
-			for(String parameterName : operation2.getParameterNameList()) {
-				VariableDeclaration variableDeclaration = statement.getVariableDeclaration(parameterName);
-				if(variableDeclaration != null) {
-					AbstractExpression initializer = variableDeclaration.getInitializer();
-					if(initializer != null) {
-						OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
-						if(invocation != null) {
-							String expression = invocation.getExpression();
-							if(expression != null) {
-								VariableReplacementWithMethodInvocation variableReplacement = new VariableReplacementWithMethodInvocation(initializer.getString(), parameterName, invocation, Direction.INVOCATION_TO_VARIABLE);
-								processVariableReplacementWithMethodInvocation(variableReplacement, null, variableInvocationExpressionMap, Direction.INVOCATION_TO_VARIABLE);
-							}
-						}
-					}
-				}
-			}
-		}
-		for(String key : variableInvocationExpressionMap.keySet()) {
-			Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(key);
-			Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-			Set<String> splitVariables = new LinkedHashSet<String>();
-			for(VariableReplacementWithMethodInvocation replacement : map.keySet()) {
-				if(!PrefixSuffixUtils.normalize(key).equals(PrefixSuffixUtils.normalize(replacement.getAfter()))) {
-					splitVariables.add(replacement.getAfter());
-					mappings.addAll(map.get(replacement));
-				}
-			}
-			if(splitVariables.size() > 0) {
-				SplitVariableReplacement split = new SplitVariableReplacement(key, splitVariables);
-				splitMap.put(split, mappings);
-			}
-		}
-		for(SplitVariableReplacement split : splitMap.keySet()) {
-			Set<VariableDeclaration> splitVariables = new LinkedHashSet<VariableDeclaration>();
-			Set<UMLOperation> splitVariableOperations = new LinkedHashSet<UMLOperation>();
-			for(String variableName : split.getSplitVariables()) {
-				SimpleEntry<VariableDeclaration,UMLOperation> declaration = getVariableDeclaration2(split, variableName);
-				if(declaration != null) {
-					splitVariables.add(declaration.getKey());
-					splitVariableOperations.add(declaration.getValue());
-				}
-			}
-			SimpleEntry<VariableDeclaration,UMLOperation> oldVariable = getVariableDeclaration1(split);
-			if(splitVariables.size() > 1 && splitVariables.size() == split.getSplitVariables().size() && oldVariable != null) {
-				UMLOperation operationAfter = splitVariableOperations.iterator().next();
-				SplitVariableRefactoring refactoring = new SplitVariableRefactoring(oldVariable.getKey(), splitVariables, oldVariable.getValue(), operationAfter, splitMap.get(split));
-				if(!existsConflictingExtractVariableRefactoring(refactoring) && !existsConflictingParameterRenameInOperationDiff(refactoring)) {
-					variableSplits.add(refactoring);
-				}
-			}
-			else {
-				CandidateSplitVariableRefactoring candidate = new CandidateSplitVariableRefactoring(split.getBefore(), split.getSplitVariables(), operation1, operation2, splitMap.get(split));
-				candidateAttributeSplits.add(candidate);
-			}
-		}
 	}
 
 	private void processVariableReplacementWithMethodInvocation(
