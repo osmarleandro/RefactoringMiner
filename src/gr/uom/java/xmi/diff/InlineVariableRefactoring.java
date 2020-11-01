@@ -81,28 +81,6 @@ public class InlineVariableRefactoring implements Refactoring {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		InlineVariableRefactoring other = (InlineVariableRefactoring) obj;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (variableDeclaration == null) {
-			if (other.variableDeclaration != null)
-				return false;
-		} else if (!variableDeclaration.equals(other.variableDeclaration))
-			return false;
-		return true;
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		pairs.add(new ImmutablePair<String, String>(getOperationBefore().getLocationInfo().getFilePath(), getOperationBefore().getClassName()));
