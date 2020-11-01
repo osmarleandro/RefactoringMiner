@@ -219,23 +219,23 @@ public class UMLModelASTReader {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
 	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(umlClass.getName());
+	    			attribute.setClassName(umlClass.qualifiedName);
 	    			umlClass.addAttribute(attribute);
 	    		}
 			}
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
-	    		operation.setClassName(umlClass.getName());
+	    		operation.setClassName(umlClass.qualifiedName);
 	    		umlClass.addOperation(operation);
 			}
 			else if(bodyDeclaration instanceof TypeDeclaration) {
 				TypeDeclaration typeDeclaration = (TypeDeclaration)bodyDeclaration;
-				processTypeDeclaration(cu, typeDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processTypeDeclaration(cu, typeDeclaration, umlClass.qualifiedName, sourceFile, importedTypes);
 			}
 			else if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processEnumDeclaration(cu, enumDeclaration, umlClass.qualifiedName, sourceFile, importedTypes);
 			}
 		}
 	}
@@ -294,7 +294,7 @@ public class UMLModelASTReader {
     	for(FieldDeclaration fieldDeclaration : fieldDeclarations) {
     		List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
     		for(UMLAttribute attribute : attributes) {
-    			attribute.setClassName(umlClass.getName());
+    			attribute.setClassName(umlClass.qualifiedName);
     			umlClass.addAttribute(attribute);
     		}
     	}
@@ -302,7 +302,7 @@ public class UMLModelASTReader {
     	MethodDeclaration[] methodDeclarations = typeDeclaration.getMethods();
     	for(MethodDeclaration methodDeclaration : methodDeclarations) {
     		UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
-    		operation.setClassName(umlClass.getName());
+    		operation.setClassName(umlClass.qualifiedName);
     		umlClass.addOperation(operation);
     	}
     	
@@ -312,14 +312,14 @@ public class UMLModelASTReader {
 		
 		TypeDeclaration[] types = typeDeclaration.getTypes();
 		for(TypeDeclaration type : types) {
-			processTypeDeclaration(cu, type, umlClass.getName(), sourceFile, importedTypes);
+			processTypeDeclaration(cu, type, umlClass.qualifiedName, sourceFile, importedTypes);
 		}
 		
 		List<BodyDeclaration> bodyDeclarations = typeDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
 			if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
-				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+				processEnumDeclaration(cu, enumDeclaration, umlClass.qualifiedName, sourceFile, importedTypes);
 			}
 		}
 	}

@@ -222,21 +222,21 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public boolean matches(String className) {
-		return this.originalClass.getName().equals(className) ||
-				this.nextClass.getName().equals(className);
+		return this.originalClass.qualifiedName.equals(className) ||
+				this.nextClass.qualifiedName.equals(className);
 	}
 
 	public boolean matches(UMLType type) {
-		return this.originalClass.getName().endsWith("." + type.getClassType()) ||
-				this.nextClass.getName().endsWith("." + type.getClassType());
+		return this.originalClass.qualifiedName.endsWith("." + type.getClassType()) ||
+				this.nextClass.qualifiedName.endsWith("." + type.getClassType());
 	}
 
 	public String getOriginalClassName() {
-		return originalClass.getName();
+		return originalClass.qualifiedName;
 	}
 
 	public String getNextClassName() {
-		return nextClass.getName();
+		return nextClass.qualifiedName;
 	}
 
 	public UMLClass getOriginalClass() {
@@ -1614,7 +1614,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if(!isEmpty())
-			sb.append(originalClass.getName()).append(":").append("\n");
+			sb.append(originalClass.qualifiedName).append(":").append("\n");
 		if(visibilityChanged) {
 			sb.append("\t").append("visibility changed from " + oldVisibility + " to " + newVisibility).append("\n");
 		}
@@ -1652,7 +1652,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public int compareTo(UMLClassBaseDiff other) {
-		return this.originalClass.getName().compareTo(other.originalClass.getName());
+		return this.originalClass.qualifiedName.compareTo(other.originalClass.qualifiedName);
 	}
 
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {

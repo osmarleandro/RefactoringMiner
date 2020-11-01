@@ -109,13 +109,9 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return this.packageName;
 	}
 
-    public String getName() {
-    	return this.qualifiedName;
-    }
-
     //returns true if the "innerClass" parameter is inner class of this
     public boolean isInnerClass(UMLClass innerClass) {
-    	if(this.getName().equals(innerClass.packageName))
+    	if(this.qualifiedName.equals(innerClass.packageName))
     		return true;
     	return false;
     }
@@ -302,7 +298,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     }
 
     public String toString() {
-    	return getName();
+    	return this.qualifiedName;
     }
 
 	public int compareTo(UMLClass umlClass) {
@@ -343,12 +339,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
 	public boolean isSubTypeOf(UMLClass umlClass) {
 		if(superclass != null) {
-			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
+			if(umlClass.qualifiedName.endsWith("." + superclass.getClassType())) {
 				return true;
 			}
 		}
 		for(UMLType implementedInterface : implementedInterfaces) {
-			if(umlClass.getName().endsWith("." + implementedInterface.getClassType())) {
+			if(umlClass.qualifiedName.endsWith("." + implementedInterface.getClassType())) {
 				return true;
 			}
 		}

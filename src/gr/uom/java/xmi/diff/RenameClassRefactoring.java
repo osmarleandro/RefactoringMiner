@@ -24,9 +24,9 @@ public class RenameClassRefactoring implements Refactoring {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
-		sb.append(originalClass.getName());
+		sb.append(originalClass.qualifiedName);
 		sb.append(" renamed to ");
-		sb.append(renamedClass.getName());
+		sb.append(renamedClass.qualifiedName);
 		return sb.toString();
 	}
 
@@ -39,11 +39,11 @@ public class RenameClassRefactoring implements Refactoring {
 	}
 
 	public String getOriginalClassName() {
-		return originalClass.getName();
+		return originalClass.qualifiedName;
 	}
 
 	public String getRenamedClassName() {
-		return renamedClass.getName();
+		return renamedClass.qualifiedName;
 	}
 
 	public UMLClass getOriginalClass() {
@@ -56,13 +56,13 @@ public class RenameClassRefactoring implements Refactoring {
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getOriginalClass().getLocationInfo().getFilePath(), getOriginalClass().qualifiedName));
 		return pairs;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getRenamedClass().getLocationInfo().getFilePath(), getRenamedClass().getName()));
+		pairs.add(new ImmutablePair<String, String>(getRenamedClass().getLocationInfo().getFilePath(), getRenamedClass().qualifiedName));
 		return pairs;
 	}
 
@@ -71,7 +71,7 @@ public class RenameClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(originalClass.codeRange()
 				.setDescription("original type declaration")
-				.setCodeElement(originalClass.getName()));
+				.setCodeElement(originalClass.qualifiedName));
 		return ranges;
 	}
 
@@ -80,7 +80,7 @@ public class RenameClassRefactoring implements Refactoring {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(renamedClass.codeRange()
 				.setDescription("renamed type declaration")
-				.setCodeElement(renamedClass.getName()));
+				.setCodeElement(renamedClass.qualifiedName));
 		return ranges;
 	}
 }
