@@ -80,10 +80,6 @@ public class RenameOperationRefactoring implements Refactoring {
 		return renamedOperation;
 	}
 
-	public Set<Replacement> getReplacements() {
-		return replacements;
-	}
-
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
