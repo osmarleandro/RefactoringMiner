@@ -903,21 +903,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return exactMatches;
 	}
 
-	private int editDistance() {
-		int count = 0;
-		for(AbstractCodeMapping mapping : getMappings()) {
-			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				continue;
-			}
-			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
-			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
-			if(!s1.equals(s2)) {
-				count += StringDistance.editDistance(s1, s2);
-			}
-		}
-		return count;
-	}
-
 	public double normalizedEditDistance() {
 		double editDistance = 0;
 		double maxLength = 0;
@@ -4054,8 +4039,30 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				return -Integer.compare(thisExactMatches, otherExactMatches);
 			}
 			else {
-				int thisEditDistance = this.editDistance();
-				int otherEditDistance = operationBodyMapper.editDistance();
+				int count = 0;
+				for(AbstractCodeMapping mapping1 : this.getMappings()) {
+					if(mapping1.isIdenticalWithExtractedVariable() || mapping1.isIdenticalWithInlinedVariable()) {
+						continue;
+					}
+					String s1 = this.preprocessInput1(mapping1.getFragment1(), mapping1.getFragment2());
+					String s2 = this.preprocessInput2(mapping1.getFragment1(), mapping1.getFragment2());
+					if(!s1.equals(s2)) {
+						count += StringDistance.editDistance(s1, s2);
+					}
+				}
+				int thisEditDistance = count;
+				int count = 0;
+				for(AbstractCodeMapping mapping2 : operationBodyMapper.getMappings()) {
+					if(mapping2.isIdenticalWithExtractedVariable() || mapping2.isIdenticalWithInlinedVariable()) {
+						continue;
+					}
+					String s1 = operationBodyMapper.preprocessInput1(mapping2.getFragment1(), mapping2.getFragment2());
+					String s2 = operationBodyMapper.preprocessInput2(mapping2.getFragment1(), mapping2.getFragment2());
+					if(!s1.equals(s2)) {
+						count += StringDistance.editDistance(s1, s2);
+					}
+				}
+				int otherEditDistance = count;
 				if(thisEditDistance != otherEditDistance) {
 					return Integer.compare(thisEditDistance, otherEditDistance);
 				}
