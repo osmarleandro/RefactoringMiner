@@ -58,11 +58,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return value != null;
 	}
 
- 	public boolean isNormalAnnotation() {
- 		return memberValuePairs.size() > 0;
- 	}
- 
-	public String toString() {
+ 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("@").append(typeName);
 		if(value != null) {
