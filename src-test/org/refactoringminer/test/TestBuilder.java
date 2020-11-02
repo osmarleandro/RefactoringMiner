@@ -124,8 +124,13 @@ public class TestBuilder {
 			}
 		}
 		System.out.println(String.format("Commits: %d  Errors: %d", commitsCount, errorCommitsCount));
+		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
+		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
+		String mainResultMessage1 = String.format(
+				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get(TP, c), get(FP, c),
+				get(FN, c), get(TN, c), get(UNK, c), precision, recall);
 
-		String mainResultMessage = buildResultMessage(c);
+		String mainResultMessage = mainResultMessage1;
 		System.out.println("Total  " + mainResultMessage);
 		for (RefactoringType refType : RefactoringType.values()) {
 			Counter refTypeCounter = cMap.get(refType);
