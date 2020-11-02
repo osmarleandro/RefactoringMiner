@@ -29,15 +29,6 @@ public class RefactoringRelationshipGroup {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof RefactoringRelationshipGroup) {
-      RefactoringRelationshipGroup other = (RefactoringRelationshipGroup) obj;
-      return other.getRefactoringType().equals(this.getRefactoringType()) && other.getMainEntity().equals(this.getMainEntity());
-    }
-    return false;
-  }
-
-  @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
