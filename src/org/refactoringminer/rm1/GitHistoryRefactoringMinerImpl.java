@@ -400,11 +400,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public String getConfigId() {
-	    return "RM1";
-	}
-
-	@Override
 	public void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
 			throws Exception {
 		GitService gitService = new GitServiceImpl() {
