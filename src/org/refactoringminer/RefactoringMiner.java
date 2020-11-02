@@ -14,7 +14,7 @@ public class RefactoringMiner {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 
 		final String option = args[0];
@@ -37,13 +37,13 @@ public class RefactoringMiner {
 		} else if (option.equalsIgnoreCase("-gp")) {
 			detectAtGitHubPullRequest(args);
 		} else {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 	}
 
 	private static void detectAll(String[] args) throws Exception {
 		if (args.length > 3) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String folder = args[1];
 		String branch = null;
@@ -86,7 +86,7 @@ public class RefactoringMiner {
 
 	private static void detectBetweenCommits(String[] args) throws Exception {
 		if (!(args.length == 3 || args.length == 4)) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String folder = args[1];
 		String startCommit = args[2];
@@ -127,7 +127,7 @@ public class RefactoringMiner {
 
 	private static void detectBetweenTags(String[] args) throws Exception {
 		if (!(args.length == 3 || args.length == 4)) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String folder = args[1];
 		String startTag = args[2];
@@ -168,7 +168,7 @@ public class RefactoringMiner {
 
 	private static void detectAtCommit(String[] args) throws Exception {
 		if (args.length != 3) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String folder = args[1];
 		String commitId = args[2];
@@ -197,7 +197,7 @@ public class RefactoringMiner {
 
 	private static void detectAtGitHubCommit(String[] args) throws Exception {
 		if (args.length != 4) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String gitURL = args[1];
 		String commitId = args[2];
@@ -223,7 +223,7 @@ public class RefactoringMiner {
 
 	private static void detectAtGitHubPullRequest(String[] args) throws Exception {
 		if (args.length != 4) {
-			throw argumentException();
+			throw new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 		}
 		String gitURL = args[1];
 		int pullId = Integer.parseInt(args[2]);
@@ -298,9 +298,5 @@ public class RefactoringMiner {
 				"-gc <git-URL> <commit-sha1> <timeout>\t\t\t\tDetect refactorings at specified commit <commit-sha1> for project <git-URL> within the given <timeout> in seconds. All required information is obtained directly from GitHub using the OAuth token in github-oauth.properties");
 		System.out.println(
 				"-gp <git-URL> <pull-request> <timeout>\t\t\t\tDetect refactorings at specified pull request <pull-request> for project <git-URL> within the given <timeout> in seconds for each commit in the pull request. All required information is obtained directly from GitHub using the OAuth token in github-oauth.properties");
-	}
-
-	private static IllegalArgumentException argumentException() {
-		return new IllegalArgumentException("Type `RefactoringMiner -h` to show usage.");
 	}
 }
