@@ -357,10 +357,6 @@ public class ResultComparator {
         return result;
     }
 
-    public boolean isGroupRefactorings() {
-        return groupRefactorings;
-    }
-
     public void setGroupRefactorings(boolean groupRefactorings) {
         this.groupRefactorings = groupRefactorings;
     }
