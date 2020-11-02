@@ -31,21 +31,18 @@ public class RefactoringCrawlerResultReader {
     File folder = new File(path);
     for (File f : folder.listFiles()) {
       if (f.isFile()) {
-        readXml(f.getPath(), result);
+        String path1 = f.getPath();
+		String content = readFile(path1, StandardCharsets.UTF_8);
+		Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
+		Matcher m = p.matcher(content);
+		while (m.find()) {
+		  result.add(new RefactoringCrawlerRefactoring(m.group(1), m.group(2), m.group(3)));
+		}
       }
     }
     return result;
   }
 
-  public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
-    String content = readFile(path, StandardCharsets.UTF_8);
-    Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
-    Matcher m = p.matcher(content);
-    while (m.find()) {
-      result.add(new RefactoringCrawlerRefactoring(m.group(1), m.group(2), m.group(3)));
-    }
-  }
-  
   static String readFile(String path, Charset encoding) throws IOException {
     byte[] encoded = Files.readAllBytes(Paths.get(path));
     return new String(encoded, encoding);
