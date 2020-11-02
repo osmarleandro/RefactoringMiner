@@ -41,15 +41,6 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof RefactoringRelationship) {
-      RefactoringRelationship other = (RefactoringRelationship) obj;
-      return other.refactoringType.equals(this.refactoringType) && other.entityBefore.equals(this.entityBefore) && other.entityAfter.equals(this.entityAfter);
-    }
-    return false;
-  }
-
-  @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
