@@ -63,18 +63,15 @@ public class RefactoringSet {
         return this;
     }
 
-    public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
-        for (RefactoringRelationship r : rs) {
-            this.add(r);
-        }
-        return this;
-    }
-
     public RefactoringSet ignoring(EnumSet<RefactoringType> refTypes) {
         RefactoringSet newSet = new RefactoringSet(project, revision);
-        newSet.add(refactorings.stream()
+		Iterable<RefactoringRelationship> rs = refactorings.stream()
             .filter(r -> !refTypes.contains(r.getRefactoringType()))
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList());
+		for (RefactoringRelationship r1 : rs) {
+		    newSet.add(r1);
+		}
+        RefactoringSet add = newSet;
         return newSet;
     }
     public RefactoringSet ignoringMethodParameters(boolean active) {
@@ -82,9 +79,13 @@ public class RefactoringSet {
             return this;
         }
         RefactoringSet newSet = new RefactoringSet(project, revision);
-        newSet.add(refactorings.stream()
+		Iterable<RefactoringRelationship> rs = refactorings.stream()
             .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList());
+		for (RefactoringRelationship r1 : rs) {
+		    newSet.add(r1);
+		}
+        RefactoringSet add = newSet;
         return newSet;
     }
 
