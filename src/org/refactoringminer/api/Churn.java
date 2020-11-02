@@ -14,10 +14,6 @@ public class Churn {
 		return linesAdded;
 	}
 
-	public int getLinesRemoved() {
-		return linesRemoved;
-	}
-	
 	public int getChurn() {
 		return linesAdded + linesRemoved;
 	}
