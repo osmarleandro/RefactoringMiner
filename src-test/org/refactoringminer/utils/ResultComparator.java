@@ -67,25 +67,6 @@ public class ResultComparator {
 
     
     
-    public void printSummary(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
-        for (String groupId : groupIds) {
-            CompareResult r = getCompareResult(groupId, refTypesToConsider);
-            out.println("# " + groupId + " #");
-            out.println("Total  " + getResultLine(r.getTPCount(), r.getFPCount(), r.getFNCount()));
-
-            for (RefactoringType refType : refTypesToConsider) {
-                int tpRt = r.getTPCount(refType);
-                int fpRt = r.getFPCount(refType);
-                int fnRt = r.getFNCount(refType);
-                if (tpRt > 0 || fpRt > 0 || fnRt > 0) {
-                    out.println(String.format("%-7s" + getResultLine(tpRt, fpRt, fnRt), refType.getAbbreviation()));
-                }
-            }
-            out.println();
-        }
-        out.println();
-    }
-
     public CompareResult getCompareResult(String groupId, EnumSet<RefactoringType> refTypesToConsider) {
         Set<Object> truePositives = new HashSet<>();
         Set<Object> falsePositives = new HashSet<>();
