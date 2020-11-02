@@ -29,8 +29,14 @@ class ExternalProcess {
 				}
 			}
 			finally {
-				close(p.getInputStream());
-				close(p.getOutputStream());
+				Closeable closeable = p.getInputStream();
+				if (closeable != null) {
+					closeable.close();
+				}
+				Closeable closeable1 = p.getOutputStream();
+				if (closeable1 != null) {
+					closeable1.close();
+				}
 				//p.destroy();
 			}
 		} catch (IOException e) {
@@ -40,12 +46,6 @@ class ExternalProcess {
 		}
 	}
 
-	private static void close(Closeable closeable) throws IOException {
-		if (closeable != null) {
-			closeable.close();
-		}
-	}
-	
 	private static class StreamGobbler implements Runnable {
 		private final InputStream is;
 		private final StringBuffer output = new StringBuffer();
