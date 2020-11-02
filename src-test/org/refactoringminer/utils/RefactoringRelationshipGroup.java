@@ -13,13 +13,6 @@ public class RefactoringRelationshipGroup {
     refactoringRelationships.add(refactoringRelationship);
   }
 
-  public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
-    if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
-      refactoringRelationships.add(r);
-    }
-    throw new IllegalArgumentException(String.format("refactoring relatiships are note from the same group: [] []", r, refactoringRelationships.get(0)));
-  }
-
   public RefactoringType getRefactoringType() {
     return refactoringRelationships.get(0).getRefactoringType();
   }
