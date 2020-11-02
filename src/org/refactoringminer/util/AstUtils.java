@@ -70,7 +70,19 @@ public class AstUtils {
 		while (parameters.hasNext()) {
 			SingleVariableDeclaration parameter = parameters.next();
 			Type parameterType = parameter.getType();
-			String typeName = normalizeTypeName(parameterType, parameter.getExtraDimensions(), parameter.isVarargs());
+			int extraDimensions = parameter.getExtraDimensions();
+			boolean varargs = parameter.isVarargs();
+			StringBuilder sb1 = new StringBuilder();
+			//	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
+				    String rawTypeName = stripTypeParamsFromTypeName(parameterType.toString());
+			        sb1.append(rawTypeName);
+			        for (int i = extraDimensions; i > 0; i--) {
+			            sb1.append("[]");
+			        }
+			        if (varargs) {
+			            sb1.append("[]");
+			        }
+			String typeName = sb1.toString();
 			sb.append(typeName);
 			if (parameters.hasNext()) {
 				sb.append(", ");
@@ -79,20 +91,6 @@ public class AstUtils {
 		sb.append(')');
 		String methodSignature = sb.toString();
 		return methodSignature;
-	}
-	
-	public static String normalizeTypeName(Type type, int extraDimensions, boolean varargs) {
-	    StringBuilder sb = new StringBuilder();
-//	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
-	    String rawTypeName = stripTypeParamsFromTypeName(type.toString());
-        sb.append(rawTypeName);
-        for (int i = extraDimensions; i > 0; i--) {
-            sb.append("[]");
-        }
-        if (varargs) {
-            sb.append("[]");
-        }
-        return sb.toString();
 	}
 	
 	public static String stripTypeParamsFromTypeName(String typeNameWithGenerics) {
