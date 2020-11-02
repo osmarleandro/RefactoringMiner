@@ -91,7 +91,8 @@ public class RefFinderResultReader {
         return new EntityParser() {
             @Override
             String parse(List<String> args) {
-                return normalize(args.get(i - 1));
+                String entity = args.get(i - 1);
+				return entity.replace("%.", ".").replace('#', '.');
             }
         };
     }
@@ -100,7 +101,9 @@ public class RefFinderResultReader {
         return new EntityParser() {
             @Override
             String parse(List<String> args) {
-                return normalize(args.get(i - 1)) + "#" + normalize(args.get(j - 1));
+                String entity = args.get(i - 1);
+				String entity1 = args.get(j - 1);
+				return entity.replace("%.", ".").replace('#', '.') + "#" + entity1.replace("%.", ".").replace('#', '.');
             }
         };
     }
@@ -109,13 +112,10 @@ public class RefFinderResultReader {
         return new EntityParser() {
             @Override
             String parse(List<String> args) {
-                return normalize(args.get(i - 1));
+                String entity = args.get(i - 1);
+				return entity.replace("%.", ".").replace('#', '.');
             }
         };
-    }
-
-    private static String normalize(String entity) {
-        return entity.replace("%.", ".").replace('#', '.');
     }
 }
 
