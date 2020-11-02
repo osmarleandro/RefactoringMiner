@@ -43,10 +43,6 @@ public class RefactoringSet {
         return refactorings;
     }
 
-    public Set<RefactoringRelationship.GroupKey> getRefactoringsGroups() {
-        return refactoringGroups.keySet();
-    }
-
     public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
         return add(new RefactoringRelationship(type, entityBefore, entityAfter));
     }
