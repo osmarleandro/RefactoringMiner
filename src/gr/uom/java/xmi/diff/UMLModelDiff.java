@@ -1700,8 +1700,24 @@ public class UMLModelDiff {
 
    private void extractRenamePatterns(UMLClassBaseDiff classDiff, Map<Replacement, Set<CandidateAttributeRefactoring>> map) {
 	  for(CandidateAttributeRefactoring candidate : classDiff.getCandidateAttributeRenames()) {
-		 String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
-		 String after = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
+		 String input = candidate.getOriginalVariableName();
+		String output = null;
+		if(input.startsWith("this.")) {
+			output = input.substring(5, input.length());
+		}
+		else {
+			output = input;
+		}
+		String before = output;
+		String input1 = candidate.getRenamedVariableName();
+		String output = null;
+		if(input1.startsWith("this.")) {
+			output = input1.substring(5, input1.length());
+		}
+		else {
+			output = input1;
+		}
+		 String after = output;
 		 if(before.contains(".") && after.contains(".")) {
 				String prefix1 = before.substring(0, before.lastIndexOf(".") + 1);
 				String prefix2 = after.substring(0, after.lastIndexOf(".") + 1);
