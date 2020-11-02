@@ -37,10 +37,6 @@ public class RefactoringCrawlerRefactoring {
     return newElement;
   }
 
-  public String getOldElement() {
-    return oldElement;
-  }
-  
   @Override
   public String toString() {
     return type + '\t' + oldElement + '\t' + newElement;
