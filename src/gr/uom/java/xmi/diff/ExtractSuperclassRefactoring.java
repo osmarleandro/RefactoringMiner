@@ -20,15 +20,6 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		this.subclassSet = subclassSet;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
-		sb.append(extractedClass);
-		sb.append(" from classes ");
-		sb.append(subclassSet);
-		return sb.toString();
-	}
-
 	public String getName() {
 		return this.getRefactoringType().getDisplayName();
 	}
