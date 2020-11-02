@@ -19,6 +19,7 @@ import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
+import org.refactoringminer.utils.ResultComparator.CompareResult;
 
 public class ResultComparator {
 
@@ -69,7 +70,38 @@ public class ResultComparator {
     
     public void printSummary(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
         for (String groupId : groupIds) {
-            CompareResult r = getCompareResult(groupId, refTypesToConsider);
+            Set<Object> truePositives = new HashSet<>();
+			Set<Object> falsePositives = new HashSet<>();
+			Set<Object> falseNegatives = new HashSet<>();
+			
+			EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
+			
+			for (RefactoringSet expected : expectedMap.values()) {
+			    RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+			    if (actual != null) {
+			        Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+			        Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+			        Set<RefactoringRelationship> expectedUnfiltered = expected.ignoringMethodParameters(ignoreMethodParams).getRefactorings();
+			        for (RefactoringRelationship r2 : actualRefactorings) {
+			            if (expectedRefactorings.contains(r2)) {
+			                truePositives.add(r2);
+			                expectedRefactorings.remove(r2);
+			            } else {
+			                boolean ignoreFp = 
+			                    ignoreMoveToMovedType && isMoveToMovedType(r2, expectedUnfiltered) ||
+			                    ignoreMoveToRenamedType && isMoveToRenamedType(r2, expectedUnfiltered) ||
+			                    ignorePullUpToExtractedSupertype && isPullUpToExtractedSupertype(r2, expectedUnfiltered);
+			                if (!ignoreFp) {
+			                    falsePositives.add(r2);
+			                }
+			            }
+			        }
+			        for (Object r1 : expectedRefactorings) {
+			            falseNegatives.add(r1);
+			        }
+			    }
+			}
+			CompareResult r = new CompareResult(truePositives, falsePositives, falseNegatives);
             out.println("# " + groupId + " #");
             out.println("Total  " + getResultLine(r.getTPCount(), r.getFPCount(), r.getFNCount()));
 
@@ -84,41 +116,6 @@ public class ResultComparator {
             out.println();
         }
         out.println();
-    }
-
-    public CompareResult getCompareResult(String groupId, EnumSet<RefactoringType> refTypesToConsider) {
-        Set<Object> truePositives = new HashSet<>();
-        Set<Object> falsePositives = new HashSet<>();
-        Set<Object> falseNegatives = new HashSet<>();
-
-        EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
-        
-        for (RefactoringSet expected : expectedMap.values()) {
-            RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
-            if (actual != null) {
-                Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                Set<RefactoringRelationship> expectedUnfiltered = expected.ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                for (RefactoringRelationship r : actualRefactorings) {
-                    if (expectedRefactorings.contains(r)) {
-                        truePositives.add(r);
-                        expectedRefactorings.remove(r);
-                    } else {
-                        boolean ignoreFp = 
-                            ignoreMoveToMovedType && isMoveToMovedType(r, expectedUnfiltered) ||
-                            ignoreMoveToRenamedType && isMoveToRenamedType(r, expectedUnfiltered) ||
-                            ignorePullUpToExtractedSupertype && isPullUpToExtractedSupertype(r, expectedUnfiltered);
-                        if (!ignoreFp) {
-                            falsePositives.add(r);
-                        }
-                    }
-                }
-                for (Object r : expectedRefactorings) {
-                    falseNegatives.add(r);
-                }
-            }
-        }
-        return new CompareResult(truePositives, falsePositives, falseNegatives);
     }
 
     private String getResultLine(int tp, int fp, int fn) {
