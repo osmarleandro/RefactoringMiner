@@ -54,11 +54,6 @@ public class TestBuilder {
 		this.refactoringFilter = refactorings;
 	}
 
-	public TestBuilder verbose() {
-		this.verbose = true;
-		return this;
-	}
-
 	public TestBuilder withAggregation() {
 		this.aggregate = true;
 		return this;
