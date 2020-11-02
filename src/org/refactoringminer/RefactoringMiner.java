@@ -79,7 +79,8 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			sb.append("]").append("\n");
+			sb.append("}");
 			System.out.println(sb.toString());
 		}
 	}
@@ -120,7 +121,8 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			sb.append("]").append("\n");
+			sb.append("}");
 			System.out.println(sb.toString());
 		}
 	}
@@ -161,7 +163,8 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			sb.append("]").append("\n");
+			sb.append("}");
 			System.out.println(sb.toString());
 		}
 	}
@@ -190,7 +193,8 @@ public class RefactoringMiner {
 					e.printStackTrace(System.err);
 				}
 			});
-			endJSON(sb);
+			sb.append("]").append("\n");
+			sb.append("}");
 			System.out.println(sb.toString());
 		}
 	}
@@ -217,7 +221,8 @@ public class RefactoringMiner {
 				e.printStackTrace(System.err);
 			}
 		}, timeout);
-		endJSON(sb);
+		sb.append("]").append("\n");
+		sb.append("}");
 		System.out.println(sb.toString());
 	}
 
@@ -248,7 +253,8 @@ public class RefactoringMiner {
 				e.printStackTrace(System.err);
 			}
 		}, timeout);
-		endJSON(sb);
+		sb.append("]").append("\n");
+		sb.append("}");
 		System.out.println(sb.toString());
 	}
 
@@ -277,11 +283,6 @@ public class RefactoringMiner {
 		sb.append("{").append("\n");
 		sb.append("\"").append("commits").append("\"").append(": ");
 		sb.append("[").append("\n");
-	}
-
-	private static void endJSON(StringBuilder sb) {
-		sb.append("]").append("\n");
-		sb.append("}");
 	}
 
 	private static void printTips() {
