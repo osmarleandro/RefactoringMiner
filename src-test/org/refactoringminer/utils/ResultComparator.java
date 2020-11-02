@@ -124,7 +124,9 @@ public class ResultComparator {
     private String getResultLine(int tp, int fp, int fn) {
         double precision = getPrecision(tp, fp, fn);
         double recall = getRecall(tp, fp, fn);
-        double f1 = getF1(tp, fp, fn);
+		double precision1 = ResultComparator.getPrecision(tp, fp, fn);
+		double recall1 = ResultComparator.getRecall(tp, fp, fn);
+        double f1 = tp == 0 ? 0.0 : 2.0 * precision1 * recall1 / (precision1 + recall1);
         //return String.format("& %3d & %3d & %3d & %3d & %.3f & %.3f \\", tp + fn, tp, fp, fn, precision, recall);
         return String.format("#: %3d  TP: %3d  FP: %3d  FN: %3d  Prec.: %.3f  Recall: %.3f  F1: %.3f", tp + fn, tp, fp, fn, precision, recall, f1);
     }
@@ -135,12 +137,6 @@ public class ResultComparator {
 
     private static double getRecall(int tp, int fp, int fn) {
         return tp == 0 ? 0.0 : ((double) tp) / (tp + fn);
-    }
-
-    private static double getF1(int tp, int fp, int fn) {
-        double precision = ResultComparator.getPrecision(tp, fp, fn);
-        double recall = ResultComparator.getRecall(tp, fp, fn);
-        return tp == 0 ? 0.0 : 2.0 * precision * recall / (precision + recall);
     }
 
     public void printDetails(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
@@ -309,7 +305,9 @@ public class ResultComparator {
             int tp = this.truePositives.size();
             int fp = this.falsePositives.size();
             int fn = this.falseNegatives.size();
-            return ResultComparator.getF1(tp, fp, fn);
+            double precision = ResultComparator.getPrecision(tp, fp, fn);
+			double recall = ResultComparator.getRecall(tp, fp, fn);
+			return tp == 0 ? 0.0 : 2.0 * precision * recall / (precision + recall);
         }
 
         public int getTPCount(RefactoringType rt) {
