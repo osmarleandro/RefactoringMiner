@@ -22,10 +22,6 @@ public class AstUtils {
 		//
 	}
 	
-	public static String getKeyFromTypeBinding(ITypeBinding binding) {
-	    return binding.getErasure().getQualifiedName();
-	}
-	
 	public static String getKeyFromMethodBinding(IMethodBinding binding) {
 		StringBuilder sb = new StringBuilder();
 		String className = binding.getDeclaringClass().getErasure().getQualifiedName();
