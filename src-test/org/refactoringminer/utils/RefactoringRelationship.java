@@ -128,15 +128,6 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return entityAfter;
   }
   
-  @Override
-  public int compareTo(RefactoringRelationship o) {
-    int rt = getRefactoringType().compareTo(o.getRefactoringType());
-    int cm = getMainEntity().compareTo(o.getMainEntity());
-    int cs = getSecondaryEntity().compareTo(o.getSecondaryEntity());
-    int ct = refactoringType.compareTo(o.refactoringType);
-    return rt != 0 ? rt : cm != 0 ? cm : cs != 0 ? cs : ct;
-  }
-
   public GroupKey getGroupKey() {
     return new GroupKey(refactoringType, getMainEntity());
   }
