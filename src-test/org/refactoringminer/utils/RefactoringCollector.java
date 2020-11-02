@@ -1,9 +1,12 @@
 package org.refactoringminer.utils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
+import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
@@ -25,31 +28,103 @@ public class RefactoringCollector extends RefactoringHandler {
     for (Refactoring r : refactorings) {
       if (r instanceof MoveClassRefactoring) {
         MoveClassRefactoring ref = (MoveClassRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof RenameClassRefactoring) {
         RenameClassRefactoring ref = (RenameClassRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getRenamedClassName()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getRenamedClassName());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof ExtractSuperclassRefactoring) {
         ExtractSuperclassRefactoring ref = (ExtractSuperclassRefactoring) r;
         for (String subclass : ref.getSubclassSet()) {
-          rs.add(new RefactoringRelationship(r.getRefactoringType(), subclass, ref.getExtractedClass().getName()));
+          RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), subclass, ref.getExtractedClass().getName());
+			rs.refactorings.add(r1);
+			GroupKey groupKey = r1.getGroupKey();
+			Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+			if (group == null) {
+			    group = new HashSet<>();
+			    rs.refactoringGroups.put(groupKey, group);
+			}
+			group.add(r1);
+		RefactoringSet add = rs;
         }
       } else if (r instanceof MoveOperationRefactoring) {
         MoveOperationRefactoring ref = (MoveOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getMovedOperation().getKey());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof RenameOperationRefactoring) {
         RenameOperationRefactoring ref = (RenameOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalOperation().getKey(), ref.getRenamedOperation().getKey());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof ExtractOperationRefactoring) {
         ExtractOperationRefactoring ref = (ExtractOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceOperationBeforeExtraction().getKey(), ref.getExtractedOperation().getKey()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getSourceOperationBeforeExtraction().getKey(), ref.getExtractedOperation().getKey());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof InlineOperationRefactoring) {
         InlineOperationRefactoring ref = (InlineOperationRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getKey(), ref.getTargetOperationAfterInline().getKey()));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getKey(), ref.getTargetOperationAfterInline().getKey());
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else if (r instanceof MoveAttributeRefactoring) {
         MoveAttributeRefactoring ref = (MoveAttributeRefactoring) r;
         String attrName = ref.getMovedAttribute().getName();
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName() + "#" + attrName, ref.getTargetClassName() + "#" + attrName));
+		RefactoringRelationship r1 = new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName() + "#" + attrName, ref.getTargetClassName() + "#" + attrName);
+		rs.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = rs.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    rs.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+        RefactoringSet add = rs;
       } else {
         throw new RuntimeException("refactoring not supported");
       }

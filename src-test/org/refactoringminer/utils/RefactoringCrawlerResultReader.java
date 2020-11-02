@@ -7,9 +7,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 public class RefactoringCrawlerResultReader {
 
@@ -18,7 +22,16 @@ public class RefactoringCrawlerResultReader {
     try {
       RefactoringSet result = new RefactoringSet(project, revision);
       for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
-        result.add(r.toRefactoringRelationship());
+        RefactoringRelationship r1 = r.toRefactoringRelationship();
+		result.refactorings.add(r1);
+		GroupKey groupKey = r1.getGroupKey();
+		Set<RefactoringRelationship> group = result.refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    result.refactoringGroups.put(groupKey, group);
+		}
+		group.add(r1);
+		RefactoringSet add = result;
       }
       return result;
     } catch (Exception e) {

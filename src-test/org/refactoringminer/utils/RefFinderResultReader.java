@@ -6,11 +6,14 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.utils.RefactoringRelationship.GroupKey;
 
 public class RefFinderResultReader {
 
@@ -20,7 +23,15 @@ public class RefFinderResultReader {
         try {
             RefactoringSet result = new RefactoringSet(project, revision);
             for (RefactoringRelationship r : readFolder(folderPath)) {
-                result.add(r);
+                result.refactorings.add(r);
+				GroupKey groupKey = r.getGroupKey();
+				Set<RefactoringRelationship> group = result.refactoringGroups.get(groupKey);
+				if (group == null) {
+				    group = new HashSet<>();
+				    result.refactoringGroups.put(groupKey, group);
+				}
+				group.add(r);
+				RefactoringSet add = result;
             }
             return result;
         } catch (Exception e) {

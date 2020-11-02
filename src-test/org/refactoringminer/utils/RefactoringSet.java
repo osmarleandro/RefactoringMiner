@@ -48,24 +48,29 @@ public class RefactoringSet {
     }
 
     public RefactoringSet add(RefactoringType type, String entityBefore, String entityAfter) {
-        return add(new RefactoringRelationship(type, entityBefore, entityAfter));
-    }
-
-    public RefactoringSet add(RefactoringRelationship r) {
-        this.refactorings.add(r);
-        GroupKey groupKey = r.getGroupKey();
-        Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
-        if (group == null) {
-            group = new HashSet<>();
-            refactoringGroups.put(groupKey, group);
-        }
-        group.add(r);
-        return this;
+        RefactoringRelationship r = new RefactoringRelationship(type, entityBefore, entityAfter);
+		this.refactorings.add(r);
+		GroupKey groupKey = r.getGroupKey();
+		Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
+		if (group == null) {
+		    group = new HashSet<>();
+		    refactoringGroups.put(groupKey, group);
+		}
+		group.add(r);
+		return this;
     }
 
     public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
-            this.add(r);
+            this.refactorings.add(r);
+			GroupKey groupKey = r.getGroupKey();
+			Set<RefactoringRelationship> group = this.refactoringGroups.get(groupKey);
+			if (group == null) {
+			    group = new HashSet<>();
+			    this.refactoringGroups.put(groupKey, group);
+			}
+			group.add(r);
+			RefactoringSet add1 = this;
         }
         return this;
     }
