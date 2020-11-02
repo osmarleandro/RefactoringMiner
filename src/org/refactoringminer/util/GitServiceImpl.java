@@ -303,26 +303,22 @@ public class GitServiceImpl implements GitService {
         		String oldPath = diff.getOldPath();
         		String newPath = diff.getNewPath();
         		if (changeType != ChangeType.ADD) {
-	        		if (isJavafile(oldPath)) {
+	        		if (oldPath.endsWith(".java")) {
 	        			javaFilesBefore.add(oldPath);
 	        		}
 	        	}
         		if (changeType != ChangeType.DELETE) {
-	        		if (isJavafile(newPath)) {
+	        		if (newPath.endsWith(".java")) {
 	        			javaFilesCurrent.add(newPath);
 	        		}
         		}
         		if (changeType == ChangeType.RENAME && diff.getScore() >= rd.getRenameScore()) {
-        			if (isJavafile(oldPath) && isJavafile(newPath)) {
+        			if (oldPath.endsWith(".java") && newPath.endsWith(".java")) {
         				renamedFilesHint.put(oldPath, newPath);
         			}
         		}
         	}
         }
-	}
-
-	private boolean isJavafile(String path) {
-		return path.endsWith(".java");
 	}
 
 	@Override
