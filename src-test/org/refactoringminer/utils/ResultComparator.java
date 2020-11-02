@@ -393,8 +393,4 @@ public class ResultComparator {
         return ignoreMoveToRenamedType;
     }
 
-    public void setIgnoreMoveToRenamedType(boolean ignoreMoveToRenamedType) {
-        this.ignoreMoveToRenamedType = ignoreMoveToRenamedType;
-    }
-
 }
