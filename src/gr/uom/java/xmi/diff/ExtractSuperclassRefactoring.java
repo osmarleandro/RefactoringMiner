@@ -80,13 +80,4 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		}
 		return ranges;
 	}
-
-	@Override
-	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(extractedClass.codeRange()
-				.setDescription("extracted super-type declaration")
-				.setCodeElement(extractedClass.getName()));
-		return ranges;
-	}
 }
