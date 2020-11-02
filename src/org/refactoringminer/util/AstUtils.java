@@ -108,24 +108,6 @@ public class AstUtils {
 		return rawTypeName;
 	}
 	
-	public static String stripTypeArguments(String entity) {
-        StringBuilder sb = new StringBuilder();
-        int openGenerics = 0;
-        for (int i = 0; i < entity.length(); i++) {
-            char c = entity.charAt(i);
-            if (c == '<') {
-                openGenerics++;
-            }
-            if (openGenerics == 0) {
-                sb.append(c);
-            }
-            if (c == '>') {
-                openGenerics--;
-            }
-        }
-        return sb.toString();
-    }
-	
 	public static String stripQualifiedTypeName(String qualifiedTypeName) {
 		int dotPos = qualifiedTypeName.lastIndexOf('.');
 		if (dotPos >= 0) {
@@ -150,7 +132,22 @@ public class AstUtils {
         sb.append('(');
         
         String[] parameters;
-        String parametersStr = stripTypeArguments(methodSignature.substring(openPar + 1, closePar));
+		String entity = methodSignature.substring(openPar + 1, closePar);
+		StringBuilder sb1 = new StringBuilder();
+		int openGenerics = 0;
+		for (int i1 = 0; i1 < entity.length(); i1++) {
+		    char c = entity.charAt(i1);
+		    if (c == '<') {
+		        openGenerics++;
+		    }
+		    if (openGenerics == 0) {
+		        sb1.append(c);
+		    }
+		    if (c == '>') {
+		        openGenerics--;
+		    }
+		}
+        String parametersStr = sb1.toString();
         if (parametersStr.length() > 0) {
             parameters = parametersStr.split(" *, *");
         } else {
