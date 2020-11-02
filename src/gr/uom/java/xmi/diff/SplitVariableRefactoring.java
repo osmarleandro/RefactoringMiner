@@ -41,10 +41,6 @@ public class SplitVariableRefactoring implements Refactoring {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
-		return operationAfter;
-	}
-
 	public Set<AbstractCodeMapping> getVariableReferences() {
 		return variableReferences;
 	}
@@ -80,7 +76,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	@Override
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
-		pairs.add(new ImmutablePair<String, String>(getOperationAfter().getLocationInfo().getFilePath(), getOperationAfter().getClassName()));
+		pairs.add(new ImmutablePair<String, String>(operationAfter.getLocationInfo().getFilePath(), operationAfter.getClassName()));
 		return pairs;
 	}
 
