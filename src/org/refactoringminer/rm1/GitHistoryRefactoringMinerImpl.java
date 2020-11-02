@@ -70,16 +70,13 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	private GitHub gitHub;
 	
 	public GitHistoryRefactoringMinerImpl() {
-		this.setRefactoringTypesToConsider(RefactoringType.ALL);
-	}
-
-	public void setRefactoringTypesToConsider(RefactoringType ... types) {
+		RefactoringType[] types = RefactoringType.ALL;
 		this.refactoringTypesToConsider = new HashSet<RefactoringType>();
 		for (RefactoringType type : types) {
 			this.refactoringTypesToConsider.add(type);
 		}
 	}
-	
+
 	private void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
 		int commitsCount = 0;
 		int errorCommitsCount = 0;
