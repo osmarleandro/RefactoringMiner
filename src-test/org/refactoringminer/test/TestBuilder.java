@@ -155,7 +155,15 @@ public class TestBuilder {
 
 	private List<String> normalize(String refactoring) {
 		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
-		refactoring = normalizeSingle(refactoring);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < refactoring.length(); i++) {
+			char c = refactoring.charAt(i);
+			if (c == '\t') {
+				c = ' ';
+			}
+			sb.append(c);
+		}
+		refactoring = sb.toString();
 		if (aggregate) {
 			refactoring = refType.aggregate(refactoring);
 		} else {
@@ -172,21 +180,6 @@ public class TestBuilder {
 			}
 		}
 		return Collections.singletonList(refactoring);
-	}
-
-	/**
-	 * Remove generics type information.
-	 */
-	private static String normalizeSingle(String refactoring) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < refactoring.length(); i++) {
-			char c = refactoring.charAt(i);
-			if (c == '\t') {
-				c = ' ';
-			}
-			sb.append(c);
-		}
-		return sb.toString();
 	}
 
 	public class ProjectMatcher extends RefactoringHandler {
