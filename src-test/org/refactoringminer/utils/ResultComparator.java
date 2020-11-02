@@ -57,16 +57,6 @@ public class ResultComparator {
         return this;
     }
 
-    public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
-        for (RefactoringSet actual : actualArray) {
-            groupIds.add(groupId);
-            resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
-        }
-        return this;
-    }
-
-    
-    
     public void printSummary(PrintStream out, EnumSet<RefactoringType> refTypesToConsider) {
         for (String groupId : groupIds) {
             CompareResult r = getCompareResult(groupId, refTypesToConsider);
