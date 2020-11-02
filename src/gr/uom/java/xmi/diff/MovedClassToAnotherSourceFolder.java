@@ -31,10 +31,6 @@ public class MovedClassToAnotherSourceFolder {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
-		return movedClass;
-	}
-
 	public RenamePattern getRenamePattern() {
 		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('/', originalPath, movedPath);
 		if (separatorPos == -1) {
