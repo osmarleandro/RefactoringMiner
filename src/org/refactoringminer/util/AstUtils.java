@@ -126,15 +126,7 @@ public class AstUtils {
         return sb.toString();
     }
 	
-	public static String stripQualifiedTypeName(String qualifiedTypeName) {
-		int dotPos = qualifiedTypeName.lastIndexOf('.');
-		if (dotPos >= 0) {
-			return qualifiedTypeName.substring(dotPos + 1);
-		}
-		return qualifiedTypeName;
-	}
-
-    public static String normalizeMethodSignature(String methodSignature) {
+	public static String normalizeMethodSignature(String methodSignature) {
         StringBuilder sb = new StringBuilder();
         int start = 0;
         int openPar = methodSignature.indexOf('(');
