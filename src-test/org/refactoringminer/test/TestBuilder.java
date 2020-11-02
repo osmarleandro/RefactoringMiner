@@ -59,11 +59,6 @@ public class TestBuilder {
 		return this;
 	}
 
-	public TestBuilder withAggregation() {
-		this.aggregate = true;
-		return this;
-	}
-
 	private static class Counter {
 		int[] c = new int[5];
 	}
