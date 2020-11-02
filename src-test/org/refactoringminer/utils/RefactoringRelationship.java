@@ -32,10 +32,6 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return refactoringType;
   }
 
-  public String getEntityBefore() {
-    return entityBefore;
-  }
-
   public String getEntityAfter() {
     return entityAfter;
   }
