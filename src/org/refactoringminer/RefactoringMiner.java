@@ -63,7 +63,24 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					sb.append("{").append("\n");
+					sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+					String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+					sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+					sb.append("[");
+					int counter = 0;
+					for(Refactoring refactoring : refactorings) {
+						sb.append(refactoring.toJSON());
+						if(counter < refactorings.size()-1) {
+							sb.append(",");
+						}
+						sb.append("\n");
+						counter++;
+					}
+					sb.append("]").append("\n");
+					sb.append("}");
 					commitCount++;
 				}
 
@@ -104,7 +121,24 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					sb.append("{").append("\n");
+					sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+					String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+					sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+					sb.append("[");
+					int counter = 0;
+					for(Refactoring refactoring : refactorings) {
+						sb.append(refactoring.toJSON());
+						if(counter < refactorings.size()-1) {
+							sb.append(",");
+						}
+						sb.append("\n");
+						counter++;
+					}
+					sb.append("]").append("\n");
+					sb.append("}");
 					commitCount++;
 				}
 
@@ -145,7 +179,24 @@ public class RefactoringMiner {
 					if(commitCount > 0) {
 						sb.append(",").append("\n");
 					}
-					commitJSON(sb, gitURL, commitId, refactorings);
+					sb.append("{").append("\n");
+					sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+					String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+					sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+					sb.append("[");
+					int counter = 0;
+					for(Refactoring refactoring : refactorings) {
+						sb.append(refactoring.toJSON());
+						if(counter < refactorings.size()-1) {
+							sb.append(",");
+						}
+						sb.append("\n");
+						counter++;
+					}
+					sb.append("]").append("\n");
+					sb.append("}");
 					commitCount++;
 				}
 
@@ -181,7 +232,24 @@ public class RefactoringMiner {
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
-					commitJSON(sb, gitURL, commitId, refactorings);
+					sb.append("{").append("\n");
+					sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+					String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+					sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+					sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+					sb.append("[");
+					int counter = 0;
+					for(Refactoring refactoring : refactorings) {
+						sb.append(refactoring.toJSON());
+						if(counter < refactorings.size()-1) {
+							sb.append(",");
+						}
+						sb.append("\n");
+						counter++;
+					}
+					sb.append("]").append("\n");
+					sb.append("}");
 				}
 
 				@Override
@@ -208,7 +276,24 @@ public class RefactoringMiner {
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 			@Override
 			public void handle(String commitId, List<Refactoring> refactorings) {
-				commitJSON(sb, gitURL, commitId, refactorings);
+				sb.append("{").append("\n");
+				sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+				sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+				String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+				sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+				sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+				sb.append("[");
+				int counter = 0;
+				for(Refactoring refactoring : refactorings) {
+					sb.append(refactoring.toJSON());
+					if(counter < refactorings.size()-1) {
+						sb.append(",");
+					}
+					sb.append("\n");
+					counter++;
+				}
+				sb.append("]").append("\n");
+				sb.append("}");
 			}
 
 			@Override
@@ -238,7 +323,24 @@ public class RefactoringMiner {
 				if(commitCount > 0) {
 					sb.append(",").append("\n");
 				}
-				commitJSON(sb, gitURL, commitId, refactorings);
+				sb.append("{").append("\n");
+				sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+				sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+				String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+				sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+				sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+				sb.append("[");
+				int counter = 0;
+				for(Refactoring refactoring : refactorings) {
+					sb.append(refactoring.toJSON());
+					if(counter < refactorings.size()-1) {
+						sb.append(",");
+					}
+					sb.append("\n");
+					counter++;
+				}
+				sb.append("]").append("\n");
+				sb.append("}");
 				commitCount++;
 			}
 
@@ -250,27 +352,6 @@ public class RefactoringMiner {
 		}, timeout);
 		endJSON(sb);
 		System.out.println(sb.toString());
-	}
-
-	private static void commitJSON(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
-		sb.append("{").append("\n");
-		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(cloneURL).append("\"").append(",").append("\n");
-		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
-		String url = GitHistoryRefactoringMinerImpl.extractCommitURL(cloneURL, currentCommitId);
-		sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
-		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
-		sb.append("[");
-		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
-			sb.append(refactoring.toJSON());
-			if(counter < refactoringsAtRevision.size()-1) {
-				sb.append(",");
-			}
-			sb.append("\n");
-			counter++;
-		}
-		sb.append("]").append("\n");
-		sb.append("}");
 	}
 
 	private static void startJSON(StringBuilder sb) {
