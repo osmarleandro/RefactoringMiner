@@ -60,7 +60,9 @@ public class ResultComparator {
     public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
-            resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
+			String project = actual.getProject();
+			String revision = actual.getRevision();
+            resultMap.put(project.substring(0, project.length() - 4) + "/commit/" + revision + ";" + groupId, actual);
         }
         return this;
     }
@@ -94,7 +96,9 @@ public class ResultComparator {
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         
         for (RefactoringSet expected : expectedMap.values()) {
-            RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+            String project = expected.getProject();
+			String revision = expected.getRevision();
+			RefactoringSet actual = resultMap.get(project.substring(0, project.length() - 4) + "/commit/" + revision + ";" + groupId);
             if (actual != null) {
                 Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
                 Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -157,7 +161,9 @@ public class ResultComparator {
             for (String groupId : groupIds) {
                 header.append('\t');
                 header.append(groupId);
-                RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+				String project = expected.getProject();
+				String revision = expected.getRevision();
+                RefactoringSet actual = resultMap.get(project.substring(0, project.length() - 4) + "/commit/" + revision + ";" + groupId);
                 if (actual != null) {
                     all.addAll(actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings()); //
                 }
@@ -174,7 +180,9 @@ public class ResultComparator {
                 for (RefactoringRelationship r : allList) {
                     out.print(r.toString());
                     for (String groupId : groupIds) {
-                        RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
+                        String project = expected.getProject();
+						String revision = expected.getRevision();
+						RefactoringSet actual = resultMap.get(project.substring(0, project.length() - 4) + "/commit/" + revision + ";" + groupId);
                         out.print('\t');
                         if (actual != null) {
                             Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -262,10 +270,6 @@ public class ResultComparator {
     
     private String getProjectRevisionId(String project, String revision) {
         return project.substring(0, project.length() - 4) + "/commit/" + revision;
-    }
-
-    private String getResultId(String project, String revision, String groupId) {
-        return project.substring(0, project.length() - 4) + "/commit/" + revision + ";" + groupId;
     }
 
     public static class CompareResult {
