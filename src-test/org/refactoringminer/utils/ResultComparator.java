@@ -247,13 +247,19 @@ public class ResultComparator {
     
     private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+            String entity = r.getEntityBefore();
+			String entity1 = r.getEntityAfter();
+			if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, entity.substring(0, entity.lastIndexOf('.')), entity1.substring(0, entity1.lastIndexOf('.'))))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(parentOf(r.getEntityBefore())), parentOf(parentOf(r.getEntityAfter()))))) {
+			String entity2 = r.getEntityBefore();
+			String entity3 = r.getEntityAfter();
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(entity2.substring(0, entity2.lastIndexOf('.'))), parentOf(entity3.substring(0, entity3.lastIndexOf('.')))))) {
                 return true;
             }
-            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_SOURCE_FOLDER, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
+			String entity4 = r.getEntityBefore();
+			String entity5 = r.getEntityAfter();
+            if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_SOURCE_FOLDER, entity4.substring(0, entity4.lastIndexOf('.')), entity5.substring(0, entity5.lastIndexOf('.'))))) {
                 return true;
             }
         }
