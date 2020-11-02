@@ -31,10 +31,6 @@ public class RefactoringSet {
         this.refactoringGroups = new HashMap<>();
     }
 
-    public String getProject() {
-        return project;
-    }
-
     public String getRevision() {
         return revision;
     }
