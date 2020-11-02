@@ -33,10 +33,6 @@ public class SplitVariableRefactoring implements Refactoring {
 		return splitVariables;
 	}
 
-	public VariableDeclaration getOldVariable() {
-		return oldVariable;
-	}
-
 	public UMLOperation getOperationBefore() {
 		return operationBefore;
 	}
