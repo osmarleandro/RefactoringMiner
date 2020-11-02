@@ -58,29 +58,6 @@ public class AstUtils {
 	    return sb.toString();
 	}
 	
-	public static String getSignatureFromMethodDeclaration(MethodDeclaration methodDeclaration) {
-		String methodName = methodDeclaration.isConstructor() ? "" : methodDeclaration.getName().getIdentifier();
-//		if (methodName.equals("allObjectsSorted")) {
-//			System.out.println();
-//		}
-		StringBuilder sb = new StringBuilder();
-		sb.append(methodName);
-		sb.append('(');
-		Iterator<SingleVariableDeclaration> parameters = methodDeclaration.parameters().iterator();
-		while (parameters.hasNext()) {
-			SingleVariableDeclaration parameter = parameters.next();
-			Type parameterType = parameter.getType();
-			String typeName = normalizeTypeName(parameterType, parameter.getExtraDimensions(), parameter.isVarargs());
-			sb.append(typeName);
-			if (parameters.hasNext()) {
-				sb.append(", ");
-			}
-		}
-		sb.append(')');
-		String methodSignature = sb.toString();
-		return methodSignature;
-	}
-	
 	public static String normalizeTypeName(Type type, int extraDimensions, boolean varargs) {
 	    StringBuilder sb = new StringBuilder();
 //	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
