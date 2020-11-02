@@ -29,10 +29,6 @@ public class RefactoringCrawlerRefactoring {
     this.oldElement = oldElement.trim();
   }
 
-  public String getType() {
-    return type;
-  }
-
   public String getNewElement() {
     return newElement;
   }
