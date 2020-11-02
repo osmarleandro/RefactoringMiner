@@ -45,10 +45,6 @@ public class SplitVariableRefactoring implements Refactoring {
 		return operationAfter;
 	}
 
-	public Set<AbstractCodeMapping> getVariableReferences() {
-		return variableReferences;
-	}
-
 	private boolean allVariablesAreParameters() {
 		for(VariableDeclaration declaration : splitVariables) {
 			if(!declaration.isParameter()) {
