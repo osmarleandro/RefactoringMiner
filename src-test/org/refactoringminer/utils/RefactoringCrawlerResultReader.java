@@ -38,17 +38,14 @@ public class RefactoringCrawlerResultReader {
   }
 
   public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
-    String content = readFile(path, StandardCharsets.UTF_8);
+    Charset encoding = StandardCharsets.UTF_8;
+	byte[] encoded = Files.readAllBytes(Paths.get(path));
+	String content = new String(encoded, encoding);
     Pattern p = Pattern.compile("<refactoring name=\"([^\"]+)\">\\s*<parameter name= \"new element\">([^/]+)</parameter>\\s*<parameter name= \"old element\">([^/]+)</parameter>");
     Matcher m = p.matcher(content);
     while (m.find()) {
       result.add(new RefactoringCrawlerRefactoring(m.group(1), m.group(2), m.group(3)));
     }
-  }
-  
-  static String readFile(String path, Charset encoding) throws IOException {
-    byte[] encoded = Files.readAllBytes(Paths.get(path));
-    return new String(encoded, encoding);
   }
   
 }
