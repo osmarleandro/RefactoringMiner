@@ -52,10 +52,6 @@ public class ExtractSuperclassRefactoring implements Refactoring {
 		return subclassSet;
 	}
 
-	public Set<UMLClass> getUMLSubclassSet() {
-		return new LinkedHashSet<UMLClass>(subclassSet);
-	}
-
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
 		Set<ImmutablePair<String, String>> pairs = new LinkedHashSet<ImmutablePair<String, String>>();
 		for(UMLClass umlClass : this.subclassSet) {
