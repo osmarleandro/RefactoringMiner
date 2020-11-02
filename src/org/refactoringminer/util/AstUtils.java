@@ -26,29 +26,6 @@ public class AstUtils {
 	    return binding.getErasure().getQualifiedName();
 	}
 	
-	public static String getKeyFromMethodBinding(IMethodBinding binding) {
-		StringBuilder sb = new StringBuilder();
-		String className = binding.getDeclaringClass().getErasure().getQualifiedName();
-		sb.append(className);
-		sb.append('#');
-		String methodName = binding.isConstructor() ? "" : binding.getName();
-		sb.append(methodName);
-		//if (methodName.equals("allObjectsSorted")) {
-		//	System.out.println();
-		//}
-		sb.append('(');
-		ITypeBinding[] parameters = binding.getParameterTypes();
-		for (int i = 0; i < parameters.length; i++) {
-			if (i > 0) {
-				sb.append(", ");
-			}
-			ITypeBinding type = parameters[i];
-			sb.append(type.getErasure().getName());
-		}
-		sb.append(')');
-		return sb.toString();
-	}
-
 	public static String getKeyFromFieldBinding(IVariableBinding binding) {
 	    StringBuilder sb = new StringBuilder();
 	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
