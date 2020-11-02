@@ -199,10 +199,6 @@ public class AstUtils {
 		return false;
 	}
 
-	public static int countNumberOfStatements(MethodDeclaration decl) {
-		return new StatementCounter().countStatements(decl);
-	}
-	
 	private static class StatementCounter extends ASTVisitor {
 		private int counter;
 		public int countStatements(MethodDeclaration methodDeclaration) {
