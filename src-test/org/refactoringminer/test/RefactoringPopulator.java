@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.refactoringminer.test.RefactoringPopulator.Root;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -94,17 +96,12 @@ public class RefactoringPopulator {
 			throws JsonParseException, JsonMappingException, IOException {
 
 		if ((systemsFlag & Systems.FSE.getValue()) > 0) {
-			prepareFSERefactorings(test, refactoringsFlag);
-		}
-	}
-
-	private static void prepareFSERefactorings(TestBuilder test, BigInteger flag)
-			throws JsonParseException, JsonMappingException, IOException {
-		List<Root> roots = getFSERefactorings(flag);
-		
-		for (Root root : roots) {
-			test.project(root.repository, "master").atCommit(root.sha1)
-					.containsOnly(extractRefactorings(root.refactorings));
+			List<Root> roots = getFSERefactorings(refactoringsFlag);
+			
+			for (Root root : roots) {
+				test.project(root.repository, "master").atCommit(root.sha1)
+						.containsOnly(extractRefactorings(root.refactorings));
+			}
 		}
 	}
 
