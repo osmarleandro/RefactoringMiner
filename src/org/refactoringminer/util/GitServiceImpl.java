@@ -126,15 +126,6 @@ public class GitServiceImpl implements GitService {
 //		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
 	}
 
-	public void checkout2(Repository repository, String commitId) throws Exception {
-	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
-		File workingDir = repository.getDirectory().getParentFile();
-		String output = ExternalProcess.execute(workingDir, "git", "checkout", commitId);
-		if (output.startsWith("fatal")) {
-		    throw new RuntimeException("git error " + output);
-		}
-	}
-
 	@Override
 	public int countCommits(Repository repository, String branch) throws Exception {
 		RevWalk walk = new RevWalk(repository);
