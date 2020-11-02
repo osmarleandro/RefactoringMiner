@@ -23,10 +23,6 @@ public class MovedClassToAnotherSourceFolder {
 		return originalClass.getName();
 	}
 
-	public String getMovedClassName() {
-		return movedClass.getName();
-	}
-
 	public UMLClass getOriginalClass() {
 		return originalClass;
 	}
