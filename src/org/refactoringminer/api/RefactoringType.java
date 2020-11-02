@@ -121,11 +121,7 @@ public enum RefactoringType {
 		this.aggregateGroups = aggregateGroups;
 	}
 
-	public Pattern getRegex() {
-        return regex;
-    }
-
-    public String getDisplayName() {
+	public String getDisplayName() {
 		return this.displayName;
 	}
 
