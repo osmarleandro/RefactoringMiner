@@ -108,38 +108,6 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SplitVariableRefactoring other = (SplitVariableRefactoring) obj;
-		if (oldVariable == null) {
-			if (other.oldVariable != null)
-				return false;
-		} else if (!oldVariable.equals(other.oldVariable))
-			return false;
-		if (operationAfter == null) {
-			if (other.operationAfter != null)
-				return false;
-		} else if (!operationAfter.equals(other.operationAfter))
-			return false;
-		if (operationBefore == null) {
-			if (other.operationBefore != null)
-				return false;
-		} else if (!operationBefore.equals(other.operationBefore))
-			return false;
-		if (splitVariables == null) {
-			if (other.splitVariables != null)
-				return false;
-		} else if (!splitVariables.equals(other.splitVariables))
-			return false;
-		return true;
-	}
-
-	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(oldVariable.codeRange()
