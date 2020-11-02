@@ -49,15 +49,6 @@ public class AstUtils {
 		return sb.toString();
 	}
 
-	public static String getKeyFromFieldBinding(IVariableBinding binding) {
-	    StringBuilder sb = new StringBuilder();
-	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
-	    sb.append(className);
-	    sb.append('#');
-	    sb.append(binding.getName());
-	    return sb.toString();
-	}
-	
 	public static String getSignatureFromMethodDeclaration(MethodDeclaration methodDeclaration) {
 		String methodName = methodDeclaration.isConstructor() ? "" : methodDeclaration.getName().getIdentifier();
 //		if (methodName.equals("allObjectsSorted")) {
