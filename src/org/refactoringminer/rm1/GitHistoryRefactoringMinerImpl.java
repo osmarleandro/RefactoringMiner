@@ -216,7 +216,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	private void downloadAndExtractZipFile(File projectFolder, String cloneURL, String commitId)
 			throws IOException {
-		String downloadLink = extractDownloadLink(cloneURL, commitId);
+		int indexOfDotGit = cloneURL.length();
+				if(cloneURL.endsWith(".git")) {
+					indexOfDotGit = cloneURL.indexOf(".git");
+				}
+				else if(cloneURL.endsWith("/")) {
+					indexOfDotGit = cloneURL.length() - 1;
+				}
+				String downloadResource = "/";
+				if(cloneURL.startsWith(GITHUB_URL)) {
+					downloadResource = "/archive/";
+				}
+				else if(cloneURL.startsWith(BITBUCKET_URL)) {
+					downloadResource = "/get/";
+				}
+				String downloadLink1 = cloneURL.substring(0, indexOfDotGit) + downloadResource + commitId + ".zip";
+		String downloadLink = downloadLink1;
 		File destinationFile = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + commitId + ".zip");
 		logger.info(String.format("Downloading archive %s", downloadLink));
 		FileUtils.copyURLToFile(new URL(downloadLink), destinationFile);
@@ -708,24 +723,5 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 		String commitURL = cloneURL.substring(0, indexOfDotGit) + commitResource + commitId;
 		return commitURL;
-	}
-
-	private static String extractDownloadLink(String cloneURL, String commitId) {
-		int indexOfDotGit = cloneURL.length();
-		if(cloneURL.endsWith(".git")) {
-			indexOfDotGit = cloneURL.indexOf(".git");
-		}
-		else if(cloneURL.endsWith("/")) {
-			indexOfDotGit = cloneURL.length() - 1;
-		}
-		String downloadResource = "/";
-		if(cloneURL.startsWith(GITHUB_URL)) {
-			downloadResource = "/archive/";
-		}
-		else if(cloneURL.startsWith(BITBUCKET_URL)) {
-			downloadResource = "/get/";
-		}
-		String downloadLink = cloneURL.substring(0, indexOfDotGit) + downloadResource + commitId + ".zip";
-		return downloadLink;
 	}
 }
