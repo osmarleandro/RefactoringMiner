@@ -19,10 +19,6 @@ public class MovedClassToAnotherSourceFolder {
 		this.movedPath = movedPath;
 	}
 	
-	public String getOriginalClassName() {
-		return originalClass.getName();
-	}
-
 	public String getMovedClassName() {
 		return movedClass.getName();
 	}
