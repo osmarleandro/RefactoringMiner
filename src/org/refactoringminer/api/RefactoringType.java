@@ -253,15 +253,6 @@ public enum RefactoringType {
         throw new RuntimeException("Unknown refactoring type: " + refactoringDescription);
     }
 
-    public String getGroup(String refactoringDescription, int group) {
-        Matcher m = regex.matcher(refactoringDescription);
-        if (m.matches()) {
-            return m.group(group);
-        } else {
-            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
-        }
-    }
-    
     public static RefactoringType fromName(String name) {
       String lcName = name.toLowerCase();
       for (RefactoringType rt : RefactoringType.values()) {
