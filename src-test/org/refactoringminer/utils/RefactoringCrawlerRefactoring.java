@@ -41,11 +41,6 @@ public class RefactoringCrawlerRefactoring {
     return oldElement;
   }
   
-  @Override
-  public String toString() {
-    return type + '\t' + oldElement + '\t' + newElement;
-  }
-
   RefactoringRelationship toRefactoringRelationship() {
     RefactoringType refType = TYPE_MAP.get(type);
     if (refType == null) {
