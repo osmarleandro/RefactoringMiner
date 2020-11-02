@@ -19,6 +19,7 @@ import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
+import org.refactoringminer.test.TestBuilder.Counter;
 import org.refactoringminer.util.GitServiceImpl;
 
 public class TestBuilder {
@@ -66,17 +67,6 @@ public class TestBuilder {
 
 	private static class Counter {
 		int[] c = new int[5];
-	}
-
-	private void count(int type, String refactoring) {
-		c.c[type]++;
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
-		Counter refTypeCounter = cMap.get(refType);
-		if (refTypeCounter == null) {
-			refTypeCounter = new Counter();
-			cMap.put(refType, refTypeCounter);
-		}
-		refTypeCounter.c[type]++;
 	}
 
 	private int get(int type) {
@@ -261,7 +251,14 @@ public class TestBuilder {
 						iter.remove();
 						refactoringsFound.remove(expectedRefactoring);
 						this.truePositiveCount++;
-						count(TP, expectedRefactoring);
+						c.c[TP]++;
+						RefactoringType refType = RefactoringType.extractFromDescription(expectedRefactoring);
+						Counter refTypeCounter = cMap.get(refType);
+						if (refTypeCounter == null) {
+							refTypeCounter = new Counter();
+							cMap.put(refType, refTypeCounter);
+						}
+						refTypeCounter.c[TP]++;
 						matcher.truePositive.add(expectedRefactoring);
 					}
 				}
@@ -272,10 +269,24 @@ public class TestBuilder {
 					if (refactoringsFound.contains(notExpectedRefactoring)) {
 						refactoringsFound.remove(notExpectedRefactoring);
 						this.falsePositiveCount++;
-						count(FP, notExpectedRefactoring);
+						c.c[FP]++;
+						RefactoringType refType = RefactoringType.extractFromDescription(notExpectedRefactoring);
+						Counter refTypeCounter = cMap.get(refType);
+						if (refTypeCounter == null) {
+							refTypeCounter = new Counter();
+							cMap.put(refType, refTypeCounter);
+						}
+						refTypeCounter.c[FP]++;
 					} else {
 						this.trueNegativeCount++;
-						count(TN, notExpectedRefactoring);
+						c.c[TN]++;
+						RefactoringType refType = RefactoringType.extractFromDescription(notExpectedRefactoring);
+						Counter refTypeCounter = cMap.get(refType);
+						if (refTypeCounter == null) {
+							refTypeCounter = new Counter();
+							cMap.put(refType, refTypeCounter);
+						}
+						refTypeCounter.c[TN]++;
 						iter.remove();
 					}
 				}
@@ -284,20 +295,41 @@ public class TestBuilder {
 					for (String refactoring : refactoringsFound) {
 						matcher.unknown.add(refactoring);
 						this.unknownCount++;
-						count(UNK, refactoring);
+						c.c[UNK]++;
+						RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+						Counter refTypeCounter = cMap.get(refType);
+						if (refTypeCounter == null) {
+							refTypeCounter = new Counter();
+							cMap.put(refType, refTypeCounter);
+						}
+						refTypeCounter.c[UNK]++;
 					}
 				} else {
 					for (String refactoring : refactoringsFound) {
 						matcher.notExpected.add(refactoring);
 						this.falsePositiveCount++;
-						count(FP, refactoring);
+						c.c[FP]++;
+						RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+						Counter refTypeCounter = cMap.get(refType);
+						if (refTypeCounter == null) {
+							refTypeCounter = new Counter();
+							cMap.put(refType, refTypeCounter);
+						}
+						refTypeCounter.c[FP]++;
 					}
 				}
 
 				// count false negatives
 				for (String expectedButNotFound : matcher.expected) {
 					this.falseNegativeCount++;
-					count(FN, expectedButNotFound);
+					c.c[FN]++;
+					RefactoringType refType = RefactoringType.extractFromDescription(expectedButNotFound);
+					Counter refTypeCounter = cMap.get(refType);
+					if (refTypeCounter == null) {
+						refTypeCounter = new Counter();
+						cMap.put(refType, refTypeCounter);
+					}
+					refTypeCounter.c[FN]++;
 				}
 			}
 		}
