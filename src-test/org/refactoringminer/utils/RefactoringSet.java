@@ -39,10 +39,6 @@ public class RefactoringSet {
         return revision;
     }
 
-    public Set<RefactoringRelationship> getRefactorings() {
-        return refactorings;
-    }
-
     public Set<RefactoringRelationship.GroupKey> getRefactoringsGroups() {
         return refactoringGroups.keySet();
     }
