@@ -36,10 +36,6 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
     return entityBefore;
   }
 
-  public String getEntityAfter() {
-    return entityAfter;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof RefactoringRelationship) {
