@@ -33,10 +33,6 @@ public class RefactoringCrawlerRefactoring {
     return type;
   }
 
-  public String getNewElement() {
-    return newElement;
-  }
-
   public String getOldElement() {
     return oldElement;
   }
