@@ -79,10 +79,6 @@ public class TestBuilder {
 		refTypeCounter.c[type]++;
 	}
 
-	private int get(int type) {
-		return c.c[type];
-	}
-
 	private int get(int type, Counter counter) {
 		return counter.c[type];
 	}
@@ -135,7 +131,7 @@ public class TestBuilder {
 			}
 		}
 
-		boolean success = get(FP) == 0 && get(FN) == 0 && get(TP) > 0;
+		boolean success = c.c[FP] == 0 && c.c[FN] == 0 && c.c[TP] > 0;
 		if (!success || verbose) {
 			for (ProjectMatcher m : map.values()) {
 				m.printResults();
