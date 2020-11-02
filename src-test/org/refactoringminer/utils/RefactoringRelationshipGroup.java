@@ -36,13 +36,4 @@ public class RefactoringRelationshipGroup {
     }
     return false;
   }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + getMainEntity().hashCode();
-    result = prime * result + getRefactoringType().hashCode();
-    return result;
-  }
 }
