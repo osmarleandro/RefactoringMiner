@@ -99,23 +99,6 @@ public class GitServiceImpl implements GitService {
 		return repository;
 	}
 
-	@Override
-	public Repository openRepository(String repositoryPath) throws Exception {
-	    File folder = new File(repositoryPath);
-	    Repository repository;
-	    if (folder.exists()) {
-	        RepositoryBuilder builder = new RepositoryBuilder();
-	        repository = builder
-	            .setGitDir(new File(folder, ".git"))
-	            .readEnvironment()
-	            .findGitDir()
-	            .build();
-	    } else {
-	        throw new FileNotFoundException(repositoryPath);
-	    }
-	    return repository;
-	}
-
 	public void checkout(Repository repository, String commitId) throws Exception {
 	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
 	    try (Git git = new Git(repository)) {
