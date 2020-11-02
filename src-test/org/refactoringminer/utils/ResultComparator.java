@@ -369,10 +369,6 @@ public class ResultComparator {
         return ignoreMethodParams;
     }
 
-    public void setIgnoreMethodParams(boolean ignoreMethodParams) {
-        this.ignoreMethodParams = ignoreMethodParams;
-    }
-
     public boolean isIgnorePullUpToExtractedSupertype() {
         return ignorePullUpToExtractedSupertype;
     }
