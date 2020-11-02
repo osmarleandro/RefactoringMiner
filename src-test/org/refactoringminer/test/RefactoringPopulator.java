@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.refactoringminer.test.RefactoringPopulator.Refactoring;
+import org.refactoringminer.test.RefactoringPopulator.Root;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -100,7 +103,32 @@ public class RefactoringPopulator {
 
 	private static void prepareFSERefactorings(TestBuilder test, BigInteger flag)
 			throws JsonParseException, JsonMappingException, IOException {
-		List<Root> roots = getFSERefactorings(flag);
+		ObjectMapper mapper = new ObjectMapper();
+				
+				String jsonFile = System.getProperty("user.dir") + "/src-test/Data/data.json";
+				
+				List<Root> roots1 = mapper.readValue(new File(jsonFile),
+						mapper.getTypeFactory().constructCollectionType(List.class, Root.class));
+				
+				List<Root> filtered = new ArrayList<>();
+				List<String> deletedCommits = getDeletedCommits();
+				for (Root root1 : roots1) {
+					if(!deletedCommits.contains(root1.sha1)) {
+						List<Refactoring> refactorings = new ArrayList<>();
+				
+						root1.refactorings.forEach((refactoring) -> {
+							if (isAdded(refactoring, flag))
+								refactorings.add(refactoring);
+						});
+				
+						if (refactorings.size() > 0) {
+							Root tmp = root1;
+							tmp.refactorings = refactorings;
+							filtered.add(tmp);
+						}
+					}
+				}
+		List<Root> roots = filtered;
 		
 		for (Root root : roots) {
 			test.project(root.repository, "master").atCommit(root.sha1)
@@ -143,35 +171,6 @@ public class RefactoringPopulator {
 		return deletedCommits;
 	}
 
-	public static List<Root> getFSERefactorings(BigInteger flag) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-
-		String jsonFile = System.getProperty("user.dir") + "/src-test/Data/data.json";
-
-		List<Root> roots = mapper.readValue(new File(jsonFile),
-				mapper.getTypeFactory().constructCollectionType(List.class, Root.class));
-
-		List<Root> filtered = new ArrayList<>();
-		List<String> deletedCommits = getDeletedCommits();
-		for (Root root : roots) {
-			if(!deletedCommits.contains(root.sha1)) {
-				List<Refactoring> refactorings = new ArrayList<>();
-	
-				root.refactorings.forEach((refactoring) -> {
-					if (isAdded(refactoring, flag))
-						refactorings.add(refactoring);
-				});
-	
-				if (refactorings.size() > 0) {
-					Root tmp = root;
-					tmp.refactorings = refactorings;
-					filtered.add(tmp);
-				}
-			}
-		}
-		return filtered;
-	}
-
 	private static boolean isAdded(Refactoring refactoring, BigInteger flag) {
 		try {
 			BigInteger value = Enum.valueOf(Refactorings.class, refactoring.type.replace(" ", "")).getValue();
@@ -185,7 +184,32 @@ public class RefactoringPopulator {
 	public static void printRefDiffResults(BigInteger flag) {
 		Hashtable<String, Tuple> result = new Hashtable<>();
 		try {
-			List<Root> roots = getFSERefactorings(flag);
+			ObjectMapper mapper = new ObjectMapper();
+			
+			String jsonFile = System.getProperty("user.dir") + "/src-test/Data/data.json";
+			
+			List<Root> roots1 = mapper.readValue(new File(jsonFile),
+					mapper.getTypeFactory().constructCollectionType(List.class, Root.class));
+			
+			List<Root> filtered = new ArrayList<>();
+			List<String> deletedCommits = getDeletedCommits();
+			for (Root root1 : roots1) {
+				if(!deletedCommits.contains(root1.sha1)) {
+					List<Refactoring> refactorings = new ArrayList<>();
+			
+					root1.refactorings.forEach((refactoring) -> {
+						if (isAdded(refactoring, flag))
+							refactorings.add(refactoring);
+					});
+			
+					if (refactorings.size() > 0) {
+						Root tmp1 = root1;
+						tmp1.refactorings = refactorings;
+						filtered.add(tmp1);
+					}
+				}
+			}
+			List<Root> roots = filtered;
 			for (Refactorings ref : Refactorings.values()) {
 				if (ref == Refactorings.All)
 					continue;
