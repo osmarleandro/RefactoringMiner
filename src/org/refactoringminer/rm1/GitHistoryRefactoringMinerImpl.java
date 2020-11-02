@@ -247,7 +247,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
+		int hostLength = 0;
+		if(cloneURL.startsWith(GITHUB_URL)) {
+			hostLength = GITHUB_URL.length();
+		}
+		else if(cloneURL.startsWith(BITBUCKET_URL)) {
+			hostLength = BITBUCKET_URL.length();
+		}
+		int indexOfDotGit = cloneURL.length();
+		if(cloneURL.endsWith(".git")) {
+			indexOfDotGit = cloneURL.indexOf(".git");
+		}
+		else if(cloneURL.endsWith("/")) {
+			indexOfDotGit = cloneURL.length() - 1;
+		}
+		String repoName1 = cloneURL.substring(hostLength, indexOfDotGit);
+		String repoName = repoName1;
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit commit = repository.getCommit(currentCommitId);
 		String parentCommitId = commit.getParents().get(0).getSHA1();
@@ -509,7 +524,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent) throws IOException, InterruptedException {
 		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
+		int hostLength = 0;
+		if(cloneURL.startsWith(GITHUB_URL)) {
+			hostLength = GITHUB_URL.length();
+		}
+		else if(cloneURL.startsWith(BITBUCKET_URL)) {
+			hostLength = BITBUCKET_URL.length();
+		}
+		int indexOfDotGit = cloneURL.length();
+		if(cloneURL.endsWith(".git")) {
+			indexOfDotGit = cloneURL.indexOf(".git");
+		}
+		else if(cloneURL.endsWith("/")) {
+			indexOfDotGit = cloneURL.length() - 1;
+		}
+		String repoName1 = cloneURL.substring(hostLength, indexOfDotGit);
+		String repoName = repoName1;
 		GHRepository repository = gitHub.getRepository(repoName);
 		GHCommit currentCommit = repository.getCommit(currentCommitId);
 		final String parentCommitId = currentCommit.getParents().get(0).getSHA1();
@@ -660,19 +690,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	@Override
 	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
 		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
-		GHRepository repository = gitHub.getRepository(repoName);
-		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
-		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
-		for(GHPullRequestCommitDetail commit : commits) {
-			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
-		}
-	}
-
-	private static final String GITHUB_URL = "https://github.com/";
-	private static final String BITBUCKET_URL = "https://bitbucket.org/";
-
-	private static String extractRepositoryName(String cloneURL) {
 		int hostLength = 0;
 		if(cloneURL.startsWith(GITHUB_URL)) {
 			hostLength = GITHUB_URL.length();
@@ -687,9 +704,18 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		else if(cloneURL.endsWith("/")) {
 			indexOfDotGit = cloneURL.length() - 1;
 		}
-		String repoName = cloneURL.substring(hostLength, indexOfDotGit);
-		return repoName;
+		String repoName1 = cloneURL.substring(hostLength, indexOfDotGit);
+		String repoName = repoName1;
+		GHRepository repository = gitHub.getRepository(repoName);
+		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
+		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
+		for(GHPullRequestCommitDetail commit : commits) {
+			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
+		}
 	}
+
+	private static final String GITHUB_URL = "https://github.com/";
+	private static final String BITBUCKET_URL = "https://bitbucket.org/";
 
 	public static String extractCommitURL(String cloneURL, String commitId) {
 		int indexOfDotGit = cloneURL.length();
