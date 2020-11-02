@@ -35,10 +35,6 @@ public class RefactoringSet {
         return project;
     }
 
-    public String getRevision() {
-        return revision;
-    }
-
     public Set<RefactoringRelationship> getRefactorings() {
         return refactorings;
     }
