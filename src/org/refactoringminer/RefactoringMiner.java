@@ -256,7 +256,22 @@ public class RefactoringMiner {
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(cloneURL).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
-		String url = GitHistoryRefactoringMinerImpl.extractCommitURL(cloneURL, currentCommitId);
+		int indexOfDotGit = cloneURL.length();
+		if(cloneURL.endsWith(".git")) {
+			indexOfDotGit = cloneURL.indexOf(".git");
+		}
+		else if(cloneURL.endsWith("/")) {
+			indexOfDotGit = cloneURL.length() - 1;
+		}
+		String commitResource = "/";
+		if(cloneURL.startsWith(GitHistoryRefactoringMinerImpl.GITHUB_URL)) {
+			commitResource = "/commit/";
+		}
+		else if(cloneURL.startsWith(GitHistoryRefactoringMinerImpl.BITBUCKET_URL)) {
+			commitResource = "/commits/";
+		}
+		String commitURL = cloneURL.substring(0, indexOfDotGit) + commitResource + currentCommitId;
+		String url = commitURL;
 		sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
