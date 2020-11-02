@@ -55,7 +55,9 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			sb.append("{").append("\n");
+			sb.append("\"").append("commits").append("\"").append(": ");
+			sb.append("[").append("\n");
 			detector.detectAll(repo, branch, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -96,7 +98,9 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			sb.append("{").append("\n");
+			sb.append("\"").append("commits").append("\"").append(": ");
+			sb.append("[").append("\n");
 			detector.detectBetweenCommits(repo, startCommit, endCommit, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -137,7 +141,9 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			sb.append("{").append("\n");
+			sb.append("\"").append("commits").append("\"").append(": ");
+			sb.append("[").append("\n");
 			detector.detectBetweenTags(repo, startTag, endTag, new RefactoringHandler() {
 				private int commitCount = 0;
 				@Override
@@ -177,7 +183,9 @@ public class RefactoringMiner {
 			String gitURL = repo.getConfig().getString("remote", "origin", "url");
 			GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 			StringBuilder sb = new StringBuilder();
-			startJSON(sb);
+			sb.append("{").append("\n");
+			sb.append("\"").append("commits").append("\"").append(": ");
+			sb.append("[").append("\n");
 			detector.detectAtCommit(repo, commitId, new RefactoringHandler() {
 				@Override
 				public void handle(String commitId, List<Refactoring> refactorings) {
@@ -204,7 +212,9 @@ public class RefactoringMiner {
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
-		startJSON(sb);
+		sb.append("{").append("\n");
+		sb.append("\"").append("commits").append("\"").append(": ");
+		sb.append("[").append("\n");
 		detector.detectAtCommit(gitURL, commitId, new RefactoringHandler() {
 			@Override
 			public void handle(String commitId, List<Refactoring> refactorings) {
@@ -230,7 +240,9 @@ public class RefactoringMiner {
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
 		StringBuilder sb = new StringBuilder();
-		startJSON(sb);
+		sb.append("{").append("\n");
+		sb.append("\"").append("commits").append("\"").append(": ");
+		sb.append("[").append("\n");
 		detector.detectAtPullRequest(gitURL, pullId, new RefactoringHandler() {
 			private int commitCount = 0;
 			@Override
@@ -271,12 +283,6 @@ public class RefactoringMiner {
 		}
 		sb.append("]").append("\n");
 		sb.append("}");
-	}
-
-	private static void startJSON(StringBuilder sb) {
-		sb.append("{").append("\n");
-		sb.append("\"").append("commits").append("\"").append(": ");
-		sb.append("[").append("\n");
 	}
 
 	private static void endJSON(StringBuilder sb) {
