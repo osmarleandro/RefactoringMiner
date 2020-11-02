@@ -36,7 +36,20 @@ public class MovedClassToAnotherSourceFolder {
 	}
 
 	public RenamePattern getRenamePattern() {
-		int separatorPos = PrefixSuffixUtils.separatorPosOfCommonSuffix('/', originalPath, movedPath);
+		int l1 = originalPath.length();
+		int l2 = movedPath.length();
+		int separatorPos1 = -1; 
+		int lmin = Math.min(originalPath.length(), movedPath.length());
+		boolean equal = true;
+		for (int i = 0; i < lmin; i++) {
+			char c1 = originalPath.charAt(l1 - i - 1);
+			char c2 = movedPath.charAt(l2 - i - 1);
+			equal = equal && c1 == c2;
+			if (equal && c1 == '/') {
+				separatorPos1 = i;
+			}
+		}
+		int separatorPos = separatorPos1;
 		if (separatorPos == -1) {
 			return new RenamePattern(originalPath, movedPath);
 		}
