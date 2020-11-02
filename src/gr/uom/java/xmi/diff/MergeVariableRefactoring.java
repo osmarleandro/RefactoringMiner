@@ -65,7 +65,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	public String getName() {
-		return this.getRefactoringType().getDisplayName();
+		return this.getRefactoringType().displayName;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {

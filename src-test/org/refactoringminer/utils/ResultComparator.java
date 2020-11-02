@@ -313,15 +313,15 @@ public class ResultComparator {
         }
 
         public int getTPCount(RefactoringType rt) {
-            return (int) this.truePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.truePositives.stream().filter(r -> r.toString().startsWith(rt.displayName)).count();
         }
 
         public int getFPCount(RefactoringType rt) {
-            return (int) this.falsePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.falsePositives.stream().filter(r -> r.toString().startsWith(rt.displayName)).count();
         }
 
         public int getFNCount(RefactoringType rt) {
-            return (int) this.falseNegatives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
+            return (int) this.falseNegatives.stream().filter(r -> r.toString().startsWith(rt.displayName)).count();
         }
     }
 

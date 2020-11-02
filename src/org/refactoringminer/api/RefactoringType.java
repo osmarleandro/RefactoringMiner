@@ -125,10 +125,6 @@ public enum RefactoringType {
         return regex;
     }
 
-    public String getDisplayName() {
-		return this.displayName;
-	}
-
     public String getAbbreviation() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.displayName.length(); i++) {
@@ -246,7 +242,7 @@ public enum RefactoringType {
 
     public static RefactoringType extractFromDescription(String refactoringDescription) {
         for (RefactoringType refType : RefactoringType.values()) {
-            if (refactoringDescription.startsWith(refType.getDisplayName())) {
+            if (refactoringDescription.startsWith(refType.displayName)) {
                 return refType;
             }
         }
@@ -265,7 +261,7 @@ public enum RefactoringType {
     public static RefactoringType fromName(String name) {
       String lcName = name.toLowerCase();
       for (RefactoringType rt : RefactoringType.values()) {
-        if (lcName.equals(rt.getDisplayName().toLowerCase())) {
+        if (lcName.equals(rt.displayName.toLowerCase())) {
           return rt;
         }
       }
