@@ -18,10 +18,6 @@ public class PushDownOperationRefactoring extends MoveOperationRefactoring {
 		super(originalOperation, movedOperation);
 	}
 
-	public RefactoringType getRefactoringType() {
-		return RefactoringType.PUSH_DOWN_OPERATION;
-	}
-
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
