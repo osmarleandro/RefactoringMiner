@@ -179,21 +179,33 @@ public enum RefactoringType {
             case MOVE_OPERATION:
             case PULL_UP_OPERATION:
             case PUSH_DOWN_OPERATION: {
-                String entityBefore = methodKey(m.group(1), m.group(2));
-                String entityAfter = methodKey(m.group(3), m.group(4));
+                String methodSignature = m.group(1);
+				String typeKey = m.group(2);
+				String entityBefore = typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
+				String methodSignature1 = m.group(3);
+				String typeKey1 = m.group(4);
+                String entityAfter = typeKey1 + "#" + AstUtils.normalizeMethodSignature(methodSignature1);
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
             case RENAME_METHOD:
             case INLINE_OPERATION: {
-                String entityBefore = methodKey(m.group(1), m.group(3));
-                String entityAfter = methodKey(m.group(2), m.group(3));
+                String methodSignature = m.group(1);
+				String typeKey = m.group(3);
+				String entityBefore = typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
+				String methodSignature1 = m.group(2);
+				String typeKey1 = m.group(3);
+                String entityAfter = typeKey1 + "#" + AstUtils.normalizeMethodSignature(methodSignature1);
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
             case EXTRACT_OPERATION: {
-                String entityBefore = methodKey(m.group(2), m.group(3));
-                String entityAfter = methodKey(m.group(1), m.group(3));
+                String methodSignature = m.group(2);
+				String typeKey = m.group(3);
+				String entityBefore = typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
+				String methodSignature1 = m.group(1);
+				String typeKey1 = m.group(3);
+                String entityAfter = typeKey1 + "#" + AstUtils.normalizeMethodSignature(methodSignature1);
                 result.add(new RefactoringRelationship(refType, entityBefore, entityAfter));
                 return;
             }
@@ -220,10 +232,6 @@ public enum RefactoringType {
         } else {
             throw new RuntimeException("Pattern not matched: " + refactoringDescription);
         }
-    }
-
-    private static String methodKey(String methodSignature, String typeKey) {
-        return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
     }
 
     private static String attributeKey(String attribute, String typeKey) {
