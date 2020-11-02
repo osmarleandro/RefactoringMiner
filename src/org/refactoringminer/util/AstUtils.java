@@ -186,19 +186,6 @@ public class AstUtils {
         }
     }
 
-	public static boolean containsDeprecatedTag(Javadoc javadoc) {
-		if (javadoc == null) {
-			return false;
-		}
-		List<TagElement> javadocTags = (List<TagElement>) javadoc.tags();
-		for (TagElement tag : javadocTags) {
-			if ("@deprecated".equals(tag.getTagName())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public static int countNumberOfStatements(MethodDeclaration decl) {
 		return new StatementCounter().countStatements(decl);
 	}
