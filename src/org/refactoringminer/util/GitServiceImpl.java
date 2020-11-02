@@ -199,10 +199,6 @@ public class GitServiceImpl implements GitService {
 		return walk;
 	}
 
-	public RevWalk createAllRevsWalk(Repository repository) throws Exception {
-		return this.createAllRevsWalk(repository, null);
-	}
-
 	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception {
 		List<ObjectId> currentRemoteRefs = new ArrayList<ObjectId>(); 
 		for (Ref ref : repository.getRefDatabase().getRefs()) {
