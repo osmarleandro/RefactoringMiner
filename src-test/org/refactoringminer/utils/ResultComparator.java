@@ -50,13 +50,6 @@ public class ResultComparator {
         return this;
     }
 
-    public ResultComparator dontExpect(RefactoringSet ... sets) {
-        for (RefactoringSet set : sets) {
-            notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
-        }
-        return this;
-    }
-
     public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
