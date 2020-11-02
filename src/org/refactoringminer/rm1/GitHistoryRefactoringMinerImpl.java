@@ -186,7 +186,33 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			List<String> filesBefore = new ArrayList<String>();
 			List<String> filesCurrent = new ArrayList<String>();
 			Map<String, String> renamedFilesHint = new HashMap<String, String>();
-			String parentCommitId = populateWithGitHubAPI(cloneURL, currentCommitId, filesBefore, filesCurrent, renamedFilesHint);
+			logger.info("Processing {} {} ...", cloneURL, currentCommitId);
+			GitHub gitHub = connectToGitHub();
+			String repoName = extractRepositoryName(cloneURL);
+			GHRepository repository = gitHub.getRepository(repoName);
+			GHCommit commit = repository.getCommit(currentCommitId);
+			String parentCommitId1 = commit.getParents().get(0).getSHA1();
+			List<GHCommit.File> commitFiles = commit.getFiles();
+			for (GHCommit.File commitFile : commitFiles) {
+				if (commitFile.getFileName().endsWith(".java")) {
+					if (commitFile.getStatus().equals("modified")) {
+						filesBefore.add(commitFile.getFileName());
+						filesCurrent.add(commitFile.getFileName());
+					}
+					else if (commitFile.getStatus().equals("added")) {
+						filesCurrent.add(commitFile.getFileName());
+					}
+					else if (commitFile.getStatus().equals("removed")) {
+						filesBefore.add(commitFile.getFileName());
+					}
+					else if (commitFile.getStatus().equals("renamed")) {
+						filesBefore.add(commitFile.getPreviousFilename());
+						filesCurrent.add(commitFile.getFileName());
+						renamedFilesHint.put(commitFile.getPreviousFilename(), commitFile.getFileName());
+					}
+				}
+			}
+			String parentCommitId = parentCommitId1;
 			File currentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + currentCommitId);
 			File parentFolder = new File(projectFolder.getParentFile(), projectFolder.getName() + "-" + parentCommitId);
 			if (!currentFolder.exists()) {	
@@ -241,37 +267,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		} finally {
 			zipFile.close();
 		}
-	}
-
-	private String populateWithGitHubAPI(String cloneURL, String currentCommitId,
-			List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint) throws IOException {
-		logger.info("Processing {} {} ...", cloneURL, currentCommitId);
-		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
-		GHRepository repository = gitHub.getRepository(repoName);
-		GHCommit commit = repository.getCommit(currentCommitId);
-		String parentCommitId = commit.getParents().get(0).getSHA1();
-		List<GHCommit.File> commitFiles = commit.getFiles();
-		for (GHCommit.File commitFile : commitFiles) {
-			if (commitFile.getFileName().endsWith(".java")) {
-				if (commitFile.getStatus().equals("modified")) {
-					filesBefore.add(commitFile.getFileName());
-					filesCurrent.add(commitFile.getFileName());
-				}
-				else if (commitFile.getStatus().equals("added")) {
-					filesCurrent.add(commitFile.getFileName());
-				}
-				else if (commitFile.getStatus().equals("removed")) {
-					filesBefore.add(commitFile.getFileName());
-				}
-				else if (commitFile.getStatus().equals("renamed")) {
-					filesBefore.add(commitFile.getPreviousFilename());
-					filesCurrent.add(commitFile.getFileName());
-					renamedFilesHint.put(commitFile.getPreviousFilename(), commitFile.getFileName());
-				}
-			}
-		}
-		return parentCommitId;
 	}
 
 	private GitHub connectToGitHub() {
