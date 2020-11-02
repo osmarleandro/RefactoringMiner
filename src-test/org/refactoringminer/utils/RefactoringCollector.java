@@ -55,10 +55,6 @@ public class RefactoringCollector extends RefactoringHandler {
       }
     }
   }
-  @Override
-  public void handleException(String commitId, Exception e) {
-    this.ex = e;
-  }
   public RefactoringSet assertAndGetResult() {
     if (ex == null) {
       return rs;
