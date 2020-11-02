@@ -29,10 +29,6 @@ public class SplitVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public Set<VariableDeclaration> getSplitVariables() {
-		return splitVariables;
-	}
-
 	public VariableDeclaration getOldVariable() {
 		return oldVariable;
 	}
