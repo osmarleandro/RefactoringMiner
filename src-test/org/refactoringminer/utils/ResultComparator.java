@@ -43,13 +43,6 @@ public class ResultComparator {
         this(false, false);
     }
 
-    public ResultComparator expect(RefactoringSet ... sets) {
-        for (RefactoringSet set : sets) {
-            expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
-        }
-        return this;
-    }
-
     public ResultComparator dontExpect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
