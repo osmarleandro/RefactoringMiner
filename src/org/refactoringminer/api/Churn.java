@@ -10,10 +10,6 @@ public class Churn {
 		this.linesRemoved = linesRemoved;
 	}
 
-	public int getLinesAdded() {
-		return linesAdded;
-	}
-
 	public int getLinesRemoved() {
 		return linesRemoved;
 	}
