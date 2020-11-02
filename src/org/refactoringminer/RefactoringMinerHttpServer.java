@@ -63,8 +63,32 @@ public class RefactoringMinerHttpServer {
 					detectedRefactorings.addAll(refactorings);
 				}
 			}, timeout);
+			StringBuilder sb = new StringBuilder();
+			sb.append("{").append("\n");
+			sb.append("\"").append("commits").append("\"").append(": ");
+			sb.append("[");
+			sb.append("{");
+			sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
+			sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(commitId).append("\"").append(",").append("\n");
+			String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, commitId);
+			sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
+			sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
+			sb.append("[");
+			int counter = 0;
+			for(Refactoring refactoring : detectedRefactorings) {
+				sb.append(refactoring.toJSON());
+				if(counter < detectedRefactorings.size()-1) {
+					sb.append(",");
+				}
+				sb.append("\n");
+				counter++;
+			}
+			sb.append("]");
+			sb.append("}");
+			sb.append("]").append("\n");
+			sb.append("}");
 
-			String response = JSON(gitURL, commitId, detectedRefactorings);
+			String response = sb.toString();
 			System.out.println(response);
 			exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 			exchange.sendResponseHeaders(200, response.length());
@@ -86,34 +110,6 @@ public class RefactoringMinerHttpServer {
 			}
 		}
 		return result;
-	}
-
-	private static String JSON(String gitURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{").append("\n");
-		sb.append("\"").append("commits").append("\"").append(": ");
-		sb.append("[");
-		sb.append("{");
-		sb.append("\t").append("\"").append("repository").append("\"").append(": ").append("\"").append(gitURL).append("\"").append(",").append("\n");
-		sb.append("\t").append("\"").append("sha1").append("\"").append(": ").append("\"").append(currentCommitId).append("\"").append(",").append("\n");
-		String url = GitHistoryRefactoringMinerImpl.extractCommitURL(gitURL, currentCommitId);
-		sb.append("\t").append("\"").append("url").append("\"").append(": ").append("\"").append(url).append("\"").append(",").append("\n");
-		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
-		sb.append("[");
-		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
-			sb.append(refactoring.toJSON());
-			if(counter < refactoringsAtRevision.size()-1) {
-				sb.append(",");
-			}
-			sb.append("\n");
-			counter++;
-		}
-		sb.append("]");
-		sb.append("}");
-		sb.append("]").append("\n");
-		sb.append("}");
-		return sb.toString();
 	}
 
 	private static void printRequestInfo(HttpExchange exchange) {
