@@ -361,10 +361,6 @@ public class ResultComparator {
         return groupRefactorings;
     }
 
-    public void setGroupRefactorings(boolean groupRefactorings) {
-        this.groupRefactorings = groupRefactorings;
-    }
-
     public boolean isIgnoreMethodParams() {
         return ignoreMethodParams;
     }
