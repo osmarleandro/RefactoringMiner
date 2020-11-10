@@ -63,6 +63,11 @@ public class OperationBody {
 	public List<OperationInvocation> getAllOperationInvocations() {
 		List<OperationInvocation> invocations = new ArrayList<OperationInvocation>();
 		Map<String, List<OperationInvocation>> invocationMap = compositeStatement.getAllMethodInvocations();
+		return extracted(invocations, invocationMap);
+	}
+
+	private List<OperationInvocation> extracted(List<OperationInvocation> invocations,
+			Map<String, List<OperationInvocation>> invocationMap) {
 		for(String key : invocationMap.keySet()) {
 			invocations.addAll(invocationMap.get(key));
 		}
