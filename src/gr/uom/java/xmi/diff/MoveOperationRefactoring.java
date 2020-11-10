@@ -90,11 +90,15 @@ public class MoveOperationRefactoring implements Refactoring {
 		if(ref.getMovedAttribute().getClassName().equals(this.movedOperation.getClassName()) &&
 				ref.getOriginalAttribute().getClassName().equals(this.originalOperation.getClassName())) {
 			List<String> originalOperationVariables = this.originalOperation.getAllVariables();
-			List<String> movedOperationVariables = this.movedOperation.getAllVariables();
-			return originalOperationVariables.contains(ref.getOriginalAttribute().getName()) &&
-					movedOperationVariables.contains(ref.getMovedAttribute().getName());
+			return extracted(ref, originalOperationVariables);
 		}
 		return false;
+	}
+
+	private boolean extracted(MoveAttributeRefactoring ref, List<String> originalOperationVariables) {
+		List<String> movedOperationVariables = this.movedOperation.getAllVariables();
+		return originalOperationVariables.contains(ref.getOriginalAttribute().getName()) &&
+				movedOperationVariables.contains(ref.getMovedAttribute().getName());
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
