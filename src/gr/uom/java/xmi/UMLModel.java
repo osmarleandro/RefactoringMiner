@@ -65,8 +65,8 @@ public class UMLModel {
     		UMLGeneralization generalization = generalizationIt.next();
     		if(generalization.getChild().equals(otherGeneralization.getChild())) {
     			String thisParent = generalization.getParent();
-    			String otherParent = otherGeneralization.getParent();
-    			String thisParentComparedString = null;
+    			String thisParentComparedString;
+				String otherParent = extracted(otherGeneralization);
     			if(thisParent.contains("."))
     				thisParentComparedString = thisParent.substring(thisParent.lastIndexOf(".")+1);
     			else
@@ -82,6 +82,12 @@ public class UMLModel {
     	}
     	return null;
     }
+
+	private String extracted(UMLGeneralization otherGeneralization) {
+		String otherParent = otherGeneralization.getParent();
+		String thisParentComparedString = null;
+		return otherParent;
+	}
 
     public UMLRealization matchRealization(UMLRealization otherRealization) {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
