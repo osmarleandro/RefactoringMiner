@@ -21,6 +21,10 @@ public class LeafType extends UMLType {
 	private static String simpleNameOf(String name) {
 		int numberOfDots = 0;
 		int indexOfFirstUpperCaseCharacterFollowedByDot = -1;
+		return extracted(name, numberOfDots, indexOfFirstUpperCaseCharacterFollowedByDot);
+	}
+
+	private static String extracted(String name, int numberOfDots, int indexOfFirstUpperCaseCharacterFollowedByDot) {
 		for (int i = 0; i < name.length(); i++) {
 			if (name.charAt(i) == '.') {
 				numberOfDots++;
