@@ -446,6 +446,10 @@ public abstract class AbstractCodeMapping {
 			return true;
 		if (obj == null)
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		AbstractCodeMapping other = (AbstractCodeMapping) obj;
