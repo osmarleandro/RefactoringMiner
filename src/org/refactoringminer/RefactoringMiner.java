@@ -285,9 +285,7 @@ public class RefactoringMiner {
 	}
 
 	private static void printTips() {
-		System.out.println("-h\t\t\t\t\t\t\t\tShow tips");
-		System.out.println(
-				"-a <git-repo-folder> <branch>\t\t\t\t\tDetect all refactorings at <branch> for <git-repo-folder>. If <branch> is not specified, commits from all branches are analyzed.");
+		extracted();
 		System.out.println(
 				"-bc <git-repo-folder> <start-commit-sha1> <end-commit-sha1>\tDetect refactorings Between <start-commit-sha1> and <end-commit-sha1> for project <git-repo-folder>");
 		System.out.println(
@@ -298,6 +296,12 @@ public class RefactoringMiner {
 				"-gc <git-URL> <commit-sha1> <timeout>\t\t\t\tDetect refactorings at specified commit <commit-sha1> for project <git-URL> within the given <timeout> in seconds. All required information is obtained directly from GitHub using the OAuth token in github-oauth.properties");
 		System.out.println(
 				"-gp <git-URL> <pull-request> <timeout>\t\t\t\tDetect refactorings at specified pull request <pull-request> for project <git-URL> within the given <timeout> in seconds for each commit in the pull request. All required information is obtained directly from GitHub using the OAuth token in github-oauth.properties");
+	}
+
+	private static void extracted() {
+		System.out.println("-h\t\t\t\t\t\t\t\tShow tips");
+		System.out.println(
+				"-a <git-repo-folder> <branch>\t\t\t\t\tDetect all refactorings at <branch> for <git-repo-folder>. If <branch> is not specified, commits from all branches are analyzed.");
 	}
 
 	private static IllegalArgumentException argumentException() {
