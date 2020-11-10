@@ -126,13 +126,18 @@ public class ExtractVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
+		List<CodeRange> ranges = extracted();
+		for(AbstractCodeMapping mapping : references) {
+			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
+		}
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("extracted variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
-		}
 		return ranges;
 	}
 }
