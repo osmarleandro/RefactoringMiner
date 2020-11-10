@@ -1652,12 +1652,8 @@ public class UMLModelDiff {
 
    public List<UMLOperationBodyMapper> findMappersWithMatchingSignature2(UMLOperation operation2) {
 	   List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
-	   for(UMLClassDiff classDiff : commonClassDiffList) {
-		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
-		   if(mapper != null) {
-			   mappers.add(mapper);
-		   }
-	   }
+	   for(UMLClassDiff classDiff : commonClassDiffList)
+		extracted(operation2, mappers, classDiff);
 	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
 		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
 		   if(mapper != null) {
@@ -1678,6 +1674,15 @@ public class UMLModelDiff {
 	   }
 	   return mappers;
    }
+
+private void extracted(UMLOperation operation2, List<UMLOperationBodyMapper> mappers, UMLClassDiff classDiff) {
+	{
+		   UMLOperationBodyMapper mapper = classDiff.findMapperWithMatchingSignature2(operation2);
+		   if(mapper != null) {
+			   mappers.add(mapper);
+		   }
+	   }
+}
 
    private void extractMergePatterns(UMLClassBaseDiff classDiff, Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap) {
 	   for(CandidateMergeVariableRefactoring candidate : classDiff.getCandidateAttributeMerges()) {
