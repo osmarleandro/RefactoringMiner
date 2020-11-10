@@ -101,7 +101,18 @@ public class RefactoringMinerHttpServer {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(Refactoring refactoring : refactoringsAtRevision)
+			counter = extracted(refactoringsAtRevision, sb, counter, refactoring);
+		sb.append("]");
+		sb.append("}");
+		sb.append("]").append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	private static int extracted(List<Refactoring> refactoringsAtRevision, StringBuilder sb, int counter,
+			Refactoring refactoring) {
+		{
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");
@@ -109,11 +120,7 @@ public class RefactoringMinerHttpServer {
 			sb.append("\n");
 			counter++;
 		}
-		sb.append("]");
-		sb.append("}");
-		sb.append("]").append("\n");
-		sb.append("}");
-		return sb.toString();
+		return counter;
 	}
 
 	private static void printRequestInfo(HttpExchange exchange) {
