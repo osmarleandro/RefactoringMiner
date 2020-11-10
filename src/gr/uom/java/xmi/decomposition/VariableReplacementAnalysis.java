@@ -1193,6 +1193,10 @@ public class VariableReplacementAnalysis {
 		if(index1 == -1 && callSiteOperation != null) {
 			index1 = callSiteOperation.getParameterNameList().indexOf(replacement.getBefore());
 		}
+		return extracted(replacement, set, index1);
+	}
+
+	private boolean extracted(Replacement replacement, Set<AbstractCodeMapping> set, int index1) {
 		int index2 = operation2.getParameterNameList().indexOf(replacement.getAfter());
 		if(index2 == -1 && callSiteOperation != null) {
 			index2 = callSiteOperation.getParameterNameList().indexOf(replacement.getAfter());
