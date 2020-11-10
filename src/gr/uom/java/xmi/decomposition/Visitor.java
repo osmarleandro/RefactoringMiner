@@ -781,11 +781,16 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(LambdaExpression node) {
 		LambdaExpressionObject lambda = new LambdaExpressionObject(cu, filePath, node);
 		lambdas.add(lambda);
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(lambda);
+		return false;
+	}
+
+	private void extracted(LambdaExpressionObject lambda) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getLambdas().add(lambda);
 		}
-		return false;
 	}
 
 	public Map<String, List<OperationInvocation>> getMethodInvocationMap() {
