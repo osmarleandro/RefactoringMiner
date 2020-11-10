@@ -36,13 +36,18 @@ public class UMLAnonymousClass extends UMLAbstractClass implements Comparable<UM
     		return true;
     	}
     	
-    	if(o instanceof UMLAnonymousClass) {
+    	if(o instanceof UMLAnonymousClass)
+			return extracted(o);
+    	return false;
+    }
+
+	private boolean extracted(Object o) {
+		{
     		UMLAnonymousClass umlClass = (UMLAnonymousClass)o;
     		return this.packageName.equals(umlClass.packageName) && this.attributes.equals(umlClass.attributes) &&
     				this.operations.equals(umlClass.operations) && this.getSourceFile().equals(umlClass.getSourceFile());
     	}
-    	return false;
-    }
+	}
 
     public String toString() {
     	return getName();
