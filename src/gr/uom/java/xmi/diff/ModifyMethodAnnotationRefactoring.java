@@ -44,13 +44,18 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
+		List<CodeRange> ranges = extracted();
+		ranges.add(operationBefore.codeRange()
+				.setDescription("original method declaration")
+				.setCodeElement(operationBefore.toString()));
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationBefore.codeRange()
 				.setDescription("original annotation")
 				.setCodeElement(annotationBefore.toString()));
-		ranges.add(operationBefore.codeRange()
-				.setDescription("original method declaration")
-				.setCodeElement(operationBefore.toString()));
 		return ranges;
 	}
 
