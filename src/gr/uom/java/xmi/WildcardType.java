@@ -12,9 +12,14 @@ public class WildcardType extends UMLType {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
+		int result = extracted(prime);
+		result = prime * result + (upperBound ? 1231 : 1237);
+		return result;
+	}
+
+	private int extracted(final int prime) {
 		int result = 1;
 		result = prime * result + ((bound == null) ? 0 : bound.hashCode());
-		result = prime * result + (upperBound ? 1231 : 1237);
 		return result;
 	}
 
