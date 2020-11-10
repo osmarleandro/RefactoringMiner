@@ -191,13 +191,19 @@ public class ExtractOperationDetection {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(addedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(addedOperation)) {
-						CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
-						parent.addChild(node);
+						CallTreeNode node = extracted(operation, parent, addedOperation, invocation);
 						generateCallTree(addedOperation, node, callTree);
 					}
 				}
 			}
 		}
+	}
+
+	private CallTreeNode extracted(UMLOperation operation, CallTreeNode parent, UMLOperation addedOperation,
+			OperationInvocation invocation) {
+		CallTreeNode node = new CallTreeNode(operation, addedOperation, invocation);
+		parent.addChild(node);
+		return node;
 	}
 
 	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
