@@ -232,7 +232,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 
 	private boolean isCastExpressionCoveringEntireFragment(String expression) {
 		String statement = getString();
-		int index = statement.indexOf(expression + ";\n");
+		int index = extracted(expression, statement);
 		if(index != -1) {
 			String prefix = statement.substring(0, index);
 			if(prefix.contains("(") && prefix.contains(")")) {
@@ -243,6 +243,11 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 			}
 		}
 		return false;
+	}
+
+	private int extracted(String expression, String statement) {
+		int index = statement.indexOf(expression + ";\n");
+		return index;
 	}
 
 	protected boolean containsInitializerOfVariableDeclaration(Set<String> expressions) {
