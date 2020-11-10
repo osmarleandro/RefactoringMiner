@@ -69,7 +69,11 @@ public abstract class AbstractCodeMapping {
 	private boolean isKeyword() {
 		return fragment1.getString().startsWith("return;") ||
 				fragment1.getString().startsWith("break;") ||
-				fragment1.getString().startsWith("continue;");
+				extracted();
+	}
+
+	private boolean extracted() {
+		return fragment1.getString().startsWith("continue;");
 	}
 
 	private boolean isExactAfterAbstraction() {
