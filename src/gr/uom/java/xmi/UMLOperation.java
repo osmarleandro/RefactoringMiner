@@ -512,7 +512,13 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
             return true;
         }
 		
-		if(o instanceof UMLOperation) {
+		if(o instanceof UMLOperation)
+			return extracted(o);
+		return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
 			UMLOperation operation = (UMLOperation)o;
 			boolean thisEmptyBody = this.getBody() == null || this.hasEmptyBody();
 			boolean otherEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
@@ -524,7 +530,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.getParameterTypeList().equals(operation.getParameterTypeList()) &&
 				equalTypeParameters(operation);
 		}
-		return false;
 	}
 
 	public boolean equalsQualified(UMLOperation operation) {
