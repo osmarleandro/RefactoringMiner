@@ -3520,18 +3520,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<String> intersection = new LinkedHashSet<String>(tokens1);
 			intersection.retainAll(tokens2);
 			Set<String> filteredIntersection = new LinkedHashSet<String>();
-			for(String common : intersection) {
-				boolean foundInReplacements = false;
-				for(Replacement r : info.replacements) {
-					if(r.getBefore().contains(common) || r.getAfter().contains(common)) {
-						foundInReplacements = true;
-						break;
-					}
-				}
-				if(!foundInReplacements) {
-					filteredIntersection.add(common);
-				}
-			}
+			for(String common : intersection)
+				extracted(info, filteredIntersection, common);
 			int size = filteredIntersection.size();
 			int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
 			if((size > 0 && size > threshold) || (size > 1 && size >= threshold)) {
@@ -3541,6 +3531,21 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
+	}
+
+	private void extracted(ReplacementInfo info, Set<String> filteredIntersection, String common) {
+		{
+			boolean foundInReplacements = false;
+			for(Replacement r : info.replacements) {
+				if(r.getBefore().contains(common) || r.getAfter().contains(common)) {
+					foundInReplacements = true;
+					break;
+				}
+			}
+			if(!foundInReplacements) {
+				filteredIntersection.add(common);
+			}
+		}
 	}
 
 	private boolean commonConditional(String s1, String s2, ReplacementInfo info) {
