@@ -89,14 +89,19 @@ public class MoveAttributeRefactoring implements Refactoring {
 
 	public int hashCode() {
 		if(hashCode == 0) {
-			int result = 17;
-			result = 37*result + originalAttribute.hashCode();
+			int result = extracted();
 			result = 37*result + movedAttribute.hashCode();
 			result = 37*result + getSourceClassName().hashCode();
 			result = 37*result + getTargetClassName().hashCode();
 			hashCode = result;
 		}
 		return hashCode;
+	}
+
+	private int extracted() {
+		int result = 17;
+		result = 37*result + originalAttribute.hashCode();
+		return result;
 	}
 
 	public Set<ImmutablePair<String, String>> getInvolvedClassesBeforeRefactoring() {
