@@ -242,8 +242,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     					String thisParameterType = parameter.getType().getClassType();
     					String otherParameterType = otherParameter.getType().getClassType();
     					int thisArrayDimension = parameter.getType().getArrayDimension();
-    					int otherArrayDimension = otherParameter.getType().getArrayDimension();
-    					String thisParameterTypeComparedString = null;
+    					String thisParameterTypeComparedString;
+						int otherArrayDimension = extracted(otherParameter);
     	    			if(thisParameterType.contains("."))
     	    				thisParameterTypeComparedString = thisParameterType.substring(thisParameterType.lastIndexOf(".")+1);
     	    			else
@@ -266,6 +266,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	}
     	return null;
     }
+
+	private int extracted(UMLParameter otherParameter) {
+		int otherArrayDimension = otherParameter.getType().getArrayDimension();
+		String thisParameterTypeComparedString = null;
+		return otherArrayDimension;
+	}
 
     public boolean hasSameNameAndKind(UMLClass umlClass) {
     	if(!this.name.equals(umlClass.name))
