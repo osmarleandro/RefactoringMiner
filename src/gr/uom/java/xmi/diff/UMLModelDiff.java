@@ -2282,7 +2282,11 @@ public class UMLModelDiff {
 		   return false;
 	   }
 	   String sourceClassName = null;
-	   String targetClassName = null;
+	   return extracted(mappers, sourceClassName);
+   }
+
+private boolean extracted(List<UMLOperationBodyMapper> mappers, String sourceClassName) {
+	String targetClassName = null;
 	   for (UMLOperationBodyMapper mapper : mappers) {
 		   String mapperSourceClassName = mapper.getOperation1().getClassName();
 		   if(sourceClassName == null) {
@@ -2300,7 +2304,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return true;
-   }
+}
 
    private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
         int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
