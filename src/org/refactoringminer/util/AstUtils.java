@@ -50,12 +50,17 @@ public class AstUtils {
 	}
 
 	public static String getKeyFromFieldBinding(IVariableBinding binding) {
-	    StringBuilder sb = new StringBuilder();
-	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
-	    sb.append(className);
+	    StringBuilder sb = extracted(binding);
 	    sb.append('#');
 	    sb.append(binding.getName());
 	    return sb.toString();
+	}
+
+	private static StringBuilder extracted(IVariableBinding binding) {
+		StringBuilder sb = new StringBuilder();
+	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
+	    sb.append(className);
+		return sb;
 	}
 	
 	public static String getSignatureFromMethodDeclaration(MethodDeclaration methodDeclaration) {
