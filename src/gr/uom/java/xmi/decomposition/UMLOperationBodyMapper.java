@@ -3748,20 +3748,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String argument = parameterToArgumentMap.get(parameter);
 			if(!parameter.equals(argument)) {
 				Set<String> toBeAdded = new LinkedHashSet<String>();
-				for(String call : calls) {
-					String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
-					if(!call.equals(afterReplacement)) {
-						toBeAdded.add(afterReplacement);
-						List<? extends AbstractCall> oldCalls = callMap.get(call);
-						List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
-						for(AbstractCall oldCall : oldCalls) {
-							AbstractCall newCall = oldCall.update(parameter, argument);
-							newCalls.add(newCall);
-						}
-						callMap.put(afterReplacement, newCalls);
-					}
-				}
+				for(String call : calls)
+					extracted(callMap, parameter, argument, toBeAdded, call);
 				calls.addAll(toBeAdded);
+			}
+		}
+	}
+
+	private void extracted(Map<String, List<? extends AbstractCall>> callMap, String parameter, String argument,
+			Set<String> toBeAdded, String call) {
+		{
+			String afterReplacement = ReplacementUtil.performArgumentReplacement(call, parameter, argument);
+			if(!call.equals(afterReplacement)) {
+				toBeAdded.add(afterReplacement);
+				List<? extends AbstractCall> oldCalls = callMap.get(call);
+				List<AbstractCall> newCalls = new ArrayList<AbstractCall>();
+				for(AbstractCall oldCall : oldCalls) {
+					AbstractCall newCall = oldCall.update(parameter, argument);
+					newCalls.add(newCall);
+				}
+				callMap.put(afterReplacement, newCalls);
 			}
 		}
 	}
