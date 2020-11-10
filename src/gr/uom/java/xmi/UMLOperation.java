@@ -307,6 +307,10 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 		if(!equalTypeParameters(operation))
 			return false;
+		return extracted(operation);
+	}
+
+	private boolean extracted(UMLOperation operation) {
 		int i=0;
 		for(UMLParameter thisParameter : this.parameters) {
 			UMLParameter otherParameter = operation.parameters.get(i);
@@ -330,14 +334,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 		if(!equalTypeParameters(operation))
 			return false;
-		int i=0;
-		for(UMLParameter thisParameter : this.parameters) {
-			UMLParameter otherParameter = operation.parameters.get(i);
-			if(!thisParameter.equals(otherParameter) && !thisParameter.equalsExcludingType(otherParameter))
-				return false;
-			i++;
-		}
-		return true;
+		return extracted(operation);
 	}
 
 	private boolean equivalentName(UMLOperation operation) {
