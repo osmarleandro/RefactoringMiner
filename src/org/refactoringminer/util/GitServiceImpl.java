@@ -12,12 +12,16 @@ import java.util.stream.StreamSupport;
 
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.Edit.Type;
 import org.eclipse.jgit.diff.RenameDetector;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -228,13 +232,19 @@ public class GitServiceImpl implements GitService {
 		Ref refFrom = repository.findRef(startTag);
 		Ref refTo = repository.findRef(endTag);
 		try (Git git = new Git(repository)) {
-			List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
-					.spliterator(), false)
-			        .filter(r -> r.getParentCount() == 1)
-			        .collect(Collectors.toList());
-			Collections.reverse(revCommits);
+			List<RevCommit> revCommits = extracted(refFrom, refTo, git);
 			return revCommits;
 		}
+	}
+
+	private List<RevCommit> extracted(Ref refFrom, Ref refTo, Git git)
+			throws GitAPIException, NoHeadException, MissingObjectException, IncorrectObjectTypeException {
+		List<RevCommit> revCommits = StreamSupport.stream(git.log().addRange(getActualRefObjectId(refFrom), getActualRefObjectId(refTo)).call()
+				.spliterator(), false)
+		        .filter(r -> r.getParentCount() == 1)
+		        .collect(Collectors.toList());
+		Collections.reverse(revCommits);
+		return revCommits;
 	}
 
 	private ObjectId getActualRefObjectId(Ref ref) {
