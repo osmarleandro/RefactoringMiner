@@ -593,17 +593,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private void processMapperRefactorings(UMLOperationBodyMapper mapper, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : mapper.getRefactorings()) {
-			if(refactorings.contains(refactoring)) {
-				//special handling for replacing rename variable refactorings having statement mapping information
-				int index = refactorings.indexOf(refactoring);
-				refactorings.remove(index);
-				refactorings.add(index, refactoring);
-			}
-			else {
-				refactorings.add(refactoring);
-			}
-		}
+		for(Refactoring refactoring : mapper.getRefactorings())
+			extracted(refactorings, refactoring);
 		for(CandidateAttributeRefactoring candidate : mapper.getCandidateAttributeRenames()) {
 			if(!multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(candidate, refactorings)) {
 				String before = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
@@ -644,6 +635,20 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			String before = PrefixSuffixUtils.normalize(candidate.getOldVariable());
 			SplitVariableReplacement split = new SplitVariableReplacement(before, after);
 			processSplit(splitMap, split, candidate);
+		}
+	}
+
+	private void extracted(List<Refactoring> refactorings, Refactoring refactoring) {
+		{
+			if(refactorings.contains(refactoring)) {
+				//special handling for replacing rename variable refactorings having statement mapping information
+				int index = refactorings.indexOf(refactoring);
+				refactorings.remove(index);
+				refactorings.add(index, refactoring);
+			}
+			else {
+				refactorings.add(refactoring);
+			}
 		}
 	}
 
