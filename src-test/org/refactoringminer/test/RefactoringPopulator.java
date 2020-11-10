@@ -186,11 +186,8 @@ public class RefactoringPopulator {
 		Hashtable<String, Tuple> result = new Hashtable<>();
 		try {
 			List<Root> roots = getFSERefactorings(flag);
-			for (Refactorings ref : Refactorings.values()) {
-				if (ref == Refactorings.All)
-					continue;
-				result.put(ref.toString(), new Tuple());
-			}
+			for (Refactorings ref : Refactorings.values())
+				extracted(result, ref);
 			for (Root root : roots) {
 				for (Refactoring ref : root.refactorings) {
 					Tuple tuple = result.get(ref.type.replace(" ", ""));
@@ -215,6 +212,14 @@ public class RefactoringPopulator {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private static void extracted(Hashtable<String, Tuple> result, Refactorings ref) {
+		{
+			if (ref == Refactorings.All)
+				return;
+			result.put(ref.toString(), new Tuple());
 		}
 	}
 
