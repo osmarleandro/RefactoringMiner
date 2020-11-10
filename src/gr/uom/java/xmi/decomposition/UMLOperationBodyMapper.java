@@ -3561,29 +3561,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Set<String> intersection = new LinkedHashSet<String>(subConditionsAsList1);
 				intersection.retainAll(subConditionsAsList2);
 				int matches = 0;
-				if(!intersection.isEmpty()) {
-					for(String element : intersection) {
-						boolean replacementFound = false;
-						for(Replacement r : info.getReplacements()) {
-							if(element.equals(r.getAfter()) || element.equals("(" + r.getAfter()) || element.equals(r.getAfter() + ")")) {
-								replacementFound = true;
-								break;
-							}
-							if(r.getType().equals(ReplacementType.INFIX_OPERATOR) && element.contains(r.getAfter())) {
-								replacementFound = true;
-								break;
-							}
-							if(ReplacementUtil.contains(element, r.getAfter()) && element.startsWith(r.getAfter()) &&
-									(element.endsWith(" != null") || element.endsWith(" == null"))) {
-								replacementFound = true;
-								break;
-							}
-						}
-						if(!replacementFound) {
-							matches++;
-						}
-					}
-				}
+				if(!intersection.isEmpty())
+					matches = extracted(info, intersection, matches);
 				if(matches > 0) {
 					Replacement r = new IntersectionReplacement(s1, s2, intersection, ReplacementType.CONDITIONAL);
 					info.addReplacement(r);
@@ -3637,6 +3616,33 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
+	}
+
+	private int extracted(ReplacementInfo info, Set<String> intersection, int matches) {
+		{
+			for(String element : intersection) {
+				boolean replacementFound = false;
+				for(Replacement r : info.getReplacements()) {
+					if(element.equals(r.getAfter()) || element.equals("(" + r.getAfter()) || element.equals(r.getAfter() + ")")) {
+						replacementFound = true;
+						break;
+					}
+					if(r.getType().equals(ReplacementType.INFIX_OPERATOR) && element.contains(r.getAfter())) {
+						replacementFound = true;
+						break;
+					}
+					if(ReplacementUtil.contains(element, r.getAfter()) && element.startsWith(r.getAfter()) &&
+							(element.endsWith(" != null") || element.endsWith(" == null"))) {
+						replacementFound = true;
+						break;
+					}
+				}
+				if(!replacementFound) {
+					matches++;
+				}
+			}
+		}
+		return matches;
 	}
 
 	private Replacement invertConditionalDirection(String s1, String s2, String operator1, String operator2) {
