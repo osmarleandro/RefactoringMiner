@@ -99,21 +99,26 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 
 	private static boolean quoteBefore(String beforeMatch) {
 		if(beforeMatch.contains("\"")) {
-			if(beforeMatch.contains("+")) {
-				int indexOfQuote = beforeMatch.lastIndexOf("\"");
-				int indexOfPlus = beforeMatch.lastIndexOf("+");
-				if(indexOfPlus > indexOfQuote) {
-					return false;
-				}
-				else {
-					return true;
-				}
-			}
+			if(beforeMatch.contains("+"))
+				return extracted(beforeMatch);
 			else {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private static boolean extracted(String beforeMatch) {
+		{
+			int indexOfQuote = beforeMatch.lastIndexOf("\"");
+			int indexOfPlus = beforeMatch.lastIndexOf("+");
+			if(indexOfPlus > indexOfQuote) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
 	}
 
 	private static boolean quoteAfter(String afterMatch) {
