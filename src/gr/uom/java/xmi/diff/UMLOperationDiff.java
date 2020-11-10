@@ -231,16 +231,8 @@ public class UMLOperationDiff {
 
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		if(returnTypeChanged || qualifiedReturnTypeChanged) {
-			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
-			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
-			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
-				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
-				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
-						removedOperation, addedOperation, references);
-				refactorings.add(refactoring);
-			}
-		}
+		if(returnTypeChanged || qualifiedReturnTypeChanged)
+			extracted(refactorings);
 		for(UMLParameterDiff parameterDiff : getParameterDiffList()) {
 			VariableDeclaration originalVariable = parameterDiff.getRemovedParameter().getVariableDeclaration();
 			VariableDeclaration newVariable = parameterDiff.getAddedParameter().getVariableDeclaration();
@@ -271,6 +263,18 @@ public class UMLOperationDiff {
 			refactorings.add(refactoring);
 		}
 		return refactorings;
+	}
+	private void extracted(Set<Refactoring> refactorings) {
+		{
+			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
+			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
+			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
+				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
+				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),
+						removedOperation, addedOperation, references);
+				refactorings.add(refactoring);
+			}
+		}
 	}
 	
 	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
