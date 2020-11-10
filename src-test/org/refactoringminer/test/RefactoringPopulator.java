@@ -231,6 +231,10 @@ public class RefactoringPopulator {
 	private static String buildResultMessage(Tuple... result) {
 		int trueP = 0;
 		int total = 0;
+		return extracted(trueP, total, result);
+	}
+
+	private static String extracted(int trueP, int total, Tuple... result) {
 		int ukn = 0;
 		int falseP = 0;
 		for (Tuple res : result) {
