@@ -176,7 +176,12 @@ public class AstUtils {
         int idx = attributeDescription.indexOf(':');
         if (idx == -1) {
             return attributeDescription.trim();
-        } else {
+        } else
+			return extracted(attributeDescription, idx);
+    }
+
+	private static String extracted(String attributeDescription, int idx) {
+		{
             int start = attributeDescription.indexOf(' ');
             if (start == -1) {
                 return attributeDescription.substring(0, idx).trim();
@@ -184,7 +189,7 @@ public class AstUtils {
                 return attributeDescription.substring(start, idx).trim();
             }
         }
-    }
+	}
 
 	public static boolean containsDeprecatedTag(Javadoc javadoc) {
 		if (javadoc == null) {
