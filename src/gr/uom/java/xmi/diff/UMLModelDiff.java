@@ -1803,7 +1803,13 @@ public class UMLModelDiff {
 	}
 
    private void checkForExtractedAndMovedOperations(List<UMLOperationBodyMapper> mappers, List<UMLOperation> addedOperations) throws RefactoringMinerTimedOutException {
-      for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
+      for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();)
+		extracted(mappers, addedOperations, addedOperationIterator);
+   }
+
+private void extracted(List<UMLOperationBodyMapper> mappers, List<UMLOperation> addedOperations,
+		Iterator<UMLOperation> addedOperationIterator) throws RefactoringMinerTimedOutException {
+	{
     	  UMLOperation addedOperation = addedOperationIterator.next();
     	  for(UMLOperationBodyMapper mapper : mappers) {
     		  if((mapper.nonMappedElementsT1() > 0 || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) && !mapper.containsExtractOperationRefactoring(addedOperation)) {
@@ -1917,7 +1923,7 @@ public class UMLModelDiff {
             }
          }
       }
-   }
+}
 
    private boolean conflictingExpression(OperationInvocation invocation, UMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
 	   String expression = invocation.getExpression();
