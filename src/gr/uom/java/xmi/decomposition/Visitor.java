@@ -247,8 +247,7 @@ public class Visitor extends ASTVisitor {
 
 	private void removeAnonymousData() {
 		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			this.variables.removeAll(anonymous.getVariables());
+			AnonymousClassDeclarationObject anonymous = extracted();
 			this.types.removeAll(anonymous.getTypes());
 			for(String key : anonymous.getMethodInvocationMap().keySet()) {
 				this.methodInvocationMap.remove(key, anonymous.getMethodInvocationMap().get(key));
@@ -267,6 +266,12 @@ public class Visitor extends ASTVisitor {
 			this.anonymousClassDeclarations.removeAll(anonymous.getAnonymousClassDeclarations());
 			this.lambdas.removeAll(anonymous.getLambdas());
 		}
+	}
+
+	private AnonymousClassDeclarationObject extracted() {
+		AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+		this.variables.removeAll(anonymous.getVariables());
+		return anonymous;
 	}
 
 	private DefaultMutableTreeNode deleteNode(AnonymousClassDeclaration childAnonymous) {
