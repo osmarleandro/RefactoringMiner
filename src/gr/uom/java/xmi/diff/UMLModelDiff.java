@@ -618,16 +618,8 @@ public class UMLModelDiff {
    private List<MoveAttributeRefactoring> filterOutDuplicateRefactorings(List<MoveAttributeRefactoring> refactorings) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> map = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
-	   for(MoveAttributeRefactoring ref : refactorings) {
-		   if(map.containsKey(ref.toString())) {
-			   map.get(ref.toString()).add(ref);
-		   }
-		   else {
-			   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
-			   refs.add(ref);
-			   map.put(ref.toString(), refs);
-		   }
-	   }
+	   for(MoveAttributeRefactoring ref : refactorings)
+		extracted(map, ref);
 	   for(String key : map.keySet()) {
 		   List<MoveAttributeRefactoring> refs = map.get(key);
 		   if(refs.size() == 1) {
@@ -639,6 +631,19 @@ public class UMLModelDiff {
 	   }
 	   return filtered;
    }
+
+private void extracted(Map<String, List<MoveAttributeRefactoring>> map, MoveAttributeRefactoring ref) {
+	{
+		   if(map.containsKey(ref.toString())) {
+			   map.get(ref.toString()).add(ref);
+		   }
+		   else {
+			   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
+			   refs.add(ref);
+			   map.put(ref.toString(), refs);
+		   }
+	   }
+}
 
    private List<MoveAttributeRefactoring> filterOutBasedOnFilePath(List<MoveAttributeRefactoring> refs) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
