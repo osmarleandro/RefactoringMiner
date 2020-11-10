@@ -931,6 +931,10 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
+		return extracted(variableName);
+	}
+
+	private SimpleEntry<VariableDeclaration, UMLOperation> extracted(String variableName) {
 		for(UMLParameter parameter : operation1.getParameters()) {
 			VariableDeclaration vd = parameter.getVariableDeclaration();
 			if(vd != null && vd.getVariableName().equals(variableName)) {
