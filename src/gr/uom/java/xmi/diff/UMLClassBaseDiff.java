@@ -1157,35 +1157,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(allMappingsAreExactMatches(operationBodyMapper)) {
 			if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
 				return true;
-			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0) {
-				int countableStatements = 0;
-				int parameterizedVariableDeclarationStatements = 0;
-				UMLOperation addedOperation = operationBodyMapper.getOperation2();
-				List<String> nonMappedLeavesT1 = new ArrayList<String>();
-				for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-					if(statement.countableStatement()) {
-						nonMappedLeavesT1.add(statement.getString());
-						for(String parameterName : addedOperation.getParameterNameList()) {
-							if(statement.getVariableDeclaration(parameterName) != null) {
-								parameterizedVariableDeclarationStatements++;
-								break;
-							}
-						}
-						countableStatements++;
-					}
-				}
-				int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
-				for(UMLOperation operation : addedOperations) {
-					if(!operation.equals(addedOperation) && operation.getBody() != null) {
-						for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
-							if(nonMappedLeavesT1.contains(statement.getString())) {
-								nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
-							}
-						}
-					}
-				}
-				return (countableStatements == parameterizedVariableDeclarationStatements || countableStatements == nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation + parameterizedVariableDeclarationStatements) && countableStatements > 0;
-			}
+			else if(operationBodyMapper.nonMappedElementsT1() > 0 && operationBodyMapper.getNonMappedInnerNodesT1().size() == 0 && operationBodyMapper.nonMappedElementsT2() == 0)
+				return extracted(operationBodyMapper);
 			else if(operationBodyMapper.nonMappedElementsT1() == 0 && operationBodyMapper.nonMappedElementsT2() > 0 && operationBodyMapper.getNonMappedInnerNodesT2().size() == 0) {
 				int countableStatements = 0;
 				int parameterizedVariableDeclarationStatements = 0;
@@ -1245,6 +1218,38 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		return false;
+	}
+
+	private boolean extracted(UMLOperationBodyMapper operationBodyMapper) {
+		{
+			int countableStatements = 0;
+			int parameterizedVariableDeclarationStatements = 0;
+			UMLOperation addedOperation = operationBodyMapper.getOperation2();
+			List<String> nonMappedLeavesT1 = new ArrayList<String>();
+			for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
+				if(statement.countableStatement()) {
+					nonMappedLeavesT1.add(statement.getString());
+					for(String parameterName : addedOperation.getParameterNameList()) {
+						if(statement.getVariableDeclaration(parameterName) != null) {
+							parameterizedVariableDeclarationStatements++;
+							break;
+						}
+					}
+					countableStatements++;
+				}
+			}
+			int nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation = 0;
+			for(UMLOperation operation : addedOperations) {
+				if(!operation.equals(addedOperation) && operation.getBody() != null) {
+					for(StatementObject statement : operation.getBody().getCompositeStatement().getLeaves()) {
+						if(nonMappedLeavesT1.contains(statement.getString())) {
+							nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation++;
+						}
+					}
+				}
+			}
+			return (countableStatements == parameterizedVariableDeclarationStatements || countableStatements == nonMappedLeavesExactlyMatchedInTheBodyOfAddedOperation + parameterizedVariableDeclarationStatements) && countableStatements > 0;
+		}
 	}
 
 	private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
