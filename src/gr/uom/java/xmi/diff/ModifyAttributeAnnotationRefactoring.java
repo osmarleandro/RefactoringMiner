@@ -91,8 +91,7 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(annotationBefore);
 		sb.append(" to ");
 		sb.append(annotationAfter);
@@ -101,6 +100,12 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 		sb.append(" from class ");
 		sb.append(attributeAfter.getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 	@Override
 	public int hashCode() {
