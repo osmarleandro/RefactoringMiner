@@ -96,6 +96,10 @@ public class ChangeAttributeTypeRefactoring implements Refactoring {
 			return true;
 		if (obj == null)
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		ChangeAttributeTypeRefactoring other = (ChangeAttributeTypeRefactoring) obj;
