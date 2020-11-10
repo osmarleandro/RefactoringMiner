@@ -67,8 +67,7 @@ public class RefFinderResultReader {
     }
 
     private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings() {
-        Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
-        mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
+        Map<String, Function<List<String>, RefactoringRelationship>> mappers = extracted();
         mappers.put("extract_interface", args -> parse(args, RefactoringType.EXTRACT_INTERFACE, type(2), type(1)));
         mappers.put("rename_method", args -> parse(args, RefactoringType.RENAME_METHOD, member(1), member(2)));
         mappers.put("move_method", args -> parse(args, RefactoringType.MOVE_OPERATION, member(2, 1), member(3, 1)));
@@ -82,6 +81,12 @@ public class RefFinderResultReader {
         
         return mappers;
     }
+
+	private static Map<String, Function<List<String>, RefactoringRelationship>> extracted() {
+		Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
+        mappers.put("extract_superclass", args -> parse(args, RefactoringType.EXTRACT_SUPERCLASS, type(1), type(2)));
+		return mappers;
+	}
     
     private static RefactoringRelationship parse(List<String> args, RefactoringType type, EntityParser parserBefore, EntityParser parserAfter) {
         return new RefactoringRelationship(type, parserBefore.parse(args), parserAfter.parse(args));
