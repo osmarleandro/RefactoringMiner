@@ -215,14 +215,8 @@ public class UMLModelASTReader {
 			String sourceFile, List<String> importedTypes, UMLClass umlClass) {
 		List<BodyDeclaration> bodyDeclarations = abstractTypeDeclaration.bodyDeclarations();
 		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
-			if(bodyDeclaration instanceof FieldDeclaration) {
-				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
-				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
-	    		for(UMLAttribute attribute : attributes) {
-	    			attribute.setClassName(umlClass.getName());
-	    			umlClass.addAttribute(attribute);
-	    		}
-			}
+			if(bodyDeclaration instanceof FieldDeclaration)
+				extracted(cu, sourceFile, umlClass, bodyDeclaration);
 			else if(bodyDeclaration instanceof MethodDeclaration) {
 				MethodDeclaration methodDeclaration = (MethodDeclaration)bodyDeclaration;
 				UMLOperation operation = processMethodDeclaration(cu, methodDeclaration, packageName, umlClass.isInterface(), sourceFile);
@@ -236,6 +230,17 @@ public class UMLModelASTReader {
 			else if(bodyDeclaration instanceof EnumDeclaration) {
 				EnumDeclaration enumDeclaration = (EnumDeclaration)bodyDeclaration;
 				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
+			}
+		}
+	}
+
+	private void extracted(CompilationUnit cu, String sourceFile, UMLClass umlClass, BodyDeclaration bodyDeclaration) {
+		{
+			FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
+			List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, umlClass.isInterface(), sourceFile);
+			for(UMLAttribute attribute : attributes) {
+				attribute.setClassName(umlClass.getName());
+				umlClass.addAttribute(attribute);
 			}
 		}
 	}
