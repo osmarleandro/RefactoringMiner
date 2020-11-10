@@ -408,6 +408,10 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		if(s1.equals(s2))
 			return true;
 		String parenthesizedS1 = "("+s1+")";
+		return extracted(s1, s2, parenthesizedS1);
+	}
+
+	private static boolean extracted(String s1, String s2, String parenthesizedS1) {
 		if(parenthesizedS1.equals(s2))
 			return true;
 		String parenthesizedS2 = "("+s2+")";
