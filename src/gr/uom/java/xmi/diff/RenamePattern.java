@@ -25,11 +25,16 @@ public class RenamePattern {
 		if(this == o) {
     		return true;
     	}
-    	if(o instanceof RenamePattern) {
+    	if(o instanceof RenamePattern)
+			return extracted(o);
+    	return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
     		RenamePattern pattern = (RenamePattern)o;
     		return this.before.equals(pattern.before) && this.after.equals(pattern.after);
     	}
-    	return false;
 	}
 	public int hashCode() {
 		final int prime = 31;
