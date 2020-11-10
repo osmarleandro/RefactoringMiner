@@ -97,10 +97,15 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode());
+		int result = extracted(prime);
 		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.getExpression().hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
+		int result = 1;
+		result = prime * result + ((memberValuePairs == null) ? 0 : memberValuePairsHashCode());
 		return result;
 	}
 
