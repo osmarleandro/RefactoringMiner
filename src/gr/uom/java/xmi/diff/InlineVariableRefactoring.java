@@ -117,13 +117,18 @@ public class InlineVariableRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
+		List<CodeRange> ranges = extracted();
+		for(AbstractCodeMapping mapping : references) {
+			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the name of the inlined variable"));
+		}
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("inlined variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
-			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the name of the inlined variable"));
-		}
 		return ranges;
 	}
 
