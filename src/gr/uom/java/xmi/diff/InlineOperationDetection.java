@@ -133,12 +133,8 @@ public class InlineOperationDetection {
 
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
 		int delegateStatements = 0;
-		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
-			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
-				delegateStatements++;
-			}
-		}
+		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1())
+			delegateStatements = extracted(operationBodyMapper, delegateStatements, statement);
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1()-delegateStatements;
 		List<AbstractCodeMapping> exactMatchList = operationBodyMapper.getExactMatches();
@@ -146,6 +142,17 @@ public class InlineOperationDetection {
 		return mappings > 0 && (mappings > nonMappedElementsT1 ||
 				(exactMatches == 1 && !exactMatchList.get(0).getFragment1().throwsNewException() && nonMappedElementsT1-exactMatches < 10) ||
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
+	}
+
+	private int extracted(UMLOperationBodyMapper operationBodyMapper, int delegateStatements,
+			StatementObject statement) {
+		{
+			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
+				delegateStatements++;
+			}
+		}
+		return delegateStatements;
 	}
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
