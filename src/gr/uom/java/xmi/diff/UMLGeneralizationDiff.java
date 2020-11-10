@@ -28,14 +28,19 @@ public class UMLGeneralizationDiff implements Comparable<UMLGeneralizationDiff> 
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(parentChanged || childChanged)
-			sb.append("generalization ").append(removedGeneralization).append(":").append("\n");
+		StringBuilder sb = extracted();
 		if(childChanged)
 			sb.append("\t").append("child changed from " + removedGeneralization.getChild() + " to " + addedGeneralization.getChild()).append("\n");
 		if(parentChanged)
 			sb.append("\t").append("parent changed from " + removedGeneralization.getParent() + " to " + addedGeneralization.getParent()).append("\n");
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(parentChanged || childChanged)
+			sb.append("generalization ").append(removedGeneralization).append(":").append("\n");
+		return sb;
 	}
 
 	public int compareTo(UMLGeneralizationDiff generalizationDiff) {
