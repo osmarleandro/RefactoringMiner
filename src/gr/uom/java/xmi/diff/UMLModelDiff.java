@@ -2239,7 +2239,13 @@ public class UMLModelDiff {
 	private List<UMLOperationBodyMapper> firstMappers(TreeMap<Integer, List<UMLOperationBodyMapper>> operationBodyMapperMap) {
 		List<UMLOperationBodyMapper> firstMappers = new ArrayList<UMLOperationBodyMapper>(operationBodyMapperMap.get(operationBodyMapperMap.lastKey()));
 		List<UMLOperationBodyMapper> extraMappers = operationBodyMapperMap.get(0);
-		if(extraMappers != null && operationBodyMapperMap.lastKey() != 0) {
+		if(extraMappers != null && operationBodyMapperMap.lastKey() != 0)
+			extracted(firstMappers, extraMappers);
+		return firstMappers;
+	}
+
+	private void extracted(List<UMLOperationBodyMapper> firstMappers, List<UMLOperationBodyMapper> extraMappers) {
+		{
 			for(UMLOperationBodyMapper extraMapper : extraMappers) {
 				UMLOperation operation1 = extraMapper.getOperation1();
 				UMLOperation operation2 = extraMapper.getOperation2();
@@ -2265,7 +2271,6 @@ public class UMLModelDiff {
 				}
 			}
 		}
-		return firstMappers;
 	}
 
 	private boolean allRenamedOperations(List<UMLOperationBodyMapper> mappers) {
