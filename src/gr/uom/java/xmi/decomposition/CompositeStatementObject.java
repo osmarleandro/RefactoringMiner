@@ -374,7 +374,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getAllVariables() {
 		List<String> variables = new ArrayList<String>();
 		variables.addAll(getVariables());
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(variables, statement);
+		return variables;
+	}
+
+	private void extracted(List<String> variables, AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variables.addAll(composite.getAllVariables());
@@ -384,7 +390,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				variables.addAll(statementObject.getVariables());
 			}
 		}
-		return variables;
 	}
 
 	public List<VariableDeclaration> getAllVariableDeclarations() {
