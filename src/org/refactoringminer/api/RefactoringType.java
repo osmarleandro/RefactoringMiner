@@ -142,7 +142,15 @@ public enum RefactoringType {
 
     public String aggregate(String refactoringDescription) {
         Matcher m = regex.matcher(refactoringDescription);
-        if (m.matches()) {
+        if (m.matches())
+			return extracted(refactoringDescription, m);
+		else {
+            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
+        }
+    }
+
+	private String extracted(String refactoringDescription, Matcher m) {
+		{
             StringBuilder sb = new StringBuilder();
             int current = 0;
             int replace = 0;
@@ -158,10 +166,8 @@ public enum RefactoringType {
             }
             sb.append(refactoringDescription, current, refactoringDescription.length());
             return sb.toString();
-        } else {
-            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
         }
-    }
+	}
 
     public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
         RefactoringType refType = extractFromDescription(refactoringDescription);
