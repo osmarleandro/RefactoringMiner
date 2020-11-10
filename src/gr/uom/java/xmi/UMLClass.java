@@ -211,8 +211,8 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     			String thisAttributeType = attribute.getType().getClassType();
 				String otherAttributeType = otherAttribute.getType().getClassType();
 				int thisArrayDimension = attribute.getType().getArrayDimension();
-				int otherArrayDimension = otherAttribute.getType().getArrayDimension();
-				String thisAttributeTypeComparedString = null;
+				String thisAttributeTypeComparedString;
+				int otherArrayDimension = extracted(otherAttribute);
     			if(thisAttributeType.contains("."))
     				thisAttributeTypeComparedString = thisAttributeType.substring(thisAttributeType.lastIndexOf(".")+1);
     			else
@@ -228,6 +228,12 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	}
     	return null;
     }
+
+	private int extracted(UMLAttribute otherAttribute) {
+		int otherArrayDimension = otherAttribute.getType().getArrayDimension();
+		String thisAttributeTypeComparedString = null;
+		return otherArrayDimension;
+	}
 
     public UMLOperation matchOperation(UMLOperation otherOperation) {
     	ListIterator<UMLOperation> operationIt = operations.listIterator();
