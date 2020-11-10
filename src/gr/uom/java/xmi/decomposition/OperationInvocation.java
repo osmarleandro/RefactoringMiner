@@ -426,13 +426,18 @@ public class OperationInvocation extends AbstractCall {
 
     public int hashCode() {
     	if(hashCode == 0) {
-    		int result = 17;
-    		result = 37*result + methodName.hashCode();
+    		int result = extracted();
     		result = 37*result + typeArguments;
     		hashCode = result;
     	}
     	return hashCode;
     }
+
+	private int extracted() {
+		int result = 17;
+		result = 37*result + methodName.hashCode();
+		return result;
+	}
 
 	public boolean identicalName(AbstractCall call) {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
