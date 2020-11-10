@@ -160,18 +160,23 @@ public class TestBuilder {
 			refactoring = refType.aggregate(refactoring);
 		} else {
 			int begin = refactoring.indexOf("from classes [");
-			if (begin != -1) {
-				int end = refactoring.lastIndexOf(']');
-				String types = refactoring.substring(begin + "from classes [".length(), end);
-				String[] typesArray = types.split(", ");
-				List<String> refactorings = new ArrayList<String>();
-				for (String type : typesArray) {
-					refactorings.add(refactoring.substring(0, begin) + "from class " + type);
-				}
-				return refactorings;
-			}
+			if (begin != -1)
+				return extracted(refactoring, begin);
 		}
 		return Collections.singletonList(refactoring);
+	}
+
+	private List<String> extracted(String refactoring, int begin) {
+		{
+			int end = refactoring.lastIndexOf(']');
+			String types = refactoring.substring(begin + "from classes [".length(), end);
+			String[] typesArray = types.split(", ");
+			List<String> refactorings = new ArrayList<String>();
+			for (String type : typesArray) {
+				refactorings.add(refactoring.substring(0, begin) + "from class " + type);
+			}
+			return refactorings;
+		}
 	}
 
 	/**
