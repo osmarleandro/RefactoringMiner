@@ -153,7 +153,13 @@ public class RefactoringPopulator {
 
 		List<Root> filtered = new ArrayList<>();
 		List<String> deletedCommits = getDeletedCommits();
-		for (Root root : roots) {
+		for (Root root : roots)
+			extracted(flag, filtered, deletedCommits, root);
+		return filtered;
+	}
+
+	private static void extracted(BigInteger flag, List<Root> filtered, List<String> deletedCommits, Root root) {
+		{
 			if(!deletedCommits.contains(root.sha1)) {
 				List<Refactoring> refactorings = new ArrayList<>();
 	
@@ -169,7 +175,6 @@ public class RefactoringPopulator {
 				}
 			}
 		}
-		return filtered;
 	}
 
 	private static boolean isAdded(Refactoring refactoring, BigInteger flag) {
