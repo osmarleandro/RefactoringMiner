@@ -67,7 +67,15 @@ public class AstUtils {
 		sb.append(methodName);
 		sb.append('(');
 		Iterator<SingleVariableDeclaration> parameters = methodDeclaration.parameters().iterator();
-		while (parameters.hasNext()) {
+		while (parameters.hasNext())
+			extracted(sb, parameters);
+		sb.append(')');
+		String methodSignature = sb.toString();
+		return methodSignature;
+	}
+
+	private static void extracted(StringBuilder sb, Iterator<SingleVariableDeclaration> parameters) {
+		{
 			SingleVariableDeclaration parameter = parameters.next();
 			Type parameterType = parameter.getType();
 			String typeName = normalizeTypeName(parameterType, parameter.getExtraDimensions(), parameter.isVarargs());
@@ -76,9 +84,6 @@ public class AstUtils {
 				sb.append(", ");
 			}
 		}
-		sb.append(')');
-		String methodSignature = sb.toString();
-		return methodSignature;
 	}
 	
 	public static String normalizeTypeName(Type type, int extraDimensions, boolean varargs) {
