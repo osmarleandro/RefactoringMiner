@@ -30,12 +30,17 @@ public class ExtractClassRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(extractedClass);
 		sb.append(" from class ");
 		sb.append(classDiff.getOriginalClass());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	public RefactoringType getRefactoringType() {
