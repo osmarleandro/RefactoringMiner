@@ -810,7 +810,11 @@ public class UMLModelDiff {
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(targetClassName));
 	   }
-	   if(classDiff != null) {
+	   return extracted(sourceClassName, targetClassName, classDiff);
+   }
+
+private boolean extracted(String sourceClassName, String targetClassName, UMLClassBaseDiff classDiff) {
+	if(classDiff != null) {
 		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
 	   }
 	   UMLClass addedClass = getAddedClass(targetClassName);
@@ -821,7 +825,7 @@ public class UMLModelDiff {
 		   return addedClass.importsType(sourceClassName);
 	   }
 	   return false;
-   }
+}
 
    private List<UMLAttribute> getAddedAttributesInCommonClasses() {
       List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
