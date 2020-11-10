@@ -229,15 +229,8 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	private static UMLType extractTypeObject(CompilationUnit cu, String filePath, Type type) {
-		if(type.isPrimitiveType() || type.isSimpleType()) {
-			LeafType leafType = extractTypeObject(type.toString());
-			AnnotatableType annotatableType = (AnnotatableType)type;
-			List<Annotation> annotations = annotatableType.annotations();
-			for(Annotation annotation : annotations) {
-				leafType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
-			}
-			return leafType;
-		}
+		if(type.isPrimitiveType() || type.isSimpleType())
+			return extracted(cu, filePath, type);
 		else if(type instanceof QualifiedType) {
 			QualifiedType qualified = (QualifiedType)type;
 			UMLType leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
@@ -311,5 +304,17 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			return new ListCompositeType(umlTypes, Kind.INTERSECTION);
 		}
 		return null;
+	}
+
+	private static UMLType extracted(CompilationUnit cu, String filePath, Type type) {
+		{
+			LeafType leafType = extractTypeObject(type.toString());
+			AnnotatableType annotatableType = (AnnotatableType)type;
+			List<Annotation> annotations = annotatableType.annotations();
+			for(Annotation annotation : annotations) {
+				leafType.annotations.add(new UMLAnnotation(cu, filePath, annotation));
+			}
+			return leafType;
+		}
 	}
 }
