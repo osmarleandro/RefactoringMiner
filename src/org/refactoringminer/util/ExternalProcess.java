@@ -16,8 +16,7 @@ class ExternalProcess {
 			.redirectErrorStream(true)
 			.start();
 			try {
-				StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream());
-				outputGobbler.run();
+				StreamGobbler outputGobbler = extracted(p);
 				//Thread outputGobblerThread = new Thread(outputGobbler);
 				//outputGobblerThread.start();
 				p.waitFor();
@@ -38,6 +37,12 @@ class ExternalProcess {
 		} catch (InterruptedException e) {
 			throw new RuntimeException("Error executing command " + commandAndArgs, e);
 		}
+	}
+
+	private static StreamGobbler extracted(Process p) {
+		StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream());
+		outputGobbler.run();
+		return outputGobbler;
 	}
 
 	private static void close(Closeable closeable) throws IOException {
