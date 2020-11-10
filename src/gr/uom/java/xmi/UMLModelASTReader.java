@@ -132,13 +132,18 @@ public class UMLModelASTReader {
 	}
 
 	private static ASTParser buildAstParser(File srcFolder) {
-		ASTParser parser = ASTParser.newParser(AST.JLS11);
-		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		ASTParser parser = extracted();
 		Map<String, String> options = JavaCore.getOptions();
 		JavaCore.setComplianceOptions(JavaCore.VERSION_1_8, options);
 		parser.setCompilerOptions(options);
 		parser.setResolveBindings(false);
 		parser.setEnvironment(new String[0], new String[]{srcFolder.getPath()}, null, false);
+		return parser;
+	}
+
+	private static ASTParser extracted() {
+		ASTParser parser = ASTParser.newParser(AST.JLS11);
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		return parser;
 	}
 
