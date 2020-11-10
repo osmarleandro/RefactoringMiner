@@ -1285,11 +1285,8 @@ public class UMLModelDiff {
       refactorings.addAll(identifyConvertAnonymousClassToTypeRefactorings());
       Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap = new LinkedHashMap<Replacement, Set<CandidateAttributeRefactoring>>();
       Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap = new LinkedHashMap<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
-         refactorings.addAll(classDiff.getRefactorings());
-         extractMergePatterns(classDiff, mergeMap);
-		 extractRenamePatterns(classDiff, renameMap);
-      }
+      for(UMLClassDiff classDiff : commonClassDiffList)
+		extracted(refactorings, renameMap, mergeMap, classDiff);
       for(UMLClassMoveDiff classDiff : classMoveDiffList) {
          refactorings.addAll(classDiff.getRefactorings());
          extractMergePatterns(classDiff, mergeMap);
@@ -1485,6 +1482,15 @@ public class UMLModelDiff {
       }
       return new ArrayList<Refactoring>(refactorings);
    }
+
+private void extracted(Set<Refactoring> refactorings, Map<Replacement, Set<CandidateAttributeRefactoring>> renameMap,
+		Map<MergeVariableReplacement, Set<CandidateMergeVariableRefactoring>> mergeMap, UMLClassDiff classDiff) {
+	{
+         refactorings.addAll(classDiff.getRefactorings());
+         extractMergePatterns(classDiff, mergeMap);
+		 extractRenamePatterns(classDiff, renameMap);
+      }
+}
 
    private Map<RenamePattern, Integer> typeRenamePatternMap(Set<Refactoring> refactorings) {
 	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
