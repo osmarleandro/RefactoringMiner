@@ -96,14 +96,19 @@ public class ObjectCreation extends AbstractCall {
         sb.append("new ");
         sb.append(type);
         sb.append("(");
-        if(typeArguments > 0) {
+        if(typeArguments > 0)
+			extracted(sb);
+        sb.append(")");
+        return sb.toString();
+    }
+
+	private void extracted(StringBuilder sb) {
+		{
             for(int i=0; i<typeArguments-1; i++)
                 sb.append("arg" + i).append(", ");
             sb.append("arg" + (typeArguments-1));
         }
-        sb.append(")");
-        return sb.toString();
-    }
+	}
 
     public int hashCode() {
     	if(hashCode == 0) {
