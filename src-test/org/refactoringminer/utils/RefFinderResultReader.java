@@ -59,12 +59,18 @@ public class RefFinderResultReader {
         String args = line.substring(openPar + 2, line.length() - 2);
         Function<List<String>, RefactoringRelationship> mapper = mappers.get(type);
         //rename_method("org.springframework.boot.bind%.RelaxedDataBinder#setIgnoreNestedProperties()","org.springframework.boot.bind%.RelaxedDataBinder#setIgnoreNestedPropertiesRenamed()","org.springframework.boot.bind%.RelaxedDataBinder")
-        if (mapper != null) {
+        if (mapper != null)
+			return extracted(args, mapper);
+        return null;
+    }
+
+	private static RefactoringRelationship extracted(String args,
+			Function<List<String>, RefactoringRelationship> mapper) {
+		{
             List<String> argList = Arrays.asList(args.split("\",\""));
             return mapper.apply(argList);
         }
-        return null;
-    }
+	}
 
     private static Map<String, Function<List<String>, RefactoringRelationship>> initMappings() {
         Map<String, Function<List<String>, RefactoringRelationship>> mappers = new HashMap<>();
