@@ -60,14 +60,8 @@ public class ConsistentReplacementDetector {
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
 		Set<T> renamesToBeRemoved = new LinkedHashSet<T>();
-		for(String key : aliasedAttributesInOriginalClass.keySet()) {
-			Set<String> aliasedAttributes = aliasedAttributesInOriginalClass.get(key);
-			for(T r : inconsistentRenames) {
-				if(aliasedAttributes.contains(r.getBefore())) {
-					renamesToBeRemoved.add(r);
-				}
-			}
-		}
+		for(String key : aliasedAttributesInOriginalClass.keySet())
+			extracted(inconsistentRenames, aliasedAttributesInOriginalClass, renamesToBeRemoved, key);
 		for(String key : aliasedAttributesInNextClass.keySet()) {
 			Set<String> aliasedAttributes = aliasedAttributesInNextClass.get(key);
 			for(T r : inconsistentRenames) {
@@ -78,5 +72,17 @@ public class ConsistentReplacementDetector {
 		}
 		inconsistentRenames.removeAll(renamesToBeRemoved);
 		return inconsistentRenames;
+	}
+
+	private static <T extends Replacement> void extracted(Set<T> inconsistentRenames,
+			Map<String, Set<String>> aliasedAttributesInOriginalClass, Set<T> renamesToBeRemoved, String key) {
+		{
+			Set<String> aliasedAttributes = aliasedAttributesInOriginalClass.get(key);
+			for(T r : inconsistentRenames) {
+				if(aliasedAttributes.contains(r.getBefore())) {
+					renamesToBeRemoved.add(r);
+				}
+			}
+		}
 	}
 }
