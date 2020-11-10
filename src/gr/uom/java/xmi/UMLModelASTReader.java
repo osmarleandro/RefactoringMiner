@@ -175,7 +175,14 @@ public class UMLModelASTReader {
 	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
 		UMLJavadoc doc = null;
 		Javadoc javaDoc = bodyDeclaration.getJavadoc();
-		if(javaDoc != null) {
+		if(javaDoc != null)
+			doc = extracted(javaDoc);
+		return doc;
+	}
+
+	private UMLJavadoc extracted(Javadoc javaDoc) {
+		UMLJavadoc doc;
+		{
 			doc = new UMLJavadoc();
 			List<TagElement> tags = javaDoc.tags();
 			for(TagElement tag : tags) {
