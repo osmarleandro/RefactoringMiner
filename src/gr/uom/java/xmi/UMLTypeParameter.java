@@ -37,9 +37,14 @@ public class UMLTypeParameter {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
+		int result = extracted(prime);
+		result = prime * result + ((typeBounds == null) ? 0 : typeBounds.hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((typeBounds == null) ? 0 : typeBounds.hashCode());
 		return result;
 	}
 
