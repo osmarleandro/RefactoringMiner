@@ -154,6 +154,10 @@ public class ReplacementUtil {
 	public static boolean sameCharsBeforeAfter(String completeString1, String completeString2, String commonSubString) {
 		Pattern p = Pattern.compile(Pattern.quote(commonSubString));
 		Matcher m1 = p.matcher(completeString1);
+		return extracted(completeString1, completeString2, p, m1);
+	}
+
+	private static boolean extracted(String completeString1, String completeString2, Pattern p, Matcher m1) {
 		Matcher m2 = p.matcher(completeString2);
 		int matches = 0;
 		int compatibleMatches = 0;
