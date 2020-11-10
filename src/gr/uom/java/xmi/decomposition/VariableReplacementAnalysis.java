@@ -1044,38 +1044,8 @@ public class VariableReplacementAnalysis {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
 				for(AbstractCodeMapping mapping : mapper.getMappings()) {
-					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
-						if(v2 != null && v2.getInitializer() != null) {
-							UMLOperation extractedMethod = mapper.getOperation2();
-							Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
-							for(String key : methodInvocationMap.keySet()) {
-								for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-									if(invocation.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
-										return false;
-									}
-									else {
-										//check if the extracted method is called in the initializer of a variable used in the initializer of v2
-										List<String> initializerVariables = v2.getInitializer().getVariables();
-										for(String variable : initializerVariables) {
-											for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
-												if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
-													Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
-													for(String key2 : methodInvocationMap2.keySet()) {
-														for(OperationInvocation invocation2 : methodInvocationMap2.get(key2)) {
-															if(invocation2.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
-																return false;
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-						return true;
-					}
+					if(mapping.getFragment1().getVariableDeclarations().contains(v1))
+						return extracted(v2, mapper);
 				}
 				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
@@ -1099,6 +1069,41 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return false;
+	}
+
+	private boolean extracted(VariableDeclaration v2, UMLOperationBodyMapper mapper) {
+		{
+			if(v2 != null && v2.getInitializer() != null) {
+				UMLOperation extractedMethod = mapper.getOperation2();
+				Map<String, List<OperationInvocation>> methodInvocationMap = v2.getInitializer().getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						if(invocation.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
+							return false;
+						}
+						else {
+							//check if the extracted method is called in the initializer of a variable used in the initializer of v2
+							List<String> initializerVariables = v2.getInitializer().getVariables();
+							for(String variable : initializerVariables) {
+								for(VariableDeclaration declaration : operation2.getAllVariableDeclarations()) {
+									if(declaration.getVariableName().equals(variable) && declaration.getInitializer() != null) {
+										Map<String, List<OperationInvocation>> methodInvocationMap2 = declaration.getInitializer().getMethodInvocationMap();
+										for(String key2 : methodInvocationMap2.keySet()) {
+											for(OperationInvocation invocation2 : methodInvocationMap2.get(key2)) {
+												if(invocation2.matchesOperation(extractedMethod, operation2.variableTypeMap(), null)) {
+													return false;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return true;
+		}
 	}
 
 	private boolean existsConflictingParameterRenameInOperationDiff(MergeVariableRefactoring ref) {
