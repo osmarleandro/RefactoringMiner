@@ -147,7 +147,14 @@ public class ResultComparator {
         String[] labels = {"TN", "FP", "FN", "TP"};
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         boolean headerPrinted = false;
-        for (RefactoringSet expected : expectedMap.values()) {
+        for (RefactoringSet expected : expectedMap.values())
+			headerPrinted = extracted(out, labels, ignore, headerPrinted, expected);
+        out.println();
+    }
+
+	private boolean extracted(PrintStream out, String[] labels, EnumSet<RefactoringType> ignore, boolean headerPrinted,
+			RefactoringSet expected) {
+		{
             Set<RefactoringRelationship> all = new HashSet<>();
             Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
             Set<RefactoringRelationship> expectedUnfiltered = expected.getRefactorings();
@@ -218,8 +225,8 @@ public class ResultComparator {
                 }
             }
         }
-        out.println();
-    }
+		return headerPrinted;
+	}
 
     private boolean isPullUpToExtractedSupertype(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
