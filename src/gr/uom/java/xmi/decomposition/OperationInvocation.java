@@ -330,8 +330,8 @@ public class OperationInvocation extends AbstractCall {
 	private static boolean differInThisDot(String subExpression1, String subExpression2) {
 		if(subExpression1.length() < subExpression2.length()) {
 			String modified = subExpression1;
-			String previousCommonPrefix = "";
-			String commonPrefix = null;
+			String commonPrefix;
+			String previousCommonPrefix = extracted();
 			while((commonPrefix = PrefixSuffixUtils.longestCommonPrefix(modified, subExpression2)).length() > previousCommonPrefix.length()) {
 				modified = commonPrefix + "this." + modified.substring(commonPrefix.length(), modified.length());
 				if(modified.equals(subExpression2)) {
@@ -353,6 +353,12 @@ public class OperationInvocation extends AbstractCall {
 			}
 		}
 		return false;
+	}
+
+	private static String extracted() {
+		String previousCommonPrefix = "";
+		String commonPrefix = null;
+		return previousCommonPrefix;
 	}
 
 	private Set<String> subExpressions() {
