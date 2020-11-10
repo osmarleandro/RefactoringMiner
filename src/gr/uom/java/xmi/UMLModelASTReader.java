@@ -90,6 +90,11 @@ public class UMLModelASTReader {
 
 	private static List<String> getJavaFilePaths(File folder) throws IOException {
 		Stream<Path> walk = Files.walk(Paths.get(folder.toURI()));
+		List<String> paths = extracted(folder, walk);
+		return paths;
+	}
+
+	private static List<String> extracted(File folder, Stream<Path> walk) {
 		List<String> paths = walk.map(x -> x.toString())
 				.filter(f -> f.endsWith(".java"))
 				.map(x -> x.substring(folder.getPath().length()+1).replaceAll(systemFileSeparator, "/"))
