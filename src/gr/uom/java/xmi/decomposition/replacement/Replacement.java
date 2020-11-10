@@ -41,11 +41,16 @@ public class Replacement {
 			return true;
 		if (obj == null)
 			return false;
-		if(obj instanceof Replacement) {
+		if(obj instanceof Replacement)
+			return extracted(obj);
+		return false;
+	}
+
+	private boolean extracted(Object obj) {
+		{
 			Replacement other = (Replacement)obj;
 			return this.before.equals(other.before) && this.after.equals(other.after) && this.type.equals(other.type);
 		}
-		return false;
 	}
 	
 	public String toString() {
