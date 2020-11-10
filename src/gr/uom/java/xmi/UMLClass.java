@@ -294,12 +294,17 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     		return true;
     	}
     	
-    	if(o instanceof UMLClass) {
+    	if(o instanceof UMLClass)
+			return extracted(o);
+    	return false;
+    }
+
+	private boolean extracted(Object o) {
+		{
     		UMLClass umlClass = (UMLClass)o;
     		return this.packageName.equals(umlClass.packageName) && this.name.equals(umlClass.name) && this.sourceFile.equals(umlClass.sourceFile);
     	}
-    	return false;
-    }
+	}
 
     public String toString() {
     	return getName();
