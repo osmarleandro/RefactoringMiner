@@ -812,19 +812,23 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public Map<String, Set<String>> aliasedAttributes() {
 		if(operationBody != null && isConstructor) {
 			List<String> parameterNames = getParameterNameList();
-			Map<String, Set<String>> map = operationBody.aliasedAttributes();
-			Set<String> keysToBeRemoved = new LinkedHashSet<String>();
-			for(String key : map.keySet()) {
-				if(!parameterNames.contains(key)) {
-					keysToBeRemoved.add(key);
-				}
-			}
-			for(String key : keysToBeRemoved) {
-				map.remove(key);
-			}
-			return map;
+			return extracted(parameterNames);
 		}
 		return new LinkedHashMap<String, Set<String>>();
+	}
+
+	private Map<String, Set<String>> extracted(List<String> parameterNames) {
+		Map<String, Set<String>> map = operationBody.aliasedAttributes();
+		Set<String> keysToBeRemoved = new LinkedHashSet<String>();
+		for(String key : map.keySet()) {
+			if(!parameterNames.contains(key)) {
+				keysToBeRemoved.add(key);
+			}
+		}
+		for(String key : keysToBeRemoved) {
+			map.remove(key);
+		}
+		return map;
 	}
 
 	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
