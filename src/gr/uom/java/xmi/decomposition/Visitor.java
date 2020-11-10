@@ -768,14 +768,19 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(CastExpression node) {
 		Expression castExpression = node.getExpression();
-		if(castExpression instanceof SimpleName) {
+		if(castExpression instanceof SimpleName)
+			extracted(node);
+		return super.visit(node);
+	}
+
+	private void extracted(CastExpression node) {
+		{
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
 				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 				anonymous.getVariables().add(node.toString());
 			}
 		}
-		return super.visit(node);
 	}
 
 	public boolean visit(LambdaExpression node) {
