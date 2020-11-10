@@ -3383,7 +3383,29 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean equalAfterArgumentMerge(String s1, String s2, ReplacementInfo replacementInfo) {
 		Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
-		for(Replacement replacement : replacementInfo.getReplacements()) {
+		for(Replacement replacement : replacementInfo.getReplacements())
+			s1 = extracted(s1, commonVariableReplacementMap, replacement);
+		if(s1.equals(s2)) {
+			for(String key : commonVariableReplacementMap.keySet()) {
+				Set<Replacement> replacements = commonVariableReplacementMap.get(key);
+				if(replacements.size() > 1) {
+					replacementInfo.getReplacements().removeAll(replacements);
+					Set<String> mergedVariables = new LinkedHashSet<String>();
+					for(Replacement replacement : replacements) {
+						mergedVariables.add(replacement.getBefore());
+					}
+					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
+					replacementInfo.getReplacements().add(merge);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	private String extracted(String s1, Map<String, Set<Replacement>> commonVariableReplacementMap,
+			Replacement replacement) {
+		{
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 				String key = replacement.getAfter();
 				if(commonVariableReplacementMap.containsKey(key)) {
@@ -3405,22 +3427,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		if(s1.equals(s2)) {
-			for(String key : commonVariableReplacementMap.keySet()) {
-				Set<Replacement> replacements = commonVariableReplacementMap.get(key);
-				if(replacements.size() > 1) {
-					replacementInfo.getReplacements().removeAll(replacements);
-					Set<String> mergedVariables = new LinkedHashSet<String>();
-					for(Replacement replacement : replacements) {
-						mergedVariables.add(replacement.getBefore());
-					}
-					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
-					replacementInfo.getReplacements().add(merge);
-				}
-			}
-			return true;
-		}
-		return false;
+		return s1;
 	}
 
 	private boolean oneIsVariableDeclarationTheOtherIsVariableAssignment(String s1, String s2, ReplacementInfo replacementInfo) {
