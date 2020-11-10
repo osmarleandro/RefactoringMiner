@@ -558,11 +558,8 @@ public class Visitor extends ASTVisitor {
 		sb.append(node.getName().getIdentifier());
 		sb.append("(");
 		List<Expression> arguments = node.arguments();
-		if(arguments.size() > 0) {
-		    for(int i=0; i<arguments.size()-1; i++)
-		        sb.append(arguments.get(i).toString()).append(", ");
-		    sb.append(arguments.get(arguments.size()-1).toString());
-		}
+		if(arguments.size() > 0)
+			extracted(sb, arguments);
 		sb.append(")");
 		return sb.toString();
 	}
@@ -572,13 +569,18 @@ public class Visitor extends ASTVisitor {
 		sb.append("new").append(" ");
 		sb.append(node.getType().toString());
 		List<Expression> arguments = node.arguments();
-		if(arguments.size() > 0) {
+		if(arguments.size() > 0)
+			extracted(sb, arguments);
+		sb.append(")");
+		return sb.toString();
+	}
+
+	private static void extracted(StringBuilder sb, List<Expression> arguments) {
+		{
 		    for(int i=0; i<arguments.size()-1; i++)
 		        sb.append(arguments.get(i).toString()).append(", ");
 		    sb.append(arguments.get(arguments.size()-1).toString());
 		}
-		sb.append(")");
-		return sb.toString();
 	}
 	
 	public boolean visit(SuperMethodInvocation node) {
