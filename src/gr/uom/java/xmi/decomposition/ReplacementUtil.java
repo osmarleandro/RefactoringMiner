@@ -9,7 +9,13 @@ public class ReplacementUtil {
 	
 	public static String keepReservedTokens(String input) {
 		StringBuilder sb = new StringBuilder();
-		for(int i=0; i<input.length(); i++) {
+		for(int i=0; i<input.length(); i++)
+			extracted(input, sb, i);
+		return sb.toString();
+	}
+
+	private static void extracted(String input, StringBuilder sb, int i) {
+		{
 			char c = input.charAt(i);
 			for(String character : SPECIAL_CHARACTERS) {
 				if(character.equals(Character.toString(c))) {
@@ -18,7 +24,6 @@ public class ReplacementUtil {
 				}
 			}
 		}
-		return sb.toString();
 	}
 
 	public static int countInstances(String completeString, String subString) {
