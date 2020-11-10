@@ -253,20 +253,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					(replacement.getType().equals(ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE) && (replacement.getBefore().equals("null") || replacement.getAfter().equals("null")))) {
 				nullLiteralReplacements++;
 			}
-			else if(replacement instanceof MethodInvocationReplacement) {
-				MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
-				OperationInvocation invokedOperationBefore = invocationReplacement.getInvokedOperationBefore();
-				OperationInvocation invokedOperationAfter = invocationReplacement.getInvokedOperationAfter();
-				if(invokedOperationBefore.getName().equals(invokedOperationAfter.getName()) &&
-						invokedOperationBefore.getArguments().size() == invokedOperationAfter.getArguments().size()) {
-					methodInvocationReplacementsToIgnore++;
-				}
-			}
+			else if(replacement instanceof MethodInvocationReplacement)
+				methodInvocationReplacementsToIgnore = extracted(methodInvocationReplacementsToIgnore, replacement);
 			else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 				variableNameReplacementsToIgnore++;
 			}
 		}
 		return nullLiteralReplacements > 0 && numberOfReplacements == nullLiteralReplacements + methodInvocationReplacementsToIgnore + variableNameReplacementsToIgnore;
+	}
+
+	private int extracted(int methodInvocationReplacementsToIgnore, Replacement replacement) {
+		{
+			MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
+			OperationInvocation invokedOperationBefore = invocationReplacement.getInvokedOperationBefore();
+			OperationInvocation invokedOperationAfter = invocationReplacement.getInvokedOperationAfter();
+			if(invokedOperationBefore.getName().equals(invokedOperationAfter.getName()) &&
+					invokedOperationBefore.getArguments().size() == invokedOperationAfter.getArguments().size()) {
+				methodInvocationReplacementsToIgnore++;
+			}
+		}
+		return methodInvocationReplacementsToIgnore;
 	}
 
 	public UMLOperationBodyMapper(UMLOperationBodyMapper operationBodyMapper, UMLOperation addedOperation,
