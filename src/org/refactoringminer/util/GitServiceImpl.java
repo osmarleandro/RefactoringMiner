@@ -2,6 +2,7 @@ package org.refactoringminer.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,17 +49,9 @@ public class GitServiceImpl implements GitService {
 	public Repository cloneIfNotExists(String projectPath, String cloneUrl/*, String branch*/) throws Exception {
 		File folder = new File(projectPath);
 		Repository repository;
-		if (folder.exists()) {
-			RepositoryBuilder builder = new RepositoryBuilder();
-			repository = builder
-					.setGitDir(new File(folder, ".git"))
-					.readEnvironment()
-					.findGitDir()
-					.build();
-			
-			//logger.info("Project {} is already cloned, current branch is {}", cloneUrl, repository.getBranch());
-			
-		} else {
+		if (folder.exists())
+			repository = extracted(folder);
+		else {
 			logger.info("Cloning {} ...", cloneUrl);
 			Git git = Git.cloneRepository()
 					.setDirectory(folder)
@@ -103,17 +96,25 @@ public class GitServiceImpl implements GitService {
 	public Repository openRepository(String repositoryPath) throws Exception {
 	    File folder = new File(repositoryPath);
 	    Repository repository;
-	    if (folder.exists()) {
+	    if (folder.exists())
+			repository = extracted(folder);
+		else {
+	        throw new FileNotFoundException(repositoryPath);
+	    }
+	    return repository;
+	}
+
+	private Repository extracted(File folder) throws IOException {
+		Repository repository;
+		{
 	        RepositoryBuilder builder = new RepositoryBuilder();
 	        repository = builder
 	            .setGitDir(new File(folder, ".git"))
 	            .readEnvironment()
 	            .findGitDir()
 	            .build();
-	    } else {
-	        throw new FileNotFoundException(repositoryPath);
 	    }
-	    return repository;
+		return repository;
 	}
 
 	public void checkout(Repository repository, String commitId) throws Exception {
