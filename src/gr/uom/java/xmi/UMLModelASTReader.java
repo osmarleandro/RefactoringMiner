@@ -258,21 +258,8 @@ public class UMLModelASTReader {
     	processModifiers(cu, sourceFile, typeDeclaration, umlClass);
 		
     	List<TypeParameter> typeParameters = typeDeclaration.typeParameters();
-		for(TypeParameter typeParameter : typeParameters) {
-			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
-			List<Type> typeBounds = typeParameter.typeBounds();
-			for(Type type : typeBounds) {
-				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
-			}
-			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
-			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
-				if(extendedModifier.isAnnotation()) {
-					Annotation annotation = (Annotation)extendedModifier;
-					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
-				}
-			}
-    		umlClass.addTypeParameter(umlTypeParameter);
-    	}
+		for(TypeParameter typeParameter : typeParameters)
+			extracted(cu, sourceFile, umlClass, typeParameter);
     	
     	Type superclassType = typeDeclaration.getSuperclassType();
     	if(superclassType != null) {
@@ -322,6 +309,24 @@ public class UMLModelASTReader {
 				processEnumDeclaration(cu, enumDeclaration, umlClass.getName(), sourceFile, importedTypes);
 			}
 		}
+	}
+
+	private void extracted(CompilationUnit cu, String sourceFile, UMLClass umlClass, TypeParameter typeParameter) {
+		{
+			UMLTypeParameter umlTypeParameter = new UMLTypeParameter(typeParameter.getName().getFullyQualifiedName());
+			List<Type> typeBounds = typeParameter.typeBounds();
+			for(Type type : typeBounds) {
+				umlTypeParameter.addTypeBound(UMLType.extractTypeObject(cu, sourceFile, type, 0));
+			}
+			List<IExtendedModifier> typeParameterExtendedModifiers = typeParameter.modifiers();
+			for(IExtendedModifier extendedModifier : typeParameterExtendedModifiers) {
+				if(extendedModifier.isAnnotation()) {
+					Annotation annotation = (Annotation)extendedModifier;
+					umlTypeParameter.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+				}
+			}
+    		umlClass.addTypeParameter(umlTypeParameter);
+    	}
 	}
 
 	private void processAnonymousClassDeclarations(CompilationUnit cu, AbstractTypeDeclaration typeDeclaration,
