@@ -191,6 +191,10 @@ public class AstUtils {
 			return false;
 		}
 		List<TagElement> javadocTags = (List<TagElement>) javadoc.tags();
+		return extracted(javadocTags);
+	}
+
+	private static boolean extracted(List<TagElement> javadocTags) {
 		for (TagElement tag : javadocTags) {
 			if ("@deprecated".equals(tag.getTagName())) {
 				return true;
