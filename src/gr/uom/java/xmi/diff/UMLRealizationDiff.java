@@ -20,14 +20,19 @@ public class UMLRealizationDiff implements Comparable<UMLRealizationDiff> {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(parentChanged || childChanged)
-			sb.append("realization ").append(removedRealization).append(":").append("\n");
+		StringBuilder sb = extracted();
 		if(childChanged)
 			sb.append("\t").append("child changed from " + removedRealization.getClient() + " to " + addedRealization.getClient()).append("\n");
 		if(parentChanged)
 			sb.append("\t").append("parent changed from " + removedRealization.getSupplier() + " to " + addedRealization.getSupplier()).append("\n");
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(parentChanged || childChanged)
+			sb.append("realization ").append(removedRealization).append(":").append("\n");
+		return sb;
 	}
 
 	public int compareTo(UMLRealizationDiff generalizationDiff) {
