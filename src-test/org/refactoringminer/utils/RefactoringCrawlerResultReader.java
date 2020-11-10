@@ -16,15 +16,19 @@ public class RefactoringCrawlerResultReader {
   public static RefactoringSet read(String project, String revision, String folderPath) {
 //    List<RefactoringCrawlerRefactoring> list = readFolder("D:\\Danilo\\Workspaces\\phd-rmdataset\\results\\atmosphere-cc2b3f1");
     try {
-      RefactoringSet result = new RefactoringSet(project, revision);
-      for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
-        result.add(r.toRefactoringRelationship());
-      }
-      return result;
+      return extracted(project, revision, folderPath);
     } catch (Exception e) {
       throw new RuntimeException(e); 
     }
   }
+
+private static RefactoringSet extracted(String project, String revision, String folderPath) throws Exception {
+	RefactoringSet result = new RefactoringSet(project, revision);
+      for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
+        result.add(r.toRefactoringRelationship());
+      }
+      return result;
+}
 
   private static List<RefactoringCrawlerRefactoring> readFolder(String path) throws Exception {
     List<RefactoringCrawlerRefactoring> result = new ArrayList<>();
