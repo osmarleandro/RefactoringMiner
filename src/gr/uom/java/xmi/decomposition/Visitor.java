@@ -440,11 +440,16 @@ public class Visitor extends ASTVisitor {
 	
 	public boolean visit(ArrayType node) {
 		types.add(node.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(node);
+		return false;
+	}
+
+	private void extracted(ArrayType node) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
-		return false;
 	}
 	
 	public boolean visit(ParameterizedType node) {
