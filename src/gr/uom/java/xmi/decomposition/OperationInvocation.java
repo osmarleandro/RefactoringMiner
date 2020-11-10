@@ -375,12 +375,8 @@ public class OperationInvocation extends AbstractCall {
 
 	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
 		boolean openingParenthesisFound = false;
-		for(int i=indexOfDot; i>=0; i--) {
-			if(thisExpression.charAt(i) == '(') {
-				openingParenthesisFound = true;
-				break;
-			}
-		}
+		for(int i=indexOfDot; i>=0; i--)
+			openingParenthesisFound = extracted(thisExpression, openingParenthesisFound, i);
 		boolean closingParenthesisFound = false;
 		for(int i=indexOfDot; i<thisExpression.length(); i++) {
 			if(thisExpression.charAt(i) == ')') {
@@ -389,6 +385,16 @@ public class OperationInvocation extends AbstractCall {
 			}
 		}
 		return openingParenthesisFound && closingParenthesisFound;
+	}
+
+	private static boolean extracted(String thisExpression, boolean openingParenthesisFound, int i) {
+		{
+			if(thisExpression.charAt(i) == '(') {
+				openingParenthesisFound = true;
+				break;
+			}
+		}
+		return openingParenthesisFound;
 	}
 
 	public double normalizedNameDistance(AbstractCall call) {
