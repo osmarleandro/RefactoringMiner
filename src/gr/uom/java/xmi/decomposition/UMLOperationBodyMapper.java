@@ -3650,12 +3650,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		while(i < s1.length() && j >= 0) {
 			sb1.append(s1.charAt(i));
 			sb2.insert(0, s2.charAt(j));
-			if(sb1.toString().equals(sb2.toString())) {
-				String subCondition1 = operator1 + sb1.toString();
-				String subCondition2 = sb2.toString() + operator2;
-				Replacement r = new Replacement(subCondition1, subCondition2, ReplacementType.INVERT_CONDITIONAL);
-				return r;
-			}
+			if(sb1.toString().equals(sb2.toString()))
+				return extracted(operator1, operator2, sb1, sb2);
 			i++;
 			j--;
 		}
@@ -3677,6 +3673,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			j++;
 		}
 		return null;
+	}
+
+	private Replacement extracted(String operator1, String operator2, StringBuilder sb1, StringBuilder sb2) {
+		{
+			String subCondition1 = operator1 + sb1.toString();
+			String subCondition2 = sb2.toString() + operator2;
+			Replacement r = new Replacement(subCondition1, subCondition2, ReplacementType.INVERT_CONDITIONAL);
+			return r;
+		}
 	}
 
 	private String prepareConditional(String s) {
