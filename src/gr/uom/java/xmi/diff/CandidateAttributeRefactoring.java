@@ -88,8 +88,7 @@ public class CandidateAttributeRefactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Rename Attribute").append("\t");
+		StringBuilder sb = extracted();
 		sb.append(originalVariableName);
 		sb.append(" to ");
 		sb.append(renamedVariableName);
@@ -97,6 +96,12 @@ public class CandidateAttributeRefactoring {
 		sb.append(operationAfter);
 		sb.append(" in class ").append(operationAfter.getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Rename Attribute").append("\t");
+		return sb;
 	}
 
 	@Override
