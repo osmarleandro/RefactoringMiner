@@ -1385,8 +1385,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private ReplacementInfo initializeReplacementInfo(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2,
 			List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2) {
-		List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
-		l1.remove(leaf1);
+		List<? extends AbstractCodeFragment> l1 = extracted(leaf1, leaves1);
 		List<? extends AbstractCodeFragment> l2 = new ArrayList<AbstractCodeFragment>(leaves2);
 		l2.remove(leaf2);
 		ReplacementInfo replacementInfo = new ReplacementInfo(
@@ -1394,6 +1393,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				preprocessInput2(leaf1, leaf2),
 				l1, l2);
 		return replacementInfo;
+	}
+
+	private List<? extends AbstractCodeFragment> extracted(AbstractCodeFragment leaf1,
+			List<? extends AbstractCodeFragment> leaves1) {
+		List<? extends AbstractCodeFragment> l1 = new ArrayList<AbstractCodeFragment>(leaves1);
+		l1.remove(leaf1);
+		return l1;
 	}
 
 	private boolean variableDeclarationMappingsWithSameReplacementTypes(Set<LeafMapping> mappingSet) {
