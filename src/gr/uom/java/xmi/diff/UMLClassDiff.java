@@ -163,7 +163,12 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void checkForAttributeChanges() {
-		for(Iterator<UMLAttribute> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();) {
+		for(Iterator<UMLAttribute> removedAttributeIterator = removedAttributes.iterator(); removedAttributeIterator.hasNext();)
+			extracted(removedAttributeIterator);
+	}
+
+	private void extracted(Iterator<UMLAttribute> removedAttributeIterator) {
+		{
 			UMLAttribute removedAttribute = removedAttributeIterator.next();
 			for(Iterator<UMLAttribute> addedAttributeIterator = addedAttributes.iterator(); addedAttributeIterator.hasNext();) {
 				UMLAttribute addedAttribute = addedAttributeIterator.next();
