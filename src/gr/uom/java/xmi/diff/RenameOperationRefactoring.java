@@ -46,11 +46,18 @@ public class RenameOperationRefactoring implements Refactoring {
 		String sourceClassName = originalOperation.getClassName();
 		String targetClassName = renamedOperation.getClassName();
 		boolean targetIsAnonymousInsideSource = false;
-		if(targetClassName.startsWith(sourceClassName + ".")) {
+		if(targetClassName.startsWith(sourceClassName + "."))
+			targetIsAnonymousInsideSource = extracted(sourceClassName, targetClassName);
+		return sourceClassName.equals(targetClassName) || targetIsAnonymousInsideSource ? sourceClassName : targetClassName;
+	}
+
+	private boolean extracted(String sourceClassName, String targetClassName) {
+		boolean targetIsAnonymousInsideSource;
+		{
 			String targetClassNameSuffix = targetClassName.substring(sourceClassName.length() + 1, targetClassName.length());
 			targetIsAnonymousInsideSource = isNumeric(targetClassNameSuffix);
 		}
-		return sourceClassName.equals(targetClassName) || targetIsAnonymousInsideSource ? sourceClassName : targetClassName;
+		return targetIsAnonymousInsideSource;
 	}
 
 	private static boolean isNumeric(String str) {
