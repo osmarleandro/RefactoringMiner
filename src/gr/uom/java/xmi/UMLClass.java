@@ -280,10 +280,14 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     		return false;
     	if(this.isInterface != umlClass.isInterface)
     		return false;
-    	if(!equalTypeParameters(umlClass))
+    	return extracted(umlClass);
+    }
+
+	private boolean extracted(UMLClass umlClass) {
+		if(!equalTypeParameters(umlClass))
     		return false;
     	return true;
-    }
+	}
 
 	private boolean equalTypeParameters(UMLClass umlClass) {
 		return this.typeParameters.equals(umlClass.typeParameters) || this.getTypeParameterNames().equals(umlClass.getTypeParameterNames());
