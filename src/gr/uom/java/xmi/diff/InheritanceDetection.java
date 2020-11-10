@@ -31,18 +31,23 @@ public class InheritanceDetection {
 
 	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
-		for(UMLGeneralization generalization : addedGeneralizations) {
-			String superclass = generalization.getParent();
-			String subclass = generalization.getChild().getName();
-			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
-				addSubclassToSuperclass(superclass, subclass);
-		}
+		for(UMLGeneralization generalization : addedGeneralizations)
+			extracted(modelDiff, generalization);
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
 		for(UMLRealization realization : addedRealizations) {
 			String supplier = realization.getSupplier();
 			String client = realization.getClient().getName();
 			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
 				addSubclassToSuperclass(supplier, client);
+		}
+	}
+
+	private void extracted(UMLModelDiff modelDiff, UMLGeneralization generalization) {
+		{
+			String superclass = generalization.getParent();
+			String subclass = generalization.getChild().getName();
+			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)
+				addSubclassToSuperclass(superclass, subclass);
 		}
 	}
 
