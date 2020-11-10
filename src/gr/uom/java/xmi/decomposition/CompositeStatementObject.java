@@ -272,7 +272,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public Map<String, List<ObjectCreation>> getCreationMap() {
 		Map<String, List<ObjectCreation>> map = new LinkedHashMap<String, List<ObjectCreation>>();
-		for(AbstractExpression expression : expressionList) {
+		for(AbstractExpression expression : expressionList)
+			extracted(map, expression);
+		return map;
+	}
+
+	private void extracted(Map<String, List<ObjectCreation>> map, AbstractExpression expression) {
+		{
 			Map<String, List<ObjectCreation>> expressionMap = expression.getCreationMap();
 			for(String key : expressionMap.keySet()) {
 				if(map.containsKey(key)) {
@@ -285,7 +291,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 			}
 		}
-		return map;
 	}
 
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
