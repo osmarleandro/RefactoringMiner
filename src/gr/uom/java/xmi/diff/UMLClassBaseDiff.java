@@ -90,8 +90,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public void process() throws RefactoringMinerTimedOutException {
-		processInheritance();
-		processOperations();
+		extracted();
 		createBodyMappers();
 		processAttributes();
 		checkForAttributeChanges();
@@ -99,6 +98,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		checkForOperationSignatureChanges();
 		checkForInlinedOperations();
 		checkForExtractedOperations();
+	}
+
+	private void extracted() throws RefactoringMinerTimedOutException {
+		processInheritance();
+		processOperations();
 	}
 
 	public UMLOperationDiff getOperationDiff(UMLOperation operation1, UMLOperation operation2) {
