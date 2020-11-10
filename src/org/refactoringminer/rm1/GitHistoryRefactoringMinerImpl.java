@@ -281,12 +281,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				InputStream input = new FileInputStream("github-oauth.properties");
 				prop.load(input);
 				String oAuthToken = prop.getProperty("OAuthToken");
-				if (oAuthToken != null) {
-					gitHub = GitHub.connectUsingOAuth(oAuthToken);
-					if(gitHub.isCredentialValid()) {
-						logger.info("Connected to GitHub with OAuth token");
-					}
-				}
+				if (oAuthToken != null)
+					extracted(oAuthToken);
 				else {
 					gitHub = GitHub.connect();
 				}
@@ -297,6 +293,15 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			}
 		}
 		return gitHub;
+	}
+
+	private void extracted(String oAuthToken) throws IOException {
+		{
+			gitHub = GitHub.connectUsingOAuth(oAuthToken);
+			if(gitHub.isCredentialValid()) {
+				logger.info("Connected to GitHub with OAuth token");
+			}
+		}
 	}
 
 	protected List<Refactoring> filter(List<Refactoring> refactoringsAtRevision) {
