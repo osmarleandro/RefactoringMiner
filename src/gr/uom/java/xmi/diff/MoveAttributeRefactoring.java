@@ -77,14 +77,19 @@ public class MoveAttributeRefactoring implements Refactoring {
 			return true;
 		}
 		
-		if(o instanceof MoveAttributeRefactoring) {
+		if(o instanceof MoveAttributeRefactoring)
+			return extracted(o);
+		return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
 			MoveAttributeRefactoring other = (MoveAttributeRefactoring)o;
 			return this.originalAttribute.equals(other.originalAttribute) &&
 				this.movedAttribute.equals(other.movedAttribute) &&
 				this.getSourceClassName().equals(other.getSourceClassName()) &&
 				this.getTargetClassName().equals(other.getTargetClassName());
 		}
-		return false;
 	}
 
 	public int hashCode() {
