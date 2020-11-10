@@ -141,7 +141,16 @@ public class UMLModel {
     			modelDiff.reportAddedRealization(umlRealization);
     	}
     	modelDiff.checkForRealizationChanges();
-    	for(UMLClass umlClass : classList) {
+    	for(UMLClass umlClass : classList)
+			extracted(umlModel, modelDiff, umlClass);
+    	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.RelaxedMove());
+    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
+    	return modelDiff;
+    }
+
+	private void extracted(UMLModel umlModel, UMLModelDiff modelDiff, UMLClass umlClass)
+			throws RefactoringMinerTimedOutException {
+		{
     		if(umlModel.classList.contains(umlClass)) {
     			UMLClassDiff classDiff = new UMLClassDiff(umlClass, umlModel.getClass(umlClass), modelDiff);
     			classDiff.process();
@@ -149,8 +158,5 @@ public class UMLModel {
     				modelDiff.addUMLClassDiff(classDiff);
     		}
     	}
-    	modelDiff.checkForMovedClasses(renamedFileHints, umlModel.repositoryDirectories, new UMLClassMatcher.RelaxedMove());
-    	modelDiff.checkForRenamedClasses(renamedFileHints, new UMLClassMatcher.RelaxedRename());
-    	return modelDiff;
-    }
+	}
 }
