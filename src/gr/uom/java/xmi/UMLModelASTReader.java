@@ -337,7 +337,13 @@ public class UMLModelASTReader {
     	
     	List<UMLAnonymousClass> createdAnonymousClasses = new ArrayList<UMLAnonymousClass>();
     	Enumeration enumeration = root.preorderEnumeration();
-    	while(enumeration.hasMoreElements()) {
+    	while(enumeration.hasMoreElements())
+			extracted(cu, packageName, sourceFile, className, umlClass, createdAnonymousClasses, enumeration);
+	}
+
+	private void extracted(CompilationUnit cu, String packageName, String sourceFile, String className,
+			UMLClass umlClass, List<UMLAnonymousClass> createdAnonymousClasses, Enumeration enumeration) {
+		{
     		DefaultMutableTreeNode node = (DefaultMutableTreeNode)enumeration.nextElement();
     		if(node.getUserObject() != null) {
     			AnonymousClassDeclaration anonymous = (AnonymousClassDeclaration)node.getUserObject();
