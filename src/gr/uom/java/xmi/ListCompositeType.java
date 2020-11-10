@@ -69,12 +69,17 @@ public class ListCompositeType extends UMLType {
 	@Override
 	public String toQualifiedString() {
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < types.size(); i++) {
+		for(int i = 0; i < types.size(); i++)
+			extracted(sb, i);
+		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb, int i) {
+		{
 			sb.append(types.get(i).toQualifiedString());
 			if(i < types.size() - 1)
 				sb.append(kind.operand);
 		}
-		return sb.toString();
 	}
 
 	@Override
