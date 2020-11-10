@@ -2673,10 +2673,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private void removeCommonElements(Set<String> strings1, Set<String> strings2) {
-		Set<String> intersection = new LinkedHashSet<String>(strings1);
-		intersection.retainAll(strings2);
+		Set<String> intersection = extracted(strings1, strings2);
 		strings1.removeAll(intersection);
 		strings2.removeAll(intersection);
+	}
+
+	private Set<String> extracted(Set<String> strings1, Set<String> strings2) {
+		Set<String> intersection = new LinkedHashSet<String>(strings1);
+		intersection.retainAll(strings2);
+		return intersection;
 	}
 
 	private void removeCommonTypes(Set<String> strings1, Set<String> strings2, List<String> types1, List<String> types2) {
