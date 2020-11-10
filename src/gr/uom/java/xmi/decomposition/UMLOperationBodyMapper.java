@@ -2682,14 +2682,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private void removeCommonTypes(Set<String> strings1, Set<String> strings2, List<String> types1, List<String> types2) {
 		if(types1.size() == types2.size()) {
 			Set<String> removeFromIntersection = new LinkedHashSet<String>();
-			for(int i=0; i<types1.size(); i++) {
-				String type1 = types1.get(i);
-				String type2 = types2.get(i);
-				if(!type1.equals(type2)) {
-					removeFromIntersection.add(type1);
-					removeFromIntersection.add(type2);
-				}
-			}
+			for(int i=0; i<types1.size(); i++)
+				extracted(types1, types2, removeFromIntersection, i);
 			Set<String> intersection = new LinkedHashSet<String>(strings1);
 			intersection.retainAll(strings2);
 			intersection.removeAll(removeFromIntersection);
@@ -2698,6 +2692,17 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		else {
 			removeCommonElements(strings1, strings2);
+		}
+	}
+
+	private void extracted(List<String> types1, List<String> types2, Set<String> removeFromIntersection, int i) {
+		{
+			String type1 = types1.get(i);
+			String type2 = types2.get(i);
+			if(!type1.equals(type2)) {
+				removeFromIntersection.add(type1);
+				removeFromIntersection.add(type2);
+			}
 		}
 	}
 
