@@ -134,6 +134,10 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private boolean memberValuePairsEquals(UMLAnnotation other) {
 		Map<String, AbstractExpression> m = other.memberValuePairs;
 		int thisSize = this.memberValuePairs.size();
+		return extracted(other, m, thisSize);
+	}
+
+	private boolean extracted(UMLAnnotation other, Map<String, AbstractExpression> m, int thisSize) {
 		int otherSize = other.memberValuePairs.size();
 		if(thisSize != otherSize) {
 			return false;
