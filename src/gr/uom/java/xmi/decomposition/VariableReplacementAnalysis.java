@@ -539,7 +539,14 @@ public class VariableReplacementAnalysis {
 
 	private Map<Replacement, Set<AbstractCodeMapping>> getReplacementOccurrenceMap(ReplacementType type) {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
-		for(AbstractCodeMapping mapping : mappings) {
+		for(AbstractCodeMapping mapping : mappings)
+			extracted(type, map, mapping);
+		return map;
+	}
+
+	private void extracted(ReplacementType type, Map<Replacement, Set<AbstractCodeMapping>> map,
+			AbstractCodeMapping mapping) {
+		{
 			for(Replacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(type) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
 						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
@@ -600,7 +607,6 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
-		return map;
 	}
 
 	private Map<Replacement, Set<AbstractCodeMapping>> getVariableDeclarationReplacementOccurrenceMap() {
