@@ -2,6 +2,7 @@ package org.refactoringminer.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -139,14 +140,19 @@ public class GitServiceImpl implements GitService {
 	public int countCommits(Repository repository, String branch) throws Exception {
 		RevWalk walk = new RevWalk(repository);
 		try {
-			Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
-			ObjectId objectId = ref.getObjectId();
+			ObjectId objectId = extracted(repository, branch);
 			RevCommit start = walk.parseCommit(objectId);
 			walk.setRevFilter(RevFilter.NO_MERGES);
 			return RevWalkUtils.count(walk, start, null);
 		} finally {
 			walk.dispose();
 		}
+	}
+
+	private ObjectId extracted(Repository repository, String branch) throws IOException {
+		Ref ref = repository.findRef(REMOTE_REFS_PREFIX + branch);
+		ObjectId objectId = ref.getObjectId();
+		return objectId;
 	}
 
 	private List<TrackingRefUpdate> fetch(Repository repository) throws Exception {
