@@ -78,6 +78,10 @@ public class LeafType extends UMLType {
 	private static boolean firstOrLastCamelCaseTokenMatch(String classType1, String classType2) {
 		String[] tokens1 = CAMEL_CASE_SPLIT_PATTERN.split(classType1);
 		String[] tokens2 = CAMEL_CASE_SPLIT_PATTERN.split(classType2);
+		return extracted(tokens1, tokens2);
+	}
+
+	private static boolean extracted(String[] tokens1, String[] tokens2) {
 		if(tokens1.length > 0 && tokens2.length > 0) {
 			return tokens1[0].equals(tokens2[0]) || tokens1[tokens1.length-1].equals(tokens2[tokens2.length-1]);
 		}
