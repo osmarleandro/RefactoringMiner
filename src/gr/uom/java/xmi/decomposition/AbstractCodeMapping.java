@@ -375,15 +375,8 @@ public abstract class AbstractCodeMapping {
 
 	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
-		for(Refactoring ref : refactorings) {
-			if(ref instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
-				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
-				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
-					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
-				}
-			}
-		}
+		for(Refactoring ref : refactorings)
+			output = extracted(input, output, ref);
 		if(initializer.toString().equals(output)) {
 			return true;
 		}
@@ -421,6 +414,19 @@ public abstract class AbstractCodeMapping {
 			}
 		}
 		return false;
+	}
+
+	private String extracted(String input, String output, Refactoring ref) {
+		{
+			if(ref instanceof ExtractVariableRefactoring) {
+				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
+				VariableDeclaration declaration = extractVariable.getVariableDeclaration();
+				if(declaration.getInitializer() != null && input.contains(declaration.getInitializer().toString())) {
+					output = output.replace(declaration.getInitializer().toString(), declaration.getVariableName());
+				}
+			}
+		}
+		return output;
 	}
 
 	public Set<Replacement> commonReplacements(AbstractCodeMapping other) {
