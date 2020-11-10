@@ -157,24 +157,30 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		try (TreeWalk treeWalk = new TreeWalk(repository)) {
 			treeWalk.addTree(parentTree);
 			treeWalk.setRecursive(true);
-			while (treeWalk.next()) {
-				String pathString = treeWalk.getPathString();
-				if(filePaths.contains(pathString)) {
-					ObjectId objectId = treeWalk.getObjectId(0);
-					ObjectLoader loader = repository.open(objectId);
-					StringWriter writer = new StringWriter();
-					IOUtils.copy(loader.openStream(), writer);
-					fileContents.put(pathString, writer.toString());
-				}
-				if(pathString.endsWith(".java") && pathString.contains("/")) {
-					String directory = pathString.substring(0, pathString.lastIndexOf("/"));
-					repositoryDirectories.add(directory);
-					//include sub-directories
-					String subDirectory = new String(directory);
-					while(subDirectory.contains("/")) {
-						subDirectory = subDirectory.substring(0, subDirectory.lastIndexOf("/"));
-						repositoryDirectories.add(subDirectory);
-					}
+			while (treeWalk.next())
+				extracted(repository, filePaths, fileContents, repositoryDirectories, treeWalk);
+		}
+	}
+
+	private void extracted(Repository repository, List<String> filePaths, Map<String, String> fileContents,
+			Set<String> repositoryDirectories, TreeWalk treeWalk) throws MissingObjectException, IOException {
+		{
+			String pathString = treeWalk.getPathString();
+			if(filePaths.contains(pathString)) {
+				ObjectId objectId = treeWalk.getObjectId(0);
+				ObjectLoader loader = repository.open(objectId);
+				StringWriter writer = new StringWriter();
+				IOUtils.copy(loader.openStream(), writer);
+				fileContents.put(pathString, writer.toString());
+			}
+			if(pathString.endsWith(".java") && pathString.contains("/")) {
+				String directory = pathString.substring(0, pathString.lastIndexOf("/"));
+				repositoryDirectories.add(directory);
+				//include sub-directories
+				String subDirectory = new String(directory);
+				while(subDirectory.contains("/")) {
+					subDirectory = subDirectory.substring(0, subDirectory.lastIndexOf("/"));
+					repositoryDirectories.add(subDirectory);
 				}
 			}
 		}
