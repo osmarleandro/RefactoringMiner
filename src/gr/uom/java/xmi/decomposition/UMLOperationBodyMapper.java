@@ -3121,12 +3121,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			int beginIndexS2 = s2.indexOf(commonPrefix) + commonPrefix.length();
 			int endIndexS2 = s2.lastIndexOf(commonSuffix);
 			String diff2 = beginIndexS2 > endIndexS2 ? "" :	s2.substring(beginIndexS2, endIndexS2);
-			if(beginIndexS1 > endIndexS1) {
-				diff2 = diff2 + commonSuffix.substring(0, beginIndexS1 - endIndexS1);
-				if(diff2.charAt(diff2.length()-1) == ',') {
-					diff2 = diff2.substring(0, diff2.length()-1);
-				}
-			}
+			if(beginIndexS1 > endIndexS1)
+				diff2 = extracted(commonSuffix, beginIndexS1, endIndexS1, diff2);
 			String characterAfterCommonPrefix = s1.equals(commonPrefix) ? "" : Character.toString(s1.charAt(commonPrefix.length())); 
 			if(commonPrefix.contains(",") && commonPrefix.lastIndexOf(",") < commonPrefix.length()-1 &&
 					!characterAfterCommonPrefix.equals(",") && !characterAfterCommonPrefix.equals(")")) {
@@ -3379,6 +3375,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
+	}
+
+	private String extracted(String commonSuffix, int beginIndexS1, int endIndexS1, String diff2) {
+		{
+			diff2 = diff2 + commonSuffix.substring(0, beginIndexS1 - endIndexS1);
+			if(diff2.charAt(diff2.length()-1) == ',') {
+				diff2 = diff2.substring(0, diff2.length()-1);
+			}
+		}
+		return diff2;
 	}
 
 	private boolean equalAfterArgumentMerge(String s1, String s2, ReplacementInfo replacementInfo) {
