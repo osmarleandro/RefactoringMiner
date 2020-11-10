@@ -93,7 +93,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(locationInfo.getCodeElementType().getName());
-		if(expressionList.size() > 0) {
+		if(expressionList.size() > 0)
+			extracted(sb);
+		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb) {
+		{
 			sb.append("(");
 			for(int i=0; i<expressionList.size()-1; i++) {
 				sb.append(expressionList.get(i).toString()).append("; ");
@@ -101,7 +107,6 @@ public class CompositeStatementObject extends AbstractStatement {
 			sb.append(expressionList.get(expressionList.size()-1).toString());
 			sb.append(")");
 		}
-		return sb.toString();
 	}
 
 	@Override
