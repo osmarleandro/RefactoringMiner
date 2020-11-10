@@ -291,7 +291,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
 		map.putAll(getMethodInvocationMap());
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(map, statement);
+		return map;
+	}
+
+	private void extracted(Map<String, List<OperationInvocation>> map, AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
@@ -336,7 +342,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 			}
 		}
-		return map;
 	}
 
 	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
