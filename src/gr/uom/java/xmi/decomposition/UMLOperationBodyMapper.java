@@ -1442,6 +1442,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
 		CompositeStatementObject switchParent1 = switchParentEntry.getKey();
 		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
+		return extracted(mappingSet, switchParent1, switchParent2);
+	}
+
+	private LeafMapping extracted(TreeSet<LeafMapping> mappingSet, CompositeStatementObject switchParent1,
+			CompositeStatementObject switchParent2) {
 		AbstractCodeMapping currentSwitchCase = null;
 		for(AbstractCodeMapping mapping : this.mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
