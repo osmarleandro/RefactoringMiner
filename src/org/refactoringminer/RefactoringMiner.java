@@ -261,7 +261,15 @@ public class RefactoringMiner {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(Refactoring refactoring : refactoringsAtRevision)
+			counter = extracted(sb, refactoringsAtRevision, counter, refactoring);
+		sb.append("]").append("\n");
+		sb.append("}");
+	}
+
+	private static int extracted(StringBuilder sb, List<Refactoring> refactoringsAtRevision, int counter,
+			Refactoring refactoring) {
+		{
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");
@@ -269,8 +277,7 @@ public class RefactoringMiner {
 			sb.append("\n");
 			counter++;
 		}
-		sb.append("]").append("\n");
-		sb.append("}");
+		return counter;
 	}
 
 	private static void startJSON(StringBuilder sb) {
