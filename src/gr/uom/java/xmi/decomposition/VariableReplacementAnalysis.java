@@ -860,11 +860,8 @@ public class VariableReplacementAnalysis {
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 						boolean containsMapping = true;
 						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
-								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
-							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
-						}
+								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT))
+							containsMapping = extracted(mapping, statement1, statement2);
 						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
 								operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) == null) {
 							return true;
@@ -874,6 +871,17 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return false;
+	}
+
+	private boolean extracted(AbstractCodeMapping mapping, AbstractCodeFragment statement1,
+			AbstractCodeFragment statement2) {
+		boolean containsMapping;
+		{
+CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
+CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
+}
+		return containsMapping;
 	}
 
 	public static boolean bothFragmentsUseVariable(VariableDeclaration v1, AbstractCodeMapping mapping) {
