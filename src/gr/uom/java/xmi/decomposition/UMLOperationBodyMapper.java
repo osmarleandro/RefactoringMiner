@@ -1156,104 +1156,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public void processLeaves(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
 			Map<String, String> parameterToArgumentMap) throws RefactoringMinerTimedOutException {
 		List<TreeSet<LeafMapping>> postponedMappingSets = new ArrayList<TreeSet<LeafMapping>>();
-		if(leaves1.size() <= leaves2.size()) {
-			//exact string+depth matching - leaf nodes
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
-				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
-					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
-					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					LeafMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					leaves2.remove(minStatementMapping.getFragment2());
-					leafIterator1.remove();
-				}
-			}
-			
-			//exact string matching - leaf nodes - finds moves to another level
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
-				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
-					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
-					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
-					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					LeafMapping minStatementMapping = mappingSet.first();
-					mappings.add(minStatementMapping);
-					leaves2.remove(minStatementMapping.getFragment2());
-					leafIterator1.remove();
-				}
-			}
-			
-			// exact matching with variable renames
-			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
-				AbstractCodeFragment leaf1 = leafIterator1.next();
-				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
-				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
-					AbstractCodeFragment leaf2 = leafIterator2.next();
-					
-					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
-					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
-					if (replacements != null) {
-						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
-						mapping.addReplacements(replacements);
-						for(AbstractCodeFragment leaf : leaves2) {
-							if(leaf.equals(leaf2)) {
-								break;
-							}
-							UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
-							mapping.temporaryVariableAssignment(leaf, leaves2, refactorings, classDiff);
-							if(mapping.isIdenticalWithExtractedVariable()) {
-								break;
-							}
-						}
-						for(AbstractCodeFragment leaf : leaves1) {
-							if(leaf.equals(leaf1)) {
-								break;
-							}
-							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
-							if(mapping.isIdenticalWithInlinedVariable()) {
-								break;
-							}
-						}
-						mappingSet.add(mapping);
-					}
-				}
-				if(!mappingSet.isEmpty()) {
-					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
-					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
-						//postpone mapping
-						postponedMappingSets.add(mappingSet);
-					}
-					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
-						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
-						mappings.add(bestMapping);
-						leaves2.remove(bestMapping.getFragment1());
-						leafIterator1.remove();
-					}
-					else {
-						LeafMapping minStatementMapping = mappingSet.first();
-						mappings.add(minStatementMapping);
-						leaves2.remove(minStatementMapping.getFragment2());
-						leafIterator1.remove();
-					}
-				}
-			}
-		}
+		if(leaves1.size() <= leaves2.size())
+			extracted(leaves1, leaves2, parameterToArgumentMap, postponedMappingSets);
 		else {
 			//exact string+depth matching - leaf nodes
 			for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
@@ -1379,6 +1283,109 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				this.mappings.add(minStatementMapping);
 				leaves1.remove(minStatementMapping.getFragment1());
 				leaves2.remove(minStatementMapping.getFragment2());
+			}
+		}
+	}
+
+	private void extracted(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
+			Map<String, String> parameterToArgumentMap, List<TreeSet<LeafMapping>> postponedMappingSets)
+			throws RefactoringMinerTimedOutException {
+		{
+			//exact string+depth matching - leaf nodes
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2)) && leaf1.getDepth() == leaf2.getDepth()) {
+						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					mappings.add(minStatementMapping);
+					leaves2.remove(minStatementMapping.getFragment2());
+					leafIterator1.remove();
+				}
+			}
+			
+			//exact string matching - leaf nodes - finds moves to another level
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					String argumentizedString1 = preprocessInput1(leaf1, leaf2);
+					String argumentizedString2 = preprocessInput2(leaf1, leaf2);
+					if((leaf1.getString().equals(leaf2.getString()) || argumentizedString1.equals(argumentizedString2))) {
+						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					LeafMapping minStatementMapping = mappingSet.first();
+					mappings.add(minStatementMapping);
+					leaves2.remove(minStatementMapping.getFragment2());
+					leafIterator1.remove();
+				}
+			}
+			
+			// exact matching with variable renames
+			for(ListIterator<? extends AbstractCodeFragment> leafIterator1 = leaves1.listIterator(); leafIterator1.hasNext();) {
+				AbstractCodeFragment leaf1 = leafIterator1.next();
+				TreeSet<LeafMapping> mappingSet = new TreeSet<LeafMapping>();
+				for(ListIterator<? extends AbstractCodeFragment> leafIterator2 = leaves2.listIterator(); leafIterator2.hasNext();) {
+					AbstractCodeFragment leaf2 = leafIterator2.next();
+					
+					ReplacementInfo replacementInfo = initializeReplacementInfo(leaf1, leaf2, leaves1, leaves2);
+					Set<Replacement> replacements = findReplacementsWithExactMatching(leaf1, leaf2, parameterToArgumentMap, replacementInfo);
+					if (replacements != null) {
+						LeafMapping mapping = createLeafMapping(leaf1, leaf2, parameterToArgumentMap);
+						mapping.addReplacements(replacements);
+						for(AbstractCodeFragment leaf : leaves2) {
+							if(leaf.equals(leaf2)) {
+								break;
+							}
+							UMLClassBaseDiff classDiff = this.classDiff != null ? this.classDiff : parentMapper != null ? parentMapper.classDiff : null;
+							mapping.temporaryVariableAssignment(leaf, leaves2, refactorings, classDiff);
+							if(mapping.isIdenticalWithExtractedVariable()) {
+								break;
+							}
+						}
+						for(AbstractCodeFragment leaf : leaves1) {
+							if(leaf.equals(leaf1)) {
+								break;
+							}
+							mapping.inlinedVariableAssignment(leaf, leaves2, refactorings);
+							if(mapping.isIdenticalWithInlinedVariable()) {
+								break;
+							}
+						}
+						mappingSet.add(mapping);
+					}
+				}
+				if(!mappingSet.isEmpty()) {
+					AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry = null;
+					if(variableDeclarationMappingsWithSameReplacementTypes(mappingSet)) {
+						//postpone mapping
+						postponedMappingSets.add(mappingSet);
+					}
+					else if((switchParentEntry = multipleMappingsUnderTheSameSwitch(mappingSet)) != null) {
+						LeafMapping bestMapping = findBestMappingBasedOnMappedSwitchCases(switchParentEntry, mappingSet);
+						mappings.add(bestMapping);
+						leaves2.remove(bestMapping.getFragment1());
+						leafIterator1.remove();
+					}
+					else {
+						LeafMapping minStatementMapping = mappingSet.first();
+						mappings.add(minStatementMapping);
+						leaves2.remove(minStatementMapping.getFragment2());
+						leafIterator1.remove();
+					}
+				}
 			}
 		}
 	}
