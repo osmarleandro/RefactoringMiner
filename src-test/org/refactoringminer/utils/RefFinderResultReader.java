@@ -31,13 +31,18 @@ public class RefFinderResultReader {
     private static List<RefactoringRelationship> readFolder(String path) throws Exception {
         List<RefactoringRelationship> result = new ArrayList<>();
         File folder = new File(path);
-        for (File f : folder.listFiles()) {
+        return extracted(result, folder);
+    }
+
+	private static List<RefactoringRelationship> extracted(List<RefactoringRelationship> result, File folder)
+			throws Exception {
+		for (File f : folder.listFiles()) {
             if (f.isFile()) {
                 readXml(f.getPath(), result);
             }
         }
         return result;
-    }
+	}
 
     public static void readXml(String path, List<RefactoringRelationship> result) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
