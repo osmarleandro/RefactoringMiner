@@ -168,10 +168,7 @@ public class InlineOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getInlinedOperationCodeRange()
-				.setDescription("inlined method declaration")
-				.setCodeElement(inlinedOperation.toString()));
+		List<CodeRange> ranges = extracted();
 		//ranges.add(getInlinedCodeRangeFromInlinedOperation().setDescription("inlined code from inlined method declaration"));
 		for(AbstractCodeFragment inlinedCodeFragment : inlinedCodeFragmentsFromInlinedOperation) {
 			ranges.add(inlinedCodeFragment.codeRange().setDescription("inlined code from inlined method declaration"));
@@ -192,6 +189,14 @@ public class InlineOperationRefactoring implements Refactoring {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(getInlinedOperationCodeRange()
+				.setDescription("inlined method declaration")
+				.setCodeElement(inlinedOperation.toString()));
 		return ranges;
 	}
 
