@@ -3930,7 +3930,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private Set<Replacement> replacementsWithinMethodInvocations(String s1, String s2, Set<String> set1, Set<String> set2, Map<String, List<? extends AbstractCall>> methodInvocationMap, Direction direction) {
 		Set<Replacement> replacements = new LinkedHashSet<Replacement>();
-		for(String element1 : set1) {
+		for(String element1 : set1)
+			extracted(s1, s2, set2, methodInvocationMap, direction, replacements, element1);
+		return replacements;
+	}
+
+	private void extracted(String s1, String s2, Set<String> set2,
+			Map<String, List<? extends AbstractCall>> methodInvocationMap, Direction direction,
+			Set<Replacement> replacements, String element1) {
+		{
 			if(s1.contains(element1) && !s1.equals(element1) && !s1.equals("this." + element1) && !s1.equals("_" + element1)) {
 				int startIndex1 = s1.indexOf(element1);
 				String substringBeforeIndex1 = s1.substring(0, startIndex1);
@@ -3960,7 +3968,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		return replacements;
 	}
 
 	public static boolean containsMethodSignatureOfAnonymousClass(String s) {
