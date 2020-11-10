@@ -823,21 +823,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
 		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT1()) {
-			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
-							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-								nonMappedInnerNodeCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
+		for(CompositeStatementObject composite : getNonMappedInnerNodesT1())
+			nonMappedInnerNodeCount = extracted(removedOperations, nonMappedInnerNodeCount, composite);
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement()) {
@@ -855,6 +842,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
+	}
+
+	private int extracted(List<UMLOperation> removedOperations, int nonMappedInnerNodeCount,
+			CompositeStatementObject composite) {
+		{
+			if(composite.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : removedOperations) {
+							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+								nonMappedInnerNodeCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return nonMappedInnerNodeCount;
 	}
 
 	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
