@@ -905,9 +905,15 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private int editDistance() {
 		int count = 0;
-		for(AbstractCodeMapping mapping : getMappings()) {
+		for(AbstractCodeMapping mapping : getMappings())
+			count = extracted(count, mapping);
+		return count;
+	}
+
+	private int extracted(int count, AbstractCodeMapping mapping) {
+		{
 			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
-				continue;
+				return count;
 			}
 			String s1 = preprocessInput1(mapping.getFragment1(), mapping.getFragment2());
 			String s2 = preprocessInput2(mapping.getFragment1(), mapping.getFragment2());
