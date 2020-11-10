@@ -225,26 +225,28 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
-			if(!allMappingsAreExactMatches(lambdaMapper)) {
-				allExactLambdaMappers = false;
-				break;
-			}
-		}
+		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers)
+			allExactLambdaMappers = extracted(allExactLambdaMappers, lambdaMapper);
 		return getExpression() == null && call.getExpression() == null &&
 				!identicalName(call) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
 				equalArguments(call);
 	}
 
-	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
-		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+	private boolean extracted(boolean allExactLambdaMappers, UMLOperationBodyMapper lambdaMapper) {
+		{
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;
 			}
 		}
+		return allExactLambdaMappers;
+	}
+
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
+		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers)
+			allExactLambdaMappers = extracted(allExactLambdaMappers, lambdaMapper);
 		return getExpression() != null && call.getExpression() != null &&
 				identicalExpression(call, replacements) &&
 				(normalizedNameDistance(call) <= distance || allExactLambdaMappers) &&
