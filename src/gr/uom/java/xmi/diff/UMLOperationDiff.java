@@ -196,9 +196,7 @@ public class UMLOperationDiff {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append("\t").append(removedOperation).append("\n");
+		StringBuilder sb = extracted();
 		if(operationRenamed)
 			sb.append("\t").append("renamed from " + removedOperation.getName() + " to " + addedOperation.getName()).append("\n");
 		if(visibilityChanged)
@@ -227,6 +225,12 @@ public class UMLOperationDiff {
 			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
 		}
 		return sb.toString();
+	}
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(!isEmpty())
+			sb.append("\t").append(removedOperation).append("\n");
+		return sb;
 	}
 
 	public Set<Refactoring> getRefactorings() {
