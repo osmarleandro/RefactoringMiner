@@ -24,6 +24,10 @@ public class WildcardType extends UMLType {
 			return true;
 		if (obj == null)
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		WildcardType other = (WildcardType) obj;
