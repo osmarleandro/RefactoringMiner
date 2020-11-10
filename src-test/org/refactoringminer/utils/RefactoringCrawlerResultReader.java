@@ -29,13 +29,18 @@ public class RefactoringCrawlerResultReader {
   private static List<RefactoringCrawlerRefactoring> readFolder(String path) throws Exception {
     List<RefactoringCrawlerRefactoring> result = new ArrayList<>();
     File folder = new File(path);
-    for (File f : folder.listFiles()) {
+    return extracted(result, folder);
+  }
+
+private static List<RefactoringCrawlerRefactoring> extracted(List<RefactoringCrawlerRefactoring> result, File folder)
+		throws Exception {
+	for (File f : folder.listFiles()) {
       if (f.isFile()) {
         readXml(f.getPath(), result);
       }
     }
     return result;
-  }
+}
 
   public static void readXml(String path, List<RefactoringCrawlerRefactoring> result) throws Exception {
     String content = readFile(path, StandardCharsets.UTF_8);
