@@ -98,7 +98,14 @@ public class AstUtils {
 	public static String stripTypeParamsFromTypeName(String typeNameWithGenerics) {
 		String rawTypeName = typeNameWithGenerics;
 		int startOfTypeParams = typeNameWithGenerics.indexOf('<');
-		if (startOfTypeParams >= 0) {
+		if (startOfTypeParams >= 0)
+			rawTypeName = extracted(typeNameWithGenerics, startOfTypeParams);
+		return rawTypeName;
+	}
+
+	private static String extracted(String typeNameWithGenerics, int startOfTypeParams) {
+		String rawTypeName;
+		{
 			rawTypeName = typeNameWithGenerics.substring(0, startOfTypeParams);
 			int endOfTypeParams = typeNameWithGenerics.lastIndexOf('>');
 			if (endOfTypeParams > startOfTypeParams && endOfTypeParams < typeNameWithGenerics.length() - 1) {
