@@ -110,23 +110,28 @@ public class VariableReplacementAnalysis {
 				if(initializer != null) {
 					for(String key : initializer.getCreationMap().keySet()) {
 						List<ObjectCreation> creations = initializer.getCreationMap().get(key);
-						for(ObjectCreation creation : creations) {
-							for(String argument : creation.arguments) {
-								SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
-								SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(new Replacement(declaration.getVariableName(), "", ReplacementType.VARIABLE_NAME));
-								if(v2 != null && v1 != null) {
-									Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), mappings);
-									RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
-									if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
-										variableRenames.add(ref);
-										if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
-											ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
-											refactoring.addRelatedRefactoring(ref);
-											refactorings.add(refactoring);
-										}
-									}
-								}
-							}
+						for(ObjectCreation creation : creations)
+							extracted(declaration, creation);
+					}
+				}
+			}
+		}
+	}
+
+	private void extracted(VariableDeclaration declaration, ObjectCreation creation) {
+		{
+			for(String argument : creation.arguments) {
+				SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(new Replacement("", argument, ReplacementType.VARIABLE_NAME));
+				SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(new Replacement(declaration.getVariableName(), "", ReplacementType.VARIABLE_NAME));
+				if(v2 != null && v1 != null) {
+					Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReferences(v1.getKey(), v2.getKey(), mappings);
+					RenameVariableRefactoring ref = new RenameVariableRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
+					if(!existsConflictingExtractVariableRefactoring(ref) && !existsConflictingMergeVariableRefactoring(ref) && !existsConflictingSplitVariableRefactoring(ref)) {
+						variableRenames.add(ref);
+						if(!v1.getKey().getType().equals(v2.getKey().getType()) || !v1.getKey().getType().equalsQualified(v2.getKey().getType())) {
+							ChangeVariableTypeRefactoring refactoring = new ChangeVariableTypeRefactoring(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue(), references);
+							refactoring.addRelatedRefactoring(ref);
+							refactorings.add(refactoring);
 						}
 					}
 				}
