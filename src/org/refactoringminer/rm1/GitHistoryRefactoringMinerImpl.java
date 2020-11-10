@@ -224,22 +224,28 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		java.util.zip.ZipFile zipFile = new ZipFile(destinationFile);
 		try {
 			Enumeration<? extends ZipEntry> entries = zipFile.entries();
-			while (entries.hasMoreElements()) {
-				ZipEntry entry = entries.nextElement();
-				File entryDestination = new File(projectFolder.getParentFile(),  entry.getName());
-				if (entry.isDirectory()) {
-					entryDestination.mkdirs();
-				} else {
-					entryDestination.getParentFile().mkdirs();
-					InputStream in = zipFile.getInputStream(entry);
-					OutputStream out = new FileOutputStream(entryDestination);
-					IOUtils.copy(in, out);
-					IOUtils.closeQuietly(in);
-					out.close();
-				}
-			}
+			while (entries.hasMoreElements())
+				extracted(projectFolder, zipFile, entries);
 		} finally {
 			zipFile.close();
+		}
+	}
+
+	private void extracted(File projectFolder, java.util.zip.ZipFile zipFile, Enumeration<? extends ZipEntry> entries)
+			throws IOException, FileNotFoundException {
+		{
+			ZipEntry entry = entries.nextElement();
+			File entryDestination = new File(projectFolder.getParentFile(),  entry.getName());
+			if (entry.isDirectory()) {
+				entryDestination.mkdirs();
+			} else {
+				entryDestination.getParentFile().mkdirs();
+				InputStream in = zipFile.getInputStream(entry);
+				OutputStream out = new FileOutputStream(entryDestination);
+				IOUtils.copy(in, out);
+				IOUtils.closeQuietly(in);
+				out.close();
+			}
 		}
 	}
 
