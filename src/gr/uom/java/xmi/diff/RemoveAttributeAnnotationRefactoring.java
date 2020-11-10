@@ -95,10 +95,15 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
+		int result = extracted(prime);
 		result = prime * result + ((attributeAfter == null) ? 0 : attributeAfter.hashCode());
 		result = prime * result + ((attributeBefore == null) ? 0 : attributeBefore.hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
+		int result = 1;
+		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
 		return result;
 	}
 
