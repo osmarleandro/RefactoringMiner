@@ -76,9 +76,7 @@ public class UMLAttributeDiff {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append("\t").append(removedAttribute).append("\n");
+		StringBuilder sb = extracted();
 		if(renamed)
 			sb.append("\t").append("renamed from " + removedAttribute.getName() + " to " + addedAttribute.getName()).append("\n");
 		if(visibilityChanged)
@@ -101,6 +99,13 @@ public class UMLAttributeDiff {
 			sb.append("\t").append("annotation " + annotationDiff.getRemovedAnnotation() + " modified to " + annotationDiff.getAddedAnnotation()).append("\n");
 		}
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(!isEmpty())
+			sb.append("\t").append(removedAttribute).append("\n");
+		return sb;
 	}
 
 	private Set<Refactoring> getAnnotationRefactorings() {
