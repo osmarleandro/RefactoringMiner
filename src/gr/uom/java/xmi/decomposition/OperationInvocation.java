@@ -274,7 +274,11 @@ public class OperationInvocation extends AbstractCall {
     		if(!this.expression.startsWith("new ") && other.expression.startsWith("new "))
     			return false;
     	}
-    	if(this.expression != null && this.expression.startsWith("new ") && other.expression == null)
+    	return extracted(other);
+    }
+
+	private boolean extracted(OperationInvocation other) {
+		if(this.expression != null && this.expression.startsWith("new ") && other.expression == null)
     		return false;
     	if(other.expression != null && other.expression.startsWith("new ") && this.expression == null)
     		return false;
@@ -286,7 +290,7 @@ public class OperationInvocation extends AbstractCall {
     			return false;
     	}
     	return true;
-    }
+	}
 
     public boolean containsVeryLongSubExpression() {
     	for(String expression : subExpressions) {
