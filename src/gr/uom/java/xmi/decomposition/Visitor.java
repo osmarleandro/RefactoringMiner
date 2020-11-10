@@ -689,18 +689,8 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(QualifiedName node) {
 		Name qualifier = node.getQualifier();
-		if(Character.isUpperCase(qualifier.getFullyQualifiedName().charAt(0))) {
-			types.add(qualifier.getFullyQualifiedName());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getTypes().add(qualifier.getFullyQualifiedName());
-			}
-			variables.add(node.toString());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(node.toString());
-			}
-		}
+		if(Character.isUpperCase(qualifier.getFullyQualifiedName().charAt(0)))
+			extracted(node, qualifier);
 		else if(qualifier instanceof SimpleName && !(node.getParent() instanceof QualifiedName)) {
 			if(node.getName().getIdentifier().equals("length")) {
 				variables.add(node.toString());
@@ -742,6 +732,21 @@ public class Visitor extends ASTVisitor {
 			}
 		}
 		return super.visit(node);
+	}
+
+	private void extracted(QualifiedName node, Name qualifier) {
+		{
+			types.add(qualifier.getFullyQualifiedName());
+			if(current.getUserObject() != null) {
+				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				anonymous.getTypes().add(qualifier.getFullyQualifiedName());
+			}
+			variables.add(node.toString());
+			if(current.getUserObject() != null) {
+				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				anonymous.getVariables().add(node.toString());
+			}
+		}
 	}
 
 	private EnhancedForStatement findParentEnhancedForStatement(ASTNode node) {
