@@ -38,13 +38,18 @@ public class RemoveMethodAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> leftSide() {
+		List<CodeRange> ranges = extracted();
+		ranges.add(operationBefore.codeRange()
+				.setDescription("original method declaration")
+				.setCodeElement(operationBefore.toString()));
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotation.codeRange()
 				.setDescription("deleted annotation")
 				.setCodeElement(annotation.toString()));
-		ranges.add(operationBefore.codeRange()
-				.setDescription("original method declaration")
-				.setCodeElement(operationBefore.toString()));
 		return ranges;
 	}
 
