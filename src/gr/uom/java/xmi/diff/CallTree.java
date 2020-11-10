@@ -18,12 +18,17 @@ public class CallTree {
 		List<CallTreeNode> queue = new LinkedList<CallTreeNode>();
 		nodes.add(root);
 		queue.add(root);
-		while(!queue.isEmpty()) {
+		while(!queue.isEmpty())
+			extracted(nodes, queue);
+		return nodes;
+	}
+
+	private void extracted(List<CallTreeNode> nodes, List<CallTreeNode> queue) {
+		{
 			CallTreeNode node = queue.remove(0);
 			nodes.addAll(node.getChildren());
 			queue.addAll(node.getChildren());
 		}
-		return nodes;
 	}
 	
 	public boolean contains(UMLOperation invokedOperation) {
