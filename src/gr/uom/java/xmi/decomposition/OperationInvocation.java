@@ -358,7 +358,13 @@ public class OperationInvocation extends AbstractCall {
 	private Set<String> subExpressions() {
 		Set<String> subExpressions = new LinkedHashSet<String>(this.subExpressions);
 		String thisExpression = this.expression;
-		if(thisExpression != null) {
+		if(thisExpression != null)
+			extracted(subExpressions, thisExpression);
+		return subExpressions;
+	}
+
+	private void extracted(Set<String> subExpressions, String thisExpression) {
+		{
 			if(thisExpression.contains(".")) {
 				int indexOfDot = thisExpression.indexOf(".");
 				String subString = thisExpression.substring(0, indexOfDot);
@@ -370,7 +376,6 @@ public class OperationInvocation extends AbstractCall {
 				subExpressions.add(thisExpression);
 			}
 		}
-		return subExpressions;
 	}
 
 	private static boolean dotInsideArguments(int indexOfDot, String thisExpression) {
