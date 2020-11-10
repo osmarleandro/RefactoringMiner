@@ -160,7 +160,13 @@ public class UMLModelASTReader {
 			importedTypes.add(importDeclaration.getName().getFullyQualifiedName());
 		}
 		List<AbstractTypeDeclaration> topLevelTypeDeclarations = compilationUnit.types();
-        for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations) {
+        for(AbstractTypeDeclaration abstractTypeDeclaration : topLevelTypeDeclarations)
+			extracted(sourceFilePath, compilationUnit, packageName, importedTypes, abstractTypeDeclaration);
+	}
+
+	private void extracted(String sourceFilePath, CompilationUnit compilationUnit, String packageName,
+			List<String> importedTypes, AbstractTypeDeclaration abstractTypeDeclaration) {
+		{
         	if(abstractTypeDeclaration instanceof TypeDeclaration) {
         		TypeDeclaration topLevelTypeDeclaration = (TypeDeclaration)abstractTypeDeclaration;
         		processTypeDeclaration(compilationUnit, topLevelTypeDeclaration, packageName, sourceFilePath, importedTypes);
