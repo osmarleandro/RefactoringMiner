@@ -358,7 +358,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<LambdaExpressionObject> getAllLambdas() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 		lambdas.addAll(getLambdas());
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(lambdas, statement);
+		return lambdas;
+	}
+
+	private void extracted(List<LambdaExpressionObject> lambdas, AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				lambdas.addAll(composite.getAllLambdas());
@@ -368,7 +374,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				lambdas.addAll(statementObject.getLambdas());
 			}
 		}
-		return lambdas;
 	}
 
 	public List<String> getAllVariables() {
