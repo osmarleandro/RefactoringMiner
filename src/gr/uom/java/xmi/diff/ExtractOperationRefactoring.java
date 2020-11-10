@@ -67,11 +67,16 @@ public class ExtractOperationRefactoring implements Refactoring {
 		sb.append(sourceOperationBeforeExtraction);
 		sb.append(" in class ");
 		sb.append(getClassName());
-		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION)) {
+		if(getRefactoringType().equals(RefactoringType.EXTRACT_AND_MOVE_OPERATION))
+			extracted(sb);
+		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb) {
+		{
 			sb.append(" & moved to class ");
 			sb.append(extractedOperation.getClassName());
 		}
-		return sb.toString();
 	}
 
 	private String getClassName() {
