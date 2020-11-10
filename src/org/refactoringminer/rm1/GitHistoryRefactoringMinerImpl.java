@@ -516,7 +516,21 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		Set<String> deletedAndRenamedFileParentDirectories = ConcurrentHashMap.newKeySet();
 		List<GHCommit.File> commitFiles = currentCommit.getFiles();
 		ExecutorService pool = Executors.newFixedThreadPool(commitFiles.size());
-		for (GHCommit.File commitFile : commitFiles) {
+		for (GHCommit.File commitFile : commitFiles)
+			extracted(currentCommitId, filesBefore, filesCurrent, renamedFilesHint, parentCommitId,
+					deletedAndRenamedFileParentDirectories, pool, commitFile);
+		pool.shutdown();
+		pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+		repositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent, deletedAndRenamedFileParentDirectories);
+		//allRepositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent);
+		//GHCommit parentCommit = repository.getCommit(parentCommitId);
+		//allRepositoryDirectories(parentCommit.getTree(), "", repositoryDirectoriesBefore);
+	}
+
+	private void extracted(String currentCommitId, Map<String, String> filesBefore, Map<String, String> filesCurrent,
+			Map<String, String> renamedFilesHint, final String parentCommitId,
+			Set<String> deletedAndRenamedFileParentDirectories, ExecutorService pool, GHCommit.File commitFile) {
+		{
 			String fileName = commitFile.getFileName();
 			if (commitFile.getFileName().endsWith(".java")) {
 				if (commitFile.getStatus().equals("modified")) {
@@ -593,12 +607,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				}
 			}
 		}
-		pool.shutdown();
-		pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-		repositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent, deletedAndRenamedFileParentDirectories);
-		//allRepositoryDirectories(currentCommit.getTree(), "", repositoryDirectoriesCurrent);
-		//GHCommit parentCommit = repository.getCommit(parentCommitId);
-		//allRepositoryDirectories(parentCommit.getTree(), "", repositoryDirectoriesBefore);
 	}
 
 	private void repositoryDirectories(GHTree tree, String pathFromRoot, Set<String> repositoryDirectories, Set<String> targetPaths) throws IOException {
