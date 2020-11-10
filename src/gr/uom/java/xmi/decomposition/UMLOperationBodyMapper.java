@@ -2775,6 +2775,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				s1AfterReplacements = ReplacementUtil.performReplacement(s1AfterReplacements, s2, replacement.getBefore(), replacement.getAfter());
 			}
 		}
+		return extracted(s2, s1AfterReplacements);
+	}
+
+	private boolean extracted(String s2, String s1AfterReplacements) {
 		if(s1AfterReplacements.equals(s2)) {
 			return true;
 		}
