@@ -125,7 +125,13 @@ public class RefactoringMinerHttpsServer {
 
 	private static Map<String, String> queryToMap(String query) {
 		Map<String, String> result = new HashMap<>();
-		for (String param : query.split("&")) {
+		for (String param : query.split("&"))
+			extracted(result, param);
+		return result;
+	}
+
+	private static void extracted(Map<String, String> result, String param) {
+		{
 			String[] entry = param.split("=");
 			if (entry.length > 1) {
 				result.put(entry[0], entry[1]);
@@ -134,7 +140,6 @@ public class RefactoringMinerHttpsServer {
 				result.put(entry[0], "");
 			}
 		}
-		return result;
 	}
 
 	private static String JSON(String gitURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
