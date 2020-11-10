@@ -849,7 +849,13 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getAddedAndExtractedOperationsInCommonClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff classDiff : commonClassDiffList)
+		extracted(addedOperations, classDiff);
+      return addedOperations;
+   }
+
+private void extracted(List<UMLOperation> addedOperations, UMLClassDiff classDiff) {
+	{
          addedOperations.addAll(classDiff.getAddedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof ExtractOperationRefactoring) {
@@ -858,8 +864,7 @@ public class UMLModelDiff {
         	 }
          }
       }
-      return addedOperations;
-   }
+}
 
    private List<UMLOperation> getAddedOperationsInMovedAndRenamedClasses() {
       List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
