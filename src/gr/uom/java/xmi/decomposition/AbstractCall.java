@@ -52,13 +52,18 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		sb.append(getName());
 		sb.append("(");
 		int size = arguments.size();
-		if(size > 0) {
+		if(size > 0)
+			extracted(sb, size);
+		sb.append(")");
+		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb, int size) {
+		{
 			for(int i=0; i<size-1; i++)
 				sb.append(arguments.get(i)).append(",");
 			sb.append(arguments.get(size-1));
 		}
-		sb.append(")");
-		return sb.toString();
 	}
 
 	public boolean expressionIsNullOrThis() {
