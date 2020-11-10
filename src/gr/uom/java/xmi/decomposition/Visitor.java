@@ -97,11 +97,16 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(PrefixExpression node) {
 		prefixExpressions.add(node.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(node);
+		return super.visit(node);
+	}
+
+	private void extracted(PrefixExpression node) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getPrefixExpressions().add(node.toString());
 		}
-		return super.visit(node);
 	}
 
 	public boolean visit(PostfixExpression node) {
