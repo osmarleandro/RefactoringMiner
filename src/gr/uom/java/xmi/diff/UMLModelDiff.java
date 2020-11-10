@@ -1031,7 +1031,14 @@ public class UMLModelDiff {
 
    private List<ExtractSuperclassRefactoring> identifyExtractSuperclassRefactorings() throws RefactoringMinerTimedOutException {
       List<ExtractSuperclassRefactoring> refactorings = new ArrayList<ExtractSuperclassRefactoring>();
-      for(UMLClass addedClass : addedClasses) {
+      for(UMLClass addedClass : addedClasses)
+		extracted(refactorings, addedClass);
+      return refactorings;
+   }
+
+private void extracted(List<ExtractSuperclassRefactoring> refactorings, UMLClass addedClass)
+		throws RefactoringMinerTimedOutException {
+	{
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
          for(UMLGeneralization addedGeneralization : addedGeneralizations) {
@@ -1067,8 +1074,7 @@ public class UMLModelDiff {
             refactorings.add(extractSuperclassRefactoring);
          }
       }
-      return refactorings;
-   }
+}
 
    private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
