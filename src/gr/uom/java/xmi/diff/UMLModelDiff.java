@@ -1267,7 +1267,13 @@ public class UMLModelDiff {
 
    private List<Refactoring> getRenameClassRefactorings() {
       List<Refactoring> refactorings = new ArrayList<Refactoring>();
-      for(UMLClassRenameDiff classRenameDiff : classRenameDiffList) {
+      for(UMLClassRenameDiff classRenameDiff : classRenameDiffList)
+		extracted(refactorings, classRenameDiff);
+      return refactorings;
+   }
+
+private void extracted(List<Refactoring> refactorings, UMLClassRenameDiff classRenameDiff) {
+	{
     	  Refactoring refactoring = null;
     	  if(classRenameDiff.samePackage())
     		  refactoring = new RenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
@@ -1275,8 +1281,7 @@ public class UMLModelDiff {
     		  refactoring = new MoveAndRenameClassRefactoring(classRenameDiff.getOriginalClass(), classRenameDiff.getRenamedClass());
          refactorings.add(refactoring);
       }
-      return refactorings;
-   }
+}
 
    public List<Refactoring> getRefactorings() throws RefactoringMinerTimedOutException {
       Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
