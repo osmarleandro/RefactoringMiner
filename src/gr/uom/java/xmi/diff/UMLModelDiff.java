@@ -372,7 +372,12 @@ public class UMLModelDiff {
    }
 
    public void checkForGeneralizationChanges() {
-      for(Iterator<UMLGeneralization> removedGeneralizationIterator = removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();) {
+      for(Iterator<UMLGeneralization> removedGeneralizationIterator = removedGeneralizations.iterator(); removedGeneralizationIterator.hasNext();)
+		extracted(removedGeneralizationIterator);
+   }
+
+private void extracted(Iterator<UMLGeneralization> removedGeneralizationIterator) {
+	{
          UMLGeneralization removedGeneralization = removedGeneralizationIterator.next();
          for(Iterator<UMLGeneralization> addedGeneralizationIterator = addedGeneralizations.iterator(); addedGeneralizationIterator.hasNext();) {
             UMLGeneralization addedGeneralization = addedGeneralizationIterator.next();
@@ -395,7 +400,7 @@ public class UMLModelDiff {
             }
          }
       }
-   }
+}
 
    public void checkForRealizationChanges() {
       for(Iterator<UMLRealization> removedRealizationIterator = removedRealizations.iterator(); removedRealizationIterator.hasNext();) {
