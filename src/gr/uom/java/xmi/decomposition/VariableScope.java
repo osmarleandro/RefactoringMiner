@@ -81,11 +81,16 @@ public class VariableScope {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(startLine).append(":").append(startColumn);
+		StringBuilder sb = extracted();
 		sb.append("-");
 		sb.append(endLine).append(":").append(endColumn);
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(startLine).append(":").append(startColumn);
+		return sb;
 	}
 
 	public boolean subsumes(LocationInfo other) {
