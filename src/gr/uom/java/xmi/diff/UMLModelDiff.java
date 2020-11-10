@@ -722,7 +722,12 @@ public class UMLModelDiff {
    private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
 	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
-	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
+	   return extracted(addedAttribute, removedAttribute, v1, v2);
+   }
+
+private boolean extracted(UMLAttribute addedAttribute, UMLAttribute removedAttribute, VariableDeclaration v1,
+		VariableDeclaration v2) {
+	if(v1.getInitializer() != null && v2.getInitializer() != null) {
 		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
 		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
 		   String className1 = addedAttribute.getNonQualifiedClassName();
@@ -733,7 +738,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   return false;
-   }
+}
 
    private int computeCompatibility(MoveAttributeRefactoring candidate) {
 	   int count = 0;
