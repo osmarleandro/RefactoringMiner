@@ -811,6 +811,10 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
+		return extracted(v1, v2);
+	}
+
+	private boolean extracted(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v2.getInitializer() != null) {
 			if(v2.getInitializer().getString().equals(v1.getVariableName())) {
 				return true;
