@@ -19,14 +19,18 @@ public class RefFinderResultReader {
     public static RefactoringSet read(String project, String revision, String folderPath) {
         try {
             RefactoringSet result = new RefactoringSet(project, revision);
-            for (RefactoringRelationship r : readFolder(folderPath)) {
-                result.add(r);
-            }
-            return result;
+            return extracted(folderPath, result);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+	private static RefactoringSet extracted(String folderPath, RefactoringSet result) throws Exception {
+		for (RefactoringRelationship r : readFolder(folderPath)) {
+		    result.add(r);
+		}
+		return result;
+	}
 
     private static List<RefactoringRelationship> readFolder(String path) throws Exception {
         List<RefactoringRelationship> result = new ArrayList<>();
