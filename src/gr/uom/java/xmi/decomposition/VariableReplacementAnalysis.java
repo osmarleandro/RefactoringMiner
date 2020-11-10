@@ -258,21 +258,8 @@ public class VariableReplacementAnalysis {
 			Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap, Direction direction) {
 		String expression = variableReplacement.getInvokedOperation().getExpression();
 		if(expression != null && variableReplacement.getDirection().equals(direction)) {
-			if(variableInvocationExpressionMap.containsKey(expression)) {
-				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(expression);
-				if(map.containsKey(variableReplacement)) {
-					if(mapping != null) {
-						map.get(variableReplacement).add(mapping);
-					}
-				}
-				else {
-					Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
-					if(mapping != null) {
-						mappings.add(mapping);
-					}
-					map.put(variableReplacement, mappings);
-				}
-			}
+			if(variableInvocationExpressionMap.containsKey(expression))
+				extracted(variableReplacement, mapping, variableInvocationExpressionMap, expression);
 			else {
 				Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
 				if(mapping != null) {
@@ -281,6 +268,26 @@ public class VariableReplacementAnalysis {
 				Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = new LinkedHashMap<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>();
 				map.put(variableReplacement, mappings);
 				variableInvocationExpressionMap.put(expression, map);
+			}
+		}
+	}
+
+	private void extracted(VariableReplacementWithMethodInvocation variableReplacement, AbstractCodeMapping mapping,
+			Map<String, Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>>> variableInvocationExpressionMap,
+			String expression) {
+		{
+			Map<VariableReplacementWithMethodInvocation, Set<AbstractCodeMapping>> map = variableInvocationExpressionMap.get(expression);
+			if(map.containsKey(variableReplacement)) {
+				if(mapping != null) {
+					map.get(variableReplacement).add(mapping);
+				}
+			}
+			else {
+				Set<AbstractCodeMapping> mappings = new LinkedHashSet<AbstractCodeMapping>();
+				if(mapping != null) {
+					mappings.add(mapping);
+				}
+				map.put(variableReplacement, mappings);
 			}
 		}
 	}
