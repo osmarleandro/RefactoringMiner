@@ -196,10 +196,7 @@ public class RefactoringMiner {
 	}
 
 	private static void detectAtGitHubCommit(String[] args) throws Exception {
-		if (args.length != 4) {
-			throw argumentException();
-		}
-		String gitURL = args[1];
+		String gitURL = extracted(args);
 		String commitId = args[2];
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
@@ -222,10 +219,7 @@ public class RefactoringMiner {
 	}
 
 	private static void detectAtGitHubPullRequest(String[] args) throws Exception {
-		if (args.length != 4) {
-			throw argumentException();
-		}
-		String gitURL = args[1];
+		String gitURL = extracted(args);
 		int pullId = Integer.parseInt(args[2]);
 		int timeout = Integer.parseInt(args[3]);
 		GitHistoryRefactoringMiner detector = new GitHistoryRefactoringMinerImpl();
@@ -250,6 +244,14 @@ public class RefactoringMiner {
 		}, timeout);
 		endJSON(sb);
 		System.out.println(sb.toString());
+	}
+
+	private static String extracted(String[] args) {
+		if (args.length != 4) {
+			throw argumentException();
+		}
+		String gitURL = args[1];
+		return gitURL;
 	}
 
 	private static void commitJSON(StringBuilder sb, String cloneURL, String currentCommitId, List<Refactoring> refactoringsAtRevision) {
