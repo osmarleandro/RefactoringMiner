@@ -252,7 +252,14 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		GHCommit commit = repository.getCommit(currentCommitId);
 		String parentCommitId = commit.getParents().get(0).getSHA1();
 		List<GHCommit.File> commitFiles = commit.getFiles();
-		for (GHCommit.File commitFile : commitFiles) {
+		for (GHCommit.File commitFile : commitFiles)
+			extracted(filesBefore, filesCurrent, renamedFilesHint, commitFile);
+		return parentCommitId;
+	}
+
+	private void extracted(List<String> filesBefore, List<String> filesCurrent, Map<String, String> renamedFilesHint,
+			GHCommit.File commitFile) {
+		{
 			if (commitFile.getFileName().endsWith(".java")) {
 				if (commitFile.getStatus().equals("modified")) {
 					filesBefore.add(commitFile.getFileName());
@@ -271,7 +278,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 				}
 			}
 		}
-		return parentCommitId;
 	}
 
 	private GitHub connectToGitHub() {
