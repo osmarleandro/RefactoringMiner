@@ -462,8 +462,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
-			Runnable r = () -> detectRefactorings(handler, gitURL, commitId);
-			f = service.submit(r);
+			f = extracted(gitURL, commitId, handler, service);
 			f.get(timeout, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
 			f.cancel(true);
@@ -474,6 +473,13 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		} finally {
 			service.shutdown();
 		}
+	}
+
+	private Future<?> extracted(String gitURL, String commitId, RefactoringHandler handler, ExecutorService service) {
+		Future<?> f;
+		Runnable r = () -> detectRefactorings(handler, gitURL, commitId);
+		f = service.submit(r);
+		return f;
 	}
 
 	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
