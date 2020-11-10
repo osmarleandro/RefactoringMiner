@@ -27,7 +27,7 @@ public class AstUtils {
 	}
 	
 	public static String getKeyFromMethodBinding(IMethodBinding binding) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = extracted();
 		String className = binding.getDeclaringClass().getErasure().getQualifiedName();
 		sb.append(className);
 		sb.append('#');
@@ -50,7 +50,7 @@ public class AstUtils {
 	}
 
 	public static String getKeyFromFieldBinding(IVariableBinding binding) {
-	    StringBuilder sb = new StringBuilder();
+	    StringBuilder sb = extracted();
 	    String className = binding.getDeclaringClass().getErasure().getQualifiedName();
 	    sb.append(className);
 	    sb.append('#');
@@ -82,8 +82,7 @@ public class AstUtils {
 	}
 	
 	public static String normalizeTypeName(Type type, int extraDimensions, boolean varargs) {
-	    StringBuilder sb = new StringBuilder();
-//	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
+	    StringBuilder sb = extracted();
 	    String rawTypeName = stripTypeParamsFromTypeName(type.toString());
         sb.append(rawTypeName);
         for (int i = extraDimensions; i > 0; i--) {
@@ -93,6 +92,12 @@ public class AstUtils {
             sb.append("[]");
         }
         return sb.toString();
+	}
+
+	private static StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+//	    String rawTypeName = stripQualifiedTypeName(stripTypeParamsFromTypeName(type.toString()));
+		return sb;
 	}
 	
 	public static String stripTypeParamsFromTypeName(String typeNameWithGenerics) {
@@ -109,7 +114,7 @@ public class AstUtils {
 	}
 	
 	public static String stripTypeArguments(String entity) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = extracted();
         int openGenerics = 0;
         for (int i = 0; i < entity.length(); i++) {
             char c = entity.charAt(i);
@@ -135,7 +140,7 @@ public class AstUtils {
 	}
 
     public static String normalizeMethodSignature(String methodSignature) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = extracted();
         int start = 0;
         int openPar = methodSignature.indexOf('(');
         int closePar = methodSignature.lastIndexOf(')');
