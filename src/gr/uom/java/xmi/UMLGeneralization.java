@@ -22,13 +22,18 @@ public class UMLGeneralization implements Comparable<UMLGeneralization> {
     		return true;
     	}
     	
-    	if(o instanceof UMLGeneralization) {
+    	if(o instanceof UMLGeneralization)
+			return extracted(o);
+    	return false;
+    }
+
+	private boolean extracted(Object o) {
+		{
     		UMLGeneralization umlGeneralization = (UMLGeneralization)o;
     		return this.child.equals(umlGeneralization.child) &&
     			this.parent.equals(umlGeneralization.parent);
     	}
-    	return false;
-    }
+	}
 
     public String toString() {
     	return child + "->" + parent;
