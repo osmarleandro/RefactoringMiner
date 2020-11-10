@@ -132,7 +132,11 @@ public class UMLModelDiff {
          if(classDiff.matches(className))
             return classDiff;
       }
-      for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
+      return extracted(className);
+   }
+
+private UMLClassBaseDiff extracted(String className) {
+	for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
          if(classDiff.matches(className))
             return classDiff;
       }
@@ -141,7 +145,7 @@ public class UMLModelDiff {
             return classDiff;
       }
       return null;
-   }
+}
 
    private UMLClassBaseDiff getUMLClassDiff(UMLType type) {
       for(UMLClassDiff classDiff : commonClassDiffList) {
