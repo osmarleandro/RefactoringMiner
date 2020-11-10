@@ -174,7 +174,11 @@ public class UMLModelDiff {
         		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
             return classDiff;
       }
-      for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
+      return extracted(pattern);
+   }
+
+private UMLClassBaseDiff extracted(Replacement pattern) {
+	for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
          if(classDiff.findAttributeInOriginalClass(pattern.getBefore()) != null &&
         		 classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
             return classDiff;
@@ -185,7 +189,7 @@ public class UMLModelDiff {
             return classDiff;
       }
       return null;
-   }
+}
 
    private List<UMLClassBaseDiff> getUMLClassDiffWithExistingAttributeAfter(Replacement pattern) {
 	   List<UMLClassBaseDiff> classDiffs = new ArrayList<UMLClassBaseDiff>();
