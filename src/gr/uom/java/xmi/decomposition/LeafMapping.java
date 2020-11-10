@@ -88,12 +88,8 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 			//method signature is the parent
 			return 0;
 		}
-		else if(parent1 == null && parent2 != null) {
-			String s2 = parent2.getString();
-			int distance = StringDistance.editDistance("{", s2);
-			double normalized = (double)distance/(double)Math.max(1, s2.length());
-			return normalized;
-		}
+		else if(parent1 == null && parent2 != null)
+			return extracted(parent2);
 		else if(parent1 != null && parent2 == null) {
 			String s1 = parent1.getString();
 			int distance = StringDistance.editDistance(s1, "{");
@@ -105,6 +101,15 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
+	}
+
+	private double extracted(CompositeStatementObject parent2) {
+		{
+			String s2 = parent2.getString();
+			int distance = StringDistance.editDistance("{", s2);
+			double normalized = (double)distance/(double)Math.max(1, s2.length());
+			return normalized;
+		}
 	}
 
 	public Set<String> callChainIntersection() {
