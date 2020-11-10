@@ -2,6 +2,7 @@ package org.refactoringminer.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +19,9 @@ import org.eclipse.jgit.diff.Edit;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.diff.Edit.Type;
 import org.eclipse.jgit.diff.RenameDetector;
+import org.eclipse.jgit.errors.CorruptObjectException;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -287,12 +291,7 @@ public class GitServiceImpl implements GitService {
 
 	public void fileTreeDiff(Repository repository, RevCommit currentCommit, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint) throws Exception {
         if (currentCommit.getParentCount() > 0) {
-        	ObjectId oldTree = currentCommit.getParent(0).getTree();
-	        ObjectId newTree = currentCommit.getTree();
-        	final TreeWalk tw = new TreeWalk(repository);
-        	tw.setRecursive(true);
-        	tw.addTree(oldTree);
-        	tw.addTree(newTree);
+        	final TreeWalk tw = extracted(repository, currentCommit);
 
         	final RenameDetector rd = new RenameDetector(repository);
         	rd.setRenameScore(80);
@@ -328,12 +327,7 @@ public class GitServiceImpl implements GitService {
 	@Override
 	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
 		if (currentCommit.getParentCount() > 0) {
-        	ObjectId oldTree = currentCommit.getParent(0).getTree();
-	        ObjectId newTree = currentCommit.getTree();
-        	final TreeWalk tw = new TreeWalk(repository);
-        	tw.setRecursive(true);
-        	tw.addTree(oldTree);
-        	tw.addTree(newTree);
+        	final TreeWalk tw = extracted(repository, currentCommit);
         	
         	List<DiffEntry> diffs = DiffEntry.scan(tw);
         	DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
@@ -362,5 +356,16 @@ public class GitServiceImpl implements GitService {
         	return new Churn(addedLines, deletedLines);
 		}
 		return null;
+	}
+
+	private TreeWalk extracted(Repository repository, RevCommit currentCommit)
+			throws MissingObjectException, IncorrectObjectTypeException, CorruptObjectException, IOException {
+		ObjectId oldTree = currentCommit.getParent(0).getTree();
+		ObjectId newTree = currentCommit.getTree();
+		final TreeWalk tw = new TreeWalk(repository);
+		tw.setRecursive(true);
+		tw.addTree(oldTree);
+		tw.addTree(newTree);
+		return tw;
 	}
 }
