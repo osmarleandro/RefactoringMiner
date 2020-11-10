@@ -166,7 +166,16 @@ public enum RefactoringType {
     public static void parse(String refactoringDescription, Collection<RefactoringRelationship> result) {
         RefactoringType refType = extractFromDescription(refactoringDescription);
         Matcher m = refType.regex.matcher(refactoringDescription);
-        if (m.matches()) {
+        if (m.matches())
+			extracted(refactoringDescription, result, refType, m);
+		else {
+            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
+        }
+    }
+
+	private static void extracted(String refactoringDescription, Collection<RefactoringRelationship> result,
+			RefactoringType refType, Matcher m) {
+		{
             switch (refType) {
             case RENAME_CLASS:
             case MOVE_CLASS:
@@ -217,10 +226,8 @@ public enum RefactoringType {
             default:
                 throw new RuntimeException("Unable do parse: " + refactoringDescription);
             }
-        } else {
-            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
         }
-    }
+	}
 
     private static String methodKey(String methodSignature, String typeKey) {
         return typeKey + "#" + AstUtils.normalizeMethodSignature(methodSignature);
