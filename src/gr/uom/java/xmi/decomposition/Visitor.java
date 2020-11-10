@@ -486,11 +486,16 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(SimpleType node) {
 		Name name = node.getName();
 		types.add(name.getFullyQualifiedName());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(name);
+		return false;
+	}
+
+	private void extracted(Name name) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getTypes().add(name.getFullyQualifiedName());
 		}
-		return false;
 	}
 	
 	public boolean visit(MethodInvocation node) {
@@ -691,10 +696,8 @@ public class Visitor extends ASTVisitor {
 		Name qualifier = node.getQualifier();
 		if(Character.isUpperCase(qualifier.getFullyQualifiedName().charAt(0))) {
 			types.add(qualifier.getFullyQualifiedName());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getTypes().add(qualifier.getFullyQualifiedName());
-			}
+			if(current.getUserObject() != null)
+				extracted(qualifier);
 			variables.add(node.toString());
 			if(current.getUserObject() != null) {
 				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
