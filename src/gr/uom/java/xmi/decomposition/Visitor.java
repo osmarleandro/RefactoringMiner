@@ -458,11 +458,16 @@ public class Visitor extends ASTVisitor {
 	
 	public boolean visit(WildcardType node) {
 		types.add(node.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(node);
+		return false;
+	}
+
+	private void extracted(WildcardType node) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getTypes().add(node.toString());
 		}
-		return false;
 	}
 	
 	public boolean visit(QualifiedType node) {
