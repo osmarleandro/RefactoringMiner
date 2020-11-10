@@ -173,7 +173,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
-		if(arguments1.size() == arguments2.size()) {
+		if(arguments1.size() == arguments2.size())
+			replacedArguments = extracted(replacements, replacedArguments, arguments1, arguments2);
+		return replacedArguments > 0 && replacedArguments == arguments1.size();
+	}
+
+	private int extracted(Set<Replacement> replacements, int replacedArguments, List<String> arguments1,
+			List<String> arguments2) {
+		{
 			for(int i=0; i<arguments1.size(); i++) {
 				String argument1 = arguments1.get(i);
 				String argument2 = arguments2.get(i);
@@ -185,7 +192,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				}
 			}
 		}
-		return replacedArguments > 0 && replacedArguments == arguments1.size();
+		return replacedArguments;
 	}
 
 	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
