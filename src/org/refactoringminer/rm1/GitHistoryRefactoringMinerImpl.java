@@ -659,14 +659,19 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
-		GitHub gitHub = connectToGitHub();
-		String repoName = extractRepositoryName(cloneURL);
-		GHRepository repository = gitHub.getRepository(repoName);
+		GHRepository repository = extracted(cloneURL);
 		GHPullRequest pullRequest = repository.getPullRequest(pullRequestId);
 		PagedIterable<GHPullRequestCommitDetail> commits = pullRequest.listCommits();
 		for(GHPullRequestCommitDetail commit : commits) {
 			detectAtCommit(cloneURL, commit.getSha(), handler, timeout);
 		}
+	}
+
+	private GHRepository extracted(String cloneURL) throws IOException {
+		GitHub gitHub = connectToGitHub();
+		String repoName = extractRepositoryName(cloneURL);
+		GHRepository repository = gitHub.getRepository(repoName);
+		return repository;
 	}
 
 	private static final String GITHUB_URL = "https://github.com/";
