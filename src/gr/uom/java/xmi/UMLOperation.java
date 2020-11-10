@@ -638,7 +638,14 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
 		parameters.remove(returnParameter);
 		sb.append("(");
-		for (int i = 0; i < parameters.size(); i++) {
+		for (int i = 0; i < parameters.size(); i++)
+			extracted(sb, parameters, i);
+		sb.append(")");
+		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb, List<UMLParameter> parameters, int i) {
+		{
 			UMLParameter parameter = parameters.get(i);
 			if(parameter.getKind().equals("in")) {
 				sb.append(AstUtils.stripTypeParamsFromTypeName(parameter.getType().toString()));
@@ -646,8 +653,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 					sb.append(", ");
 			}
 		}
-		sb.append(")");
-		return sb.toString();
 	}
 	
 	public int compareTo(UMLOperation operation) {
