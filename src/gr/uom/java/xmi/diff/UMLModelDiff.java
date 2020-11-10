@@ -1963,8 +1963,7 @@ public class UMLModelDiff {
 				   return false;
 			   }
 			   if(mapping instanceof CompositeStatementObjectMapping) {
-				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
+				   CompositeStatementObject fragment1 = extracted(mapping);
 				   for(AbstractExpression expression : fragment1.getExpressions()) {
 					   if(expression.equals(mappingList.get(0).getFragment1())) {
 						   return false;
@@ -1984,6 +1983,12 @@ public class UMLModelDiff {
 			   (exactMatches > 1 && nonMappedElementsT2-exactMatches < 20) ||
 			   (mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2()));
    }
+
+private CompositeStatementObject extracted(AbstractCodeMapping mapping) {
+	CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
+	   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
+	return fragment1;
+}
 
    private void checkForOperationMovesIncludingRemovedClasses() throws RefactoringMinerTimedOutException {
       List<UMLOperation> addedOperations = getAddedAndExtractedOperationsInCommonClasses();
