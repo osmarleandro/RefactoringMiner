@@ -99,6 +99,10 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 			return true;
 		if (obj == null)
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		ChangeVariableTypeRefactoring other = (ChangeVariableTypeRefactoring) obj;
