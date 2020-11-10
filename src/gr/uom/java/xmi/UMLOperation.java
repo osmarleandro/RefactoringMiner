@@ -575,10 +575,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
 		sb.append(" ");
-		if(isAbstract) {
-			sb.append("abstract");
-			sb.append(" ");
-		}
+		if(isAbstract)
+			extracted(sb);
 		sb.append(name);
 		UMLParameter returnParameter = getReturnParameter();
 		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
@@ -600,14 +598,19 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return sb.toString();
 	}
 
+	private void extracted(StringBuilder sb) {
+		{
+			sb.append("abstract");
+			sb.append(" ");
+		}
+	}
+
 	public String toQualifiedString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(visibility);
 		sb.append(" ");
-		if(isAbstract) {
-			sb.append("abstract");
-			sb.append(" ");
-		}
+		if(isAbstract)
+			extracted(sb);
 		sb.append(name);
 		UMLParameter returnParameter = getReturnParameter();
 		List<UMLParameter> parameters = new ArrayList<UMLParameter>(this.parameters);
