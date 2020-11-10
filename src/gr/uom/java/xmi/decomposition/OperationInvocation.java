@@ -118,8 +118,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 
 	public OperationInvocation update(String oldExpression, String newExpression) {
-		OperationInvocation newOperationInvocation = new OperationInvocation();
-		newOperationInvocation.methodName = this.methodName;
+		OperationInvocation newOperationInvocation = extracted();
 		newOperationInvocation.locationInfo = this.locationInfo;
 		update(newOperationInvocation, oldExpression, newExpression);
 		newOperationInvocation.subExpressions = new ArrayList<String>();
@@ -127,6 +126,12 @@ public class OperationInvocation extends AbstractCall {
 			newOperationInvocation.subExpressions.add(
 				ReplacementUtil.performReplacement(argument, oldExpression, newExpression));
 		}
+		return newOperationInvocation;
+	}
+
+	private OperationInvocation extracted() {
+		OperationInvocation newOperationInvocation = new OperationInvocation();
+		newOperationInvocation.methodName = this.methodName;
 		return newOperationInvocation;
 	}
 
