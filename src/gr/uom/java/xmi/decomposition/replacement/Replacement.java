@@ -54,6 +54,11 @@ public class Replacement {
 
 	public double normalizedEditDistance() {
 		String s1 = getBefore();
+		double normalized = extracted(s1);
+		return normalized;
+	}
+
+	private double extracted(String s1) {
 		String s2 = getAfter();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
