@@ -657,8 +657,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	public Set<Refactoring> getRefactorings() {
-		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
-		refactorings.addAll(analysis.getVariableRenames());
+		VariableReplacementAnalysis analysis = extracted();
 		refactorings.addAll(analysis.getVariableMerges());
 		refactorings.addAll(analysis.getVariableSplits());
 		candidateAttributeRenames.addAll(analysis.getCandidateAttributeRenames());
@@ -667,6 +666,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		TypeReplacementAnalysis typeAnalysis = new TypeReplacementAnalysis(this.getMappings());
 		refactorings.addAll(typeAnalysis.getChangedTypes());
 		return refactorings;
+	}
+
+	private VariableReplacementAnalysis extracted() {
+		VariableReplacementAnalysis analysis = new VariableReplacementAnalysis(this, refactorings, classDiff);
+		refactorings.addAll(analysis.getVariableRenames());
+		return analysis;
 	}
 
 	public Set<Refactoring> getRefactoringsAfterPostProcessing() {
