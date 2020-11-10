@@ -104,14 +104,22 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 			commitsCount++;
 			long time2 = System.currentTimeMillis();
-			if ((time2 - time) > 20000) {
-				time = time2;
-				logger.info(String.format("Processing %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
-			}
+			if ((time2 - time) > 20000)
+				time = extracted(commitsCount, errorCommitsCount, refactoringsCount, projectName, time2);
 		}
 
 		handler.onFinish(refactoringsCount, commitsCount, errorCommitsCount);
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
+	}
+
+	private long extracted(int commitsCount, int errorCommitsCount, int refactoringsCount, String projectName,
+			long time2) {
+		long time;
+		{
+			time = time2;
+			logger.info(String.format("Processing %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
+		}
+		return time;
 	}
 
 	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
