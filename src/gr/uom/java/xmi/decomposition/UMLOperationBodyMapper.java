@@ -3425,7 +3425,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean oneIsVariableDeclarationTheOtherIsVariableAssignment(String s1, String s2, ReplacementInfo replacementInfo) {
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(s1, s2);
-		if(s1.contains("=") && s2.contains("=") && (s1.equals(commonSuffix) || s2.equals(commonSuffix))) {
+		if(s1.contains("=") && s2.contains("=") && (s1.equals(commonSuffix) || s2.equals(commonSuffix)))
+			return extracted(replacementInfo, commonSuffix);
+		return false;
+	}
+
+	private boolean extracted(ReplacementInfo replacementInfo, String commonSuffix) {
+		{
 			if(replacementInfo.getReplacements().size() == 2) {
 				StringBuilder sb = new StringBuilder();
 				int counter = 0;
@@ -3445,7 +3451,6 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			return true;
 		}
-		return false;
 	}
 
 	private boolean oneIsVariableDeclarationTheOtherIsReturnStatement(String s1, String s2) {
