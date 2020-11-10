@@ -3968,6 +3968,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(s.contains(" -> ") && lines.length > 1) {
 			return true;
 		}
+		return extracted(lines);
+	}
+
+	private static boolean extracted(String[] lines) {
 		for(String line : lines) {
 			line = VariableReplacementAnalysis.prepareLine(line);
 			if(Visitor.METHOD_SIGNATURE_PATTERN.matcher(line).matches()) {
