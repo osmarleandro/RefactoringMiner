@@ -56,13 +56,18 @@ public class RenameAttributeRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(originalAttribute);
 		sb.append(" to ");
 		sb.append(renamedAttribute);
 		sb.append(" in class ").append(classNameAfter);
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	@Override
