@@ -130,10 +130,8 @@ public class RefactoringPopulator {
 		String file = System.getProperty("user.dir") + "/src-test/Data/deleted_commits.txt";
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String line;
-			while ((line = br.readLine()) != null) {
-				String sha1 = line.substring(line.lastIndexOf("/")+1, line.length());
-				deletedCommits.add(sha1);
-			}
+			while ((line = br.readLine()) != null)
+				extracted(deletedCommits, line);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -141,6 +139,13 @@ public class RefactoringPopulator {
 		}
 		
 		return deletedCommits;
+	}
+
+	private static void extracted(List<String> deletedCommits, String line) {
+		{
+			String sha1 = line.substring(line.lastIndexOf("/")+1, line.length());
+			deletedCommits.add(sha1);
+		}
 	}
 
 	public static List<Root> getFSERefactorings(BigInteger flag) throws JsonParseException, JsonMappingException, IOException {
