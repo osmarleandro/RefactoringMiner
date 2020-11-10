@@ -368,14 +368,20 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		List<UMLType> thisParameterTypeList = getParameterTypeList();
 		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
 		int min = Math.min(thisParameterTypeList.size(), otherParameterTypeList.size());
-		for(int i=0; i<min; i++) {
+		for(int i=0; i<min; i++)
+			extracted(commonParameterTypes, thisParameterTypeList, otherParameterTypeList, i);
+		return commonParameterTypes;
+	}
+
+	private void extracted(List<UMLType> commonParameterTypes, List<UMLType> thisParameterTypeList,
+			List<UMLType> otherParameterTypeList, int i) {
+		{
 			UMLType thisParameterType = thisParameterTypeList.get(i);
 			UMLType otherParameterType = otherParameterTypeList.get(i);
 			if(thisParameterType.equals(otherParameterType)) {
 				commonParameterTypes.add(thisParameterType);
 			}
 		}
-		return commonParameterTypes;
 	}
 
 	public List<UMLType> getParameterTypeList() {
