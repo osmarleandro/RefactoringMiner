@@ -479,7 +479,15 @@ public class UMLModelASTReader {
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
 		Type fieldType = fieldDeclaration.getType();
 		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
-		for(VariableDeclarationFragment fragment : fragments) {
+		for(VariableDeclarationFragment fragment : fragments)
+			extracted(cu, fieldDeclaration, isInterfaceField, sourceFile, javadoc, attributes, fieldType, fragment);
+		return attributes;
+	}
+
+	private void extracted(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField,
+			String sourceFile, UMLJavadoc javadoc, List<UMLAttribute> attributes, Type fieldType,
+			VariableDeclarationFragment fragment) {
+		{
 			UMLType type = UMLType.extractTypeObject(cu, sourceFile, fieldType, fragment.getExtraDimensions());
 			String fieldName = fragment.getName().getFullyQualifiedName();
 			LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, fragment, CodeElementType.FIELD_DECLARATION);
@@ -509,7 +517,6 @@ public class UMLModelASTReader {
 			
 			attributes.add(umlAttribute);
 		}
-		return attributes;
 	}
 	
 	private UMLAnonymousClass processAnonymousClassDeclaration(CompilationUnit cu, AnonymousClassDeclaration anonymous, String packageName, String binaryName, String codePath, String sourceFile) {
