@@ -56,6 +56,10 @@ public class ReplacementUtil {
 			temp = temp.replace(subString, replacement);
 			return temp;
 		}
+		return extracted(completeString, subString, replacement, temp);
+	}
+
+	private static String extracted(String completeString, String subString, String replacement, String temp) {
 		boolean replacementDone = false;
 		for(String character : SPECIAL_CHARACTERS) {
 			if(completeString.contains(subString + character)) {
