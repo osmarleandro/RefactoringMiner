@@ -235,7 +235,12 @@ public class OperationInvocation extends AbstractCall {
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
-    	if(type1.equals("Throwable") && type2.endsWith("Exception"))
+    	return extracted(parameter, type, modelDiff, type1, type2);
+    }
+
+	private boolean extracted(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff, String type1,
+			String type2) {
+		if(type1.equals("Throwable") && type2.endsWith("Exception"))
     		return true;
     	if(type1.equals("Exception") && type2.endsWith("Exception"))
     		return true;
@@ -258,7 +263,7 @@ public class OperationInvocation extends AbstractCall {
     		return true;
     	}
     	return false;
-    }
+	}
 
     private boolean varArgsMatch(UMLOperation operation) {
     	//0 varargs arguments passed
