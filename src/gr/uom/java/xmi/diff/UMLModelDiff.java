@@ -1083,7 +1083,30 @@ public class UMLModelDiff {
    }
 
    private void detectSubRefactorings(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType) throws RefactoringMinerTimedOutException {
-	   for(UMLOperation addedOperation : addedClass.getOperations()) {
+	   for(UMLOperation addedOperation : addedClass.getOperations())
+		extracted(classDiff, addedClass, parentType, addedOperation);
+	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
+		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
+		   if(removedAttribute != null) {
+			   classDiff.getRemovedAttributes().remove(removedAttribute);
+			   Refactoring ref = null;
+			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
+				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
+			   }
+			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
+				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
+			   }
+			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
+				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
+			   }
+			   this.refactorings.add(ref);
+		   }
+	   }
+   }
+
+private void extracted(UMLClassBaseDiff classDiff, UMLClass addedClass, RefactoringType parentType,
+		UMLOperation addedOperation) throws RefactoringMinerTimedOutException {
+	{
 		   UMLOperation removedOperation = classDiff.containsRemovedOperationWithTheSameSignature(addedOperation);
 		   if(removedOperation != null) {
 			   classDiff.getRemovedOperations().remove(removedOperation);
@@ -1104,24 +1127,7 @@ public class UMLModelDiff {
 			   checkForExtractedOperationsWithinMovedMethod(mapper, addedClass);
 		   }
 	   }
-	   for(UMLAttribute addedAttribute : addedClass.getAttributes()) {
-		   UMLAttribute removedAttribute = classDiff.containsRemovedAttributeWithTheSameSignature(addedAttribute);
-		   if(removedAttribute != null) {
-			   classDiff.getRemovedAttributes().remove(removedAttribute);
-			   Refactoring ref = null;
-			   if(parentType.equals(RefactoringType.EXTRACT_SUPERCLASS)) {
-				   ref = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_CLASS)) {
-				   ref = new MoveAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   else if(parentType.equals(RefactoringType.EXTRACT_SUBCLASS)) {
-				   ref = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
-			   }
-			   this.refactorings.add(ref);
-		   }
-	   }
-   }
+}
 
    private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
 	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
