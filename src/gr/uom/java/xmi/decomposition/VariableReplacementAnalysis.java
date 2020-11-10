@@ -1023,6 +1023,10 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
+		return extracted(replacement);
+	}
+
+	private SimpleEntry<VariableDeclaration, UMLOperation> extracted(MergeVariableReplacement replacement) {
 		for(UMLParameter parameter : operation2.getParameters()) {
 			VariableDeclaration vd = parameter.getVariableDeclaration();
 			if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
