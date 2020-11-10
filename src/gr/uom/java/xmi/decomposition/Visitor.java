@@ -377,12 +377,17 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(ThisExpression node) {
 		if(!(node.getParent() instanceof FieldAccess)) {
 			variables.add(node.toString());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(node.toString());
-			}
+			if(current.getUserObject() != null)
+				extracted(node);
 		}
 		return super.visit(node);
+	}
+
+	private void extracted(ThisExpression node) {
+		{
+			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			anonymous.getVariables().add(node.toString());
+		}
 	}
 
 	public boolean visit(SimpleName node) {
