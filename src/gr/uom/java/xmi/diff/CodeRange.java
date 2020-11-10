@@ -136,6 +136,10 @@ public class CodeRange {
 	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
 		String filePath = null;
 		int minStartLine = 0;
+		return extracted(codeFragments, filePath, minStartLine);
+	}
+
+	private static CodeRange extracted(Set<AbstractCodeFragment> codeFragments, String filePath, int minStartLine) {
 		int maxEndLine = 0;
 		int startColumn = 0;
 		int endColumn = 0;
