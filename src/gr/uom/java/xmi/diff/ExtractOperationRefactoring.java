@@ -79,6 +79,10 @@ public class ExtractOperationRefactoring implements Refactoring {
 			return getSourceOperationBeforeExtraction().getClassName();
 		}
 		String sourceClassName = getSourceOperationBeforeExtraction().getClassName();
+		return extracted(sourceClassName);
+	}
+
+	private String extracted(String sourceClassName) {
 		String targetClassName = getSourceOperationAfterExtraction().getClassName();
 		return sourceClassName.equals(targetClassName) ? sourceClassName : targetClassName;
 	}
