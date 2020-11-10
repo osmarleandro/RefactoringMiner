@@ -1546,7 +1546,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private String preprocessInput(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
 		String argumentizedString = new String(leaf1.getArgumentizedString());
-		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression) {
+		if (leaf1 instanceof StatementObject && leaf2 instanceof AbstractExpression)
+			argumentizedString = extracted(argumentizedString);
+		return argumentizedString;
+	}
+
+	private String extracted(String argumentizedString) {
+		{
 			if (argumentizedString.startsWith("return ") && argumentizedString.endsWith(";\n")) {
 				argumentizedString = argumentizedString.substring("return ".length(),
 						argumentizedString.lastIndexOf(";\n"));
