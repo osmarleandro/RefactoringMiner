@@ -542,7 +542,14 @@ public class UMLModelASTReader {
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(childAnonymous);
 		
 		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
+		while(enumeration.hasMoreElements())
+			parentNode = extracted(childAnonymous, enumeration, parentNode);
+		parentNode.add(childNode);
+	}
+
+	private DefaultMutableTreeNode extracted(AnonymousClassDeclaration childAnonymous, Enumeration enumeration,
+			DefaultMutableTreeNode parentNode) {
+		{
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclaration currentAnonymous = (AnonymousClassDeclaration)currentNode.getUserObject();
 			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous)) {
@@ -550,7 +557,7 @@ public class UMLModelASTReader {
 				break;
 			}
 		}
-		parentNode.add(childNode);
+		return parentNode;
 	}
 
 	private String getAnonymousCodePath(DefaultMutableTreeNode node) {
