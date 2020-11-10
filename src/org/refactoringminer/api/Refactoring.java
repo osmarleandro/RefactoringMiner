@@ -27,16 +27,21 @@ public interface Refactoring extends Serializable, CodeRangeProvider {
 	public Set<ImmutablePair<String, String>> getInvolvedClassesAfterRefactoring();
 	
 	default public String toJSON() {
+		StringBuilder sb = extracted();
+		sb.append("\"").append(",").append("\n");
+		sb.append("\t").append("\"").append("leftSideLocations").append("\"").append(": ").append(leftSide()).append(",").append("\n");
+		sb.append("\t").append("\"").append("rightSideLocations").append("\"").append(": ").append(rightSide()).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	private default StringBuilder extracted() {
 		StringBuilder sb = new StringBuilder();
 		JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
 		sb.append("{").append("\n");
 		sb.append("\t").append("\"").append("type").append("\"").append(": ").append("\"").append(getName()).append("\"").append(",").append("\n");
 		sb.append("\t").append("\"").append("description").append("\"").append(": ").append("\"");
 		encoder.quoteAsString(toString().replace('\t', ' '), sb);
-		sb.append("\"").append(",").append("\n");
-		sb.append("\t").append("\"").append("leftSideLocations").append("\"").append(": ").append(leftSide()).append(",").append("\n");
-		sb.append("\t").append("\"").append("rightSideLocations").append("\"").append(": ").append(rightSide()).append("\n");
-		sb.append("}");
-		return sb.toString();
+		return sb;
 	}
 }
