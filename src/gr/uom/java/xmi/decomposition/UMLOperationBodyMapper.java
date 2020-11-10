@@ -2785,6 +2785,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap) {
 		String string1 = statement1.getString();
 		String string2 = statement2.getString();
+		return extracted(statement1, statement2, replacementInfo, parameterToArgumentMap, string1, string2);
+	}
+
+	private boolean extracted(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+			ReplacementInfo replacementInfo, Map<String, String> parameterToArgumentMap, String string1,
+			String string2) {
 		if(containsMethodSignatureOfAnonymousClass(string1)) {
 			string1 = string1.substring(0, string1.indexOf("\n"));
 		}
