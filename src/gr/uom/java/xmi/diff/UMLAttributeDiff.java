@@ -105,10 +105,8 @@ public class UMLAttributeDiff {
 
 	private Set<Refactoring> getAnnotationRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
-			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
-			refactorings.add(refactoring);
-		}
+		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations())
+			extracted(refactorings, annotation);
 		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
 			RemoveAttributeAnnotationRefactoring refactoring = new RemoveAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
 			refactorings.add(refactoring);
@@ -118,6 +116,13 @@ public class UMLAttributeDiff {
 			refactorings.add(refactoring);
 		}
 		return refactorings;
+	}
+
+	private void extracted(Set<Refactoring> refactorings, UMLAnnotation annotation) {
+		{
+			AddAttributeAnnotationRefactoring refactoring = new AddAttributeAnnotationRefactoring(annotation, removedAttribute, addedAttribute);
+			refactorings.add(refactoring);
+		}
 	}
 
 	public Set<Refactoring> getRefactorings() {
