@@ -173,14 +173,8 @@ public abstract class UMLAbstractClass {
 	public boolean hasAttributesAndOperationsWithCommonNames(UMLAbstractClass umlClass) {
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
-		for(UMLOperation operation : operations) {
-			if(!operation.isConstructor() && !operation.overridesObject()) {
-				totalOperations++;
-	    		if(umlClass.containsOperationWithTheSameName(operation)) {
-	    			commonOperations.add(operation);
-	    		}
-			}
-		}
+		for(UMLOperation operation : operations)
+			totalOperations = extracted(umlClass, commonOperations, totalOperations, operation);
 		for(UMLOperation operation : umlClass.operations) {
 			if(!operation.isConstructor() && !operation.overridesObject()) {
 				totalOperations++;
@@ -213,6 +207,19 @@ public abstract class UMLAbstractClass {
 				(commonAttributes.size() >= Math.floor(totalAttributes/2.0) && (commonOperations.size() > 2 || totalOperations == 0)) ||
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && this.attributes.size() == umlClass.attributes.size()) ||
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
+	}
+
+	private int extracted(UMLAbstractClass umlClass, Set<UMLOperation> commonOperations, int totalOperations,
+			UMLOperation operation) {
+		{
+			if(!operation.isConstructor() && !operation.overridesObject()) {
+				totalOperations++;
+	    		if(umlClass.containsOperationWithTheSameName(operation)) {
+	    			commonOperations.add(operation);
+	    		}
+			}
+		}
+		return totalOperations;
 	}
 
 	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
