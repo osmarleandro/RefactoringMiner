@@ -749,12 +749,8 @@ public class VariableReplacementAnalysis {
 
 	private boolean replacementInLocalVariableDeclaration(Replacement replacement, Set<AbstractCodeMapping> set) {
 		VariableDeclaration v1 = null;
-		for(AbstractCodeMapping mapping : mappings) {
-			if(mapping.getReplacements().contains(replacement)) {
-				v1 = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
-				break;
-			}
-		}
+		for(AbstractCodeMapping mapping : mappings)
+			v1 = extracted(replacement, v1, mapping);
 		VariableDeclaration v2 = null;
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
@@ -785,6 +781,17 @@ public class VariableReplacementAnalysis {
 				!containsVariableDeclarationWithName(allVariableDeclarations1, v2.getVariableName()) &&
 				(!containsVariableDeclarationWithName(allVariableDeclarations2, v1.getVariableName()) || operation2.loopWithVariables(v1.getVariableName(), v2.getVariableName()) != null) &&
 				consistencyCheck(v1, v2, set);
+	}
+
+	private VariableDeclaration extracted(Replacement replacement, VariableDeclaration v1,
+			AbstractCodeMapping mapping) {
+		{
+			if(mapping.getReplacements().contains(replacement)) {
+				v1 = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
+				break;
+			}
+		}
+		return v1;
 	}
 
 	private boolean consistencyCheck(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
