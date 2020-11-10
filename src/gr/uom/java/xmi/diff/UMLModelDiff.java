@@ -678,17 +678,8 @@ public class UMLModelDiff {
    private void processCandidates(List<MoveAttributeRefactoring> candidates, List<MoveAttributeRefactoring> refactorings) {
 	   if(candidates.size() > 1) {
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> map = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
-		   for(MoveAttributeRefactoring candidate : candidates) {
-			   int compatibility = computeCompatibility(candidate);
-			   if(map.containsKey(compatibility)) {
-				   map.get(compatibility).add(candidate);
-			   }
-			   else {
-				   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
-				   refs.add(candidate);
-				   map.put(compatibility, refs);
-			   }
-		   }
+		   for(MoveAttributeRefactoring candidate : candidates)
+			extracted(map, candidate);
 		   int maxCompatibility = map.lastKey();
 		   refactorings.addAll(map.get(maxCompatibility));
 	   }
@@ -696,6 +687,20 @@ public class UMLModelDiff {
 		   refactorings.addAll(candidates);
 	   }
    }
+
+private void extracted(TreeMap<Integer, List<MoveAttributeRefactoring>> map, MoveAttributeRefactoring candidate) {
+	{
+		   int compatibility = computeCompatibility(candidate);
+		   if(map.containsKey(compatibility)) {
+			   map.get(compatibility).add(candidate);
+		   }
+		   else {
+			   List<MoveAttributeRefactoring> refs = new ArrayList<MoveAttributeRefactoring>();
+			   refs.add(candidate);
+			   map.put(compatibility, refs);
+		   }
+	   }
+}
 
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
