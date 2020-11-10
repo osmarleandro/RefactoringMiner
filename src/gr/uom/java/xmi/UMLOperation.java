@@ -419,8 +419,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
-				StatementObject statement = (StatementObject)statements.get(0);
-				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
+				Map<String, List<OperationInvocation>> operationInvocationMap = extracted(statements);
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
 					for(OperationInvocation operationInvocation : operationInvocations) {
@@ -432,6 +431,12 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			}
 		}
 		return null;
+	}
+
+	private Map<String, List<OperationInvocation>> extracted(List<AbstractStatement> statements) {
+		StatementObject statement = (StatementObject)statements.get(0);
+		Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
+		return operationInvocationMap;
 	}
 
 	public boolean isGetter() {
