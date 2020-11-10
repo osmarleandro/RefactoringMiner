@@ -4004,11 +4004,16 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
     		return true;
     	}
     	
-    	if(o instanceof UMLOperationBodyMapper) {
+    	if(o instanceof UMLOperationBodyMapper)
+			return extracted(o);
+    	return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
     		UMLOperationBodyMapper other = (UMLOperationBodyMapper)o;
     		return this.operation1.equals(other.operation1) && this.operation2.equals(other.operation2);
     	}
-    	return false;
 	}
 
 	public String toString() {
