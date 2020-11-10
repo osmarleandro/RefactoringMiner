@@ -330,7 +330,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	private List<String> preprocessArguments(List<String> arguments) {
 		List<String> args = new ArrayList<String>();
-		for(String arg : arguments) {
+		for(String arg : arguments)
+			extracted(args, arg);
+		return args;
+	}
+
+	private void extracted(List<String> args, String arg) {
+		{
 			if(arg.contains("\n")) {
 				args.add(arg.substring(0, arg.indexOf("\n")));
 			}
@@ -338,7 +344,6 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				args.add(arg);
 			}
 		}
-		return args;
 	}
 
 	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
