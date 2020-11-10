@@ -377,7 +377,13 @@ public class UMLModelASTReader {
     		umlClass.setVisibility("package");
     	
     	List<IExtendedModifier> extendedModifiers = typeDeclaration.modifiers();
-		for(IExtendedModifier extendedModifier : extendedModifiers) {
+		for(IExtendedModifier extendedModifier : extendedModifiers)
+			extracted(cu, sourceFile, umlClass, extendedModifier);
+	}
+
+	private void extracted(CompilationUnit cu, String sourceFile, UMLClass umlClass,
+			IExtendedModifier extendedModifier) {
+		{
 			if(extendedModifier.isAnnotation()) {
 				Annotation annotation = (Annotation)extendedModifier;
 				umlClass.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
