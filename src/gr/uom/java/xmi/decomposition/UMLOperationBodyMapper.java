@@ -1408,35 +1408,42 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(variableDeclarationMappings.size() == mappingSet.size()) {
 				Set<ReplacementType> replacementTypes = null;
 				Set<LeafMapping> mappingsWithSameReplacementTypes = new LinkedHashSet<LeafMapping>();
-				for(LeafMapping mapping : variableDeclarationMappings) {
-					if(replacementTypes == null) {
-						replacementTypes = mapping.getReplacementTypes();
-						mappingsWithSameReplacementTypes.add(mapping);
-					}
-					else if(mapping.getReplacementTypes().equals(replacementTypes)) {
-						mappingsWithSameReplacementTypes.add(mapping);
-					}
-					else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
-						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
-						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
-						if(invocation1 != null && invocation2 != null) {
-							for(Replacement replacement : mapping.getReplacements()) {
-								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-									if(invocation1.getName().equals(replacement.getBefore()) && invocation2.getName().equals(replacement.getAfter())) {
-										mappingsWithSameReplacementTypes.add(mapping);
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
+				for(LeafMapping mapping : variableDeclarationMappings)
+					replacementTypes = extracted(replacementTypes, mappingsWithSameReplacementTypes, mapping);
 				if(mappingsWithSameReplacementTypes.size() == mappingSet.size()) {
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	private Set<ReplacementType> extracted(Set<ReplacementType> replacementTypes,
+			Set<LeafMapping> mappingsWithSameReplacementTypes, LeafMapping mapping) {
+		{
+			if(replacementTypes == null) {
+				replacementTypes = mapping.getReplacementTypes();
+				mappingsWithSameReplacementTypes.add(mapping);
+			}
+			else if(mapping.getReplacementTypes().equals(replacementTypes)) {
+				mappingsWithSameReplacementTypes.add(mapping);
+			}
+			else if(mapping.getReplacementTypes().containsAll(replacementTypes) || replacementTypes.containsAll(mapping.getReplacementTypes())) {
+				OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
+				OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
+				if(invocation1 != null && invocation2 != null) {
+					for(Replacement replacement : mapping.getReplacements()) {
+						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+							if(invocation1.getName().equals(replacement.getBefore()) && invocation2.getName().equals(replacement.getAfter())) {
+								mappingsWithSameReplacementTypes.add(mapping);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return replacementTypes;
 	}
 
 	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
