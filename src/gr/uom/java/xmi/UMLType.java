@@ -76,6 +76,10 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private boolean equalTypeArguments(UMLType type) {
 		String thisTypeArguments = this.typeArgumentsToString();
 		String otherTypeArguments = type.typeArgumentsToString();
+		return extracted(type, thisTypeArguments, otherTypeArguments);
+	}
+
+	private boolean extracted(UMLType type, String thisTypeArguments, String otherTypeArguments) {
 		if((thisTypeArguments.equals("<?>") && otherTypeArguments.startsWith("<? ")) || 
 				(thisTypeArguments.startsWith("<? ") && otherTypeArguments.equals("<?>"))) {
 			return true;
