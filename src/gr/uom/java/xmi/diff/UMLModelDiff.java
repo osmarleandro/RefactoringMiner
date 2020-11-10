@@ -888,7 +888,11 @@ public class UMLModelDiff {
       for(UMLClassDiff classDiff : commonClassDiffList) {
          removedOperations.addAll(classDiff.getRemovedOperations());
       }
-      for(UMLClassMoveDiff classDiff : classMoveDiffList) {
+      return extracted(removedOperations);
+   }
+
+private List<UMLOperation> extracted(List<UMLOperation> removedOperations) {
+	for(UMLClassMoveDiff classDiff : classMoveDiffList) {
     	  removedOperations.addAll(classDiff.getRemovedOperations());
       }
       for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
@@ -898,7 +902,7 @@ public class UMLModelDiff {
     	  removedOperations.addAll(classDiff.getRemovedOperations());
       }
       return removedOperations;
-   }
+}
 
    private List<UMLOperation> getRemovedAndInlinedOperationsInCommonClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
