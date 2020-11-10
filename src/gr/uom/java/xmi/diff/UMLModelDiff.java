@@ -643,17 +643,8 @@ public class UMLModelDiff {
    private List<MoveAttributeRefactoring> filterOutBasedOnFilePath(List<MoveAttributeRefactoring> refs) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
 	   Map<String, List<MoveAttributeRefactoring>> groupBySourceFilePath = new LinkedHashMap<String, List<MoveAttributeRefactoring>>();
-	   for(MoveAttributeRefactoring ref : refs) {
-		   String sourceFilePath = ref.getOriginalAttribute().getLocationInfo().getFilePath();
-		   if(groupBySourceFilePath.containsKey(sourceFilePath)) {
-			   groupBySourceFilePath.get(sourceFilePath).add(ref);
-		   }
-		   else {
-			   List<MoveAttributeRefactoring> refs2 = new ArrayList<MoveAttributeRefactoring>();
-			   refs2.add(ref);
-			   groupBySourceFilePath.put(sourceFilePath, refs2);
-		   }
-	   }
+	   for(MoveAttributeRefactoring ref : refs)
+		extracted(groupBySourceFilePath, ref);
 	   for(String sourceFilePath : groupBySourceFilePath.keySet()) {
 		   List<MoveAttributeRefactoring> sourceFilePathGroup = groupBySourceFilePath.get(sourceFilePath);
 		   TreeMap<Integer, List<MoveAttributeRefactoring>> groupByLongestCommonSourceFilePath = new TreeMap<Integer, List<MoveAttributeRefactoring>>();
@@ -674,6 +665,21 @@ public class UMLModelDiff {
 	   }
 	   return filtered;
    }
+
+private void extracted(Map<String, List<MoveAttributeRefactoring>> groupBySourceFilePath,
+		MoveAttributeRefactoring ref) {
+	{
+		   String sourceFilePath = ref.getOriginalAttribute().getLocationInfo().getFilePath();
+		   if(groupBySourceFilePath.containsKey(sourceFilePath)) {
+			   groupBySourceFilePath.get(sourceFilePath).add(ref);
+		   }
+		   else {
+			   List<MoveAttributeRefactoring> refs2 = new ArrayList<MoveAttributeRefactoring>();
+			   refs2.add(ref);
+			   groupBySourceFilePath.put(sourceFilePath, refs2);
+		   }
+	   }
+}
 
    private void processCandidates(List<MoveAttributeRefactoring> candidates, List<MoveAttributeRefactoring> refactorings) {
 	   if(candidates.size() > 1) {
