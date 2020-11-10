@@ -61,17 +61,8 @@ public abstract class UMLAbstractClass {
 
 	public UMLOperation operationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
 		List<UMLOperation> matchingOperations = new ArrayList<UMLOperation>();
-		for(UMLOperation originalOperation : operations) {
-			boolean matchesOperation = isInterface() ?
-				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
-				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
-			if(matchesOperation) {
-				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
-				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
-				if(originalOperationEmptyBody == operationEmptyBody)
-					matchingOperations.add(originalOperation);
-			}
-		}
+		for(UMLOperation originalOperation : operations)
+			extracted(operation, matchingOperations, originalOperation);
 		if(matchingOperations.size() == 1) {
 			return matchingOperations.get(0);
 		}
@@ -88,6 +79,21 @@ public abstract class UMLAbstractClass {
 			return matchingOperation;
 		}
 		return null;
+	}
+
+	private void extracted(UMLOperation operation, List<UMLOperation> matchingOperations,
+			UMLOperation originalOperation) {
+		{
+			boolean matchesOperation = isInterface() ?
+				originalOperation.equalSignatureIgnoringChangedTypes(operation) :
+				originalOperation.equalSignatureWithIdenticalNameIgnoringChangedTypes(operation);
+			if(matchesOperation) {
+				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
+				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
+				if(originalOperationEmptyBody == operationEmptyBody)
+					matchingOperations.add(originalOperation);
+			}
+		}
 	}
 
 	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
