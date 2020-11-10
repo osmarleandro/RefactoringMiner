@@ -314,18 +314,23 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	
 	@Override
 	public void detectAll(Repository repository, String branch, final RefactoringHandler handler) throws Exception {
-		GitService gitService = new GitServiceImpl() {
-			@Override
-			public boolean isCommitAnalyzed(String sha1) {
-				return handler.skipCommit(sha1);
-			}
-		};
+		GitService gitService = extracted(handler);
 		RevWalk walk = gitService.createAllRevsWalk(repository, branch);
 		try {
 			detect(gitService, repository, handler, walk.iterator());
 		} finally {
 			walk.dispose();
 		}
+	}
+
+	private GitService extracted(final RefactoringHandler handler) {
+		GitService gitService = new GitServiceImpl() {
+			@Override
+			public boolean isCommitAnalyzed(String sha1) {
+				return handler.skipCommit(sha1);
+			}
+		};
+		return gitService;
 	}
 
 	@Override
