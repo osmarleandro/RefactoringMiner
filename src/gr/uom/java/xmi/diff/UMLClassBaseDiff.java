@@ -1087,27 +1087,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, addedOperation, this);
 		List<AbstractCodeMapping> totalMappings = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		if(mappings > 0) {
-			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
-			if(exactMappings(operationBodyMapper)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT1AndT2(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					compatibleSignatures(removedOperation, addedOperation, absoluteDifferenceInPosition)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT2(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodExtracted(removedOperation, addedOperation)) {
-				mapperSet.add(operationBodyMapper);
-			}
-			else if(mappedElementsMoreThanNonMappedT1(mappings, operationBodyMapper) &&
-					absoluteDifferenceInPosition <= differenceInPosition &&
-					isPartOfMethodInlined(removedOperation, addedOperation)) {
-				mapperSet.add(operationBodyMapper);
-			}
-		}
+		if(mappings > 0)
+			extracted(mapperSet, removedOperation, addedOperation, differenceInPosition, operationBodyMapper, mappings);
 		else {
 			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
 				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
@@ -1130,7 +1111,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation operationInsideAnonymousClass, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
 		UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(removedOperation, operationInsideAnonymousClass, this);
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
-		if(mappings > 0) {
+		if(mappings > 0)
+			extracted(mapperSet, removedOperation, addedOperation, differenceInPosition, operationBodyMapper, mappings);
+	}
+
+	private void extracted(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation,
+			UMLOperation addedOperation, int differenceInPosition, UMLOperationBodyMapper operationBodyMapper,
+			int mappings) {
+		{
 			int absoluteDifferenceInPosition = computeAbsoluteDifferenceInPositionWithinClass(removedOperation, addedOperation);
 			if(exactMappings(operationBodyMapper)) {
 				mapperSet.add(operationBodyMapper);
