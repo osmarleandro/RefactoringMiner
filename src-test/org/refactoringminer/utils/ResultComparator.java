@@ -331,11 +331,9 @@ public class ResultComparator {
         String resultCacheDir = "tmpResult";
         String projectName = cloneUrl.substring(cloneUrl.lastIndexOf('/') + 1, cloneUrl.lastIndexOf('.'));
         File cachedResult = new File(resultCacheDir + "/" + rm.getConfigId() + "-" + projectName + "-" + commitId);
-        if (cachedResult.exists()) {
-            RefactoringSet rs = new RefactoringSet(cloneUrl, commitId);
-            rs.readFromFile(cachedResult);
-            return rs;
-        } else {
+        if (cachedResult.exists())
+			return extracted(cloneUrl, commitId, cachedResult);
+		else {
             String folder = tempDir + "/" + projectName;
             final RefactoringCollector rc = new RefactoringCollector(cloneUrl, commitId);
             try (Repository repo = git.cloneIfNotExists(folder, cloneUrl)) {
@@ -348,6 +346,14 @@ public class ResultComparator {
             return rs;
         }
     }
+
+	private static RefactoringSet extracted(String cloneUrl, String commitId, File cachedResult) {
+		{
+            RefactoringSet rs = new RefactoringSet(cloneUrl, commitId);
+            rs.readFromFile(cachedResult);
+            return rs;
+        }
+	}
 
     public static RefactoringSet[] collectRmResult(GitHistoryRefactoringMiner rm, RefactoringSet[] oracle) {
         RefactoringSet[] result = new RefactoringSet[oracle.length];
