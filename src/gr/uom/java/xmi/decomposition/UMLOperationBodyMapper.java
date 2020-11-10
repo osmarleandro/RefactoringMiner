@@ -3479,18 +3479,20 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(cast(diff2, diff1)) {
 				return true;
 			}
-			if(diff1.isEmpty() && (diff2.equals("!") || diff2.equals("~"))) {
-				Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
-				info.addReplacement(r);
-				return true;
-			}
-			if(diff2.isEmpty() && (diff1.equals("!") || diff1.equals("~"))) {
-				Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
-				info.addReplacement(r);
-				return true;
-			}
+			if(diff1.isEmpty() && (diff2.equals("!") || diff2.equals("~")))
+				return extracted(s1, s2, info);
+			if(diff2.isEmpty() && (diff1.equals("!") || diff1.equals("~")))
+				return extracted(s1, s2, info);
 		}
 		return false;
+	}
+
+	private boolean extracted(String s1, String s2, ReplacementInfo info) {
+		{
+			Replacement r = new Replacement(s1, s2, ReplacementType.INVERT_CONDITIONAL);
+			info.addReplacement(r);
+			return true;
+		}
 	}
 
 	private boolean cast(String diff1, String diff2) {
