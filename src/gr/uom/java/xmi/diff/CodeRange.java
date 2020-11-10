@@ -105,12 +105,17 @@ public class CodeRange {
 
 	private String escapeQuotes(String s) {
 		if(s != null) {
-			StringBuilder sb = new StringBuilder();
-			JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
-			encoder.quoteAsString(s, sb);
+			StringBuilder sb = extracted(s);
 			return sb.toString();
 		}
 		return s;
+	}
+
+	private StringBuilder extracted(String s) {
+		StringBuilder sb = new StringBuilder();
+		JsonStringEncoder encoder = BufferRecyclers.getJsonStringEncoder();
+		encoder.quoteAsString(s, sb);
+		return sb;
 	}
 
 	private void encodeStringProperty(StringBuilder sb, String propertyName, String value, boolean last) {
