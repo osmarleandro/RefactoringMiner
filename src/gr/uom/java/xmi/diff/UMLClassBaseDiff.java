@@ -1532,7 +1532,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void checkForInlinedOperations() throws RefactoringMinerTimedOutException {
 		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
-		for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
+		for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();)
+			extracted(operationsToBeRemoved, removedOperationIterator);
+		removedOperations.removeAll(operationsToBeRemoved);
+	}
+
+	private void extracted(List<UMLOperation> operationsToBeRemoved, Iterator<UMLOperation> removedOperationIterator)
+			throws RefactoringMinerTimedOutException {
+		{
 			UMLOperation removedOperation = removedOperationIterator.next();
 			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 				InlineOperationDetection detection = new InlineOperationDetection(mapper, removedOperations, this, modelDiff);
@@ -1546,7 +1553,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		removedOperations.removeAll(operationsToBeRemoved);
 	}
 
 	private void checkForExtractedOperations() throws RefactoringMinerTimedOutException {
