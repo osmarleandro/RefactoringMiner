@@ -1184,7 +1184,24 @@ public class UMLModelDiff {
 	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
 	   List<RenamePackageRefactoring> renamePackageRefactorings = new ArrayList<RenamePackageRefactoring>();
 	   List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings = new ArrayList<MoveSourceFolderRefactoring>();
-	   for(UMLClassMoveDiff classMoveDiff : classMoveDiffList) {
+	   for(UMLClassMoveDiff classMoveDiff : classMoveDiffList)
+		extracted(refactorings, renamePackageRefactorings, moveSourceFolderRefactorings, classMoveDiff);
+	   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
+		   List<MoveClassRefactoring> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
+		   if(moveClassRefactorings.size() > 1 && isSourcePackageDeleted(renamePackageRefactoring)) {
+			   refactorings.add(renamePackageRefactoring);
+		   }
+		   //else {
+			   refactorings.addAll(moveClassRefactorings);
+		   //}
+	   }
+	   refactorings.addAll(moveSourceFolderRefactorings);
+	   return refactorings;
+   }
+
+private void extracted(List<Refactoring> refactorings, List<RenamePackageRefactoring> renamePackageRefactorings,
+		List<MoveSourceFolderRefactoring> moveSourceFolderRefactorings, UMLClassMoveDiff classMoveDiff) {
+	{
 		   UMLClass originalClass = classMoveDiff.getOriginalClass();
 		   String originalName = originalClass.getName();
 		   UMLClass movedClass = classMoveDiff.getMovedClass();
@@ -1239,18 +1256,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
-		   List<MoveClassRefactoring> moveClassRefactorings = renamePackageRefactoring.getMoveClassRefactorings();
-		   if(moveClassRefactorings.size() > 1 && isSourcePackageDeleted(renamePackageRefactoring)) {
-			   refactorings.add(renamePackageRefactoring);
-		   }
-		   //else {
-			   refactorings.addAll(moveClassRefactorings);
-		   //}
-	   }
-	   refactorings.addAll(moveSourceFolderRefactorings);
-	   return refactorings;
-   }
+}
 
    private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
 	   for(String deletedFolderPath : deletedFolderPaths) {
