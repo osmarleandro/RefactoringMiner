@@ -93,7 +93,14 @@ public class TestBuilder {
 
 	public final ProjectMatcher project(String cloneUrl, String branch) {
 		ProjectMatcher projectMatcher = this.map.get(cloneUrl);
-		if (projectMatcher == null) {
+		if (projectMatcher == null)
+			projectMatcher = extracted(cloneUrl, branch);
+		return projectMatcher;
+	}
+
+	private ProjectMatcher extracted(String cloneUrl, String branch) {
+		ProjectMatcher projectMatcher;
+		{
 			projectMatcher = new ProjectMatcher(cloneUrl, branch);
 			this.map.put(cloneUrl, projectMatcher);
 		}
