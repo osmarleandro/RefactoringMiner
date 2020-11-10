@@ -859,16 +859,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		boolean removedOperationCalled = false;
-		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
-			for(UMLOperation operation : removedOperations) {
-				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
-					removedOperationCalled = true;
-					break;
-				}
-			}
-			if(removedOperationCalled)
-				break;
-		}
+		for(OperationInvocation invocation : operation1.getAllOperationInvocations())
+			removedOperationCalled = extracted(removedOperations, removedOperationCalled, invocation);
 		boolean addedOperationCalled = false;
 		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
 			for(UMLOperation operation : addedOperations) {
@@ -881,6 +873,21 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				break;
 		}
 		return removedOperationCalled && addedOperationCalled;
+	}
+
+	private boolean extracted(List<UMLOperation> removedOperations, boolean removedOperationCalled,
+			OperationInvocation invocation) {
+		{
+			for(UMLOperation operation : removedOperations) {
+				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
+					removedOperationCalled = true;
+					break;
+				}
+			}
+			if(removedOperationCalled)
+				break;
+		}
+		return removedOperationCalled;
 	}
 
 	public int exactMatches() {
