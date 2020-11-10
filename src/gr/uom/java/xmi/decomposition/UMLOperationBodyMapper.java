@@ -4070,7 +4070,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private int inconsistentVariableMappingCount(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1, VariableDeclaration v2) {
 		int count = 0;
-		if(v1 != null && v2 != null) {
+		if(v1 != null && v2 != null)
+			count = extracted(statement1, statement2, v1, v2, count);
+		return count;
+	}
+
+	private int extracted(AbstractCodeFragment statement1, AbstractCodeFragment statement2, VariableDeclaration v1,
+			VariableDeclaration v2, int count) {
+		{
 			for(AbstractCodeMapping mapping : mappings) {
 				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
 				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
