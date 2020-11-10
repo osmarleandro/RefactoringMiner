@@ -534,27 +534,31 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				this.isAbstract == operation.isAbstract &&
 				equalTypeParameters(operation)) {
 			UMLParameter thisReturnParameter = this.getReturnParameter();
-			UMLParameter otherReturnParameter = operation.getReturnParameter();
-			if(thisReturnParameter != null && otherReturnParameter != null) {
-				if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
-					return false;
-				}
-			}
-			List<UMLType> thisParameterTypeList = this.getParameterTypeList();
-			List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
-			if(thisParameterTypeList.size() != otherParameterTypeList.size()) {
-				return false;
-			}
-			for(int i=0; i<thisParameterTypeList.size(); i++) {
-				UMLType thisParameterType = thisParameterTypeList.get(i);
-				UMLType otherParameterType = otherParameterTypeList.get(i);
-				if(!thisParameterType.equalsQualified(otherParameterType)) {
-					return false;
-				}
-			}
-			return true;
+			return extracted(operation, thisReturnParameter);
 		}
 		return false;
+	}
+
+	private boolean extracted(UMLOperation operation, UMLParameter thisReturnParameter) {
+		UMLParameter otherReturnParameter = operation.getReturnParameter();
+		if(thisReturnParameter != null && otherReturnParameter != null) {
+			if(!thisReturnParameter.getType().equalsQualified(otherReturnParameter.getType())) {
+				return false;
+			}
+		}
+		List<UMLType> thisParameterTypeList = this.getParameterTypeList();
+		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
+		if(thisParameterTypeList.size() != otherParameterTypeList.size()) {
+			return false;
+		}
+		for(int i=0; i<thisParameterTypeList.size(); i++) {
+			UMLType thisParameterType = thisParameterTypeList.get(i);
+			UMLType otherParameterType = otherParameterTypeList.get(i);
+			if(!thisParameterType.equalsQualified(otherParameterType)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public int hashCode() {
