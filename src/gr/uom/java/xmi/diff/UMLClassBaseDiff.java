@@ -938,10 +938,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		for(UMLOperationBodyMapper mapper : this.operationBodyMapperList) {
 			List<String> allVariables1 = mapper.getOperation1().getAllVariables();
 			List<String> allVariables2 = mapper.getOperation2().getAllVariables();
-			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers()) {
-				allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
-				allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
-			}
+			for(UMLOperationBodyMapper nestedMapper : mapper.getChildMappers())
+				extracted(allVariables1, allVariables2, nestedMapper);
 			boolean variables1contains = (allVariables1.contains(pattern.getBefore()) &&
 					!mapper.getOperation1().getParameterNameList().contains(pattern.getBefore())) ||
 					allVariables1.contains("this."+pattern.getBefore());
@@ -962,6 +960,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		if(percentage > 0.5)
 			return true;
 		return false;
+	}
+
+	private void extracted(List<String> allVariables1, List<String> allVariables2,
+			UMLOperationBodyMapper nestedMapper) {
+		{
+			allVariables1.addAll(nestedMapper.getOperation1().getAllVariables());
+			allVariables2.addAll(nestedMapper.getOperation2().getAllVariables());
+		}
 	}
 
 	private static boolean cyclicRename(Map<Replacement, Set<CandidateAttributeRefactoring>> renames, Replacement rename) {
