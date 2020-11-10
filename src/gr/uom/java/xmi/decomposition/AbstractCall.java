@@ -344,7 +344,14 @@ public abstract class AbstractCall implements LocationInfoProvider {
 	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
 		Set<String> argumentIntersection = argumentIntersection(call);
 		int argumentIntersectionSize = argumentIntersection.size();
-		for(String parameter : parameterToArgumentMap.keySet()) {
+		for(String parameter : parameterToArgumentMap.keySet())
+			argumentIntersectionSize = extracted(call, parameterToArgumentMap, argumentIntersectionSize, parameter);
+		return argumentIntersectionSize;
+	}
+
+	private int extracted(AbstractCall call, Map<String, String> parameterToArgumentMap, int argumentIntersectionSize,
+			String parameter) {
+		{
 			String argument = parameterToArgumentMap.get(parameter);
 			if(getArguments().contains(argument) &&
 					call.getArguments().contains(parameter)) {
