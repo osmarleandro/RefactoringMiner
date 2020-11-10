@@ -313,7 +313,13 @@ public class OperationInvocation extends AbstractCall {
     	Set<String> subExpressions2 = other.subExpressions();
     	Set<String> intersection = new LinkedHashSet<String>(subExpressions1);
     	intersection.retainAll(subExpressions2);
-    	if(subExpressions1.size() == subExpressions2.size()) {
+    	if(subExpressions1.size() == subExpressions2.size())
+			extracted(subExpressions1, subExpressions2, intersection);
+    	return intersection;
+    }
+
+	private void extracted(Set<String> subExpressions1, Set<String> subExpressions2, Set<String> intersection) {
+		{
     		Iterator<String> it1 = subExpressions1.iterator();
     		Iterator<String> it2 = subExpressions2.iterator();
     		while(it1.hasNext()) {
@@ -324,8 +330,7 @@ public class OperationInvocation extends AbstractCall {
     			}
     		}
     	}
-    	return intersection;
-    }
+	}
 
 	private static boolean differInThisDot(String subExpression1, String subExpression2) {
 		if(subExpression1.length() < subExpression2.length()) {
