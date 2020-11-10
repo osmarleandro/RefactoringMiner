@@ -1074,13 +1074,20 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private Set<MethodInvocationReplacement> findConsistentMethodInvocationRenames() {
 		Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
 		Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames = new LinkedHashSet<MethodInvocationReplacement>();
-		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList) {
+		for(UMLOperationBodyMapper bodyMapper : operationBodyMapperList)
+			extracted(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames, bodyMapper);
+		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
+		return allConsistentMethodInvocationRenames;
+	}
+
+	private void extracted(Set<MethodInvocationReplacement> allConsistentMethodInvocationRenames,
+			Set<MethodInvocationReplacement> allInconsistentMethodInvocationRenames,
+			UMLOperationBodyMapper bodyMapper) {
+		{
 			Set<MethodInvocationReplacement> methodInvocationRenames = bodyMapper.getMethodInvocationRenameReplacements();
 			ConsistentReplacementDetector.updateRenames(allConsistentMethodInvocationRenames, allInconsistentMethodInvocationRenames,
 					methodInvocationRenames);
 		}
-		allConsistentMethodInvocationRenames.removeAll(allInconsistentMethodInvocationRenames);
-		return allConsistentMethodInvocationRenames;
 	}
 
 	private void updateMapperSet(TreeSet<UMLOperationBodyMapper> mapperSet, UMLOperation removedOperation, UMLOperation addedOperation, int differenceInPosition) throws RefactoringMinerTimedOutException {
