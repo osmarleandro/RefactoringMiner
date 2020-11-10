@@ -77,10 +77,15 @@ public class CallTreeNode {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(invokedOperation);
+		StringBuilder sb = extracted();
 		sb.append(" called from ");
 		sb.append(originalOperation);
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(invokedOperation);
+		return sb;
 	}
 }
