@@ -90,29 +90,8 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	protected void createBodyMappers() throws RefactoringMinerTimedOutException {
-		for(UMLOperation originalOperation : originalClass.getOperations()) {
-			for(UMLOperation nextOperation : nextClass.getOperations()) {
-				if(originalOperation.equalsQualified(nextOperation)) {
-					if(getModelDiff() != null) {
-						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
-						if(mappers.size() > 0) {
-							UMLOperation operation1 = mappers.get(0).getOperation1();
-							if(!operation1.equalSignature(originalOperation) &&
-									getModelDiff().commonlyImplementedOperations(operation1, nextOperation, this)) {
-								if(!removedOperations.contains(originalOperation)) {
-									removedOperations.add(originalOperation);
-								}
-								break;
-							}
-						}
-					}
-	    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(originalOperation, nextOperation, this);
-	    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(originalOperation, nextOperation, operationBodyMapper.getMappings());
-					refactorings.addAll(operationSignatureDiff.getRefactorings());
-	    			this.addOperationBodyMapper(operationBodyMapper);
-				}
-			}
-		}
+		for(UMLOperation originalOperation : originalClass.getOperations())
+			extracted(originalOperation);
 		for(UMLOperation operation : originalClass.getOperations()) {
 			if(!containsMapperForOperation(operation) && nextClass.getOperations().contains(operation) && !removedOperations.contains(operation)) {
     			int index = nextClass.getOperations().indexOf(operation);
@@ -160,6 +139,32 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 		}
 		removedOperations.removeAll(removedOperationsToBeRemoved);
 		addedOperations.removeAll(addedOperationsToBeRemoved);
+	}
+
+	private void extracted(UMLOperation originalOperation) throws RefactoringMinerTimedOutException {
+		{
+			for(UMLOperation nextOperation : nextClass.getOperations()) {
+				if(originalOperation.equalsQualified(nextOperation)) {
+					if(getModelDiff() != null) {
+						List<UMLOperationBodyMapper> mappers = getModelDiff().findMappersWithMatchingSignature2(nextOperation);
+						if(mappers.size() > 0) {
+							UMLOperation operation1 = mappers.get(0).getOperation1();
+							if(!operation1.equalSignature(originalOperation) &&
+									getModelDiff().commonlyImplementedOperations(operation1, nextOperation, this)) {
+								if(!removedOperations.contains(originalOperation)) {
+									removedOperations.add(originalOperation);
+								}
+								break;
+							}
+						}
+					}
+	    			UMLOperationBodyMapper operationBodyMapper = new UMLOperationBodyMapper(originalOperation, nextOperation, this);
+	    			UMLOperationDiff operationSignatureDiff = new UMLOperationDiff(originalOperation, nextOperation, operationBodyMapper.getMappings());
+					refactorings.addAll(operationSignatureDiff.getRefactorings());
+	    			this.addOperationBodyMapper(operationBodyMapper);
+				}
+			}
+		}
 	}
 
 	protected void checkForAttributeChanges() {
