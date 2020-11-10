@@ -131,14 +131,19 @@ public enum RefactoringType {
 
     public String getAbbreviation() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.displayName.length(); i++) {
+        for (int i = 0; i < this.displayName.length(); i++)
+			extracted(sb, i);
+        return sb.toString();
+    }
+
+	private void extracted(StringBuilder sb, int i) {
+		{
             char c = this.displayName.charAt(i);
             if (Character.isLetter(c) && Character.isUpperCase(c)) {
                 sb.append(c);
             }
         }
-        return sb.toString();
-    }
+	}
 
     public String aggregate(String refactoringDescription) {
         Matcher m = regex.matcher(refactoringDescription);
