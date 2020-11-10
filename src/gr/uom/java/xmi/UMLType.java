@@ -210,6 +210,10 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	private static boolean equalOpeningClosingTags(String typeArguments) {
 		int openingTags = 0;
 		int closingTags = 0;
+		return extracted(typeArguments, openingTags, closingTags);
+	}
+
+	private static boolean extracted(String typeArguments, int openingTags, int closingTags) {
 		for(int i=0; i<typeArguments.length(); i++) {
 			if(typeArguments.charAt(i) == '>') {
 				openingTags++;
