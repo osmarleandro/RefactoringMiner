@@ -298,8 +298,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
     public Set<String> callChainIntersection(OperationInvocation other) {
-    	Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
-    	s1.add(this.actualString());
+    	Set<String> s1 = extracted();
     	Set<String> s2 = new LinkedHashSet<String>(other.subExpressions);
     	s2.add(other.actualString());
 
@@ -307,6 +306,12 @@ public class OperationInvocation extends AbstractCall {
     	intersection.retainAll(s2);
     	return intersection;
     }
+
+	private Set<String> extracted() {
+		Set<String> s1 = new LinkedHashSet<String>(this.subExpressions);
+    	s1.add(this.actualString());
+		return s1;
+	}
 
     private Set<String> subExpressionIntersection(OperationInvocation other) {
     	Set<String> subExpressions1 = this.subExpressions();
