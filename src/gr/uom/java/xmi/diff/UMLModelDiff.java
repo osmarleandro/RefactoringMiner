@@ -525,8 +525,7 @@ public class UMLModelDiff {
 
    private boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
-		   String removedClassName = removedClass.getName();
-		   String removedName = removedClassName.substring(removedClassName.lastIndexOf(".")+1, removedClassName.length());
+		   String removedName = extracted(removedClass);
 		   String addedClassName = addedClass.getName();
 		   String addedName = addedClassName.substring(addedClassName.lastIndexOf(".")+1, addedClassName.length());
 		   if(removedName.equals(addedName)) {
@@ -535,6 +534,12 @@ public class UMLModelDiff {
 	   }
 	   return false;
    }
+
+private String extracted(UMLClass removedClass) {
+	String removedClassName = removedClass.getName();
+	   String removedName = removedClassName.substring(removedClassName.lastIndexOf(".")+1, removedClassName.length());
+	return removedName;
+}
 
    public List<UMLGeneralization> getAddedGeneralizations() {
       return addedGeneralizations;
