@@ -171,12 +171,17 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-        sb.append(variableName).append(" : ").append(type);
+		StringBuilder sb = extracted();
         if(varargsParameter) {
         	sb.append("...");
         }
         return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+        sb.append(variableName).append(" : ").append(type);
+		return sb;
 	}
 
 	public String toQualifiedString() {
