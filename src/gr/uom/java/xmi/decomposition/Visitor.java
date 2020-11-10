@@ -386,14 +386,8 @@ public class Visitor extends ASTVisitor {
 	}
 
 	public boolean visit(SimpleName node) {
-		if(node.getParent() instanceof FieldAccess && ((FieldAccess)node.getParent()).getExpression() instanceof ThisExpression) {
-			FieldAccess fieldAccess = (FieldAccess)node.getParent();
-			variables.add(fieldAccess.toString());
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariables().add(fieldAccess.toString());
-			}
-		}
+		if(node.getParent() instanceof FieldAccess && ((FieldAccess)node.getParent()).getExpression() instanceof ThisExpression)
+			extracted(node);
 		else if(node.getParent() instanceof MethodInvocation &&
 				((MethodInvocation)node.getParent()).getName().equals(node)) {
 			// skip method invocation names
@@ -436,6 +430,17 @@ public class Visitor extends ASTVisitor {
 			}
 		}
 		return super.visit(node);
+	}
+
+	private void extracted(SimpleName node) {
+		{
+			FieldAccess fieldAccess = (FieldAccess)node.getParent();
+			variables.add(fieldAccess.toString());
+			if(current.getUserObject() != null) {
+				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+				anonymous.getVariables().add(fieldAccess.toString());
+			}
+		}
 	}
 	
 	public boolean visit(ArrayType node) {
