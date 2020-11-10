@@ -35,6 +35,10 @@ public class MoveClassRefactoring implements Refactoring {
 		if (separatorPos == -1) {
 			return new RenamePattern(originalClass.getName(), movedClass.getName());
 		}
+		return extracted(separatorPos);
+	}
+
+	private RenamePattern extracted(int separatorPos) {
 		String originalPath = originalClass.getName().substring(0, originalClass.getName().length() - separatorPos);
 		String movedPath = movedClass.getName().substring(0, movedClass.getName().length() - separatorPos);
 		return new RenamePattern(originalPath, movedPath);
