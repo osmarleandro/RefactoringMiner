@@ -957,21 +957,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 		}
-		for(UMLParameter parameter : operation2.getParameters()) {
-			VariableDeclaration vd = parameter.getVariableDeclaration();
-			if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
-				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, operation2);
-			}
-		}
-		if(callSiteOperation != null) {
-			for(UMLParameter parameter : callSiteOperation.getParameters()) {
-				VariableDeclaration vd = parameter.getVariableDeclaration();
-				if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
-					return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, callSiteOperation);
-				}
-			}
-		}
-		return null;
+		return extracted(replacement);
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(SplitVariableReplacement replacement, String variableName) {
@@ -1237,6 +1223,10 @@ public class VariableReplacementAnalysis {
 				return new SimpleEntry<VariableDeclaration, UMLOperation>(vd, mapping.getOperation2());
 			}
 		}
+		return extracted(replacement);
+	}
+
+	private SimpleEntry<VariableDeclaration, UMLOperation> extracted(Replacement replacement) {
 		for(UMLParameter parameter : operation2.getParameters()) {
 			VariableDeclaration vd = parameter.getVariableDeclaration();
 			if(vd != null && vd.getVariableName().equals(replacement.getAfter())) {
