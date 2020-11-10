@@ -40,6 +40,10 @@ public class MovedClassToAnotherSourceFolder {
 		if (separatorPos == -1) {
 			return new RenamePattern(originalPath, movedPath);
 		}
+		return extracted(separatorPos);
+	}
+
+	private RenamePattern extracted(int separatorPos) {
 		String original = originalPath.substring(0, originalPath.length() - separatorPos);
 		String moved = movedPath.substring(0, movedPath.length() - separatorPos);
 		return new RenamePattern(original, moved);
