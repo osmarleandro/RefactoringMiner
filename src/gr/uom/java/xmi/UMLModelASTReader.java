@@ -100,14 +100,19 @@ public class UMLModelASTReader {
 
 	private static Set<String> getDirectories(File folder, List<String> paths) {
 		Set<String> repositoryDirectories = new LinkedHashSet<String>();
-		for(String path : paths) {
+		for(String path : paths)
+			extracted(repositoryDirectories, path);
+		return repositoryDirectories;
+	}
+
+	private static void extracted(Set<String> repositoryDirectories, String path) {
+		{
 			String directory = new String(path);
 			while(directory.contains("/")) {
 				directory = directory.substring(0, directory.lastIndexOf("/"));
 				repositoryDirectories.add(directory);
 			}
 		}
-		return repositoryDirectories;
 	}
 
 	private UMLModelASTReader(File rootFolder, ASTParser parser, List<String> javaFiles, Set<String> repositoryDirectories) {
