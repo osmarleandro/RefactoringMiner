@@ -209,7 +209,22 @@ public class ExtractOperationDetection {
 		Map<String, String> parameterToArgumentMap = new LinkedHashMap<String, String>();
 		//special handling for methods with varargs parameter for which no argument is passed in the matching invocation
 		int size = Math.min(arguments.size(), parameters.size());
-		for(int i=0; i<size; i++) {
+		for(int i=0; i<size; i++)
+			extracted(originalMethodParameters, originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters,
+					arguments, parameters, parameterToArgumentMap, i);
+		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
+			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
+			return new UMLOperationBodyMapper(mapper,
+					delegateMethod != null ? delegateMethod : addedOperation,
+					new LinkedHashMap<String, String>(), parameterToArgumentMap, classDiff);
+		}
+		return null;
+	}
+
+	private void extracted(List<UMLParameter> originalMethodParameters,
+			Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters,
+			List<String> arguments, List<UMLParameter> parameters, Map<String, String> parameterToArgumentMap, int i) {
+		{
 			String argumentName = arguments.get(i);
 			String parameterName = parameters.get(i).getName();
 			parameterToArgumentMap.put(parameterName, argumentName);
@@ -219,13 +234,6 @@ public class ExtractOperationDetection {
 				}
 			}
 		}
-		if(parameterTypesMatch(originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters)) {
-			UMLOperation delegateMethod = findDelegateMethod(originalOperation, addedOperation, addedOperationInvocation);
-			return new UMLOperationBodyMapper(mapper,
-					delegateMethod != null ? delegateMethod : addedOperation,
-					new LinkedHashMap<String, String>(), parameterToArgumentMap, classDiff);
-		}
-		return null;
 	}
 
 	private boolean extractMatchCondition(UMLOperationBodyMapper operationBodyMapper, List<AbstractCodeMapping> additionalExactMatches) {
