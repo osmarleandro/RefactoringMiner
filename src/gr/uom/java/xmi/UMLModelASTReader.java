@@ -517,7 +517,15 @@ public class UMLModelASTReader {
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, anonymous, CodeElementType.ANONYMOUS_CLASS_DECLARATION);
 		UMLAnonymousClass anonymousClass = new UMLAnonymousClass(packageName, binaryName, codePath, locationInfo);
 		
-		for(BodyDeclaration bodyDeclaration : bodyDeclarations) {
+		for(BodyDeclaration bodyDeclaration : bodyDeclarations)
+			extracted(cu, packageName, sourceFile, anonymousClass, bodyDeclaration);
+		
+		return anonymousClass;
+	}
+
+	private void extracted(CompilationUnit cu, String packageName, String sourceFile, UMLAnonymousClass anonymousClass,
+			BodyDeclaration bodyDeclaration) {
+		{
 			if(bodyDeclaration instanceof FieldDeclaration) {
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)bodyDeclaration;
 				List<UMLAttribute> attributes = processFieldDeclaration(cu, fieldDeclaration, false, sourceFile);
@@ -533,8 +541,6 @@ public class UMLModelASTReader {
 				anonymousClass.addOperation(operation);
 			}
 		}
-		
-		return anonymousClass;
 	}
 	
 	private void insertNode(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
