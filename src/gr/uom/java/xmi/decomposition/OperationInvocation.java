@@ -148,7 +148,25 @@ public class OperationInvocation extends AbstractCall {
 
     public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
     	List<UMLType> inferredArgumentTypes = new ArrayList<UMLType>();
-    	for(String arg : arguments) {
+    	for(String arg : arguments)
+			extracted(variableTypeMap, inferredArgumentTypes, arg);
+    	int i=0;
+    	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
+    		UMLType parameterType = parameter.getType();
+    		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
+    			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
+    					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
+    					!compatibleTypes(parameter, inferredArgumentTypes.get(i), modelDiff)) {
+    				return false;
+    			}
+    		}
+    		i++;
+    	}
+    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
+    }
+
+	private void extracted(Map<String, UMLType> variableTypeMap, List<UMLType> inferredArgumentTypes, String arg) {
+		{
     		int indexOfOpeningParenthesis = arg.indexOf("(");
     		int indexOfOpeningSquareBracket = arg.indexOf("[");
     		boolean openingParenthesisBeforeSquareBracket = false;
@@ -217,20 +235,7 @@ public class OperationInvocation extends AbstractCall {
     			inferredArgumentTypes.add(null);
     		}
     	}
-    	int i=0;
-    	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
-    		UMLType parameterType = parameter.getType();
-    		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
-    			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
-    					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
-    					!compatibleTypes(parameter, inferredArgumentTypes.get(i), modelDiff)) {
-    				return false;
-    			}
-    		}
-    		i++;
-    	}
-    	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
-    }
+	}
 
     private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
