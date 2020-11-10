@@ -83,13 +83,18 @@ public class ObjectCreation extends AbstractCall {
         if(this == o) {
             return true;
         }
-        if (o instanceof ObjectCreation) {
+        if (o instanceof ObjectCreation)
+			return extracted(o);
+        return false;
+    }
+
+	private boolean extracted(Object o) {
+		{
         	ObjectCreation creation = (ObjectCreation)o;
             return type.equals(creation.type) && isArray == creation.isArray &&
                 typeArguments == creation.typeArguments;
         }
-        return false;
-    }
+	}
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
