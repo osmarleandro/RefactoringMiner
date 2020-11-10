@@ -227,10 +227,8 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 
 	private static Type extractType(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
 		Type returnedVariableType = null;
-		if(variableDeclaration instanceof SingleVariableDeclaration) {
-			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)variableDeclaration;
-			returnedVariableType = singleVariableDeclaration.getType();
-		}
+		if(variableDeclaration instanceof SingleVariableDeclaration)
+			returnedVariableType = extracted(variableDeclaration);
 		else if(variableDeclaration instanceof VariableDeclarationFragment) {
 			VariableDeclarationFragment fragment = (VariableDeclarationFragment)variableDeclaration;
 			if(fragment.getParent() instanceof VariableDeclarationStatement) {
@@ -245,6 +243,15 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 				FieldDeclaration fieldDeclaration = (FieldDeclaration)fragment.getParent();
 				returnedVariableType = fieldDeclaration.getType();
 			}
+		}
+		return returnedVariableType;
+	}
+
+	private static Type extracted(org.eclipse.jdt.core.dom.VariableDeclaration variableDeclaration) {
+		Type returnedVariableType;
+		{
+			SingleVariableDeclaration singleVariableDeclaration = (SingleVariableDeclaration)variableDeclaration;
+			returnedVariableType = singleVariableDeclaration.getType();
 		}
 		return returnedVariableType;
 	}
