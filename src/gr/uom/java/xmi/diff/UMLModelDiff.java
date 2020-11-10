@@ -588,19 +588,9 @@ public class UMLModelDiff {
 
    private List<MoveAttributeRefactoring> checkForAttributeMoves(List<UMLAttribute> addedAttributes, List<UMLAttribute> removedAttributes) {
 	   List<MoveAttributeRefactoring> refactorings = new ArrayList<MoveAttributeRefactoring>();
-	   if(addedAttributes.size() <= removedAttributes.size()) {
-		   for(UMLAttribute addedAttribute : addedAttributes) {
-			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
-			   for(UMLAttribute removedAttribute : removedAttributes) {
-				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
-				   if(candidate != null) {
-					   candidates.add(candidate);
-				   }
-			   }
-			   processCandidates(candidates, refactorings);
-		   }
-	   }
-	   else {
+	   if(addedAttributes.size() <= removedAttributes.size())
+		extracted(addedAttributes, removedAttributes, refactorings);
+	else {
 		   for(UMLAttribute removedAttribute : removedAttributes) {
 			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
 			   for(UMLAttribute addedAttribute : addedAttributes) {
@@ -614,6 +604,22 @@ public class UMLModelDiff {
 	   }
 	   return filterOutDuplicateRefactorings(refactorings);
    }
+
+private void extracted(List<UMLAttribute> addedAttributes, List<UMLAttribute> removedAttributes,
+		List<MoveAttributeRefactoring> refactorings) {
+	{
+		   for(UMLAttribute addedAttribute : addedAttributes) {
+			   List<MoveAttributeRefactoring> candidates = new ArrayList<MoveAttributeRefactoring>();
+			   for(UMLAttribute removedAttribute : removedAttributes) {
+				   MoveAttributeRefactoring candidate = processPairOfAttributes(addedAttribute, removedAttribute);
+				   if(candidate != null) {
+					   candidates.add(candidate);
+				   }
+			   }
+			   processCandidates(candidates, refactorings);
+		   }
+	   }
+}
 
    private List<MoveAttributeRefactoring> filterOutDuplicateRefactorings(List<MoveAttributeRefactoring> refactorings) {
 	   List<MoveAttributeRefactoring> filtered = new ArrayList<MoveAttributeRefactoring>();
