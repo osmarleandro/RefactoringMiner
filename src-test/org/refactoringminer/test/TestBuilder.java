@@ -179,14 +179,19 @@ public class TestBuilder {
 	 */
 	private static String normalizeSingle(String refactoring) {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < refactoring.length(); i++) {
+		for (int i = 0; i < refactoring.length(); i++)
+			extracted(refactoring, sb, i);
+		return sb.toString();
+	}
+
+	private static void extracted(String refactoring, StringBuilder sb, int i) {
+		{
 			char c = refactoring.charAt(i);
 			if (c == '\t') {
 				c = ' ';
 			}
 			sb.append(c);
 		}
-		return sb.toString();
 	}
 
 	public class ProjectMatcher extends RefactoringHandler {
