@@ -156,19 +156,24 @@ public class GitServiceImpl implements GitService {
     		
     		Collection<TrackingRefUpdate> updates = result.getTrackingRefUpdates();
     		List<TrackingRefUpdate> remoteRefsChanges = new ArrayList<TrackingRefUpdate>();
-    		for (TrackingRefUpdate update : updates) {
-    			String refName = update.getLocalName();
-    			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
-    				ObjectId newObjectId = update.getNewObjectId();
-    				logger.info("{} is now at {}", refName, newObjectId.getName());
-    				remoteRefsChanges.add(update);
-    			}
-    		}
+    		for (TrackingRefUpdate update : updates)
+				extracted(remoteRefsChanges, update);
     		if (updates.isEmpty()) {
     			logger.info("Nothing changed");
     		}
     		return remoteRefsChanges;
         }
+	}
+
+	private void extracted(List<TrackingRefUpdate> remoteRefsChanges, TrackingRefUpdate update) {
+		{
+			String refName = update.getLocalName();
+			if (refName.startsWith(REMOTE_REFS_PREFIX)) {
+				ObjectId newObjectId = update.getNewObjectId();
+				logger.info("{} is now at {}", refName, newObjectId.getName());
+				remoteRefsChanges.add(update);
+			}
+		}
 	}
 
 	public RevWalk fetchAndCreateNewRevsWalk(Repository repository) throws Exception {
