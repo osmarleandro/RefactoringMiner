@@ -89,8 +89,8 @@ public class UMLModel {
     		UMLRealization realization = realizationIt.next();
     		if(realization.getClient().equals(otherRealization.getClient())) {
     			String thisSupplier = realization.getSupplier();
-    			String otherSupplier = otherRealization.getSupplier();
-    			String thisSupplierComparedString = null;
+    			String thisSupplierComparedString;
+				String otherSupplier = extracted(otherRealization);
     			if(thisSupplier.contains("."))
     				thisSupplierComparedString = thisSupplier.substring(thisSupplier.lastIndexOf(".")+1);
     			else
@@ -106,6 +106,12 @@ public class UMLModel {
     	}
     	return null;
     }
+
+	private String extracted(UMLRealization otherRealization) {
+		String otherSupplier = otherRealization.getSupplier();
+		String thisSupplierComparedString = null;
+		return otherSupplier;
+	}
 
     public UMLModelDiff diff(UMLModel umlModel) throws RefactoringMinerTimedOutException {
     	return this.diff(umlModel, Collections.<String, String>emptyMap());
