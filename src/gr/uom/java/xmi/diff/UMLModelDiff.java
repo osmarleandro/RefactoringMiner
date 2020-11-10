@@ -938,7 +938,14 @@ public class UMLModelDiff {
 
    private List<ExtractClassRefactoring> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
 	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
-	   for(UMLClass addedClass : addedClasses) {
+	   for(UMLClass addedClass : addedClasses)
+		extracted(classDiffs, refactorings, addedClass);
+	   return refactorings;
+   }
+
+private void extracted(List<? extends UMLClassBaseDiff> classDiffs, List<ExtractClassRefactoring> refactorings,
+		UMLClass addedClass) throws RefactoringMinerTimedOutException {
+	{
 		   List<CandidateExtractClassRefactoring> candidates = new ArrayList<CandidateExtractClassRefactoring>();
 		   UMLType addedClassSuperType = addedClass.getSuperclass();
 		   if(!addedClass.isInterface()) {
@@ -992,8 +999,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   return refactorings;
-   }
+}
 
    private UMLAttribute attributeOfExtractedClassType(UMLClass umlClass, UMLClassBaseDiff classDiff) {
 	   List<UMLAttribute> addedAttributes = classDiff.getAddedAttributes();
