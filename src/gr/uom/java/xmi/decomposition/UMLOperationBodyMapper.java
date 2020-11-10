@@ -3702,21 +3702,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String argument = parameterToArgumentMap.get(parameter);
 			if(variables.contains(parameter)) {
 				variables.add(argument);
-				if(argument.contains("(") && argument.contains(")")) {
-					int indexOfOpeningParenthesis = argument.indexOf("(");
-					int indexOfClosingParenthesis = argument.lastIndexOf(")");
-					boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
-					boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
-					boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
-					if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
-							!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
-							!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
-						String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
-						if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
-							variables.add(arguments);
-						}
-					}
+				if(argument.contains("(") && argument.contains(")"))
+					extracted(variables, argument);
+			}
+		}
+	}
+
+	private void extracted(Set<String> variables, String argument) {
+		{
+			int indexOfOpeningParenthesis = argument.indexOf("(");
+			int indexOfClosingParenthesis = argument.lastIndexOf(")");
+			boolean openingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfOpeningParenthesis);
+			boolean closingParenthesisInsideSingleQuotes = isInsideSingleQuotes(argument, indexOfClosingParenthesis);
+			boolean openingParenthesisInsideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfOpeningParenthesis);
+			boolean closingParenthesisIndideDoubleQuotes = isInsideDoubleQuotes(argument, indexOfClosingParenthesis);
+			if(indexOfOpeningParenthesis < indexOfClosingParenthesis &&
+					!openingParenthesisInsideSingleQuotes && !closingParenthesisInsideSingleQuotes &&
+					!openingParenthesisInsideDoubleQuotes && !closingParenthesisIndideDoubleQuotes) {
+				String arguments = argument.substring(indexOfOpeningParenthesis+1, indexOfClosingParenthesis);
+				if(!arguments.isEmpty() && !arguments.contains(",") && !arguments.contains("(") && !arguments.contains(")")) {
+					variables.add(arguments);
 				}
 			}
 		}
