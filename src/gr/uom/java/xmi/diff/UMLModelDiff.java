@@ -2445,37 +2445,41 @@ public class UMLModelDiff {
 			   addedOperation.getTypeParameters().equals(removedOperation.getTypeParameters())) {
 		   if(addedOperation.getParameters().equals(removedOperation.getParameters())) {
 			   return true;
-		   }
-		   else {
-			   // ignore parameters of types sourceClass and targetClass
-			   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
-			   Set<String> oldParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter oldParameter : removedOperation.getParameters()) {
-				   if (!oldParameter.getKind().equals("return")
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
-						   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   oldParameters.add(oldParameter);
-					   oldParameterNames.add(oldParameter.getName());
-				   }
-			   }
-			   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
-			   Set<String> newParameterNames = new LinkedHashSet<String>();
-			   for (UMLParameter newParameter : addedOperation.getParameters()) {
-				   if (!newParameter.getKind().equals("return") &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
-						   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
-					   newParameters.add(newParameter);
-					   newParameterNames.add(newParameter.getName());
-				   }
-			   }
-			   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
-			   intersection.retainAll(newParameterNames);
-			   return oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
-					   removedOperation.isStatic() || addedOperation.isStatic();
-		   }
+		   } else
+			return extracted(removedOperation, addedOperation);
 	   }
 	   return false;
    }
+
+private boolean extracted(UMLOperation removedOperation, UMLOperation addedOperation) {
+	{
+		   // ignore parameters of types sourceClass and targetClass
+		   List<UMLParameter> oldParameters = new ArrayList<UMLParameter>();
+		   Set<String> oldParameterNames = new LinkedHashSet<String>();
+		   for (UMLParameter oldParameter : removedOperation.getParameters()) {
+			   if (!oldParameter.getKind().equals("return")
+					   && !looksLikeSameType(oldParameter.getType().getClassType(), addedOperation.getClassName())
+					   && !looksLikeSameType(oldParameter.getType().getClassType(), removedOperation.getClassName())) {
+				   oldParameters.add(oldParameter);
+				   oldParameterNames.add(oldParameter.getName());
+			   }
+		   }
+		   List<UMLParameter> newParameters = new ArrayList<UMLParameter>();
+		   Set<String> newParameterNames = new LinkedHashSet<String>();
+		   for (UMLParameter newParameter : addedOperation.getParameters()) {
+			   if (!newParameter.getKind().equals("return") &&
+					   !looksLikeSameType(newParameter.getType().getClassType(), addedOperation.getClassName()) &&
+					   !looksLikeSameType(newParameter.getType().getClassType(), removedOperation.getClassName())) {
+				   newParameters.add(newParameter);
+				   newParameterNames.add(newParameter.getName());
+			   }
+		   }
+		   Set<String> intersection = new LinkedHashSet<String>(oldParameterNames);
+		   intersection.retainAll(newParameterNames);
+		   return oldParameters.equals(newParameters) || oldParameters.containsAll(newParameters) || newParameters.containsAll(oldParameters) || intersection.size() > 0 ||
+				   removedOperation.isStatic() || addedOperation.isStatic();
+	   }
+}
 
    private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   for(Refactoring refactoring : refactorings) {
