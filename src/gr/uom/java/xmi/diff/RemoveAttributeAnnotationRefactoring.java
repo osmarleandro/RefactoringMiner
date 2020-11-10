@@ -82,14 +82,19 @@ public class RemoveAttributeAnnotationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(annotation);
 		sb.append(" in attribute ");
 		sb.append(attributeBefore);
 		sb.append(" from class ");
 		sb.append(attributeBefore.getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	@Override
