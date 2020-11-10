@@ -927,14 +927,18 @@ public class UMLModelDiff {
 	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
 		   mappers.addAll(classDiff.getOperationBodyMapperList());
 	   }
-	   for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
+	   return extracted(mappers);
+   }
+
+private List<UMLOperationBodyMapper> extracted(List<UMLOperationBodyMapper> mappers) {
+	for(UMLClassMoveDiff classDiff : innerClassMoveDiffList) {
 		   mappers.addAll(classDiff.getOperationBodyMapperList());
 	   }
 	   for(UMLClassRenameDiff classDiff : classRenameDiffList) {
 		   mappers.addAll(classDiff.getOperationBodyMapperList());
 	   }
 	   return mappers;
-   }
+}
 
    private List<ExtractClassRefactoring> identifyExtractClassRefactorings(List<? extends UMLClassBaseDiff> classDiffs) throws RefactoringMinerTimedOutException {
 	   List<ExtractClassRefactoring> refactorings = new ArrayList<ExtractClassRefactoring>();
