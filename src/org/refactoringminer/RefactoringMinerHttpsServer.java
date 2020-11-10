@@ -166,8 +166,7 @@ public class RefactoringMinerHttpsServer {
 	}
 
 	private static void printRequestInfo(HttpExchange exchange) {
-		System.out.println("-- headers --");
-		Headers requestHeaders = exchange.getRequestHeaders();
+		Headers requestHeaders = extracted(exchange);
 		requestHeaders.entrySet().forEach(System.out::println);
 
 		System.out.println("-- HTTP method --");
@@ -178,5 +177,11 @@ public class RefactoringMinerHttpsServer {
 		URI requestURI = exchange.getRequestURI();
 		String query = requestURI.getQuery();
 		System.out.println(query);
+	}
+
+	private static Headers extracted(HttpExchange exchange) {
+		System.out.println("-- headers --");
+		Headers requestHeaders = exchange.getRequestHeaders();
+		return requestHeaders;
 	}
 }
