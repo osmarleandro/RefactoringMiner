@@ -33,8 +33,7 @@ public class MoveOperationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(originalOperation);
 		sb.append(" from class ");
 		sb.append(originalOperation.getClassName());
@@ -43,6 +42,12 @@ public class MoveOperationRefactoring implements Refactoring {
 		sb.append(" from class ");
 		sb.append(movedOperation.getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	public String getName() {
