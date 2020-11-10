@@ -558,15 +558,8 @@ public class UMLModelASTReader {
 		String name = "";
 		ASTNode parent = anonymous.getParent();
 		while(parent != null) {
-			if(parent instanceof MethodDeclaration) {
-				String methodName = ((MethodDeclaration)parent).getName().getIdentifier();
-				if(name.isEmpty()) {
-					name = methodName;
-				}
-				else {
-					name = methodName + "." + name;
-				}
-			}
+			if(parent instanceof MethodDeclaration)
+				name = extracted(name, parent);
 			else if(parent instanceof VariableDeclarationFragment &&
 					(parent.getParent() instanceof FieldDeclaration ||
 					parent.getParent() instanceof VariableDeclarationStatement)) {
@@ -599,6 +592,19 @@ public class UMLModelASTReader {
 			parent = parent.getParent();
 		}
 		return name.toString();
+	}
+
+	private String extracted(String name, ASTNode parent) {
+		{
+			String methodName = ((MethodDeclaration)parent).getName().getIdentifier();
+			if(name.isEmpty()) {
+				name = methodName;
+			}
+			else {
+				name = methodName + "." + name;
+			}
+		}
+		return name;
 	}
 
 	private String getAnonymousBinaryName(DefaultMutableTreeNode node) {
