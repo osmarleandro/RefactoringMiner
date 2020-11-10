@@ -52,12 +52,17 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   @Override
   public int hashCode() {
     final int prime = 31;
-    int result = 1;
-    result = prime * result + entityAfter.hashCode();
+    int result = extracted(prime);
     result = prime * result + entityBefore.hashCode();
     result = prime * result + refactoringType.hashCode();
     return result;
   }
+
+private int extracted(final int prime) {
+	int result = 1;
+    result = prime * result + entityAfter.hashCode();
+	return result;
+}
   
   @Override
   public String toString() {
