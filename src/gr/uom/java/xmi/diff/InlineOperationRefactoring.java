@@ -48,12 +48,8 @@ public class InlineOperationRefactoring implements Refactoring {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()).append("\t");
 		sb.append(inlinedOperation);
-		if(getRefactoringType().equals(RefactoringType.INLINE_OPERATION)) {
-			sb.append(" inlined to ");
-			sb.append(targetOperationAfterInline);
-			sb.append(" in class ");
-			sb.append(getClassName());
-		}
+		if(getRefactoringType().equals(RefactoringType.INLINE_OPERATION))
+			extracted(sb);
 		else if(getRefactoringType().equals(RefactoringType.MOVE_AND_INLINE_OPERATION)) {
 			sb.append(" moved from class ");
 			sb.append(inlinedOperation.getClassName());
@@ -63,6 +59,15 @@ public class InlineOperationRefactoring implements Refactoring {
 			sb.append(getTargetOperationAfterInline());
 		}
 		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb) {
+		{
+			sb.append(" inlined to ");
+			sb.append(targetOperationAfterInline);
+			sb.append(" in class ");
+			sb.append(getClassName());
+		}
 	}
 
 	private String getClassName() {
