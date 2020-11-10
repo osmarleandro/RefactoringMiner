@@ -3684,6 +3684,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(s.startsWith("if(") && s.endsWith(")")) {
 			conditional = s.substring(3, s.length()-1);
 		}
+		return extracted(s, conditional);
+	}
+
+	private String extracted(String s, String conditional) {
 		if(s.startsWith("while(") && s.endsWith(")")) {
 			conditional = s.substring(6, s.length()-1);
 		}
