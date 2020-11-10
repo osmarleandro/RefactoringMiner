@@ -1144,13 +1144,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(statement1) ? codeFragmentOperationMap1.get(statement1) : this.operation1;
 		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(statement2) ? codeFragmentOperationMap2.get(statement2) : this.operation2;
 		CompositeStatementObjectMapping mapping = new CompositeStatementObjectMapping(statement1, statement2, operation1, operation2, score);
-		for(String key : parameterToArgumentMap.keySet()) {
+		for(String key : parameterToArgumentMap.keySet())
+			extracted(statement1, statement2, parameterToArgumentMap, mapping, key);
+		return mapping;
+	}
+
+	private void extracted(CompositeStatementObject statement1, CompositeStatementObject statement2,
+			Map<String, String> parameterToArgumentMap, CompositeStatementObjectMapping mapping, String key) {
+		{
 			String value = parameterToArgumentMap.get(key);
 			if(!key.equals(value) && ReplacementUtil.contains(statement2.getString(), key) && ReplacementUtil.contains(statement1.getString(), value)) {
 				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
-		return mapping;
 	}
 
 	public void processLeaves(List<? extends AbstractCodeFragment> leaves1, List<? extends AbstractCodeFragment> leaves2,
