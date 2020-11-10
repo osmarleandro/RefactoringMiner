@@ -342,7 +342,14 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(anonymousClassDeclarations, statement);
+		return anonymousClassDeclarations;
+	}
+
+	private void extracted(List<AnonymousClassDeclarationObject> anonymousClassDeclarations,
+			AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
@@ -352,7 +359,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				anonymousClassDeclarations.addAll(statementObject.getAnonymousClassDeclarations());
 			}
 		}
-		return anonymousClassDeclarations;
 	}
 
 	public List<LambdaExpressionObject> getAllLambdas() {
