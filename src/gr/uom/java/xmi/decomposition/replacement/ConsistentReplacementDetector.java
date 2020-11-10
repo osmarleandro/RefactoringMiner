@@ -28,11 +28,16 @@ public class ConsistentReplacementDetector {
 			Set<T> inconsistentRenames = inconsistentRenames(allConsistentRenames, newRename);
 			if(inconsistentRenames.isEmpty()) {
 				allConsistentRenames.add(newRename);
-			}
-			else {
-				allInconsistentRenames.addAll(inconsistentRenames);
-				allInconsistentRenames.add(newRename);
-			}
+			} else
+				extracted(allInconsistentRenames, newRename, inconsistentRenames);
+		}
+	}
+
+	private static <T extends Replacement> void extracted(Set<T> allInconsistentRenames, T newRename,
+			Set<T> inconsistentRenames) {
+		{
+			allInconsistentRenames.addAll(inconsistentRenames);
+			allInconsistentRenames.add(newRename);
 		}
 	}
 
