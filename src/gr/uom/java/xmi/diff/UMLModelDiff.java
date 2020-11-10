@@ -219,7 +219,11 @@ public class UMLModelDiff {
 				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
 			   classDiffs.add(classDiff);
 	   }
-	   for(UMLClassMoveDiff classDiff : classMoveDiffList) {
+	   return extracted(pattern, classDiffs);
+   }
+
+private List<UMLClassBaseDiff> extracted(Replacement pattern, List<UMLClassBaseDiff> classDiffs) {
+	for(UMLClassMoveDiff classDiff : classMoveDiffList) {
 		   if(classDiff.findAttributeInOriginalClass(pattern.getAfter()) == null &&
 				   classDiff.findAttributeInNextClass(pattern.getAfter()) != null)
 			   classDiffs.add(classDiff);
@@ -235,7 +239,7 @@ public class UMLModelDiff {
 			   classDiffs.add(classDiff);
 	   }
 	   return classDiffs;
-   }
+}
 
    public boolean isSubclassOf(String subclass, String finalSuperclass) {
 	   return isSubclassOf(subclass, finalSuperclass, new LinkedHashSet<String>());
