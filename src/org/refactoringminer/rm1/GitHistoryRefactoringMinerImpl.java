@@ -478,6 +478,13 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
+		refactoringsAtRevision = extracted(handler, gitURL, currentCommitId, refactoringsAtRevision);
+
+		return refactoringsAtRevision;
+	}
+
+	private List<Refactoring> extracted(final RefactoringHandler handler, String gitURL, String currentCommitId,
+			List<Refactoring> refactoringsAtRevision) {
 		try {
 			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
 			Set<String> repositoryDirectoriesCurrent = ConcurrentHashMap.newKeySet();
@@ -500,7 +507,6 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			handler.handleException(currentCommitId, e);
 		}
 		handler.handle(currentCommitId, refactoringsAtRevision);
-
 		return refactoringsAtRevision;
 	}
 
