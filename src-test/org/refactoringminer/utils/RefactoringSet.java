@@ -81,12 +81,17 @@ public class RefactoringSet {
         if (!active) {
             return this;
         }
-        RefactoringSet newSet = new RefactoringSet(project, revision);
+        RefactoringSet newSet = extracted();
+        return newSet;
+    }
+
+	private RefactoringSet extracted() {
+		RefactoringSet newSet = new RefactoringSet(project, revision);
         newSet.add(refactorings.stream()
             .map(r -> new RefactoringRelationship(r.getRefactoringType(), stripParameters(r.getEntityBefore()), stripParameters(r.getEntityAfter())))
             .collect(Collectors.toList()));
-        return newSet;
-    }
+		return newSet;
+	}
 
     private static String stripParameters(String entity) {
         int openPar = entity.indexOf('(');
