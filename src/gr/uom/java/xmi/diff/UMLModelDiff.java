@@ -902,7 +902,13 @@ public class UMLModelDiff {
 
    private List<UMLOperation> getRemovedAndInlinedOperationsInCommonClasses() {
       List<UMLOperation> removedOperations = new ArrayList<UMLOperation>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff classDiff : commonClassDiffList)
+		extracted(removedOperations, classDiff);
+      return removedOperations;
+   }
+
+private void extracted(List<UMLOperation> removedOperations, UMLClassDiff classDiff) {
+	{
          removedOperations.addAll(classDiff.getRemovedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof InlineOperationRefactoring) {
@@ -911,8 +917,7 @@ public class UMLModelDiff {
         	 }
          }
       }
-      return removedOperations;
-   }
+}
    
    private List<UMLOperationBodyMapper> getOperationBodyMappersInCommonClasses() {
       List<UMLOperationBodyMapper> mappers = new ArrayList<UMLOperationBodyMapper>();
