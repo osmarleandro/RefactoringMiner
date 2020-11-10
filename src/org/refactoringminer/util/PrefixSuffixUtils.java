@@ -14,6 +14,10 @@ public class PrefixSuffixUtils {
 	public static String longestCommonSuffix(String s1, String s2) {
 		int minLength = Math.min(s1.length(), s2.length());
 		int i = 0;
+		return extracted(s1, s2, minLength, i);
+	}
+
+	private static String extracted(String s1, String s2, int minLength, int i) {
 		while (i<minLength && s1.charAt(s1.length() - i - 1) == s2.charAt(s2.length() - i - 1)) {
 			i++;
 		}
