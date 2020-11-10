@@ -55,13 +55,20 @@ public class RefactoringSet {
         this.refactorings.add(r);
         GroupKey groupKey = r.getGroupKey();
         Set<RefactoringRelationship> group = refactoringGroups.get(groupKey);
-        if (group == null) {
-            group = new HashSet<>();
-            refactoringGroups.put(groupKey, group);
-        }
+        if (group == null)
+			group = extracted(groupKey);
         group.add(r);
         return this;
     }
+
+	private Set<RefactoringRelationship> extracted(GroupKey groupKey) {
+		Set<RefactoringRelationship> group;
+		{
+            group = new HashSet<>();
+            refactoringGroups.put(groupKey, group);
+        }
+		return group;
+	}
 
     public RefactoringSet add(Iterable<RefactoringRelationship> rs) {
         for (RefactoringRelationship r : rs) {
