@@ -67,13 +67,18 @@ public class UMLParameter implements Serializable, VariableDeclarationProvider {
             return true;
         }
 		
-		if(o instanceof UMLParameter) {
+		if(o instanceof UMLParameter)
+			return extracted(o);
+		return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
 			UMLParameter parameter = (UMLParameter)o;
 			return this.type.equals(parameter.type) &&
 				this.kind.equals(parameter.kind) &&
 				this.varargs == parameter.varargs;
 		}
-		return false;
 	}
 
 	public boolean equalsQualified(UMLParameter parameter) {
