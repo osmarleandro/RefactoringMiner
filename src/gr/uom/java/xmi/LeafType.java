@@ -146,9 +146,14 @@ public class LeafType extends UMLType {
 
 	@Override
 	public String toQualifiedString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(classType);
+		StringBuilder sb = extracted();
 		sb.append(typeArgumentsAndArrayDimensionToString());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(classType);
+		return sb;
 	}
 }
