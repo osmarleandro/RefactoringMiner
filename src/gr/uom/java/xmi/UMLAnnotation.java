@@ -65,11 +65,8 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("@").append(typeName);
-		if(value != null) {
-			sb.append("(");
-			sb.append(value.getExpression());
-			sb.append(")");
-		}
+		if(value != null)
+			extracted(sb);
 		if(!memberValuePairs.isEmpty()) {
 			sb.append("(");
 			int i = 0;
@@ -82,6 +79,14 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 			sb.append(")");
 		}
 		return sb.toString();
+	}
+
+	private void extracted(StringBuilder sb) {
+		{
+			sb.append("(");
+			sb.append(value.getExpression());
+			sb.append(")");
+		}
 	}
 
 	@Override
