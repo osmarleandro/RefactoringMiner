@@ -178,7 +178,16 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 				arrayDimension++;
 			}
 		}
-		if(qualifiedName.contains("<") && qualifiedName.contains(">")) {
+		if(qualifiedName.contains("<") && qualifiedName.contains(">"))
+			qualifiedName = extracted(qualifiedName, typeArgumentDecomposition);
+		UMLType typeObject = new LeafType(qualifiedName);
+		typeObject.arrayDimension = arrayDimension;
+		typeObject.typeArguments = typeArgumentDecomposition;
+		return (LeafType)typeObject;
+	}
+
+	private static String extracted(String qualifiedName, List<UMLType> typeArgumentDecomposition) {
+		{
 			String typeArguments = qualifiedName.substring(qualifiedName.indexOf("<")+1, qualifiedName.lastIndexOf(">"));
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<typeArguments.length(); i++) {
@@ -201,10 +210,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			}
 			qualifiedName = qualifiedName.substring(0, qualifiedName.indexOf("<"));
 		}
-		UMLType typeObject = new LeafType(qualifiedName);
-		typeObject.arrayDimension = arrayDimension;
-		typeObject.typeArguments = typeArgumentDecomposition;
-		return (LeafType)typeObject;
+		return qualifiedName;
 	}
 
 	private static boolean equalOpeningClosingTags(String typeArguments) {
