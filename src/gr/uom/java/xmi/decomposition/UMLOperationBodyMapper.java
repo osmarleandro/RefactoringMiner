@@ -3011,16 +3011,9 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					if(creation1.getArguments().size() == 0 && creation2.getArguments().size() == 0) {
 						zeroArgumentClassInstantiation = true;
 					}
-					else if(creation1.getArguments().size() == 1 && creation2.getArguments().size() == 1) {
-						String argument1 = creation1.getArguments().get(0);
-						String argument2 = creation2.getArguments().get(0);
-						for(Replacement replacement : replacementInfo.getReplacements()) {
-							if(replacement.getBefore().equals(argument1) && replacement.getAfter().equals(argument2)) {
-								classInstantiationArgumentReplacement = true;
-								break;
-							}
-						}
-					}
+					else if(creation1.getArguments().size() == 1 && creation2.getArguments().size() == 1)
+						classInstantiationArgumentReplacement = extracted(replacementInfo,
+								classInstantiationArgumentReplacement, creation1, creation2);
 				}
 			}
 			for(Replacement replacement : replacementInfo.getReplacements()) {
@@ -3053,6 +3046,21 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return false;
+	}
+
+	private boolean extracted(ReplacementInfo replacementInfo, boolean classInstantiationArgumentReplacement,
+			ObjectCreation creation1, ObjectCreation creation2) {
+		{
+			String argument1 = creation1.getArguments().get(0);
+			String argument2 = creation2.getArguments().get(0);
+			for(Replacement replacement : replacementInfo.getReplacements()) {
+				if(replacement.getBefore().equals(argument1) && replacement.getAfter().equals(argument2)) {
+					classInstantiationArgumentReplacement = true;
+					break;
+				}
+			}
+		}
+		return classInstantiationArgumentReplacement;
 	}
 
 	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
