@@ -419,7 +419,27 @@ public class UMLModelDiff {
    }
 
    public void checkForMovedClasses(Map<String, String> renamedFileHints, Set<String> repositoryDirectories, UMLClassMatcher matcher) throws RefactoringMinerTimedOutException {
-	   for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();) {
+	   for(Iterator<UMLClass> removedClassIterator = removedClasses.iterator(); removedClassIterator.hasNext();)
+		extracted(renamedFileHints, repositoryDirectories, matcher, removedClassIterator);
+
+	   List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(this.classMoveDiffList);
+	   Collections.sort(allClassMoves);
+
+	   for(int i=0; i<allClassMoves.size(); i++) {
+		   UMLClassMoveDiff classMoveI = allClassMoves.get(i);
+		   for(int j=i+1; j<allClassMoves.size(); j++) {
+			   UMLClassMoveDiff classMoveJ = allClassMoves.get(j);
+			   if(classMoveI.isInnerClassMove(classMoveJ)) {
+				   innerClassMoveDiffList.add(classMoveJ);
+			   }
+		   }
+	   }
+	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
+   }
+
+private void extracted(Map<String, String> renamedFileHints, Set<String> repositoryDirectories, UMLClassMatcher matcher,
+		Iterator<UMLClass> removedClassIterator) throws RefactoringMinerTimedOutException {
+	{
 		   UMLClass removedClass = removedClassIterator.next();
 		   TreeSet<UMLClassMoveDiff> diffSet = new TreeSet<UMLClassMoveDiff>(new ClassMoveComparator());
 		   for(Iterator<UMLClass> addedClassIterator = addedClasses.iterator(); addedClassIterator.hasNext();) {
@@ -456,21 +476,7 @@ public class UMLModelDiff {
 			   removedClassIterator.remove();
 		   }
 	   }
-
-	   List<UMLClassMoveDiff> allClassMoves = new ArrayList<UMLClassMoveDiff>(this.classMoveDiffList);
-	   Collections.sort(allClassMoves);
-
-	   for(int i=0; i<allClassMoves.size(); i++) {
-		   UMLClassMoveDiff classMoveI = allClassMoves.get(i);
-		   for(int j=i+1; j<allClassMoves.size(); j++) {
-			   UMLClassMoveDiff classMoveJ = allClassMoves.get(j);
-			   if(classMoveI.isInnerClassMove(classMoveJ)) {
-				   innerClassMoveDiffList.add(classMoveJ);
-			   }
-		   }
-	   }
-	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
-   }
+}
 
    private boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
