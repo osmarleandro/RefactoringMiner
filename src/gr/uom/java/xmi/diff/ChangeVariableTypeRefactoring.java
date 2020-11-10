@@ -85,11 +85,16 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((changedTypeVariable == null) ? 0 : changedTypeVariable.hashCode());
+		int result = extracted(prime);
 		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
 		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
 		result = prime * result + ((originalVariable == null) ? 0 : originalVariable.hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
+		int result = 1;
+		result = prime * result + ((changedTypeVariable == null) ? 0 : changedTypeVariable.hashCode());
 		return result;
 	}
 
