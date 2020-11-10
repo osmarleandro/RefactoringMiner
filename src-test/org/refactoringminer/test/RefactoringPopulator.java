@@ -109,12 +109,7 @@ public class RefactoringPopulator {
 	}
 
 	public static String[] extractRefactorings(List<Refactoring> refactoring) {
-		int count = 0;
-		for (Refactoring ref : refactoring) {
-			if (ref.validation.contains("TP"))
-				count++;
-		}
-		String[] refactorings = new String[count];
+		String[] refactorings = extracted(refactoring);
 		int counter = 0;
 		for (Refactoring ref : refactoring) {
 			if (ref.validation.contains("TP")) {
@@ -122,6 +117,16 @@ public class RefactoringPopulator {
 				refactorings[counter++] = ref.description;
 			}
 		}
+		return refactorings;
+	}
+
+	private static String[] extracted(List<Refactoring> refactoring) {
+		int count = 0;
+		for (Refactoring ref : refactoring) {
+			if (ref.validation.contains("TP"))
+				count++;
+		}
+		String[] refactorings = new String[count];
 		return refactorings;
 	}
 
