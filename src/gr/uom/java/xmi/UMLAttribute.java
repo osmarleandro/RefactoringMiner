@@ -125,13 +125,18 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
     		return true;
     	}
     	
-    	if(o instanceof UMLAttribute) {
+    	if(o instanceof UMLAttribute)
+			return extracted(o);
+    	return false;
+	}
+
+	private boolean extracted(Object o) {
+		{
     		UMLAttribute umlAttribute = (UMLAttribute)o;
     		return this.name.equals(umlAttribute.name) &&
 			this.visibility.equals(umlAttribute.visibility) &&
 			this.type.equals(umlAttribute.type);
     	}
-    	return false;
 	}
 
 	public boolean equalsQualified(UMLAttribute umlAttribute) {
