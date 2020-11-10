@@ -445,7 +445,22 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public Map<String, Set<String>> aliasedAttributes() {
 		Map<String, Set<String>> map = new LinkedHashMap<String, Set<String>>();
-		for(StatementObject statement : getLeaves()) {
+		for(StatementObject statement : getLeaves())
+			extracted(map, statement);
+		Set<String> keysToBeRemoved = new LinkedHashSet<String>();
+		for(String key : map.keySet()) {
+			if(map.get(key).size() <= 1) {
+				keysToBeRemoved.add(key);
+			}
+		}
+		for(String key : keysToBeRemoved) {
+			map.remove(key);
+		}
+		return map;
+	}
+
+	private void extracted(Map<String, Set<String>> map, StatementObject statement) {
+		{
 			String s = statement.getString();
 			if(s.startsWith("this.") && s.endsWith(";\n")) {
 				String firstLine = s.substring(0, s.indexOf("\n"));
@@ -463,16 +478,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 			}
 		}
-		Set<String> keysToBeRemoved = new LinkedHashSet<String>();
-		for(String key : map.keySet()) {
-			if(map.get(key).size() <= 1) {
-				keysToBeRemoved.add(key);
-			}
-		}
-		for(String key : keysToBeRemoved) {
-			map.remove(key);
-		}
-		return map;
 	}
 
 	public CodeRange codeRange() {
