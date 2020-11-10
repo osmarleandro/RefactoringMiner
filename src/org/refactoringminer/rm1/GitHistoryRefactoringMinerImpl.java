@@ -407,15 +407,20 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	@Override
 	public void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
 			throws Exception {
+		GitService gitService = extracted(handler);
+		
+		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenTags(repository, startTag, endTag);
+		detect(gitService, repository, handler, walk.iterator());
+	}
+
+	private GitService extracted(RefactoringHandler handler) {
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
 				return handler.skipCommit(sha1);
 			}
 		};
-		
-		Iterable<RevCommit> walk = gitService.createRevsWalkBetweenTags(repository, startTag, endTag);
-		detect(gitService, repository, handler, walk.iterator());
+		return gitService;
 	}
 
 	@Override
