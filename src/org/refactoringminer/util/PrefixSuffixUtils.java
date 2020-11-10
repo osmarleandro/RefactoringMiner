@@ -23,6 +23,10 @@ public class PrefixSuffixUtils {
 	public static int separatorPosOfCommonSuffix(char separator, String s1, String s2) {
 		int l1 = s1.length();
 		int l2 = s2.length();
+		return extracted(separator, s1, s2, l1, l2);
+	}
+
+	private static int extracted(char separator, String s1, String s2, int l1, int l2) {
 		int separatorPos = -1; 
 		int lmin = Math.min(s1.length(), s2.length());
 		boolean equal = true;
