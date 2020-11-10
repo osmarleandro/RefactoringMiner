@@ -787,21 +787,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	public int nonMappedElementsT2CallingAddedOperation(List<UMLOperation> addedOperations) {
 		int nonMappedInnerNodeCount = 0;
-		for(CompositeStatementObject composite : getNonMappedInnerNodesT2()) {
-			if(composite.countableStatement()) {
-				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
-				for(String key : methodInvocationMap.keySet()) {
-					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : addedOperations) {
-							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
-								nonMappedInnerNodeCount++;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
+		for(CompositeStatementObject composite : getNonMappedInnerNodesT2())
+			nonMappedInnerNodeCount = extracted(addedOperations, nonMappedInnerNodeCount, composite);
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT2()) {
 			if(statement.countableStatement()) {
@@ -819,6 +806,26 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return nonMappedLeafCount + nonMappedInnerNodeCount;
+	}
+
+	private int extracted(List<UMLOperation> addedOperations, int nonMappedInnerNodeCount,
+			CompositeStatementObject composite) {
+		{
+			if(composite.countableStatement()) {
+				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
+				for(String key : methodInvocationMap.keySet()) {
+					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
+						for(UMLOperation operation : addedOperations) {
+							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
+								nonMappedInnerNodeCount++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return nonMappedInnerNodeCount;
 	}
 
 	public int nonMappedElementsT1CallingRemovedOperation(List<UMLOperation> removedOperations) {
