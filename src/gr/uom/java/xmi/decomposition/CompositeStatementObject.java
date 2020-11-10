@@ -67,14 +67,19 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<CompositeStatementObject> getInnerNodes() {
 		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(innerNodes, statement);
+		innerNodes.add(this);
+		return innerNodes;
+	}
+
+	private void extracted(List<CompositeStatementObject> innerNodes, AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				innerNodes.addAll(composite.getInnerNodes());
 			}
 		}
-		innerNodes.add(this);
-		return innerNodes;
 	}
 
 	public boolean contains(AbstractCodeFragment fragment) {
