@@ -1132,7 +1132,13 @@ public class UMLModelDiff {
 	   intersection.retainAll(addedInvocations);
 	   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
 	   newInvocations.removeAll(intersection);
-	   for(OperationInvocation newInvocation : newInvocations) {
+	   for(OperationInvocation newInvocation : newInvocations)
+		extracted(movedMethodMapper, addedClass, addedOperation, newInvocation);
+   }
+
+private void extracted(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass, UMLOperation addedOperation,
+		OperationInvocation newInvocation) throws RefactoringMinerTimedOutException {
+	{
 		   for(UMLOperation operation : addedClass.getOperations()) {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
@@ -1142,7 +1148,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-   }
+}
 
    private boolean topLevelOrSameOuterClass(UMLClass class1, UMLClass class2) {
 	   if(!class1.isTopLevel() && !class2.isTopLevel()) {
