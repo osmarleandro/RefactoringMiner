@@ -40,14 +40,19 @@ public class VariableScope {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + endColumn;
+		int result = extracted(prime);
 		result = prime * result + endLine;
 		result = prime * result + endOffset;
 		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
 		result = prime * result + startColumn;
 		result = prime * result + startLine;
 		result = prime * result + startOffset;
+		return result;
+	}
+
+	private int extracted(final int prime) {
+		int result = 1;
+		result = prime * result + endColumn;
 		return result;
 	}
 
