@@ -331,11 +331,16 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(StringLiteral node) {
 		stringLiterals.add(node.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(node);
+		return super.visit(node);
+	}
+
+	private void extracted(StringLiteral node) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getStringLiterals().add(node.toString());
 		}
-		return super.visit(node);
 	}
 
 	public boolean visit(NumberLiteral node) {
