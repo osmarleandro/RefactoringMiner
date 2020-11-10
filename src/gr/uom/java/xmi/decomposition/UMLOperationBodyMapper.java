@@ -3769,55 +3769,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private void findReplacements(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo, ReplacementType type) throws RefactoringMinerTimedOutException {
 		TreeMap<Double, Set<Replacement>> globalReplacementMap = new TreeMap<Double, Set<Replacement>>();
 		TreeMap<Double, Set<Replacement>> replacementCache = new TreeMap<Double, Set<Replacement>>();
-		if(strings1.size() <= strings2.size()) {
-			for(String s1 : strings1) {
-				TreeMap<Double, Replacement> replacementMap = new TreeMap<Double, Replacement>();
-				for(String s2 : strings2) {
-					if(Thread.interrupted()) {
-						throw new RefactoringMinerTimedOutException();
-					}
-					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
-					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
-					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
-							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
-						continue;
-					}
-					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
-					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
-					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
-						Replacement replacement = new Replacement(s1, s2, type);
-						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());
-						replacementMap.put(distancenormalized, replacement);
-						if(replacementCache.containsKey(distancenormalized)) {
-							replacementCache.get(distancenormalized).add(replacement);
-						}
-						else {
-							Set<Replacement> r = new LinkedHashSet<Replacement>();
-							r.add(replacement);
-							replacementCache.put(distancenormalized, r);
-						}
-						if(distanceRaw == 0) {
-							break;
-						}
-					}
-				}
-				if(!replacementMap.isEmpty()) {
-					Double distancenormalized = replacementMap.firstEntry().getKey();
-					Replacement replacement = replacementMap.firstEntry().getValue();
-					if(globalReplacementMap.containsKey(distancenormalized)) {
-						globalReplacementMap.get(distancenormalized).add(replacement);
-					}
-					else {
-						Set<Replacement> r = new LinkedHashSet<Replacement>();
-						r.add(replacement);
-						globalReplacementMap.put(distancenormalized, r);
-					}
-					if(distancenormalized == 0) {
-						break;
-					}
-				}
-			}
-		}
+		if(strings1.size() <= strings2.size())
+			extracted(strings1, strings2, replacementInfo, type, globalReplacementMap, replacementCache);
 		else {
 			for(String s2 : strings2) {
 				TreeMap<Double, Replacement> replacementMap = new TreeMap<Double, Replacement>();
@@ -3898,6 +3851,60 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+
+	private void extracted(Set<String> strings1, Set<String> strings2, ReplacementInfo replacementInfo,
+			ReplacementType type, TreeMap<Double, Set<Replacement>> globalReplacementMap,
+			TreeMap<Double, Set<Replacement>> replacementCache) throws RefactoringMinerTimedOutException {
+		{
+			for(String s1 : strings1) {
+				TreeMap<Double, Replacement> replacementMap = new TreeMap<Double, Replacement>();
+				for(String s2 : strings2) {
+					if(Thread.interrupted()) {
+						throw new RefactoringMinerTimedOutException();
+					}
+					boolean containsMethodSignatureOfAnonymousClass1 = containsMethodSignatureOfAnonymousClass(s1);
+					boolean containsMethodSignatureOfAnonymousClass2 = containsMethodSignatureOfAnonymousClass(s2);
+					if(containsMethodSignatureOfAnonymousClass1 != containsMethodSignatureOfAnonymousClass2 &&
+							operation1.getVariableDeclaration(s1) == null && operation2.getVariableDeclaration(s2) == null) {
+						continue;
+					}
+					String temp = ReplacementUtil.performReplacement(replacementInfo.getArgumentizedString1(), replacementInfo.getArgumentizedString2(), s1, s2);
+					int distanceRaw = StringDistance.editDistance(temp, replacementInfo.getArgumentizedString2());
+					if(distanceRaw >= 0 && distanceRaw < replacementInfo.getRawDistance()) {
+						Replacement replacement = new Replacement(s1, s2, type);
+						double distancenormalized = (double)distanceRaw/(double)Math.max(temp.length(), replacementInfo.getArgumentizedString2().length());
+						replacementMap.put(distancenormalized, replacement);
+						if(replacementCache.containsKey(distancenormalized)) {
+							replacementCache.get(distancenormalized).add(replacement);
+						}
+						else {
+							Set<Replacement> r = new LinkedHashSet<Replacement>();
+							r.add(replacement);
+							replacementCache.put(distancenormalized, r);
+						}
+						if(distanceRaw == 0) {
+							break;
+						}
+					}
+				}
+				if(!replacementMap.isEmpty()) {
+					Double distancenormalized = replacementMap.firstEntry().getKey();
+					Replacement replacement = replacementMap.firstEntry().getValue();
+					if(globalReplacementMap.containsKey(distancenormalized)) {
+						globalReplacementMap.get(distancenormalized).add(replacement);
+					}
+					else {
+						Set<Replacement> r = new LinkedHashSet<Replacement>();
+						r.add(replacement);
+						globalReplacementMap.put(distancenormalized, r);
+					}
+					if(distancenormalized == 0) {
+						break;
 					}
 				}
 			}
