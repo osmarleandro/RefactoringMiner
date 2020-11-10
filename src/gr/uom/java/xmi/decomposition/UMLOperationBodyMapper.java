@@ -1492,6 +1492,12 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> multipleMappingsUnderTheSameSwitch(Set<LeafMapping> mappingSet) {
 		CompositeStatementObject switchParent1 = null;
 		CompositeStatementObject switchParent2 = null;
+		return extracted(mappingSet, switchParent1, switchParent2);
+	}
+
+	private AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> extracted(
+			Set<LeafMapping> mappingSet, CompositeStatementObject switchParent1,
+			CompositeStatementObject switchParent2) {
 		if(mappingSet.size() > 1) {
 			for(LeafMapping mapping : mappingSet) {
 				AbstractCodeFragment fragment1 = mapping.getFragment1();
