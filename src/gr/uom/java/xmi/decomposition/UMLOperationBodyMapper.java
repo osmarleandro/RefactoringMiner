@@ -3068,7 +3068,14 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private boolean argumentsWithIdenticalMethodCalls(Set<String> arguments1, Set<String> arguments2,
 			Set<String> variables1, Set<String> variables2) {
 		int identicalMethodCalls = 0;
-		if(arguments1.size() == arguments2.size()) {
+		if(arguments1.size() == arguments2.size())
+			identicalMethodCalls = extracted(arguments1, arguments2, variables1, variables2, identicalMethodCalls);
+		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
+	}
+
+	private int extracted(Set<String> arguments1, Set<String> arguments2, Set<String> variables1,
+			Set<String> variables2, int identicalMethodCalls) {
+		{
 			Iterator<String> it1 = arguments1.iterator();
 			Iterator<String> it2 = arguments2.iterator();
 			while(it1.hasNext() && it2.hasNext()) {
@@ -3104,7 +3111,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				}
 			}
 		}
-		return identicalMethodCalls == arguments1.size() && arguments1.size() > 0;
+		return identicalMethodCalls;
 	}
 
 	private boolean equalAfterNewArgumentAdditions(String s1, String s2, ReplacementInfo replacementInfo) {
