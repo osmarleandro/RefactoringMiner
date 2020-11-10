@@ -199,10 +199,8 @@ public class Visitor extends ASTVisitor {
 		if(!(node.getParent() instanceof LambdaExpression)) {
 			VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 			variableDeclarations.add(variableDeclaration);
-			if(current.getUserObject() != null) {
-				AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-				anonymous.getVariableDeclarations().add(variableDeclaration);
-			}
+			if(current.getUserObject() != null)
+				extracted(variableDeclaration);
 		}
 		return super.visit(node);
 	}
@@ -210,11 +208,16 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(SingleVariableDeclaration node) {
 		VariableDeclaration variableDeclaration = new VariableDeclaration(cu, filePath, node);
 		variableDeclarations.add(variableDeclaration);
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(variableDeclaration);
+		return super.visit(node);
+	}
+
+	private void extracted(VariableDeclaration variableDeclaration) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getVariableDeclarations().add(variableDeclaration);
 		}
-		return super.visit(node);
 	}
 
 	public boolean visit(AnonymousClassDeclaration node) {
