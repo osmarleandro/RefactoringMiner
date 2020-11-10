@@ -792,7 +792,11 @@ public class UMLModelDiff {
 	   if(classDiff == null) {
 		   classDiff = getUMLClassDiff(UMLType.extractTypeObject(sourceClassName));
 	   }
-	   if(classDiff != null) {
+	   return extracted(sourceClassName, targetClassName, classDiff);
+   }
+
+private boolean extracted(String sourceClassName, String targetClassName, UMLClassBaseDiff classDiff) {
+	if(classDiff != null) {
 		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
 	   }
 	   UMLClass removedClass = getRemovedClass(sourceClassName);
@@ -803,7 +807,7 @@ public class UMLModelDiff {
 		   return removedClass.importsType(targetClassName);
 	   }
 	   return false;
-   }
+}
 
    private boolean targetClassImportsSourceClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff classDiff = getUMLClassDiff(targetClassName);
