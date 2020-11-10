@@ -219,15 +219,8 @@ public abstract class UMLAbstractClass {
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
 		RenamePattern pattern = null;
-		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
-			int beginIndexS1 = this.name.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS1 = this.name.lastIndexOf(commonSuffix);
-			String diff1 = beginIndexS1 > endIndexS1 ? "" :	this.name.substring(beginIndexS1, endIndexS1);
-			int beginIndexS2 = umlClass.name.indexOf(commonPrefix) + commonPrefix.length();
-			int endIndexS2 = umlClass.name.lastIndexOf(commonSuffix);
-			String diff2 = beginIndexS2 > endIndexS2 ? "" :	umlClass.name.substring(beginIndexS2, endIndexS2);
-			pattern = new RenamePattern(diff1, diff2);
-		}
+		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty())
+			pattern = extracted(umlClass, commonPrefix, commonSuffix);
 		Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
 		int totalOperations = 0;
 		for(UMLOperation operation : operations) {
@@ -275,6 +268,20 @@ public abstract class UMLAbstractClass {
 				(commonAttributes.size() > Math.floor(totalAttributes/2.0) && (commonOperations.size() > 2 || totalOperations == 0)) ||
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && this.attributes.size() == umlClass.attributes.size()) ||
 				(commonOperations.size() == totalOperations && commonOperations.size() > 2 && totalAttributes == 1);
+	}
+
+	private RenamePattern extracted(UMLAbstractClass umlClass, String commonPrefix, String commonSuffix) {
+		RenamePattern pattern;
+		{
+			int beginIndexS1 = this.name.indexOf(commonPrefix) + commonPrefix.length();
+			int endIndexS1 = this.name.lastIndexOf(commonSuffix);
+			String diff1 = beginIndexS1 > endIndexS1 ? "" :	this.name.substring(beginIndexS1, endIndexS1);
+			int beginIndexS2 = umlClass.name.indexOf(commonPrefix) + commonPrefix.length();
+			int endIndexS2 = umlClass.name.lastIndexOf(commonSuffix);
+			String diff2 = beginIndexS2 > endIndexS2 ? "" :	umlClass.name.substring(beginIndexS2, endIndexS2);
+			pattern = new RenamePattern(diff1, diff2);
+		}
+		return pattern;
 	}
 
 	public boolean hasSameAttributesAndOperations(UMLAbstractClass umlClass) {
