@@ -604,7 +604,13 @@ public class UMLModelASTReader {
 	private String getAnonymousBinaryName(DefaultMutableTreeNode node) {
 		StringBuilder name = new StringBuilder();
 		TreeNode[] path = node.getPath();
-		for(int i=0; i<path.length; i++) {
+		for(int i=0; i<path.length; i++)
+			extracted(name, path, i);
+		return name.toString();
+	}
+
+	private void extracted(StringBuilder name, TreeNode[] path, int i) {
+		{
 			DefaultMutableTreeNode tmp = (DefaultMutableTreeNode)path[i];
 			if(tmp.getUserObject() != null) {
 				DefaultMutableTreeNode parent = (DefaultMutableTreeNode)tmp.getParent();
@@ -614,7 +620,6 @@ public class UMLModelASTReader {
 					name.append(".");
 			}
 		}
-		return name.toString();
 	}
 	
 	private boolean isParent(ASTNode child, ASTNode parent) {
