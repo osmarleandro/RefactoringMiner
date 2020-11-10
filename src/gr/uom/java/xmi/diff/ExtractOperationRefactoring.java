@@ -215,10 +215,7 @@ public class ExtractOperationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
-		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		ranges.add(getExtractedOperationCodeRange()
-				.setDescription("extracted method declaration")
-				.setCodeElement(extractedOperation.toString()));
+		List<CodeRange> ranges = extracted();
 		//ranges.add(getExtractedCodeRangeToExtractedOperation().setDescription("extracted code to extracted method declaration"));
 		for(AbstractCodeFragment extractedCodeFragment : extractedCodeFragmentsToExtractedOperation) {
 			ranges.add(extractedCodeFragment.codeRange().setDescription("extracted code to extracted method declaration"));
@@ -239,6 +236,14 @@ public class ExtractOperationRefactoring implements Refactoring {
 			ranges.add(statement.codeRange().
 					setDescription("added statement in extracted method declaration"));
 		}
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
+		List<CodeRange> ranges = new ArrayList<CodeRange>();
+		ranges.add(getExtractedOperationCodeRange()
+				.setDescription("extracted method declaration")
+				.setCodeElement(extractedOperation.toString()));
 		return ranges;
 	}
 }
