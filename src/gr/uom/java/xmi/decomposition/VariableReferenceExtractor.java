@@ -12,7 +12,15 @@ public class VariableReferenceExtractor {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		VariableScope scope1 = declaration1.getScope();
 		VariableScope scope2 = declaration2.getScope();
-		for(AbstractCodeMapping mapping : mappings) {
+		for(AbstractCodeMapping mapping : mappings)
+			extracted(declaration1, declaration2, references, scope1, scope2, mapping);
+		return references;
+	}
+
+	private static void extracted(VariableDeclaration declaration1, VariableDeclaration declaration2,
+			Set<AbstractCodeMapping> references, VariableScope scope1, VariableScope scope2,
+			AbstractCodeMapping mapping) {
+		{
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			if(scope1.subsumes(fragment1.getLocationInfo()) && scope2.subsumes(fragment2.getLocationInfo()) &&
@@ -20,7 +28,6 @@ public class VariableReferenceExtractor {
 				references.add(mapping);
 			}
 		}
-		return references;
 	}
 
 	private static boolean usesVariable(AbstractCodeFragment fragment, VariableDeclaration declaration) {
