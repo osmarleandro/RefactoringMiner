@@ -102,6 +102,10 @@ public class UMLAttribute implements Comparable<UMLAttribute>, Serializable, Loc
 			return false;
 		if(this.isFinal != attribute.isFinal)
 			return false;
+		return extracted(attribute);
+	}
+
+	private boolean extracted(UMLAttribute attribute) {
 		if(this.name.equals(attribute.name) && this.type.equals(attribute.type) && this.type.equalsQualified(attribute.type))
 			return true;
 		if(!this.type.equals(attribute.type))
