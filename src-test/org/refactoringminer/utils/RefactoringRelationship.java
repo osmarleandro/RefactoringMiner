@@ -80,7 +80,15 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
       if (paramsA.length == 0 || paramsA[0].isEmpty()) {
         return r;
       }
-      for (int i = 0; i < paramsA.length; i++) {
+      for (int i = 0; i < paramsA.length; i++)
+		extracted(paramsA, i);
+      r = r.substring(0, indexOfPar) + "(" + String.join(",", paramsA) + ")";
+    }
+    return r;
+  }
+
+private static void extracted(String[] paramsA, int i) {
+	{
         if (paramsA[i].indexOf(' ') != -1) {
           // strip parameter name
           paramsA[i] = paramsA[i].substring(0, paramsA[i].indexOf(' '));
@@ -91,10 +99,7 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
         }
         paramsA[i] = paramsA[i].substring(Math.max(paramsA[i].lastIndexOf('.') + 1, 0));
       }
-      r = r.substring(0, indexOfPar) + "(" + String.join(",", paramsA) + ")";
-    }
-    return r;
-  }
+}
 
   private static String stripTypeArguments(String entity) {
     StringBuilder sb = new StringBuilder();
