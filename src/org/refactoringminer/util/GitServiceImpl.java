@@ -298,27 +298,33 @@ public class GitServiceImpl implements GitService {
         	rd.setRenameScore(80);
         	rd.addAll(DiffEntry.scan(tw));
 
-        	for (DiffEntry diff : rd.compute(tw.getObjectReader(), null)) {
-        		ChangeType changeType = diff.getChangeType();
-        		String oldPath = diff.getOldPath();
-        		String newPath = diff.getNewPath();
-        		if (changeType != ChangeType.ADD) {
-	        		if (isJavafile(oldPath)) {
-	        			javaFilesBefore.add(oldPath);
-	        		}
-	        	}
-        		if (changeType != ChangeType.DELETE) {
-	        		if (isJavafile(newPath)) {
-	        			javaFilesCurrent.add(newPath);
-	        		}
-        		}
-        		if (changeType == ChangeType.RENAME && diff.getScore() >= rd.getRenameScore()) {
-        			if (isJavafile(oldPath) && isJavafile(newPath)) {
-        				renamedFilesHint.put(oldPath, newPath);
-        			}
-        		}
-        	}
+        	for (DiffEntry diff : rd.compute(tw.getObjectReader(), null))
+				extracted(javaFilesBefore, javaFilesCurrent, renamedFilesHint, rd, diff);
         }
+	}
+
+	private void extracted(List<String> javaFilesBefore, List<String> javaFilesCurrent,
+			Map<String, String> renamedFilesHint, final RenameDetector rd, DiffEntry diff) {
+		{
+			ChangeType changeType = diff.getChangeType();
+			String oldPath = diff.getOldPath();
+			String newPath = diff.getNewPath();
+			if (changeType != ChangeType.ADD) {
+				if (isJavafile(oldPath)) {
+					javaFilesBefore.add(oldPath);
+				}
+			}
+			if (changeType != ChangeType.DELETE) {
+				if (isJavafile(newPath)) {
+					javaFilesCurrent.add(newPath);
+				}
+			}
+			if (changeType == ChangeType.RENAME && diff.getScore() >= rd.getRenameScore()) {
+				if (isJavafile(oldPath) && isJavafile(newPath)) {
+					renamedFilesHint.put(oldPath, newPath);
+				}
+			}
+		}
 	}
 
 	private boolean isJavafile(String path) {
