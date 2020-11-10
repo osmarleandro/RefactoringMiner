@@ -274,7 +274,17 @@ public class Visitor extends ASTVisitor {
 		DefaultMutableTreeNode childNode = findNode(childAnonymous);
 		
 		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
+		while(enumeration.hasMoreElements())
+			parentNode = extracted(childAnonymous, enumeration, parentNode);
+		parentNode.remove(childNode);
+		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
+		childAnonymousObject.setAstNode(null);
+		return parentNode;
+	}
+
+	private DefaultMutableTreeNode extracted(AnonymousClassDeclaration childAnonymous, Enumeration enumeration,
+			DefaultMutableTreeNode parentNode) {
+		{
 			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
 			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
 			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
@@ -282,9 +292,6 @@ public class Visitor extends ASTVisitor {
 				break;
 			}
 		}
-		parentNode.remove(childNode);
-		AnonymousClassDeclarationObject childAnonymousObject = (AnonymousClassDeclarationObject)childNode.getUserObject();
-		childAnonymousObject.setAstNode(null);
 		return parentNode;
 	}
 
@@ -294,14 +301,8 @@ public class Visitor extends ASTVisitor {
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(anonymousObject);
 		
 		DefaultMutableTreeNode parentNode = root;
-		while(enumeration.hasMoreElements()) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)enumeration.nextElement();
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)currentNode.getUserObject();
-			if(currentAnonymous != null && isParent(childAnonymous, currentAnonymous.getAstNode())) {
-				parentNode = currentNode;
-				break;
-			}
-		}
+		while(enumeration.hasMoreElements())
+			parentNode = extracted(childAnonymous, enumeration, parentNode);
 		parentNode.add(childNode);
 		return childNode;
 	}
