@@ -83,16 +83,9 @@ public class ReplacementUtil {
 				Matcher m1 = p1.matcher(temp);
 				Pattern p2 = Pattern.compile(Pattern.quote(subString2 + character));
 				Matcher m2 = p2.matcher(completeString2);
-				while(m1.find() && m2.find()) {
-					int start1 = m1.start();
-					int start2 = m2.start();
-					String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp.charAt(start1 - 1));
-					String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(completeString2.charAt(start2 - 1));
-					if(compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
-						m1.appendReplacement(sb, Matcher.quoteReplacement(subString2 + character));
-						replacementOccurred = true;
-					}
-				}
+				while(m1.find() && m2.find())
+					replacementOccurred = extracted(completeString2, subString2, temp, replacementOccurred, character,
+							sb, m1, m2);
 				m1.appendTail(sb);
 				temp = sb.toString();
 			}
@@ -121,6 +114,21 @@ public class ReplacementUtil {
 			}
 		}
 		return temp;
+	}
+
+	private static boolean extracted(String completeString2, String subString2, String temp,
+			boolean replacementOccurred, String character, StringBuffer sb, Matcher m1, Matcher m2) {
+		{
+			int start1 = m1.start();
+			int start2 = m2.start();
+			String characterBeforeMatch1 = start1 == 0 ? "" : String.valueOf(temp.charAt(start1 - 1));
+			String characterBeforeMatch2 = start2 == 0 ? "" : String.valueOf(completeString2.charAt(start2 - 1));
+			if(compatibleCharacterBeforeMatch(characterBeforeMatch1, characterBeforeMatch2)) {
+				m1.appendReplacement(sb, Matcher.quoteReplacement(subString2 + character));
+				replacementOccurred = true;
+			}
+		}
+		return replacementOccurred;
 	}
 
 	private static boolean compatibleCharacterBeforeMatch(String characterBefore1, String characterBefore2) {
