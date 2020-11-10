@@ -656,6 +656,11 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public double normalizedNameDistance(UMLOperation operation) {
 		String s1 = getName().toLowerCase();
+		double normalized = extracted(operation, s1);
+		return normalized;
+	}
+
+	private double extracted(UMLOperation operation, String s1) {
 		String s2 = operation.getName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
