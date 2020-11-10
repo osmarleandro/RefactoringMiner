@@ -12,6 +12,11 @@ import java.util.stream.StreamSupport;
 
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.CheckoutConflictException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
@@ -118,12 +123,17 @@ public class GitServiceImpl implements GitService {
 
 	public void checkout(Repository repository, String commitId) throws Exception {
 	    logger.info("Checking out {} {} ...", repository.getDirectory().getParent().toString(), commitId);
-	    try (Git git = new Git(repository)) {
+	    try (Git git = new Git(repository)) extracted(commitId, git);le workingDir = repository.getDirectory().getParentFile();
+//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+	}
+
+	private void extracted(String commitId, Git git) throws GitAPIException, RefAlreadyExistsException,
+			RefNotFoundException, InvalidRefNameException, CheckoutConflictException {
+		{
 	        CheckoutCommand checkout = git.checkout().setName(commitId);
 	        checkout.call();
 	    }
-//		File workingDir = repository.getDirectory().getParentFile();
-//		ExternalProcess.execute(workingDir, "git", "checkout", commitId);
+//		Fi
 	}
 
 	public void checkout2(Repository repository, String commitId) throws Exception {
