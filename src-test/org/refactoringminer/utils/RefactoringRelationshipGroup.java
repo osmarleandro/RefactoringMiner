@@ -40,9 +40,14 @@ public class RefactoringRelationshipGroup {
   @Override
   public int hashCode() {
     final int prime = 31;
-    int result = 1;
-    result = prime * result + getMainEntity().hashCode();
+    int result = extracted(prime);
     result = prime * result + getRefactoringType().hashCode();
     return result;
   }
+
+private int extracted(final int prime) {
+	int result = 1;
+    result = prime * result + getMainEntity().hashCode();
+	return result;
+}
 }
