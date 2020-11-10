@@ -75,6 +75,10 @@ public abstract class AbstractCodeMapping {
 	private boolean isExactAfterAbstraction() {
 		OperationInvocation invocation1 = fragment1.invocationCoveringEntireFragment();
 		OperationInvocation invocation2 = fragment2.invocationCoveringEntireFragment();
+		return extracted(invocation1, invocation2);
+	}
+
+	private boolean extracted(OperationInvocation invocation1, OperationInvocation invocation2) {
 		if(invocation1 != null && invocation2 != null) {
 			return invocation1.actualString().equals(invocation2.actualString());
 		}
