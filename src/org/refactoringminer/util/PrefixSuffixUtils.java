@@ -5,6 +5,10 @@ public class PrefixSuffixUtils {
 	public static String longestCommonPrefix(String s1, String s2) {
 		int minLength = Math.min(s1.length(), s2.length());
 		int i = 0;
+		return extracted(s1, s2, minLength, i);
+	}
+
+	private static String extracted(String s1, String s2, int minLength, int i) {
 		while (i < minLength && s1.charAt(i) == s2.charAt(i)) {
 			i++;
 		}
