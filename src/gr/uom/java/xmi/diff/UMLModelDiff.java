@@ -737,14 +737,8 @@ public class UMLModelDiff {
 
    private int computeCompatibility(MoveAttributeRefactoring candidate) {
 	   int count = 0;
-	   for(Refactoring ref : refactorings) {
-		   if(ref instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
-			   if(moveRef.compatibleWith(candidate)) {
-				   count++;
-			   }
-		   }
-	   }
+	   for(Refactoring ref : refactorings)
+		count = extracted(candidate, count, ref);
 	   UMLClassBaseDiff sourceClassDiff = getUMLClassDiff(candidate.getSourceClassName());
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(candidate.getTargetClassName());
 	   if(sourceClassDiff != null) {
@@ -775,6 +769,18 @@ public class UMLModelDiff {
 	   }
 	   return count;
    }
+
+private int extracted(MoveAttributeRefactoring candidate, int count, Refactoring ref) {
+	{
+		   if(ref instanceof MoveOperationRefactoring) {
+			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
+			   if(moveRef.compatibleWith(candidate)) {
+				   count++;
+			   }
+		   }
+	   }
+	return count;
+}
 
    private boolean sourceClassImportsSuperclassOfTargetClass(String sourceClassName, String targetClassName) {
 	   UMLClassBaseDiff targetClassDiff = getUMLClassDiff(targetClassName);
