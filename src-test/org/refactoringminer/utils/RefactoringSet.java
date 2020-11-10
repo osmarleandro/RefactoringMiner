@@ -98,8 +98,12 @@ public class RefactoringSet {
         for (RefactoringRelationship r : refactorings) {
             pw.printf("\n    .add(RefactoringType.%s, \"%s\", \"%s\")", r.getRefactoringType().toString(), r.getEntityBefore(), r.getEntityAfter());
         }
-        pw.println(";");
+        extracted(pw);
     }
+
+	private void extracted(PrintStream pw) {
+		pw.println(";");
+	}
 
     public void saveToFile(File file) {
         try (PrintStream pw = new PrintStream(file)) {
