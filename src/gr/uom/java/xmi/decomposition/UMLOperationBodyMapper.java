@@ -720,6 +720,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(composite.countableStatement())
 				nonMappedInnerNodeCount++;
 		}
+		return extracted(nonMappedInnerNodeCount);
+	}
+
+	private int extracted(int nonMappedInnerNodeCount) {
 		int nonMappedLeafCount = 0;
 		for(StatementObject statement : getNonMappedLeavesT1()) {
 			if(statement.countableStatement())
