@@ -1639,40 +1639,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		// ignore the variables in the intersection that also appear with "this." prefix in the sets of variables
 		// ignore the variables in the intersection that are static fields
 		Set<String> variablesToBeRemovedFromTheIntersection = new LinkedHashSet<String>();
-		for(String variable : variableIntersection) {
-			if(!variable.startsWith("this.") && !variableIntersection.contains("this."+variable) &&
-					(variables1.contains("this."+variable) || variables2.contains("this."+variable))) {
-				variablesToBeRemovedFromTheIntersection.add(variable);
-			}
-			if(invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null &&
-					invocationCoveringTheEntireStatement1.identicalName(invocationCoveringTheEntireStatement2)) {
-				if(!invocationCoveringTheEntireStatement1.getArguments().contains(variable) &&
-						invocationCoveringTheEntireStatement2.getArguments().contains(variable)) {
-					for(String argument : invocationCoveringTheEntireStatement1.getArguments()) {
-						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
-						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
-								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements1, variable, argument)) {
-							variablesToBeRemovedFromTheIntersection.add(variable);
-						}
-					}
-				}
-				else if(invocationCoveringTheEntireStatement1.getArguments().contains(variable) &&
-						!invocationCoveringTheEntireStatement2.getArguments().contains(variable)) {
-					for(String argument : invocationCoveringTheEntireStatement2.getArguments()) {
-						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
-						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
-								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
-								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements2, variable, argument)) {
-							variablesToBeRemovedFromTheIntersection.add(variable);
-						}
-					}
-				}
-			}
-			if(variable.toUpperCase().equals(variable) && !ReplacementUtil.sameCharsBeforeAfter(statement1.getString(), statement2.getString(), variable)) {
-				variablesToBeRemovedFromTheIntersection.add(variable);
-			}
-		}
+		for(String variable : variableIntersection)
+			extracted(statement1, statement2, replacementInfo, invocationCoveringTheEntireStatement1,
+					invocationCoveringTheEntireStatement2, variables1, variables2, variableIntersection,
+					variablesToBeRemovedFromTheIntersection, variable);
 		variableIntersection.removeAll(variablesToBeRemovedFromTheIntersection);
 		// remove common variables from the two sets
 		variables1.removeAll(variableIntersection);
@@ -2632,6 +2602,46 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		return null;
+	}
+
+	private void extracted(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+			ReplacementInfo replacementInfo, OperationInvocation invocationCoveringTheEntireStatement1,
+			OperationInvocation invocationCoveringTheEntireStatement2, Set<String> variables1, Set<String> variables2,
+			Set<String> variableIntersection, Set<String> variablesToBeRemovedFromTheIntersection, String variable) {
+		{
+			if(!variable.startsWith("this.") && !variableIntersection.contains("this."+variable) &&
+					(variables1.contains("this."+variable) || variables2.contains("this."+variable))) {
+				variablesToBeRemovedFromTheIntersection.add(variable);
+			}
+			if(invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null &&
+					invocationCoveringTheEntireStatement1.identicalName(invocationCoveringTheEntireStatement2)) {
+				if(!invocationCoveringTheEntireStatement1.getArguments().contains(variable) &&
+						invocationCoveringTheEntireStatement2.getArguments().contains(variable)) {
+					for(String argument : invocationCoveringTheEntireStatement1.getArguments()) {
+						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
+						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
+								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
+								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements1, variable, argument)) {
+							variablesToBeRemovedFromTheIntersection.add(variable);
+						}
+					}
+				}
+				else if(invocationCoveringTheEntireStatement1.getArguments().contains(variable) &&
+						!invocationCoveringTheEntireStatement2.getArguments().contains(variable)) {
+					for(String argument : invocationCoveringTheEntireStatement2.getArguments()) {
+						String argumentNoWhiteSpace = argument.replaceAll("\\s","");
+						if(argument.contains(variable) && !argument.equals(variable) && !argumentNoWhiteSpace.contains("+" + variable + "+") &&
+								!argumentNoWhiteSpace.contains(variable + "+") && !argumentNoWhiteSpace.contains("+" + variable) &&
+								!nonMatchedStatementUsesVariableInArgument(replacementInfo.statements2, variable, argument)) {
+							variablesToBeRemovedFromTheIntersection.add(variable);
+						}
+					}
+				}
+			}
+			if(variable.toUpperCase().equals(variable) && !ReplacementUtil.sameCharsBeforeAfter(statement1.getString(), statement2.getString(), variable)) {
+				variablesToBeRemovedFromTheIntersection.add(variable);
+			}
+		}
 	}
 
 	private boolean isExpressionOfAnotherMethodInvocation(AbstractCall invocation, Map<String, List<? extends AbstractCall>> invocationMap) {
