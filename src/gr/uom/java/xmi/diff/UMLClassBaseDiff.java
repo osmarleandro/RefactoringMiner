@@ -656,17 +656,9 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					if(extractedInvocations.size() > 1) {
 						Set<VariableDeclaration> attributesMatchedWithArguments = new LinkedHashSet<VariableDeclaration>();
 						Set<String> attributeNamesMatchedWithArguments = new LinkedHashSet<String>();
-						for(OperationInvocation extractedInvocation : extractedInvocations) {
-							for(String argument : extractedInvocation.getArguments()) {
-								for(UMLAttribute attribute : originalClass.getAttributes()) {
-									if(attribute.getName().equals(argument)) {
-										attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
-										attributeNamesMatchedWithArguments.add(attribute.getName());
-										break;
-									}
-								}
-							}
-						}
+						for(OperationInvocation extractedInvocation : extractedInvocations)
+							extracted(attributesMatchedWithArguments, attributeNamesMatchedWithArguments,
+									extractedInvocation);
 						if((attributeNamesMatchedWithArguments.contains(candidate.getOriginalVariableName()) ||
 								attributeNamesMatchedWithArguments.contains(candidate.getRenamedVariableName())) &&
 								attributesMatchedWithArguments.size() > 1) {
@@ -677,6 +669,21 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		return false;
+	}
+
+	private void extracted(Set<VariableDeclaration> attributesMatchedWithArguments,
+			Set<String> attributeNamesMatchedWithArguments, OperationInvocation extractedInvocation) {
+		{
+			for(String argument : extractedInvocation.getArguments()) {
+				for(UMLAttribute attribute : originalClass.getAttributes()) {
+					if(attribute.getName().equals(argument)) {
+						attributesMatchedWithArguments.add(attribute.getVariableDeclaration());
+						attributeNamesMatchedWithArguments.add(attribute.getName());
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
