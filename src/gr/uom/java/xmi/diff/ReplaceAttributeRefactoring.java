@@ -22,8 +22,7 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(originalAttribute.toQualifiedString());
 		sb.append(" from class ");
 		sb.append(getSourceClassName());
@@ -32,6 +31,12 @@ public class ReplaceAttributeRefactoring extends MoveAttributeRefactoring {
 		sb.append(" from class ");
 		sb.append(getTargetClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	public String getName() {
