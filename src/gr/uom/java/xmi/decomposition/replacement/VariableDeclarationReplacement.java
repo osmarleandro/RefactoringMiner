@@ -54,6 +54,10 @@ public class VariableDeclarationReplacement extends Replacement {
 			return true;
 		if (!super.equals(obj))
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		VariableDeclarationReplacement other = (VariableDeclarationReplacement) obj;
