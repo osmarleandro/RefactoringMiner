@@ -296,6 +296,10 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		if(this instanceof AbstractExpression) {
 			return true;
 		}
+		return extracted(statement);
+	}
+
+	private boolean extracted(String statement) {
 		//covers the cases of methods with only one statement in their body
 		if(this instanceof AbstractStatement && ((AbstractStatement)this).getParent() != null &&
 				((AbstractStatement)this).getParent().statementCount() == 1 && ((AbstractStatement)this).getParent().getParent() == null) {
