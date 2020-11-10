@@ -103,13 +103,19 @@ public class InlineOperationDetection {
 			for(OperationInvocation invocation : invocations) {
 				if(invocation.matchesOperation(removedOperation, operation.variableTypeMap(), modelDiff)) {
 					if(!callTree.contains(removedOperation)) {
-						CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
-						parent.addChild(node);
+						CallTreeNode node = extracted(operation, parent, removedOperation, invocation);
 						generateCallTree(removedOperation, node, callTree);
 					}
 				}
 			}
 		}
+	}
+
+	private CallTreeNode extracted(UMLOperation operation, CallTreeNode parent, UMLOperation removedOperation,
+			OperationInvocation invocation) {
+		CallTreeNode node = new CallTreeNode(operation, removedOperation, invocation);
+		parent.addChild(node);
+		return node;
 	}
 
 	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
