@@ -1489,6 +1489,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean operationsBeforeAndAfterMatch(UMLOperation removedOperation, UMLOperation addedOperation) {
 		UMLOperation operationBefore1 = null;
 		UMLOperation operationAfter1 = null;
+		return extracted(removedOperation, addedOperation, operationBefore1, operationAfter1);
+	}
+
+	private boolean extracted(UMLOperation removedOperation, UMLOperation addedOperation, UMLOperation operationBefore1,
+			UMLOperation operationAfter1) {
 		List<UMLOperation> originalClassOperations = originalClass.getOperations();
 		for(int i=0; i<originalClassOperations.size(); i++) {
 			UMLOperation current = originalClassOperations.get(i);
