@@ -56,13 +56,18 @@ public class ModifyAttributeAnnotationRefactoring implements Refactoring {
 
 	@Override
 	public List<CodeRange> rightSide() {
+		List<CodeRange> ranges = extracted();
+		ranges.add(attributeAfter.codeRange()
+				.setDescription("attribute declaration with modified annotation")
+				.setCodeElement(attributeAfter.toString()));
+		return ranges;
+	}
+
+	private List<CodeRange> extracted() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
 		ranges.add(annotationAfter.codeRange()
 				.setDescription("modified annotation")
 				.setCodeElement(annotationAfter.toString()));
-		ranges.add(attributeAfter.codeRange()
-				.setDescription("attribute declaration with modified annotation")
-				.setCodeElement(attributeAfter.toString()));
 		return ranges;
 	}
 
