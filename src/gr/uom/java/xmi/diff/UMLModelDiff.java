@@ -700,11 +700,9 @@ public class UMLModelDiff {
    private MoveAttributeRefactoring processPairOfAttributes(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   if(addedAttribute.getName().equals(removedAttribute.getName()) &&
 			   addedAttribute.getType().equals(removedAttribute.getType())) {
-		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName())) {
-			   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
-			   return pullUpAttribute;
-		   }
-		   else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
+		   if(isSubclassOf(removedAttribute.getClassName(), addedAttribute.getClassName()))
+			return extracted(addedAttribute, removedAttribute);
+		else if(isSubclassOf(addedAttribute.getClassName(), removedAttribute.getClassName())) {
 			   PushDownAttributeRefactoring pushDownAttribute = new PushDownAttributeRefactoring(removedAttribute, addedAttribute);
 			   return pushDownAttribute;
 		   }
@@ -718,6 +716,13 @@ public class UMLModelDiff {
 	   }
 	   return null;
    }
+
+private MoveAttributeRefactoring extracted(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
+	{
+		   PullUpAttributeRefactoring pullUpAttribute = new PullUpAttributeRefactoring(removedAttribute, addedAttribute);
+		   return pullUpAttribute;
+	   }
+}
 
    private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
 	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
