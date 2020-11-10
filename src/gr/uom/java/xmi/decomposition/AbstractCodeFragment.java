@@ -60,7 +60,13 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 	
 	public void replaceParametersWithArguments(Map<String, String> parameterToArgumentMap) {
 		String afterReplacements = getString();
-		for(String parameter : parameterToArgumentMap.keySet()) {
+		for(String parameter : parameterToArgumentMap.keySet())
+			afterReplacements = extracted(parameterToArgumentMap, afterReplacements, parameter);
+		this.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
+	}
+
+	private String extracted(Map<String, String> parameterToArgumentMap, String afterReplacements, String parameter) {
+		{
 			String argument = parameterToArgumentMap.get(parameter);
 			if(!parameter.equals(argument)) {
 				StringBuffer sb = new StringBuffer();
@@ -94,7 +100,7 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 				afterReplacements = sb.toString();
 			}
 		}
-		this.codeFragmentAfterReplacingParametersWithArguments = afterReplacements;
+		return afterReplacements;
 	}
 
 	private static boolean quoteBefore(String beforeMatch) {
