@@ -1551,7 +1551,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void checkForExtractedOperations() throws RefactoringMinerTimedOutException {
 		List<UMLOperation> operationsToBeRemoved = new ArrayList<UMLOperation>();
-		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();) {
+		for(Iterator<UMLOperation> addedOperationIterator = addedOperations.iterator(); addedOperationIterator.hasNext();)
+			extracted(operationsToBeRemoved, addedOperationIterator);
+		addedOperations.removeAll(operationsToBeRemoved);
+	}
+
+	private void extracted(List<UMLOperation> operationsToBeRemoved, Iterator<UMLOperation> addedOperationIterator)
+			throws RefactoringMinerTimedOutException {
+		{
 			UMLOperation addedOperation = addedOperationIterator.next();
 			for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 				ExtractOperationDetection detection = new ExtractOperationDetection(mapper, addedOperations, this, modelDiff);
@@ -1566,7 +1573,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				checkForInconsistentVariableRenames(mapper);
 			}
 		}
-		addedOperations.removeAll(operationsToBeRemoved);
 	}
 
 	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
