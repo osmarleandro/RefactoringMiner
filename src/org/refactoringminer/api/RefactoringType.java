@@ -233,16 +233,22 @@ public enum RefactoringType {
     public List<RefactoringRelationship> parseRefactoring(String refactoringDescription) {
         List<RefactoringRelationship> result;
         Matcher m = regex.matcher(refactoringDescription);
-        if (m.matches()) {
+        if (m.matches())
+			return extracted(m);
+		else {
+            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
+        }
+    }
+
+	private List<RefactoringRelationship> extracted(Matcher m) {
+		{
             
             for (int g = 1; g <= m.groupCount(); g++) {
                 
             }
             return null;
-        } else {
-            throw new RuntimeException("Pattern not matched: " + refactoringDescription);
         }
-    }
+	}
 
     public static RefactoringType extractFromDescription(String refactoringDescription) {
         for (RefactoringType refType : RefactoringType.values()) {
