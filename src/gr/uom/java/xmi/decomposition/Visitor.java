@@ -681,7 +681,12 @@ public class Visitor extends ASTVisitor {
 				(argument instanceof InfixExpression && invalidInfix((InfixExpression)argument)))
 			return;
 		this.arguments.add(argument.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(argument);
+	}
+
+	private void extracted(Expression argument) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getArguments().add(argument.toString());
 		}
