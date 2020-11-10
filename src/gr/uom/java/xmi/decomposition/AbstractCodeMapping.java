@@ -238,7 +238,40 @@ public abstract class AbstractCodeMapping {
 
 	public void inlinedVariableAssignment(AbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
-		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
+		for(VariableDeclaration declaration : statement.getVariableDeclarations())
+			extracted(nonMappedLeavesT2, refactorings, declaration);
+		String argumentizedString = statement.getArgumentizedString();
+		if(argumentizedString.contains("=")) {
+			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
+			String[] tokens = beforeAssignment.split("\\s");
+			String variable = tokens[tokens.length-1];
+			String initializer = null;
+			if(argumentizedString.endsWith(";\n")) {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
+			}
+			else {
+				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
+			}
+			for(Replacement replacement : getReplacements()) {
+				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
+					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
+					for(VariableDeclaration declaration : variableDeclarations) {
+						if(declaration.getVariableName().equals(variable)) {
+							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
+							processInlineVariableRefactoring(ref, refactorings);
+							if(getReplacements().size() == 1) {
+								identicalWithInlinedVariable = true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void extracted(List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings,
+			VariableDeclaration declaration) {
+		{
 			for(Replacement replacement : getReplacements()) {
 				String variableName = declaration.getVariableName();
 				AbstractExpression initializer = declaration.getInitializer();
@@ -268,33 +301,6 @@ public abstract class AbstractCodeMapping {
 						processInlineVariableRefactoring(ref, refactorings);
 						if(getReplacements().size() == 1) {
 							identicalWithInlinedVariable = true;
-						}
-					}
-				}
-			}
-		}
-		String argumentizedString = statement.getArgumentizedString();
-		if(argumentizedString.contains("=")) {
-			String beforeAssignment = argumentizedString.substring(0, argumentizedString.indexOf("="));
-			String[] tokens = beforeAssignment.split("\\s");
-			String variable = tokens[tokens.length-1];
-			String initializer = null;
-			if(argumentizedString.endsWith(";\n")) {
-				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length()-2);
-			}
-			else {
-				initializer = argumentizedString.substring(argumentizedString.indexOf("=")+1, argumentizedString.length());
-			}
-			for(Replacement replacement : getReplacements()) {
-				if(variable.endsWith(replacement.getBefore()) && initializer.equals(replacement.getAfter())) {
-					List<VariableDeclaration> variableDeclarations = operation1.getVariableDeclarationsInScope(fragment1.getLocationInfo());
-					for(VariableDeclaration declaration : variableDeclarations) {
-						if(declaration.getVariableName().equals(variable)) {
-							InlineVariableRefactoring ref = new InlineVariableRefactoring(declaration, operation1, operation2);
-							processInlineVariableRefactoring(ref, refactorings);
-							if(getReplacements().size() == 1) {
-								identicalWithInlinedVariable = true;
-							}
 						}
 					}
 				}
