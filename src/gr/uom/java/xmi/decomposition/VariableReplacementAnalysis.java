@@ -605,27 +605,8 @@ public class VariableReplacementAnalysis {
 
 	private Map<Replacement, Set<AbstractCodeMapping>> getVariableDeclarationReplacementOccurrenceMap() {
 		Map<Replacement, Set<AbstractCodeMapping>> map = new LinkedHashMap<Replacement, Set<AbstractCodeMapping>>();
-		for(AbstractCodeMapping mapping : mappings) {
-			for(Replacement replacement : mapping.getReplacements()) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
-						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
-						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
-					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
-					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
-					if(v1 != null && v2 != null) {
-						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
-						if(map.containsKey(r)) {
-							map.get(r).add(mapping);
-						}
-						else {
-							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
-							list.add(mapping);
-							map.put(r, list);
-						}
-					}
-				}
-			}
-		}
+		for(AbstractCodeMapping mapping : mappings)
+			extracted(map, mapping);
 		if(operationDiff != null) {
 			List<UMLParameterDiff> allParameterDiffs = new ArrayList<UMLParameterDiff>();
 			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
@@ -663,6 +644,30 @@ public class VariableReplacementAnalysis {
 			}
 		}
 		return map;
+	}
+
+	private void extracted(Map<Replacement, Set<AbstractCodeMapping>> map, AbstractCodeMapping mapping) {
+		{
+			for(Replacement replacement : mapping.getReplacements()) {
+				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) && !returnVariableMapping(mapping, replacement) && !mapping.containsReplacement(ReplacementType.CONCATENATION) &&
+						!containsMethodInvocationReplacementWithDifferentExpressionNameAndArguments(mapping.getReplacements()) &&
+						replacementNotInsideMethodSignatureOfAnonymousClass(mapping, replacement)) {
+					SimpleEntry<VariableDeclaration, UMLOperation> v1 = getVariableDeclaration1(replacement, mapping);
+					SimpleEntry<VariableDeclaration, UMLOperation> v2 = getVariableDeclaration2(replacement, mapping);
+					if(v1 != null && v2 != null) {
+						VariableDeclarationReplacement r = new VariableDeclarationReplacement(v1.getKey(), v2.getKey(), v1.getValue(), v2.getValue());
+						if(map.containsKey(r)) {
+							map.get(r).add(mapping);
+						}
+						else {
+							Set<AbstractCodeMapping> list = new LinkedHashSet<AbstractCodeMapping>();
+							list.add(mapping);
+							map.put(r, list);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private static boolean returnVariableMapping(AbstractCodeMapping mapping, Replacement replacement) {
