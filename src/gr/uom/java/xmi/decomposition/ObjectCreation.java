@@ -130,6 +130,11 @@ public class ObjectCreation extends AbstractCall {
 
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
+		double normalized = extracted(call, s1);
+		return normalized;
+	}
+
+	private double extracted(AbstractCall call, String s1) {
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
