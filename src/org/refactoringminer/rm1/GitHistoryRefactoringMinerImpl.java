@@ -195,13 +195,9 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			if (!parentFolder.exists()) {	
 				downloadAndExtractZipFile(projectFolder, cloneURL, parentCommitId);
 			}
-			if (currentFolder.exists() && parentFolder.exists()) {
-				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
-				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
-				// Diff between currentModel e parentModel
-				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-				refactoringsAtRevision = filter(refactoringsAtRevision);
-			}
+			if (currentFolder.exists() && parentFolder.exists())
+				refactoringsAtRevision = extracted(filesBefore, filesCurrent, renamedFilesHint, currentFolder,
+						parentFolder);
 			else {
 				logger.warn(String.format("Folder %s not found", currentFolder.getPath()));
 			}
@@ -211,6 +207,20 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 		handler.handle(currentCommitId, refactoringsAtRevision);
 
+		return refactoringsAtRevision;
+	}
+
+	private List<Refactoring> extracted(List<String> filesBefore, List<String> filesCurrent,
+			Map<String, String> renamedFilesHint, File currentFolder, File parentFolder)
+			throws Exception, RefactoringMinerTimedOutException {
+		List<Refactoring> refactoringsAtRevision;
+		{
+			UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
+			UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
+			// Diff between currentModel e parentModel
+			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+			refactoringsAtRevision = filter(refactoringsAtRevision);
+		}
 		return refactoringsAtRevision;
 	}
 
