@@ -403,13 +403,18 @@ public class OperationInvocation extends AbstractCall {
         if(this == o) {
             return true;
         }
-        if (o instanceof OperationInvocation) {
+        if (o instanceof OperationInvocation)
+			return extracted(o);
+        return false;
+    }
+
+	private boolean extracted(Object o) {
+		{
         	OperationInvocation invocation = (OperationInvocation)o;
             return methodName.equals(invocation.methodName) &&
                 typeArguments == invocation.typeArguments;
         }
-        return false;
-    }
+	}
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
