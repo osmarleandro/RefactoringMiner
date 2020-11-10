@@ -114,18 +114,23 @@ public class RefactoringSet {
     public void readFromFile(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.isEmpty()) {
-                    String[] array = line.split("\t");
-                    RefactoringType refactoringType = RefactoringType.fromName(array[0].trim());
-                    String entityBefore = array[1].trim();
-                    String entityAfter = array[2].trim();
-                    add(refactoringType, entityBefore, entityAfter);
-                }
-            }
+            while ((line = br.readLine()) != null)
+				extracted(line);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+	private void extracted(String line) {
+		{
+		    if (!line.isEmpty()) {
+		        String[] array = line.split("\t");
+		        RefactoringType refactoringType = RefactoringType.fromName(array[0].trim());
+		        String entityBefore = array[1].trim();
+		        String entityAfter = array[2].trim();
+		        add(refactoringType, entityBefore, entityAfter);
+		    }
+		}
+	}
 
 }
