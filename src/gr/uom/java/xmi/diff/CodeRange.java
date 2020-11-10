@@ -89,8 +89,7 @@ public class CodeRange {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{").append("\n");
+		StringBuilder sb = extracted();
 		encodeStringProperty(sb, "filePath", filePath, false);
 		encodeIntProperty(sb, "startLine", startLine, false);
 		encodeIntProperty(sb, "endLine", endLine, false);
@@ -101,6 +100,12 @@ public class CodeRange {
 		encodeStringProperty(sb, "codeElement", escapeQuotes(codeElement), true);
 		sb.append("}");
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{").append("\n");
+		return sb;
 	}
 
 	private String escapeQuotes(String s) {
