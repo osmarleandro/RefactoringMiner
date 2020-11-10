@@ -576,15 +576,20 @@ public class UMLModelDiff {
 
    private List<MoveAttributeRefactoring> checkForAttributeMovesBetweenRemovedAndAddedClasses() {
 	   List<UMLAttribute> addedAttributes = new ArrayList<UMLAttribute>();
-	   for(UMLClass addedClass : addedClasses) {
-		   addedAttributes.addAll(addedClass.getAttributes());
-	   }
-	   List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
+	   List<UMLAttribute> removedAttributes = extracted(addedAttributes);
 	   for(UMLClass removedClass : removedClasses) {
 		   removedAttributes.addAll(removedClass.getAttributes());
 	   }
 	   return checkForAttributeMoves(addedAttributes, removedAttributes);
    }
+
+private List<UMLAttribute> extracted(List<UMLAttribute> addedAttributes) {
+	for(UMLClass addedClass : addedClasses) {
+		   addedAttributes.addAll(addedClass.getAttributes());
+	   }
+	   List<UMLAttribute> removedAttributes = new ArrayList<UMLAttribute>();
+	return removedAttributes;
+}
 
    private List<MoveAttributeRefactoring> checkForAttributeMoves(List<UMLAttribute> addedAttributes, List<UMLAttribute> removedAttributes) {
 	   List<MoveAttributeRefactoring> refactorings = new ArrayList<MoveAttributeRefactoring>();
