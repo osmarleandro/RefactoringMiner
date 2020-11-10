@@ -740,6 +740,11 @@ public class VariableReplacementAnalysis {
 
 	private Set<Replacement> allConsistentRenames(Map<Replacement, Set<AbstractCodeMapping>> replacementOccurrenceMap) {
 		Set<Replacement> renames = replacementOccurrenceMap.keySet();
+		Set<Replacement> allConsistentRenames = extracted(renames);
+		return allConsistentRenames;
+	}
+
+	private Set<Replacement> extracted(Set<Replacement> renames) {
 		Set<Replacement> allConsistentRenames = new LinkedHashSet<Replacement>();
 		Set<Replacement> allInconsistentRenames = new LinkedHashSet<Replacement>();
 		ConsistentReplacementDetector.updateRenames(allConsistentRenames, allInconsistentRenames, renames);
