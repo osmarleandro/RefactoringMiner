@@ -55,14 +55,19 @@ public class ExtractVariableRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(variableDeclaration);
 		sb.append(" in method ");
 		sb.append(operationAfter);
 		sb.append(" from class ");
 		sb.append(operationAfter.getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	/**
