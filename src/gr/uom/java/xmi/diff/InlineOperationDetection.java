@@ -114,7 +114,13 @@ public class InlineOperationDetection {
 
 	private List<OperationInvocation> getInvocationsInTargetOperationBeforeInline(UMLOperationBodyMapper mapper) {
 		List<OperationInvocation> operationInvocations = mapper.getOperation1().getAllOperationInvocations();
-		for(StatementObject statement : mapper.getNonMappedLeavesT1()) {
+		for(StatementObject statement : mapper.getNonMappedLeavesT1())
+			extracted(operationInvocations, statement);
+		return operationInvocations;
+	}
+
+	private void extracted(List<OperationInvocation> operationInvocations, StatementObject statement) {
+		{
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
@@ -128,7 +134,6 @@ public class InlineOperationDetection {
 				}
 			}
 		}
-		return operationInvocations;
 	}
 
 	private boolean inlineMatchCondition(UMLOperationBodyMapper operationBodyMapper) {
