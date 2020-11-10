@@ -1166,7 +1166,13 @@ public class UMLModelDiff {
 
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
-      for(UMLClassDiff classDiff : commonClassDiffList) {
+      for(UMLClassDiff classDiff : commonClassDiffList)
+		extracted(refactorings, classDiff);
+      return refactorings;
+   }
+
+private void extracted(List<ConvertAnonymousClassToTypeRefactoring> refactorings, UMLClassDiff classDiff) {
+	{
 	      for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 	         for(UMLClass addedClass : addedClasses) {
 	            if(addedClass.getAttributes().containsAll(anonymousClass.getAttributes()) &&
@@ -1177,8 +1183,7 @@ public class UMLModelDiff {
 	         }
 	      }
       }
-      return refactorings;
-   }
+}
 
    private List<Refactoring> getMoveClassRefactorings() {
 	   List<Refactoring> refactorings = new ArrayList<Refactoring>();
