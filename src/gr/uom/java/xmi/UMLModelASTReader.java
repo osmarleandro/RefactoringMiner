@@ -417,12 +417,8 @@ public class UMLModelASTReader {
 			umlOperation.setStatic(true);
 		
 		List<IExtendedModifier> extendedModifiers = methodDeclaration.modifiers();
-		for(IExtendedModifier extendedModifier : extendedModifiers) {
-			if(extendedModifier.isAnnotation()) {
-				Annotation annotation = (Annotation)extendedModifier;
-				umlOperation.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
-			}
-		}
+		for(IExtendedModifier extendedModifier : extendedModifiers)
+			extracted(cu, sourceFile, umlOperation, extendedModifier);
 		
 		List<TypeParameter> typeParameters = methodDeclaration.typeParameters();
 		for(TypeParameter typeParameter : typeParameters) {
@@ -471,6 +467,16 @@ public class UMLModelASTReader {
 			umlOperation.addParameter(umlParameter);
 		}
 		return umlOperation;
+	}
+
+	private void extracted(CompilationUnit cu, String sourceFile, UMLOperation umlOperation,
+			IExtendedModifier extendedModifier) {
+		{
+			if(extendedModifier.isAnnotation()) {
+				Annotation annotation = (Annotation)extendedModifier;
+				umlOperation.addAnnotation(new UMLAnnotation(cu, sourceFile, annotation));
+			}
+		}
 	}
 
 
