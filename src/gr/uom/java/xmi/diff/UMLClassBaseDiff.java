@@ -681,7 +681,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private Set<Refactoring> inferAttributeMergesAndSplits(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings) {
 		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
-		for(Replacement replacement : map.keySet()) {
+		for(Replacement replacement : map.keySet())
+			extracted(map, refactorings, newRefactorings, replacement);
+		return newRefactorings;
+	}
+
+	private void extracted(Map<Replacement, Set<CandidateAttributeRefactoring>> map, List<Refactoring> refactorings,
+			Set<Refactoring> newRefactorings, Replacement replacement) {
+		{
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
 			for(CandidateAttributeRefactoring candidate : candidates) {
 				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
@@ -795,7 +802,6 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 			}
 		}
-		return newRefactorings;
 	}
 
 	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
