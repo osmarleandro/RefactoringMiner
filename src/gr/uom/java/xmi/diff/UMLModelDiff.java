@@ -2022,16 +2022,7 @@ public class UMLModelDiff {
    }
 
    private void checkForOperationMovesBetweenRemovedAndAddedClasses() throws RefactoringMinerTimedOutException {
-	   Set<UMLType> interfacesImplementedByAddedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass addedClass : addedClasses) {
-		   interfacesImplementedByAddedClasses.addAll(addedClass.getImplementedInterfaces());
-	   }
-	   Set<UMLType> interfacesImplementedByRemovedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass removedClass : removedClasses) {
-		   interfacesImplementedByRemovedClasses.addAll(removedClass.getImplementedInterfaces());
-	   }
-	   Set<UMLType> interfaceIntersection = new LinkedHashSet<UMLType>(interfacesImplementedByAddedClasses);
-	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
+	   Set<UMLType> interfaceIntersection = extracted();
 	   List<UMLOperation> addedOperations = new ArrayList<UMLOperation>();
 	   for(UMLClass addedClass : addedClasses) {
 		   if(!addedClass.implementsInterface(interfaceIntersection) && !outerClassMovedOrRenamed(addedClass)) {
@@ -2048,6 +2039,20 @@ public class UMLModelDiff {
 		   checkForOperationMoves(addedOperations, removedOperations);
 	   }
    }
+
+private Set<UMLType> extracted() {
+	Set<UMLType> interfacesImplementedByAddedClasses = new LinkedHashSet<UMLType>();
+	   for(UMLClass addedClass : addedClasses) {
+		   interfacesImplementedByAddedClasses.addAll(addedClass.getImplementedInterfaces());
+	   }
+	   Set<UMLType> interfacesImplementedByRemovedClasses = new LinkedHashSet<UMLType>();
+	   for(UMLClass removedClass : removedClasses) {
+		   interfacesImplementedByRemovedClasses.addAll(removedClass.getImplementedInterfaces());
+	   }
+	   Set<UMLType> interfaceIntersection = new LinkedHashSet<UMLType>(interfacesImplementedByAddedClasses);
+	   interfaceIntersection.retainAll(interfacesImplementedByRemovedClasses);
+	return interfaceIntersection;
+}
 
    private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
 	   if(!umlClass.isTopLevel()) {
