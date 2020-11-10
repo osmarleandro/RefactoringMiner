@@ -124,10 +124,15 @@ public class ResultComparator {
     private String getResultLine(int tp, int fp, int fn) {
         double precision = getPrecision(tp, fp, fn);
         double recall = getRecall(tp, fp, fn);
-        double f1 = getF1(tp, fp, fn);
-        //return String.format("& %3d & %3d & %3d & %3d & %.3f & %.3f \\", tp + fn, tp, fp, fn, precision, recall);
+        double f1 = extracted(tp, fp, fn);
         return String.format("#: %3d  TP: %3d  FP: %3d  FN: %3d  Prec.: %.3f  Recall: %.3f  F1: %.3f", tp + fn, tp, fp, fn, precision, recall, f1);
     }
+
+	private double extracted(int tp, int fp, int fn) {
+		double f1 = getF1(tp, fp, fn);
+        //return String.format("& %3d & %3d & %3d & %3d & %.3f & %.3f \\", tp + fn, tp, fp, fn, precision, recall);
+		return f1;
+	}
 
     private static double getPrecision(int tp, int fp, int fn) {
         return tp == 0 ? 0.0 : ((double) tp / (tp + fp));
