@@ -191,10 +191,8 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		for(String methodInvocation : methodInvocationMap.keySet()) {
 			List<OperationInvocation> invocations = methodInvocationMap.get(methodInvocation);
 			for(OperationInvocation invocation : invocations) {
-				if((methodInvocation + ";\n").equals(statement) || methodInvocation.equals(statement)) {
-					invocation.coverage = StatementCoverageType.ONLY_CALL;
-					return invocation;
-				}
+				if((methodInvocation + ";\n").equals(statement) || methodInvocation.equals(statement))
+					return extracted(invocation);
 				else if(("return " + methodInvocation + ";\n").equals(statement)) {
 					invocation.coverage = StatementCoverageType.RETURN_CALL;
 					return invocation;
@@ -208,13 +206,18 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 					return invocation;
 				}
 				else if(invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.SUPER_CONSTRUCTOR_INVOCATION) ||
-						invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.CONSTRUCTOR_INVOCATION)) {
-					invocation.coverage = StatementCoverageType.ONLY_CALL;
-					return invocation;
-				}
+						invocation.getLocationInfo().getCodeElementType().equals(CodeElementType.CONSTRUCTOR_INVOCATION))
+					return extracted(invocation);
 			}
 		}
 		return null;
+	}
+
+	private OperationInvocation extracted(OperationInvocation invocation) {
+		{
+			invocation.coverage = StatementCoverageType.ONLY_CALL;
+			return invocation;
+		}
 	}
 
 	public OperationInvocation assignmentInvocationCoveringEntireStatement() {
