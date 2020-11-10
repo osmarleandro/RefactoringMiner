@@ -167,10 +167,7 @@ public class RefactoringMiner {
 	}
 
 	private static void detectAtCommit(String[] args) throws Exception {
-		if (args.length != 3) {
-			throw argumentException();
-		}
-		String folder = args[1];
+		String folder = extracted(args);
 		String commitId = args[2];
 		GitService gitService = new GitServiceImpl();
 		try (Repository repo = gitService.openRepository(folder)) {
@@ -193,6 +190,14 @@ public class RefactoringMiner {
 			endJSON(sb);
 			System.out.println(sb.toString());
 		}
+	}
+
+	private static String extracted(String[] args) {
+		if (args.length != 3) {
+			throw argumentException();
+		}
+		String folder = args[1];
+		return folder;
 	}
 
 	private static void detectAtGitHubCommit(String[] args) throws Exception {
