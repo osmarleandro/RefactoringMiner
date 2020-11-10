@@ -237,14 +237,8 @@ public class ExtractOperationDetection {
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
 			AbstractCodeMapping mapping = exactMatchList.get(0);
-			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
-				StatementObject statement1 = (StatementObject)mapping.getFragment1();
-				StatementObject statement2 = (StatementObject)mapping.getFragment2();
-				if(statement1.getParent().getString().startsWith("catch(") &&
-						statement2.getParent().getString().startsWith("catch(")) {
-					exceptionHandlingExactMatch = true;
-				}
-			}
+			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject)
+				exceptionHandlingExactMatch = extracted(exceptionHandlingExactMatch, mapping);
 			if(mapping.getFragment1().throwsNewException() && mapping.getFragment2().throwsNewException()) {
 				throwsNewExceptionExactMatch = true;
 			}
@@ -257,6 +251,18 @@ public class ExtractOperationDetection {
 				(!exceptionHandlingExactMatch && exactMatches > 1 && additionalExactMatches.size() < exactMatches && nonMappedElementsT2-exactMatches < 20) ||
 				(mappings == 1 && mappings > operationBodyMapper.nonMappedLeafElementsT2())) ||
 				argumentExtractedWithDefaultReturnAdded(operationBodyMapper);
+	}
+
+	private boolean extracted(boolean exceptionHandlingExactMatch, AbstractCodeMapping mapping) {
+		{
+			StatementObject statement1 = (StatementObject)mapping.getFragment1();
+			StatementObject statement2 = (StatementObject)mapping.getFragment2();
+			if(statement1.getParent().getString().startsWith("catch(") &&
+					statement2.getParent().getString().startsWith("catch(")) {
+				exceptionHandlingExactMatch = true;
+			}
+		}
+		return exceptionHandlingExactMatch;
 	}
 
 	private boolean argumentExtractedWithDefaultReturnAdded(UMLOperationBodyMapper operationBodyMapper) {
