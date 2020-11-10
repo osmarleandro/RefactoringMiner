@@ -4116,16 +4116,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int childrenSize2 = compStatements2.size();
 		
 		if(parentMapper != null && comp1.getLocationInfo().getCodeElementType().equals(comp2.getLocationInfo().getCodeElementType()) &&
-				childrenSize1 == 1 && childrenSize2 == 1 && !comp1.getString().equals("{") && !comp2.getString().equals("{")) {
-			if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
-				CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);
-				compStatements1.addAll(block.getStatements());
-			}
-			if(!compStatements1.get(0).getString().equals("{") && compStatements2.get(0).getString().equals("{")) {
-				CompositeStatementObject block = (CompositeStatementObject)compStatements2.get(0);
-				compStatements2.addAll(block.getStatements());
-			}
-		}
+				childrenSize1 == 1 && childrenSize2 == 1 && !comp1.getString().equals("{") && !comp2.getString().equals("{"))
+			extracted(compStatements1, compStatements2);
 		int mappedChildrenSize = 0;
 		for(AbstractCodeMapping mapping : mappings) {
 			if(compStatements1.contains(mapping.getFragment1()) && compStatements2.contains(mapping.getFragment2())) {
@@ -4177,6 +4169,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			return 0;
 		else
 			return (double)mappedChildrenSize/(double)max;
+	}
+
+	private void extracted(List<AbstractStatement> compStatements1, List<AbstractStatement> compStatements2) {
+		{
+if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
+		CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);
+		compStatements1.addAll(block.getStatements());
+}
+if(!compStatements1.get(0).getString().equals("{") && compStatements2.get(0).getString().equals("{")) {
+		CompositeStatementObject block = (CompositeStatementObject)compStatements2.get(0);
+		compStatements2.addAll(block.getStatements());
+}
+}
 	}
 	
 	private double compositeChildMatchingScore(TryStatementObject try1, TryStatementObject try2, Set<AbstractCodeMapping> mappings,
