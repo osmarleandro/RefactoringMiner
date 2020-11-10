@@ -99,7 +99,13 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
   private static String stripTypeArguments(String entity) {
     StringBuilder sb = new StringBuilder();
     int openGenerics = 0;
-    for (int i = 0; i < entity.length(); i++) {
+    for (int i = 0; i < entity.length(); i++)
+		openGenerics = extracted(entity, sb, openGenerics, i);
+    return sb.toString();
+  }
+
+private static int extracted(String entity, StringBuilder sb, int openGenerics, int i) {
+	{
       char c = entity.charAt(i);
       if (c == '<') {
         openGenerics++;
@@ -111,8 +117,8 @@ public class RefactoringRelationship implements Comparable<RefactoringRelationsh
         openGenerics--;
       }
     }
-    return sb.toString();
-  }
+	return openGenerics;
+}
 
   public String getMainEntity() {
     if (typesWithMainEntityAfter.contains(refactoringType)) {
