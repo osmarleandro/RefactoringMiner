@@ -686,7 +686,13 @@ public class VariableReplacementAnalysis {
 		AbstractCodeFragment fragment2 = mapping.getFragment2();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations2 = fragment2.getAnonymousClassDeclarations();
-		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0) {
+		if(anonymousClassDeclarations1.size() > 0 && anonymousClassDeclarations2.size() > 0)
+			return extracted(replacement, fragment1, fragment2);
+		return true;
+	}
+
+	private boolean extracted(Replacement replacement, AbstractCodeFragment fragment1, AbstractCodeFragment fragment2) {
+		{
 			boolean replacementBeforeNotFoundInMethodSignature = false;
 			String[] lines1 = fragment1.getString().split("\\n");
 			for(String line : lines1) {
@@ -709,7 +715,6 @@ public class VariableReplacementAnalysis {
 			}
 			return replacementBeforeNotFoundInMethodSignature && replacementAfterNotFoundInMethodSignature;
 		}
-		return true;
 	}
 
 	public static String prepareLine(String line) {
