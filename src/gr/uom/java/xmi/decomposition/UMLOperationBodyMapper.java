@@ -1527,13 +1527,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		UMLOperation operation1 = codeFragmentOperationMap1.containsKey(leaf1) ? codeFragmentOperationMap1.get(leaf1) : this.operation1;
 		UMLOperation operation2 = codeFragmentOperationMap2.containsKey(leaf2) ? codeFragmentOperationMap2.get(leaf2) : this.operation2;
 		LeafMapping mapping = new LeafMapping(leaf1, leaf2, operation1, operation2);
-		for(String key : parameterToArgumentMap.keySet()) {
+		for(String key : parameterToArgumentMap.keySet())
+			extracted(leaf1, leaf2, parameterToArgumentMap, mapping, key);
+		return mapping;
+	}
+
+	private void extracted(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2,
+			Map<String, String> parameterToArgumentMap, LeafMapping mapping, String key) {
+		{
 			String value = parameterToArgumentMap.get(key);
 			if(!key.equals(value) && ReplacementUtil.contains(leaf2.getString(), key) && ReplacementUtil.contains(leaf1.getString(), value)) {
 				mapping.addReplacement(new Replacement(value, key, ReplacementType.VARIABLE_NAME));
 			}
 		}
-		return mapping;
 	}
 
 	private String preprocessInput1(AbstractCodeFragment leaf1, AbstractCodeFragment leaf2) {
