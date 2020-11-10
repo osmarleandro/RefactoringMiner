@@ -390,7 +390,13 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<VariableDeclaration> getAllVariableDeclarations() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		variableDeclarations.addAll(getVariableDeclarations());
-		for(AbstractStatement statement : statementList) {
+		for(AbstractStatement statement : statementList)
+			extracted(variableDeclarations, statement);
+		return variableDeclarations;
+	}
+
+	private void extracted(List<VariableDeclaration> variableDeclarations, AbstractStatement statement) {
+		{
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
@@ -405,7 +411,6 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 			}
 		}
-		return variableDeclarations;
 	}
 
 	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
