@@ -85,10 +85,7 @@ public class RefactoringMiner {
 	}
 
 	private static void detectBetweenCommits(String[] args) throws Exception {
-		if (!(args.length == 3 || args.length == 4)) {
-			throw argumentException();
-		}
-		String folder = args[1];
+		String folder = extracted(args);
 		String startCommit = args[2];
 		String endCommit = (args.length == 4) ? args[3] : null;
 		GitService gitService = new GitServiceImpl();
@@ -126,10 +123,7 @@ public class RefactoringMiner {
 	}
 
 	private static void detectBetweenTags(String[] args) throws Exception {
-		if (!(args.length == 3 || args.length == 4)) {
-			throw argumentException();
-		}
-		String folder = args[1];
+		String folder = extracted(args);
 		String startTag = args[2];
 		String endTag = (args.length == 4) ? args[3] : null;
 		GitService gitService = new GitServiceImpl();
@@ -164,6 +158,14 @@ public class RefactoringMiner {
 			endJSON(sb);
 			System.out.println(sb.toString());
 		}
+	}
+
+	private static String extracted(String[] args) {
+		if (!(args.length == 3 || args.length == 4)) {
+			throw argumentException();
+		}
+		String folder = args[1];
+		return folder;
 	}
 
 	private static void detectAtCommit(String[] args) throws Exception {
