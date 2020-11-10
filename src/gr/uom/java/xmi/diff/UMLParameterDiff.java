@@ -43,13 +43,18 @@ public class UMLParameterDiff {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(typeChanged || nameChanged || qualifiedTypeChanged)
-			sb.append("\t\t").append("parameter ").append(removedParameter).append(":").append("\n");
+		StringBuilder sb = extracted();
 		if(typeChanged || qualifiedTypeChanged)
 			sb.append("\t\t").append("type changed from " + removedParameter.getType() + " to " + addedParameter.getType()).append("\n");
 		if(nameChanged)
 			sb.append("\t\t").append("name changed from " + removedParameter.getName() + " to " + addedParameter.getName()).append("\n");
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(typeChanged || nameChanged || qualifiedTypeChanged)
+			sb.append("\t\t").append("parameter ").append(removedParameter).append(":").append("\n");
+		return sb;
 	}
 }
