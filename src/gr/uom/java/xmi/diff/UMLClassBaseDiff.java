@@ -1612,9 +1612,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if(!isEmpty())
-			sb.append(originalClass.getName()).append(":").append("\n");
+		StringBuilder sb = extracted();
 		if(visibilityChanged) {
 			sb.append("\t").append("visibility changed from " + oldVisibility + " to " + newVisibility).append("\n");
 		}
@@ -1649,6 +1647,13 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			sb.append(operationBodyMapper);
 		}
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		if(!isEmpty())
+			sb.append(originalClass.getName()).append(":").append("\n");
+		return sb;
 	}
 
 	public int compareTo(UMLClassBaseDiff other) {
