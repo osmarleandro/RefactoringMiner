@@ -129,23 +129,37 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		try (RevWalk walk = new RevWalk(repository)) {
 			// If no java files changed, there is no refactoring. Also, if there are
 			// only ADD's or only REMOVE's there is no refactoring
-			if (!filePathsBefore.isEmpty() && !filePathsCurrent.isEmpty() && currentCommit.getParentCount() > 0) {
-				RevCommit parentCommit = currentCommit.getParent(0);
-				populateFileContents(repository, parentCommit, filePathsBefore, fileContentsBefore, repositoryDirectoriesBefore);
-				UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
-
-				populateFileContents(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
-				UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
-				
-				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
-				refactoringsAtRevision = filter(refactoringsAtRevision);
-			} else {
+			if (!filePathsBefore.isEmpty() && !filePathsCurrent.isEmpty() && currentCommit.getParentCount() > 0)
+				refactoringsAtRevision = extracted(repository, currentCommit, filePathsBefore, filePathsCurrent,
+						renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent, fileContentsBefore,
+						fileContentsCurrent);
+			else {
 				//logger.info(String.format("Ignored revision %s with no changes in java files", commitId));
 				refactoringsAtRevision = Collections.emptyList();
 			}
 			handler.handle(commitId, refactoringsAtRevision);
 			
 			walk.dispose();
+		}
+		return refactoringsAtRevision;
+	}
+
+	private List<Refactoring> extracted(Repository repository, RevCommit currentCommit, List<String> filePathsBefore,
+			List<String> filePathsCurrent, Map<String, String> renamedFilesHint,
+			Set<String> repositoryDirectoriesBefore, Set<String> repositoryDirectoriesCurrent,
+			Map<String, String> fileContentsBefore, Map<String, String> fileContentsCurrent)
+			throws Exception, RefactoringMinerTimedOutException {
+		List<Refactoring> refactoringsAtRevision;
+		{
+			RevCommit parentCommit = currentCommit.getParent(0);
+			populateFileContents(repository, parentCommit, filePathsBefore, fileContentsBefore, repositoryDirectoriesBefore);
+			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
+
+			populateFileContents(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
+			UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
+			
+			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
+			refactoringsAtRevision = filter(refactoringsAtRevision);
 		}
 		return refactoringsAtRevision;
 	}
