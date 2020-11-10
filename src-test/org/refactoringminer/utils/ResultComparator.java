@@ -93,7 +93,14 @@ public class ResultComparator {
 
         EnumSet<RefactoringType> ignore = EnumSet.complementOf(refTypesToConsider);
         
-        for (RefactoringSet expected : expectedMap.values()) {
+        for (RefactoringSet expected : expectedMap.values())
+			extracted(groupId, truePositives, falsePositives, falseNegatives, ignore, expected);
+        return new CompareResult(truePositives, falsePositives, falseNegatives);
+    }
+
+	private void extracted(String groupId, Set<Object> truePositives, Set<Object> falsePositives,
+			Set<Object> falseNegatives, EnumSet<RefactoringType> ignore, RefactoringSet expected) {
+		{
             RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
             if (actual != null) {
                 Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
@@ -118,8 +125,7 @@ public class ResultComparator {
                 }
             }
         }
-        return new CompareResult(truePositives, falsePositives, falseNegatives);
-    }
+	}
 
     private String getResultLine(int tp, int fp, int fn) {
         double precision = getPrecision(tp, fp, fn);
