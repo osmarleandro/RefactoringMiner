@@ -164,10 +164,8 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		for(String objectCreation : creationMap.keySet()) {
 			List<ObjectCreation> creations = creationMap.get(objectCreation);
 			for(ObjectCreation creation : creations) {
-				if((objectCreation + ";\n").equals(statement) || objectCreation.equals(statement)) {
-					creation.coverage = StatementCoverageType.ONLY_CALL;
-					return creation;
-				}
+				if((objectCreation + ";\n").equals(statement) || objectCreation.equals(statement))
+					return extracted(creation);
 				else if(("return " + objectCreation + ";\n").equals(statement)) {
 					creation.coverage = StatementCoverageType.RETURN_CALL;
 					return creation;
@@ -183,6 +181,13 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 			}
 		}
 		return null;
+	}
+
+	private ObjectCreation extracted(ObjectCreation creation) {
+		{
+			creation.coverage = StatementCoverageType.ONLY_CALL;
+			return creation;
+		}
 	}
 
 	public OperationInvocation invocationCoveringEntireFragment() {
