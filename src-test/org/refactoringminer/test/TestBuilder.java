@@ -72,11 +72,18 @@ public class TestBuilder {
 		c.c[type]++;
 		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
 		Counter refTypeCounter = cMap.get(refType);
-		if (refTypeCounter == null) {
+		if (refTypeCounter == null)
+			refTypeCounter = extracted(refType);
+		refTypeCounter.c[type]++;
+	}
+
+	private Counter extracted(RefactoringType refType) {
+		Counter refTypeCounter;
+		{
 			refTypeCounter = new Counter();
 			cMap.put(refType, refTypeCounter);
 		}
-		refTypeCounter.c[type]++;
+		return refTypeCounter;
 	}
 
 	private int get(int type) {
