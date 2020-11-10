@@ -138,12 +138,8 @@ public abstract class AbstractCodeMapping {
 			StatementObject statement = (StatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
-			for(Replacement replacement : getReplacements()) {
-				if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
-					validReplacements = false;
-					break;
-				}
-			}
+			for(Replacement replacement : getReplacements())
+				validReplacements = extracted(validReplacements, replacement);
 			if(variableDeclarations.size() == 1 && validReplacements) {
 				VariableDeclaration variableDeclaration = variableDeclarations.get(0);
 				ExtractVariableRefactoring ref = new ExtractVariableRefactoring(variableDeclaration, operation1, operation2);
@@ -151,6 +147,16 @@ public abstract class AbstractCodeMapping {
 				identicalWithExtractedVariable = true;
 			}
 		}
+	}
+
+	private boolean extracted(boolean validReplacements, Replacement replacement) {
+		{
+			if(replacement instanceof MethodInvocationReplacement || replacement instanceof ObjectCreationReplacement) {
+				validReplacements = false;
+				break;
+			}
+		}
+		return validReplacements;
 	}
 
 	public void temporaryVariableAssignment(AbstractCodeFragment statement,
