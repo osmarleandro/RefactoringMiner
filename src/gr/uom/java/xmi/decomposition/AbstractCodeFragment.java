@@ -118,21 +118,26 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 
 	private static boolean quoteAfter(String afterMatch) {
 		if(afterMatch.contains("\"")) {
-			if(afterMatch.contains("+")) {
-				int indexOfQuote = afterMatch.indexOf("\"");
-				int indexOfPlus = afterMatch.indexOf("+");
-				if(indexOfPlus < indexOfQuote) {
-					return false;
-				}
-				else {
-					return true;
-				}
-			}
+			if(afterMatch.contains("+"))
+				return extracted(afterMatch);
 			else {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private static boolean extracted(String afterMatch) {
+		{
+			int indexOfQuote = afterMatch.indexOf("\"");
+			int indexOfPlus = afterMatch.indexOf("+");
+			if(indexOfPlus < indexOfQuote) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
 	}
 
 	public boolean equalFragment(AbstractCodeFragment other) {
