@@ -146,6 +146,11 @@ public class TestBuilder {
 
 	private String buildResultMessage(Counter c) {
 		double precision = ((double) get(TP, c) / (get(TP, c) + get(FP, c)));
+		String mainResultMessage = extracted(c, precision);
+		return mainResultMessage;
+	}
+
+	private String extracted(Counter c, double precision) {
 		double recall = ((double) get(TP, c)) / (get(TP, c) + get(FN, c));
 		String mainResultMessage = String.format(
 				"TP: %2d  FP: %2d  FN: %2d  TN: %2d  Unk.: %2d  Prec.: %.3f  Recall: %.3f", get(TP, c), get(FP, c),
