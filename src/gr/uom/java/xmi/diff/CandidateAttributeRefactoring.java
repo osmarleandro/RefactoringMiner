@@ -102,11 +102,16 @@ public class CandidateAttributeRefactoring {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
+		int result = extracted(prime);
 		result = prime * result + ((operationBefore == null) ? 0 : operationBefore.hashCode());
 		result = prime * result + ((originalVariableName == null) ? 0 : originalVariableName.hashCode());
 		result = prime * result + ((renamedVariableName == null) ? 0 : renamedVariableName.hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
+		int result = 1;
+		result = prime * result + ((operationAfter == null) ? 0 : operationAfter.hashCode());
 		return result;
 	}
 
