@@ -1158,11 +1158,15 @@ public class UMLModelDiff {
       if (parent.contains(".") && !addedClassName.contains(".")) {
          return addedClassName.equals(parent.substring(parent.lastIndexOf(".") + 1));
       }
-      if (parent.contains(".") && addedClassName.contains(".")) {
+      return extracted(parent, addedClassName);
+   }
+
+private static boolean extracted(String parent, String addedClassName) {
+	if (parent.contains(".") && addedClassName.contains(".")) {
     	  return UMLType.extractTypeObject(parent).equalClassType(UMLType.extractTypeObject(addedClassName));
       }
       return parent.equals(addedClassName);
-   }
+}
 
    private List<ConvertAnonymousClassToTypeRefactoring> identifyConvertAnonymousClassToTypeRefactorings() {
       List<ConvertAnonymousClassToTypeRefactoring> refactorings = new ArrayList<ConvertAnonymousClassToTypeRefactoring>();
