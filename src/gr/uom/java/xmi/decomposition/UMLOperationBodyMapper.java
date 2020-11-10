@@ -921,6 +921,10 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public double normalizedEditDistance() {
 		double editDistance = 0;
 		double maxLength = 0;
+		return extracted(editDistance, maxLength);
+	}
+
+	private double extracted(double editDistance, double maxLength) {
 		for(AbstractCodeMapping mapping : getMappings()) {
 			if(mapping.isIdenticalWithExtractedVariable() || mapping.isIdenticalWithInlinedVariable()) {
 				continue;
