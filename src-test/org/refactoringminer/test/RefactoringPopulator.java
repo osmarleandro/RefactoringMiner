@@ -220,12 +220,17 @@ public class RefactoringPopulator {
 
 	private static String getInitials(String str) {
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < str.length(); i++) {
+		for (int i = 0; i < str.length(); i++)
+			extracted(str, sb, i);
+		return sb.toString();
+	}
+
+	private static void extracted(String str, StringBuffer sb, int i) {
+		{
 			String character = str.substring(i, i + 1);
 			if (character == character.toUpperCase())
 				sb.append(character);
 		}
-		return sb.toString();
 	}
 
 	private static String buildResultMessage(Tuple... result) {
