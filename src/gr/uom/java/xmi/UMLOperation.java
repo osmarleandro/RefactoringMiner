@@ -259,7 +259,13 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	public boolean equalSignature(UMLOperation operation) {
 		boolean equalParameterTypes = this.getParameterTypeList().equals(operation.getParameterTypeList());
 		boolean compatibleParameterTypes = false;
-		if(!equalParameterTypes) {
+		if(!equalParameterTypes)
+			compatibleParameterTypes = extracted(operation, compatibleParameterTypes);
+		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
+	}
+
+	private boolean extracted(UMLOperation operation, boolean compatibleParameterTypes) {
+		{
 			List<UMLType> thisParameterTypeList = this.getParameterTypeList();
 			List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
 			if(thisParameterTypeList.size() == otherParameterTypeList.size()) {
@@ -282,7 +288,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				}
 			}
 		}
-		return this.name.equals(operation.name) && equalTypeParameters(operation) && (equalParameterTypes || compatibleParameterTypes) && equalReturnParameter(operation);
+		return compatibleParameterTypes;
 	}
 
 	public boolean equalSignatureIgnoringOperationName(UMLOperation operation) {
