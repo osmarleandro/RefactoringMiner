@@ -282,6 +282,10 @@ public abstract class UMLAbstractClass {
 			return false;
 		if(this.operations.size() != umlClass.operations.size())
 			return false;
+		return extracted(umlClass);
+	}
+
+	private boolean extracted(UMLAbstractClass umlClass) {
 		for(UMLOperation operation : operations) {
 			if(!umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
 				return false;
