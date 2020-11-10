@@ -692,23 +692,8 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		List<UMLType> thisParameterTypes = this.getParameterTypeList();
 		List<UMLType> otherParameterTypes = operation.getParameterTypeList();
 		
-		if(thisParameterTypes.size() == otherParameterTypes.size() && thisParameterTypes.size() > 0) {
-			int commonParameterTypes = 0;
-			int differentParameterTypes = 0;
-			for(int i=0; i<thisParameterTypes.size(); i++) {
-				UMLType thisParameterType = thisParameterTypes.get(i);
-				UMLType otherParameterType = otherParameterTypes.get(i);
-				if(thisParameterType.equals(otherParameterType) ||
-						(thisParameterType.getClassType().equals(otherParameterType.getClassType()) && thisParameterType.getArrayDimension() == otherParameterType.getArrayDimension()) ||
-						thisParameterType.equalsWithSubType(otherParameterType)) {
-					commonParameterTypes++;
-				}
-				else {
-					differentParameterTypes++;
-				}
-			}
-			return commonParameterTypes >= differentParameterTypes && commonParameterTypes > 0;
-		}
+		if(thisParameterTypes.size() == otherParameterTypes.size() && thisParameterTypes.size() > 0)
+			return extracted(thisParameterTypes, otherParameterTypes);
 		else if(thisParameterTypes.size() > otherParameterTypes.size() && thisParameterTypes.size() > 0) {
 			int commonParameterTypes = 0;
 			int differentParameterTypes = 0;
@@ -726,7 +711,13 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			}
 			return commonParameterTypes >= differentParameterTypes && commonParameterTypes > 0;
 		}
-		else if(otherParameterTypes.size() > thisParameterTypes.size() && thisParameterTypes.size() > 0) {
+		else if(otherParameterTypes.size() > thisParameterTypes.size() && thisParameterTypes.size() > 0)
+			return extracted(thisParameterTypes, otherParameterTypes);
+		return false;
+	}
+
+	private boolean extracted(List<UMLType> thisParameterTypes, List<UMLType> otherParameterTypes) {
+		{
 			int commonParameterTypes = 0;
 			int differentParameterTypes = 0;
 			for(int i=0; i<thisParameterTypes.size(); i++) {
@@ -743,7 +734,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			}
 			return commonParameterTypes >= differentParameterTypes && commonParameterTypes > 0;
 		}
-		return false;
 	}
 
 	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
