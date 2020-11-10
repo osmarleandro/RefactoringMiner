@@ -220,10 +220,8 @@ public class Visitor extends ASTVisitor {
 	public boolean visit(AnonymousClassDeclaration node) {
 		DefaultMutableTreeNode childNode = insertNode(node);
 		AnonymousClassDeclarationObject childAnonymous = (AnonymousClassDeclarationObject)childNode.getUserObject();
-		if(current.getUserObject() != null) {
-			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
-			currentAnonymous.getAnonymousClassDeclarations().add(childAnonymous);
-		}
+		if(current.getUserObject() != null)
+			extracted(childAnonymous);
 		anonymousClassDeclarations.add(childAnonymous);
 		this.current = childNode;
 		for(ASTNode parent : builderPatternChains) {
@@ -232,6 +230,13 @@ public class Visitor extends ASTVisitor {
 			}
 		}
 		return super.visit(node);
+	}
+
+	private void extracted(AnonymousClassDeclarationObject childAnonymous) {
+		{
+			AnonymousClassDeclarationObject currentAnonymous = (AnonymousClassDeclarationObject)current.getUserObject();
+			currentAnonymous.getAnonymousClassDeclarations().add(childAnonymous);
+		}
 	}
 
 	public void endVisit(AnonymousClassDeclaration node) {
