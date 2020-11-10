@@ -30,9 +30,14 @@ public class ListCompositeType extends UMLType {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
+		int result = extracted(prime);
+		result = prime * result + ((types == null) ? 0 : types.hashCode());
+		return result;
+	}
+
+	private int extracted(final int prime) {
 		int result = 1;
 		result = prime * result + ((kind == null) ? 0 : kind.hashCode());
-		result = prime * result + ((types == null) ? 0 : types.hashCode());
 		return result;
 	}
 
