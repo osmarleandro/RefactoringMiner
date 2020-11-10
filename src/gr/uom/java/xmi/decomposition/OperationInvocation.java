@@ -46,19 +46,8 @@ public class OperationInvocation extends AbstractCall {
 	}
 	
 	private void processExpression(Expression expression, List<String> subExpressions) {
-		if(expression instanceof MethodInvocation) {
-			MethodInvocation invocation = (MethodInvocation)expression;
-			if(invocation.getExpression() != null) {
-				String expressionAsString = invocation.getExpression().toString();
-				String invocationAsString = invocation.toString();
-				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
-				subExpressions.add(0, suffix);
-				processExpression(invocation.getExpression(), subExpressions);
-			}
-			else {
-				subExpressions.add(0, invocation.toString());
-			}
-		}
+		if(expression instanceof MethodInvocation)
+			extracted(expression, subExpressions);
 		else if(expression instanceof ClassInstanceCreation) {
 			ClassInstanceCreation creation = (ClassInstanceCreation)expression;
 			if(creation.getExpression() != null) {
@@ -70,6 +59,22 @@ public class OperationInvocation extends AbstractCall {
 			}
 			else {
 				subExpressions.add(0, creation.toString());
+			}
+		}
+	}
+
+	private void extracted(Expression expression, List<String> subExpressions) {
+		{
+			MethodInvocation invocation = (MethodInvocation)expression;
+			if(invocation.getExpression() != null) {
+				String expressionAsString = invocation.getExpression().toString();
+				String invocationAsString = invocation.toString();
+				String suffix = invocationAsString.substring(expressionAsString.length() + 1, invocationAsString.length());
+				subExpressions.add(0, suffix);
+				processExpression(invocation.getExpression(), subExpressions);
+			}
+			else {
+				subExpressions.add(0, invocation.toString());
 			}
 		}
 	}
