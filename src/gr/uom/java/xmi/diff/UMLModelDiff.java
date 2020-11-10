@@ -1723,7 +1723,13 @@ public class UMLModelDiff {
    }
 
    private void checkForMovedAndInlinedOperations(List<UMLOperationBodyMapper> mappers, List<UMLOperation> removedOperations) throws RefactoringMinerTimedOutException {
-	   for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();) {
+	   for(Iterator<UMLOperation> removedOperationIterator = removedOperations.iterator(); removedOperationIterator.hasNext();)
+		extracted(mappers, removedOperationIterator);
+   }
+
+private void extracted(List<UMLOperationBodyMapper> mappers, Iterator<UMLOperation> removedOperationIterator)
+		throws RefactoringMinerTimedOutException {
+	{
 		   UMLOperation removedOperation = removedOperationIterator.next();
 		   for(UMLOperationBodyMapper mapper : mappers) {
 			   if(!mapper.getNonMappedLeavesT2().isEmpty() || !mapper.getNonMappedInnerNodesT2().isEmpty() || !mapper.getReplacementsInvolvingMethodInvocation().isEmpty()) {
@@ -1754,7 +1760,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-   }
+}
 
 	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
