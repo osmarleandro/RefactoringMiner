@@ -88,11 +88,16 @@ public class Visitor extends ASTVisitor {
 
 	public boolean visit(ArrayAccess node) {
 		arrayAccesses.add(node.toString());
-		if(current.getUserObject() != null) {
+		if(current.getUserObject() != null)
+			extracted(node);
+		return super.visit(node);
+	}
+
+	private void extracted(ArrayAccess node) {
+		{
 			AnonymousClassDeclarationObject anonymous = (AnonymousClassDeclarationObject)current.getUserObject();
 			anonymous.getArrayAccesses().add(node.toString());
 		}
-		return super.visit(node);
 	}
 
 	public boolean visit(PrefixExpression node) {
