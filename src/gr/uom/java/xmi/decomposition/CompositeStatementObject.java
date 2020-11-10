@@ -490,12 +490,8 @@ public class CompositeStatementObject extends AbstractStatement {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
-				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
-					if(declaration.getVariableName().equals(currentElementName)) {
-						currentElementNameMatched = true;
-						break;
-					}
-				}
+				for(VariableDeclaration declaration : innerNode.getVariableDeclarations())
+					currentElementNameMatched = extracted(currentElementName, currentElementNameMatched, declaration);
 				boolean collectionNameMatched = false;
 				for(AbstractExpression expression : innerNode.getExpressions()) {
 					if(expression.getVariables().contains(collectionName)) {
@@ -530,5 +526,16 @@ public class CompositeStatementObject extends AbstractStatement {
 			}
 		}
 		return null;
+	}
+
+	private boolean extracted(String currentElementName, boolean currentElementNameMatched,
+			VariableDeclaration declaration) {
+		{
+			if(declaration.getVariableName().equals(currentElementName)) {
+				currentElementNameMatched = true;
+				break;
+			}
+		}
+		return currentElementNameMatched;
 	}
 }
