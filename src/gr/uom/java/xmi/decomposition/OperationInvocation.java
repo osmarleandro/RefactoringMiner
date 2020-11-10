@@ -488,9 +488,7 @@ public class OperationInvocation extends AbstractCall {
 	}
 	
 	public boolean differentExpressionNameAndArguments(OperationInvocation other) {
-		boolean differentExpression = false;
-		if(this.expression == null && other.expression != null)
-			differentExpression = true;
+		boolean differentExpression = extracted(other);
 		if(this.expression != null && other.expression == null)
 			differentExpression = true;
 		if(this.expression != null && other.expression != null)
@@ -517,6 +515,13 @@ public class OperationInvocation extends AbstractCall {
 		boolean differentArguments = !this.arguments.equals(other.arguments) &&
 				argumentIntersection.isEmpty() && !argumentFoundInExpression;
 		return differentExpression && differentName && differentArguments;
+	}
+
+	private boolean extracted(OperationInvocation other) {
+		boolean differentExpression = false;
+		if(this.expression == null && other.expression != null)
+			differentExpression = true;
+		return differentExpression;
 	}
 
 	public boolean identicalWithExpressionCallChainDifference(OperationInvocation other) {
