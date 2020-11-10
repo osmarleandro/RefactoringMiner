@@ -33,13 +33,18 @@ public class RenameOperationRefactoring implements Refactoring {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName()).append("\t");
+		StringBuilder sb = extracted();
 		sb.append(originalOperation);
 		sb.append(" renamed to ");
 		sb.append(renamedOperation);
 		sb.append(" in class ").append(getClassName());
 		return sb.toString();
+	}
+
+	private StringBuilder extracted() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()).append("\t");
+		return sb;
 	}
 
 	private String getClassName() {
