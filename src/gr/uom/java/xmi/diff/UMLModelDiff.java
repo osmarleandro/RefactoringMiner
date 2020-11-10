@@ -1007,14 +1007,7 @@ public class UMLModelDiff {
 
    private ExtractClassRefactoring atLeastOneCommonAttributeOrOperation(UMLClass umlClass, UMLClassBaseDiff classDiff, UMLAttribute attributeOfExtractedClassType) {
 	   Set<UMLOperation> commonOperations = new LinkedHashSet<UMLOperation>();
-	   for(UMLOperation operation : classDiff.getRemovedOperations()) {
-		   if(!operation.isConstructor() && !operation.overridesObject()) {
-			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
-				   commonOperations.add(operation);
-			   }
-		   }
-	   }
-	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+	   Set<UMLAttribute> commonAttributes = extracted(umlClass, classDiff, commonOperations);
 	   for(UMLAttribute attribute : classDiff.getRemovedAttributes()) {
 		   if(umlClass.containsAttributeWithTheSameNameIgnoringChangedType(attribute)) {
 			   commonAttributes.add(attribute);
@@ -1028,6 +1021,18 @@ public class UMLModelDiff {
 	   }
 	   return null;
    }
+
+private Set<UMLAttribute> extracted(UMLClass umlClass, UMLClassBaseDiff classDiff, Set<UMLOperation> commonOperations) {
+	for(UMLOperation operation : classDiff.getRemovedOperations()) {
+		   if(!operation.isConstructor() && !operation.overridesObject()) {
+			   if(umlClass.containsOperationWithTheSameSignatureIgnoringChangedTypes(operation)) {
+				   commonOperations.add(operation);
+			   }
+		   }
+	   }
+	   Set<UMLAttribute> commonAttributes = new LinkedHashSet<UMLAttribute>();
+	return commonAttributes;
+}
 
    private List<ExtractSuperclassRefactoring> identifyExtractSuperclassRefactorings() throws RefactoringMinerTimedOutException {
       List<ExtractSuperclassRefactoring> refactorings = new ArrayList<ExtractSuperclassRefactoring>();
