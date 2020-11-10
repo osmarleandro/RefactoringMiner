@@ -90,15 +90,8 @@ public class OperationBody {
 	}
 
 	private void processStatement(CompilationUnit cu, String filePath, CompositeStatementObject parent, Statement statement) {
-		if(statement instanceof Block) {
-			Block block = (Block)statement;
-			List<Statement> blockStatements = block.statements();
-			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, block, parent.getDepth()+1, CodeElementType.BLOCK);
-			parent.addStatement(child);
-			for(Statement blockStatement : blockStatements) {
-				processStatement(cu, filePath, child, blockStatement);
-			}
-		}
+		if(statement instanceof Block)
+			extracted(cu, filePath, parent, statement);
 		else if(statement instanceof IfStatement) {
 			IfStatement ifStatement = (IfStatement)statement;
 			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, ifStatement, parent.getDepth()+1, CodeElementType.IF_STATEMENT);
@@ -287,6 +280,18 @@ public class OperationBody {
 			EmptyStatement emptyStatement = (EmptyStatement)statement;
 			StatementObject child = new StatementObject(cu, filePath, emptyStatement, parent.getDepth()+1, CodeElementType.EMPTY_STATEMENT);
 			parent.addStatement(child);
+		}
+	}
+
+	private void extracted(CompilationUnit cu, String filePath, CompositeStatementObject parent, Statement statement) {
+		{
+			Block block = (Block)statement;
+			List<Statement> blockStatements = block.statements();
+			CompositeStatementObject child = new CompositeStatementObject(cu, filePath, block, parent.getDepth()+1, CodeElementType.BLOCK);
+			parent.addStatement(child);
+			for(Statement blockStatement : blockStatements) {
+				processStatement(cu, filePath, child, blockStatement);
+			}
 		}
 	}
 
