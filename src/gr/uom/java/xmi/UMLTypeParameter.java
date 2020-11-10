@@ -49,6 +49,10 @@ public class UMLTypeParameter {
 			return true;
 		if (obj == null)
 			return false;
+		return extracted(obj);
+	}
+
+	private boolean extracted(Object obj) {
 		if (getClass() != obj.getClass())
 			return false;
 		UMLTypeParameter other = (UMLTypeParameter) obj;
