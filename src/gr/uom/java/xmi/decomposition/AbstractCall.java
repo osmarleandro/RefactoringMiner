@@ -133,21 +133,27 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String argument1 = arguments1.get(i);
 			String argument2 = arguments2.get(i);
 			boolean argumentConcatenated = false;
-			if((argument1.contains("+") || argument2.contains("+")) && !argument1.contains("++") && !argument2.contains("++")) {
-				Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(argument1.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
-				Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(argument2.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
-				Set<String> intersection = new LinkedHashSet<String>(tokens1);
-				intersection.retainAll(tokens2);
-				int size = intersection.size();
-				int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
-				if(size > 0 && size >= threshold) {
-					argumentConcatenated = true;
-				}
-			}
+			if((argument1.contains("+") || argument2.contains("+")) && !argument1.contains("++") && !argument2.contains("++"))
+				argumentConcatenated = extracted(argument1, argument2, argumentConcatenated);
 			if(!argument1.equals(argument2) && !argumentConcatenated)
 				return false;
 		}
 		return true;
+	}
+
+	private boolean extracted(String argument1, String argument2, boolean argumentConcatenated) {
+		{
+			Set<String> tokens1 = new LinkedHashSet<String>(Arrays.asList(argument1.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
+			Set<String> tokens2 = new LinkedHashSet<String>(Arrays.asList(argument2.split(UMLOperationBodyMapper.SPLIT_CONCAT_STRING_PATTERN)));
+			Set<String> intersection = new LinkedHashSet<String>(tokens1);
+			intersection.retainAll(tokens2);
+			int size = intersection.size();
+			int threshold = Math.max(tokens1.size(), tokens2.size()) - size;
+			if(size > 0 && size >= threshold) {
+				argumentConcatenated = true;
+			}
+		}
+		return argumentConcatenated;
 	}
 
 	public boolean identicalOrWrappedArguments(AbstractCall call) {
