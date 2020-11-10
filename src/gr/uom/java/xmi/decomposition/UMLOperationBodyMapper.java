@@ -2658,6 +2658,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	private boolean validStatementForConcatComparison(AbstractCodeFragment statement1, AbstractCodeFragment statement2) {
 		List<VariableDeclaration> variableDeclarations1 = statement1.getVariableDeclarations();
 		List<VariableDeclaration> variableDeclarations2 = statement2.getVariableDeclarations();
+		return extracted(statement1, statement2, variableDeclarations1, variableDeclarations2);
+	}
+
+	private boolean extracted(AbstractCodeFragment statement1, AbstractCodeFragment statement2,
+			List<VariableDeclaration> variableDeclarations1, List<VariableDeclaration> variableDeclarations2) {
 		if(variableDeclarations1.size() == variableDeclarations2.size()) {
 			return true;
 		}
