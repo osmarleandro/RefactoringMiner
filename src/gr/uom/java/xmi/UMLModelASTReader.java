@@ -196,6 +196,13 @@ public class UMLModelASTReader {
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
+		UMLClass umlClass = extracted(cu, enumDeclaration, packageName, sourceFile, importedTypes, javadoc);
+		
+		this.getUmlModel().addClass(umlClass);
+	}
+
+	private UMLClass extracted(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName,
+			String sourceFile, List<String> importedTypes, UMLJavadoc javadoc) {
 		String className = enumDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, enumDeclaration, CodeElementType.TYPE_DECLARATION);
 		UMLClass umlClass = new UMLClass(packageName, className, locationInfo, enumDeclaration.isPackageMemberTypeDeclaration(), importedTypes);
@@ -207,8 +214,7 @@ public class UMLModelASTReader {
 		processBodyDeclarations(cu, enumDeclaration, packageName, sourceFile, importedTypes, umlClass);
 		
 		processAnonymousClassDeclarations(cu, enumDeclaration, packageName, sourceFile, className, umlClass);
-		
-		this.getUmlModel().addClass(umlClass);
+		return umlClass;
 	}
 
 	private void processBodyDeclarations(CompilationUnit cu, AbstractTypeDeclaration abstractTypeDeclaration, String packageName,
