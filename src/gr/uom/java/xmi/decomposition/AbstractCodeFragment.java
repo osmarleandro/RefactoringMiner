@@ -277,13 +277,18 @@ public abstract class AbstractCodeFragment implements LocationInfoProvider {
 		if(statement.contains("=")) {
 			List<String> variables = getVariables();
 			if(variables.size() > 0) {
-				String s = variables.get(0) + "=" + expression + ";\n";
+				String s = extracted(expression, variables);
 				if(statement.equals(s)) {
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	private String extracted(String expression, List<String> variables) {
+		String s = variables.get(0) + "=" + expression + ";\n";
+		return s;
 	}
 
 	public boolean throwsNewException() {
