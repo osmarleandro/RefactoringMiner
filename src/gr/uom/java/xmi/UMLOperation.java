@@ -748,7 +748,14 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 
 	public List<UMLOperation> getOperationsInsideAnonymousClass(List<UMLAnonymousClass> allAddedAnonymousClasses) {
 		List<UMLOperation> operationsInsideAnonymousClass = new ArrayList<UMLOperation>();
-		if(this.operationBody != null) {
+		if(this.operationBody != null)
+			extracted(allAddedAnonymousClasses, operationsInsideAnonymousClass);
+		return operationsInsideAnonymousClass;
+	}
+
+	private void extracted(List<UMLAnonymousClass> allAddedAnonymousClasses,
+			List<UMLOperation> operationsInsideAnonymousClass) {
+		{
 			List<AnonymousClassDeclarationObject> anonymousClassDeclarations = this.operationBody.getAllAnonymousClassDeclarations();
 			for(AnonymousClassDeclarationObject anonymousClassDeclaration : anonymousClassDeclarations) {
 				for(UMLAnonymousClass anonymousClass : allAddedAnonymousClasses) {
@@ -758,7 +765,6 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				}
 			}
 		}
-		return operationsInsideAnonymousClass;
 	}
 
 	public CodeRange codeRange() {
