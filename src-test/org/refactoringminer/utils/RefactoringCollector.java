@@ -23,10 +23,9 @@ public class RefactoringCollector extends RefactoringHandler {
   @Override
   public void handle(String commitId, List<Refactoring> refactorings) {
     for (Refactoring r : refactorings) {
-      if (r instanceof MoveClassRefactoring) {
-        MoveClassRefactoring ref = (MoveClassRefactoring) r;
-        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
-      } else if (r instanceof RenameClassRefactoring) {
+      if (r instanceof MoveClassRefactoring)
+		extracted(r);
+	else if (r instanceof RenameClassRefactoring) {
         RenameClassRefactoring ref = (RenameClassRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getRenamedClassName()));
       } else if (r instanceof ExtractSuperclassRefactoring) {
@@ -55,6 +54,12 @@ public class RefactoringCollector extends RefactoringHandler {
       }
     }
   }
+private void extracted(Refactoring r) {
+	{
+        MoveClassRefactoring ref = (MoveClassRefactoring) r;
+        rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
+      }
+}
   @Override
   public void handleException(String commitId, Exception e) {
     this.ex = e;
