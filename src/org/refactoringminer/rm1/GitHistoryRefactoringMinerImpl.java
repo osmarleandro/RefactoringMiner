@@ -36,6 +36,7 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
@@ -361,10 +362,8 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		RevWalk walk = new RevWalk(repository);
 		try {
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
-			if (commit.getParentCount() > 0) {
-				walk.parseCommit(commit.getParent(0));
-				this.detectRefactorings(gitService, repository, handler, projectFolder, commit);
-			}
+			if (commit.getParentCount() > 0)
+				extracted(repository, handler, projectFolder, gitService, walk, commit);
 			else {
 				logger.warn(String.format("Ignored revision %s because it has no parent", commitId));
 			}
@@ -378,6 +377,15 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		} finally {
 			walk.close();
 			walk.dispose();
+		}
+	}
+
+	private void extracted(Repository repository, RefactoringHandler handler, File projectFolder, GitService gitService,
+			RevWalk walk, RevCommit commit)
+			throws MissingObjectException, IncorrectObjectTypeException, IOException, Exception {
+		{
+			walk.parseCommit(commit.getParent(0));
+			this.detectRefactorings(gitService, repository, handler, projectFolder, commit);
 		}
 	}
 
