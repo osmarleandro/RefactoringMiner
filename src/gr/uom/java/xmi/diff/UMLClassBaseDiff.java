@@ -1361,6 +1361,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean singleUnmatchedStatementCallsAddedOperation(UMLOperationBodyMapper operationBodyMapper) {
 		List<StatementObject> nonMappedLeavesT1 = operationBodyMapper.getNonMappedLeavesT1();
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
+		return extracted(operationBodyMapper, nonMappedLeavesT1, nonMappedLeavesT2);
+	}
+
+	private boolean extracted(UMLOperationBodyMapper operationBodyMapper, List<StatementObject> nonMappedLeavesT1,
+			List<StatementObject> nonMappedLeavesT2) {
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
 			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
