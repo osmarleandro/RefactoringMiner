@@ -18,14 +18,19 @@ public class InheritanceDetection {
 	}
 
 	private void addSubclassToSuperclass(String superclass, String subclass) {
-		if(subclassMap.containsKey(superclass)) {
-			LinkedHashSet<String> subclasses = subclassMap.get(superclass);
-			subclasses.add(subclass);
-		}
+		if(subclassMap.containsKey(superclass))
+			extracted(superclass, subclass);
 		else {
 			LinkedHashSet<String> subclasses = new LinkedHashSet<String>();
 			subclasses.add(subclass);
 			subclassMap.put(superclass, subclasses);
+		}
+	}
+
+	private void extracted(String superclass, String subclass) {
+		{
+			LinkedHashSet<String> subclasses = subclassMap.get(superclass);
+			subclasses.add(subclass);
 		}
 	}
 
