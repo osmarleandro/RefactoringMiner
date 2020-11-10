@@ -714,16 +714,20 @@ public class VariableReplacementAnalysis {
 
 	public static String prepareLine(String line) {
 		line = line.trim();
-		if(line.startsWith("@Nullable")) {
-			line = line.substring(9, line.length());
-			line = line.trim();
-		}
-		if(line.startsWith("@Override")) {
-			line = line.substring(9, line.length());
-			line = line.trim();
-		}
+		if(line.startsWith("@Nullable"))
+			line = extracted(line);
+		if(line.startsWith("@Override"))
+			line = extracted(line);
 		if(line.contains("throws ")) {
 			line = line.substring(0, line.indexOf("throws "));
+		}
+		return line;
+	}
+
+	private static String extracted(String line) {
+		{
+			line = line.substring(9, line.length());
+			line = line.trim();
 		}
 		return line;
 	}
