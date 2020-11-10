@@ -866,14 +866,10 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
 		SplitVariableReplacement splitToBeRemoved = null;
 		for(SplitVariableReplacement split : splitMap.keySet()) {
-			if(split.subsumes(newSplit)) {
-				splitMap.get(split).add(candidate);
-				return;
-			}
-			else if(split.equal(newSplit)) {
-				splitMap.get(split).add(candidate);
-				return;
-			}
+			if(split.subsumes(newSplit))
+				extracted(splitMap, candidate, split);
+			else if(split.equal(newSplit))
+				extracted(splitMap, candidate, split);
 			else if(split.commonBefore(newSplit)) {
 				splitToBeRemoved = split;
 				Set<String> splitVariables = new LinkedHashSet<String>();
@@ -900,6 +896,14 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<CandidateSplitVariableRefactoring> set = new LinkedHashSet<CandidateSplitVariableRefactoring>();
 		set.add(candidate);
 		splitMap.put(newSplit, set);
+	}
+
+	private void extracted(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
+			CandidateSplitVariableRefactoring candidate, SplitVariableReplacement split) {
+		{
+			splitMap.get(split).add(candidate);
+			return;
+		}
 	}
 
 	public UMLAttribute findAttributeInOriginalClass(String attributeName) {
