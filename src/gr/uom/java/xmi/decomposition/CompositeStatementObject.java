@@ -420,12 +420,17 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	@Override
 	public int statementCount() {
-		int count = 0;
-		if(!this.getString().equals("{"))
-			count++;
+		int count = extracted();
 		for(AbstractStatement statement : statementList) {
 			count += statement.statementCount();
 		}
+		return count;
+	}
+
+	private int extracted() {
+		int count = 0;
+		if(!this.getString().equals("{"))
+			count++;
 		return count;
 	}
 
