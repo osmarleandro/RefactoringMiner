@@ -263,28 +263,8 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		if(onlyArgumentsChanged(call, replacements)) {
 			List<String> updatedArguments1 = new ArrayList<String>(this.arguments);
 			Map<String, Set<Replacement>> commonVariableReplacementMap = new LinkedHashMap<String, Set<Replacement>>();
-			for(Replacement replacement : replacements) {
-				if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-					String key = replacement.getAfter();
-					if(commonVariableReplacementMap.containsKey(key)) {
-						commonVariableReplacementMap.get(key).add(replacement);
-						int index = updatedArguments1.indexOf(replacement.getBefore());
-						if(index != -1) {
-							updatedArguments1.remove(index);
-						}
-					}
-					else {
-						Set<Replacement> r = new LinkedHashSet<Replacement>();
-						r.add(replacement);
-						commonVariableReplacementMap.put(key, r);
-						int index = updatedArguments1.indexOf(replacement.getBefore());
-						if(index != -1) {
-							updatedArguments1.remove(index);
-							updatedArguments1.add(index, key);
-						}
-					}
-				}
-			}
+			for(Replacement replacement : replacements)
+				extracted(updatedArguments1, commonVariableReplacementMap, replacement);
 			if(updatedArguments1.equals(call.arguments)) {
 				for(String key : commonVariableReplacementMap.keySet()) {
 					Set<Replacement> r = commonVariableReplacementMap.get(key);
@@ -302,6 +282,32 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			}
 		}
 		return false;
+	}
+
+	private void extracted(List<String> updatedArguments1, Map<String, Set<Replacement>> commonVariableReplacementMap,
+			Replacement replacement) {
+		{
+			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
+				String key = replacement.getAfter();
+				if(commonVariableReplacementMap.containsKey(key)) {
+					commonVariableReplacementMap.get(key).add(replacement);
+					int index = updatedArguments1.indexOf(replacement.getBefore());
+					if(index != -1) {
+						updatedArguments1.remove(index);
+					}
+				}
+				else {
+					Set<Replacement> r = new LinkedHashSet<Replacement>();
+					r.add(replacement);
+					commonVariableReplacementMap.put(key, r);
+					int index = updatedArguments1.indexOf(replacement.getBefore());
+					if(index != -1) {
+						updatedArguments1.remove(index);
+						updatedArguments1.add(index, key);
+					}
+				}
+			}
+		}
 	}
 
 	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
