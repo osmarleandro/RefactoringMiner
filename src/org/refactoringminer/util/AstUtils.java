@@ -38,15 +38,20 @@ public class AstUtils {
 		//}
 		sb.append('(');
 		ITypeBinding[] parameters = binding.getParameterTypes();
-		for (int i = 0; i < parameters.length; i++) {
+		for (int i = 0; i < parameters.length; i++)
+			extracted(sb, parameters, i);
+		sb.append(')');
+		return sb.toString();
+	}
+
+	private static void extracted(StringBuilder sb, ITypeBinding[] parameters, int i) {
+		{
 			if (i > 0) {
 				sb.append(", ");
 			}
 			ITypeBinding type = parameters[i];
 			sb.append(type.getErasure().getName());
 		}
-		sb.append(')');
-		return sb.toString();
 	}
 
 	public static String getKeyFromFieldBinding(IVariableBinding binding) {
