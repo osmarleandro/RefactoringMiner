@@ -23,11 +23,11 @@ import gr.uom.java.xmi.diff.CandidateAttributeRefactoring;
 import gr.uom.java.xmi.diff.CandidateMergeVariableRefactoring;
 import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IUMLParameterDiff;
 import gr.uom.java.xmi.diff.StringDistance;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 import gr.uom.java.xmi.diff.UMLModelDiff;
 import gr.uom.java.xmi.diff.UMLOperationDiff;
-import gr.uom.java.xmi.diff.UMLParameterDiff;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -3101,7 +3101,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					Replacement matchingReplacement = null;
 					for(Replacement replacement : replacementInfo.getReplacements()) {
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
-							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+							for(IUMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 								if(parameterDiff.isNameChanged() &&
 										replacement.getBefore().equals(parameterDiff.getRemovedParameter().getName()) &&
 										replacement.getAfter().equals(parameterDiff.getAddedParameter().getName())) {

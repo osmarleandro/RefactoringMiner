@@ -30,6 +30,7 @@ import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IUMLParameterDiff;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
@@ -645,7 +646,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			Set<VariableDeclarationReplacement> keysToBeRemoved = new LinkedHashSet<VariableDeclarationReplacement>();
-			for(UMLParameterDiff parameterDiff : matchedParameterDiffs) {
+			for(IUMLParameterDiff parameterDiff : matchedParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
 					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
@@ -1103,7 +1104,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingParameterRenameInOperationDiff(MergeVariableRefactoring ref) {
 		if(operationDiff != null) {
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+			for(IUMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getMergedVariables().contains(parameterDiff.getRemovedParameter().getVariableDeclaration()) &&
 						ref.getNewVariable().equals(parameterDiff.getAddedParameter().getVariableDeclaration())) {
 					return true;
@@ -1116,7 +1117,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean existsConflictingParameterRenameInOperationDiff(SplitVariableRefactoring ref) {
 		if(operationDiff != null) {
-			for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
+			for(IUMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 				if(ref.getSplitVariables().contains(parameterDiff.getAddedParameter().getVariableDeclaration()) &&
 						ref.getOldVariable().equals(parameterDiff.getRemovedParameter().getVariableDeclaration())) {
 					return true;

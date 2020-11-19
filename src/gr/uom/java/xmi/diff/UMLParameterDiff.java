@@ -2,7 +2,7 @@ package gr.uom.java.xmi.diff;
 
 import gr.uom.java.xmi.UMLParameter;
 
-public class UMLParameterDiff {
+public class UMLParameterDiff implements IUMLParameterDiff {
 	private UMLParameter removedParameter;
 	private UMLParameter addedParameter;
 	private boolean typeChanged;
