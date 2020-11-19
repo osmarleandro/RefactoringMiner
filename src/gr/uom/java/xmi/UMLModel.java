@@ -37,7 +37,7 @@ public class UMLModel {
     	realizationList.add(umlRealization);
     }
 
-    public UMLClass getClass(UMLClass umlClassFromOtherModel) {
+    public UMLClass getClass(IUMLClass umlClassFromOtherModel) {
     	ListIterator<UMLClass> it = classList.listIterator();
         while(it.hasNext()) {
             UMLClass umlClass = it.next();

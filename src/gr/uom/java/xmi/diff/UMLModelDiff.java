@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLClass;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -261,13 +262,13 @@ public class UMLModelDiff {
 		   }
 		   else if(subclassDiff.getOldSuperclass() != null && subclassDiff.getNewSuperclass() != null &&
 				   !subclassDiff.getOldSuperclass().equals(subclassDiff.getNewSuperclass()) && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+			   IUMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   if(addedClass.getSuperclass() != null) {
 				   return checkInheritanceRelationship(addedClass.getSuperclass(), finalSuperclass, visitedClasses);
 			   }
 		   }
 		   else if(subclassDiff.getOldSuperclass() == null && subclassDiff.getNewSuperclass() != null && looksLikeAddedClass(subclassDiff.getNewSuperclass()) != null) {
-			   UMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
+			   IUMLClass addedClass = looksLikeAddedClass(subclassDiff.getNewSuperclass());
 			   return checkInheritanceRelationship(UMLType.extractTypeObject(addedClass.getName()), finalSuperclass, visitedClasses);
 		   }
 		   for(UMLType implementedInterface : subclassDiff.getAddedImplementedInterfaces()) {
@@ -281,7 +282,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   UMLClass addedClass = getAddedClass(subclass);
+	   IUMLClass addedClass = getAddedClass(subclass);
 	   if(addedClass == null) {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(subclass));
 	   }
@@ -296,7 +297,7 @@ public class UMLModelDiff {
 			   }
 		   }
 	   }
-	   UMLClass removedClass = getRemovedClass(subclass);
+	   IUMLClass removedClass = getRemovedClass(subclass);
 	   if(removedClass == null) {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(subclass));
 	   }
@@ -347,15 +348,15 @@ public class UMLModelDiff {
       return null;
    }
 
-   public UMLClass getRemovedClass(String className) {
-      for(UMLClass umlClass : removedClasses) {
+   public IUMLClass getRemovedClass(String className) {
+      for(IUMLClass umlClass : removedClasses) {
          if(umlClass.getName().equals(className))
             return umlClass;
       }
       return null;
    }
 
-   private String isRenamedClass(UMLClass umlClass) {
+   private String isRenamedClass(IUMLClass umlClass) {
       for(UMLClassRenameDiff renameDiff : classRenameDiffList) {
          if(renameDiff.getOriginalClass().equals(umlClass))
             return renameDiff.getRenamedClass().getName();
@@ -363,7 +364,7 @@ public class UMLModelDiff {
       return null;
    }
 
-   private String isMovedClass(UMLClass umlClass) {
+   private String isMovedClass(IUMLClass umlClass) {
       for(UMLClassMoveDiff moveDiff : classMoveDiffList) {
          if(moveDiff.getOriginalClass().equals(umlClass))
             return moveDiff.getMovedClass().getName();
@@ -472,7 +473,7 @@ public class UMLModelDiff {
 	   this.classMoveDiffList.removeAll(innerClassMoveDiffList);
    }
 
-   private boolean conflictingMoveOfTopLevelClass(UMLClass removedClass, UMLClass addedClass) {
+   private boolean conflictingMoveOfTopLevelClass(IUMLClass removedClass, IUMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   //check if classMoveDiffList contains already a move for the outer class to a different target
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
@@ -523,7 +524,7 @@ public class UMLModelDiff {
       this.classMoveDiffList.removeAll(innerClassMoveDiffList);
    }
 
-   private boolean innerClassWithTheSameName(UMLClass removedClass, UMLClass addedClass) {
+   private boolean innerClassWithTheSameName(IUMLClass removedClass, IUMLClass addedClass) {
 	   if(!removedClass.isTopLevel() && !addedClass.isTopLevel()) {
 		   String removedClassName = removedClass.getName();
 		   String removedName = removedClassName.substring(removedClassName.lastIndexOf(".")+1, removedClassName.length());
@@ -795,7 +796,7 @@ public class UMLModelDiff {
 	   if(classDiff != null) {
 		   return classDiff.nextClassImportsType(targetClassName) || classDiff.originalClassImportsType(targetClassName);
 	   }
-	   UMLClass removedClass = getRemovedClass(sourceClassName);
+	   IUMLClass removedClass = getRemovedClass(sourceClassName);
 	   if(removedClass == null) {
 		   removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(sourceClassName));
 	   }
@@ -813,7 +814,7 @@ public class UMLModelDiff {
 	   if(classDiff != null) {
 		   return classDiff.originalClassImportsType(sourceClassName) || classDiff.nextClassImportsType(sourceClassName);
 	   }
-	   UMLClass addedClass = getAddedClass(targetClassName);
+	   IUMLClass addedClass = getAddedClass(targetClassName);
 	   if(addedClass == null) {
 		   addedClass = looksLikeAddedClass(UMLType.extractTypeObject(targetClassName));
 	   }
@@ -995,7 +996,7 @@ public class UMLModelDiff {
 	   return refactorings;
    }
 
-   private UMLAttribute attributeOfExtractedClassType(UMLClass umlClass, UMLClassBaseDiff classDiff) {
+   private UMLAttribute attributeOfExtractedClassType(IUMLClass umlClass, UMLClassBaseDiff classDiff) {
 	   List<UMLAttribute> addedAttributes = classDiff.getAddedAttributes();
 	   for(UMLAttribute addedAttribute : addedAttributes) {
 		   if(umlClass.getName().endsWith("." + addedAttribute.getType().getClassType())) {
@@ -1144,7 +1145,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private boolean topLevelOrSameOuterClass(UMLClass class1, UMLClass class2) {
+   private boolean topLevelOrSameOuterClass(IUMLClass class1, IUMLClass class2) {
 	   if(!class1.isTopLevel() && !class2.isTopLevel()) {
 		   return class1.getPackageName().equals(class2.getPackageName());
 	   }
@@ -2023,11 +2024,11 @@ public class UMLModelDiff {
 
    private void checkForOperationMovesBetweenRemovedAndAddedClasses() throws RefactoringMinerTimedOutException {
 	   Set<UMLType> interfacesImplementedByAddedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass addedClass : addedClasses) {
+	   for(IUMLClass addedClass : addedClasses) {
 		   interfacesImplementedByAddedClasses.addAll(addedClass.getImplementedInterfaces());
 	   }
 	   Set<UMLType> interfacesImplementedByRemovedClasses = new LinkedHashSet<UMLType>();
-	   for(UMLClass removedClass : removedClasses) {
+	   for(IUMLClass removedClass : removedClasses) {
 		   interfacesImplementedByRemovedClasses.addAll(removedClass.getImplementedInterfaces());
 	   }
 	   Set<UMLType> interfaceIntersection = new LinkedHashSet<UMLType>(interfacesImplementedByAddedClasses);
@@ -2049,7 +2050,7 @@ public class UMLModelDiff {
 	   }
    }
 
-   private boolean outerClassMovedOrRenamed(UMLClass umlClass) {
+   private boolean outerClassMovedOrRenamed(IUMLClass umlClass) {
 	   if(!umlClass.isTopLevel()) {
 		   for(UMLClassMoveDiff diff : classMoveDiffList) {
 			   if(diff.getOriginalClass().getName().equals(umlClass.getPackageName()) ||

@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider {
+public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, Serializable, LocationInfoProvider, IUMLClass {
 	private String qualifiedName;
     private String sourceFile;
     private String sourceFolder;
@@ -341,7 +341,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 		return false;
 	}
 
-	public boolean isSubTypeOf(UMLClass umlClass) {
+	public boolean isSubTypeOf(IUMLClass umlClass) {
 		if(superclass != null) {
 			if(umlClass.getName().endsWith("." + superclass.getClassType())) {
 				return true;

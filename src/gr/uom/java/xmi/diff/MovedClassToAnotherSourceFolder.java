@@ -2,16 +2,16 @@ package gr.uom.java.xmi.diff;
 
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-import gr.uom.java.xmi.UMLClass;
+import gr.uom.java.xmi.IUMLClass;
 
 public class MovedClassToAnotherSourceFolder {
 	//private String className;
-	private UMLClass originalClass;
-	private UMLClass movedClass;
+	private IUMLClass originalClass;
+	private IUMLClass movedClass;
 	private String originalPath;
 	private String movedPath;
 
-	public MovedClassToAnotherSourceFolder(UMLClass originalClass, UMLClass movedClass,
+	public MovedClassToAnotherSourceFolder(IUMLClass originalClass, IUMLClass movedClass,
 			String originalPath, String movedPath) {
 		this.originalClass = originalClass;
 		this.movedClass = movedClass;
@@ -27,11 +27,11 @@ public class MovedClassToAnotherSourceFolder {
 		return movedClass.getName();
 	}
 
-	public UMLClass getOriginalClass() {
+	public IUMLClass getOriginalClass() {
 		return originalClass;
 	}
 
-	public UMLClass getMovedClass() {
+	public IUMLClass getMovedClass() {
 		return movedClass;
 	}
 
