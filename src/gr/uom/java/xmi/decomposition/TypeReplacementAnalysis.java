@@ -9,7 +9,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 
-public class TypeReplacementAnalysis {
+public class TypeReplacementAnalysis implements ITypeReplacementAnalysis {
 	private Set<AbstractCodeMapping> mappings;
 	private Set<ChangeVariableTypeRefactoring> changedTypes = new LinkedHashSet<ChangeVariableTypeRefactoring>();
 
