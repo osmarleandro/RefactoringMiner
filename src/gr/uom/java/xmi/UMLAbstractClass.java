@@ -11,7 +11,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public abstract class UMLAbstractClass {
+public abstract class UMLAbstractClass implements IUMLAbstractClass {
 	protected LocationInfo locationInfo;
 	protected String packageName;
 	protected String name;
