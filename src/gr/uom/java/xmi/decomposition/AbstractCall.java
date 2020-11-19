@@ -16,7 +16,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import static gr.uom.java.xmi.diff.UMLClassBaseDiff.allMappingsAreExactMatches;
 
-public abstract class AbstractCall implements LocationInfoProvider {
+public abstract class AbstractCall implements LocationInfoProvider, IAbstractCall {
 	protected int typeArguments;
 	protected String expression;
 	protected List<String> arguments;
@@ -39,9 +39,9 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return coverage;
 	}
 
-	public abstract boolean identicalName(AbstractCall call);
+	public abstract boolean identicalName(IAbstractCall call);
 	public abstract String getName();
-	public abstract double normalizedNameDistance(AbstractCall call);
+	public abstract double normalizedNameDistance(IAbstractCall call);
 	public abstract AbstractCall update(String oldExpression, String newExpression);
 
 	public String actualString() {
@@ -71,18 +71,18 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalExpression(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalExpression(IAbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call) ||
 		identicalExpressionAfterTypeReplacements(call, replacements);
 	}
 
-	public boolean identicalExpression(AbstractCall call) {
+	public boolean identicalExpression(IAbstractCall call) {
 		return (getExpression() != null && call.getExpression() != null &&
 				getExpression().equals(call.getExpression())) ||
 				(getExpression() == null && call.getExpression() == null);
 	}
 
-	private boolean identicalExpressionAfterTypeReplacements(AbstractCall call, Set<Replacement> replacements) {
+	private boolean identicalExpressionAfterTypeReplacements(IAbstractCall call, Set<Replacement> replacements) {
 		if(getExpression() != null && call.getExpression() != null) {
 			String expression1 = getExpression();
 			String expression2 = call.getExpression();
@@ -99,11 +99,11 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean equalArguments(AbstractCall call) {
+	public boolean equalArguments(IAbstractCall call) {
 		return getArguments().equals(call.getArguments());
 	}
 
-	public boolean identicalOrReplacedArguments(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identicalOrReplacedArguments(IAbstractCall call, Set<Replacement> replacements) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -124,7 +124,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean identicalOrConcatenatedArguments(AbstractCall call) {
+	public boolean identicalOrConcatenatedArguments(IAbstractCall call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -150,7 +150,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean identicalOrWrappedArguments(AbstractCall call) {
+	public boolean identicalOrWrappedArguments(IAbstractCall call) {
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
 		if(arguments1.size() != arguments2.size())
@@ -169,7 +169,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return true;
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements) {
+	public boolean allArgumentsReplaced(IAbstractCall call, Set<Replacement> replacements) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
@@ -188,7 +188,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean allArgumentsReplaced(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+	public boolean allArgumentsReplaced(IAbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		int replacedArguments = 0;
 		List<String> arguments1 = getArguments();
 		List<String> arguments2 = call.getArguments();
@@ -208,7 +208,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return replacedArguments > 0 && replacedArguments == arguments1.size();
 	}
 
-	public boolean renamedWithIdenticalExpressionAndArguments(AbstractCall call, Set<Replacement> replacements, double distance) {
+	public boolean renamedWithIdenticalExpressionAndArguments(IAbstractCall call, Set<Replacement> replacements, double distance) {
 		boolean identicalOrReplacedArguments = identicalOrReplacedArguments(call, replacements);
 		boolean allArgumentsReplaced = allArgumentsReplaced(call, replacements);
 		return getExpression() != null && call.getExpression() != null &&
@@ -217,13 +217,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				(equalArguments(call) || (allArgumentsReplaced && normalizedNameDistance(call) <= distance) || (identicalOrReplacedArguments && !allArgumentsReplaced));
 	}
 
-	public boolean renamedWithDifferentExpressionAndIdenticalArguments(AbstractCall call) {
+	public boolean renamedWithDifferentExpressionAndIdenticalArguments(IAbstractCall call) {
 		return (this.getName().contains(call.getName()) || call.getName().contains(this.getName())) &&
 				equalArguments(call) && this.arguments.size() > 0 &&
 				((this.getExpression() == null && call.getExpression() != null) || (call.getExpression() == null && this.getExpression() != null));
 	}
 
-	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalArgumentsAndNoExpression(IAbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
@@ -237,7 +237,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				equalArguments(call);
 	}
 
-	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
+	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(IAbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
 		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
@@ -252,7 +252,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 				getArguments().size() != call.getArguments().size();
 	}
 
-	private boolean onlyArgumentsChanged(AbstractCall call, Set<Replacement> replacements) {
+	private boolean onlyArgumentsChanged(IAbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				!equalArguments(call) &&
@@ -304,7 +304,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identicalWithDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
+	public boolean identicalWithDifferentNumberOfArguments(IAbstractCall call, Set<Replacement> replacements, Map<String, String> parameterToArgumentMap) {
 		if(onlyArgumentsChanged(call, replacements)) {
 			int argumentIntersectionSize = argumentIntersectionSize(call, parameterToArgumentMap);
 			if(argumentIntersectionSize > 0 || getArguments().size() == 0 || call.getArguments().size() == 0) {
@@ -314,13 +314,13 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return false;
 	}
 
-	public boolean identical(AbstractCall call, Set<Replacement> replacements) {
+	public boolean identical(IAbstractCall call, Set<Replacement> replacements) {
 		return identicalExpression(call, replacements) &&
 				identicalName(call) &&
 				equalArguments(call);
 	}
 
-	public Set<String> argumentIntersection(AbstractCall call) {
+	public Set<String> argumentIntersection(IAbstractCall call) {
 		List<String> args1 = preprocessArguments(getArguments());
 		List<String> args2 = preprocessArguments(call.getArguments());
 		Set<String> argumentIntersection = new LinkedHashSet<String>(args1);
@@ -341,7 +341,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 		return args;
 	}
 
-	private int argumentIntersectionSize(AbstractCall call, Map<String, String> parameterToArgumentMap) {
+	private int argumentIntersectionSize(IAbstractCall call, Map<String, String> parameterToArgumentMap) {
 		Set<String> argumentIntersection = argumentIntersection(call);
 		int argumentIntersectionSize = argumentIntersection.size();
 		for(String parameter : parameterToArgumentMap.keySet()) {

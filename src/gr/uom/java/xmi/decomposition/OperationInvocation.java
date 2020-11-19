@@ -391,7 +391,7 @@ public class OperationInvocation extends AbstractCall {
 		return openingParenthesisFound && closingParenthesisFound;
 	}
 
-	public double normalizedNameDistance(AbstractCall call) {
+	public double normalizedNameDistance(IAbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
 		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -434,7 +434,7 @@ public class OperationInvocation extends AbstractCall {
     	return hashCode;
     }
 
-	public boolean identicalName(AbstractCall call) {
+	public boolean identicalName(IAbstractCall call) {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 

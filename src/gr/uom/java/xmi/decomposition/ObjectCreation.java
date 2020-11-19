@@ -128,7 +128,7 @@ public class ObjectCreation extends AbstractCall {
     	return false;
     }
 
-	public double normalizedNameDistance(AbstractCall call) {
+	public double normalizedNameDistance(IAbstractCall call) {
 		String s1 = getType().toString().toLowerCase();
 		String s2 = ((ObjectCreation)call).getType().toString().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -136,7 +136,7 @@ public class ObjectCreation extends AbstractCall {
 		return normalized;
 	}
 
-	public boolean identicalName(AbstractCall call) {
+	public boolean identicalName(IAbstractCall call) {
 		return getType().equals(((ObjectCreation)call).getType());
 	}
 }
