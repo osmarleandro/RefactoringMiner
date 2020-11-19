@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.decomposition.ObjectCreation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
-public class MethodInvocationWithClassInstanceCreationReplacement extends Replacement {
+public class MethodInvocationWithClassInstanceCreationReplacement extends Replacement implements IMethodInvocationWithClassInstanceCreationReplacement {
 	private OperationInvocation invokedOperationBefore;
 	private ObjectCreation objectCreationAfter;
 	
