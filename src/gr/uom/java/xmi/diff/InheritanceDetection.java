@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLGeneralization;
 import gr.uom.java.xmi.UMLGeneralization;
 import gr.uom.java.xmi.UMLRealization;
 
@@ -31,7 +32,7 @@ public class InheritanceDetection {
 
 	private void generateNewInheritanceHierarchies(UMLModelDiff modelDiff) {
 		List<UMLGeneralization> addedGeneralizations = modelDiff.getAddedGeneralizations();
-		for(UMLGeneralization generalization : addedGeneralizations) {
+		for(IUMLGeneralization generalization : addedGeneralizations) {
 			String superclass = generalization.getParent();
 			String subclass = generalization.getChild().getName();
 			if(modelDiff.getAddedClass(superclass) != null && modelDiff.getAddedClass(subclass) != null)

@@ -59,10 +59,10 @@ public class UMLModel {
 		return realizationList;
 	}
 
-	public UMLGeneralization matchGeneralization(UMLGeneralization otherGeneralization) {
+	public IUMLGeneralization matchGeneralization(IUMLGeneralization otherGeneralization) {
     	ListIterator<UMLGeneralization> generalizationIt = generalizationList.listIterator();
     	while(generalizationIt.hasNext()) {
-    		UMLGeneralization generalization = generalizationIt.next();
+    		IUMLGeneralization generalization = generalizationIt.next();
     		if(generalization.getChild().equals(otherGeneralization.getChild())) {
     			String thisParent = generalization.getParent();
     			String otherParent = otherGeneralization.getParent();

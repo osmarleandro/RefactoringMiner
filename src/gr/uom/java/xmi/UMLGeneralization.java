@@ -1,6 +1,6 @@
 package gr.uom.java.xmi;
 
-public class UMLGeneralization implements Comparable<UMLGeneralization> {
+public class UMLGeneralization implements Comparable<UMLGeneralization>, IUMLGeneralization {
     private UMLClass child;
     private String parent;
 

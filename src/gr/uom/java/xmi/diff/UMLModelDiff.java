@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLGeneralization;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -1034,12 +1035,12 @@ public class UMLModelDiff {
       for(UMLClass addedClass : addedClasses) {
          Set<UMLClass> subclassSet = new LinkedHashSet<UMLClass>();
          String addedClassName = addedClass.getName();
-         for(UMLGeneralization addedGeneralization : addedGeneralizations) {
+         for(IUMLGeneralization addedGeneralization : addedGeneralizations) {
         	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
          }
          for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
-        	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
-        	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
+        	 IUMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
+        	 IUMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
         		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
         	 }
@@ -1070,7 +1071,7 @@ public class UMLModelDiff {
       return refactorings;
    }
 
-   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, UMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
+   private void processAddedGeneralization(UMLClass addedClass, Set<UMLClass> subclassSet, IUMLGeneralization addedGeneralization) throws RefactoringMinerTimedOutException {
 	   String parent = addedGeneralization.getParent();
 	   UMLClass subclass = addedGeneralization.getChild();
 	   if(looksLikeSameType(parent, addedClass.getName()) && topLevelOrSameOuterClass(addedClass, subclass) && getAddedClass(subclass.getName()) == null) {
