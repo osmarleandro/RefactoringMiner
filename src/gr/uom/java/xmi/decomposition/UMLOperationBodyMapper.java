@@ -3973,13 +3973,13 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int thisCallChainIntersectionSum = 0;
 		for(AbstractCodeMapping mapping : this.mappings) {
 			if(mapping instanceof LeafMapping) {
-				thisCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
+				thisCallChainIntersectionSum += ((ILeafMapping)mapping).callChainIntersection().size();
 			}
 		}
 		int otherCallChainIntersectionSum = 0;
 		for(AbstractCodeMapping mapping : operationBodyMapper.mappings) {
 			if(mapping instanceof LeafMapping) {
-				otherCallChainIntersectionSum += ((LeafMapping)mapping).callChainIntersection().size();
+				otherCallChainIntersectionSum += ((ILeafMapping)mapping).callChainIntersection().size();
 			}
 		}
 		if(thisCallChainIntersectionSum != otherCallChainIntersectionSum) {
