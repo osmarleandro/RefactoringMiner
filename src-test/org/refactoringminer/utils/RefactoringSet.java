@@ -95,7 +95,7 @@ public class RefactoringSet {
 
     public void printSourceCode(PrintStream pw) {
         pw.printf("new RefactoringSet(\"%s\", \"%s\")", project, revision);
-        for (RefactoringRelationship r : refactorings) {
+        for (IRefactoringRelationship r : refactorings) {
             pw.printf("\n    .add(RefactoringType.%s, \"%s\", \"%s\")", r.getRefactoringType().toString(), r.getEntityBefore(), r.getEntityAfter());
         }
         pw.println(";");
@@ -103,7 +103,7 @@ public class RefactoringSet {
 
     public void saveToFile(File file) {
         try (PrintStream pw = new PrintStream(file)) {
-            for (RefactoringRelationship r : refactorings) {
+            for (IRefactoringRelationship r : refactorings) {
                 pw.printf("%s\t%s\t%s\n", r.getRefactoringType().getDisplayName(), r.getEntityBefore(), r.getEntityAfter());
             }
         } catch (FileNotFoundException e) {

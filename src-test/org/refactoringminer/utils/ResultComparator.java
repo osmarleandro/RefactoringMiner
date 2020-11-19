@@ -99,7 +99,7 @@ public class ResultComparator {
                 Set<RefactoringRelationship> expectedRefactorings = expected.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
                 Set<RefactoringRelationship> actualRefactorings = actual.ignoring(ignore).ignoringMethodParameters(ignoreMethodParams).getRefactorings();
                 Set<RefactoringRelationship> expectedUnfiltered = expected.ignoringMethodParameters(ignoreMethodParams).getRefactorings();
-                for (RefactoringRelationship r : actualRefactorings) {
+                for (IRefactoringRelationship r : actualRefactorings) {
                     if (expectedRefactorings.contains(r)) {
                         truePositives.add(r);
                         expectedRefactorings.remove(r);
@@ -171,7 +171,7 @@ public class ResultComparator {
                 ArrayList<RefactoringRelationship> allList = new ArrayList<>();
                 allList.addAll(all);
                 Collections.sort(allList);
-                for (RefactoringRelationship r : allList) {
+                for (IRefactoringRelationship r : allList) {
                     out.print(r.toString());
                     for (String groupId : groupIds) {
                         RefactoringSet actual = resultMap.get(getResultId(expected.getProject(), expected.getRevision(), groupId));
@@ -221,7 +221,7 @@ public class ResultComparator {
         out.println();
     }
 
-    private boolean isPullUpToExtractedSupertype(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
+    private boolean isPullUpToExtractedSupertype(IRefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.PULL_UP_ATTRIBUTE || r.getRefactoringType() == RefactoringType.PULL_UP_OPERATION) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.EXTRACT_SUPERCLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
@@ -233,7 +233,7 @@ public class ResultComparator {
         return false;
     }
 
-    private boolean isMoveToRenamedType(RefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
+    private boolean isMoveToRenamedType(IRefactoringRelationship r, Set<RefactoringRelationship> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.RENAME_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;
@@ -245,7 +245,7 @@ public class ResultComparator {
         return false;
     }
     
-    private boolean isMoveToMovedType(RefactoringRelationship r, Set<?> expectedUnfiltered) {
+    private boolean isMoveToMovedType(IRefactoringRelationship r, Set<?> expectedUnfiltered) {
         if (r.getRefactoringType() == RefactoringType.MOVE_OPERATION || r.getRefactoringType() == RefactoringType.MOVE_ATTRIBUTE) {
             if (expectedUnfiltered.contains(new RefactoringRelationship(RefactoringType.MOVE_CLASS, parentOf(r.getEntityBefore()), parentOf(r.getEntityAfter())))) {
                 return true;

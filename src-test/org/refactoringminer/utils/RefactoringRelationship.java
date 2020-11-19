@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringRelationship implements Comparable<RefactoringRelationship> {
+public class RefactoringRelationship implements Comparable<RefactoringRelationship>, IRefactoringRelationship {
 
   private static final EnumSet<RefactoringType> typesWithMainEntityAfter = EnumSet.of(
     RefactoringType.EXTRACT_AND_MOVE_OPERATION,
