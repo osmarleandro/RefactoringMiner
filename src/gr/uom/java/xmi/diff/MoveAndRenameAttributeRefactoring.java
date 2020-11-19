@@ -8,7 +8,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLAttribute;
 
-public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring {
+public class MoveAndRenameAttributeRefactoring extends MoveAttributeRefactoring implements IMoveAndRenameAttributeRefactoring {
 	private Set<CandidateAttributeRefactoring> attributeRenames;
 	
 	public MoveAndRenameAttributeRefactoring(UMLAttribute originalAttribute, UMLAttribute movedAttribute,
