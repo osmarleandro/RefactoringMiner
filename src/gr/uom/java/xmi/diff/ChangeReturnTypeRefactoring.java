@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class ChangeReturnTypeRefactoring implements Refactoring {
+public class ChangeReturnTypeRefactoring implements Refactoring, IChangeReturnTypeRefactoring {
 	private UMLType originalType;
 	private UMLType changedType;
 	private UMLOperation operationBefore;
