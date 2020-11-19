@@ -10,7 +10,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
-public class LambdaExpressionObject implements LocationInfoProvider {
+public class LambdaExpressionObject implements LocationInfoProvider, ILambdaExpressionObject {
 	private LocationInfo locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;

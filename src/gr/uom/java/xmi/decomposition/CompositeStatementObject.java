@@ -319,7 +319,7 @@ public class CompositeStatementObject extends AbstractStatement {
 						map.put(key, list);
 					}
 				}
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(ILambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
 						Map<String, List<OperationInvocation>> lambdaMap = lambda.getBody().getCompositeStatement().getAllMethodInvocations();
 						for(String key : lambdaMap.keySet()) {
@@ -398,7 +398,7 @@ public class CompositeStatementObject extends AbstractStatement {
 			else if(statement instanceof StatementObject) {
 				StatementObject statementObject = (StatementObject)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
-				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
+				for(ILambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
 						variableDeclarations.addAll(lambda.getBody().getAllVariableDeclarations());
 					}
