@@ -11,9 +11,9 @@ import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
-import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IAbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -97,7 +97,7 @@ public class ExtractOperationDetection {
 						//add back to mapper non-exact matches
 						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
-								AbstractCodeFragment fragment1 = mapping.getFragment1();
+								IAbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
 									if(!mapper.getNonMappedLeavesT1().contains(fragment1)) {
 										mapper.getNonMappedLeavesT1().add((StatementObject)fragment1);

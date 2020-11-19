@@ -153,7 +153,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void temporaryVariableAssignment(AbstractCodeFragment statement,
+	public void temporaryVariableAssignment(IAbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings, UMLClassBaseDiff classDiff) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			String variableName = declaration.getVariableName();
@@ -236,7 +236,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	public void inlinedVariableAssignment(AbstractCodeFragment statement,
+	public void inlinedVariableAssignment(IAbstractCodeFragment statement,
 			List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
 			for(Replacement replacement : getReplacements()) {
@@ -404,7 +404,7 @@ public abstract class AbstractCodeMapping {
 				longestCommonPrefix.length() + longestCommonSuffix.length() < initializer.toString().length()) {
 			String s1 = input.substring(longestCommonPrefix.length(), input.lastIndexOf(longestCommonSuffix));
 			String s2 = initializer.toString().substring(longestCommonPrefix.length(), initializer.toString().lastIndexOf(longestCommonSuffix));
-			for(AbstractCodeFragment statement : nonMappedLeavesT2) {
+			for(IAbstractCodeFragment statement : nonMappedLeavesT2) {
 				VariableDeclaration variable = statement.getVariableDeclaration(s2);
 				if(variable != null) {
 					if(variable.getInitializer() != null && variable.getInitializer().toString().equals(s1)) {
