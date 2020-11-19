@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UMLTypeParameter {
+public class UMLTypeParameter implements IUMLTypeParameter {
 	private String name;
 	private List<UMLType> typeBounds;
 	private List<UMLAnnotation> annotations;

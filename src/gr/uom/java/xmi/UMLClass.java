@@ -83,7 +83,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 
     public List<String> getTypeParameterNames() {
     	List<String> typeParameterNames = new ArrayList<String>();
-		for(UMLTypeParameter typeParameter : typeParameters) {
+		for(IUMLTypeParameter typeParameter : typeParameters) {
 			typeParameterNames.add(typeParameter.getName());
 		}
 		return typeParameterNames;
