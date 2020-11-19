@@ -2,7 +2,7 @@ package gr.uom.java.xmi.diff;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
-public class StringDistance {
+public class StringDistance implements IStringDistance {
 	
 	public static int editDistance(String a, String b, int threshold) {
 		return new LevenshteinDistance(threshold).apply(a, b);
