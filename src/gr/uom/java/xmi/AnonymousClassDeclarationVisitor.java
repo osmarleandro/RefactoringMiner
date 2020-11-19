@@ -6,7 +6,7 @@ import java.util.Set;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 
-public class AnonymousClassDeclarationVisitor extends ASTVisitor {
+public class AnonymousClassDeclarationVisitor extends ASTVisitor implements IAnonymousClassDeclarationVisitor {
 
 	private Set<AnonymousClassDeclaration> anonymousClassDeclarations = new LinkedHashSet<AnonymousClassDeclaration>();
 	public boolean visit(AnonymousClassDeclaration node) {
