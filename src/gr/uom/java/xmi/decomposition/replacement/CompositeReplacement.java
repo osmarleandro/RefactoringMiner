@@ -4,7 +4,7 @@ import java.util.Set;
 
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 
-public class CompositeReplacement extends Replacement {
+public class CompositeReplacement extends Replacement implements ICompositeReplacement {
 	private Set<AbstractCodeFragment> additionallyMatchedStatements1;
 	private Set<AbstractCodeFragment> additionallyMatchedStatements2;
 	
