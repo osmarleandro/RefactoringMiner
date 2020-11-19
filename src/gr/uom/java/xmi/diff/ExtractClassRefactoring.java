@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.IUMLAttribute;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
@@ -18,10 +19,10 @@ public class ExtractClassRefactoring implements Refactoring {
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
 	private Set<UMLAttribute> extractedAttributes;
-	private UMLAttribute attributeOfExtractedClassTypeInOriginalClass;
+	private IUMLAttribute attributeOfExtractedClassTypeInOriginalClass;
 
 	public ExtractClassRefactoring(UMLClass extractedClass, UMLClassBaseDiff classDiff,
-			Set<UMLOperation> extractedOperations, Set<UMLAttribute> extractedAttributes, UMLAttribute attributeOfExtractedClassType) {
+			Set<UMLOperation> extractedOperations, Set<UMLAttribute> extractedAttributes, IUMLAttribute attributeOfExtractedClassType) {
 		this.extractedClass = extractedClass;
 		this.classDiff = classDiff;
 		this.extractedOperations = extractedOperations;
@@ -64,7 +65,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return extractedAttributes;
 	}
 
-	public UMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
+	public IUMLAttribute getAttributeOfExtractedClassTypeInOriginalClass() {
 		return attributeOfExtractedClassTypeInOriginalClass;
 	}
 

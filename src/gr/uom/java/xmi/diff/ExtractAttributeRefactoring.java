@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.IUMLAttribute;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -38,7 +39,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public UMLAttribute getVariableDeclaration() {
+	public IUMLAttribute getVariableDeclaration() {
 		return attributeDeclaration;
 	}
 

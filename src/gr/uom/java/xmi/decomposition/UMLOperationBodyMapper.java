@@ -5,6 +5,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.IUMLAttribute;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
@@ -3194,7 +3195,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							splitVariables.add(matchingReplacement.getAfter());
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(IUMLAttribute attribute : matchingAttributes) {
 								splitVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {
@@ -3213,7 +3214,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							Set<String> addedVariables = new LinkedHashSet<String>();
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(IUMLAttribute attribute : matchingAttributes) {
 								addedVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {
@@ -3231,7 +3232,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 							Set<String> splitVariables = new LinkedHashSet<String>();
 							StringBuilder concat = new StringBuilder();
 							int counter = 0;
-							for(UMLAttribute attribute : matchingAttributes) {
+							for(IUMLAttribute attribute : matchingAttributes) {
 								splitVariables.add(attribute.getName());
 								concat.append(attribute.getName());
 								if(counter < matchingAttributes.size()-1) {

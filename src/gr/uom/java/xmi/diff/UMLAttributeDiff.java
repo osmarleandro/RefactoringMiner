@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 
+import gr.uom.java.xmi.IUMLAttribute;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -47,11 +48,11 @@ public class UMLAttributeDiff {
 		this.annotationListDiff = new UMLAnnotationListDiff(removedAttribute.getAnnotations(), addedAttribute.getAnnotations());
 	}
 
-	public UMLAttribute getRemovedAttribute() {
+	public IUMLAttribute getRemovedAttribute() {
 		return removedAttribute;
 	}
 
-	public UMLAttribute getAddedAttribute() {
+	public IUMLAttribute getAddedAttribute() {
 		return addedAttribute;
 	}
 

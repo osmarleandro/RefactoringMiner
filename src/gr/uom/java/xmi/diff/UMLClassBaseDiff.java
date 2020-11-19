@@ -14,6 +14,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
+import gr.uom.java.xmi.IUMLAttribute;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -205,7 +206,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
     	}
 	}
 
-	private boolean attributeDiffListContainsAttribute(UMLAttribute attribute1, UMLAttribute attribute2) {
+	private boolean attributeDiffListContainsAttribute(IUMLAttribute attribute1, IUMLAttribute attribute2) {
 		for(UMLAttributeDiff diff : attributeDiffList) {
 			if(diff.getRemovedAttribute().equals(attribute1) || diff.getAddedAttribute().equals(attribute2))
 				return true;
@@ -1631,11 +1632,11 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			sb.append("operation " + umlOperation + " added").append("\n");
 		}
 		Collections.sort(removedAttributes);
-		for(UMLAttribute umlAttribute : removedAttributes) {
+		for(IUMLAttribute umlAttribute : removedAttributes) {
 			sb.append("attribute " + umlAttribute + " removed").append("\n");
 		}
 		Collections.sort(addedAttributes);
-		for(UMLAttribute umlAttribute : addedAttributes) {
+		for(IUMLAttribute umlAttribute : addedAttributes) {
 			sb.append("attribute " + umlAttribute + " added").append("\n");
 		}
 		for(UMLOperationDiff operationDiff : operationDiffList) {
