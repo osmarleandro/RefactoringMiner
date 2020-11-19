@@ -6,7 +6,7 @@ import java.util.List;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class UMLParameter implements Serializable, VariableDeclarationProvider {
+public class UMLParameter implements Serializable, VariableDeclarationProvider, IUMLParameter {
 	private String name;
 	private UMLType type;
 	private String kind;

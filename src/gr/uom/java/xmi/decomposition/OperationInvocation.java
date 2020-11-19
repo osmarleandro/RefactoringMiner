@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import gr.uom.java.xmi.IUMLParameter;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
@@ -218,7 +219,7 @@ public class OperationInvocation extends AbstractCall {
     		}
     	}
     	int i=0;
-    	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
+    	for(IUMLParameter parameter : operation.getParametersWithoutReturnType()) {
     		UMLType parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -232,7 +233,7 @@ public class OperationInvocation extends AbstractCall {
     	return this.methodName.equals(operation.getName()) && (this.typeArguments == operation.getParameterTypeList().size() || varArgsMatch(operation));
     }
 
-    private boolean compatibleTypes(UMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
+    private boolean compatibleTypes(IUMLParameter parameter, UMLType type, UMLModelDiff modelDiff) {
     	String type1 = parameter.getType().toString();
     	String type2 = type.toString();
     	if(type1.equals("Throwable") && type2.endsWith("Exception"))
@@ -456,7 +457,7 @@ public class OperationInvocation extends AbstractCall {
 			}
 			else {
 				int i = 0;
-				for(UMLParameter parameter : parameters) {
+				for(IUMLParameter parameter : parameters) {
 					String argument = getArguments().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
 						UMLType argumentType = typeInferenceMapFromContext.get(argument);

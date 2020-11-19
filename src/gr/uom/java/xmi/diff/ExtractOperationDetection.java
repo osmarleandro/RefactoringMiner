@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
+import gr.uom.java.xmi.IUMLParameter;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -287,8 +288,8 @@ public class ExtractOperationDetection {
 	}
 
 	private boolean parameterTypesMatch(Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters) {
-		for(UMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
-			UMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
+		for(IUMLParameter key : originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.keySet()) {
+			IUMLParameter value = originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters.get(key);
 			if(!key.getType().equals(value.getType()) && !key.getType().equalsWithSubType(value.getType()) &&
 					!modelDiff.isSubclassOf(key.getType().getClassType(), value.getType().getClassType())) {
 				return false;

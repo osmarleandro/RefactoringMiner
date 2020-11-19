@@ -13,6 +13,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
+import gr.uom.java.xmi.IUMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
@@ -526,7 +527,7 @@ public class VariableReplacementAnalysis {
 				String value1 = fragment1.substring(fragment1.indexOf("=")+1, fragment1.lastIndexOf(";\n"));
 				String value2 = fragment2.substring(fragment2.indexOf("=")+1, fragment2.lastIndexOf(";\n"));
 				if(operation1.getParameterNameList().contains(value1) && operation2.getParameterNameList().contains(value1) && operationDiff != null) {
-					for(UMLParameter addedParameter : operationDiff.getAddedParameters()) {
+					for(IUMLParameter addedParameter : operationDiff.getAddedParameters()) {
 						if(addedParameter.getName().equals(value2)) {
 							return true;
 						}

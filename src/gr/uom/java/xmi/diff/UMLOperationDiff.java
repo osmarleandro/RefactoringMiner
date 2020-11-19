@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLParameter;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
@@ -118,11 +119,11 @@ public class UMLOperationDiff {
 		this.mappings = mappings;
 	}
 
-	private boolean existsAnotherAddedParameterWithTheSameType(UMLParameter parameter) {
+	private boolean existsAnotherAddedParameterWithTheSameType(IUMLParameter parameter) {
 		if(removedOperation.hasTwoParametersWithTheSameType() && addedOperation.hasTwoParametersWithTheSameType()) {
 			return false;
 		}
-		for(UMLParameter addedParameter : addedParameters) {
+		for(IUMLParameter addedParameter : addedParameters) {
 			if(!addedParameter.getName().equals(parameter.getName()) &&
 					addedParameter.getType().equalsQualified(parameter.getType())) {
 				return true;
@@ -208,10 +209,10 @@ public class UMLOperationDiff {
 					(addedOperation.isAbstract() ? "abstract" : "concrete")).append("\n");
 		if(returnTypeChanged || qualifiedReturnTypeChanged)
 			sb.append("\t").append("return type changed from " + removedOperation.getReturnParameter() + " to " + addedOperation.getReturnParameter()).append("\n");
-		for(UMLParameter umlParameter : removedParameters) {
+		for(IUMLParameter umlParameter : removedParameters) {
 			sb.append("\t").append("parameter " + umlParameter + " removed").append("\n");
 		}
-		for(UMLParameter umlParameter : addedParameters) {
+		for(IUMLParameter umlParameter : addedParameters) {
 			sb.append("\t").append("parameter " + umlParameter + " added").append("\n");
 		}
 		for(UMLParameterDiff parameterDiff : parameterDiffList) {
@@ -232,8 +233,8 @@ public class UMLOperationDiff {
 	public Set<Refactoring> getRefactorings() {
 		Set<Refactoring> refactorings = new LinkedHashSet<Refactoring>();
 		if(returnTypeChanged || qualifiedReturnTypeChanged) {
-			UMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
-			UMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
+			IUMLParameter removedOperationReturnParameter = removedOperation.getReturnParameter();
+			IUMLParameter addedOperationReturnParameter = addedOperation.getReturnParameter();
 			if(removedOperationReturnParameter != null && addedOperationReturnParameter != null) {
 				Set<AbstractCodeMapping> references = VariableReferenceExtractor.findReturnReferences(mappings);
 				ChangeReturnTypeRefactoring refactoring = new ChangeReturnTypeRefactoring(removedOperationReturnParameter.getType(), addedOperationReturnParameter.getType(),

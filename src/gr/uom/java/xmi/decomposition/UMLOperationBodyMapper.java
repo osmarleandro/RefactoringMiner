@@ -5,6 +5,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.IUMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
@@ -95,7 +96,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Map<String, String> parameterToArgumentMap2 = new LinkedHashMap<String, String>();
 			List<UMLParameter> addedParameters = operationDiff.getAddedParameters();
 			if(addedParameters.size() == 1) {
-				UMLParameter addedParameter = addedParameters.get(0);
+				IUMLParameter addedParameter = addedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(addedParameter.getType().getClassType(), operation1.getClassName())) {
 					parameterToArgumentMap1.put("this.", "");
 					//replace "parameterName." with ""
@@ -104,7 +105,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 			List<UMLParameter> removedParameters = operationDiff.getRemovedParameters();
 			if(removedParameters.size() == 1) {
-				UMLParameter removedParameter = removedParameters.get(0);
+				IUMLParameter removedParameter = removedParameters.get(0);
 				if(UMLModelDiff.looksLikeSameType(removedParameter.getType().getClassType(), operation2.getClassName())) {
 					parameterToArgumentMap1.put(removedParameter.getName() + ".", "");
 					parameterToArgumentMap2.put("this.", "");
@@ -3119,7 +3120,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						splitVariables.add(matchingReplacement.getAfter());
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(IUMLParameter addedParameter : matchingAddedParameters) {
 							splitVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {
@@ -3138,7 +3139,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> addedVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(IUMLParameter addedParameter : matchingAddedParameters) {
 							addedVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {
@@ -3156,7 +3157,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						Set<String> splitVariables = new LinkedHashSet<String>();
 						StringBuilder concat = new StringBuilder();
 						int counter = 0;
-						for(UMLParameter addedParameter : matchingAddedParameters) {
+						for(IUMLParameter addedParameter : matchingAddedParameters) {
 							splitVariables.add(addedParameter.getName());
 							concat.append(addedParameter.getName());
 							if(counter < matchingAddedParameters.size()-1) {
