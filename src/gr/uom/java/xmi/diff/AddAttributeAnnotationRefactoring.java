@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
-public class AddAttributeAnnotationRefactoring implements Refactoring {
+public class AddAttributeAnnotationRefactoring implements Refactoring, IAddAttributeAnnotationRefactoring {
 	private UMLAnnotation annotation;
 	private UMLAttribute attributeBefore;
 	private UMLAttribute attributeAfter;
