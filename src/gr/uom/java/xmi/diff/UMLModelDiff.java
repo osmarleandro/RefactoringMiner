@@ -1490,7 +1490,7 @@ public class UMLModelDiff {
 	  Map<RenamePattern, Integer> typeRenamePatternMap = new LinkedHashMap<RenamePattern, Integer>();
 	  for(Refactoring ref : refactorings) {
     	  if(ref instanceof ChangeVariableTypeRefactoring) {
-    		  ChangeVariableTypeRefactoring refactoring = (ChangeVariableTypeRefactoring)ref;
+    		  IChangeVariableTypeRefactoring refactoring = (IChangeVariableTypeRefactoring)ref;
     		  RenamePattern pattern = new RenamePattern(refactoring.getOriginalVariable().getType().toString(), refactoring.getChangedTypeVariable().getType().toString());
     		  if(typeRenamePatternMap.containsKey(pattern)) {
     			  typeRenamePatternMap.put(pattern, typeRenamePatternMap.get(pattern) + 1);
@@ -1594,7 +1594,7 @@ public class UMLModelDiff {
 				   }
 			   }
 			   else if(refactoring instanceof ChangeVariableTypeRefactoring) {
-				   ChangeVariableTypeRefactoring changeType = (ChangeVariableTypeRefactoring)refactoring;
+				   IChangeVariableTypeRefactoring changeType = (IChangeVariableTypeRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(changeType.getOriginalVariable().getVariableName()) &&
