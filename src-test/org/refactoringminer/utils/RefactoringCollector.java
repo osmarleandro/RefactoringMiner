@@ -15,7 +15,7 @@ import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
 public class RefactoringCollector extends RefactoringHandler {
-  private final RefactoringSet rs;
+  private final IRefactoringSet rs;
   private Exception ex = null;
   public RefactoringCollector(String cloneUrl, String commitId) {
     rs = new RefactoringSet(cloneUrl, commitId);
@@ -59,7 +59,7 @@ public class RefactoringCollector extends RefactoringHandler {
   public void handleException(String commitId, Exception e) {
     this.ex = e;
   }
-  public RefactoringSet assertAndGetResult() {
+  public IRefactoringSet assertAndGetResult() {
     if (ex == null) {
       return rs;
     }

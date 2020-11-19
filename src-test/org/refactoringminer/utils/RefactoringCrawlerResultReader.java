@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
 
 public class RefactoringCrawlerResultReader {
 
-  public static RefactoringSet read(String project, String revision, String folderPath) {
+  public static IRefactoringSet read(String project, String revision, String folderPath) {
 //    List<RefactoringCrawlerRefactoring> list = readFolder("D:\\Danilo\\Workspaces\\phd-rmdataset\\results\\atmosphere-cc2b3f1");
     try {
-      RefactoringSet result = new RefactoringSet(project, revision);
+      IRefactoringSet result = new RefactoringSet(project, revision);
       for (RefactoringCrawlerRefactoring r : readFolder(folderPath)) {
         result.add(r.toRefactoringRelationship());
       }
