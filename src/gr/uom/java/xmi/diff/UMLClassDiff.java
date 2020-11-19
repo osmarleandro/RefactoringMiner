@@ -14,7 +14,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
-public class UMLClassDiff extends UMLClassBaseDiff {
+public class UMLClassDiff extends UMLClassBaseDiff implements IUMLClassDiff {
 	
 	private String className;
 	public UMLClassDiff(UMLClass originalClass, UMLClass nextClass, UMLModelDiff modelDiff) {
