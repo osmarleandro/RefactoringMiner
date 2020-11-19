@@ -701,7 +701,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				}
 				for(Refactoring refactoring : refactorings) {
 					if(refactoring instanceof MergeVariableRefactoring) {
-						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
+						IMergeVariableRefactoring merge = (IMergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
 						for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
