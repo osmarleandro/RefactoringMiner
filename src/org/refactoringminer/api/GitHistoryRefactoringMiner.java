@@ -6,7 +6,7 @@ import org.eclipse.jgit.lib.Repository;
  * Detect refactorings in the git history.
  * 
  */
-public interface GitHistoryRefactoringMiner {
+public interface GitHistoryRefactoringMiner extends IGitHistoryRefactoringMiner {
 
 	/**
 	 * Iterate over each commit of a git repository and detect all refactorings performed in the
