@@ -7,7 +7,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class CandidateAttributeRefactoring {
+public class CandidateAttributeRefactoring implements ICandidateAttributeRefactoring {
 	private String originalVariableName;
 	private String renamedVariableName;
 	private UMLOperation operationBefore;

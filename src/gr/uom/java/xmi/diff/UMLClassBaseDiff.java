@@ -647,7 +647,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		}
 	}
 
-	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
+	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(ICandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
@@ -683,7 +683,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		Set<Refactoring> newRefactorings = new LinkedHashSet<Refactoring>();
 		for(Replacement replacement : map.keySet()) {
 			Set<CandidateAttributeRefactoring> candidates = map.get(replacement);
-			for(CandidateAttributeRefactoring candidate : candidates) {
+			for(ICandidateAttributeRefactoring candidate : candidates) {
 				String originalAttributeName = PrefixSuffixUtils.normalize(candidate.getOriginalVariableName());
 				String renamedAttributeName = PrefixSuffixUtils.normalize(candidate.getRenamedVariableName());
 				UMLOperationBodyMapper candidateMapper = null;
@@ -975,7 +975,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private static int totalOccurrences(Set<CandidateAttributeRefactoring> candidates) {
 		int totalCount = 0;
-		for(CandidateAttributeRefactoring candidate : candidates) {
+		for(ICandidateAttributeRefactoring candidate : candidates) {
 			totalCount += candidate.getOccurrences();
 		}
 		return totalCount;
