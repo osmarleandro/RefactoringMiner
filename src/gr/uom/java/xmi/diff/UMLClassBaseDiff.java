@@ -14,6 +14,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
+import gr.uom.java.xmi.IUMLType;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -50,8 +51,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean oldAbstraction;
 	private boolean newAbstraction;
 	private boolean superclassChanged;
-	private UMLType oldSuperclass;
-	private UMLType newSuperclass;
+	private IUMLType oldSuperclass;
+	private IUMLType newSuperclass;
 	private List<UMLType> addedImplementedInterfaces;
 	private List<UMLType> removedImplementedInterfaces;
 	private List<UMLAnonymousClass> addedAnonymousClasses;
@@ -226,7 +227,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				this.nextClass.getName().equals(className);
 	}
 
-	public boolean matches(UMLType type) {
+	public boolean matches(IUMLType type) {
 		return this.originalClass.getName().endsWith("." + type.getClassType()) ||
 				this.nextClass.getName().endsWith("." + type.getClassType());
 	}
@@ -334,25 +335,25 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		this.superclassChanged = superclassChanged;
 	}
 
-	private void setOldSuperclass(UMLType oldSuperclass) {
+	private void setOldSuperclass(IUMLType oldSuperclass) {
 		this.oldSuperclass = oldSuperclass;
 	}
 
-	private void setNewSuperclass(UMLType newSuperclass) {
+	private void setNewSuperclass(IUMLType newSuperclass) {
 		this.newSuperclass = newSuperclass;
 	}
 
-	public UMLType getSuperclass() {
+	public IUMLType getSuperclass() {
 		if(!superclassChanged && oldSuperclass != null && newSuperclass != null)
 			return oldSuperclass;
 		return null;
 	}
 
-	public UMLType getOldSuperclass() {
+	public IUMLType getOldSuperclass() {
 		return oldSuperclass;
 	}
 
-	public UMLType getNewSuperclass() {
+	public IUMLType getNewSuperclass() {
 		return newSuperclass;
 	}
 
@@ -1477,8 +1478,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private boolean gettersWithDifferentReturnType(UMLOperation removedOperation, UMLOperation addedOperation) {
 		if(removedOperation.isGetter() && addedOperation.isGetter()) {
-			UMLType type1 = removedOperation.getReturnParameter().getType();
-			UMLType type2 = addedOperation.getReturnParameter().getType();
+			IUMLType type1 = removedOperation.getReturnParameter().getType();
+			IUMLType type2 = addedOperation.getReturnParameter().getType();
 			if(!removedOperation.equalReturnParameter(addedOperation) && !type1.compatibleTypes(type2)) {
 				return true;
 			}

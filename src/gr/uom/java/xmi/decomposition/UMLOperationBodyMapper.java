@@ -5,6 +5,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.IUMLType;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
@@ -2748,7 +2749,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			boolean typeReplacement = false, compatibleTypes = false, classInstanceCreationReplacement = false;
 			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(7, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
+			IUMLType type1 = null, type2 = null;
 			ObjectCreation objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
 			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
@@ -2800,7 +2801,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			boolean typeReplacement = false, compatibleTypes = false, classInstanceCreationReplacement = false;
 			String assignment1 = string1.substring(7, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
+			IUMLType type1 = null, type2 = null;
 			ObjectCreation objectCreation1 = null, objectCreation2 = null;
 			Map<String, String> argumentToParameterMap = new LinkedHashMap<String, String>();
 			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
@@ -2867,7 +2868,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			String variableName2 = string2.substring(0, string2.indexOf("="));
 			String assignment1 = string1.substring(string1.indexOf("=")+1, string1.lastIndexOf(";\n"));
 			String assignment2 = string2.substring(string2.indexOf("=")+1, string2.lastIndexOf(";\n"));
-			UMLType type1 = null, type2 = null;
+			IUMLType type1 = null, type2 = null;
 			Map<String, List<ObjectCreation>> creationMap1 = statement1.getCreationMap();
 			for(String creation1 : creationMap1.keySet()) {
 				if(creation1.equals(assignment1)) {
@@ -2949,8 +2950,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<VariableDeclaration> variableDeclarations2, ReplacementInfo replacementInfo) {
 		if(variableDeclarations1.size() == 1 && variableDeclarations2.size() == 1) {
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
-			UMLType type1 = variableDeclarations1.get(0).getType();
-			UMLType type2 = variableDeclarations2.get(0).getType();
+			IUMLType type1 = variableDeclarations1.get(0).getType();
+			IUMLType type2 = variableDeclarations2.get(0).getType();
 			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
 			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
 			if(initializer1 == null && initializer2 == null) {

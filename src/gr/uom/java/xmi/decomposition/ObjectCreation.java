@@ -8,13 +8,14 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 
+import gr.uom.java.xmi.IUMLType;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
 
 public class ObjectCreation extends AbstractCall {
-	private UMLType type;
+	private IUMLType type;
 	private String anonymousClassDeclaration;
 	private boolean isArray = false;
 	private volatile int hashCode = 0;
@@ -55,7 +56,7 @@ public class ObjectCreation extends AbstractCall {
 		return getType().toString();
 	}
 
-	public UMLType getType() {
+	public IUMLType getType() {
 		return type;
 	}
 

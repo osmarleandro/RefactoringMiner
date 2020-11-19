@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.IUMLType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
@@ -37,11 +38,11 @@ public class ChangeReturnTypeRefactoring implements Refactoring {
 		return getRefactoringType().getDisplayName();
 	}
 
-	public UMLType getOriginalType() {
+	public IUMLType getOriginalType() {
 		return originalType;
 	}
 
-	public UMLType getChangedType() {
+	public IUMLType getChangedType() {
 		return changedType;
 	}
 

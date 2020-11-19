@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.decomposition;
 
+import gr.uom.java.xmi.IUMLType;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLOperation;
@@ -219,7 +220,7 @@ public class OperationInvocation extends AbstractCall {
     	}
     	int i=0;
     	for(UMLParameter parameter : operation.getParametersWithoutReturnType()) {
-    		UMLType parameterType = parameter.getType();
+    		IUMLType parameterType = parameter.getType();
     		if(inferredArgumentTypes.size() > i && inferredArgumentTypes.get(i) != null) {
     			if(!parameterType.getClassType().equals(inferredArgumentTypes.get(i).toString()) &&
     					!parameterType.toString().equals(inferredArgumentTypes.get(i).toString()) &&
@@ -446,8 +447,8 @@ public class OperationInvocation extends AbstractCall {
 				int i = 0;
 				for(String argument : getArguments()) {
 					if(typeInferenceMapFromContext.containsKey(argument)) {
-						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameters.get(i).getType();
+						IUMLType argumentType = typeInferenceMapFromContext.get(argument);
+						IUMLType paremeterType = parameters.get(i).getType();
 						if(!argumentType.equals(paremeterType))
 							return false;
 					}
@@ -459,8 +460,8 @@ public class OperationInvocation extends AbstractCall {
 				for(UMLParameter parameter : parameters) {
 					String argument = getArguments().get(i);
 					if(typeInferenceMapFromContext.containsKey(argument)) {
-						UMLType argumentType = typeInferenceMapFromContext.get(argument);
-						UMLType paremeterType = parameter.isVarargs() ?
+						IUMLType argumentType = typeInferenceMapFromContext.get(argument);
+						IUMLType paremeterType = parameter.isVarargs() ?
 								UMLType.extractTypeObject(parameter.getType().getClassType()) :
 								parameter.getType();
 						if(!argumentType.equals(paremeterType))
@@ -476,8 +477,8 @@ public class OperationInvocation extends AbstractCall {
 			int i = 0;
 			for(String argument : getArguments()) {
 				if(typeInferenceMapFromContext.containsKey(argument)) {
-					UMLType argumentType = typeInferenceMapFromContext.get(argument);
-					UMLType paremeterType = parameters.get(i).getType();
+					IUMLType argumentType = typeInferenceMapFromContext.get(argument);
+					IUMLType paremeterType = parameters.get(i).getType();
 					if(!argumentType.equals(paremeterType))
 						return false;
 				}

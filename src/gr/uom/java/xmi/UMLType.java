@@ -21,7 +21,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.diff.StringDistance;
 
-public abstract class UMLType implements Serializable, LocationInfoProvider {
+public abstract class UMLType implements Serializable, LocationInfoProvider, IUMLType {
 	private LocationInfo locationInfo;
 	private int arrayDimension;
 	private List<UMLType> typeArguments = new ArrayList<UMLType>();
@@ -88,8 +88,8 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			return false;
 		}
 		for(int i=0; i<this.typeArguments.size(); i++) {
-			UMLType thisComponent = this.typeArguments.get(i);
-			UMLType otherComponent = type.typeArguments.get(i);
+			IUMLType thisComponent = this.typeArguments.get(i);
+			IUMLType otherComponent = type.typeArguments.get(i);
 			if(!thisComponent.equals(otherComponent)) {
 				return false;
 			}
@@ -118,7 +118,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 	}
 
 	public boolean containsTypeArgument(String type) {
-		for(UMLType typeArgument : typeArguments) {
+		for(IUMLType typeArgument : typeArguments) {
 			if(typeArgument.toString().equals(type)) {
 				return true;
 			}
@@ -148,20 +148,20 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		return false;
 	}
-	public boolean equalClassType(UMLType type) {
+	public boolean equalClassType(IUMLType type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
-	public boolean compatibleTypes(UMLType type) {
+	public boolean compatibleTypes(IUMLType type) {
 		if(this.getClass() == type.getClass()) {
 			return this.equals(type);
 		}
 		return false;
 	}
 
-	public double normalizedNameDistance(UMLType type) {
+	public double normalizedNameDistance(IUMLType type) {
 		String s1 = this.toString();
 		String s2 = type.toString();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -240,7 +240,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 		}
 		else if(type instanceof QualifiedType) {
 			QualifiedType qualified = (QualifiedType)type;
-			UMLType leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
+			IUMLType leftType = extractTypeObject(cu, filePath, qualified.getQualifier());
 			LeafType rightType = extractTypeObject(qualified.getName().getFullyQualifiedName());
 			AnnotatableType annotatableType = (AnnotatableType)qualified;
 			List<Annotation> annotations = annotatableType.annotations();
@@ -264,7 +264,7 @@ public abstract class UMLType implements Serializable, LocationInfoProvider {
 			WildcardType wildcard = (WildcardType)type;
 			gr.uom.java.xmi.WildcardType myWildcardType = null;
 			if(wildcard.getBound() != null) {
-				UMLType bound = extractTypeObject(cu, filePath, wildcard.getBound());
+				IUMLType bound = extractTypeObject(cu, filePath, wildcard.getBound());
 				myWildcardType = new gr.uom.java.xmi.WildcardType(bound, wildcard.isUpperBound());
 			}
 			else {

@@ -85,7 +85,7 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public boolean equalClassType(UMLType type) {
+	public boolean equalClassType(IUMLType type) {
 		if(this.getClass() == type.getClass()) {
 			return this.nonQualifiedClassType.equals(((LeafType)type).nonQualifiedClassType);
 		}
@@ -93,7 +93,7 @@ public class LeafType extends UMLType {
 	}
 
 	@Override
-	public boolean compatibleTypes(UMLType type) {
+	public boolean compatibleTypes(IUMLType type) {
 		if(this.getClass() == type.getClass()) {
 			LeafType leafType = (LeafType)type;
 			return this.getClassType().equals(leafType.getClassType()) ||
