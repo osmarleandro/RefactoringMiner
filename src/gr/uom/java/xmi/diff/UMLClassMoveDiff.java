@@ -4,7 +4,7 @@ import gr.uom.java.xmi.UMLClass;
 
 public class UMLClassMoveDiff extends UMLClassBaseDiff {
 	
-	public UMLClassMoveDiff(UMLClass originalClass, UMLClass movedClass, UMLModelDiff modelDiff) {
+	public UMLClassMoveDiff(UMLClass originalClass, UMLClass movedClass, IUMLModelDiff modelDiff) {
 		super(originalClass, movedClass, modelDiff);
 	}
 
