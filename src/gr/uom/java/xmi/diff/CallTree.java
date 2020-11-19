@@ -19,7 +19,7 @@ public class CallTree {
 		nodes.add(root);
 		queue.add(root);
 		while(!queue.isEmpty()) {
-			CallTreeNode node = queue.remove(0);
+			ICallTreeNode node = queue.remove(0);
 			nodes.addAll(node.getChildren());
 			queue.addAll(node.getChildren());
 		}
@@ -27,7 +27,7 @@ public class CallTree {
 	}
 	
 	public boolean contains(UMLOperation invokedOperation) {
-		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
+		for(ICallTreeNode node : getNodesInBreadthFirstOrder()) {
 			if(node.getInvokedOperation().equals(invokedOperation)) {
 				return true;
 			}

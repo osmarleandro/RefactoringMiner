@@ -6,7 +6,7 @@ import java.util.List;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
-public class CallTreeNode {
+public class CallTreeNode implements ICallTreeNode {
 	private UMLOperation originalOperation;
 	private UMLOperation invokedOperation;
 	private OperationInvocation invocation;
