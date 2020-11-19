@@ -15,7 +15,7 @@ import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 
-public class InlineOperationDetection {
+public class InlineOperationDetection implements IInlineOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> removedOperations;
 	private UMLClassBaseDiff classDiff;
