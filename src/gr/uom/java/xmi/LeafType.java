@@ -2,7 +2,7 @@ package gr.uom.java.xmi;
 
 import java.util.regex.Pattern;
 
-public class LeafType extends UMLType {
+public class LeafType extends UMLType implements ILeafType {
 	private String classType;
 	private String nonQualifiedClassType;
 	private volatile int hashCode = 0;
