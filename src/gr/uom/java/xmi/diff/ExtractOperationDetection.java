@@ -20,7 +20,7 @@ import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
-public class ExtractOperationDetection {
+public class ExtractOperationDetection implements IExtractOperationDetection {
 	private UMLOperationBodyMapper mapper;
 	private List<UMLOperation> addedOperations;
 	private UMLClassBaseDiff classDiff;
