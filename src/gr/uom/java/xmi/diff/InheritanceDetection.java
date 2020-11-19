@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class InheritanceDetection {
+public class InheritanceDetection implements IInheritanceDetection {
 	private Map<String, LinkedHashSet<String>> subclassMap;
 
 	public InheritanceDetection(UMLModelDiff modelDiff) {
