@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class OperationInvocation extends AbstractCall {
+public class OperationInvocation extends AbstractCall implements IOperationInvocation {
 	private String methodName;
 	private List<String> subExpressions = new ArrayList<String>();
 	private volatile int hashCode = 0;
@@ -117,7 +117,7 @@ public class OperationInvocation extends AbstractCall {
 		
 	}
 
-	public OperationInvocation update(String oldExpression, String newExpression) {
+	public IOperationInvocation update(String oldExpression, String newExpression) {
 		OperationInvocation newOperationInvocation = new OperationInvocation();
 		newOperationInvocation.methodName = this.methodName;
 		newOperationInvocation.locationInfo = this.locationInfo;
@@ -393,7 +393,7 @@ public class OperationInvocation extends AbstractCall {
 
 	public double normalizedNameDistance(AbstractCall call) {
 		String s1 = getMethodName().toLowerCase();
-		String s2 = ((OperationInvocation)call).getMethodName().toLowerCase();
+		String s2 = ((IOperationInvocation)call).getMethodName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
 		double normalized = (double)distance/(double)Math.max(s1.length(), s2.length());
 		return normalized;
@@ -435,7 +435,7 @@ public class OperationInvocation extends AbstractCall {
     }
 
 	public boolean identicalName(AbstractCall call) {
-		return getMethodName().equals(((OperationInvocation)call).getMethodName());
+		return getMethodName().equals(((IOperationInvocation)call).getMethodName());
 	}
 
 	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {

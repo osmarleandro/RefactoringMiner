@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IOperationInvocation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -1363,12 +1364,12 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		List<StatementObject> nonMappedLeavesT2 = operationBodyMapper.getNonMappedLeavesT2();
 		if(nonMappedLeavesT1.size() == 1 && nonMappedLeavesT2.size() == 1) {
 			StatementObject statementT2 = nonMappedLeavesT2.get(0);
-			OperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
+			IOperationInvocation invocationT2 = statementT2.invocationCoveringEntireFragment();
 			if(invocationT2 != null) {
 				for(UMLOperation addedOperation : addedOperations) {
 					if(invocationT2.matchesOperation(addedOperation, operationBodyMapper.getOperation2().variableTypeMap(), modelDiff)) {
 						StatementObject statementT1 = nonMappedLeavesT1.get(0);
-						OperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment();
+						IOperationInvocation invocationT1 = statementT1.invocationCoveringEntireFragment();
 						if(invocationT1 != null && addedOperation.getAllOperationInvocations().contains(invocationT1)) {
 							return true;
 						}
@@ -1387,7 +1388,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int numberOfInvocationsMissingFromRemovedOperation = new LinkedHashSet<OperationInvocation>(removedOperationInvocations).size() - intersection.size();
 		
 		Set<OperationInvocation> operationInvocationsInMethodsCalledByAddedOperation = new LinkedHashSet<OperationInvocation>();
-		for(OperationInvocation addedOperationInvocation : addedOperationInvocations) {
+		for(IOperationInvocation addedOperationInvocation : addedOperationInvocations) {
 			if(!intersection.contains(addedOperationInvocation)) {
 				for(UMLOperation operation : addedOperations) {
 					if(!operation.equals(addedOperation) && operation.getBody() != null) {
@@ -1406,7 +1407,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.removeAll(intersection);
 		removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.removeAll(newIntersection);
 		for(Iterator<OperationInvocation> operationInvocationIterator = removedOperationInvocationsWithIntersectionsAndGetterInvocationsSubtracted.iterator(); operationInvocationIterator.hasNext();) {
-			OperationInvocation invocation = operationInvocationIterator.next();
+			IOperationInvocation invocation = operationInvocationIterator.next();
 			if(invocation.getMethodName().startsWith("get")) {
 				operationInvocationIterator.remove();
 			}
@@ -1425,7 +1426,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int numberOfInvocationsMissingFromAddedOperation = new LinkedHashSet<OperationInvocation>(addedOperationInvocations).size() - intersection.size();
 		
 		Set<OperationInvocation> operationInvocationsInMethodsCalledByRemovedOperation = new LinkedHashSet<OperationInvocation>();
-		for(OperationInvocation removedOperationInvocation : removedOperationInvocations) {
+		for(IOperationInvocation removedOperationInvocation : removedOperationInvocations) {
 			if(!intersection.contains(removedOperationInvocation)) {
 				for(UMLOperation operation : removedOperations) {
 					if(!operation.equals(removedOperation) && operation.getBody() != null) {

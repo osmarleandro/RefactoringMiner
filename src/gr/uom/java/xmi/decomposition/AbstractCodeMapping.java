@@ -190,7 +190,7 @@ public abstract class AbstractCodeMapping {
 				}
 			}
 			if(classDiff != null && initializer != null) {
-				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
+				IOperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 				if(invocation != null) {
 					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
@@ -324,8 +324,8 @@ public abstract class AbstractCodeMapping {
 	}
 
 	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
-		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
-		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		IOperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
+		IOperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
 		if(initializerInvocation != null && replacementInvocation != null) {
 			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {

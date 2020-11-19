@@ -108,7 +108,7 @@ public class LeafMapping extends AbstractCodeMapping implements Comparable<LeafM
 	}
 
 	public Set<String> callChainIntersection() {
-		OperationInvocation invocation1 = this.getFragment1().invocationCoveringEntireFragment();
+		IOperationInvocation invocation1 = this.getFragment1().invocationCoveringEntireFragment();
 		OperationInvocation invocation2 = this.getFragment2().invocationCoveringEntireFragment();
 		if(invocation1 != null && invocation2 != null) {
 			return invocation1.callChainIntersection(invocation2);

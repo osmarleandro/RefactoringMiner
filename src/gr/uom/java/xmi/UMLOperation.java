@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IOperationInvocation;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -415,7 +416,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return false;
 	}
 
-	public OperationInvocation isDelegate() {
+	public IOperationInvocation isDelegate() {
 		if(getBody() != null) {
 			List<AbstractStatement> statements = getBody().getCompositeStatement().getStatements();
 			if(statements.size() == 1 && statements.get(0) instanceof StatementObject) {
@@ -423,7 +424,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 				Map<String, List<OperationInvocation>> operationInvocationMap = statement.getMethodInvocationMap();
 				for(String key : operationInvocationMap.keySet()) {
 					List<OperationInvocation> operationInvocations = operationInvocationMap.get(key);
-					for(OperationInvocation operationInvocation : operationInvocations) {
+					for(IOperationInvocation operationInvocation : operationInvocations) {
 						if(operationInvocation.matchesOperation(this, this.variableTypeMap(), null) || operationInvocation.getMethodName().equals(this.getName())) {
 							return operationInvocation;
 						}

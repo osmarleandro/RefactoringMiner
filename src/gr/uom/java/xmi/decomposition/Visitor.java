@@ -548,7 +548,7 @@ public class Visitor extends ASTVisitor {
 		return super.visit(node);
 	}
 
-	private boolean complexInvocation(OperationInvocation invocation) {
+	private boolean complexInvocation(IOperationInvocation invocation) {
 		return (invocation.numberOfSubExpressions() > 3 && invocation.containsVeryLongSubExpression()) ||
 				invocation.numberOfSubExpressions() > 15;
 	}

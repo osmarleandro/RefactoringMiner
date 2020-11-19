@@ -1,14 +1,14 @@
 package gr.uom.java.xmi.decomposition.replacement;
 
+import gr.uom.java.xmi.decomposition.IOperationInvocation;
 import gr.uom.java.xmi.decomposition.ObjectCreation;
-import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class ClassInstanceCreationWithMethodInvocationReplacement extends Replacement {
 	private ObjectCreation objectCreationBefore;
-	private OperationInvocation invokedOperationAfter;
+	private IOperationInvocation invokedOperationAfter;
 
 	public ClassInstanceCreationWithMethodInvocationReplacement(String before, String after, ReplacementType type,
-			ObjectCreation objectCreationBefore, OperationInvocation invokedOperationAfter) {
+			ObjectCreation objectCreationBefore, IOperationInvocation invokedOperationAfter) {
 		super(before, after, type);
 		this.objectCreationBefore = objectCreationBefore;
 		this.invokedOperationAfter = invokedOperationAfter;
@@ -18,7 +18,7 @@ public class ClassInstanceCreationWithMethodInvocationReplacement extends Replac
 		return objectCreationBefore;
 	}
 
-	public OperationInvocation getInvokedOperationAfter() {
+	public IOperationInvocation getInvokedOperationAfter() {
 		return invokedOperationAfter;
 	}
 

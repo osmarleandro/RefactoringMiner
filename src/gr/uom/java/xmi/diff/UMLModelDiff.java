@@ -13,6 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.IOperationInvocation;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1132,7 +1133,7 @@ public class UMLModelDiff {
 	   intersection.retainAll(addedInvocations);
 	   Set<OperationInvocation> newInvocations = new LinkedHashSet<OperationInvocation>(addedInvocations);
 	   newInvocations.removeAll(intersection);
-	   for(OperationInvocation newInvocation : newInvocations) {
+	   for(IOperationInvocation newInvocation : newInvocations) {
 		   for(UMLOperation operation : addedClass.getOperations()) {
 			   if(!operation.isAbstract() && !operation.hasEmptyBody() &&
 					   newInvocation.matchesOperation(operation, addedOperation.variableTypeMap(), this)) {
@@ -1777,7 +1778,7 @@ public class UMLModelDiff {
 		}
 		int delegateStatements = 0;
 		for(StatementObject statement : operationBodyMapper.getNonMappedLeavesT1()) {
-			OperationInvocation invocation = statement.invocationCoveringEntireFragment();
+			IOperationInvocation invocation = statement.invocationCoveringEntireFragment();
 			if(invocation != null && invocation.matchesOperation(operationBodyMapper.getOperation1())) {
 				delegateStatements++;
 			}
@@ -1791,7 +1792,7 @@ public class UMLModelDiff {
 				(exactMatches > 1 && nonMappedElementsT1-exactMatches < 20));
 	}
 
-	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
+	private boolean invocationMatchesWithAddedOperation(IOperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
 			for(UMLOperation addedOperation : getAddedOperationsInCommonClasses()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, this)) {
