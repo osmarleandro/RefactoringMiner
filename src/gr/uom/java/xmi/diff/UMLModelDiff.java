@@ -1037,7 +1037,7 @@ public class UMLModelDiff {
          for(UMLGeneralization addedGeneralization : addedGeneralizations) {
         	 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
          }
-         for(UMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
+         for(IUMLGeneralizationDiff generalizationDiff : generalizationDiffList) {
         	 UMLGeneralization addedGeneralization = generalizationDiff.getAddedGeneralization();
         	 UMLGeneralization removedGeneralization = generalizationDiff.getRemovedGeneralization();
         	 if(!addedGeneralization.getParent().equals(removedGeneralization.getParent())) {
