@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ConsistentReplacementDetector {
+public class ConsistentReplacementDetector implements IConsistentReplacementDetector {
 
 	private static <T extends Replacement> Set<T> inconsistentRenames(
 			Set<T> currentRenames, T newRename) {
