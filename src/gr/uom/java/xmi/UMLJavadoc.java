@@ -19,7 +19,7 @@ public class UMLJavadoc {
 	}
 
 	public boolean contains(String s) {
-		for(UMLTagElement tag : tags) {
+		for(IUMLTagElement tag : tags) {
 			if(tag.contains(s)) {
 				return true;
 			}
@@ -28,7 +28,7 @@ public class UMLJavadoc {
 	}
 
 	public boolean containsIgnoreCase(String s) {
-		for(UMLTagElement tag : tags) {
+		for(IUMLTagElement tag : tags) {
 			if(tag.containsIgnoreCase(s)) {
 				return true;
 			}
