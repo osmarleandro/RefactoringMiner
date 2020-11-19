@@ -6,7 +6,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class CandidateMergeVariableRefactoring {
+public class CandidateMergeVariableRefactoring implements ICandidateMergeVariableRefactoring {
 	private Set<String> mergedVariables;
 	private String newVariable;
 	private UMLOperation operationBefore;
