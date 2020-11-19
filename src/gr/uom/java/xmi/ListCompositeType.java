@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCompositeType extends UMLType {
+public class ListCompositeType extends UMLType implements IListCompositeType {
 	public enum Kind {
 		UNION("|"), INTERSECTION("&");
 		private String operand;
