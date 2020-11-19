@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 
-public class UMLOperationDiff {
+public class UMLOperationDiff implements IUMLOperationDiff {
 	private UMLOperation removedOperation;
 	private UMLOperation addedOperation;
 	private List<UMLParameter> addedParameters;
