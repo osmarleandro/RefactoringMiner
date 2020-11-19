@@ -12,7 +12,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class MoveClassRefactoring implements Refactoring {
+public class MoveClassRefactoring implements Refactoring, IMoveClassRefactoring {
 	private UMLClass originalClass;
 	private UMLClass movedClass;
 	
