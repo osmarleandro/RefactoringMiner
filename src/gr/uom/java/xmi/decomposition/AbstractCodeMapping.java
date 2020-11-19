@@ -14,6 +14,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IRenameOperationRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -194,7 +195,7 @@ public abstract class AbstractCodeMapping {
 				if(invocation != null) {
 					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
-							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
+							IRenameOperationRefactoring rename = (IRenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
 								String initializerBeforeRename = initializer.getString().replace(rename.getRenamedOperation().getName(), rename.getOriginalOperation().getName());
 								if(getFragment1().getString().contains(initializerBeforeRename) && getFragment2().getString().contains(variableName)) {

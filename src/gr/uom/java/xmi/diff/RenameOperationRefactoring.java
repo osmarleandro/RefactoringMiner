@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 
-public class RenameOperationRefactoring implements Refactoring {
+public class RenameOperationRefactoring implements Refactoring, IRenameOperationRefactoring {
 	private UMLOperation originalOperation;
 	private UMLOperation renamedOperation;
 	private Set<Replacement> replacements;
