@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringRelationshipGroup {
+public class RefactoringRelationshipGroup implements IRefactoringRelationshipGroup {
 
   private List<RefactoringRelationship> refactoringRelationships = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class RefactoringRelationshipGroup {
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof RefactoringRelationshipGroup) {
-      RefactoringRelationshipGroup other = (RefactoringRelationshipGroup) obj;
+      IRefactoringRelationshipGroup other = (IRefactoringRelationshipGroup) obj;
       return other.getRefactoringType().equals(this.getRefactoringType()) && other.getMainEntity().equals(this.getMainEntity());
     }
     return false;
