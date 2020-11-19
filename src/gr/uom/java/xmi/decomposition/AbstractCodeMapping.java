@@ -135,7 +135,7 @@ public abstract class AbstractCodeMapping {
 	public void temporaryVariableAssignment(Set<Refactoring> refactorings) {
 		if(this instanceof LeafMapping && getFragment1() instanceof AbstractExpression
 				&& getFragment2() instanceof StatementObject) {
-			StatementObject statement = (StatementObject) getFragment2();
+			IStatementObject statement = (IStatementObject) getFragment2();
 			List<VariableDeclaration> variableDeclarations = statement.getVariableDeclarations();
 			boolean validReplacements = true;
 			for(Replacement replacement : getReplacements()) {

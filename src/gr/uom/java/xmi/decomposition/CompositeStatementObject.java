@@ -307,7 +307,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 			}
 			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+				IStatementObject statementObject = (IStatementObject)statement;
 				Map<String, List<OperationInvocation>> statementMap = statementObject.getMethodInvocationMap();
 				for(String key : statementMap.keySet()) {
 					if(map.containsKey(key)) {
@@ -348,7 +348,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+				IStatementObject statementObject = (IStatementObject)statement;
 				anonymousClassDeclarations.addAll(statementObject.getAnonymousClassDeclarations());
 			}
 		}
@@ -364,7 +364,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				lambdas.addAll(composite.getAllLambdas());
 			}
 			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+				IStatementObject statementObject = (IStatementObject)statement;
 				lambdas.addAll(statementObject.getLambdas());
 			}
 		}
@@ -380,7 +380,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				variables.addAll(composite.getAllVariables());
 			}
 			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+				IStatementObject statementObject = (IStatementObject)statement;
 				variables.addAll(statementObject.getVariables());
 			}
 		}
@@ -396,7 +396,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
-				StatementObject statementObject = (StatementObject)statement;
+				IStatementObject statementObject = (IStatementObject)statement;
 				variableDeclarations.addAll(statementObject.getVariableDeclarations());
 				for(LambdaExpressionObject lambda : statementObject.getLambdas()) {
 					if(lambda.getBody() != null) {
@@ -517,7 +517,7 @@ public class CompositeStatementObject extends AbstractStatement {
 					}
 				}
 				boolean currentElementNameMatched = false;
-				for(StatementObject statement : innerNode.getLeaves()) {
+				for(IStatementObject statement : innerNode.getLeaves()) {
 					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;

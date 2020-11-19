@@ -303,7 +303,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			List<CompositeStatementObject> innerNodes2 = composite2.getInnerNodes();
 			Set<StatementObject> addedLeaves2 = new LinkedHashSet<StatementObject>();
 			Set<CompositeStatementObject> addedInnerNodes2 = new LinkedHashSet<CompositeStatementObject>();
-			for(StatementObject statement : leaves2) {
+			for(IStatementObject statement : leaves2) {
 				if(!statement.getAnonymousClassDeclarations().isEmpty()) {
 					List<UMLAnonymousClass> anonymousList = operation2.getAnonymousClassList();
 					for(UMLAnonymousClass anonymous : anonymousList) {
@@ -529,7 +529,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			//replace parameters with arguments in leaves1
 			if(!parameterToArgumentMap.isEmpty()) {
 				//check for temporary variables that the argument might be assigned to
-				for(StatementObject leave2 : leaves2) {
+				for(IStatementObject leave2 : leaves2) {
 					List<VariableDeclaration> variableDeclarations = leave2.getVariableDeclarations();
 					for(VariableDeclaration variableDeclaration : variableDeclarations) {
 						for(String parameter : parameterToArgumentMap.keySet()) {
@@ -713,7 +713,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return nonMappedLeafCount;
 	}
 
-	private boolean isTemporaryVariableAssignment(StatementObject statement) {
+	private boolean isTemporaryVariableAssignment(IStatementObject statement) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)refactoring;
