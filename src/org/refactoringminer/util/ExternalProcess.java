@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-class ExternalProcess {
+class ExternalProcess implements IExternalProcess {
 
 	public static String execute(File workingDir, String ... commandAndArgs) {
 		try {
