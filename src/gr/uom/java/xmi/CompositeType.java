@@ -1,6 +1,6 @@
 package gr.uom.java.xmi;
 
-public class CompositeType extends UMLType {
+public class CompositeType extends UMLType implements ICompositeType {
 	private UMLType leftType;
 	private LeafType rightType;
 
