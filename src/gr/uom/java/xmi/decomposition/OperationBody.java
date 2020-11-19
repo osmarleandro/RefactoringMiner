@@ -52,7 +52,7 @@ public class OperationBody {
 		return compositeStatement.statementCount();
 	}
 
-	public CompositeStatementObject getCompositeStatement() {
+	public ICompositeStatementObject getCompositeStatement() {
 		return compositeStatement;
 	}
 
@@ -294,7 +294,7 @@ public class OperationBody {
 		return compositeStatement.aliasedAttributes();
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+	public ICompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
 		return compositeStatement.loopWithVariables(currentElementName, collectionName);
 	}
 }

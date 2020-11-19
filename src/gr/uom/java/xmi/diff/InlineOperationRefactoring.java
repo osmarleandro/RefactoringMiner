@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.ICompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -188,7 +188,7 @@ public class InlineOperationRefactoring implements Refactoring {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}
-		for(CompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
+		for(ICompositeStatementObject statement : bodyMapper.getNonMappedInnerNodesT1()) {
 			ranges.add(statement.codeRange().
 					setDescription("deleted statement in inlined method declaration"));
 		}

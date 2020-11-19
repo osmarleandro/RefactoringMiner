@@ -85,8 +85,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		OperationBody body1 = operation1.getBody();
 		OperationBody body2 = operation2.getBody();
 		if(body1 != null && body2 != null) {
-			CompositeStatementObject composite1 = body1.getCompositeStatement();
-			CompositeStatementObject composite2 = body2.getCompositeStatement();
+			ICompositeStatementObject composite1 = body1.getCompositeStatement();
+			ICompositeStatementObject composite2 = body2.getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = composite2.getLeaves();
 			
@@ -180,8 +180,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
 		}
 		else if(lambda1.getBody() != null && lambda2.getBody() != null) {
-			CompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
-			CompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
+			ICompositeStatementObject composite1 = lambda1.getBody().getCompositeStatement();
+			ICompositeStatementObject composite2 = lambda2.getBody().getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = composite2.getLeaves();
 			processLeaves(leaves1, leaves2, new LinkedHashMap<String, String>());
@@ -284,7 +284,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		OperationBody addedOperationBody = addedOperation.getBody();
 		if(addedOperationBody != null) {
-			CompositeStatementObject composite2 = addedOperationBody.getCompositeStatement();
+			ICompositeStatementObject composite2 = addedOperationBody.getCompositeStatement();
 			List<StatementObject> leaves1 = operationBodyMapper.getNonMappedLeavesT1();
 			List<CompositeStatementObject> innerNodes1 = operationBodyMapper.getNonMappedInnerNodesT1();
 			//adding leaves that were mapped with replacements
@@ -400,7 +400,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			//match expressions in inner nodes from T1 with leaves from T2
 			List<AbstractExpression> expressionsT1 = new ArrayList<AbstractExpression>();
-			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
+			for(ICompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT1()) {
 				for(AbstractExpression expression : composite.getExpressions()) {
 					expression.replaceParametersWithArguments(parameterToArgumentMap1);
 					expressionsT1.add(expression);
@@ -508,7 +508,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		
 		OperationBody removedOperationBody = removedOperation.getBody();
 		if(removedOperationBody != null) {
-			CompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
+			ICompositeStatementObject composite1 = removedOperationBody.getCompositeStatement();
 			List<StatementObject> leaves1 = composite1.getLeaves();
 			List<StatementObject> leaves2 = operationBodyMapper.getNonMappedLeavesT2();
 			//adding leaves that were mapped with replacements or are inexact matches
@@ -576,7 +576,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			
 			//match expressions in inner nodes from T2 with leaves from T1
 			List<AbstractExpression> expressionsT2 = new ArrayList<AbstractExpression>();
-			for(CompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
+			for(ICompositeStatementObject composite : operationBodyMapper.getNonMappedInnerNodesT2()) {
 				for(AbstractExpression expression : composite.getExpressions()) {
 					expressionsT2.add(expression);
 				}
@@ -1393,8 +1393,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private LeafMapping findBestMappingBasedOnMappedSwitchCases(AbstractMap.SimpleEntry<CompositeStatementObject, CompositeStatementObject> switchParentEntry, TreeSet<LeafMapping> mappingSet) {
-		CompositeStatementObject switchParent1 = switchParentEntry.getKey();
-		CompositeStatementObject switchParent2 = switchParentEntry.getValue();
+		ICompositeStatementObject switchParent1 = switchParentEntry.getKey();
+		ICompositeStatementObject switchParent2 = switchParentEntry.getValue();
 		AbstractCodeMapping currentSwitchCase = null;
 		for(AbstractCodeMapping mapping : this.mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
@@ -1402,8 +1402,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
 				AbstractStatement statement1 = (AbstractStatement)fragment1;
 				AbstractStatement statement2 = (AbstractStatement)fragment2;
-				CompositeStatementObject parent1 = statement1.getParent();
-				CompositeStatementObject parent2 = statement2.getParent();
+				ICompositeStatementObject parent1 = statement1.getParent();
+				ICompositeStatementObject parent2 = statement2.getParent();
 				if(parent1 == switchParent1 && parent2 == switchParent2 && mapping.isExact() &&
 						statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE) &&
 						statement2.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_CASE)) {
@@ -4041,8 +4041,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					boolean containsMapping = true;
 					if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 							statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-						CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-						CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+						ICompositeStatementObject comp1 = (ICompositeStatementObject)statement1;
+						ICompositeStatementObject comp2 = (ICompositeStatementObject)statement2;
 						containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 					}
 					if(containsMapping && (VariableReplacementAnalysis.bothFragmentsUseVariable(v1, mapping) || VariableReplacementAnalysis.bothFragmentsUseVariable(v2, mapping))) {
@@ -4071,11 +4071,11 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(parentMapper != null && comp1.getLocationInfo().getCodeElementType().equals(comp2.getLocationInfo().getCodeElementType()) &&
 				childrenSize1 == 1 && childrenSize2 == 1 && !comp1.getString().equals("{") && !comp2.getString().equals("{")) {
 			if(compStatements1.get(0).getString().equals("{") && !compStatements2.get(0).getString().equals("{")) {
-				CompositeStatementObject block = (CompositeStatementObject)compStatements1.get(0);
+				ICompositeStatementObject block = (ICompositeStatementObject)compStatements1.get(0);
 				compStatements1.addAll(block.getStatements());
 			}
 			if(!compStatements1.get(0).getString().equals("{") && compStatements2.get(0).getString().equals("{")) {
-				CompositeStatementObject block = (CompositeStatementObject)compStatements2.get(0);
+				ICompositeStatementObject block = (ICompositeStatementObject)compStatements2.get(0);
 				compStatements2.addAll(block.getStatements());
 			}
 		}

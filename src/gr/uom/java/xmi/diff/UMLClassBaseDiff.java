@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.ICompositeStatementObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -1234,8 +1235,8 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				if(statementUsingParameterAsInvoker1 != null && statementUsingParameterAsInvoker2 != null) {
 					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
-							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
-							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
+							ICompositeStatementObject parent1 = (ICompositeStatementObject)mapping.getFragment1();
+							ICompositeStatementObject parent2 = (ICompositeStatementObject)mapping.getFragment2();
 							if(parent1.getLeaves().contains(statementUsingParameterAsInvoker1) && parent2.getLeaves().contains(statementUsingParameterAsInvoker2)) {
 								return true;
 							}

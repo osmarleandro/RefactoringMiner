@@ -11,8 +11,8 @@ import gr.uom.java.xmi.UMLRealization;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
-import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.ICompositeStatementObject;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1766,7 +1766,7 @@ public class UMLModelDiff {
 				}
 				if(mapping instanceof CompositeStatementObjectMapping) {
 					CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-					CompositeStatementObject fragment2 = (CompositeStatementObject)compositeMapping.getFragment2();
+					ICompositeStatementObject fragment2 = (ICompositeStatementObject)compositeMapping.getFragment2();
 					for(AbstractExpression expression : fragment2.getExpressions()) {
 						if(expression.equals(mappingList.get(0).getFragment2())) {
 							return false;
@@ -1964,7 +1964,7 @@ public class UMLModelDiff {
 			   }
 			   if(mapping instanceof CompositeStatementObjectMapping) {
 				   CompositeStatementObjectMapping compositeMapping = (CompositeStatementObjectMapping)mapping;
-				   CompositeStatementObject fragment1 = (CompositeStatementObject)compositeMapping.getFragment1();
+				   ICompositeStatementObject fragment1 = (ICompositeStatementObject)compositeMapping.getFragment1();
 				   for(AbstractExpression expression : fragment1.getExpressions()) {
 					   if(expression.equals(mappingList.get(0).getFragment1())) {
 						   return false;
@@ -2340,9 +2340,9 @@ public class UMLModelDiff {
 			}
 		}
 		int nonMappedLoopsIteratingOverSameVariable = 0;
-		for(CompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
+		for(ICompositeStatementObject c1 : operationBodyMapper.getNonMappedInnerNodesT1()) {
 			if(c1.isLoop()) {
-				for(CompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
+				for(ICompositeStatementObject c2 : operationBodyMapper.getNonMappedInnerNodesT2()) {
 					if(c2.isLoop()) {
 						Set<String> intersection = new LinkedHashSet<String>(c1.getVariables());
 						intersection.retainAll(c2.getVariables());

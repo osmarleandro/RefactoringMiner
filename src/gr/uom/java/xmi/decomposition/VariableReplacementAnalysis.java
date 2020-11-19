@@ -769,8 +769,8 @@ public class VariableReplacementAnalysis {
 			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 					statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-				CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-				CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+				ICompositeStatementObject comp1 = (ICompositeStatementObject)statement1;
+				ICompositeStatementObject comp2 = (ICompositeStatementObject)statement2;
 				allVariableDeclarations1.addAll(comp1.getAllVariableDeclarations());
 				allVariableDeclarations2.addAll(comp2.getAllVariableDeclarations());
 			}
@@ -861,8 +861,8 @@ public class VariableReplacementAnalysis {
 						boolean containsMapping = true;
 						if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
 								statement1.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
-							CompositeStatementObject comp1 = (CompositeStatementObject)statement1;
-							CompositeStatementObject comp2 = (CompositeStatementObject)statement2;
+							ICompositeStatementObject comp1 = (ICompositeStatementObject)statement1;
+							ICompositeStatementObject comp2 = (ICompositeStatementObject)statement2;
 							containsMapping = comp1.contains(mapping.getFragment1()) && comp2.contains(mapping.getFragment2());
 						}
 						if(containsMapping && (bothFragmentsUseVariable(v1, mapping) || bothFragmentsUseVariable(v2, mapping)) &&
@@ -1083,7 +1083,7 @@ public class VariableReplacementAnalysis {
 						for(AbstractCodeMapping mapping : mapper.getMappings()) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
-									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();
+									ICompositeStatementObject composite1 = (ICompositeStatementObject)mapping.getFragment1();
 									List<StatementObject> leaves1 = composite1.getLeaves();
 									for(StatementObject leaf1 : leaves1) {
 										VariableDeclaration variableDeclaration1 = leaf1.getVariableDeclaration(variableDeclaration2.getVariableName());

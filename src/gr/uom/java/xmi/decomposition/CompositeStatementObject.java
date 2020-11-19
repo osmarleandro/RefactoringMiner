@@ -14,7 +14,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class CompositeStatementObject extends AbstractStatement {
+public class CompositeStatementObject extends AbstractStatement implements ICompositeStatementObject {
 
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
@@ -69,7 +69,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				innerNodes.addAll(composite.getInnerNodes());
 			}
 		}
@@ -293,7 +293,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		map.putAll(getMethodInvocationMap());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
 				for(String key : compositeMap.keySet()) {
 					if(map.containsKey(key)) {
@@ -344,7 +344,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
@@ -360,7 +360,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		lambdas.addAll(getLambdas());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				lambdas.addAll(composite.getAllLambdas());
 			}
 			else if(statement instanceof StatementObject) {
@@ -376,7 +376,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		variables.addAll(getVariables());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				variables.addAll(composite.getAllVariables());
 			}
 			else if(statement instanceof StatementObject) {
@@ -392,7 +392,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		variableDeclarations.addAll(getVariableDeclarations());
 		for(AbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
-				CompositeStatementObject composite = (CompositeStatementObject)statement;
+				ICompositeStatementObject composite = (ICompositeStatementObject)statement;
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
 			}
 			else if(statement instanceof StatementObject) {
@@ -486,8 +486,8 @@ public class CompositeStatementObject extends AbstractStatement {
 				this.locationInfo.getCodeElementType().equals(CodeElementType.DO_STATEMENT);
 	}
 
-	public CompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
-		for(CompositeStatementObject innerNode : getInnerNodes()) {
+	public ICompositeStatementObject loopWithVariables(String currentElementName, String collectionName) {
+		for(ICompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
 				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
