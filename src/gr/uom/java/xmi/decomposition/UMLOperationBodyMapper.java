@@ -1450,8 +1450,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				AbstractCodeFragment fragment1 = mapping.getFragment1();
 				AbstractCodeFragment fragment2 = mapping.getFragment2();
 				if(fragment1 instanceof AbstractStatement && fragment2 instanceof AbstractStatement) {
-					AbstractStatement statement1 = (AbstractStatement)fragment1;
-					AbstractStatement statement2 = (AbstractStatement)fragment2;
+					IAbstractStatement statement1 = (IAbstractStatement)fragment1;
+					IAbstractStatement statement2 = (IAbstractStatement)fragment2;
 					CompositeStatementObject parent1 = statement1.getParent();
 					CompositeStatementObject parent2 = statement2.getParent();
 					if(parent1.getLocationInfo().getCodeElementType().equals(CodeElementType.SWITCH_STATEMENT) &&

@@ -59,7 +59,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	@Override
 	public List<StatementObject> getLeaves() {
 		List<StatementObject> leaves = new ArrayList<StatementObject>();
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			leaves.addAll(statement.getLeaves());
 		}
 		return leaves;
@@ -67,7 +67,7 @@ public class CompositeStatementObject extends AbstractStatement {
 
 	public List<CompositeStatementObject> getInnerNodes() {
 		List<CompositeStatementObject> innerNodes = new ArrayList<CompositeStatementObject>();
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				innerNodes.addAll(composite.getInnerNodes());
@@ -291,7 +291,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public Map<String, List<OperationInvocation>> getAllMethodInvocations() {
 		Map<String, List<OperationInvocation>> map = new LinkedHashMap<String, List<OperationInvocation>>();
 		map.putAll(getMethodInvocationMap());
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				Map<String, List<OperationInvocation>> compositeMap = composite.getAllMethodInvocations();
@@ -342,7 +342,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<AnonymousClassDeclarationObject> getAllAnonymousClassDeclarations() {
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations = new ArrayList<AnonymousClassDeclarationObject>();
 		anonymousClassDeclarations.addAll(getAnonymousClassDeclarations());
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				anonymousClassDeclarations.addAll(composite.getAllAnonymousClassDeclarations());
@@ -358,7 +358,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<LambdaExpressionObject> getAllLambdas() {
 		List<LambdaExpressionObject> lambdas = new ArrayList<LambdaExpressionObject>();
 		lambdas.addAll(getLambdas());
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				lambdas.addAll(composite.getAllLambdas());
@@ -374,7 +374,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<String> getAllVariables() {
 		List<String> variables = new ArrayList<String>();
 		variables.addAll(getVariables());
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variables.addAll(composite.getAllVariables());
@@ -390,7 +390,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	public List<VariableDeclaration> getAllVariableDeclarations() {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		variableDeclarations.addAll(getVariableDeclarations());
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			if(statement instanceof CompositeStatementObject) {
 				CompositeStatementObject composite = (CompositeStatementObject)statement;
 				variableDeclarations.addAll(composite.getAllVariableDeclarations());
@@ -423,7 +423,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		int count = 0;
 		if(!this.getString().equals("{"))
 			count++;
-		for(AbstractStatement statement : statementList) {
+		for(IAbstractStatement statement : statementList) {
 			count += statement.statementCount();
 		}
 		return count;
