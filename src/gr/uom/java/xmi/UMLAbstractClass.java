@@ -8,6 +8,7 @@ import java.util.Set;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.diff.CodeRange;
+import gr.uom.java.xmi.diff.IRenamePattern;
 import gr.uom.java.xmi.diff.RenamePattern;
 import gr.uom.java.xmi.diff.StringDistance;
 
@@ -110,7 +111,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
+	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, IRenamePattern pattern) {
 		if(pattern == null)
 			return false;
 		for(UMLOperation originalOperation : operations) {
@@ -148,7 +149,7 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, RenamePattern pattern) {
+	public boolean containsAttributeWithTheSameRenamePattern(UMLAttribute attribute, IRenamePattern pattern) {
 		if(pattern == null)
 			return false;
 		for(UMLAttribute originalAttribute : attributes) {
@@ -218,7 +219,7 @@ public abstract class UMLAbstractClass {
 	public boolean hasCommonAttributesAndOperations(UMLAbstractClass umlClass) {
 		String commonPrefix = PrefixSuffixUtils.longestCommonPrefix(this.name, umlClass.name);
 		String commonSuffix = PrefixSuffixUtils.longestCommonSuffix(this.name, umlClass.name);
-		RenamePattern pattern = null;
+		IRenamePattern pattern = null;
 		if(!commonPrefix.isEmpty() && !commonSuffix.isEmpty()) {
 			int beginIndexS1 = this.name.indexOf(commonPrefix) + commonPrefix.length();
 			int endIndexS1 = this.name.lastIndexOf(commonSuffix);

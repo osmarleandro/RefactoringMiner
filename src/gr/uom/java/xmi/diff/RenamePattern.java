@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-public class RenamePattern {
+public class RenamePattern implements IRenamePattern {
 	private String before;
 	private String after;
 	
@@ -39,7 +39,7 @@ public class RenamePattern {
 		return result;
 	}
 	
-	public RenamePattern reverse() {
+	public IRenamePattern reverse() {
 		return new RenamePattern(after, before);
 	}
 }

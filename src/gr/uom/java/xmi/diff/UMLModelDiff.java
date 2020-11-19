@@ -1203,7 +1203,7 @@ public class UMLModelDiff {
 		   
 		   if (!originalName.equals(movedName)) {
 			   MoveClassRefactoring refactoring = new MoveClassRefactoring(originalClass, movedClass);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   IRenamePattern renamePattern = refactoring.getRenamePattern();
 			   //check if the the original path is a substring of the moved path and vice versa
 			   if(renamePattern.getBefore().contains(renamePattern.getAfter()) ||
 					   renamePattern.getAfter().contains(renamePattern.getBefore()) ||
@@ -1225,7 +1225,7 @@ public class UMLModelDiff {
 			   }
 		   } else if(!originalPathPrefix.equals(movedPathPrefix)) {
 			   MovedClassToAnotherSourceFolder refactoring = new MovedClassToAnotherSourceFolder(originalClass, movedClass, originalPathPrefix, movedPathPrefix);
-			   RenamePattern renamePattern = refactoring.getRenamePattern();
+			   IRenamePattern renamePattern = refactoring.getRenamePattern();
 			   boolean foundInMatchingMoveSourceFolderRefactoring = false;
 			   for(MoveSourceFolderRefactoring moveSourceFolderRefactoring : moveSourceFolderRefactorings) {
 				   if(moveSourceFolderRefactoring.getPattern().equals(renamePattern)) {
@@ -1306,7 +1306,7 @@ public class UMLModelDiff {
 		 extractRenamePatterns(classDiff, renameMap);
       }
       Map<RenamePattern, Integer> typeRenamePatternMap = typeRenamePatternMap(refactorings);
-      for(RenamePattern pattern : typeRenamePatternMap.keySet()) {
+      for(IRenamePattern pattern : typeRenamePatternMap.keySet()) {
     	  if(typeRenamePatternMap.get(pattern) > 1) {
     		  UMLClass removedClass = looksLikeRemovedClass(UMLType.extractTypeObject(pattern.getBefore()));
     		  UMLClass addedClass = looksLikeAddedClass(UMLType.extractTypeObject(pattern.getAfter()));
