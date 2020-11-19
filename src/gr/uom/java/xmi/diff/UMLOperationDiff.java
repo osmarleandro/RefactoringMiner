@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
@@ -131,7 +132,7 @@ public class UMLOperationDiff {
 		return false;
 	}
 
-	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(UMLOperation removedOperation, UMLOperation addedOperation) {
+	private List<SimpleEntry<UMLParameter, UMLParameter>> updateAddedRemovedParameters(IUMLOperation removedOperation, IUMLOperation addedOperation) {
 		List<SimpleEntry<UMLParameter, UMLParameter>> matchedParameters = new ArrayList<SimpleEntry<UMLParameter, UMLParameter>>();
 		for(UMLParameter parameter1 : removedOperation.getParameters()) {
 			if(!parameter1.getKind().equals("return")) {

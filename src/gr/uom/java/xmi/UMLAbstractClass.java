@@ -43,8 +43,8 @@ public abstract class UMLAbstractClass {
 		return attributes;
 	}
 
-	public UMLOperation operationWithTheSameSignature(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public IUMLOperation operationWithTheSameSignature(UMLOperation operation) {
+		for(IUMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
 				return originalOperation;
 		}
@@ -52,7 +52,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean containsOperationWithTheSameSignature(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+		for(IUMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignature(operation))
 				return true;
 		}
@@ -91,7 +91,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean containsOperationWithTheSameSignatureIgnoringChangedTypes(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+		for(IUMLOperation originalOperation : operations) {
 			if(originalOperation.equalSignatureIgnoringChangedTypes(operation)) {
 				boolean originalOperationEmptyBody = originalOperation.getBody() == null || originalOperation.hasEmptyBody();
 				boolean operationEmptyBody = operation.getBody() == null || operation.hasEmptyBody();
@@ -102,18 +102,18 @@ public abstract class UMLAbstractClass {
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameName(UMLOperation operation) {
-		for(UMLOperation originalOperation : operations) {
+	public boolean containsOperationWithTheSameName(IUMLOperation operation) {
+		for(IUMLOperation originalOperation : operations) {
 			if(originalOperation.getName().equals(operation.getName()))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean containsOperationWithTheSameRenamePattern(UMLOperation operation, RenamePattern pattern) {
+	public boolean containsOperationWithTheSameRenamePattern(IUMLOperation operation, RenamePattern pattern) {
 		if(pattern == null)
 			return false;
-		for(UMLOperation originalOperation : operations) {
+		for(IUMLOperation originalOperation : operations) {
 			String originalOperationName = originalOperation.getName();
 			if(originalOperationName.contains(pattern.getBefore())) {
 				String originalOperationNameAfterReplacement = originalOperationName.replace(pattern.getBefore(), pattern.getAfter());
@@ -306,7 +306,7 @@ public abstract class UMLAbstractClass {
 	}
 
 	public boolean isTestClass() {
-		for(UMLOperation operation : operations) {
+		for(IUMLOperation operation : operations) {
 			if(operation.hasTestAnnotation()) {
 				return true;
 			}

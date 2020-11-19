@@ -2,21 +2,21 @@ package gr.uom.java.xmi.diff;
 
 import java.util.Set;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateSplitVariableRefactoring {
 	private String oldVariable;
 	private Set<String> splitVariables;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private IUMLOperation operationBefore;
+	private IUMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private UMLAttribute oldAttribute;
 	private Set<UMLAttribute> splitAttributes;
 
 	public CandidateSplitVariableRefactoring(String oldVariable, Set<String> splitVariables,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			IUMLOperation operationBefore, IUMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.oldVariable = oldVariable;
 		this.splitVariables = splitVariables;
 		this.operationBefore = operationBefore;
@@ -32,11 +32,11 @@ public class CandidateSplitVariableRefactoring {
 		return splitVariables;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public IUMLOperation getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public IUMLOperation getOperationAfter() {
 		return operationAfter;
 	}
 

@@ -5,6 +5,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
@@ -745,7 +746,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : addedOperations) {
+						for(IUMLOperation operation : addedOperations) {
 							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
@@ -761,7 +762,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : addedOperations) {
+						for(IUMLOperation operation : addedOperations) {
 							if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
@@ -781,7 +782,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Map<String, List<OperationInvocation>> methodInvocationMap = composite.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
+						for(IUMLOperation operation : removedOperations) {
 							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
 								nonMappedInnerNodeCount++;
 								break;
@@ -797,7 +798,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Map<String, List<OperationInvocation>> methodInvocationMap = statement.getMethodInvocationMap();
 				for(String key : methodInvocationMap.keySet()) {
 					for(OperationInvocation invocation : methodInvocationMap.get(key)) {
-						for(UMLOperation operation : removedOperations) {
+						for(IUMLOperation operation : removedOperations) {
 							if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
 								nonMappedLeafCount++;
 								break;
@@ -813,7 +814,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public boolean callsRemovedAndAddedOperation(List<UMLOperation> removedOperations, List<UMLOperation> addedOperations) {
 		boolean removedOperationCalled = false;
 		for(OperationInvocation invocation : operation1.getAllOperationInvocations()) {
-			for(UMLOperation operation : removedOperations) {
+			for(IUMLOperation operation : removedOperations) {
 				if(invocation.matchesOperation(operation, operation1.variableTypeMap(), modelDiff)) {
 					removedOperationCalled = true;
 					break;
@@ -824,7 +825,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 		boolean addedOperationCalled = false;
 		for(OperationInvocation invocation : operation2.getAllOperationInvocations()) {
-			for(UMLOperation operation : addedOperations) {
+			for(IUMLOperation operation : addedOperations) {
 				if(invocation.matchesOperation(operation, operation2.variableTypeMap(), modelDiff)) {
 					addedOperationCalled = true;
 					break;
@@ -2654,7 +2655,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		}
 	}
 
-	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, UMLOperation operation) {
+	private UMLAnonymousClass findAnonymousClass(AnonymousClassDeclarationObject anonymousClassDeclaration1, IUMLOperation operation) {
 		for(UMLAnonymousClass anonymousClass : operation.getAnonymousClassList()) {
 			if(anonymousClass.getLocationInfo().equals(anonymousClassDeclaration1.getLocationInfo())) {
 				return anonymousClass;
@@ -2663,7 +2664,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return null;
 	}
 
-	private String statementWithoutAnonymous(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, UMLOperation operation) {
+	private String statementWithoutAnonymous(AbstractCodeFragment statement, AnonymousClassDeclarationObject anonymousClassDeclaration, IUMLOperation operation) {
 		int index = statement.getString().indexOf(anonymousClassDeclaration.toString());
 		if(index != -1) {
 			return statement.getString().substring(0, index);
@@ -2703,7 +2704,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			for(UMLOperation anonymousOperation : anonymousOperations) {
+			for(IUMLOperation anonymousOperation : anonymousOperations) {
 				OperationBody body = anonymousOperation.getBody();
 				if(body != null) {
 					List<StatementObject> leaves = body.getCompositeStatement().getLeaves();
@@ -4155,7 +4156,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	}
 
 	private boolean matchesOperation(OperationInvocation invocation, List<UMLOperation> operations, Map<String, UMLType> variableTypeMap) {
-		for(UMLOperation operation : operations) {
+		for(IUMLOperation operation : operations) {
 			if(invocation.matchesOperation(operation, variableTypeMap, modelDiff))
 				return true;
 		}

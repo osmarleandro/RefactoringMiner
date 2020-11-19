@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.IUMLOperation;
 
 public class CallTree {
 	private CallTreeNode root;
@@ -26,7 +26,7 @@ public class CallTree {
 		return nodes;
 	}
 	
-	public boolean contains(UMLOperation invokedOperation) {
+	public boolean contains(IUMLOperation invokedOperation) {
 		for(CallTreeNode node : getNodesInBreadthFirstOrder()) {
 			if(node.getInvokedOperation().equals(invokedOperation)) {
 				return true;

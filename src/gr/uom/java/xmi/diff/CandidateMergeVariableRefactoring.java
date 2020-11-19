@@ -2,21 +2,21 @@ package gr.uom.java.xmi.diff;
 
 import java.util.Set;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLAttribute;
-import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
 public class CandidateMergeVariableRefactoring {
 	private Set<String> mergedVariables;
 	private String newVariable;
-	private UMLOperation operationBefore;
-	private UMLOperation operationAfter;
+	private IUMLOperation operationBefore;
+	private IUMLOperation operationAfter;
 	private Set<AbstractCodeMapping> variableReferences;
 	private Set<UMLAttribute> mergedAttributes;
 	private UMLAttribute newAttribute;
 
 	public CandidateMergeVariableRefactoring(Set<String> mergedVariables, String newVariable,
-			UMLOperation operationBefore, UMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
+			IUMLOperation operationBefore, IUMLOperation operationAfter, Set<AbstractCodeMapping> variableReferences) {
 		this.mergedVariables = mergedVariables;
 		this.newVariable = newVariable;
 		this.operationBefore = operationBefore;
@@ -32,11 +32,11 @@ public class CandidateMergeVariableRefactoring {
 		return newVariable;
 	}
 
-	public UMLOperation getOperationBefore() {
+	public IUMLOperation getOperationBefore() {
 		return operationBefore;
 	}
 
-	public UMLOperation getOperationAfter() {
+	public IUMLOperation getOperationAfter() {
 		return operationAfter;
 	}
 

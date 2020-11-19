@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -1124,8 +1125,8 @@ public class UMLModelDiff {
    }
 
    private void checkForExtractedOperationsWithinMovedMethod(UMLOperationBodyMapper movedMethodMapper, UMLClass addedClass) throws RefactoringMinerTimedOutException {
-	   UMLOperation removedOperation = movedMethodMapper.getOperation1();
-	   UMLOperation addedOperation = movedMethodMapper.getOperation2();
+	   IUMLOperation removedOperation = movedMethodMapper.getOperation1();
+	   IUMLOperation addedOperation = movedMethodMapper.getOperation2();
 	   List<OperationInvocation> removedInvocations = removedOperation.getAllOperationInvocations();
 	   List<OperationInvocation> addedInvocations = addedOperation.getAllOperationInvocations();
 	   Set<OperationInvocation> intersection = new LinkedHashSet<OperationInvocation>(removedInvocations);
@@ -1793,7 +1794,7 @@ public class UMLModelDiff {
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : getAddedOperationsInCommonClasses()) {
+			for(IUMLOperation addedOperation : getAddedOperationsInCommonClasses()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, this)) {
 					return true;
 				}
@@ -1919,7 +1920,7 @@ public class UMLModelDiff {
       }
    }
 
-   private boolean conflictingExpression(OperationInvocation invocation, UMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
+   private boolean conflictingExpression(OperationInvocation invocation, IUMLOperation addedOperation, Map<String, UMLType> variableTypeMap) {
 	   String expression = invocation.getExpression();
 	   if(expression != null && variableTypeMap.containsKey(expression)) {
 		   UMLType type = variableTypeMap.get(expression);
@@ -1936,7 +1937,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, UMLOperation addedOperation, List<UMLOperation> addedOperations) {
+   private boolean anotherAddedMethodExistsWithBetterMatchingInvocationExpression(OperationInvocation invocation, IUMLOperation addedOperation, List<UMLOperation> addedOperations) {
 	   String expression = invocation.getExpression();
 	   if(expression != null) {
 		   int originalDistance = StringDistance.editDistance(expression, addedOperation.getNonQualifiedClassName());
@@ -2241,7 +2242,7 @@ public class UMLModelDiff {
 		List<UMLOperationBodyMapper> extraMappers = operationBodyMapperMap.get(0);
 		if(extraMappers != null && operationBodyMapperMap.lastKey() != 0) {
 			for(UMLOperationBodyMapper extraMapper : extraMappers) {
-				UMLOperation operation1 = extraMapper.getOperation1();
+				IUMLOperation operation1 = extraMapper.getOperation1();
 				UMLOperation operation2 = extraMapper.getOperation2();
 				if(operation1.equalSignature(operation2)) {
 					List<AbstractCodeMapping> mappings = new ArrayList<AbstractCodeMapping>(extraMapper.getMappings());
@@ -2359,7 +2360,7 @@ public class UMLModelDiff {
 				(nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT1/2.0));
    }
 
-   private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation, UMLOperationBodyMapper mapper) {
+   private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, IUMLOperation addedOperation, UMLOperationBodyMapper mapper) {
 	   UMLClassBaseDiff removedOperationClassDiff = getUMLClassDiff(removedOperation.getClassName());
 	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
 		   return false;
@@ -2438,7 +2439,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean movedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation) {
+   private boolean movedMethodSignature(IUMLOperation removedOperation, IUMLOperation addedOperation) {
 	   if(addedOperation.getName().equals(removedOperation.getName()) &&
 			   addedOperation.equalReturnParameter(removedOperation) &&
 			   addedOperation.isAbstract() == removedOperation.isAbstract() &&
@@ -2477,7 +2478,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
+   private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(IUMLOperation removedOperation, IUMLOperation addedOperation) {
 	   for(Refactoring refactoring : refactorings) {
 		   if(refactoring instanceof MoveOperationRefactoring) {
 			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
@@ -2513,13 +2514,13 @@ public class UMLModelDiff {
 		return null;
 	}
 
-   private void deleteRemovedOperation(UMLOperation operation) {
+   private void deleteRemovedOperation(IUMLOperation operation) {
       UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
       if(classDiff != null)
     	  classDiff.getRemovedOperations().remove(operation);
    }
    
-   private void deleteAddedOperation(UMLOperation operation) {
+   private void deleteAddedOperation(IUMLOperation operation) {
       UMLClassBaseDiff classDiff = getUMLClassDiff(operation.getClassName());
       if(classDiff != null)
     	  classDiff.getAddedOperations().remove(operation);

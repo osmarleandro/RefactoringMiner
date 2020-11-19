@@ -1,8 +1,8 @@
 package gr.uom.java.xmi.decomposition;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
-import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.diff.StringDistance;
@@ -142,11 +142,11 @@ public class OperationInvocation extends AbstractCall {
     	return subExpressions.size();
     }
 
-    public boolean matchesOperation(UMLOperation operation) {
+    public boolean matchesOperation(IUMLOperation operation) {
     	return matchesOperation(operation, new HashMap<String, UMLType>(), null);
     }
 
-    public boolean matchesOperation(UMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
+    public boolean matchesOperation(IUMLOperation operation, Map<String, UMLType> variableTypeMap, UMLModelDiff modelDiff) {
     	List<UMLType> inferredArgumentTypes = new ArrayList<UMLType>();
     	for(String arg : arguments) {
     		int indexOfOpeningParenthesis = arg.indexOf("(");
@@ -260,7 +260,7 @@ public class OperationInvocation extends AbstractCall {
     	return false;
     }
 
-    private boolean varArgsMatch(UMLOperation operation) {
+    private boolean varArgsMatch(IUMLOperation operation) {
     	//0 varargs arguments passed
     	return this.typeArguments == operation.getNumberOfNonVarargsParameters() ||
     			//>=1 varargs arguments passed
@@ -438,7 +438,7 @@ public class OperationInvocation extends AbstractCall {
 		return getMethodName().equals(((OperationInvocation)call).getMethodName());
 	}
 
-	public boolean typeInferenceMatch(UMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
+	public boolean typeInferenceMatch(IUMLOperation operationToBeMatched, Map<String, UMLType> typeInferenceMapFromContext) {
 		List<UMLParameter> parameters = operationToBeMatched.getParametersWithoutReturnType();
 		if(operationToBeMatched.hasVarargsParameter()) {
 			//we expect arguments to be =(parameters-1), or =parameters, or >parameters

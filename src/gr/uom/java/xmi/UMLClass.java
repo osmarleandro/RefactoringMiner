@@ -229,10 +229,10 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
     	return null;
     }
 
-    public UMLOperation matchOperation(UMLOperation otherOperation) {
+    public IUMLOperation matchOperation(IUMLOperation otherOperation) {
     	ListIterator<UMLOperation> operationIt = operations.listIterator();
     	while(operationIt.hasNext()) {
-    		UMLOperation operation = operationIt.next();
+    		IUMLOperation operation = operationIt.next();
     		if(operation.getName().equals(otherOperation.getName())) {
     			if(operation.getParameters().size() == otherOperation.getParameters().size()) {
     				boolean match = true;
@@ -387,7 +387,7 @@ public class UMLClass extends UMLAbstractClass implements Comparable<UMLClass>, 
 	}
 
 	public Map<String, Set<String>> aliasedAttributes() {
-		for(UMLOperation operation : getOperations()) {
+		for(IUMLOperation operation : getOperations()) {
 			if(operation.isConstructor()) {
 				Map<String, Set<String>> aliased = operation.aliasedAttributes();
 				if(!aliased.isEmpty()) {

@@ -3,23 +3,24 @@ package gr.uom.java.xmi.diff;
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
 public class CallTreeNode {
-	private UMLOperation originalOperation;
+	private IUMLOperation originalOperation;
 	private UMLOperation invokedOperation;
 	private OperationInvocation invocation;
 	private List<CallTreeNode> children = new ArrayList<CallTreeNode>();
 	
-	public CallTreeNode(UMLOperation originalOperation, UMLOperation invokedOperation,
+	public CallTreeNode(IUMLOperation originalOperation, UMLOperation invokedOperation,
 			OperationInvocation invocation) {
 		this.originalOperation = originalOperation;
 		this.invokedOperation = invokedOperation;
 		this.invocation = invocation;
 	}
 
-	public UMLOperation getOriginalOperation() {
+	public IUMLOperation getOriginalOperation() {
 		return originalOperation;
 	}
 

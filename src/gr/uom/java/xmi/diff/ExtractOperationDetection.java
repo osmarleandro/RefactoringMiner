@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.UMLType;
@@ -43,7 +44,7 @@ public class ExtractOperationDetection {
 			List<OperationInvocation> addedOperationInvocations = matchingInvocations(addedOperation, operationInvocations, mapper.getOperation2().variableTypeMap());
 			if(addedOperationInvocations.size() > 0) {
 				int otherAddedMethodsCalled = 0;
-				for(UMLOperation addedOperation2 : this.addedOperations) {
+				for(IUMLOperation addedOperation2 : this.addedOperations) {
 					if(!addedOperation.equals(addedOperation2)) {
 						List<OperationInvocation> addedOperationInvocations2 = matchingInvocations(addedOperation2, operationInvocations, mapper.getOperation2().variableTypeMap());
 						if(addedOperationInvocations2.size() > 0) {
@@ -113,7 +114,7 @@ public class ExtractOperationDetection {
 					}
 				}
 			}
-			UMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
+			IUMLOperation delegateMethod = findDelegateMethod(mapper.getOperation1(), addedOperation, addedOperationInvocation);
 			if(extractMatchCondition(operationBodyMapper, additionalExactMatches)) {
 				if(delegateMethod == null) {
 					refactorings.add(new ExtractOperationRefactoring(operationBodyMapper, mapper.getOperation2(), addedOperationInvocations));
@@ -174,7 +175,7 @@ public class ExtractOperationDetection {
 		return false;
 	}
 
-	private List<OperationInvocation> matchingInvocations(UMLOperation operation,
+	private List<OperationInvocation> matchingInvocations(IUMLOperation operation,
 			List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> addedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {
@@ -185,7 +186,7 @@ public class ExtractOperationDetection {
 		return addedOperationInvocations;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(IUMLOperation operation, CallTreeNode parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation addedOperation : addedOperations) {
 			for(OperationInvocation invocation : invocations) {
@@ -201,7 +202,7 @@ public class ExtractOperationDetection {
 	}
 
 	private UMLOperationBodyMapper createMapperForExtractedMethod(UMLOperationBodyMapper mapper,
-			UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
+			IUMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) throws RefactoringMinerTimedOutException {
 		List<UMLParameter> originalMethodParameters = originalOperation.getParametersWithoutReturnType();
 		Map<UMLParameter, UMLParameter> originalMethodParametersPassedAsArgumentsMappedToCalledMethodParameters = new LinkedHashMap<UMLParameter, UMLParameter>();
 		List<String> arguments = addedOperationInvocation.getArguments();
@@ -274,7 +275,7 @@ public class ExtractOperationDetection {
 				nonMappedLeavesT2.size() == 1 && nonMappedLeavesT2.get(0).toString().startsWith("return ");
 	}
 
-	private UMLOperation findDelegateMethod(UMLOperation originalOperation, UMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
+	private UMLOperation findDelegateMethod(IUMLOperation originalOperation, IUMLOperation addedOperation, OperationInvocation addedOperationInvocation) {
 		OperationInvocation delegateMethodInvocation = addedOperation.isDelegate();
 		if(originalOperation.isDelegate() == null && delegateMethodInvocation != null && !originalOperation.getAllOperationInvocations().contains(addedOperationInvocation)) {
 			for(UMLOperation operation : addedOperations) {

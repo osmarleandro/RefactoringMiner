@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
+import gr.uom.java.xmi.IUMLOperation;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
@@ -73,7 +74,7 @@ public class InlineOperationDetection {
 		return refactorings;
 	}
 
-	private List<OperationInvocation> matchingInvocations(UMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
+	private List<OperationInvocation> matchingInvocations(IUMLOperation removedOperation, List<OperationInvocation> operationInvocations, Map<String, UMLType> variableTypeMap) {
 		List<OperationInvocation> removedOperationInvocations = new ArrayList<OperationInvocation>();
 		for(OperationInvocation invocation : operationInvocations) {
 			if(invocation.matchesOperation(removedOperation, variableTypeMap, modelDiff)) {
@@ -97,7 +98,7 @@ public class InlineOperationDetection {
 		return operationBodyMapper;
 	}
 
-	private void generateCallTree(UMLOperation operation, CallTreeNode parent, CallTree callTree) {
+	private void generateCallTree(IUMLOperation operation, CallTreeNode parent, CallTree callTree) {
 		List<OperationInvocation> invocations = operation.getAllOperationInvocations();
 		for(UMLOperation removedOperation : removedOperations) {
 			for(OperationInvocation invocation : invocations) {
@@ -118,7 +119,7 @@ public class InlineOperationDetection {
 			ExtractOperationDetection.addStatementInvocations(operationInvocations, statement);
 			for(UMLAnonymousClass anonymousClass : classDiff.getRemovedAnonymousClasses()) {
 				if(statement.getLocationInfo().subsumes(anonymousClass.getLocationInfo())) {
-					for(UMLOperation anonymousOperation : anonymousClass.getOperations()) {
+					for(IUMLOperation anonymousOperation : anonymousClass.getOperations()) {
 						for(OperationInvocation anonymousInvocation : anonymousOperation.getAllOperationInvocations()) {
 							if(!ExtractOperationDetection.containsInvocation(operationInvocations, anonymousInvocation)) {
 								operationInvocations.add(anonymousInvocation);
@@ -150,7 +151,7 @@ public class InlineOperationDetection {
 
 	private boolean invocationMatchesWithAddedOperation(OperationInvocation removedOperationInvocation, Map<String, UMLType> variableTypeMap, List<OperationInvocation> operationInvocationsInNewMethod) {
 		if(operationInvocationsInNewMethod.contains(removedOperationInvocation)) {
-			for(UMLOperation addedOperation : classDiff.getAddedOperations()) {
+			for(IUMLOperation addedOperation : classDiff.getAddedOperations()) {
 				if(removedOperationInvocation.matchesOperation(addedOperation, variableTypeMap, modelDiff)) {
 					return true;
 				}

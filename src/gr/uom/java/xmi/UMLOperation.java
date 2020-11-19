@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.refactoringminer.util.AstUtils;
 
-public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
+public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider, IUMLOperation {
 	private LocationInfo locationInfo;
 	private String name;
 	private String visibility;
@@ -234,7 +234,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return null;
 	}
 
-	public boolean equalReturnParameter(UMLOperation operation) {
+	public boolean equalReturnParameter(IUMLOperation operation) {
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
@@ -245,7 +245,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			return false;
 	}
 
-	public boolean equalQualifiedReturnParameter(UMLOperation operation) {
+	public boolean equalQualifiedReturnParameter(IUMLOperation operation) {
 		UMLParameter thisReturnParameter = this.getReturnParameter();
 		UMLParameter otherReturnParameter = operation.getReturnParameter();
 		if(thisReturnParameter != null && otherReturnParameter != null)
@@ -363,7 +363,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return params;
 	}
 
-	public List<UMLType> commonParameterTypes(UMLOperation operation) {
+	public List<UMLType> commonParameterTypes(IUMLOperation operation) {
 		List<UMLType> commonParameterTypes = new ArrayList<UMLType>();
 		List<UMLType> thisParameterTypeList = getParameterTypeList();
 		List<UMLType> otherParameterTypeList = operation.getParameterTypeList();
@@ -654,7 +654,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.toString().compareTo(operation.toString());
 	}
 
-	public double normalizedNameDistance(UMLOperation operation) {
+	public double normalizedNameDistance(IUMLOperation operation) {
 		String s1 = getName().toLowerCase();
 		String s2 = operation.getName().toLowerCase();
 		int distance = StringDistance.editDistance(s1, s2);
@@ -662,7 +662,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return normalized;
 	}
 
-	public boolean equalParameters(UMLOperation operation) {
+	public boolean equalParameters(IUMLOperation operation) {
 		return this.equalReturnParameter(operation) && this.getParameters().equals(operation.getParameters());
 	}
 
@@ -674,21 +674,21 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return this.typeParameters.equals(operation.typeParameters);
 	}
 
-	public boolean equalParameterNames(UMLOperation operation) {
+	public boolean equalParameterNames(IUMLOperation operation) {
 		return this.equalReturnParameter(operation) && this.getParameterNameList().equals(operation.getParameterNameList());
 	}
 
-	public boolean overloadedParameters(UMLOperation operation) {
+	public boolean overloadedParameters(IUMLOperation operation) {
 		return this.equalReturnParameter(operation) &&
 				(this.getParameters().containsAll(operation.getParameters()) || operation.getParameters().containsAll(this.getParameters()));
 	}
 
-	public boolean overloadedParameterTypes(UMLOperation operation) {
+	public boolean overloadedParameterTypes(IUMLOperation operation) {
 		return this.equalReturnParameter(operation) &&
 				(this.getParameterTypeList().containsAll(operation.getParameterTypeList()) || operation.getParameterTypeList().containsAll(this.getParameterTypeList()));
 	}
 	
-	public boolean replacedParameterTypes(UMLOperation operation) {
+	public boolean replacedParameterTypes(IUMLOperation operation) {
 		List<UMLType> thisParameterTypes = this.getParameterTypeList();
 		List<UMLType> otherParameterTypes = operation.getParameterTypeList();
 		
