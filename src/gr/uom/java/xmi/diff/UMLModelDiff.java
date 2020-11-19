@@ -13,6 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.IUMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1567,7 +1568,7 @@ public class UMLModelDiff {
    }
 
    private void inferRefactoringsFromMatchingMappers(List<UMLOperationBodyMapper> mappers, UMLOperationDiff operationSignatureDiff, Set<Refactoring> refactorings) {
-	   for(UMLOperationBodyMapper mapper : mappers) {
+	   for(IUMLOperationBodyMapper mapper : mappers) {
 		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
 				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
@@ -1756,7 +1757,7 @@ public class UMLModelDiff {
 	   }
    }
 
-	private boolean moveAndInlineMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
+	private boolean moveAndInlineMatchCondition(IUMLOperationBodyMapper operationBodyMapper, IUMLOperationBodyMapper parentMapper) {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
@@ -1954,7 +1955,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private boolean extractAndMoveMatchCondition(UMLOperationBodyMapper operationBodyMapper, UMLOperationBodyMapper parentMapper) {
+   private boolean extractAndMoveMatchCondition(IUMLOperationBodyMapper operationBodyMapper, IUMLOperationBodyMapper parentMapper) {
 	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
 		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
@@ -2193,7 +2194,7 @@ public class UMLModelDiff {
 	            	firstMappers.clear();
 	            	firstMappers.add(bestMapper);
 	            }
-	            for(UMLOperationBodyMapper firstMapper : firstMappers) {
+	            for(IUMLOperationBodyMapper firstMapper : firstMappers) {
 	               UMLOperation addedOperation = firstMapper.getOperation2();
 	               if(sameSourceAndTargetClass) {
 	                  addedOperations.remove(addedOperation);
@@ -2269,7 +2270,7 @@ public class UMLModelDiff {
 	}
 
 	private boolean allRenamedOperations(List<UMLOperationBodyMapper> mappers) {
-		for (UMLOperationBodyMapper mapper : mappers) {
+		for (IUMLOperationBodyMapper mapper : mappers) {
 			if(mapper.getOperation1().getName().equals(mapper.getOperation2().getName())) {
 				return false;
 			}
@@ -2283,7 +2284,7 @@ public class UMLModelDiff {
 	   }
 	   String sourceClassName = null;
 	   String targetClassName = null;
-	   for (UMLOperationBodyMapper mapper : mappers) {
+	   for (IUMLOperationBodyMapper mapper : mappers) {
 		   String mapperSourceClassName = mapper.getOperation1().getClassName();
 		   if(sourceClassName == null) {
 			   sourceClassName = mapperSourceClassName;
@@ -2302,7 +2303,7 @@ public class UMLModelDiff {
 	   return true;
    }
 
-   private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, UMLOperationBodyMapper operationBodyMapper) {
+   private boolean mappedElementsMoreThanNonMappedT1AndT2(int mappings, IUMLOperationBodyMapper operationBodyMapper) {
         int nonMappedElementsT1 = operationBodyMapper.nonMappedElementsT1();
 		int nonMappedElementsT2 = operationBodyMapper.nonMappedElementsT2();
 		UMLClass addedClass = getAddedClass(operationBodyMapper.getOperation2().getClassName());
@@ -2359,7 +2360,7 @@ public class UMLModelDiff {
 				(nonMappedElementsT2-nonMappedStatementsDeclaringSameVariable-nonMappedLoopsIteratingOverSameVariable == 0 && mappings > Math.floor(nonMappedElementsT1/2.0));
    }
 
-   private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation, UMLOperationBodyMapper mapper) {
+   private boolean movedAndRenamedMethodSignature(UMLOperation removedOperation, UMLOperation addedOperation, IUMLOperationBodyMapper mapper) {
 	   UMLClassBaseDiff removedOperationClassDiff = getUMLClassDiff(removedOperation.getClassName());
 	   if(removedOperationClassDiff != null && removedOperationClassDiff.containsOperationWithTheSameSignatureInNextClass(removedOperation)) {
 		   return false;

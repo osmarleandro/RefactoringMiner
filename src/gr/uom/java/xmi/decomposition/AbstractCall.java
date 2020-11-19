@@ -225,7 +225,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean renamedWithIdenticalArgumentsAndNoExpression(AbstractCall call, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+		for(IUMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;
@@ -239,7 +239,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 
 	public boolean renamedWithIdenticalExpressionAndDifferentNumberOfArguments(AbstractCall call, Set<Replacement> replacements, double distance, List<UMLOperationBodyMapper> lambdaMappers) {
 		boolean allExactLambdaMappers = lambdaMappers.size() > 0;
-		for(UMLOperationBodyMapper lambdaMapper : lambdaMappers) {
+		for(IUMLOperationBodyMapper lambdaMapper : lambdaMappers) {
 			if(!allMappingsAreExactMatches(lambdaMapper)) {
 				allExactLambdaMappers = false;
 				break;

@@ -11,6 +11,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
+import gr.uom.java.xmi.decomposition.IUMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
@@ -180,7 +181,7 @@ public class UMLClassDiff extends UMLClassBaseDiff {
 	}
 
 	private boolean containsMapperForOperation(UMLOperation operation) {
-		for(UMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
+		for(IUMLOperationBodyMapper mapper : getOperationBodyMapperList()) {
 			if(mapper.getOperation1().equalsQualified(operation)) {
 				return true;
 			}

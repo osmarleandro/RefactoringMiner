@@ -48,7 +48,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
-public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper> {
+public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper>, IUMLOperationBodyMapper {
 	private UMLOperation operation1;
 	private UMLOperation operation2;
 	private Set<AbstractCodeMapping> mappings;
@@ -214,7 +214,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		return childMappers;
 	}
 
-	public UMLOperationBodyMapper getParentMapper() {
+	public IUMLOperationBodyMapper getParentMapper() {
 		return parentMapper;
 	}
 
@@ -436,7 +436,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private void expandAnonymousAndLambdas(AbstractCodeFragment fragment, List<StatementObject> leaves1,
 			List<CompositeStatementObject> innerNodes1, Set<StatementObject> addedLeaves1,
-			Set<CompositeStatementObject> addedInnerNodes1, UMLOperationBodyMapper operationBodyMapper) {
+			Set<CompositeStatementObject> addedInnerNodes1, IUMLOperationBodyMapper operationBodyMapper) {
 		if(fragment instanceof StatementObject) {
 			StatementObject statement = (StatementObject)fragment;
 			if(!leaves1.contains(statement)) {
