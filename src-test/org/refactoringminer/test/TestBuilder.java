@@ -21,7 +21,7 @@ import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.test.RefactoringPopulator.Refactorings;
 import org.refactoringminer.util.GitServiceImpl;
 
-public class TestBuilder {
+public class TestBuilder implements ITestBuilder {
 
 	private final String tempDir;
 	private final Map<String, ProjectMatcher> map;
@@ -54,12 +54,12 @@ public class TestBuilder {
 		this.refactoringFilter = refactorings;
 	}
 
-	public TestBuilder verbose() {
+	public ITestBuilder verbose() {
 		this.verbose = true;
 		return this;
 	}
 
-	public TestBuilder withAggregation() {
+	public ITestBuilder withAggregation() {
 		this.aggregate = true;
 		return this;
 	}
