@@ -11,7 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class MergeAttributeRefactoring implements Refactoring {
+public class MergeAttributeRefactoring implements Refactoring, IMergeAttributeRefactoring {
 	private Set<VariableDeclaration> mergedAttributes;
 	private VariableDeclaration newAttribute;
 	private Set<CandidateMergeVariableRefactoring> attributeMerges;

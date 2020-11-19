@@ -801,7 +801,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
-				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
+				IMergeAttributeRefactoring merge = (IMergeAttributeRefactoring)refactoring;
 				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
 					return true;
 				}
