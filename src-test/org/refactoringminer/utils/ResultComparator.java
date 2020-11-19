@@ -20,7 +20,7 @@ import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
 
-public class ResultComparator {
+public class ResultComparator implements IResultComparator {
 
     Set<String> groupIds = new LinkedHashSet<>();
     Map<String, RefactoringSet> expectedMap = new LinkedHashMap<>();
@@ -43,21 +43,21 @@ public class ResultComparator {
         this(false, false);
     }
 
-    public ResultComparator expect(RefactoringSet ... sets) {
+    public IResultComparator expect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             expectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator dontExpect(RefactoringSet ... sets) {
+    public IResultComparator dontExpect(RefactoringSet ... sets) {
         for (RefactoringSet set : sets) {
             notExpectedMap.put(getProjectRevisionId(set.getProject(), set.getRevision()), set);
         }
         return this;
     }
 
-    public ResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
+    public IResultComparator compareWith(String groupId, RefactoringSet ... actualArray) {
         for (RefactoringSet actual : actualArray) {
             groupIds.add(groupId);
             resultMap.put(getResultId(actual.getProject(), actual.getRevision(), groupId), actual);
