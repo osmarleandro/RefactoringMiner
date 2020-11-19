@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.diff.StringDistance;
 
-public class Replacement {
+public class Replacement implements IReplacement {
 	private String before;
 	private String after;
 	private ReplacementType type;

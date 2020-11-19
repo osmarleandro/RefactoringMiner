@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class ConsistentReplacementDetector {
 
-	private static <T extends Replacement> Set<T> inconsistentRenames(
+	private static <T extends IReplacement> Set<T> inconsistentRenames(
 			Set<T> currentRenames, T newRename) {
 		Set<T> inconsistentRenames = new LinkedHashSet<T>();
 		for(T rename : currentRenames) {
@@ -20,7 +20,7 @@ public class ConsistentReplacementDetector {
 		return inconsistentRenames;
 	}
 
-	public static <T extends Replacement> void updateRenames(
+	public static <T extends IReplacement> void updateRenames(
 			Set<T> allConsistentRenames,
 			Set<T> allInconsistentRenames,
 			Set<T> renames) {
@@ -37,7 +37,7 @@ public class ConsistentReplacementDetector {
 	}
 
 
-	public static <T extends Replacement> void updateRenames(
+	public static <T extends IReplacement> void updateRenames(
 			Set<T> allConsistentRenames,
 			Set<T> allInconsistentRenames,
 			Set<T> renames,
@@ -56,7 +56,7 @@ public class ConsistentReplacementDetector {
 		}
 	}
 	
-	private static <T extends Replacement> Set<T> filter(Set<T> inconsistentRenames,
+	private static <T extends IReplacement> Set<T> filter(Set<T> inconsistentRenames,
 			Map<String, Set<String>> aliasedAttributesInOriginalClass,
 			Map<String, Set<String>> aliasedAttributesInNextClass) {
 		Set<T> renamesToBeRemoved = new LinkedHashSet<T>();

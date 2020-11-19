@@ -10,6 +10,7 @@ import java.util.Set;
 
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfoProvider;
+import gr.uom.java.xmi.decomposition.replacement.IReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
@@ -87,7 +88,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String expression1 = getExpression();
 			String expression2 = call.getExpression();
 			String expression1AfterReplacements = new String(expression1);
-			for(Replacement replacement : replacements) {
+			for(IReplacement replacement : replacements) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
 					expression1AfterReplacements = ReplacementUtil.performReplacement(expression1AfterReplacements, expression2, replacement.getBefore(), replacement.getAfter());
 				}
@@ -112,7 +113,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			String argument1 = arguments1.get(i);
 			String argument2 = arguments2.get(i);
 			boolean argumentReplacement = false;
-			for(Replacement replacement : replacements) {
+			for(IReplacement replacement : replacements) {
 				if(replacement.getBefore().equals(argument1) &&	replacement.getAfter().equals(argument2)) {
 					argumentReplacement = true;
 					break;
@@ -177,7 +178,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			for(int i=0; i<arguments1.size(); i++) {
 				String argument1 = arguments1.get(i);
 				String argument2 = arguments2.get(i);
-				for(Replacement replacement : replacements) {
+				for(IReplacement replacement : replacements) {
 					if(replacement.getBefore().equals(argument1) &&	replacement.getAfter().equals(argument2)) {
 						replacedArguments++;
 						break;
@@ -196,7 +197,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 			for(int i=0; i<arguments1.size(); i++) {
 				String argument1 = arguments1.get(i);
 				String argument2 = arguments2.get(i);
-				for(Replacement replacement : replacements) {
+				for(IReplacement replacement : replacements) {
 					if( (replacement.getBefore().equals(argument1) || replacement.getBefore().equals(parameterToArgumentMap.get(argument1))) &&
 							(replacement.getAfter().equals(argument2) || replacement.getAfter().equals(parameterToArgumentMap.get(argument2))) ) {
 						replacedArguments++;
@@ -291,7 +292,7 @@ public abstract class AbstractCall implements LocationInfoProvider {
 					if(r.size() > 1) {
 						replacements.removeAll(r);
 						Set<String> mergedVariables = new LinkedHashSet<String>();
-						for(Replacement replacement : r) {
+						for(IReplacement replacement : r) {
 							mergedVariables.add(replacement.getBefore());
 						}
 						MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);

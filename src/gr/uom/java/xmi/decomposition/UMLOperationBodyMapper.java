@@ -9,6 +9,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
+import gr.uom.java.xmi.decomposition.replacement.IReplacement;
 import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
@@ -230,7 +231,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	
 	private boolean returnWithVariableReplacement(AbstractCodeMapping mapping) {
 		if(mapping.getReplacements().size() == 1) {
-			Replacement r = mapping.getReplacements().iterator().next();
+			IReplacement r = mapping.getReplacements().iterator().next();
 			if(r.getType().equals(ReplacementType.VARIABLE_NAME)) {
 				String fragment1 = mapping.getFragment1().getString();
 				String fragment2 = mapping.getFragment2().getString();
@@ -247,7 +248,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		int nullLiteralReplacements = 0;
 		int methodInvocationReplacementsToIgnore = 0;
 		int variableNameReplacementsToIgnore = 0;
-		for(Replacement replacement : mapping.getReplacements()) {
+		for(IReplacement replacement : mapping.getReplacements()) {
 			if(replacement.getType().equals(ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION) ||
 					replacement.getType().equals(ReplacementType.VARIABLE_REPLACED_WITH_NULL_LITERAL) ||
 					(replacement.getType().equals(ReplacementType.ARGUMENT_REPLACED_WITH_VARIABLE) && (replacement.getBefore().equals("null") || replacement.getAfter().equals("null")))) {
@@ -918,7 +919,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 	public Set<MethodInvocationReplacement> getMethodInvocationRenameReplacements() {
 		Set<MethodInvocationReplacement> replacements = new LinkedHashSet<MethodInvocationReplacement>();
 		for(AbstractCodeMapping mapping : getMappings()) {
-			for(Replacement replacement : mapping.getReplacements()) {
+			for(IReplacement replacement : mapping.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME) ||
 						replacement.getType().equals(ReplacementType.METHOD_INVOCATION_NAME_AND_ARGUMENT)) {
 					replacements.add((MethodInvocationReplacement) replacement);
@@ -1311,7 +1312,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				for(AbstractCodeMapping previousMapping : this.mappings) {
 					Set<Replacement> intersection = variableDeclarationMapping.commonReplacements(previousMapping);
 					if(!intersection.isEmpty()) {
-						for(Replacement commonReplacement : intersection) {
+						for(IReplacement commonReplacement : intersection) {
 							if(commonReplacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
 									variableDeclarationMapping.getFragment1().getVariableDeclaration(commonReplacement.getBefore()) != null &&
 									variableDeclarationMapping.getFragment2().getVariableDeclaration(commonReplacement.getAfter()) != null) {
@@ -1373,7 +1374,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						OperationInvocation invocation1 = mapping.getFragment1().invocationCoveringEntireFragment();
 						OperationInvocation invocation2 = mapping.getFragment2().invocationCoveringEntireFragment();
 						if(invocation1 != null && invocation2 != null) {
-							for(Replacement replacement : mapping.getReplacements()) {
+							for(IReplacement replacement : mapping.getReplacements()) {
 								if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 									if(invocation1.getName().equals(replacement.getBefore()) && invocation2.getName().equals(replacement.getAfter())) {
 										mappingsWithSameReplacementTypes.add(mapping);
@@ -1795,7 +1796,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		//apply existing replacements on method invocations
 		for(String methodInvocation1 : methodInvocations1) {
 			String temp = new String(methodInvocation1);
-			for(Replacement replacement : replacementInfo.getReplacements()) {
+			for(IReplacement replacement : replacementInfo.getReplacements()) {
 				temp = ReplacementUtil.performReplacement(temp, replacement.getBefore(), replacement.getAfter());
 			}
 			if(!temp.equals(methodInvocation1)) {
@@ -1969,7 +1970,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		if(isEqualWithReplacement) {
 			List<Replacement> typeReplacements = replacementInfo.getReplacements(ReplacementType.TYPE);
 			if(typeReplacements.size() > 0 && invocationCoveringTheEntireStatement1 != null && invocationCoveringTheEntireStatement2 != null) {
-				for(Replacement typeReplacement : typeReplacements) {
+				for(IReplacement typeReplacement : typeReplacements) {
 					if(invocationCoveringTheEntireStatement1.getMethodName().contains(typeReplacement.getBefore()) && invocationCoveringTheEntireStatement2.getMethodName().contains(typeReplacement.getAfter())) {
 						if(invocationCoveringTheEntireStatement1.identicalExpression(invocationCoveringTheEntireStatement2) && invocationCoveringTheEntireStatement1.equalArguments(invocationCoveringTheEntireStatement2)) {
 							Replacement replacement = new MethodInvocationReplacement(invocationCoveringTheEntireStatement1.getName(),
@@ -2016,7 +2017,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 				}
-				for(Replacement replacement : replacementsInsideAnonymous) {
+				for(IReplacement replacement : replacementsInsideAnonymous) {
 					equalAfterNewArgumentAdditions(replacement.getBefore(), replacement.getAfter(), replacementInfo);
 				}
 			}
@@ -2723,7 +2724,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean identicalAfterVariableAndTypeReplacements(String s1, String s2, Set<Replacement> replacements) {
 		String s1AfterReplacements = new String(s1);
-		for(Replacement replacement : replacements) {
+		for(IReplacement replacement : replacements) {
 			if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) || replacement.getType().equals(ReplacementType.TYPE)) {
 				s1AfterReplacements = ReplacementUtil.performReplacement(s1AfterReplacements, s2, replacement.getBefore(), replacement.getAfter());
 			}
@@ -2776,7 +2777,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
 			}
 			int replacedArguments = 0;
-			for(Replacement replacement : replacementInfo.getReplacements()) {
+			for(IReplacement replacement : replacementInfo.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
 					typeReplacement = true;
 					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
@@ -2828,7 +2829,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				minArguments = Math.min(objectCreation1.getArguments().size(), objectCreation2.getArguments().size());
 			}
 			int replacedArguments = 0;
-			for(Replacement replacement : replacementInfo.getReplacements()) {
+			for(IReplacement replacement : replacementInfo.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
 					typeReplacement = true;
 					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
@@ -2896,7 +2897,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					inv2 = methodInvocationMap2.get(invocation2).get(0);
 				}
 			}
-			for(Replacement replacement : replacementInfo.getReplacements()) {
+			for(IReplacement replacement : replacementInfo.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE)) {
 					typeReplacement = true;
 					if(string1.contains("new " + replacement.getBefore() + "(") && string2.contains("new " + replacement.getAfter() + "("))
@@ -2967,7 +2968,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					else if(creation1.getArguments().size() == 1 && creation2.getArguments().size() == 1) {
 						String argument1 = creation1.getArguments().get(0);
 						String argument2 = creation2.getArguments().get(0);
-						for(Replacement replacement : replacementInfo.getReplacements()) {
+						for(IReplacement replacement : replacementInfo.getReplacements()) {
 							if(replacement.getBefore().equals(argument1) && replacement.getAfter().equals(argument2)) {
 								classInstantiationArgumentReplacement = true;
 								break;
@@ -2976,7 +2977,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 			}
-			for(Replacement replacement : replacementInfo.getReplacements()) {
+			for(IReplacement replacement : replacementInfo.getReplacements()) {
 				if(replacement.getType().equals(ReplacementType.TYPE))
 					typeReplacement = true;
 				else if(replacement.getType().equals(ReplacementType.VARIABLE_NAME) &&
@@ -3098,8 +3099,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				if(matchingAddedParameters.size() > 0) {
-					Replacement matchingReplacement = null;
-					for(Replacement replacement : replacementInfo.getReplacements()) {
+					IReplacement matchingReplacement = null;
+					for(IReplacement replacement : replacementInfo.getReplacements()) {
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 							for(UMLParameterDiff parameterDiff : operationDiff.getParameterDiffList()) {
 								if(parameterDiff.isNameChanged() &&
@@ -3179,8 +3180,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						}
 					}
 					if(matchingAttributes.size() > 0) {
-						Replacement matchingReplacement = null;
-						for(Replacement replacement : replacementInfo.getReplacements()) {
+						IReplacement matchingReplacement = null;
+						for(IReplacement replacement : replacementInfo.getReplacements()) {
 							if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 								if(classDiff.getOriginalClass().containsAttributeWithName(replacement.getBefore()) &&
 										classDiff.getNextClass().containsAttributeWithName(replacement.getAfter())) {
@@ -3254,8 +3255,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 				}
 				if(matchingVariableDeclarations.size() > 0) {
-					Replacement matchingReplacement = null;
-					for(Replacement replacement : replacementInfo.getReplacements()) {
+					IReplacement matchingReplacement = null;
+					for(IReplacement replacement : replacementInfo.getReplacements()) {
 						if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 							int indexOf1 = s1.indexOf(replacement.getAfter());
 							int indexOf2 = s2.indexOf(replacement.getAfter());
@@ -3364,7 +3365,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(replacements.size() > 1) {
 					replacementInfo.getReplacements().removeAll(replacements);
 					Set<String> mergedVariables = new LinkedHashSet<String>();
-					for(Replacement replacement : replacements) {
+					for(IReplacement replacement : replacements) {
 						mergedVariables.add(replacement.getBefore());
 					}
 					MergeVariableReplacement merge = new MergeVariableReplacement(mergedVariables, key);
@@ -3382,7 +3383,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			if(replacementInfo.getReplacements().size() == 2) {
 				StringBuilder sb = new StringBuilder();
 				int counter = 0;
-				for(Replacement r : replacementInfo.getReplacements()) {
+				for(IReplacement r : replacementInfo.getReplacements()) {
 					sb.append(r.getAfter());
 					if(counter == 0) {
 						sb.append("=");
@@ -3452,7 +3453,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private boolean containsValidOperatorReplacements(ReplacementInfo replacementInfo) {
 		List<Replacement> operatorReplacements = replacementInfo.getReplacements(ReplacementType.INFIX_OPERATOR);
-		for(Replacement replacement : operatorReplacements) {
+		for(IReplacement replacement : operatorReplacements) {
 			if(replacement.getBefore().equals("==") && !replacement.getAfter().equals("!="))
 				return false;
 			if(replacement.getBefore().equals("!=") && !replacement.getAfter().equals("=="))
@@ -3475,7 +3476,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			Set<String> filteredIntersection = new LinkedHashSet<String>();
 			for(String common : intersection) {
 				boolean foundInReplacements = false;
-				for(Replacement r : info.replacements) {
+				for(IReplacement r : info.replacements) {
 					if(r.getBefore().contains(common) || r.getAfter().contains(common)) {
 						foundInReplacements = true;
 						break;
@@ -3517,7 +3518,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				if(!intersection.isEmpty()) {
 					for(String element : intersection) {
 						boolean replacementFound = false;
-						for(Replacement r : info.getReplacements()) {
+						for(IReplacement r : info.getReplacements()) {
 							if(element.equals(r.getAfter()) || element.equals("(" + r.getAfter()) || element.equals(r.getAfter() + ")")) {
 								replacementFound = true;
 								break;
