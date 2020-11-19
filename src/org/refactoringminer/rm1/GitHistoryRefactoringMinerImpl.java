@@ -63,7 +63,7 @@ import org.refactoringminer.util.GitServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner {
+public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMiner, IGitHistoryRefactoringMinerImpl {
 
 	Logger logger = LoggerFactory.getLogger(GitHistoryRefactoringMinerImpl.class);
 	private Set<RefactoringType> refactoringTypesToConsider = null;
