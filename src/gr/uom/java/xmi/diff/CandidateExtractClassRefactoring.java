@@ -1,6 +1,6 @@
 package gr.uom.java.xmi.diff;
 
-public class CandidateExtractClassRefactoring {
+public class CandidateExtractClassRefactoring implements ICandidateExtractClassRefactoring {
 	private UMLClassBaseDiff classDiff;
 	private ExtractClassRefactoring refactoring;
 	
