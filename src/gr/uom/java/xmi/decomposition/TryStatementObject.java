@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class TryStatementObject extends CompositeStatementObject {
+public class TryStatementObject extends CompositeStatementObject implements ITryStatementObject {
 	private List<CompositeStatementObject> catchClauses;
 	private CompositeStatementObject finallyClause;
 
