@@ -33,7 +33,7 @@ import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
-public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
+public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff>, IUMLClassBaseDiff {
 
 	public static final double MAX_OPERATION_NAME_DISTANCE = 0.4;
 	protected UMLClass originalClass;
