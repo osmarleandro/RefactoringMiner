@@ -11,7 +11,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 
-public class UMLAttributeDiff {
+public class UMLAttributeDiff implements IUMLAttributeDiff {
 	private UMLAttribute removedAttribute;
 	private UMLAttribute addedAttribute;
 	private boolean visibilityChanged;
