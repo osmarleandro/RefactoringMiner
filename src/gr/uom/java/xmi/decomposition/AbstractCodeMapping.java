@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
@@ -192,7 +193,7 @@ public abstract class AbstractCodeMapping {
 			if(classDiff != null && initializer != null) {
 				OperationInvocation invocation = initializer.invocationCoveringEntireFragment();
 				if(invocation != null) {
-					for(Refactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
+					for(IRefactoring refactoring : classDiff.getRefactoringsBeforePostProcessing()) {
 						if(refactoring instanceof RenameOperationRefactoring) {
 							RenameOperationRefactoring rename = (RenameOperationRefactoring)refactoring;
 							if(invocation.getMethodName().equals(rename.getRenamedOperation().getName())) {
@@ -349,7 +350,7 @@ public abstract class AbstractCodeMapping {
 			refactorings.add(ref);
 		}
 		else {
-			for(Refactoring refactoring : refactorings) {
+			for(IRefactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
 					((InlineVariableRefactoring)refactoring).addReference(this);
 					break;
@@ -364,7 +365,7 @@ public abstract class AbstractCodeMapping {
 			refactorings.add(ref);
 		}
 		else {
-			for(Refactoring refactoring : refactorings) {
+			for(IRefactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
 					((ExtractVariableRefactoring)refactoring).addReference(this);
 					break;
@@ -375,7 +376,7 @@ public abstract class AbstractCodeMapping {
 
 	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
-		for(Refactoring ref : refactorings) {
+		for(IRefactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariable = (ExtractVariableRefactoring)ref;
 				VariableDeclaration declaration = extractVariable.getVariableDeclaration();

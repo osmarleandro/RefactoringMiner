@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
@@ -101,7 +102,7 @@ public class RefactoringMinerHttpServer {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(IRefactoring refactoring : refactoringsAtRevision) {
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");

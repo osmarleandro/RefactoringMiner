@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.util.PrefixSuffixUtils;
@@ -648,7 +649,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
@@ -699,7 +700,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						}
 					}
 				}
-				for(Refactoring refactoring : refactorings) {
+				for(IRefactoring refactoring : refactorings) {
 					if(refactoring instanceof MergeVariableRefactoring) {
 						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
@@ -799,7 +800,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean attributeMerged(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof MergeAttributeRefactoring) {
 				MergeAttributeRefactoring merge = (MergeAttributeRefactoring)refactoring;
 				if(merge.getMergedAttributes().contains(a1.getVariableDeclaration()) && merge.getNewAttribute().equals(a2.getVariableDeclaration())) {
@@ -811,7 +812,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
 				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
 				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
@@ -1572,7 +1573,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private void checkForInconsistentVariableRenames(UMLOperationBodyMapper mapper) {
 		if(mapper.getChildMappers().size() > 1) {
 			Set<Refactoring> refactoringsToBeRemoved = new LinkedHashSet<Refactoring>();
-			for(Refactoring r : refactorings) {
+			for(IRefactoring r : refactorings) {
 				if(r instanceof RenameVariableRefactoring) {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
@@ -1656,7 +1657,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	}
 
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
-		for(Refactoring ref : refactorings) {
+		for(IRefactoring ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
 				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
 				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&

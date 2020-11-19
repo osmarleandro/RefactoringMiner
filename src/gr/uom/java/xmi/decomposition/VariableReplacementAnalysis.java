@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
@@ -1128,7 +1129,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingExtractVariableRefactoring(RenameVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
@@ -1141,7 +1142,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
 				if(ref.getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
@@ -1153,7 +1154,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private boolean existsConflictingInlineVariableRefactoring(MergeVariableRefactoring ref) {
-		for(Refactoring refactoring : refactorings) {
+		for(IRefactoring refactoring : refactorings) {
 			if(refactoring instanceof InlineVariableRefactoring) {
 				InlineVariableRefactoring inlineVariableRef = (InlineVariableRefactoring)refactoring;
 				if(ref.getMergedVariables().contains(inlineVariableRef.getVariableDeclaration())) {

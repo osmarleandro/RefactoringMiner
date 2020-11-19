@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
@@ -261,7 +262,7 @@ public class RefactoringMiner {
 		sb.append("\t").append("\"").append("refactorings").append("\"").append(": ");
 		sb.append("[");
 		int counter = 0;
-		for(Refactoring refactoring : refactoringsAtRevision) {
+		for(IRefactoring refactoring : refactoringsAtRevision) {
 			sb.append(refactoring.toJSON());
 			if(counter < refactoringsAtRevision.size()-1) {
 				sb.append(",");

@@ -14,6 +14,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
@@ -251,7 +252,7 @@ public class TestBuilder {
 			if (matcher != null) {
 				matcher.analyzed = true;
 				Set<String> refactoringsFound = new HashSet<String>();
-				for (Refactoring refactoring : refactorings) {
+				for (IRefactoring refactoring : refactorings) {
 					refactoringsFound.addAll(normalize(refactoring.toString()));
 				}
 				// count true positives

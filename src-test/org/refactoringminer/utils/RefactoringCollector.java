@@ -2,6 +2,7 @@ package org.refactoringminer.utils;
 
 import java.util.List;
 
+import org.refactoringminer.api.IRefactoring;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 
@@ -22,7 +23,7 @@ public class RefactoringCollector extends RefactoringHandler {
   }
   @Override
   public void handle(String commitId, List<Refactoring> refactorings) {
-    for (Refactoring r : refactorings) {
+    for (IRefactoring r : refactorings) {
       if (r instanceof MoveClassRefactoring) {
         MoveClassRefactoring ref = (MoveClassRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getOriginalClassName(), ref.getMovedClassName()));
