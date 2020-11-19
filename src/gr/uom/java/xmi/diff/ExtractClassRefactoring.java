@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
@@ -38,7 +39,7 @@ public class ExtractClassRefactoring implements Refactoring {
 		return sb.toString();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public IRefactoringType getRefactoringType() {
 		if(extractedClass.isSubTypeOf(classDiff.getOriginalClass()) || extractedClass.isSubTypeOf(classDiff.getNextClass()))
 			return RefactoringType.EXTRACT_SUBCLASS;
 		return RefactoringType.EXTRACT_CLASS;

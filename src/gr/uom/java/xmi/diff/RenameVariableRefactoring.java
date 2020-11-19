@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
@@ -33,7 +34,7 @@ public class RenameVariableRefactoring implements Refactoring {
 		this.variableReferences = variableReferences;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public IRefactoringType getRefactoringType() {
 		if(originalVariable.isParameter() && renamedVariable.isParameter())
 			return RefactoringType.RENAME_PARAMETER;
 		if(!originalVariable.isParameter() && renamedVariable.isParameter())

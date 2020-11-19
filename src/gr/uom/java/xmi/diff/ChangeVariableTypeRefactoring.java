@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
@@ -39,7 +40,7 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return relatedRefactorings;
 	}
 
-	public RefactoringType getRefactoringType() {
+	public IRefactoringType getRefactoringType() {
 		if(originalVariable.isParameter() && changedTypeVariable.isParameter())
 			return RefactoringType.CHANGE_PARAMETER_TYPE;
 		return RefactoringType.CHANGE_VARIABLE_TYPE;

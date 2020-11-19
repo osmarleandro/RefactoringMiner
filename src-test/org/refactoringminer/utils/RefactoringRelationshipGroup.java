@@ -3,7 +3,7 @@ package org.refactoringminer.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.refactoringminer.api.RefactoringType;
+import org.refactoringminer.api.IRefactoringType;
 
 public class RefactoringRelationshipGroup {
 
@@ -13,14 +13,14 @@ public class RefactoringRelationshipGroup {
     refactoringRelationships.add(refactoringRelationship);
   }
 
-  public RefactoringType addRefactoringRelationship(RefactoringRelationship r) {
+  public IRefactoringType addRefactoringRelationship(RefactoringRelationship r) {
     if (r.getRefactoringType().equals(this.getRefactoringType()) && r.getMainEntity().equals(this.getMainEntity())) {
       refactoringRelationships.add(r);
     }
     throw new IllegalArgumentException(String.format("refactoring relatiships are note from the same group: [] []", r, refactoringRelationships.get(0)));
   }
 
-  public RefactoringType getRefactoringType() {
+  public IRefactoringType getRefactoringType() {
     return refactoringRelationships.get(0).getRefactoringType();
   }
 

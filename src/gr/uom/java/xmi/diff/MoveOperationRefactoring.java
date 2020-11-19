@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
@@ -49,7 +50,7 @@ public class MoveOperationRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public RefactoringType getRefactoringType() {
+	public IRefactoringType getRefactoringType() {
 		if(!originalOperation.getName().equals(movedOperation.getName())) {
 			return RefactoringType.MOVE_AND_RENAME_OPERATION;
 		}

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
@@ -59,7 +60,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	@Override
-	public RefactoringType getRefactoringType() {
+	public IRefactoringType getRefactoringType() {
 		if(allVariablesAreParameters())
 			return RefactoringType.SPLIT_PARAMETER;
 		return RefactoringType.SPLIT_VARIABLE;

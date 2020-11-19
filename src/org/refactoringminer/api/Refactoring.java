@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.util.BufferRecyclers;
 
 public interface Refactoring extends Serializable, CodeRangeProvider {
 
-	public RefactoringType getRefactoringType();
+	public IRefactoringType getRefactoringType();
 	
 	public String getName();
 

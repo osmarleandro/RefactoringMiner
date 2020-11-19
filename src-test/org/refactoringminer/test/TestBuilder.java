@@ -14,6 +14,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.junit.Assert;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringType;
@@ -127,7 +128,7 @@ public class TestBuilder {
 
 		String mainResultMessage = buildResultMessage(c);
 		System.out.println("Total  " + mainResultMessage);
-		for (RefactoringType refType : RefactoringType.values()) {
+		for (IRefactoringType refType : RefactoringType.values()) {
 			Counter refTypeCounter = cMap.get(refType);
 			if (refTypeCounter != null) {
 				System.out
@@ -154,7 +155,7 @@ public class TestBuilder {
 	}
 
 	private List<String> normalize(String refactoring) {
-		RefactoringType refType = RefactoringType.extractFromDescription(refactoring);
+		IRefactoringType refType = RefactoringType.extractFromDescription(refactoring);
 		refactoring = normalizeSingle(refactoring);
 		if (aggregate) {
 			refactoring = refType.aggregate(refactoring);

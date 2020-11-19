@@ -17,6 +17,7 @@ import java.util.Set;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IRefactoringType;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
 
@@ -73,7 +74,7 @@ public class ResultComparator {
             out.println("# " + groupId + " #");
             out.println("Total  " + getResultLine(r.getTPCount(), r.getFPCount(), r.getFNCount()));
 
-            for (RefactoringType refType : refTypesToConsider) {
+            for (IRefactoringType refType : refTypesToConsider) {
                 int tpRt = r.getTPCount(refType);
                 int fpRt = r.getFPCount(refType);
                 int fnRt = r.getFNCount(refType);
@@ -312,15 +313,15 @@ public class ResultComparator {
             return ResultComparator.getF1(tp, fp, fn);
         }
 
-        public int getTPCount(RefactoringType rt) {
+        public int getTPCount(IRefactoringType rt) {
             return (int) this.truePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
 
-        public int getFPCount(RefactoringType rt) {
+        public int getFPCount(IRefactoringType rt) {
             return (int) this.falsePositives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
 
-        public int getFNCount(RefactoringType rt) {
+        public int getFNCount(IRefactoringType rt) {
             return (int) this.falseNegatives.stream().filter(r -> r.toString().startsWith(rt.getDisplayName())).count();
         }
     }

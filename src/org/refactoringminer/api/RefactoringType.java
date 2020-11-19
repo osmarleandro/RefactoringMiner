@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.refactoringminer.util.AstUtils;
 import org.refactoringminer.utils.RefactoringRelationship;
 
-public enum RefactoringType {
+public enum RefactoringType implements IRefactoringType {
 
 	EXTRACT_OPERATION("Extract Method", "Extract Method (.+) extracted from (.+) in class (.+)", 2),
 	RENAME_CLASS("Rename Class", "Rename Class (.+) renamed to (.+)"),
