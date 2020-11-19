@@ -30,6 +30,7 @@ import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IRenameVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
@@ -439,7 +440,7 @@ public class VariableReplacementAnalysis {
 				}
 			}
 			else {
-				RenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
+				IRenameVariableRefactoring ref = new RenameVariableRefactoring(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), vdReplacement.getOperation1(), vdReplacement.getOperation2(), set);
 				if(refactorings.contains(ref)) {
 					refactorings.remove(ref);
 				}
@@ -1127,7 +1128,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingExtractVariableRefactoring(RenameVariableRefactoring ref) {
+	private boolean existsConflictingExtractVariableRefactoring(IRenameVariableRefactoring ref) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
 				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
@@ -1164,7 +1165,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingMergeVariableRefactoring(RenameVariableRefactoring ref) {
+	private boolean existsConflictingMergeVariableRefactoring(IRenameVariableRefactoring ref) {
 		for(MergeVariableRefactoring merge : variableMerges) {
 			if(merge.getOperationBefore().equals(ref.getOperationBefore()) &&
 					merge.getOperationAfter().equals(ref.getOperationAfter()) &&
@@ -1176,7 +1177,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean existsConflictingSplitVariableRefactoring(RenameVariableRefactoring ref) {
+	private boolean existsConflictingSplitVariableRefactoring(IRenameVariableRefactoring ref) {
 		for(SplitVariableRefactoring split : variableSplits) {
 			if(split.getOperationBefore().equals(ref.getOperationBefore()) &&
 					split.getOperationAfter().equals(ref.getOperationAfter()) &&

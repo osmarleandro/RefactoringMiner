@@ -1570,7 +1570,7 @@ public class UMLModelDiff {
 	   for(UMLOperationBodyMapper mapper : mappers) {
 		   for(Refactoring refactoring : mapper.getRefactoringsAfterPostProcessing()) {
 			   if(refactoring instanceof RenameVariableRefactoring) {
-				   RenameVariableRefactoring rename = (RenameVariableRefactoring)refactoring;
+				   IRenameVariableRefactoring rename = (IRenameVariableRefactoring)refactoring;
 				   UMLParameter matchingRemovedParameter = null;
 				   for(UMLParameter parameter : operationSignatureDiff.getRemovedParameters()) {
 					   if(parameter.getName().equals(rename.getOriginalVariable().getVariableName()) &&
