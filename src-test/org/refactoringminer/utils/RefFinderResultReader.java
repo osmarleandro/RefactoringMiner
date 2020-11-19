@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefFinderResultReader {
+public class RefFinderResultReader implements IRefFinderResultReader {
 
     private static Map<String, Function<List<String>, RefactoringRelationship>> mappers = initMappings();
     
