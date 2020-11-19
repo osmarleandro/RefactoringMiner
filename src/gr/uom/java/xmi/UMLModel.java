@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 
-public class UMLModel {
+public class UMLModel implements IUMLModel {
 	private Set<String> repositoryDirectories;
     private List<UMLClass> classList;
     private List<UMLGeneralization> generalizationList;

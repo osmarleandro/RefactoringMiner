@@ -1,5 +1,6 @@
 package org.refactoringminer.rm1;
 
+import gr.uom.java.xmi.IUMLModel;
 import gr.uom.java.xmi.UMLModel;
 import gr.uom.java.xmi.UMLModelASTReader;
 
@@ -132,7 +133,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			if (!filePathsBefore.isEmpty() && !filePathsCurrent.isEmpty() && currentCommit.getParentCount() > 0) {
 				RevCommit parentCommit = currentCommit.getParent(0);
 				populateFileContents(repository, parentCommit, filePathsBefore, fileContentsBefore, repositoryDirectoriesBefore);
-				UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
+				IUMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 
 				populateFileContents(repository, currentCommit, filePathsCurrent, fileContentsCurrent, repositoryDirectoriesCurrent);
 				UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
@@ -197,7 +198,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			}
 			if (currentFolder.exists() && parentFolder.exists()) {
 				UMLModel currentUMLModel = createModel(currentFolder, filesCurrent);
-				UMLModel parentUMLModel = createModel(parentFolder, filesBefore);
+				IUMLModel parentUMLModel = createModel(parentFolder, filesBefore);
 				// Diff between currentModel e parentModel
 				refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
 				refactoringsAtRevision = filter(refactoringsAtRevision);
@@ -486,7 +487,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 			Map<String, String> renamedFilesHint = new ConcurrentHashMap<String, String>();
 			populateWithGitHubAPI(gitURL, currentCommitId, fileContentsBefore, fileContentsCurrent, renamedFilesHint, repositoryDirectoriesBefore, repositoryDirectoriesCurrent);
 			UMLModel currentUMLModel = createModel(fileContentsCurrent, repositoryDirectoriesCurrent);
-			UMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
+			IUMLModel parentUMLModel = createModel(fileContentsBefore, repositoryDirectoriesBefore);
 			//  Diff between currentModel e parentModel
 			refactoringsAtRevision = parentUMLModel.diff(currentUMLModel, renamedFilesHint).getRefactorings();
 			refactoringsAtRevision = filter(refactoringsAtRevision);
