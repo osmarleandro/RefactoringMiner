@@ -68,7 +68,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the inlined variable declaration in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedVariableDeclarationCodeRange() {
+	public ICodeRange getInlinedVariableDeclarationCodeRange() {
 		return variableDeclaration.codeRange();
 	}
 

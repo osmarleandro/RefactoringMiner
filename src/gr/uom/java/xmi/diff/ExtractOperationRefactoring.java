@@ -118,35 +118,35 @@ public class ExtractOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeBeforeExtraction() {
+	public ICodeRange getSourceOperationCodeRangeBeforeExtraction() {
 		return sourceOperationBeforeExtraction.codeRange();
 	}
 
 	/**
 	 * @return the code range of the source method in the <b>child</b> commit
 	 */
-	public CodeRange getSourceOperationCodeRangeAfterExtraction() {
+	public ICodeRange getSourceOperationCodeRangeAfterExtraction() {
 		return sourceOperationAfterExtraction.codeRange();
 	}
 
 	/**
 	 * @return the code range of the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedOperationCodeRange() {
+	public ICodeRange getExtractedOperationCodeRange() {
 		return extractedOperation.codeRange();
 	}
 
 	/**
 	 * @return the code range of the extracted code fragment from the source method in the <b>parent</b> commit
 	 */
-	public CodeRange getExtractedCodeRangeFromSourceOperation() {
+	public ICodeRange getExtractedCodeRangeFromSourceOperation() {
 		return CodeRange.computeRange(extractedCodeFragmentsFromSourceOperation);
 	}
 
 	/**
 	 * @return the code range of the extracted code fragment to the extracted method in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedCodeRangeToExtractedOperation() {
+	public ICodeRange getExtractedCodeRangeToExtractedOperation() {
 		return CodeRange.computeRange(extractedCodeFragmentsToExtractedOperation);
 	}
 

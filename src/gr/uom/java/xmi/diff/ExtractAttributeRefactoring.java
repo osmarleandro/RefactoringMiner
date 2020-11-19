@@ -58,7 +58,7 @@ public class ExtractAttributeRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the extracted variable declaration in the <b>child</b> commit
 	 */
-	public CodeRange getExtractedVariableDeclarationCodeRange() {
+	public ICodeRange getExtractedVariableDeclarationCodeRange() {
 		return attributeDeclaration.codeRange();
 	}
 

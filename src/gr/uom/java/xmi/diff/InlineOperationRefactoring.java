@@ -110,35 +110,35 @@ public class InlineOperationRefactoring implements Refactoring {
 	/**
 	 * @return the code range of the target method in the <b>parent</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeBeforeInline() {
+	public ICodeRange getTargetOperationCodeRangeBeforeInline() {
 		return targetOperationBeforeInline.codeRange();
 	}
 
 	/**
 	 * @return the code range of the target method in the <b>child</b> commit
 	 */
-	public CodeRange getTargetOperationCodeRangeAfterInline() {
+	public ICodeRange getTargetOperationCodeRangeAfterInline() {
 		return targetOperationAfterInline.codeRange();
 	}
 
 	/**
 	 * @return the code range of the inlined method in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedOperationCodeRange() {
+	public ICodeRange getInlinedOperationCodeRange() {
 		return inlinedOperation.codeRange();
 	}
 
 	/**
 	 * @return the code range of the inlined code fragment from the inlined method in the <b>parent</b> commit
 	 */
-	public CodeRange getInlinedCodeRangeFromInlinedOperation() {
+	public ICodeRange getInlinedCodeRangeFromInlinedOperation() {
 		return CodeRange.computeRange(inlinedCodeFragmentsFromInlinedOperation);
 	}
 
 	/**
 	 * @return the code range of the inlined code fragment in the target method in the <b>child</b> commit
 	 */
-	public CodeRange getInlinedCodeRangeInTargetOperation() {
+	public ICodeRange getInlinedCodeRangeInTargetOperation() {
 		return CodeRange.computeRange(inlinedCodeFragmentsInTargetOperation);
 	}
 

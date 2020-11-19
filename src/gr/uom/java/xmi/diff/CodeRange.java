@@ -10,7 +10,7 @@ import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 
-public class CodeRange {
+public class CodeRange implements ICodeRange {
 	private String filePath;
 	private int startLine;
 	private int endLine;
@@ -133,7 +133,7 @@ public class CodeRange {
 			sb.append(",").append("\n");
 	}
 
-	public static CodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
+	public static ICodeRange computeRange(Set<AbstractCodeFragment> codeFragments) {
 		String filePath = null;
 		int minStartLine = 0;
 		int maxEndLine = 0;
