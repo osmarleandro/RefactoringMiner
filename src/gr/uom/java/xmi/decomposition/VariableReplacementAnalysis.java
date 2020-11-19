@@ -30,6 +30,7 @@ import gr.uom.java.xmi.diff.CandidateSplitVariableRefactoring;
 import gr.uom.java.xmi.diff.ChangeVariableTypeRefactoring;
 import gr.uom.java.xmi.diff.ExtractAttributeRefactoring;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IExtractVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.MergeVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameVariableRefactoring;
@@ -1130,7 +1131,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingExtractVariableRefactoring(RenameVariableRefactoring ref) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
+				IExtractVariableRefactoring extractVariableRef = (IExtractVariableRefactoring)refactoring;
 				if(extractVariableRef.getVariableDeclaration().equals(ref.getRenamedVariable()) &&
 						extractVariableRef.getOperationAfter().equals(ref.getOperationAfter())) {
 					return true;
@@ -1143,7 +1144,7 @@ public class VariableReplacementAnalysis {
 	private boolean existsConflictingExtractVariableRefactoring(SplitVariableRefactoring ref) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractVariableRefactoring) {
-				ExtractVariableRefactoring extractVariableRef = (ExtractVariableRefactoring)refactoring;
+				IExtractVariableRefactoring extractVariableRef = (IExtractVariableRefactoring)refactoring;
 				if(ref.getSplitVariables().contains(extractVariableRef.getVariableDeclaration())) {
 					return true;
 				}
