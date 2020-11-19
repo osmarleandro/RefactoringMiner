@@ -3,6 +3,7 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
@@ -170,7 +171,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<VariableDeclaration>();
 	}
 
-	public VariableDeclaration getVariableDeclaration(String variableName) {
+	public IVariableDeclaration getVariableDeclaration(String variableName) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclaration(variableName);
 		return null;
@@ -182,7 +183,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 			if(!parameter.getKind().equals("return"))
 				variableTypeMap.put(parameter.getName(), parameter.getType());
 		}
-		for(VariableDeclaration declaration : getAllVariableDeclarations()) {
+		for(IVariableDeclaration declaration : getAllVariableDeclarations()) {
 			variableTypeMap.put(declaration.getVariableName(), declaration.getType());
 		}
 		return variableTypeMap;

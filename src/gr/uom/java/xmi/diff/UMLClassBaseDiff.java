@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -704,7 +705,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						MergeVariableRefactoring merge = (MergeVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : merge.getMergedVariables()) {
+						for(IVariableDeclaration variableDeclaration : merge.getMergedVariables()) {
 							if(originalAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}
@@ -750,7 +751,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 						SplitVariableRefactoring split = (SplitVariableRefactoring)refactoring;
 						Set<String> nonMatchingVariableNames = new LinkedHashSet<String>();
 						String matchingVariableName = null;
-						for(VariableDeclaration variableDeclaration : split.getSplitVariables()) {
+						for(IVariableDeclaration variableDeclaration : split.getSplitVariables()) {
 							if(renamedAttributeName.equals(variableDeclaration.getVariableName())) {
 								matchingVariableName = variableDeclaration.getVariableName();
 							}

@@ -22,7 +22,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.VariableDeclarationProvider;
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider {
+public class VariableDeclaration implements LocationInfoProvider, VariableDeclarationProvider, IVariableDeclaration {
 	private String variableName;
 	private AbstractExpression initializer;
 	private UMLType type;
@@ -253,7 +253,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return this.locationInfo.getCodeElementType().equals(other.locationInfo.getCodeElementType());
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public IVariableDeclaration getVariableDeclaration() {
 		return this;
 	}
 }

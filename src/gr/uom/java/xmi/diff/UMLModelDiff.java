@@ -13,6 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -720,8 +721,8 @@ public class UMLModelDiff {
    }
 
    private boolean initializerContainsTypeLiteral(UMLAttribute addedAttribute, UMLAttribute removedAttribute) {
-	   VariableDeclaration v1 = addedAttribute.getVariableDeclaration();
-	   VariableDeclaration v2 = removedAttribute.getVariableDeclaration();
+	   IVariableDeclaration v1 = addedAttribute.getVariableDeclaration();
+	   IVariableDeclaration v2 = removedAttribute.getVariableDeclaration();
 	   if(v1.getInitializer() != null && v2.getInitializer() != null) {
 		   List<String> typeLiterals1 = v1.getInitializer().getTypeLiterals();
 		   List<String> typeLiterals2 = v2.getInitializer().getTypeLiterals();
@@ -2311,17 +2312,17 @@ public class UMLModelDiff {
 			StatementObject s1 = leafIterator1.next();
 			for(StatementObject s2 : operationBodyMapper.getNonMappedLeavesT2()) {
 				if(s1.getVariableDeclarations().size() == 1 && s2.getVariableDeclarations().size() == 1) {
-					VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
-					VariableDeclaration v2 = s2.getVariableDeclarations().get(0);
+					IVariableDeclaration v1 = s1.getVariableDeclarations().get(0);
+					IVariableDeclaration v2 = s2.getVariableDeclarations().get(0);
 					if(v1.getVariableName().equals(v2.getVariableName()) && v1.getType().equals(v2.getType())) {
 						nonMappedStatementsDeclaringSameVariable++;
 					}
 				}
 			}
 			if(addedClass != null && s1.getVariableDeclarations().size() == 1) {
-				VariableDeclaration v1 = s1.getVariableDeclarations().get(0);
+				IVariableDeclaration v1 = s1.getVariableDeclarations().get(0);
 				for(UMLAttribute attribute : addedClass.getAttributes()) {
-					VariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
+					IVariableDeclaration attributeDeclaration = attribute.getVariableDeclaration();
 					if(attributeDeclaration.getInitializer() != null && v1.getInitializer() != null) {
 						String attributeInitializer = attributeDeclaration.getInitializer().getString();
 						String variableInitializer = v1.getInitializer().getString();
@@ -2501,7 +2502,7 @@ public class UMLModelDiff {
 		return false;
 	}
 
-	private Refactoring attributeRenamed(Set<VariableDeclaration> mergedAttributes, VariableDeclaration a2, Set<Refactoring> refactorings) {
+	private Refactoring attributeRenamed(Set<VariableDeclaration> mergedAttributes, IVariableDeclaration a2, Set<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof RenameAttributeRefactoring) {
 				RenameAttributeRefactoring rename = (RenameAttributeRefactoring)refactoring;

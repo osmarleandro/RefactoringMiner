@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ChangeVariableTypeRefactoring implements Refactoring {
@@ -49,11 +50,11 @@ public class ChangeVariableTypeRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getOriginalVariable() {
+	public IVariableDeclaration getOriginalVariable() {
 		return originalVariable;
 	}
 
-	public VariableDeclaration getChangedTypeVariable() {
+	public IVariableDeclaration getChangedTypeVariable() {
 		return changedTypeVariable;
 	}
 

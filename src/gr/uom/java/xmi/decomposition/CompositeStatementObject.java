@@ -490,7 +490,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		for(CompositeStatementObject innerNode : getInnerNodes()) {
 			if(innerNode.getLocationInfo().getCodeElementType().equals(CodeElementType.ENHANCED_FOR_STATEMENT)) {
 				boolean currentElementNameMatched = false;
-				for(VariableDeclaration declaration : innerNode.getVariableDeclarations()) {
+				for(IVariableDeclaration declaration : innerNode.getVariableDeclarations()) {
 					if(declaration.getVariableName().equals(currentElementName)) {
 						currentElementNameMatched = true;
 						break;
@@ -518,7 +518,7 @@ public class CompositeStatementObject extends AbstractStatement {
 				}
 				boolean currentElementNameMatched = false;
 				for(StatementObject statement : innerNode.getLeaves()) {
-					VariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
+					IVariableDeclaration variableDeclaration = statement.getVariableDeclaration(currentElementName);
 					if(variableDeclaration != null && statement.getVariables().contains(collectionName)) {
 						currentElementNameMatched = true;
 						break;

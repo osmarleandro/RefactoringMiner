@@ -8,7 +8,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
 public class VariableReferenceExtractor {
 
-	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, Set<AbstractCodeMapping> mappings) {
+	public static Set<AbstractCodeMapping> findReferences(IVariableDeclaration declaration1, IVariableDeclaration declaration2, Set<AbstractCodeMapping> mappings) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		VariableScope scope1 = declaration1.getScope();
 		VariableScope scope2 = declaration2.getScope();
@@ -23,7 +23,7 @@ public class VariableReferenceExtractor {
 		return references;
 	}
 
-	private static boolean usesVariable(AbstractCodeFragment fragment, VariableDeclaration declaration) {
+	private static boolean usesVariable(AbstractCodeFragment fragment, IVariableDeclaration declaration) {
 		List<String> variables = fragment.getVariables();
 		return variables.contains(declaration.getVariableName()) ||
 				(declaration.isAttribute() && variables.contains("this." + declaration.getVariableName()));
@@ -40,7 +40,7 @@ public class VariableReferenceExtractor {
 		return references;
 	}
 
-	public static Set<AbstractCodeMapping> findReferences(VariableDeclaration declaration1, VariableDeclaration declaration2, List<UMLOperationBodyMapper> operationBodyMapperList) {
+	public static Set<AbstractCodeMapping> findReferences(IVariableDeclaration declaration1, IVariableDeclaration declaration2, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		Set<AbstractCodeMapping> references = new LinkedHashSet<AbstractCodeMapping>();
 		for(UMLOperationBodyMapper mapper : operationBodyMapperList) {
 			references.addAll(findReferences(declaration1, declaration2, mapper.getMappings()));

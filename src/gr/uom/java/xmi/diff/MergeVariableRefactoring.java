@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class MergeVariableRefactoring implements Refactoring {
@@ -33,7 +34,7 @@ public class MergeVariableRefactoring implements Refactoring {
 		return mergedVariables;
 	}
 
-	public VariableDeclaration getNewVariable() {
+	public IVariableDeclaration getNewVariable() {
 		return newVariable;
 	}
 
@@ -50,7 +51,7 @@ public class MergeVariableRefactoring implements Refactoring {
 	}
 
 	private boolean allVariablesAreParameters() {
-		for(VariableDeclaration declaration : mergedVariables) {
+		for(IVariableDeclaration declaration : mergedVariables) {
 			if(!declaration.isParameter()) {
 				return false;
 			}

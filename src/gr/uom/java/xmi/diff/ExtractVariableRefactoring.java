@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
@@ -38,7 +39,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		return this.getRefactoringType().getDisplayName();
 	}
 
-	public VariableDeclaration getVariableDeclaration() {
+	public IVariableDeclaration getVariableDeclaration() {
 		return variableDeclaration;
 	}
 

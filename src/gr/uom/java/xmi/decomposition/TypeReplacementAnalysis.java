@@ -64,8 +64,8 @@ public class TypeReplacementAnalysis {
 		}
 	}
 
-	private boolean containsVariableDeclarationWithSameNameAndType(VariableDeclaration declaration, List<VariableDeclaration> declarations) {
-		for(VariableDeclaration d : declarations) {
+	private boolean containsVariableDeclarationWithSameNameAndType(IVariableDeclaration declaration, List<VariableDeclaration> declarations) {
+		for(IVariableDeclaration d : declarations) {
 			if(d.getVariableName().equals(declaration.getVariableName()) && d.getType().equals(declaration.getType()) && d.getType().equalsQualified(declaration.getType())) {
 				return true;
 			}

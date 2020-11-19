@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class SplitVariableRefactoring implements Refactoring {
@@ -33,7 +34,7 @@ public class SplitVariableRefactoring implements Refactoring {
 		return splitVariables;
 	}
 
-	public VariableDeclaration getOldVariable() {
+	public IVariableDeclaration getOldVariable() {
 		return oldVariable;
 	}
 
@@ -50,7 +51,7 @@ public class SplitVariableRefactoring implements Refactoring {
 	}
 
 	private boolean allVariablesAreParameters() {
-		for(VariableDeclaration declaration : splitVariables) {
+		for(IVariableDeclaration declaration : splitVariables) {
 			if(!declaration.isParameter()) {
 				return false;
 			}

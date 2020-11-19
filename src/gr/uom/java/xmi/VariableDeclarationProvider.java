@@ -1,7 +1,7 @@
 package gr.uom.java.xmi;
 
-import gr.uom.java.xmi.decomposition.VariableDeclaration;
+import gr.uom.java.xmi.decomposition.IVariableDeclaration;
 
 public interface VariableDeclarationProvider {
-	public VariableDeclaration getVariableDeclaration();
+	public IVariableDeclaration getVariableDeclaration();
 }
