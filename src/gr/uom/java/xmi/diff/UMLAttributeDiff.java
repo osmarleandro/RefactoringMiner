@@ -21,7 +21,7 @@ public class UMLAttributeDiff {
 	private boolean staticChanged;
 	private boolean finalChanged;
 	private List<UMLOperationBodyMapper> operationBodyMapperList;
-	private UMLAnnotationListDiff annotationListDiff;
+	private IUMLAnnotationListDiff annotationListDiff;
 
 	public UMLAttributeDiff(UMLAttribute removedAttribute, UMLAttribute addedAttribute, List<UMLOperationBodyMapper> operationBodyMapperList) {
 		this.removedAttribute = removedAttribute;

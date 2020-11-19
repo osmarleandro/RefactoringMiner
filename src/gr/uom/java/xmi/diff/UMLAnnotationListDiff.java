@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import gr.uom.java.xmi.UMLAnnotation;
 
-public class UMLAnnotationListDiff {
+public class UMLAnnotationListDiff implements IUMLAnnotationListDiff {
 	private List<UMLAnnotation> removedAnnotations;
 	private List<UMLAnnotation> addedAnnotations;
 	private List<UMLAnnotationDiff> annotationDiffList;
