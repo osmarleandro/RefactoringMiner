@@ -14,6 +14,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.VariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.diff.ExtractVariableRefactoring;
+import gr.uom.java.xmi.diff.IInlineVariableRefactoring;
 import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
@@ -351,7 +352,7 @@ public abstract class AbstractCodeMapping {
 		else {
 			for(Refactoring refactoring : refactorings) {
 				if(refactoring.equals(ref)) {
-					((InlineVariableRefactoring)refactoring).addReference(this);
+					((IInlineVariableRefactoring)refactoring).addReference(this);
 					break;
 				}
 			}
