@@ -739,7 +739,7 @@ public class UMLModelDiff {
 	   int count = 0;
 	   for(Refactoring ref : refactorings) {
 		   if(ref instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRef = (MoveOperationRefactoring)ref;
+			   IMoveOperationRefactoring moveRef = (IMoveOperationRefactoring)ref;
 			   if(moveRef.compatibleWith(candidate)) {
 				   count++;
 			   }
@@ -2480,7 +2480,7 @@ public class UMLModelDiff {
    private boolean refactoringListContainsAnotherMoveRefactoringWithTheSameOperations(UMLOperation removedOperation, UMLOperation addedOperation) {
 	   for(Refactoring refactoring : refactorings) {
 		   if(refactoring instanceof MoveOperationRefactoring) {
-			   MoveOperationRefactoring moveRefactoring = (MoveOperationRefactoring)refactoring;
+			   IMoveOperationRefactoring moveRefactoring = (IMoveOperationRefactoring)refactoring;
 			   if(moveRefactoring.getOriginalOperation().equals(removedOperation)) {
 				   return true;
 			   }
