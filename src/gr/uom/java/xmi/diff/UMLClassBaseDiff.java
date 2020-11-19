@@ -31,6 +31,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.ISplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
@@ -864,7 +865,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 
 	private void processSplit(Map<SplitVariableReplacement, Set<CandidateSplitVariableRefactoring>> splitMap,
 			SplitVariableReplacement newSplit, CandidateSplitVariableRefactoring candidate) {
-		SplitVariableReplacement splitToBeRemoved = null;
+		ISplitVariableReplacement splitToBeRemoved = null;
 		for(SplitVariableReplacement split : splitMap.keySet()) {
 			if(split.subsumes(newSplit)) {
 				splitMap.get(split).add(candidate);

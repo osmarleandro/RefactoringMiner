@@ -16,6 +16,7 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.ISplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -974,7 +975,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(SplitVariableReplacement replacement, String variableName) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(ISplitVariableReplacement replacement, String variableName) {
 		for(AbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				Set<String> foundSplitVariables = new LinkedHashSet<String>();
