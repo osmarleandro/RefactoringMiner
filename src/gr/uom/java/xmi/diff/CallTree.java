@@ -6,7 +6,7 @@ import java.util.List;
 
 import gr.uom.java.xmi.UMLOperation;
 
-public class CallTree {
+public class CallTree implements ICallTree {
 	private CallTreeNode root;
 	
 	public CallTree(CallTreeNode root) {
