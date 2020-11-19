@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.ObjectCreation;
 
-public class ObjectCreationReplacement extends Replacement {
+public class ObjectCreationReplacement extends Replacement implements IObjectCreationReplacement {
 	private ObjectCreation createdObjectBefore;
 	private ObjectCreation createdObjectAfter;
 
