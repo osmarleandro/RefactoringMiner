@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ReplacementUtil {
+public class ReplacementUtil implements IReplacementUtil {
 	private static final String[] SPECIAL_CHARACTERS = {";", ",", ")", "=", "+", "-", ">", "<", ".", "]", " ", "(", "["};
 	private static final String[] SPECIAL_ARGUMENT_CHARACTERS = {";", ",", ")", "=", "+", "-", ">", "<", ".", "]", " "};
 	
