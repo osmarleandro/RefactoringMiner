@@ -1212,7 +1212,7 @@ public class UMLModelDiff {
 			   }
 			   else {
 				   boolean foundInMatchingRenamePackageRefactoring = false;
-				   for(RenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
+				   for(IRenamePackageRefactoring renamePackageRefactoring : renamePackageRefactorings) {
 					   if(renamePackageRefactoring.getPattern().equals(renamePattern)) {
 						   renamePackageRefactoring.addMoveClassRefactoring(refactoring);
 						   foundInMatchingRenamePackageRefactoring = true;
@@ -1252,7 +1252,7 @@ public class UMLModelDiff {
 	   return refactorings;
    }
 
-   private boolean isSourcePackageDeleted(RenamePackageRefactoring renamePackageRefactoring) {
+   private boolean isSourcePackageDeleted(IRenamePackageRefactoring renamePackageRefactoring) {
 	   for(String deletedFolderPath : deletedFolderPaths) {
 		   String originalPath = renamePackageRefactoring.getPattern().getBefore();
 		   //remove last .
