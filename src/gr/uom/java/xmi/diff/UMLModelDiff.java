@@ -13,6 +13,7 @@ import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObjectMapping;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.LeafMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -1760,7 +1761,7 @@ public class UMLModelDiff {
 		List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 		if((operationBodyMapper.getOperation1().isGetter() || operationBodyMapper.getOperation1().isDelegate() != null) && mappingList.size() == 1) {
 			List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
-			for(AbstractCodeMapping mapping : parentMappingList) {
+			for(IAbstractCodeMapping mapping : parentMappingList) {
 				if(mapping.getFragment2().equals(mappingList.get(0).getFragment2())) {
 					return false;
 				}
@@ -1958,7 +1959,7 @@ public class UMLModelDiff {
 	   List<AbstractCodeMapping> mappingList = new ArrayList<AbstractCodeMapping>(operationBodyMapper.getMappings());
 	   if(operationBodyMapper.getOperation2().isGetter() && mappingList.size() == 1) {
 		   List<AbstractCodeMapping> parentMappingList = new ArrayList<AbstractCodeMapping>(parentMapper.getMappings());
-		   for(AbstractCodeMapping mapping : parentMappingList) {
+		   for(IAbstractCodeMapping mapping : parentMappingList) {
 			   if(mapping.getFragment1().equals(mappingList.get(0).getFragment1())) {
 				   return false;
 			   }
@@ -2376,7 +2377,7 @@ public class UMLModelDiff {
 		   }
 	   }
 	   int exactLeafMappings = 0;
-	   for(AbstractCodeMapping mapping : mapper.getMappings()) {
+	   for(IAbstractCodeMapping mapping : mapper.getMappings()) {
 		   if(mapping instanceof LeafMapping && mapping.isExact() && !mapping.getFragment1().getString().startsWith("return ")) {
 			   exactLeafMappings++;
 		   }
@@ -2389,7 +2390,7 @@ public class UMLModelDiff {
 		   return false;
 	   }
 	   if(mapper.mappingsWithoutBlocks() == 1) {
-		   for(AbstractCodeMapping mapping : mapper.getMappings()) {
+		   for(IAbstractCodeMapping mapping : mapper.getMappings()) {
 			   String fragment1 = mapping.getFragment1().getString();
 			   String fragment2 = mapping.getFragment2().getString();
 			   if(fragment1.startsWith("return true;") || fragment1.startsWith("return false;") || fragment1.startsWith("return this;") || fragment1.startsWith("return null;") || fragment1.startsWith("return;") ||

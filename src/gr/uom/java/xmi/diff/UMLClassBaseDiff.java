@@ -21,6 +21,7 @@ import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -1232,7 +1233,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 					}
 				}
 				if(statementUsingParameterAsInvoker1 != null && statementUsingParameterAsInvoker2 != null) {
-					for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+					for(IAbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 						if(mapping.getFragment1() instanceof CompositeStatementObject && mapping.getFragment2() instanceof CompositeStatementObject) {
 							CompositeStatementObject parent1 = (CompositeStatementObject)mapping.getFragment1();
 							CompositeStatementObject parent2 = (CompositeStatementObject)mapping.getFragment2();
@@ -1449,7 +1450,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 		int mappings = operationBodyMapper.mappingsWithoutBlocks();
 		int tryMappings = 0;
 		int mappingsWithTypeReplacement = 0;
-		for(AbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
+		for(IAbstractCodeMapping mapping : operationBodyMapper.getMappings()) {
 			if(mapping.getFragment1().getString().equals("try") && mapping.getFragment2().getString().equals("try")) {
 				tryMappings++;
 			}
@@ -1576,7 +1577,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 				if(r instanceof RenameVariableRefactoring) {
 					RenameVariableRefactoring rename = (RenameVariableRefactoring)r;
 					Set<AbstractCodeMapping> references = rename.getVariableReferences();
-					for(AbstractCodeMapping reference : references) {
+					for(IAbstractCodeMapping reference : references) {
 						if(reference.getFragment1().getVariableDeclarations().size() > 0 && !reference.isExact()) {
 							Set<AbstractCodeMapping> allMappingsForReference = new LinkedHashSet<AbstractCodeMapping>();
 							for(UMLOperationBodyMapper childMapper : mapper.getChildMappers()) {
@@ -1588,7 +1589,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 								}
 							}
 							if(allMappingsForReference.size() > 1) {
-								for(AbstractCodeMapping mapping : allMappingsForReference) {
+								for(IAbstractCodeMapping mapping : allMappingsForReference) {
 									if(!mapping.equals(reference) && mapping.isExact()) {
 										refactoringsToBeRemoved.add(rename);
 										break;

@@ -498,7 +498,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean fieldAssignmentToPreviouslyExistingAttribute(Set<AbstractCodeMapping> mappings) {
 		if(mappings.size() == 1) {
-			AbstractCodeMapping mapping = mappings.iterator().next();
+			IAbstractCodeMapping mapping = mappings.iterator().next();
 			String fragment1 = mapping.getFragment1().getString();
 			String fragment2 = mapping.getFragment2().getString();
 			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
@@ -519,7 +519,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean fieldAssignmentWithPreviouslyExistingParameter(Set<AbstractCodeMapping> mappings) {
 		if(mappings.size() == 1) {
-			AbstractCodeMapping mapping = mappings.iterator().next();
+			IAbstractCodeMapping mapping = mappings.iterator().next();
 			String fragment1 = mapping.getFragment1().getString();
 			String fragment2 = mapping.getFragment2().getString();
 			if(fragment1.contains("=") && fragment1.endsWith(";\n") && fragment2.contains("=") && fragment2.endsWith(";\n")) {
@@ -665,7 +665,7 @@ public class VariableReplacementAnalysis {
 		return map;
 	}
 
-	private static boolean returnVariableMapping(AbstractCodeMapping mapping, Replacement replacement) {
+	private static boolean returnVariableMapping(IAbstractCodeMapping mapping, Replacement replacement) {
 		return mapping.getFragment1().getString().equals("return " + replacement.getBefore() + ";\n") &&
 				mapping.getFragment2().getString().equals("return " + replacement.getAfter() + ";\n");
 	}
@@ -681,7 +681,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(AbstractCodeMapping mapping, Replacement replacement) {
+	private boolean replacementNotInsideMethodSignatureOfAnonymousClass(IAbstractCodeMapping mapping, Replacement replacement) {
 		AbstractCodeFragment fragment1 = mapping.getFragment1();
 		AbstractCodeFragment fragment2 = mapping.getFragment2();
 		List<AnonymousClassDeclarationObject> anonymousClassDeclarations1 = fragment1.getAnonymousClassDeclarations();
@@ -749,14 +749,14 @@ public class VariableReplacementAnalysis {
 
 	private boolean replacementInLocalVariableDeclaration(Replacement replacement, Set<AbstractCodeMapping> set) {
 		VariableDeclaration v1 = null;
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				v1 = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
 				break;
 			}
 		}
 		VariableDeclaration v2 = null;
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				v2 = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 				break;
@@ -764,7 +764,7 @@ public class VariableReplacementAnalysis {
 		}
 		Set<VariableDeclaration> allVariableDeclarations1 = new LinkedHashSet<VariableDeclaration>();
 		Set<VariableDeclaration> allVariableDeclarations2 = new LinkedHashSet<VariableDeclaration>();
-		for(AbstractCodeMapping referenceMapping : set) {
+		for(IAbstractCodeMapping referenceMapping : set) {
 			AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 			AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 			if(statement1 instanceof CompositeStatementObject && statement2 instanceof CompositeStatementObject &&
@@ -833,7 +833,7 @@ public class VariableReplacementAnalysis {
 
 	private boolean inconsistentVariableMapping(VariableDeclaration v1, VariableDeclaration v2, Set<AbstractCodeMapping> set) {
 		if(v1 != null && v2 != null) {
-			for(AbstractCodeMapping mapping : mappings) {
+			for(IAbstractCodeMapping mapping : mappings) {
 				List<VariableDeclaration> variableDeclarations1 = mapping.getFragment1().getVariableDeclarations();
 				List<VariableDeclaration> variableDeclarations2 = mapping.getFragment2().getVariableDeclarations();
 				if(variableDeclarations1.contains(v1)) {
@@ -855,7 +855,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 				if(mapping.isExact()) {
-					for(AbstractCodeMapping referenceMapping : set) {
+					for(IAbstractCodeMapping referenceMapping : set) {
 						AbstractCodeFragment statement1 = referenceMapping.getFragment1();
 						AbstractCodeFragment statement2 = referenceMapping.getFragment2();
 						boolean containsMapping = true;
@@ -876,7 +876,7 @@ public class VariableReplacementAnalysis {
 		return false;
 	}
 
-	public static boolean bothFragmentsUseVariable(VariableDeclaration v1, AbstractCodeMapping mapping) {
+	public static boolean bothFragmentsUseVariable(VariableDeclaration v1, IAbstractCodeMapping mapping) {
 		return mapping.getFragment1().getVariables().contains(v1.getVariableName()) &&
 				mapping.getFragment2().getVariables().contains(v1.getVariableName());
 	}
@@ -891,7 +891,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement) {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
 				if(vd != null) {
@@ -917,7 +917,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(MergeVariableReplacement replacement, String variableName) {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {
 				if(replacement.getMergedVariables().contains(r.getBefore())) {
@@ -949,7 +949,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement) {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 				if(vd != null) {
@@ -975,7 +975,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(SplitVariableReplacement replacement, String variableName) {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			if(mapping.getReplacements().contains(replacement)) {
 				Set<String> foundSplitVariables = new LinkedHashSet<String>();
 				for(Replacement r : mapping.getReplacements()) {
@@ -1009,7 +1009,7 @@ public class VariableReplacementAnalysis {
 	}
 
 	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(MergeVariableReplacement replacement) {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			Set<String> foundMergedVariables = new LinkedHashSet<String>();
 			for(Replacement r : mapping.getReplacements()) {
 				if(replacement.getMergedVariables().contains(r.getBefore())) {
@@ -1043,7 +1043,7 @@ public class VariableReplacementAnalysis {
 	private boolean variableAppearsInExtractedMethod(VariableDeclaration v1, VariableDeclaration v2) {
 		if(v1 != null) {
 			for(UMLOperationBodyMapper mapper : childMappers) {
-				for(AbstractCodeMapping mapping : mapper.getMappings()) {
+				for(IAbstractCodeMapping mapping : mapper.getMappings()) {
 					if(mapping.getFragment1().getVariableDeclarations().contains(v1)) {
 						if(v2 != null && v2.getInitializer() != null) {
 							UMLOperation extractedMethod = mapper.getOperation2();
@@ -1080,7 +1080,7 @@ public class VariableReplacementAnalysis {
 				for(StatementObject nonMappedStatement : mapper.getNonMappedLeavesT2()) {
 					VariableDeclaration variableDeclaration2 = nonMappedStatement.getVariableDeclaration(v1.getVariableName());
 					if(variableDeclaration2 != null && variableDeclaration2.getType().equals(v1.getType())) {
-						for(AbstractCodeMapping mapping : mapper.getMappings()) {
+						for(IAbstractCodeMapping mapping : mapper.getMappings()) {
 							if(mapping.getFragment2().equals(nonMappedStatement.getParent())) {
 								if(mapping.getFragment1() instanceof CompositeStatementObject) {
 									CompositeStatementObject composite1 = (CompositeStatementObject)mapping.getFragment1();
@@ -1206,7 +1206,7 @@ public class VariableReplacementAnalysis {
 		return index1 >= 0 && index1 == index2;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement, AbstractCodeMapping mapping) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration1(Replacement replacement, IAbstractCodeMapping mapping) {
 		if(mapping.getReplacements().contains(replacement)) {
 			VariableDeclaration vd = mapping.getFragment1().searchVariableDeclaration(replacement.getBefore());
 			if(vd != null) {
@@ -1230,7 +1230,7 @@ public class VariableReplacementAnalysis {
 		return null;
 	}
 
-	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement, AbstractCodeMapping mapping) {
+	private SimpleEntry<VariableDeclaration, UMLOperation> getVariableDeclaration2(Replacement replacement, IAbstractCodeMapping mapping) {
 		if(mapping.getReplacements().contains(replacement)) {
 			VariableDeclaration vd = mapping.getFragment2().searchVariableDeclaration(replacement.getAfter());
 			if(vd != null) {

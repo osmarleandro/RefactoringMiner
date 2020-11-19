@@ -23,7 +23,7 @@ public class TypeReplacementAnalysis {
 	}
 
 	private void findTypeChanges() {
-		for(AbstractCodeMapping mapping : mappings) {
+		for(IAbstractCodeMapping mapping : mappings) {
 			AbstractCodeFragment fragment1 = mapping.getFragment1();
 			AbstractCodeFragment fragment2 = mapping.getFragment2();
 			for(Replacement replacement : mapping.getReplacements()) {

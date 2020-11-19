@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class InlineVariableRefactoring implements Refactoring {
@@ -121,7 +122,7 @@ public class InlineVariableRefactoring implements Refactoring {
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("inlined variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
+		for(IAbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the name of the inlined variable"));
 		}
 		return ranges;
@@ -130,7 +131,7 @@ public class InlineVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> rightSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(AbstractCodeMapping mapping : references) {
+		for(IAbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the initializer of the inlined variable"));
 		}
 		return ranges;

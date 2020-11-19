@@ -11,6 +11,7 @@ import org.refactoringminer.api.RefactoringType;
 
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
 public class ExtractVariableRefactoring implements Refactoring {
@@ -118,7 +119,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 	@Override
 	public List<CodeRange> leftSide() {
 		List<CodeRange> ranges = new ArrayList<CodeRange>();
-		for(AbstractCodeMapping mapping : references) {
+		for(IAbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment1().codeRange().setDescription("statement with the initializer of the extracted variable"));
 		}
 		return ranges;
@@ -130,7 +131,7 @@ public class ExtractVariableRefactoring implements Refactoring {
 		ranges.add(variableDeclaration.codeRange()
 				.setDescription("extracted variable declaration")
 				.setCodeElement(variableDeclaration.toString()));
-		for(AbstractCodeMapping mapping : references) {
+		for(IAbstractCodeMapping mapping : references) {
 			ranges.add(mapping.getFragment2().codeRange().setDescription("statement with the name of the extracted variable"));
 		}
 		return ranges;

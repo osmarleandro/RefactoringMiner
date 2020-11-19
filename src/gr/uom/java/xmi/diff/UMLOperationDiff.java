@@ -4,6 +4,7 @@ import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 import gr.uom.java.xmi.decomposition.VariableReferenceExtractor;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -275,7 +276,7 @@ public class UMLOperationDiff {
 	
 	private boolean inconsistentReplacement(VariableDeclaration originalVariable, VariableDeclaration newVariable) {
 		if(removedOperation.isStatic() || addedOperation.isStatic()) {
-			for(AbstractCodeMapping mapping : mappings) {
+			for(IAbstractCodeMapping mapping : mappings) {
 				for(Replacement replacement : mapping.getReplacements()) {
 					if(replacement.getType().equals(ReplacementType.VARIABLE_NAME)) {
 						if(replacement.getBefore().equals(originalVariable.getVariableName()) && !replacement.getAfter().equals(newVariable.getVariableName())) {

@@ -14,6 +14,7 @@ import gr.uom.java.xmi.UMLType;
 import gr.uom.java.xmi.decomposition.AbstractCodeFragment;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IAbstractCodeMapping;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
@@ -95,7 +96,7 @@ public class ExtractOperationDetection {
 							operationBodyMapper.addChildMapper(nestedMapper);
 						}
 						//add back to mapper non-exact matches
-						for(AbstractCodeMapping mapping : nestedMapper.getMappings()) {
+						for(IAbstractCodeMapping mapping : nestedMapper.getMappings()) {
 							if(!mapping.isExact() || mapping.getFragment1().getString().equals("{")) {
 								AbstractCodeFragment fragment1 = mapping.getFragment1();
 								if(fragment1 instanceof StatementObject) {
@@ -236,7 +237,7 @@ public class ExtractOperationDetection {
 		boolean exceptionHandlingExactMatch = false;
 		boolean throwsNewExceptionExactMatch = false;
 		if(exactMatchList.size() == 1) {
-			AbstractCodeMapping mapping = exactMatchList.get(0);
+			IAbstractCodeMapping mapping = exactMatchList.get(0);
 			if(mapping.getFragment1() instanceof StatementObject && mapping.getFragment2() instanceof StatementObject) {
 				StatementObject statement1 = (StatementObject)mapping.getFragment1();
 				StatementObject statement2 = (StatementObject)mapping.getFragment2();

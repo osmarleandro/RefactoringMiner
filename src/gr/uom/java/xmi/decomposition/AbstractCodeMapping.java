@@ -18,7 +18,7 @@ import gr.uom.java.xmi.diff.InlineVariableRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 import gr.uom.java.xmi.diff.UMLClassBaseDiff;
 
-public abstract class AbstractCodeMapping {
+public abstract class AbstractCodeMapping implements IAbstractCodeMapping {
 
 	private AbstractCodeFragment fragment1;
 	private AbstractCodeFragment fragment2;
