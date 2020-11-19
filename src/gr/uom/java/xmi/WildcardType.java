@@ -1,6 +1,6 @@
 package gr.uom.java.xmi;
 
-public class WildcardType extends UMLType {
+public class WildcardType extends UMLType implements IWildcardType {
 	private UMLType bound;
 	private boolean upperBound;
 	
