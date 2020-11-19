@@ -22,7 +22,7 @@ import java.util.Set;
 import org.refactoringminer.util.AstUtils;
 
 public class UMLOperation implements Comparable<UMLOperation>, Serializable, LocationInfoProvider {
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private String name;
 	private String visibility;
 	private boolean isAbstract;
@@ -38,7 +38,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private UMLJavadoc javadoc;
 	private List<UMLAnnotation> annotations;
 	
-	public UMLOperation(String name, LocationInfo locationInfo) {
+	public UMLOperation(String name, ILocationInfo locationInfo) {
 		this.locationInfo = locationInfo;
         this.name = name;
         this.parameters = new ArrayList<UMLParameter>();
@@ -63,7 +63,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		annotations.add(annotation);
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 
@@ -164,7 +164,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return new ArrayList<VariableDeclaration>();
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration> getVariableDeclarationsInScope(ILocationInfo location) {
 		if(operationBody != null)
 			return operationBody.getVariableDeclarationsInScope(location);
 		return new ArrayList<VariableDeclaration>();

@@ -5,13 +5,14 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.LambdaExpression;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
 public class LambdaExpressionObject implements LocationInfoProvider {
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private OperationBody body;
 	private AbstractExpression expression;
 	
@@ -34,7 +35,7 @@ public class LambdaExpressionObject implements LocationInfoProvider {
 	}
 
 	@Override
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 

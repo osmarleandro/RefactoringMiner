@@ -10,6 +10,7 @@ import java.util.Set;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -19,7 +20,7 @@ public class CompositeStatementObject extends AbstractStatement {
 	private List<AbstractStatement> statementList;
 	private List<AbstractExpression> expressionList;
 	private List<VariableDeclaration> variableDeclarations;
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 
 	public CompositeStatementObject(CompilationUnit cu, String filePath, Statement statement, int depth, CodeElementType codeElementType) {
 		super();
@@ -408,7 +409,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return variableDeclarations;
 	}
 
-	public List<VariableDeclaration> getVariableDeclarationsInScope(LocationInfo location) {
+	public List<VariableDeclaration> getVariableDeclarationsInScope(ILocationInfo location) {
 		List<VariableDeclaration> variableDeclarations = new ArrayList<VariableDeclaration>();
 		for(VariableDeclaration variableDeclaration : getAllVariableDeclarations()) {
 			if(variableDeclaration.getScope().subsumes(location)) {
@@ -429,7 +430,7 @@ public class CompositeStatementObject extends AbstractStatement {
 		return count;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 

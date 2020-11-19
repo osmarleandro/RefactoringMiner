@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -22,7 +23,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class StatementObject extends AbstractStatement {
 	
 	private String statement;
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private List<String> variables;
 	private List<String> types;
 	private List<VariableDeclaration> variableDeclarations;
@@ -243,7 +244,7 @@ public class StatementObject extends AbstractStatement {
 		return 1;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 

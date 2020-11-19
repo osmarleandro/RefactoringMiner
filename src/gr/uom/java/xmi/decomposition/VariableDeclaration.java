@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.LocationInfoProvider;
@@ -27,7 +28,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private AbstractExpression initializer;
 	private UMLType type;
 	private boolean varargsParameter;
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
 	private VariableScope scope;
@@ -188,7 +189,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
         return sb.toString();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 

@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import gr.uom.java.xmi.diff.CodeRange;
 
-public class LocationInfo {
+public class LocationInfo implements ILocationInfo {
 	private String filePath;
 	private int startOffset;
 	private int endOffset; 

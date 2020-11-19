@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
@@ -13,7 +14,7 @@ import gr.uom.java.xmi.diff.CodeRange;
 public class AbstractExpression extends AbstractCodeFragment {
 	
 	private String expression;
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private CompositeStatementObject owner;
 	private List<String> variables;
 	private List<String> types;
@@ -175,7 +176,7 @@ public class AbstractExpression extends AbstractCodeFragment {
 		return lambdas;
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 

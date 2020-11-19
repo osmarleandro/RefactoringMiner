@@ -8,13 +8,14 @@ import java.util.Map;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import gr.uom.java.xmi.ILocationInfo;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
 public class AnonymousClassDeclarationObject implements LocationInfoProvider {
-	private LocationInfo locationInfo;
+	private ILocationInfo locationInfo;
 	private AnonymousClassDeclaration astNode;
 	private String astNodeString;
 	private List<String> variables = new ArrayList<String>();
@@ -42,7 +43,7 @@ public class AnonymousClassDeclarationObject implements LocationInfoProvider {
 		this.astNodeString = anonymous.toString();
 	}
 
-	public LocationInfo getLocationInfo() {
+	public ILocationInfo getLocationInfo() {
 		return locationInfo;
 	}
 
