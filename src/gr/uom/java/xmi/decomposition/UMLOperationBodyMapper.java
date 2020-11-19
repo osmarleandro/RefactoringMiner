@@ -1740,7 +1740,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement1.getLocationInfo().equals(creation1.getLocationInfo())) {
 					creations1.remove(objectCreation1);
 				}
-				if(((ObjectCreation)creation1).getAnonymousClassDeclaration() != null) {
+				if(((IObjectCreation)creation1).getAnonymousClassDeclaration() != null) {
 					creations1.remove(objectCreation1);
 				}
 			}
@@ -1751,7 +1751,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						creationCoveringTheEntireStatement2.getLocationInfo().equals(creation2.getLocationInfo())) {
 					creations2.remove(objectCreation2);
 				}
-				if(((ObjectCreation)creation2).getAnonymousClassDeclaration() != null) {
+				if(((IObjectCreation)creation2).getAnonymousClassDeclaration() != null) {
 					creations2.remove(objectCreation2);
 				}
 			}
@@ -2443,19 +2443,19 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					}
 					else if(objectCreation1.identicalWithDifferentNumberOfArguments(creationCoveringTheEntireStatement2, replacementInfo.getReplacements(), parameterToArgumentMap)) {
 						Replacement replacement = new ObjectCreationReplacement(objectCreation1.getName(),
-								creationCoveringTheEntireStatement2.getName(), (ObjectCreation)objectCreation1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
+								creationCoveringTheEntireStatement2.getName(), (IObjectCreation)objectCreation1, creationCoveringTheEntireStatement2, ReplacementType.CLASS_INSTANCE_CREATION_ARGUMENT);
 						replacementInfo.addReplacement(replacement);
 						return replacementInfo.getReplacements();
 					}
 					//check if the argument lists are identical after replacements
 					if(objectCreation1.identicalName(creationCoveringTheEntireStatement2) &&
 							objectCreation1.identicalExpression(creationCoveringTheEntireStatement2, replacementInfo.getReplacements())) {
-						if(((ObjectCreation)objectCreation1).isArray() && creationCoveringTheEntireStatement2.isArray() &&
+						if(((IObjectCreation)objectCreation1).isArray() && creationCoveringTheEntireStatement2.isArray() &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).equals(s2.substring(s2.indexOf("[")+1, s2.lastIndexOf("]"))) &&
 								s1.substring(s1.indexOf("[")+1, s1.lastIndexOf("]")).length() > 0) {
 							return replacementInfo.getReplacements();
 						}
-						if(!((ObjectCreation)objectCreation1).isArray() && !creationCoveringTheEntireStatement2.isArray() &&
+						if(!((IObjectCreation)objectCreation1).isArray() && !creationCoveringTheEntireStatement2.isArray() &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).equals(s2.substring(s2.indexOf("(")+1, s2.lastIndexOf(")"))) &&
 								s1.substring(s1.indexOf("(")+1, s1.lastIndexOf(")")).length() > 0) {
 							return replacementInfo.getReplacements();
@@ -2525,7 +2525,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c2 : creationMap2.get(creation2)) {
 						for(String creation1 : creations1) {
 							for(AbstractCall c1 : creationMap1.get(creation1)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((IObjectCreation)c1).getType().compatibleTypes(((IObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
@@ -2562,7 +2562,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 					for(AbstractCall c1 : creationMap1.get(creation1)) {
 						for(String creation2 : creations2) {
 							for(AbstractCall c2 : creationMap2.get(creation2)) {
-								if(((ObjectCreation)c1).getType().compatibleTypes(((ObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
+								if(((IObjectCreation)c1).getType().compatibleTypes(((IObjectCreation)c2).getType()) && c1.equalArguments(c2)) {
 									replacementInfo.addReplacement(r);
 									return replacementInfo.getReplacements();
 								}
