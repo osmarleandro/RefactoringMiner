@@ -9,6 +9,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.AddVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ClassInstanceCreationWithMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.CompositeReplacement;
+import gr.uom.java.xmi.decomposition.replacement.IMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.IntersectionReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
@@ -254,7 +255,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				nullLiteralReplacements++;
 			}
 			else if(replacement instanceof MethodInvocationReplacement) {
-				MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
+				IMethodInvocationReplacement invocationReplacement = (IMethodInvocationReplacement)replacement;
 				OperationInvocation invokedOperationBefore = invocationReplacement.getInvokedOperationBefore();
 				OperationInvocation invokedOperationAfter = invocationReplacement.getInvokedOperationAfter();
 				if(invokedOperationBefore.getName().equals(invokedOperationAfter.getName()) &&
@@ -2984,7 +2985,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 						variableDeclarations2.get(0).getVariableName().equals(replacement.getAfter()))
 					variableRename = true;
 				else if(replacement instanceof MethodInvocationReplacement) {
-					MethodInvocationReplacement invocationReplacement = (MethodInvocationReplacement)replacement;
+					IMethodInvocationReplacement invocationReplacement = (IMethodInvocationReplacement)replacement;
 					if(initializer1 != null && invocationReplacement.getInvokedOperationBefore().actualString().equals(initializer1.getString()) &&
 							initializer2 != null && invocationReplacement.getInvokedOperationAfter().actualString().equals(initializer2.getString())) {
 						methodInvocationReplacement = true;

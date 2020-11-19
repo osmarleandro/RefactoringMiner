@@ -31,6 +31,7 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 import gr.uom.java.xmi.decomposition.replacement.SplitVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.IMethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 
 public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
@@ -1109,7 +1110,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 			}
 		}
 		else {
-			for(MethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
+			for(IMethodInvocationReplacement replacement : consistentMethodInvocationRenames) {
 				if(replacement.getInvokedOperationBefore().matchesOperation(removedOperation) &&
 						replacement.getInvokedOperationAfter().matchesOperation(addedOperation)) {
 					mapperSet.add(operationBodyMapper);
