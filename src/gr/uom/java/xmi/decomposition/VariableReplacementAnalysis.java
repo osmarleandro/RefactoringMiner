@@ -16,6 +16,7 @@ import gr.uom.java.xmi.UMLParameter;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.replacement.ConsistentReplacementDetector;
+import gr.uom.java.xmi.decomposition.replacement.IVariableDeclarationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MergeVariableReplacement;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -424,7 +425,7 @@ public class VariableReplacementAnalysis {
 		Map<Replacement, Set<AbstractCodeMapping>> variableDeclarationReplacementOccurrenceMap = getVariableDeclarationReplacementOccurrenceMap();
 		Set<Replacement> allConsistentVariableDeclarationRenames = allConsistentRenames(variableDeclarationReplacementOccurrenceMap);
 		for(Replacement replacement : allConsistentVariableDeclarationRenames) {
-			VariableDeclarationReplacement vdReplacement = (VariableDeclarationReplacement)replacement;
+			IVariableDeclarationReplacement vdReplacement = (IVariableDeclarationReplacement)replacement;
 			Set<AbstractCodeMapping> set = variableDeclarationReplacementOccurrenceMap.get(vdReplacement);
 			if((set.size() > 1 && consistencyCheck(vdReplacement.getVariableDeclaration1(), vdReplacement.getVariableDeclaration2(), set)) ||
 					(set.size() == 1 && replacementInLocalVariableDeclaration(vdReplacement.getVariableNameReplacement(), set))) {
@@ -636,7 +637,7 @@ public class VariableReplacementAnalysis {
 			List<UMLParameterDiff> matchedParameterDiffs = new ArrayList<UMLParameterDiff>();
 			for(UMLParameterDiff parameterDiff : allParameterDiffs) {
 				for(Replacement replacement : map.keySet()) {
-					VariableDeclarationReplacement vdR = (VariableDeclarationReplacement)replacement;
+					IVariableDeclarationReplacement vdR = (IVariableDeclarationReplacement)replacement;
 					if(parameterDiff.getRemovedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration1()) &&
 							parameterDiff.getAddedParameter().getVariableDeclaration().equals(vdR.getVariableDeclaration2())) {
 						matchedParameterDiffs.add(parameterDiff);
@@ -658,7 +659,7 @@ public class VariableReplacementAnalysis {
 					}
 				}
 			}
-			for(VariableDeclarationReplacement key : keysToBeRemoved) {
+			for(IVariableDeclarationReplacement key : keysToBeRemoved) {
 				map.remove(key);
 			}
 		}

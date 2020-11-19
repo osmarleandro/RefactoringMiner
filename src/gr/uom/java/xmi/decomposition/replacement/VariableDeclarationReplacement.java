@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class VariableDeclarationReplacement extends Replacement {
+public class VariableDeclarationReplacement extends Replacement implements IVariableDeclarationReplacement {
 
 	private VariableDeclaration v1;
 	private VariableDeclaration v2;
