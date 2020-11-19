@@ -7,7 +7,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
-public class TernaryOperatorExpression {
+public class TernaryOperatorExpression implements ITernaryOperatorExpression {
 
 	private AbstractExpression condition;
 	private AbstractExpression thenExpression;

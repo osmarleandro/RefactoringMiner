@@ -1908,7 +1908,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Set<String> nullLiterals1 = new LinkedHashSet<String>();
 				nullLiterals1.add("null");
 				Set<String> ternaryExpressions2 = new LinkedHashSet<String>();
-				for(TernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions()) {
+				for(ITernaryOperatorExpression ternary : statement2.getTernaryOperatorExpressions()) {
 					ternaryExpressions2.add(ternary.getExpression());	
 				}
 				findReplacements(nullLiterals1, ternaryExpressions2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
@@ -1919,7 +1919,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 				Set<String> nullLiterals2 = new LinkedHashSet<String>();
 				nullLiterals2.add("null");
 				Set<String> ternaryExpressions1 = new LinkedHashSet<String>();
-				for(TernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions()) {
+				for(ITernaryOperatorExpression ternary : statement1.getTernaryOperatorExpressions()) {
 					ternaryExpressions1.add(ternary.getExpression());	
 				}
 				findReplacements(ternaryExpressions1, nullLiterals2, replacementInfo, ReplacementType.NULL_LITERAL_REPLACED_WITH_CONDITIONAL_EXPRESSION);
@@ -2499,7 +2499,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 		List<TernaryOperatorExpression> ternaryOperatorExpressions1 = statement1.getTernaryOperatorExpressions();
 		List<TernaryOperatorExpression> ternaryOperatorExpressions2 = statement2.getTernaryOperatorExpressions();
 		if(ternaryOperatorExpressions1.isEmpty() && ternaryOperatorExpressions2.size() == 1) {
-			TernaryOperatorExpression ternary = ternaryOperatorExpressions2.get(0);
+			ITernaryOperatorExpression ternary = ternaryOperatorExpressions2.get(0);
 			for(String creation : creationIntersection) {
 				if((r = ternary.makeReplacementWithTernaryOnTheRight(creation)) != null) {
 					replacementInfo.addReplacement(r);
@@ -2536,7 +2536,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			}
 		}
 		if(ternaryOperatorExpressions1.size() == 1 && ternaryOperatorExpressions2.isEmpty()) {
-			TernaryOperatorExpression ternary = ternaryOperatorExpressions1.get(0);
+			ITernaryOperatorExpression ternary = ternaryOperatorExpressions1.get(0);
 			for(String creation : creationIntersection) {
 				if((r = ternary.makeReplacementWithTernaryOnTheLeft(creation)) != null) {
 					replacementInfo.addReplacement(r);
