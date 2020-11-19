@@ -48,6 +48,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
+import gr.uom.java.xmi.decomposition.IOperationBody;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
@@ -443,7 +444,7 @@ public class UMLModelASTReader {
 		
 		Block block = methodDeclaration.getBody();
 		if(block != null) {
-			OperationBody body = new OperationBody(cu, sourceFile, block);
+			IOperationBody body = new OperationBody(cu, sourceFile, block);
 			umlOperation.setBody(body);
 			if(block.statements().size() == 0) {
 				umlOperation.setEmptyBody(true);

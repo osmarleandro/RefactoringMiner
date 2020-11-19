@@ -3,8 +3,8 @@ package gr.uom.java.xmi;
 import gr.uom.java.xmi.decomposition.AbstractStatement;
 import gr.uom.java.xmi.decomposition.AnonymousClassDeclarationObject;
 import gr.uom.java.xmi.decomposition.CompositeStatementObject;
+import gr.uom.java.xmi.decomposition.IOperationBody;
 import gr.uom.java.xmi.decomposition.LambdaExpressionObject;
-import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 import gr.uom.java.xmi.decomposition.StatementObject;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
@@ -32,7 +32,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 	private boolean isFinal;
 	private boolean isStatic;
 	private boolean emptyBody;
-	private OperationBody operationBody;
+	private IOperationBody operationBody;
 	private List<UMLAnonymousClass> anonymousClassList;
 	private List<UMLTypeParameter> typeParameters;
 	private UMLJavadoc javadoc;
@@ -119,7 +119,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		this.emptyBody = emptyBody;
 	}
 
-	public OperationBody getBody() {
+	public IOperationBody getBody() {
 		return operationBody;
 	}
 
@@ -194,7 +194,7 @@ public class UMLOperation implements Comparable<UMLOperation>, Serializable, Loc
 		return 0;
 	}
 
-	public void setBody(OperationBody body) {
+	public void setBody(IOperationBody body) {
 		this.operationBody = body;
 	}
 

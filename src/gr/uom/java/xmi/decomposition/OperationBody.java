@@ -36,7 +36,7 @@ import org.eclipse.jdt.core.dom.WhileStatement;
 import gr.uom.java.xmi.LocationInfo;
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 
-public class OperationBody {
+public class OperationBody implements IOperationBody {
 
 	private CompositeStatementObject compositeStatement;
 
