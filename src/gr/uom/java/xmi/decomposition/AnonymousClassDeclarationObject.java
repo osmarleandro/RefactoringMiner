@@ -13,7 +13,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.diff.CodeRange;
 import gr.uom.java.xmi.LocationInfoProvider;
 
-public class AnonymousClassDeclarationObject implements LocationInfoProvider {
+public class AnonymousClassDeclarationObject implements LocationInfoProvider, IAnonymousClassDeclarationObject {
 	private LocationInfo locationInfo;
 	private AnonymousClassDeclaration astNode;
 	private String astNodeString;
