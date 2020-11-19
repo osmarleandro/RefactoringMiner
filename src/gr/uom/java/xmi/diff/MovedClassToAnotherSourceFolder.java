@@ -4,7 +4,7 @@ import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLClass;
 
-public class MovedClassToAnotherSourceFolder {
+public class MovedClassToAnotherSourceFolder implements IMovedClassToAnotherSourceFolder {
 	//private String className;
 	private UMLClass originalClass;
 	private UMLClass movedClass;
