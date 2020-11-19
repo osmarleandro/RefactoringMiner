@@ -9,7 +9,7 @@ import java.util.Map;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
 
-public class UMLAnnotationDiff {
+public class UMLAnnotationDiff implements IUMLAnnotationDiff {
 	private UMLAnnotation removedAnnotation;
 	private UMLAnnotation addedAnnotation;
 	private boolean typeNameChanged = false;
