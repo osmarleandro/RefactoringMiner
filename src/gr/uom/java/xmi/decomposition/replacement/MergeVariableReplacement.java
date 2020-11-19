@@ -3,7 +3,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class MergeVariableReplacement extends Replacement {
+public class MergeVariableReplacement extends Replacement implements IMergeVariableReplacement {
 	private Set<String> mergedVariables;
 	
 	public MergeVariableReplacement(Set<String> mergedVariables, String newVariable) {
