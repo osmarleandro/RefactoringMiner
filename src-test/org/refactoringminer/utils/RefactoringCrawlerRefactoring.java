@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.refactoringminer.api.RefactoringType;
 
-public class RefactoringCrawlerRefactoring {
+public class RefactoringCrawlerRefactoring implements IRefactoringCrawlerRefactoring {
 
   private static final Map<String, RefactoringType> TYPE_MAP;
   static {
