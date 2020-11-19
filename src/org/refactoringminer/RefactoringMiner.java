@@ -10,7 +10,7 @@ import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.util.GitServiceImpl;
 
-public class RefactoringMiner {
+public class RefactoringMiner implements IRefactoringMiner {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
