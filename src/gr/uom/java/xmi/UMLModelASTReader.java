@@ -172,8 +172,8 @@ public class UMLModelASTReader {
         }
 	}
 
-	private UMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
-		UMLJavadoc doc = null;
+	private IUMLJavadoc generateJavadoc(BodyDeclaration bodyDeclaration) {
+		IUMLJavadoc doc = null;
 		Javadoc javaDoc = bodyDeclaration.getJavadoc();
 		if(javaDoc != null) {
 			doc = new UMLJavadoc();
@@ -192,7 +192,7 @@ public class UMLModelASTReader {
 
 	private void processEnumDeclaration(CompilationUnit cu, EnumDeclaration enumDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(enumDeclaration);
+		IUMLJavadoc javadoc = generateJavadoc(enumDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -242,7 +242,7 @@ public class UMLModelASTReader {
 
 	private void processTypeDeclaration(CompilationUnit cu, TypeDeclaration typeDeclaration, String packageName, String sourceFile,
 			List<String> importedTypes) {
-		UMLJavadoc javadoc = generateJavadoc(typeDeclaration);
+		IUMLJavadoc javadoc = generateJavadoc(typeDeclaration);
 		if(javadoc != null && javadoc.containsIgnoreCase(FREE_MARKER_GENERATED)) {
 			return;
 		}
@@ -386,7 +386,7 @@ public class UMLModelASTReader {
 	}
 
 	private UMLOperation processMethodDeclaration(CompilationUnit cu, MethodDeclaration methodDeclaration, String packageName, boolean isInterfaceMethod, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(methodDeclaration);
+		IUMLJavadoc javadoc = generateJavadoc(methodDeclaration);
 		String methodName = methodDeclaration.getName().getFullyQualifiedName();
 		LocationInfo locationInfo = generateLocationInfo(cu, sourceFile, methodDeclaration, CodeElementType.METHOD_DECLARATION);
 		UMLOperation umlOperation = new UMLOperation(methodName, locationInfo);
@@ -475,7 +475,7 @@ public class UMLModelASTReader {
 
 
 	private List<UMLAttribute> processFieldDeclaration(CompilationUnit cu, FieldDeclaration fieldDeclaration, boolean isInterfaceField, String sourceFile) {
-		UMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
+		IUMLJavadoc javadoc = generateJavadoc(fieldDeclaration);
 		List<UMLAttribute> attributes = new ArrayList<UMLAttribute>();
 		Type fieldType = fieldDeclaration.getType();
 		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();

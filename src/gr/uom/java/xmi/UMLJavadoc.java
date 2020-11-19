@@ -3,7 +3,7 @@ package gr.uom.java.xmi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UMLJavadoc {
+public class UMLJavadoc implements IUMLJavadoc {
 	private List<UMLTagElement> tags;
 
 	public UMLJavadoc() {
