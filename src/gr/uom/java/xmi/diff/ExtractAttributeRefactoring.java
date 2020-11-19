@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.decomposition.AbstractCodeMapping;
 
-public class ExtractAttributeRefactoring implements Refactoring {
+public class ExtractAttributeRefactoring implements Refactoring, IExtractAttributeRefactoring {
 	private UMLAttribute attributeDeclaration;
 	private UMLClass originalClass;
 	private UMLClass nextClass;
