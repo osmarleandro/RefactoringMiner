@@ -7,6 +7,7 @@ import org.refactoringminer.api.RefactoringHandler;
 
 import gr.uom.java.xmi.diff.ExtractOperationRefactoring;
 import gr.uom.java.xmi.diff.ExtractSuperclassRefactoring;
+import gr.uom.java.xmi.diff.IMoveAttributeRefactoring;
 import gr.uom.java.xmi.diff.InlineOperationRefactoring;
 import gr.uom.java.xmi.diff.MoveAttributeRefactoring;
 import gr.uom.java.xmi.diff.MoveClassRefactoring;
@@ -47,7 +48,7 @@ public class RefactoringCollector extends RefactoringHandler {
         InlineOperationRefactoring ref = (InlineOperationRefactoring) r;
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getInlinedOperation().getKey(), ref.getTargetOperationAfterInline().getKey()));
       } else if (r instanceof MoveAttributeRefactoring) {
-        MoveAttributeRefactoring ref = (MoveAttributeRefactoring) r;
+        IMoveAttributeRefactoring ref = (IMoveAttributeRefactoring) r;
         String attrName = ref.getMovedAttribute().getName();
         rs.add(new RefactoringRelationship(r.getRefactoringType(), ref.getSourceClassName() + "#" + attrName, ref.getTargetClassName() + "#" + attrName));
       } else {

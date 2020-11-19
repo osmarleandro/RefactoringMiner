@@ -735,7 +735,7 @@ public class UMLModelDiff {
 	   return false;
    }
 
-   private int computeCompatibility(MoveAttributeRefactoring candidate) {
+   private int computeCompatibility(IMoveAttributeRefactoring candidate) {
 	   int count = 0;
 	   for(Refactoring ref : refactorings) {
 		   if(ref instanceof MoveOperationRefactoring) {
