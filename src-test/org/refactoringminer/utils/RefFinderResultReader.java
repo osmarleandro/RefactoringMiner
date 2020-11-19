@@ -119,7 +119,7 @@ public class RefFinderResultReader {
     }
 }
 
-abstract class EntityParser {
+abstract class EntityParser implements IEntityParser {
     abstract String parse(List<String> args);
 }
 
