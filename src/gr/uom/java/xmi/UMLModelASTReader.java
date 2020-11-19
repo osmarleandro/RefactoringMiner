@@ -51,7 +51,7 @@ import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.OperationBody;
 import gr.uom.java.xmi.decomposition.VariableDeclaration;
 
-public class UMLModelASTReader {
+public class UMLModelASTReader implements IUMLModelASTReader {
 	private static final String FREE_MARKER_GENERATED = "generated using freemarker";
 	private static final String systemFileSeparator = Matcher.quoteReplacement(File.separator);
 	
