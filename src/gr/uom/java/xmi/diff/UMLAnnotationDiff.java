@@ -8,6 +8,7 @@ import java.util.Map;
 
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.IAbstractExpression;
 
 public class UMLAnnotationDiff {
 	private UMLAnnotation removedAnnotation;
@@ -31,8 +32,8 @@ public class UMLAnnotationDiff {
 		if(!removedAnnotation.getTypeName().equals(addedAnnotation.getTypeName())) {
 			typeNameChanged = true;
 		}
-		AbstractExpression value1 = removedAnnotation.getValue();
-		AbstractExpression value2 = addedAnnotation.getValue();
+		IAbstractExpression value1 = removedAnnotation.getValue();
+		IAbstractExpression value2 = addedAnnotation.getValue();
 		if(value1 != null && value2 != null) {
 			if(!value1.getExpression().equals(value2.getExpression())) {
 				valueChanged = true;

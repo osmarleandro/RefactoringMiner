@@ -13,12 +13,13 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
 import gr.uom.java.xmi.LocationInfo.CodeElementType;
 import gr.uom.java.xmi.decomposition.AbstractExpression;
+import gr.uom.java.xmi.decomposition.IAbstractExpression;
 import gr.uom.java.xmi.diff.CodeRange;
 
 public class UMLAnnotation implements Serializable, LocationInfoProvider {
 	private LocationInfo locationInfo;
 	private String typeName;
-	private AbstractExpression value;
+	private IAbstractExpression value;
 	private Map<String, AbstractExpression> memberValuePairs = new LinkedHashMap<>();
 	
 	public UMLAnnotation(CompilationUnit cu, String filePath, Annotation annotation) {
@@ -42,7 +43,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		return typeName;
 	}
 
-	public AbstractExpression getValue() {
+	public IAbstractExpression getValue() {
 		return value;
 	}
 
@@ -140,7 +141,7 @@ public class UMLAnnotation implements Serializable, LocationInfoProvider {
 		}
 		for (Map.Entry<String, AbstractExpression> entry : memberValuePairs.entrySet()) {
 			String thisKey = entry.getKey();
-			AbstractExpression thisValue = entry.getValue();
+			IAbstractExpression thisValue = entry.getValue();
 			if (thisValue == null) {
 				if (!(m.get(thisKey) == null && m.containsKey(thisKey)))
 					return false;

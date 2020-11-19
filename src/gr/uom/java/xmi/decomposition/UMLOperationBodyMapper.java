@@ -2951,8 +2951,8 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 			boolean typeReplacement = false, variableRename = false, methodInvocationReplacement = false, nullInitializer = false, zeroArgumentClassInstantiation = false, classInstantiationArgumentReplacement = false;
 			UMLType type1 = variableDeclarations1.get(0).getType();
 			UMLType type2 = variableDeclarations2.get(0).getType();
-			AbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
-			AbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
+			IAbstractExpression initializer1 = variableDeclarations1.get(0).getInitializer();
+			IAbstractExpression initializer2 = variableDeclarations2.get(0).getInitializer();
 			if(initializer1 == null && initializer2 == null) {
 				nullInitializer = true;
 			}
@@ -3010,7 +3010,7 @@ public class UMLOperationBodyMapper implements Comparable<UMLOperationBodyMapper
 
 	private VariableDeclaration declarationWithArrayInitializer(List<VariableDeclaration> declarations) {
 		for(VariableDeclaration declaration : declarations) {
-			AbstractExpression initializer = declaration.getInitializer();
+			IAbstractExpression initializer = declaration.getInitializer();
 			if(initializer != null && initializer.getString().startsWith("{") && initializer.getString().endsWith("}")) {
 				return declaration;
 			}

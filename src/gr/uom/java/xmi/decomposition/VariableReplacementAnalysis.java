@@ -106,7 +106,7 @@ public class VariableReplacementAnalysis {
 	private void findParametersWrappedInLocalVariables() {
 		for(StatementObject statement : nonMappedLeavesT2) {
 			for(VariableDeclaration declaration : statement.getVariableDeclarations()) {
-				AbstractExpression initializer = declaration.getInitializer();
+				IAbstractExpression initializer = declaration.getInitializer();
 				if(initializer != null) {
 					for(String key : initializer.getCreationMap().keySet()) {
 						List<ObjectCreation> creations = initializer.getCreationMap().get(key);

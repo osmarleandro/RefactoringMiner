@@ -9,9 +9,9 @@ import gr.uom.java.xmi.decomposition.replacement.Replacement.ReplacementType;
 
 public class TernaryOperatorExpression {
 
-	private AbstractExpression condition;
-	private AbstractExpression thenExpression;
-	private AbstractExpression elseExpression;
+	private IAbstractExpression condition;
+	private IAbstractExpression thenExpression;
+	private IAbstractExpression elseExpression;
 	private String expression;
 
 	public TernaryOperatorExpression(CompilationUnit cu, String filePath, ConditionalExpression expression) {
@@ -21,15 +21,15 @@ public class TernaryOperatorExpression {
 		this.expression = expression.toString();
 	}
 
-	public AbstractExpression getCondition() {
+	public IAbstractExpression getCondition() {
 		return condition;
 	}
 
-	public AbstractExpression getThenExpression() {
+	public IAbstractExpression getThenExpression() {
 		return thenExpression;
 	}
 
-	public AbstractExpression getElseExpression() {
+	public IAbstractExpression getElseExpression() {
 		return elseExpression;
 	}
 

@@ -302,7 +302,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean ternaryMatch(AbstractExpression initializer, String replacedExpression) {
+	private boolean ternaryMatch(IAbstractExpression initializer, String replacedExpression) {
 		List<TernaryOperatorExpression> ternaryList = initializer.getTernaryOperatorExpressions();
 		for(TernaryOperatorExpression ternary : ternaryList) {
 			if(ternary.getThenExpression().toString().equals(replacedExpression) || ternary.getElseExpression().toString().equals(replacedExpression)) {
@@ -373,7 +373,7 @@ public abstract class AbstractCodeMapping {
 		}
 	}
 
-	private boolean overlappingExtractVariable(AbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
+	private boolean overlappingExtractVariable(IAbstractExpression initializer, String input, List<? extends AbstractCodeFragment> nonMappedLeavesT2, Set<Refactoring> refactorings) {
 		String output = input;
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractVariableRefactoring) {
