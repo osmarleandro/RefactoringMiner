@@ -12,7 +12,7 @@ import org.refactoringminer.api.RefactoringType;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLClass;
 
-public class ConvertAnonymousClassToTypeRefactoring implements Refactoring {
+public class ConvertAnonymousClassToTypeRefactoring implements Refactoring, IConvertAnonymousClassToTypeRefactoring {
 	private UMLAnonymousClass anonymousClass;
 	private UMLClass addedClass;
 	
