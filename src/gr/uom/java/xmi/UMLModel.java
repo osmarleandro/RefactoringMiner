@@ -83,10 +83,10 @@ public class UMLModel {
     	return null;
     }
 
-    public UMLRealization matchRealization(UMLRealization otherRealization) {
+    public IUMLRealization matchRealization(IUMLRealization otherRealization) {
     	ListIterator<UMLRealization> realizationIt = realizationList.listIterator();
     	while(realizationIt.hasNext()) {
-    		UMLRealization realization = realizationIt.next();
+    		IUMLRealization realization = realizationIt.next();
     		if(realization.getClient().equals(otherRealization.getClient())) {
     			String thisSupplier = realization.getSupplier();
     			String otherSupplier = otherRealization.getSupplier();

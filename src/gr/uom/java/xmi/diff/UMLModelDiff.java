@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLRealization;
 import gr.uom.java.xmi.UMLAnonymousClass;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
@@ -1044,7 +1045,7 @@ public class UMLModelDiff {
         		 processAddedGeneralization(addedClass, subclassSet, addedGeneralization);
         	 }
          }
-         for(UMLRealization addedRealization : addedRealizations) {
+         for(IUMLRealization addedRealization : addedRealizations) {
             String supplier = addedRealization.getSupplier();
 			if(looksLikeSameType(supplier, addedClassName) && topLevelOrSameOuterClass(addedClass, addedRealization.getClient()) && getAddedClass(addedRealization.getClient().getName()) == null) {
                UMLClassBaseDiff clientClassDiff = getUMLClassDiff(addedRealization.getClient().getName());

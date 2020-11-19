@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLRealization;
 import gr.uom.java.xmi.UMLGeneralization;
 import gr.uom.java.xmi.UMLRealization;
 
@@ -38,7 +39,7 @@ public class InheritanceDetection {
 				addSubclassToSuperclass(superclass, subclass);
 		}
 		List<UMLRealization> addedRealizations = modelDiff.getAddedRealizations();
-		for(UMLRealization realization : addedRealizations) {
+		for(IUMLRealization realization : addedRealizations) {
 			String supplier = realization.getSupplier();
 			String client = realization.getClient().getName();
 			if(modelDiff.getAddedClass(supplier) != null && modelDiff.getAddedClass(client) != null)
