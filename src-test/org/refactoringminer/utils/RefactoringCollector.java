@@ -14,7 +14,7 @@ import gr.uom.java.xmi.diff.MoveOperationRefactoring;
 import gr.uom.java.xmi.diff.RenameClassRefactoring;
 import gr.uom.java.xmi.diff.RenameOperationRefactoring;
 
-public class RefactoringCollector extends RefactoringHandler {
+public class RefactoringCollector extends RefactoringHandler implements IRefactoringCollector {
   private final RefactoringSet rs;
   private Exception ex = null;
   public RefactoringCollector(String cloneUrl, String commitId) {
