@@ -13,7 +13,7 @@ import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.UMLClass;
 import gr.uom.java.xmi.UMLOperation;
 
-public class ExtractClassRefactoring implements Refactoring {
+public class ExtractClassRefactoring implements Refactoring, IExtractClassRefactoring {
 	private UMLClass extractedClass;
 	private UMLClassBaseDiff classDiff;
 	private Set<UMLOperation> extractedOperations;
