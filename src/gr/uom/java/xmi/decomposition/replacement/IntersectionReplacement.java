@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import java.util.Set;
 
-public class IntersectionReplacement extends Replacement {
+public class IntersectionReplacement extends Replacement implements IIntersectionReplacement {
 	private Set<String> commonElements;
 	public IntersectionReplacement(String before, String after, Set<String> commonElements, ReplacementType type) {
 		super(before, after, type);
