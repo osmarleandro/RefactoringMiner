@@ -1,6 +1,6 @@
 package org.refactoringminer.util;
 
-public class PrefixSuffixUtils {
+public class PrefixSuffixUtils implements IPrefixSuffixUtils {
 
 	public static String longestCommonPrefix(String s1, String s2) {
 		int minLength = Math.min(s1.length(), s2.length());
