@@ -1,6 +1,6 @@
 package org.refactoringminer.api;
 
-public class Churn {
+public class Churn implements IChurn {
 	
 	private final int linesAdded;
 	private final int linesRemoved;

@@ -34,6 +34,7 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.refactoringminer.api.Churn;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IChurn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -326,7 +327,7 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public Churn churn(Repository repository, RevCommit currentCommit) throws Exception {
+	public IChurn churn(Repository repository, RevCommit currentCommit) throws Exception {
 		if (currentCommit.getParentCount() > 0) {
         	ObjectId oldTree = currentCommit.getParent(0).getTree();
 	        ObjectId newTree = currentCommit.getTree();
