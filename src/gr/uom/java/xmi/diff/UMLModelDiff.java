@@ -853,7 +853,7 @@ public class UMLModelDiff {
          addedOperations.addAll(classDiff.getAddedOperations());
          for(Refactoring ref : classDiff.getRefactorings()) {
         	 if(ref instanceof ExtractOperationRefactoring) {
-        		 ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
+        		 IExtractOperationRefactoring extractRef = (IExtractOperationRefactoring)ref;
         		 addedOperations.add(extractRef.getExtractedOperation());
         	 }
          }

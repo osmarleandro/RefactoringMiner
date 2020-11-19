@@ -650,7 +650,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean multipleExtractedMethodInvocationsWithDifferentAttributesAsArguments(CandidateAttributeRefactoring candidate, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRefactoring = (ExtractOperationRefactoring)refactoring;
+				IExtractOperationRefactoring extractRefactoring = (IExtractOperationRefactoring)refactoring;
 				if(extractRefactoring.getExtractedOperation().equals(candidate.getOperationAfter())) {
 					List<OperationInvocation> extractedInvocations = extractRefactoring.getExtractedOperationInvocations();
 					if(extractedInvocations.size() > 1) {
@@ -1658,7 +1658,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	public boolean containsExtractOperationRefactoring(UMLOperation sourceOperationBeforeExtraction, UMLOperation extractedOperation) {
 		for(Refactoring ref : refactorings) {
 			if(ref instanceof ExtractOperationRefactoring) {
-				ExtractOperationRefactoring extractRef = (ExtractOperationRefactoring)ref;
+				IExtractOperationRefactoring extractRef = (IExtractOperationRefactoring)ref;
 				if(extractRef.getSourceOperationBeforeExtraction().equals(sourceOperationBeforeExtraction) &&
 						extractRef.getExtractedOperation().equalSignature(extractedOperation)) {
 					return true;
