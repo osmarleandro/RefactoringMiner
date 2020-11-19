@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import gr.uom.java.xmi.LocationInfo;
 
-public class VariableScope {
+public class VariableScope implements IVariableScope {
 	private String filePath;
 	private int startOffset;
 	private int endOffset;

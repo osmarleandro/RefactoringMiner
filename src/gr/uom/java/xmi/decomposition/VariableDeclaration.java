@@ -30,7 +30,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 	private LocationInfo locationInfo;
 	private boolean isParameter;
 	private boolean isAttribute;
-	private VariableScope scope;
+	private IVariableScope scope;
 	private List<UMLAnnotation> annotations;
 	
 	public VariableDeclaration(CompilationUnit cu, String filePath, VariableDeclarationFragment fragment) {
@@ -111,7 +111,7 @@ public class VariableDeclaration implements LocationInfoProvider, VariableDeclar
 		return type;
 	}
 
-	public VariableScope getScope() {
+	public IVariableScope getScope() {
 		return scope;
 	}
 
