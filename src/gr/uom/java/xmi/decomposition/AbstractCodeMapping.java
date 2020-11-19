@@ -8,6 +8,7 @@ import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.util.PrefixSuffixUtils;
 
 import gr.uom.java.xmi.UMLOperation;
+import gr.uom.java.xmi.decomposition.replacement.IVariableReplacementWithMethodInvocation;
 import gr.uom.java.xmi.decomposition.replacement.MethodInvocationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.ObjectCreationReplacement;
 import gr.uom.java.xmi.decomposition.replacement.Replacement;
@@ -325,7 +326,7 @@ public abstract class AbstractCodeMapping {
 
 	private boolean reservedTokenMatch(AbstractExpression initializer, Replacement replacement, String replacedExpression) {
 		OperationInvocation initializerInvocation = initializer.invocationCoveringEntireFragment();
-		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((VariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
+		OperationInvocation replacementInvocation = replacement instanceof VariableReplacementWithMethodInvocation ? ((IVariableReplacementWithMethodInvocation)replacement).getInvokedOperation() : null;
 		boolean methodInvocationMatch = true;
 		if(initializerInvocation != null && replacementInvocation != null) {
 			if(!initializerInvocation.getName().equals(replacementInvocation.getName())) {

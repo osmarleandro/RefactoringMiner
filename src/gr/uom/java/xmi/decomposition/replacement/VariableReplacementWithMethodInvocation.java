@@ -2,7 +2,7 @@ package gr.uom.java.xmi.decomposition.replacement;
 
 import gr.uom.java.xmi.decomposition.OperationInvocation;
 
-public class VariableReplacementWithMethodInvocation extends Replacement {
+public class VariableReplacementWithMethodInvocation extends Replacement implements IVariableReplacementWithMethodInvocation {
 	private OperationInvocation invokedOperation;
 	private Direction direction;
 	
