@@ -55,8 +55,8 @@ import org.kohsuke.github.PagedIterable;
 import org.refactoringminer.api.Churn;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
+import org.refactoringminer.api.IRefactoringHandler;
 import org.refactoringminer.api.Refactoring;
-import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.api.RefactoringMinerTimedOutException;
 import org.refactoringminer.api.RefactoringType;
 import org.refactoringminer.util.GitServiceImpl;
@@ -80,7 +80,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 	
-	private void detect(GitService gitService, Repository repository, final RefactoringHandler handler, Iterator<RevCommit> i) {
+	private void detect(GitService gitService, Repository repository, final IRefactoringHandler handler, Iterator<RevCommit> i) {
 		int commitsCount = 0;
 		int errorCommitsCount = 0;
 		int refactoringsCount = 0;
@@ -114,7 +114,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		logger.info(String.format("Analyzed %s [Commits: %d, Errors: %d, Refactorings: %d]", projectName, commitsCount, errorCommitsCount, refactoringsCount));
 	}
 
-	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final RefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
+	protected List<Refactoring> detectRefactorings(GitService gitService, Repository repository, final IRefactoringHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
 		List<Refactoring> refactoringsAtRevision;
 		String commitId = currentCommit.getId().getName();
 		List<String> filePathsBefore = new ArrayList<String>();
@@ -180,7 +180,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
+	protected List<Refactoring> detectRefactorings(final IRefactoringHandler handler, File projectFolder, String cloneURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			List<String> filesBefore = new ArrayList<String>();
@@ -313,7 +313,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 	
 	@Override
-	public void detectAll(Repository repository, String branch, final RefactoringHandler handler) throws Exception {
+	public void detectAll(Repository repository, String branch, final IRefactoringHandler handler) throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
@@ -329,7 +329,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void fetchAndDetectNew(Repository repository, final RefactoringHandler handler) throws Exception {
+	public void fetchAndDetectNew(Repository repository, final IRefactoringHandler handler) throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
@@ -353,7 +353,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
+	public void detectAtCommit(Repository repository, String commitId, IRefactoringHandler handler) {
 		String cloneURL = repository.getConfig().getString("remote", "origin", "url");
 		File metadataFolder = repository.getDirectory();
 		File projectFolder = metadataFolder.getParentFile();
@@ -381,7 +381,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	public void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler, int timeout) {
+	public void detectAtCommit(Repository repository, String commitId, IRefactoringHandler handler, int timeout) {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
@@ -405,7 +405,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
+	public void detectBetweenTags(Repository repository, String startTag, String endTag, IRefactoringHandler handler)
 			throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
@@ -420,7 +420,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 
 	@Override
 	public void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId,
-			RefactoringHandler handler) throws Exception {
+			IRefactoringHandler handler) throws Exception {
 		GitService gitService = new GitServiceImpl() {
 			@Override
 			public boolean isCommitAnalyzed(String sha1) {
@@ -433,7 +433,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler) {
+	public Churn churnAtCommit(Repository repository, String commitId, IRefactoringHandler handler) {
 		GitService gitService = new GitServiceImpl();
 		RevWalk walk = new RevWalk(repository);
 		try {
@@ -458,7 +458,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	}
 
 	@Override
-	public void detectAtCommit(String gitURL, String commitId, RefactoringHandler handler, int timeout) {
+	public void detectAtCommit(String gitURL, String commitId, IRefactoringHandler handler, int timeout) {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = null;
 		try {
@@ -476,7 +476,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 		}
 	}
 
-	protected List<Refactoring> detectRefactorings(final RefactoringHandler handler, String gitURL, String currentCommitId) {
+	protected List<Refactoring> detectRefactorings(final IRefactoringHandler handler, String gitURL, String currentCommitId) {
 		List<Refactoring> refactoringsAtRevision = Collections.emptyList();
 		try {
 			Set<String> repositoryDirectoriesBefore = ConcurrentHashMap.newKeySet();
@@ -658,7 +658,7 @@ public class GitHistoryRefactoringMinerImpl implements GitHistoryRefactoringMine
 	*/
 
 	@Override
-	public void detectAtPullRequest(String cloneURL, int pullRequestId, RefactoringHandler handler, int timeout) throws IOException {
+	public void detectAtPullRequest(String cloneURL, int pullRequestId, IRefactoringHandler handler, int timeout) throws IOException {
 		GitHub gitHub = connectToGitHub();
 		String repoName = extractRepositoryName(cloneURL);
 		GHRepository repository = gitHub.getRepository(repoName);

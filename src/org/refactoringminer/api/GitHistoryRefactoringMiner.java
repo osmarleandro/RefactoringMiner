@@ -19,7 +19,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void detectAll(Repository repository, String branch, RefactoringHandler handler) throws Exception;
+	void detectAll(Repository repository, String branch, IRefactoringHandler handler) throws Exception;
 
 	/**
 	 * Iterate over commits between two release tags of a git repository and detect the performed refactorings.
@@ -31,7 +31,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void detectBetweenTags(Repository repository, String startTag, String endTag, RefactoringHandler handler)
+	void detectBetweenTags(Repository repository, String startTag, String endTag, IRefactoringHandler handler)
 			throws Exception;
 	
 	/**
@@ -44,7 +44,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId, RefactoringHandler handler)
+	void detectBetweenCommits(Repository repository, String startCommitId, String endCommitId, IRefactoringHandler handler)
 			throws Exception;
 	
 	/**
@@ -56,7 +56,7 @@ public interface GitHistoryRefactoringMiner {
 	 *                control when to skip a commit. 
 	 * @throws Exception propagated from JGit library.
 	 */
-	void fetchAndDetectNew(Repository repository, RefactoringHandler handler) throws Exception;
+	void fetchAndDetectNew(Repository repository, IRefactoringHandler handler) throws Exception;
 
 	/**
 	 * Detect refactorings performed in the specified commit. 
@@ -65,7 +65,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param commitId The SHA key that identifies the commit.
 	 * @param handler A handler object that is responsible to process the detected refactorings. 
 	 */
-	void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler);
+	void detectAtCommit(Repository repository, String commitId, IRefactoringHandler handler);
 
 	/**
 	 * Detect refactorings performed in the specified commit.
@@ -75,7 +75,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param handler A handler object that is responsible to process the detected refactorings.
 	 * @param timeout A timeout, in seconds. When timeout is reached, the operation stops and returns no refactorings.
 	 */
-	void detectAtCommit(Repository repository, String commitId, RefactoringHandler handler, int timeout);
+	void detectAtCommit(Repository repository, String commitId, IRefactoringHandler handler, int timeout);
 
 	/**
 	 * Detect refactorings performed in the specified commit. All required information is extracted using the GitHub API.
@@ -85,7 +85,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param handler A handler object that is responsible to process the detected refactorings.
 	 * @param timeout A timeout, in seconds. When timeout is reached, the operation stops and returns no refactorings.
 	 */
-	void detectAtCommit(String gitURL, String commitId, RefactoringHandler handler, int timeout);
+	void detectAtCommit(String gitURL, String commitId, IRefactoringHandler handler, int timeout);
 
 	/**
 	 * Detect refactorings performed in the specified pull request. All required information is extracted using the GitHub API.
@@ -96,7 +96,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param timeout A timeout, in seconds, per commit in the pull request. When timeout is reached, the operation stops and returns no refactorings.
 	 * @throws Exception propagated from org.kohsuke.github API
 	 */
-	void detectAtPullRequest(String gitURL, int pullRequest, RefactoringHandler handler, int timeout) throws Exception;
+	void detectAtPullRequest(String gitURL, int pullRequest, IRefactoringHandler handler, int timeout) throws Exception;
 
 	/**
 	 * Detect refactorings performed in the specified commit. 
@@ -105,7 +105,7 @@ public interface GitHistoryRefactoringMiner {
 	 * @param commitId The SHA key that identifies the commit.
 	 * @param handler A handler object that is responsible to process the detected refactorings. 
 	 */
-	Churn churnAtCommit(Repository repository, String commitId, RefactoringHandler handler);
+	Churn churnAtCommit(Repository repository, String commitId, IRefactoringHandler handler);
 
 	/**
 	 * @return An ID that represents the current configuration for the Refactoring Miner algorithm in use.
