@@ -37,7 +37,7 @@ import org.refactoringminer.api.GitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GitServiceImpl implements GitService {
+public class GitServiceImpl implements GitService, IGitServiceImpl {
 
 	private static final String REMOTE_REFS_PREFIX = "refs/remotes/origin/";
 	Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
