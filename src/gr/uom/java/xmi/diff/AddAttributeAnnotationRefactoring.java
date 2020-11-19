@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.IUMLAnnotation;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 
@@ -24,7 +25,7 @@ public class AddAttributeAnnotationRefactoring implements Refactoring {
 		this.attributeAfter = attributeAfter;
 	}
 
-	public UMLAnnotation getAnnotation() {
+	public IUMLAnnotation getAnnotation() {
 		return annotation;
 	}
 

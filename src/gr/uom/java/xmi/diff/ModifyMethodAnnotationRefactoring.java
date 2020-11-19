@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringType;
 
+import gr.uom.java.xmi.IUMLAnnotation;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 
@@ -26,11 +27,11 @@ public class ModifyMethodAnnotationRefactoring implements Refactoring {
 		this.operationAfter = operationAfter;
 	}
 
-	public UMLAnnotation getAnnotationBefore() {
+	public IUMLAnnotation getAnnotationBefore() {
 		return annotationBefore;
 	}
 
-	public UMLAnnotation getAnnotationAfter() {
+	public IUMLAnnotation getAnnotationAfter() {
 		return annotationAfter;
 	}
 

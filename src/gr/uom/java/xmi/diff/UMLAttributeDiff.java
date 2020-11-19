@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.refactoringminer.api.Refactoring;
 
+import gr.uom.java.xmi.IUMLAnnotation;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLAttribute;
 import gr.uom.java.xmi.decomposition.UMLOperationBodyMapper;
@@ -91,10 +92,10 @@ public class UMLAttributeDiff {
 		if(finalChanged)
 			sb.append("\t").append("modifier changed from " + (removedAttribute.isFinal() ? "final" : "non-final") + " to " +
 					(addedAttribute.isFinal() ? "final" : "non-final")).append("\n");
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(IUMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(IUMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " added").append("\n");
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {

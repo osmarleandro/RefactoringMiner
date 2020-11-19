@@ -1,5 +1,6 @@
 package gr.uom.java.xmi.diff;
 
+import gr.uom.java.xmi.IUMLAnnotation;
 import gr.uom.java.xmi.UMLAnnotation;
 import gr.uom.java.xmi.UMLOperation;
 import gr.uom.java.xmi.UMLParameter;
@@ -217,10 +218,10 @@ public class UMLOperationDiff {
 		for(UMLParameterDiff parameterDiff : parameterDiffList) {
 			sb.append(parameterDiff);
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
+		for(IUMLAnnotation annotation : annotationListDiff.getRemovedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " removed").append("\n");
 		}
-		for(UMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
+		for(IUMLAnnotation annotation : annotationListDiff.getAddedAnnotations()) {
 			sb.append("\t").append("annotation " + annotation + " added").append("\n");
 		}
 		for(UMLAnnotationDiff annotationDiff : annotationListDiff.getAnnotationDiffList()) {
