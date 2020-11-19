@@ -813,7 +813,7 @@ public abstract class UMLClassBaseDiff implements Comparable<UMLClassBaseDiff> {
 	private boolean attributeSplit(UMLAttribute a1, UMLAttribute a2, List<Refactoring> refactorings) {
 		for(Refactoring refactoring : refactorings) {
 			if(refactoring instanceof SplitAttributeRefactoring) {
-				SplitAttributeRefactoring split = (SplitAttributeRefactoring)refactoring;
+				ISplitAttributeRefactoring split = (ISplitAttributeRefactoring)refactoring;
 				if(split.getSplitAttributes().contains(a2.getVariableDeclaration()) && split.getOldAttribute().equals(a1.getVariableDeclaration())) {
 					return true;
 				}
